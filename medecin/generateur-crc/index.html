@@ -63,6 +63,10 @@
         Statut de sédentarité non recherché
     </label>
 </div>
+                    <label>
+  Nombre moyen d’heures assises par jour :
+  <input type="number" name="heures_assises" min="0" max="24" placeholder="Ex : 8">
+</label>
 <label>
   Nombre de pas par jour sur le dernier mois :
   <input type="number" name="nombre_pas" min="0" placeholder="Ex : 7500">
@@ -314,10 +318,11 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
     situation: document.querySelector('input[name="situation"]:checked')?.value || null,
 
     patient: {
-      sexe: document.querySelector('input[name="sexe"]:checked')?.value || "homme",
-      questionnaire: document.querySelector('input[name="questionnaire"]:checked')?.value || null,
-      pas_moyens: document.querySelector('input[name="nombre_pas"]')?.value || null
-    },
+  sexe: document.querySelector('input[name="sexe"]:checked')?.value || "homme",
+  questionnaire: document.querySelector('input[name="questionnaire"]:checked')?.value || null,
+  pas_moyens: document.querySelector('input[name="nombre_pas"]')?.value || null,
+  heures_assises: document.querySelector('input[name="heures_assises"]')?.value || null
+},
 
     evaluation: {
       niveau_retenu: document.querySelector('input[name="niveau_actuel"]:checked')?.value || null,
@@ -475,9 +480,12 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   }
 
   // Sédentarité différenciée
-  if (e.sedentarite === "sedentaire") {
-    phrase += ", dans un contexte de sédentarité associée";
+if (e.sedentarite === "sedentaire") {
+  phrase += ", dans un contexte de sédentarité associée";
+  if (p.heures_assises) {
+    phrase += ` (environ ${p.heures_assises} heures assises par jour)`;
   }
+}
 
   if (e.sedentarite === "non_sedentaire") {
     phrase += ", sans sédentarité associée identifiée";
@@ -491,6 +499,38 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   return phrase;
 }
+           function buildMotivation(model) {
+
+  const m = model.motivation;
+
+  let phrase = "Sur le plan motivationnel, ";
+
+  if (m.stade && m.stade !== "indétermination") {
+    phrase += `la personne se situe dans un stade de ${m.stade}`;
+  } else {
+    phrase += "le stade motivationnel n’a pas pu être précisé";
+  }
+
+  if (m.importance) {
+    phrase += `, avec une importance accordée à l’activité physique évaluée à ${m.importance}/10`;
+  }
+
+  if (m.confiance) {
+    phrase += ` et un niveau de confiance estimé à ${m.confiance}/10`;
+  }
+
+  phrase += ".";
+
+  if (m.freins) {
+    phrase += ` Les principaux freins identifiés sont : ${m.freins}.`;
+  }
+
+  if (m.leviers) {
+    phrase += ` Les leviers mobilisables sont : ${m.leviers}.`;
+  }
+
+  return phrase;
+} 
             function renderLongLetterV2(model) {
 
   const p = model.patient;
@@ -517,13 +557,9 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 ${buildEvaluationAP(model)}
 </p>
 
-    <p><strong>Évaluation motivationnelle :</strong><br>
-    Stade : ${m.stade || "non précisé"}.
-    Importance : ${m.importance || "—"}/10.
-    Confiance : ${m.confiance || "—"}/10.
-    ${m.freins ? `Freins : ${m.freins}.` : ""}
-    ${m.leviers ? `Leviers : ${m.leviers}.` : ""}
-    </p>
+   <p><strong>Évaluation motivationnelle :</strong><br>
+${buildMotivation(model)}
+</p>
 
     <p><strong>Risque cardiovasculaire :</strong> ${e.rcv || "non précisé"}.</p>
 
