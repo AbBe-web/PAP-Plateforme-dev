@@ -1,0 +1,543 @@
+/* =========================
+   GLOBAL LAYOUT
+========================= */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f3f4f6;
+  margin: 0;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+/* =========================
+   TITRES & TEXTES
+========================= */
+
+p {
+  line-height: 1.6;
+  margin: 12px 0;
+  color: #374151;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin: 16px 0 8px 0;
+  font-size: 16px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+}
+
+.btn.secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn.secondary:hover {
+  background: #d1d5db;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+.btn:disabled {
+  background:#cbd5e1;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input[type=number],
+input[type=range],
+textarea,
+select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  margin-top: 8px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border: 1px solid #2563eb;
+}
+
+/* =========================
+   TABLES (PRINT COMPATIBLE)
+========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 20px 0;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  font-size: 14px;
+  text-align: left;
+}
+
+th {
+  background: #f3f3f3;
+}
+
+/* =========================
+   ACTION BLOCK
+========================= */
+
+.actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.actions-buttons {
+  display: inline-flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.actions-buttons button {
+  width: 260px;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  border: 1px solid #999;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.actions-buttons button:hover {
+  background: #eaeaea;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.copy-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+.copy-toast.show {
+  opacity: 1;
+}
+/* =========================
+   FORM GROUPS
+========================= */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group:last-child {
+  border-bottom: none;
+}
+
+.form-group h3 {
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: #374151;
+}
+
+label {
+  display: block;
+  margin: 6px 0;
+  cursor: pointer;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .container {
+    margin: 0;
+    border-radius: 0;
+    padding: 24px;
+    min-height: 100vh;
+  }
+
+  .btn:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* =========================
+   PRINT
+========================= */
+
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
+@media print {
+
+  body {
+    background: white;
+  }
+
+  .container {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .btn,
+  .actions {
+    display: none;
+  }
+}
+.hidden {
+  display: none;
+}
+
+/* =========================
+   CRC – HARMONISATION TAILLE OPTIONS
+========================= */
+
+.crc-page .form-group:first-of-type label {
+  font-size: 15px;
+  font-weight: 400;
+}
+/* =========================
+   CRC – ALIGNEMENT RADIO INLINE (GPAQ / Marshall)
+========================= */
+
+
+.crc-page input[type="radio"] {
+  transform: none;
+  margin: 0;
+}
+
+/* =========================
+   FORM GROUP – PREMIUM
+========================= */
+
+input[type="radio"],
+input[type="checkbox"] {
+  accent-color: #2563eb;
+  transform: scale(1.1);
+  margin-right: 8px;
+}
+
+.crc-page .sub-group > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* =========================
+   CRC – STYLE HARMONISÉ (RETOUR ADN ORIGINAL)
+========================= */
+
+.crc-page h1 {
+  color: #0056b3;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.crc-page h2 {
+  color: #0056b3;
+  font-size: 18px;
+  margin-top: 18px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.crc-page h3 {
+  color: #1f2937;
+  font-size: 15px;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+/* Sections plus propres */
+.crc-page .form-group {
+  margin-bottom: 18px;
+}
+
+/* Labels cohérents */
+.crc-page label {
+  font-size: 15px;
+  margin: 6px 0;
+}
+
+/* Options alignées proprement */
+.crc-page input[type="radio"],
+.crc-page input[type="checkbox"] {
+  margin-right: 8px;
+  transform: scale(1.05);
+  accent-color: #0056b3;
+}
+
+/* Bloc résultat plus clair */
+.crc-page #reportOutput {
+  margin-top: 30px;
+  padding: 25px;
+  background: #f4f8fc;
+  border-radius: 8px;
+  border: 1px solid #dbeafe;
+}
+
+/* =========================
+   CRC – SOUS-GROUPES
+========================= */
+.crc-page .sub-group h3 {
+  margin-bottom: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+}
+/* ===== Évaluation motivationnelle en noir ===== */
+
+.crc-page .form-group:nth-of-type(4) .sub-group h3 {
+  color: #1f2937 !important;
+}
+
+/* =========================
+   CRC – ESPACE BOUTON GÉNÉRATION
+========================= */
+
+.crc-page #generateReport {
+  margin-top: 20px;
+}
+/* =========================
+   CRC – BOUTON PRINCIPAL
+========================= */
+
+.crc-page #generateReport {
+  display: block;
+  width: 100%;
+  margin-top: 28px;
+  padding: 14px 18px;
+
+  background: linear-gradient(135deg, #007BFF, #0056b3);
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.crc-page #generateReport:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 91, 187, 0.25);
+}
+
+/* =========================
+   CRC – BLOC RÉSULTAT
+========================= */
+
+.crc-page #reportOutput {
+  margin-top: 30px;
+  padding: 30px;
+  background: #f8fafc;
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+}
+/* =========================
+   CRC – MOBILE FIX OVERFLOW
+========================= */
+
+@media (max-width: 768px) {
+
+  .crc-page {
+    overflow-x: hidden;
+  }
+
+  .crc-page label {
+    white-space: normal !important;
+    display: block;
+  }
+
+  .crc-page h2,
+  .crc-page h3 {
+    white-space: normal;
+  }
+}
+/* =========================
+   CRC – SOUS-TITRES BLEUS
+========================= */
+
+.crc-page .sub-group h3 {
+  color: #0056b3;
+  font-size: 16px;
+  font-weight: 600;
+}
+/* ===== GPAQ / MARSHALL SUR UNE LIGNE ===== */
+
+.crc-page .sub-group h3 label {
+  display: inline-flex !important;
+  align-items: center;
+  margin-left: 6px;
+}
+
+.crc-page .sub-group h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+/* ===== OPTIONS HORIZONTALES CRC ===== */
+
+.crc-page .form-group:nth-of-type(2) .sub-group:nth-of-type(2) label,
+.crc-page .form-group:nth-of-type(3) label,
+.crc-page .form-group:nth-of-type(5) label,
+.crc-page .form-group:nth-of-type(6) label {
+
+  display: inline-flex !important;
+  align-items: center;
+  margin-right: 18px;
+  white-space: nowrap;
+}
+
+/* =========================
+   RESTAURATION LIGNES DESIGN ORIGINAL
+========================= */
+
+/* Ligne sous titres de section */
+.crc-page .form-group h2 {
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* Ligne verticale sous-blocs */
+.crc-page .sub-group {
+  padding-left: 18px;
+  border-left: 3px solid #e5e7eb;
+}
+/* =========================
+   OPTIONS INLINE (9,10, fiches)
+========================= */
+
+.crc-page .inline-option {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 18px;
+}
+
+/* =========================
+   CRC – GESTION VERTICALE UNIFIÉE
+========================= */
+
+/* Supprime toute marge haute globale */
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+/* Gestion cohérente des sections */
+.crc-page .form-group {
+  margin-bottom: 22px;
+}
+
+/* Titres de section */
+.crc-page .form-group h2 {
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* Sous-blocs */
+.crc-page .sub-group {
+  margin-top: 8px;
+  padding-left: 10px;   /* réduit l'écart */
+  margin-left: 0;       /* supprime tout décalage externe */
+  border-left: 3px solid #e5e7eb;
+}
+
+/* Sous-titres internes */
+.crc-page .sub-group h3 {
+  margin-bottom: 6px;
+}
+/* =========================
+   CRC – BANNIÈRE RGPD
+========================= */
+
+.crc-page .rgpd-banner {
+  font-size: 13px;
+  line-height: 1.4;
+}
+.crc-page .rgpd-banner {
+  margin-bottom: 24px;
+}
+/* Liens du bandeau RGPD uniquement */
+.crc-page .rgpd-banner a {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.crc-page .rgpd-banner a:hover {
+  opacity: 0.8;
+}
+
+/* =========================
+   BOUTONS – EFFET TACTILE PREMIUM (Mobile / iOS)
+========================= */
+
+@media (hover: none) {
+
+  .btn {
+    transition: transform 0.08s ease, box-shadow 0.15s ease;
+  }
+
+  .btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);
+  }
+
+  .btn.secondary:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  }
+
+}
