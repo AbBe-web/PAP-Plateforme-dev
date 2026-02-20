@@ -374,9 +374,26 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   document.getElementById('reportOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 });
-            document.getElementById('printReport').addEventListener('click', function() {
-                window.print();
-            });
+           document.getElementById('printReport').addEventListener('click', function() {
+
+  const nom = prompt("Nom du patient (facultatif) :");
+  const prenom = prompt("Prénom du patient (facultatif) :");
+
+  if (nom || prenom) {
+
+    const report = document.getElementById('reportText');
+
+    let contenu = report.innerHTML;
+
+    const nomComplet = [prenom, nom].filter(Boolean).join(" ");
+
+    contenu = contenu.replace("_____", nomComplet);
+
+    report.innerHTML = contenu;
+  }
+
+  window.print();
+});
             document.getElementById('copyReport').addEventListener('click', function() {
                 const reportText = document.getElementById('reportText').innerText;
                 navigator.clipboard.writeText(reportText).then(function() {
@@ -667,5 +684,23 @@ ${buildPrescription(model)}
 }
         });
     </script>
+    <div id="identityModal" class="modal hidden">
+  <div class="modal-content">
+    <h3>Identification (facultatif)</h3>
+
+    <label>Prénom :
+      <input type="text" id="modalPrenom">
+    </label>
+
+    <label>Nom :
+      <input type="text" id="modalNom">
+    </label>
+
+    <div class="modal-buttons">
+      <button id="confirmPrint" class="btn">Imprimer</button>
+      <button id="cancelPrint" class="btn secondary">Annuler</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
