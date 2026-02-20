@@ -443,6 +443,54 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
                     default: return '';
                 }
             }
+
+            function buildEvaluationAP(model) {
+
+  const e = model.evaluation;
+  const p = model.patient;
+
+  if (!e.niveau_retenu) {
+    return "Le niveau d’activité physique n’a pas pu être précisément évalué lors de cette consultation.";
+  }
+
+  let phrase = "Son niveau d’activité physique est actuellement ";
+
+  // Reformulation clinique
+  if (e.niveau_retenu === "actif") {
+    phrase += "considéré comme actif";
+  }
+
+  if (e.niveau_retenu === "inactif") {
+    phrase += "considéré comme insuffisamment actif au regard des recommandations actuelles";
+  }
+
+  // Questionnaire synthétique
+  if (p.questionnaire) {
+    phrase += ` (questionnaire ${p.questionnaire})`;
+  }
+
+  // Nombre de pas
+  if (p.pas_moyens) {
+    phrase += `, avec un nombre moyen estimé à environ ${p.pas_moyens} pas par jour sur le dernier mois`;
+  }
+
+  // Sédentarité différenciée
+  if (e.sedentarite === "sedentaire") {
+    phrase += ", dans un contexte de sédentarité associée";
+  }
+
+  if (e.sedentarite === "non_sedentaire") {
+    phrase += ", sans sédentarité associée identifiée";
+  }
+
+  if (e.sedentarite === "non_recherche") {
+    phrase += ", le statut de sédentarité n’ayant pas été recherché lors de cette consultation";
+  }
+
+  phrase += ".";
+
+  return phrase;
+}
             function renderLongLetterV2(model) {
 
   const p = model.patient;
@@ -466,10 +514,8 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
     <p>Merci de m’avoir adressé ${titre} _____ en consultation éventuelle d’activité physique.</p>
 
     <p><strong>Évaluation de l’activité physique :</strong><br>
-    Niveau actuel : ${e.niveau_retenu || "non précisé"}.
-    ${p.pas_moyens ? `Nombre de pas : environ ${p.pas_moyens} pas/jour.` : ""}
-    ${e.sedentarite ? `Statut : ${e.sedentarite}.` : ""}
-    </p>
+${buildEvaluationAP(model)}
+</p>
 
     <p><strong>Évaluation motivationnelle :</strong><br>
     Stade : ${m.stade || "non précisé"}.
