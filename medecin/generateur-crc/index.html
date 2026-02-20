@@ -552,6 +552,72 @@ if (e.sedentarite === "sedentaire") {
   }
 
 }
+            function buildPrescription(model) {
+
+  const pr = model.prescription;
+
+  let phrases = [];
+
+  if (pr.aerobie.frequence) {
+    let phrase = `Une activité physique d’endurance est recommandée à raison de ${pr.aerobie.frequence} fois par semaine`;
+
+    if (pr.aerobie.intensite === "moderee") {
+      phrase += ", d’intensité modérée";
+    }
+
+    if (pr.aerobie.intensite === "elevee") {
+      phrase += ", d’intensité élevée";
+    }
+
+    phrase += ".";
+    phrases.push(phrase);
+  }
+
+  if (pr.renforcement.frequence) {
+    phrases.push(`Un travail de renforcement musculaire est conseillé ${pr.renforcement.frequence} fois par semaine.`);
+  }
+
+  if (pr.souplesse.frequence) {
+    phrases.push(`Un travail de souplesse et de mobilité est proposé ${pr.souplesse.frequence} fois par semaine.`);
+  }
+
+  if (phrases.length === 0) {
+    return "Aucune prescription spécifique n’a été formalisée lors de cette consultation.";
+  }
+
+  return phrases.join(" ");
+}
+            function buildConclusion(model) {
+
+  const rcv = model.evaluation.rcv;
+  const stade = model.motivation.stade;
+
+  let phrase = "Au total, ";
+
+  if (rcv === "faible") {
+    phrase += "la mise en place ou la poursuite d’une activité physique adaptée apparaît indiquée dans un contexte de faible risque cardiovasculaire";
+  }
+
+  if (rcv === "modere") {
+    phrase += "la pratique d’une activité physique adaptée est encouragée avec une progression prudente compte tenu d’un risque cardiovasculaire modéré";
+  }
+
+  if (rcv === "eleve_tres_eleve") {
+    phrase += "la pratique d’une activité physique devra être encadrée et adaptée au regard du risque cardiovasculaire élevé à très élevé";
+  }
+
+  if (!rcv) {
+    phrase += "une adaptation individualisée de l’activité physique est proposée";
+  }
+
+  if (stade) {
+    phrase += `, en tenant compte d’un stade motivationnel de ${stade}`;
+  }
+
+  phrase += ".";
+
+  return phrase;
+}
             function renderLongLetterV2(model) {
 
   const p = model.patient;
@@ -590,11 +656,11 @@ ${buildRCV(model)}
     ${t.objectif_principal || ""}
     </p>
 
-    <p><strong>Prescription :</strong><br>
-    ${pr.aerobie.frequence ? `Aérobie : ${pr.aerobie.frequence} fois/semaine.` : ""}
-    ${pr.renforcement.frequence ? `Renforcement : ${pr.renforcement.frequence} fois/semaine.` : ""}
-    ${pr.souplesse.frequence ? `Souplesse : ${pr.souplesse.frequence} fois/semaine.` : ""}
-    </p>
+   <p><strong>Prescription :</strong><br>
+${buildPrescription(model)}
+</p>
+
+<p>${buildConclusion(model)}</p>
 
     <p>Bien confraternellement.</p>
   `;
