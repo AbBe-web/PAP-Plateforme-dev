@@ -686,36 +686,83 @@ if (e.sedentarite === "sedentaire") {
   const titre = p.sexe === "femme" ? "Madame" : "Monsieur";
   const pronom = p.sexe === "femme" ? "elle" : "il";
   const pronomMaj = p.sexe === "femme" ? "Elle" : "Il";
+// 🔹 Texte activité
+const niveauTexte = e.niveau_retenu || "non précisé";
 
+const pasTexte = p.pas_moyens
+  ? ` Il rapporte environ ${p.pas_moyens} pas par jour.`
+  : "";
+
+const sedentariteTexte = e.sedentarite
+  ? ` Le statut de sédentarité est évalué comme ${e.sedentarite}.`
+  : "";
+
+// 🔹 Motivation
+const stadeTexte = m.stade || "non précisé";
+const importanceTexte = m.importance || "—";
+const confianceTexte = m.confiance || "—";
+
+const freinsLeviersTexte =
+  (m.freins || m.leviers)
+    ? ` Les principaux freins identifiés sont : ${m.freins || "non précisés"}. Les leviers sont : ${m.leviers || "non précisés"}.`
+    : "";
+
+// 🔹 RCV
+const rcvTexte = e.rcv || "non précisé";
+
+// 🔹 Objectifs
+const objectifsTexte = t.objectif_principal || "à préciser";
+
+// 🔹 Prescription rédactionnelle
+let prescriptionTexte = "";
+
+if (pr.aerobie.frequence) {
+  prescriptionTexte += `Une ordonnance d’activité physique d’endurance a été remise, à raison de ${pr.aerobie.frequence} fois par semaine`;
+  if (pr.aerobie.intensite) {
+    prescriptionTexte += `, d’intensité ${pr.aerobie.intensite}`;
+  }
+  prescriptionTexte += `. `;
+}
+
+if (pr.renforcement.frequence) {
+  prescriptionTexte += `Un travail de renforcement musculaire est prescrit à raison de ${pr.renforcement.frequence} fois par semaine. `;
+}
+
+if (pr.souplesse.frequence) {
+  prescriptionTexte += `Un travail de mobilité et de souplesse est conseillé à raison de ${pr.souplesse.frequence} fois par semaine. `;
+}
+
+if (!prescriptionTexte) {
+  prescriptionTexte = "Aucune ordonnance spécifique n’a été remise à l’issue de cette consultation.";
+}
   return `
-    <p>${salutations}</p>
+<p>${salutations}</p>
 
-    <p>Merci de m’avoir adressé ${titre} _____ en consultation éventuelle d’activité physique.</p>
-
-    <p><strong>Évaluation de l’activité physique :</strong><br>
-${buildEvaluationAP(model)}
+<p>
+Merci de m’avoir adressé ${titre} _____ en consultation d’activité physique.
 </p>
 
-   <p><strong>Évaluation motivationnelle :</strong><br>
-${buildMotivation(model)}
+<p>
+Son niveau d’activité physique est actuellement évalué comme ${niveauTexte}.${pasTexte}${sedentariteTexte}
+Les éléments motivationnels retrouvent un stade de ${stadeTexte}, avec une importance cotée à ${importanceTexte}/10 et une confiance évaluée à ${confianceTexte}/10.${freinsLeviersTexte}
+Le risque cardiovasculaire global est évalué comme ${rcvTexte}.
 </p>
 
-   <p><strong>Risque cardiovasculaire :</strong><br>
-${buildRCV(model)}
+<p>
+Les objectifs de cette prescription d’activité physique sont : ${objectifsTexte}.
 </p>
 
-    <p><strong>Objectifs :</strong><br>
-    ${t.objectif_principal || ""}
-    </p>
-
-   <p><strong>Prescription :</strong><br>
-${buildPrescription(model)}
+<p>
+${prescriptionTexte}
 </p>
 
-<p>${buildConclusion(model)}</p>
+<p>
+J’espère que cette consultation l’aidera à augmenter son niveau d’activité physique en toute sécurité et à en tirer des bénéfices perceptibles à court et moyen terme.
+Je me tiens à votre disposition pour toute précision complémentaire.
+</p>
 
-    <p>Bien confraternellement.</p>
-  `;
+<p>Bien confraternellement.</p>
+`;
 }
         });
     </script>
