@@ -1218,6 +1218,15 @@ ${state.result.pas_mois ? `
   <div class="answer">${state.result.pas_mois} pas / jour</div>
 </div>
 ` : ""}
+${(state.gpaq?.sed_h && state.gpaq.sed_h !== "0") || 
+(state.gpaq?.sed_m && state.gpaq.sed_m !== "0") ? `
+<div class="section">
+  <strong>Temps passé assis (hors sommeil)</strong>
+  <div class="answer">
+    ${state.gpaq.sed_h ?? 0} h ${state.gpaq.sed_m ?? 0} min / jour
+  </div>
+</div>
+` : ""}
 
 <div class="section">
   <strong>Stade motivationnel</strong>
