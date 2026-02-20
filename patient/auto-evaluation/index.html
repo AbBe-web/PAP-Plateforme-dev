@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résumé de la pré-consultation d'activité physique</title>
+
+  <link rel="stylesheet" href="../../css/style-global.css">
+
+<style>
+
+h1,h2,h3 {
+  font-weight: 600;
+  margin-top: 28px;
+  color: #1f2937;
+}
+
+p {
+  margin-top: 14px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+  color: #374151;
+}
+
+p:first-of-type {
+  font-weight: 600;
+  color: #111827;
+}
+
+p + p {
+  font-weight: 400;
+  color: #6b7280;
+}
+
+/* ===== Buttons ===== */
+
+.btn:disabled {
+  background:#cbd5e1;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none;
+}
+
+/* ===== Sections ===== */
+
+.section {
+  border-top:1px solid #e5e7eb;
+  padding-top:20px;
+  margin-top:25px;
+}
+
+/* ===== Progress ===== */
+
+.progress {
+  height:8px;
+  background:#e5e7eb;
+  border-radius:10px;
+  margin:25px 0 12px 0;
+  overflow:hidden;
+}
+
+.progress-bar {
+  height:8px;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius:10px;
+  transition: width 0.3s ease;
+}
+
+.progress-step {
+  font-size:13px;
+  color:#6b7280;
+  margin-bottom:12px;
+}
+
+/* ===== Misc ===== */
+
+.time-row {
+  display:flex;
+  gap:12px;
+}
+
+.guard {
+  font-size:13px;
+  color:#d97706;
+  margin-top:6px;
+}
+
+.back-info {
+  font-size:12px;
+  color:#6b7280;
+  margin-top:8px;
+  text-align:center;
+}
+
+.footer {
+  font-size:13px;
+  color:#6b7280;
+  margin-top:40px;
+}
+
+.answer {
+  margin-left:12px;
+  margin-top:6px;
+}
+
+.rgpd {
+  font-size:12px;
+  color:#6b7280;
+  margin-top:10px;
+}
+
+/* ===== Copy toast ===== */
+
+.copy-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 9999;
+}
+
+.copy-toast.show {
+  opacity: 1;
+}
+
+/* ===== Responsive ===== */
+
+
+</style>
+</head>
+
+<body>
+<div class="container" id="app"></div>
+
+<script>
+  
+const app = document.getElementById("app");
+
+if (!app) {
+  console.error("Erreur critique : conteneur #app introuvable");
+  throw new Error("App container missing");
+}
+
+/*************************************************
+ * ÉTAT GLOBAL
+ *************************************************/
+const state = {
+  tool: null,
+  gpaq: {},
+  marshall: {},
+  result: {},
+  history: [],
+  navStack: [],
+  navMode: "forward",   // ⬅️ AJOUT ICI
+  progress: {
+    current: 0,
+    total: 0
+  }
+};
+
+const savedNav = sessionStorage.getItem("nav_stack");
+if (savedNav) {
+  try {
+    const parsed = JSON.parse(savedNav);
+
+    // 🔒 Sécurité DSR :
+    // un navStack < 2 est inutilisable pour le back → on le neutralise
+    if (Array.isArray(parsed) && parsed.length >= 2) {
+      state.navStack = parsed;
+    } else {
+      state.navStack = [];
+      sessionStorage.removeItem("nav_stack");
+    }
+
+  } catch (e) {
+    state.navStack = [];
+    sessionStorage.removeItem("nav_stack");
+  }
+}
+
+/*************************************************
+ * RENDER + RETOUR
+ *************************************************/
+function render(html, progress = 0) {
+  try {
+
+    const percent =
+      state.progress.total > 0
+        ? Math.round(
+            (state.progress.current / state.progress.total) * 100
+          )
+        : 0;
+
+    app.innerHTML = `
+      <div class="progress">
+        <div class="progress-bar" style="width:${percent}%"></div>
+      </div>
+      <div class="progress-step">
+        Étape ${state.progress.current} / ${state.progress.total}
+      </div>
+      ${html}
+    `;
+
+  } catch (e) {
+    console.error("Erreur render()", e);
+    app.innerHTML = `
+      <p>Une erreur est survenue.
+      Veuillez recharger la page.</p>
+    `;
+  }
+}
+
+function pushScreen(screenId) {
+
+  if (state.navMode === "back") {
+    return; // ⛔️ on n’empile pas pendant un retour
+  }
+
+  if (!screenId || typeof screenId !== "string") {
+    console.warn("screenId invalide :", screenId);
+    return;
+  }
+
+  const last = state.navStack[state.navStack.length - 1];
+
+  if (last !== screenId) {
+    state.navStack.push(screenId);
+
+    sessionStorage.setItem(
+      "nav_stack",
+      JSON.stringify(state.navStack)
+    );
+  }
+}
+
+function goToScreen(id) {
+  const map = {
+
+    // --- MARSHALL ---
+   "MAR-Q1": marshallQ1,
+    "MAR-Q2": marshallQ2,
+
+    "MAR-STAGE1": motivation,
+    "MAR-STAGE2": motivation2,
+    
+    "MAR-STEPS": stepsQuestion,
+
+    "MAR-EVA-IMP": evaImportance,
+    "MAR-EVA-IMP-REASONS": evaImportanceComment,
+    "MAR-EVA-CONF": evaConfiance,
+    "MAR-EVA-CONF-REASONS": evaConfianceComment,
+
+    "MAR-THANKS": endTransition,
+    "MAR-SUMMARY": final,
+
+    // --- GPAQ ---
+    "GPAQ-INTRO": gpaqIntro,
+
+    "GPAQ-Q1": gpaqQ1,
+    "GPAQ-Q2": gpaqQ2,
+    "GPAQ-Q4": gpaqQ4,
+    "GPAQ-Q5": gpaqQ5,
+    "GPAQ-INTRO-TRANSPORT": gpaqIntroTransport,
+    "GPAQ-Q7": gpaqQ7,
+    "GPAQ-Q8": gpaqQ8,
+    "GPAQ-Q10": gpaqQ10,
+    "GPAQ-Q11": gpaqQ11,
+    "GPAQ-Q13": gpaqQ13,
+    "GPAQ-Q14": gpaqQ14,
+    "GPAQ-INTRO-SED": gpaqIntroSedentaire,
+    "GPAQ-Q16": gpaqQ16,
+
+"GPAQ-STEPS": stepsQuestion,
+
+"GPAQ-STAGE1": motivation,
+"GPAQ-STAGE2": motivation2,
+
+
+    "GPAQ-EVA-IMP": evaImportance,
+    "GPAQ-EVA-IMP-REASONS": evaImportanceComment,
+    "GPAQ-EVA-CONF": evaConfiance,
+    "GPAQ-EVA-CONF-REASONS": evaConfianceComment,
+    
+    "GPAQ-THANKS": endTransition,
+    "GPAQ-SUMMARY": final,
+  };
+
+  if (map[id]) {
+    map[id]();
+  } else {
+    console.warn("Écran non mappé :", id);
+  }
+}
+
+function back() {
+
+  if (state.navStack && state.navStack.length > 1) {
+
+    state.navStack.pop();
+
+    sessionStorage.setItem(
+      "nav_stack",
+      JSON.stringify(state.navStack)
+    );
+
+    const target = state.navStack[state.navStack.length - 1];
+
+if (!target) {
+  console.warn("NavStack invalide → retour sécurisé accueil");
+  renderHome();
+  return;
+}
+
+state.navMode = "back";   // ⬅️ on passe en mode retour
+
+app.innerHTML = "";
+
+goToScreen(target);
+
+state.navMode = "forward"; // ⬅️ on réactive mode normal
+
+return;
+
+  }
+
+  if (state.navStack && state.navStack.length === 1) {
+    renderHome();
+    return;
+  }
+}
+
+function safeBack(){
+
+  // Cas normal : navigation déclarative disponible
+  if (state.navStack && state.navStack.length > 1) {
+    back();
+    return;
+  }
+
+  // Garde-fou sécurisé :
+  // on NE touche PAS au DOM avant render()
+  final();
+}
+
+/*************************************************
+ * UX — UTILITAIRES (NON CLINIQUES)
+ *************************************************/
+function checkRequiredDuration(btnId, daySel, hSel, mSel){
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+
+  const d = document.querySelector(daySel)?.value;
+  const h = document.querySelector(hSel)?.value;
+  const m = document.querySelector(mSel)?.value;
+
+  const hasDay = d !== "";
+  const hasTime = (h !== "" && Number(h) > 0) || (m !== "" && Number(m) > 0);
+
+  btn.disabled = !(hasDay && hasTime);
+}
+
+function checkRequiredTimeOnly(btnId, hSel, mSel){
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+
+  const h = document.querySelector(hSel)?.value;
+  const m = document.querySelector(mSel)?.value;
+
+  btn.disabled = (h === "" && m === "");
+}
+function checkDurationGuard(hSel, mSel, guardId){
+  const h = Number(document.querySelector(hSel)?.value || 0);
+  const m = Number(document.querySelector(mSel)?.value || 0);
+  const guard = document.getElementById(guardId);
+  if(!guard) return;
+  guard.style.display = (h + m/60) > 12 ? "block" : "none";
+}
+function advanceProgress(points){
+  state.progress.current += points;
+  if(state.progress.current > state.progress.total){
+    state.progress.current = state.progress.total;
+  }
+}
+/*************************************************
+ * ACCUEIL
+ *************************************************/
+function renderHome() {
+
+  // 🔒 Sortie propre du parcours
+  state.navStack = [];
+  sessionStorage.removeItem("nav_stack");
+
+  render(`
+    <h1>Activité physique</h1>
+    <p>Questionnaire destiné à préparer votre consultation médicale.<br>
+    Aucune donnée n’est enregistrée.</p>
+
+    <div class="rgpd">
+      <a href="https://abbe-web.github.io/Questionnaire-AutoEvaluation-AP/politique-confidentialite.html" target="_blank">
+        Politique de confidentialité
+      </a>
+    </div>
+
+    <button class="btn" onclick="start('gpaq')">Questionnaire détaillé (GPAQ)</button>
+    <button class="btn secondary" onclick="start('marshall')">Questionnaire court (Marshall)</button>
+  `, 0, null); // ⚠️ pas de screenId
+}
+
+
+function start(tool){
+  state.tool = tool;
+
+  // 🔒 DSR — reset navigation déclarative au démarrage d’un parcours
+  state.navStack = [];
+  sessionStorage.removeItem("nav_stack");
+
+  state.gpaq = {};
+  state.marshall = {};
+  state.result = {};
+
+  state.progress.current = 0;
+  state.progress.total = (tool === "marshall") ? 8 : 12;
+
+  tool==="marshall" ? marshallQ1() : gpaqIntro();
+}
+
+/*************************************************
+ * GPAQ — INTRODUCTION GÉNÉRALE OMS
+ *************************************************/
+function gpaqIntro(){
+pushScreen("GPAQ-INTRO");
+  render(`
+<h2>Questionnaire GPAQ – Organisation mondiale de la Santé</h2>
+
+<p>
+Je vais maintenant vous poser quelques questions sur le temps que vous consacrez à différents types d’activité physique lors d'une semaine typique.
+Veuillez répondre à ces questions même si vous ne vous considérez pas comme quelqu’un d’actif.
+</p>
+
+<p>
+Pensez tout d’abord au temps que vous y consacrez au travail, qu'il s'agisse d'un travail rémunéré ou non, de tâches ménagères,
+de cueillir ou récolter des aliments, de pêcher ou chasser, de chercher un emploi.
+</p>
+
+<p>
+Dans les questions suivantes, les activités physiques de forte intensité sont des activités nécessitant un effort physique important
+et causant une augmentation conséquente de la respiration ou du rythme cardiaque, et les activités physiques d'intensité modérée sont
+des activités qui demandent un effort physique modéré et causant une petite augmentation de la respiration ou du rythme cardiaque.
+</p>
+
+<button class="btn" onclick="gpaqQ1()">Commencer le questionnaire</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+`,5);
+}
+
+/*************************************************
+ * MARSHALL
+ *************************************************/
+function marshallQ1(){
+pushScreen("MAR-Q1");
+render(`
+<h2>Marshall – Question 1</h2>
+<p>Au cours d’une semaine habituelle, combien de fois pratiquez-vous une activité physique intense d’au moins 20 minutes ?</p>
+<button class="btn" onclick="state.marshall.q1=4; advanceProgress(1); marshallQ2()">≥ 3 fois / semaine</button>
+<button class="btn" onclick="state.marshall.q1=2; advanceProgress(1); marshallQ2()">1–2 fois / semaine</button>
+<button class="btn" onclick="state.marshall.q1=0; advanceProgress(1); marshallQ2()">Jamais</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,15);
+}
+
+function marshallQ2(){
+pushScreen("MAR-Q2");
+  render(`
+<h2>Marshall – Question 2</h2>
+<p>Combien de fois par semaine pratiquez-vous une activité physique modérée ou de la marche rapide pendant au moins 30 minutes ?</p>
+<button class="btn" onclick="advanceProgress(1); finishMarshall(4)">≥ 5 fois / semaine</button>
+<button class="btn" onclick="advanceProgress(1); finishMarshall(2)">3–4 fois / semaine</button>
+<button class="btn" onclick="advanceProgress(1); finishMarshall(1)">1–2 fois / semaine</button>
+<button class="btn" onclick="advanceProgress(1); finishMarshall(0)">Jamais</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,30);
+}
+
+function finishMarshall(q2){
+  state.marshall.q2=q2;
+  const score=state.marshall.q1+q2;
+  state.result.niveau = score>=4 ? "suffisamment_actif" : "insuffisamment_actif";
+  state.result.marshall_score=score;
+  stepsQuestion();
+}
+
+/*************************************************
+ * GPAQ — FLUX COMPLET
+ *************************************************/
+function gpaqQ1(){
+  pushScreen("GPAQ-Q1");
+  render(`
+<h2>Activité au travail – intensité élevée</h2>
+<p>Est-ce que votre travail implique des activités physiques de forte intensité qui nécessitent une augmentation conséquente de la respiration ou du rythme cardiaque, comme soulever des charges lourdes, travailler sur un chantier, effectuer du travail de maçonnerie, pendant au moins 10 minutes d’affilée ?</p>
+<button class="btn" onclick="state.gpaq.wi=1; gpaqQ2()">Oui</button>
+<button class="btn" onclick="state.gpaq.wi=0; gpaqQ4()">Non</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,10);
+}
+
+function gpaqQ2(){
+pushScreen("GPAQ-Q2");
+  render(`
+<h2>Activité au travail – intensité élevée</h2>
+<p>Lors d’une journée habituelle durant laquelle vous effectuez des activités physiques de forte intensité, combien de temps consacrez-vous à ces activités ?</p>
+
+<input type="number" id="d1" min="0" max="7"
+placeholder="Nombre de jours par semaine (ex. : 3)"
+oninput="state.gpaq.wi_d=this.value; checkRequiredDuration('c1','#d1','#h1','#m1')">
+
+<p>Combien de temps par jour ?</p>
+<div class="time-row">
+<input type="number" id="h1" min="0" max="23" placeholder="Heures"
+oninput="state.gpaq.wi_h=this.value; checkRequiredDuration('c1','#d1','#h1','#m1'); checkDurationGuard('#h1','#m1','g1')">
+<input type="number" id="m1" min="0" max="59" placeholder="Minutes"
+oninput="state.gpaq.wi_m=this.value; checkRequiredDuration('c1','#d1','#h1','#m1'); checkDurationGuard('#h1','#m1','g1')">
+</div>
+
+<div id="g1" class="guard" style="display:none;">
+⚠️ Vérifiez votre saisie (durée inhabituelle)
+</div>
+
+<button class="btn" id="c1" disabled onclick="gpaqQ4()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,20);
+}
+
+function gpaqQ4(){
+advanceProgress(1); // fin bloc "travail intense"
+ pushScreen("GPAQ-Q4");
+  render(`
+<h2>Activité au travail – intensité modérée</h2>
+<p>Est-ce que votre travail implique des activités physiques d'intensité modérée, comme une marche rapide ou soulever une charge légère, durant au moins 10 minutes d’affilée ?</p>
+<button class="btn" onclick="state.gpaq.wm=1; gpaqQ5()">Oui</button>
+<button class="btn" onclick="state.gpaq.wm=0; gpaqIntroTransport()">Non</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,30);
+}
+
+function gpaqQ5(){
+pushScreen("GPAQ-Q5");
+  render(`
+<h2>Activité au travail – intensité modérée</h2>
+<p>Habituellement, combien de jours par semaine effectuez-vous des activités physiques d'intensité modérée dans le cadre de votre travail ?</p>
+
+<input type="number" id="d2" min="0" max="7"
+placeholder="Nombre de jours par semaine (ex. : 3)"
+oninput="state.gpaq.wm_d=this.value; checkRequiredDuration('c2','#d2','#h2','#m2')">
+
+<p>Lors d’une journée habituelle durant laquelle vous effectuez des activités physiques d'intensité modérée, combien de temps consacrez-vous à ces activités ?</p>
+<div class="time-row">
+<input type="number" id="h2" min="0" max="23" placeholder="Heures"
+oninput="state.gpaq.wm_h=this.value; checkRequiredDuration('c2','#d2','#h2','#m2'); checkDurationGuard('#h2','#m2','g2')">
+<input type="number" id="m2" min="0" max="59" placeholder="Minutes"
+oninput="state.gpaq.wm_m=this.value; checkRequiredDuration('c2','#d2','#h2','#m2'); checkDurationGuard('#h2','#m2','g2')">
+</div>
+
+<div id="g2" class="guard" style="display:none;">
+⚠️ Vérifiez votre saisie (durée inhabituelle)
+</div>
+
+<button class="btn" id="c2" disabled onclick="gpaqIntroTransport()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,40);
+}
+
+/*************************************************
+ * GPAQ — INTRO DÉPLACEMENTS (OMS)
+ *************************************************/
+function gpaqIntroTransport(){
+ advanceProgress(1); // fin bloc "travail modéré"
+  pushScreen("GPAQ-INTRO-TRANSPORT");
+  render(`
+<h2>Déplacements</h2>
+
+<p>
+Les questions suivantes excluent les activités physiques dans le cadre de votre travail, que vous avez déjà mentionnées.
+</p>
+
+<p>
+Maintenant, je voudrais connaître votre façon habituelle de vous déplacer d'un endroit à l'autre ; par exemple pour aller au travail,
+faire des courses, aller au marché, aller à votre lieu consacré au culte.
+</p>
+
+<button class="btn" onclick="gpaqQ7()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,45);
+}
+
+function gpaqQ7(){
+pushScreen("GPAQ-Q7");
+  render(`
+<h2>Déplacements</h2>
+<p>Effectuez-vous des trajets d’au moins 10 minutes à pied ou à vélo ?</p>
+<button class="btn" onclick="state.gpaq.tr=1; gpaqQ8()">Oui</button>
+<button class="btn" onclick="state.gpaq.tr=0; gpaqQ10()">Non</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,50);
+}
+
+function gpaqQ8(){
+pushScreen("GPAQ-Q8");
+  render(`
+<h2>Déplacements</h2>
+
+<p>Habituellement, combien de jours par semaine effectuez-vous des trajets d’au moins 10 minutes à pied ou à vélo ?</p>
+<input type="number" id="d3" min="0" max="7"
+placeholder="Nombre de jours par semaine (ex. : 3)"
+oninput="state.gpaq.tr_d=this.value; checkRequiredDuration('c3','#d3','#h3','#m3')">
+
+<p>Lors d’une journée habituelle, combien de temps consacrez-vous à vos déplacements à pied ou à vélo ?</p>
+<div class="time-row">
+<input type="number" id="h3" min="0" max="23" placeholder="Heures"
+oninput="state.gpaq.tr_h=this.value; checkRequiredDuration('c3','#d3','#h3','#m3'); checkDurationGuard('#h3','#m3','g3')">
+<input type="number" id="m3" min="0" max="59" placeholder="Minutes"
+oninput="state.gpaq.tr_m=this.value; checkRequiredDuration('c3','#d3','#h3','#m3'); checkDurationGuard('#h3','#m3','g3')">
+</div>
+
+<div id="g3" class="guard" style="display:none;">
+⚠️ Vérifiez votre saisie (durée inhabituelle)
+</div>
+
+<button class="btn" id="c3" disabled onclick="gpaqQ10()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,60);
+}
+
+function gpaqQ10(){
+advanceProgress(1); // fin bloc "déplacements"
+  pushScreen("GPAQ-Q10");
+  render(`
+<h2>Loisirs – activité intense</h2>
+<p>Est-ce que vous pratiquez des sports, du fitness ou des activités de loisirs de forte intensité qui nécessitent une augmentation importante de la respiration ou du rythme cardiaque comme [courir ou jouer au football] pendant au moins dix minutes d'affilée ?</p>
+<button class="btn" onclick="state.gpaq.li=1; gpaqQ11()">Oui</button>
+<button class="btn" onclick="state.gpaq.li=0; gpaqQ13()">Non</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,70);
+}
+
+function gpaqQ11(){
+pushScreen("GPAQ-Q11");
+  render(`
+<h2>Loisirs – activité intense</h2>
+
+<p>Habituellement, combien de jours par semaine pratiquez-vous une activité sportive, du fitness ou d'autres activités de loisirs de forte intensité ?</p>
+<input type="number" id="d4" min="0" max="7"
+placeholder="Nombre de jours par semaine (ex. : 3)"
+oninput="state.gpaq.li_d=this.value; checkRequiredDuration('c4','#d4','#h4','#m4')">
+
+<p>Lors d’une journée habituelle, combien de temps y consacrez-vous ?</p>
+<div class="time-row">
+<input type="number" id="h4" min="0" max="23" placeholder="Heures"
+oninput="state.gpaq.li_h=this.value; checkRequiredDuration('c4','#d4','#h4','#m4'); checkDurationGuard('#h4','#m4','g4')">
+<input type="number" id="m4" min="0" max="59" placeholder="Minutes"
+oninput="state.gpaq.li_m=this.value; checkRequiredDuration('c4','#d4','#h4','#m4'); checkDurationGuard('#h4','#m4','g4')">
+</div>
+
+<div id="g4" class="guard" style="display:none;">
+⚠️ Vérifiez votre saisie (durée inhabituelle)
+</div>
+
+<button class="btn" id="c4" disabled onclick="gpaqQ13()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,75);
+}
+
+function gpaqQ13(){
+ advanceProgress(1); // fin bloc "loisirs intenses"
+ pushScreen("GPAQ-Q13");
+  render(`
+<h2>Loisirs – activité modérée</h2>
+<p>Est-ce que vous pratiquez des sports, du fitness ou des activités de loisirs d'intensité modérée qui nécessitent une petite augmentation de la respiration ou du rythme cardiaque comme la marche rapide, faire du vélo, nager, jouer au volley, pendant au moins dix minutes d'affilée ?</p>
+<button class="btn" onclick="state.gpaq.lm=1; gpaqQ14()">Oui</button>
+<button class="btn" onclick="state.gpaq.lm=0; gpaqIntroSedentaire()">Non</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,80);
+}
+
+function gpaqQ14(){
+pushScreen("GPAQ-Q14");
+  render(`
+<h2>Loisirs – activité modérée</h2>
+
+<p>Habituellement, combien de jours par semaine pratiquez-vous une activité sportive, du fitness ou d'autres activités de loisirs d'intensité modérée ?</p>
+<input type="number" id="d5" min="0" max="7"
+placeholder="Nombre de jours par semaine (ex. : 3)"
+oninput="state.gpaq.lm_d=this.value; checkRequiredDuration('c5','#d5','#h5','#m5')">
+
+<p>Lors d’une journée habituelle, combien de temps y consacrez-vous ?</p>
+<div class="time-row">
+<input type="number" id="h5" min="0" max="23" placeholder="Heures"
+oninput="state.gpaq.lm_h=this.value; checkRequiredDuration('c5','#d5','#h5','#m5'); checkDurationGuard('#h5','#m5','g5')">
+<input type="number" id="m5" min="0" max="59" placeholder="Minutes"
+oninput="state.gpaq.lm_m=this.value; checkRequiredDuration('c5','#d5','#h5','#m5'); checkDurationGuard('#h5','#m5','g5')">
+</div>
+
+<div id="g5" class="guard" style="display:none;">
+⚠️ Vérifiez votre saisie (durée inhabituelle)
+</div>
+
+<button class="btn" id="c5" disabled onclick="gpaqIntroSedentaire()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,85);
+}
+
+/*************************************************
+ * GPAQ — INTRO COMPORTEMENT SÉDENTAIRE (OMS)
+ *************************************************/
+function gpaqIntroSedentaire(){
+advanceProgress(1); // fin bloc "loisirs modérés"
+ pushScreen("GPAQ-INTRO-SED");
+  render(`
+<h2>Comportement sédentaire</h2>
+
+<p>
+La question suivante concerne le temps passé en position assise ou couchée, au travail, à la maison, en déplacement,
+à rendre visite à des amis, et inclut le temps passé assis devant un bureau, se déplacer en voiture, en bus, en train,
+à lire, jouer aux cartes ou à regarder la télévision,
+mais n'inclut pas le temps passé à dormir.
+</p>
+
+<button class="btn" onclick="gpaqQ16()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,88);
+}
+function gpaqQ16(){
+pushScreen("GPAQ-Q16");
+  render(`
+<h2>Comportement sédentaire</h2>
+
+<p>Combien de temps passez-vous assis ou couché par jour (hors sommeil) lors d'une journée habituelle ?</p>
+<div class="time-row">
+<input type="number" id="h6" min="0" max="23" placeholder="Heures"
+oninput="state.gpaq.sed_h=this.value; checkRequiredTimeOnly('c6','#h6','#m6'); checkDurationGuard('#h6','#m6','g6')">
+<input type="number" id="m6" min="0" max="59" placeholder="Minutes"
+oninput="state.gpaq.sed_m=this.value; checkRequiredTimeOnly('c6','#h6','#m6'); checkDurationGuard('#h6','#m6','g6')">
+</div>
+
+<div id="g6" class="guard" style="display:none;">
+⚠️ Vérifiez votre saisie (durée inhabituelle)
+</div>
+
+<button class="btn" id="c6" disabled onclick="finishGPAQ()">Terminer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,90);
+}
+
+function minutes(h,m){ return (Number(h||0)*60)+Number(m||0); }
+
+function finishGPAQ(){
+  advanceProgress(1); // sédentarité = 1 point
+
+  const wi = (state.gpaq.wi_d||0)*minutes(state.gpaq.wi_h,state.gpaq.wi_m);
+  const wm = (state.gpaq.wm_d||0)*minutes(state.gpaq.wm_h,state.gpaq.wm_m);
+  const tr = (state.gpaq.tr_d||0)*minutes(state.gpaq.tr_h,state.gpaq.tr_m);
+  const li = (state.gpaq.li_d||0)*minutes(state.gpaq.li_h,state.gpaq.li_m);
+  const lm = (state.gpaq.lm_d||0)*minutes(state.gpaq.lm_h,state.gpaq.lm_m);
+
+  const MET = wi*8 + li*8 + (wm+tr+lm)*4;
+  state.result.met = MET;
+
+  if(MET>=3000) state.result.niveau="très_actif";
+  else if(MET>=600) state.result.niveau="moyennement_actif";
+  else state.result.niveau="insuffisamment_actif";
+
+  stepsQuestion();
+}
+  
+function stepsQuestion(){
+ pushScreen(
+  state.tool === "marshall"
+    ? "MAR-STEPS"
+    : "GPAQ-STEPS"
+);
+render(`
+<h2>Activité quotidienne (facultatif)</h2>
+
+<p>
+Si vous suivez votre nombre de pas, indiquez votre moyenne sur le dernier mois.
+</p>
+
+<input type="number" min="0" placeholder="Ex. : 6500"
+oninput="state.result.pas_mois=this.value">
+
+<button class="btn" onclick="motivation()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+`, 94);
+}
+
+/*************************************************
+ * MOTIVATION + EVA
+ *************************************************/
+function motivation(){
+
+  pushScreen(
+    state.tool === "marshall"
+      ? "MAR-STAGE1"
+      : "GPAQ-STAGE1"
+  );
+
+  const niveau = state.result?.niveau;
+
+  // 🔒 Sécurité passive (jamais de back automatique)
+  if (!niveau) {
+    console.warn("Niveau manquant → affichage sécurisé");
+
+    render(`
+      <h2>Motivation</h2>
+      <p>Une erreur inattendue est survenue.</p>
+      <button class="btn secondary" onclick="back()">Retour</button>
+    `);
+
+    return;
+  }
+
+  // 🔹 Cas insuffisamment actif
+  if(niveau === "insuffisamment_actif"){
+
+    render(`
+      <h2>Motivation</h2>
+      <p>Envisagez-vous d’augmenter votre activité physique dans les 30 jours ?</p>
+
+      <button class="btn" onclick="
+        advanceProgress(2);
+        state.result.stade='préparation';
+        evaImportance();
+      ">Oui</button>
+
+      <button class="btn" onclick="motivation2()">Non</button>
+
+      <button class="btn secondary" onclick="back()">Retour</button>
+
+      <div class="back-info">
+        Les réponses déjà saisies sont conservées pour le calcul final.
+      </div>
+    `,95);
+
+  } else {
+
+    // 🔹 Cas suffisamment / très actif
+    render(`
+      <h2>Motivation</h2>
+      <p>Êtes-vous actif à ce niveau depuis plus de 6 mois ?</p>
+
+      <button class="btn" onclick="
+        advanceProgress(2);
+        state.result.stade='consolidation';
+        evaImportance();
+      ">Oui</button>
+
+      <button class="btn" onclick="
+        advanceProgress(2);
+        state.result.stade='action';
+        evaImportance();
+      ">Non</button>
+
+      <button class="btn secondary" onclick="back()">Retour</button>
+
+      <div class="back-info">
+        Les réponses déjà saisies sont conservées pour le calcul final.
+      </div>
+    `,95);
+  }
+}
+
+function motivation2(){
+pushScreen(
+  state.tool === "marshall"
+    ? "MAR-STAGE2"
+    : "GPAQ-STAGE2"
+  );
+  render(`
+<h2>Motivation</h2>
+<p>Avez-vous l’intention de vous engager dans une activité physique régulière dans les 6 mois ?</p>
+<button class="btn" onclick="advanceProgress(2); state.result.stade='intention'; evaImportance()">Oui</button>
+<button class="btn" onclick="advanceProgress(2); state.result.stade='indétermination'; evaImportance()">Non</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,96);
+}
+
+function evaImportance(){
+pushScreen(
+  state.tool === "marshall"
+      ? "MAR-EVA-IMP"
+      : "GPAQ-EVA-IMP"
+    );
+  render(`
+<h2>Importance de l’activité physique</h2>
+<p>Quelle importance accordez-vous à l’activité physique dans votre vie ?</p>
+<input type="range" min="0" max="10" value="5"
+oninput="this.nextElementSibling.innerText=this.value">
+<div>5</div>
+<button class="btn" onclick="
+advanceProgress(1);
+state.result.importance=document.querySelector('input').value;
+evaImportanceComment();
+">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,97);
+}
+
+function evaImportanceComment(){
+pushScreen(
+  state.tool === "marshall"
+    ? "MAR-EVA-IMP-REASONS"
+    : "GPAQ-EVA-IMP-REASONS"
+);
+  render(`
+<h2>Votre choix</h2>
+<p>
+Pouvez-vous m’indiquer en quelques mots pour quelles raisons vous avez choisi ce chiffre ?<br>
+<em>Sinon, passez à la question suivante.</em>
+</p>
+<textarea placeholder="Votre réponse (facultative)"
+onchange="state.result.importance_comment=this.value"></textarea>
+<button class="btn" onclick="advanceProgress(1); evaConfiance()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,98);
+}
+
+function evaConfiance(){
+  const question = state.result.niveau==="insuffisamment_actif"
+    ? "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à augmenter votre niveau d’activité physique ?"
+    : "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à maintenir voire augmenter votre niveau d’activité physique ?";
+pushScreen(
+  state.tool === "marshall"
+  ? "MAR-EVA-CONF"
+  : "GPAQ-EVA-CONF"
+);
+  render(`
+<h2>Confiance en soi</h2>
+<p>${question}</p>
+<input type="range" min="0" max="10" value="5"
+oninput="this.nextElementSibling.innerText=this.value">
+<div>5</div>
+<button class="btn" onclick="
+advanceProgress(1);
+state.result.confiance=document.querySelector('input').value;
+evaConfianceComment();
+">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,99);
+}
+
+function evaConfianceComment(){
+pushScreen(
+  state.tool === "marshall"
+    ? "MAR-EVA-CONF-REASONS"
+    : "GPAQ-EVA-CONF-REASONS"
+);
+  render(`
+<h2>Votre réponse</h2>
+<p>
+Pouvez-vous m’indiquer en quelques mots ce qui vous rend confiant(e) ou, au contraire, ce qui vous freine ?<br>
+<em>Sinon, passez à la question suivante.</em>
+</p>
+<textarea placeholder="Votre réponse (facultative)"
+onchange="state.result.confiance_comment=this.value"></textarea>
+<button class="btn" onclick="advanceProgress(1); endTransition()">Terminer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,99);
+}
+  
+function endTransition(){
+pushScreen(
+  state.tool === "marshall"
+    ? "MAR-THANKS"
+    : "GPAQ-THANKS"
+  );
+  render(`
+<h2>Merci</h2>
+<p>Vos réponses ont bien été prises en compte.</p>
+
+<p>
+Vous allez maintenant voir un résumé à apporter à votre consultation.
+</p>
+
+<button class="btn" onclick="final()">Voir mon résumé</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+`,99);
+}
+
+function buildExportJSON(){
+  return {
+    meta: {
+      outil: "preconsultation-activite-physique",
+      version: "v0.x",
+      date: new Date().toISOString(),
+      questionnaires: state.tool === "gpaq" ? "GPAQ" : "Marshall",
+      donnees_enregistrees: false
+    },
+
+    questionnaires: {
+      marshall: state.marshall,
+
+      gpaq: {
+        travail: {
+          intense: {
+            oui_non: state.gpaq.wi ?? null,
+            jours_par_semaine: state.gpaq.wi_d ?? null,
+            heures_par_jour: state.gpaq.wi_h ?? null,
+            minutes_par_jour: state.gpaq.wi_m ?? null
+          },
+          moderee: {
+            oui_non: state.gpaq.wm ?? null,
+            jours_par_semaine: state.gpaq.wm_d ?? null,
+            heures_par_jour: state.gpaq.wm_h ?? null,
+            minutes_par_jour: state.gpaq.wm_m ?? null
+          }
+        },
+
+        deplacements: {
+          oui_non: state.gpaq.tr ?? null,
+          jours_par_semaine: state.gpaq.tr_d ?? null,
+          heures_par_jour: state.gpaq.tr_h ?? null,
+          minutes_par_jour: state.gpaq.tr_m ?? null
+        },
+
+        loisirs: {
+          intense: {
+            oui_non: state.gpaq.li ?? null,
+            jours_par_semaine: state.gpaq.li_d ?? null,
+            heures_par_jour: state.gpaq.li_h ?? null,
+            minutes_par_jour: state.gpaq.li_m ?? null
+          },
+          moderee: {
+            oui_non: state.gpaq.lm ?? null,
+            jours_par_semaine: state.gpaq.lm_d ?? null,
+            heures_par_jour: state.gpaq.lm_h ?? null,
+            minutes_par_jour: state.gpaq.lm_m ?? null
+          }
+        },
+
+        sedentarite: {
+          heures_par_jour: state.gpaq.sed_h ?? null,
+          minutes_par_jour: state.gpaq.sed_m ?? null
+        }
+      }
+    },
+
+    resultats: {
+  met_minutes_semaine: state.result.met ?? null,
+  niveau_activite: state.result.niveau ?? null,
+  pas_moyens_jour_1_mois: state.result.pas_mois ?? null
+},
+
+    motivation: {
+      stade: state.result.stade ?? null,
+      importance_eva_0_10: state.result.importance ?? null,
+      importance_commentaire: state.result.importance_comment ?? null,
+      confiance_eva_0_10: state.result.confiance ?? null,
+      confiance_commentaire: state.result.confiance_comment ?? null
+    }
+  };
+}
+
+function freezeExportJSON() {
+  const frozen = buildExportJSON();
+
+  state.exportJSON = frozen;
+
+  sessionStorage.setItem(
+    "preconsultation_final",
+    JSON.stringify(frozen)
+  );
+
+  return frozen;
+}
+
+function openPrintable() {
+  const frozen = freezeExportJSON();
+
+  const json = encodeURIComponent(
+    JSON.stringify(frozen)
+  );
+
+  window.open(
+    "print.html?data=" + json,
+    "_blank"
+  );
+}
+
+
+// 🔐 Copie de secours (utilisée si partage / mail échoue)
+// 🔐 Copie de secours (utilisée si partage / mail échoue)
+function copyFallback(text) {
+  if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    console.warn("Clipboard indisponible");
+    return;
+  }
+
+  navigator.clipboard.writeText(text)
+    .catch(() => {
+      console.warn("Copie de secours impossible");
+    });
+}
+
+function shareToDoctor() {
+  const frozen = freezeExportJSON();
+
+  if (!frozen) {
+    alert("Données indisponibles.");
+    return;
+  }
+
+  const mailTitle = "Auto-évaluation de l’activité physique – consultation médicale";
+
+  const dataBlock =
+`--- DÉBUT DES DONNÉES ---
+${JSON.stringify(frozen, null, 2)}
+--- FIN DES DONNÉES ---`;
+
+  const mailBody =
+`Bonjour,
+
+Vous trouverez ci-dessous les informations issues de mon questionnaire
+d’auto-évaluation de l’activité physique, rempli en amont de la consultation.
+
+Ces données peuvent être copiées et intégrées dans votre compte-rendu médical.
+
+${dataBlock}`;
+
+  const subject = encodeURIComponent(mailTitle);
+  const body = encodeURIComponent(mailBody);
+
+  /* 📱 Mobile → partage natif */
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile && navigator.share) {
+    navigator.share({
+      title: mailTitle,
+      text: mailTitle + "\n\n" + mailBody
+    }).catch(() => {
+      copyFallback(mailTitle + "\n\n" + mailBody);
+    });
+    return;
+  }
+
+  /* 🖥️ PC → client mail par défaut (Outlook / Exchange) */
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+
+/* Aide explicite pour les webmails */
+setTimeout(() => {
+  alert(
+    "Si aucun nouveau message ne s’est ouvert automatiquement, " +
+    "les données ont été copiées.\n\n" +
+    "Vous pouvez les coller manuellement dans un email à destination de votre médecin."
+  );
+}, 500);
+
+/* Copie systématique de secours */
+copyFallback(mailTitle + "\n\n" + mailBody);
+}
+  
+function final(){
+
+  state.exportJSON = buildExportJSON();
+
+  sessionStorage.setItem(
+    "preconsultation_final",
+    JSON.stringify(state.exportJSON)
+  );
+
+  console.log("EXPORT JSON", state.exportJSON);
+  
+pushScreen(
+   state.tool === "marshall"
+    ? "MAR-SUMMARY"
+    : state.tool === "gpaq"
+      ? "GPAQ-SUMMARY"
+      : null
+  );
+render(`
+<h2>Résultat</h2>
+
+<p>
+  <strong>Niveau d’activité :</strong>
+  ${state.result.niveau ? state.result.niveau.replace("_"," ") : "non disponible"}
+  ${state.result.met ? ` (${state.result.met} MET-min/semaine)` : ""}
+</p>
+
+${state.result.pas_mois ? `
+<div class="section">
+  <strong>Nombre de pas moyen (1 mois)</strong>
+  <div class="answer">${state.result.pas_mois} pas / jour</div>
+</div>
+` : ""}
+
+<div class="section">
+  <strong>Stade motivationnel</strong>
+  <div class="answer">${state.result.stade ?? "non renseigné"}</div>
+</div>
+
+<div class="section">
+  <strong>Importance de l'activité physique</strong>
+  <div class="answer">
+    ${state.result.importance != null ? state.result.importance + "/10" : "non renseignée"}
+  </div>
+</div>
+
+<div class="section">
+  <strong>Confiance pour augmenter ou maintenir son activité physique</strong>
+  <div class="answer">
+    ${state.result.confiance != null ? state.result.confiance + "/10" : "non renseignée"}
+  </div>
+</div>
+
+<button class="btn" onclick="openPrintable()">Voir mon bilan d'activité physique</button>
+<button class="btn secondary" onclick="restart()">Recommencer</button>
+<button class="btn secondary" onclick="safeBack()">Retour</button>
+
+<p class="footer">
+  Document à apporter lors de votre consultation médicale.
+</p>
+`, 100);
+}
+
+function restart() {
+  sessionStorage.removeItem("preconsultation_final");
+  location.reload();
+}
+
+window.addEventListener("load", () => {
+  const saved = sessionStorage.getItem("preconsultation_final");
+
+  if (saved) {
+    try {
+    const parsed = JSON.parse(saved);
+
+if (
+  !parsed ||
+  typeof parsed !== "object" ||
+  !parsed.resultats ||
+  !parsed.motivation
+) {
+  throw new Error("Export JSON invalide");
+}
+
+state.exportJSON = parsed;
+      
+state.tool = parsed.meta.questionnaires === "GPAQ"
+  ? "gpaq"
+  : "marshall";
+
+      state.result = {
+  niveau: state.exportJSON.resultats?.niveau_activite ?? null,
+  met: state.exportJSON.resultats?.met_minutes_semaine ?? null,
+  pas_mois: state.exportJSON.resultats?.pas_moyens_jour_1_mois ?? null,
+  stade: state.exportJSON.motivation?.stade ?? null,
+  importance: state.exportJSON.motivation?.importance_eva_0_10 ?? null,
+  confiance: state.exportJSON.motivation?.confiance_eva_0_10 ?? null
+};
+
+      final();
+      return; // ⛔️ empêche le render accueil
+
+    } catch (e) {
+      console.warn("Erreur restauration session :", e);
+      sessionStorage.removeItem("preconsultation_final");
+     
+      renderHome();
+      return;  
+    }
+  }
+
+  /* fallback sûr */
+  renderHome();
+});
+
+function showCopyToast() {
+  const toast = document.getElementById("copy-toast");
+  if (!toast) return;
+
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}
+
+function copyContent() {
+  const data = state.exportJSON || buildExportJSON();
+  if (!data) {
+    console.warn("Aucune donnée à copier");
+    return;
+  }
+
+  let output = "";
+
+  // Titre global
+  output += "RÉSUMÉ DE LA PRÉ-CONSULTATION D’ACTIVITÉ PHYSIQUE\n\n";
+
+  // 1. Synthèse
+  output += "1. SYNTHÈSE\n\n";
+
+  const niveau = data.resultats.niveau_activite
+    ? data.resultats.niveau_activite.replace("_", " ")
+    : "non disponible";
+
+  output += "NIVEAU D’ACTIVITÉ PHYSIQUE :\n";
+  output += niveau + "\n";
+
+  if (data.resultats.met_minutes_semaine !== null) {
+    output += `Volume estimé : ${data.resultats.met_minutes_semaine} MET-min / semaine\n`;
+  }
+
+  output += "\n";
+
+  output += "STADE MOTIVATIONNEL :\n";
+  output += (data.motivation.stade ?? "non renseigné") + "\n\n";
+
+  output += "IMPORTANCE DE L’ACTIVITÉ PHYSIQUE :\n";
+  output += (data.motivation.importance_eva_0_10 ?? "–") + " / 10\n\n";
+
+  output += "CONFIANCE :\n";
+  output += (data.motivation.confiance_eva_0_10 ?? "–") + " / 10\n\n";
+
+  // 2. Questionnaire
+  if (data.meta.questionnaires === "Marshall") {
+    output += "2. QUESTIONNAIRE MARSHALL\n";
+    const score =
+      (data.questionnaires.marshall.q1 || 0) +
+      (data.questionnaires.marshall.q2 || 0);
+    output += "Score total : " + score + "\n";
+  }
+
+  if (data.meta.questionnaires === "GPAQ") {
+    output += "2. QUESTIONNAIRE GPAQ\n";
+  }
+
+ navigator.clipboard.writeText(output)
+  .catch(() => {
+    console.warn("Copie impossible");
+  });
+
+// Feedback utilisateur immédiat (indépendant du navigateur)
+showCopyToast();
+
+}
+
+</script>
+  <div id="copy-toast" class="copy-toast">
+  Résumé copié ✔
+</div>
+
+</body>
+</html>
