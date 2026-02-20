@@ -531,6 +531,27 @@ if (e.sedentarite === "sedentaire") {
 
   return phrase;
 } 
+            function buildRCV(model) {
+
+  const rcv = model.evaluation.rcv;
+
+  if (!rcv) {
+    return "Le risque cardiovasculaire global n’a pas été précisé.";
+  }
+
+  if (rcv === "faible") {
+    return "Le risque cardiovasculaire global est évalué comme faible.";
+  }
+
+  if (rcv === "modere") {
+    return "Le risque cardiovasculaire global est évalué comme modéré.";
+  }
+
+  if (rcv === "eleve_tres_eleve") {
+    return "Le risque cardiovasculaire global est évalué comme élevé à très élevé.";
+  }
+
+}
             function renderLongLetterV2(model) {
 
   const p = model.patient;
@@ -561,7 +582,9 @@ ${buildEvaluationAP(model)}
 ${buildMotivation(model)}
 </p>
 
-    <p><strong>Risque cardiovasculaire :</strong> ${e.rcv || "non précisé"}.</p>
+   <p><strong>Risque cardiovasculaire :</strong><br>
+${buildRCV(model)}
+</p>
 
     <p><strong>Objectifs :</strong><br>
     ${t.objectif_principal || ""}
