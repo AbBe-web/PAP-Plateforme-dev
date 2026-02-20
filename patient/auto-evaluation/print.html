@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Résumé de la pré-consultation d'activité physique</title>
+
+  <link rel="stylesheet" href="../../css/style-global.css">
+
+<style>
+
+@page {
+  size: A4;
+  margin: 20mm;
+}
+
+@media print {
+  body {
+    margin: 0;
+  }
+}
+  
+  body {
+  font-family: Arial, sans-serif;
+  margin: 30px;
+  color: #000;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+h2 {
+  font-size: 16px;
+  margin-top: 22px;
+  padding-bottom: 3px;
+}
+
+h3 {
+  font-size: 14px;
+  margin-top: 14px;
+}
+
+p {
+  margin: 4px 0;
+}
+  
+.synthese-line {
+  margin: 2px 0;
+}
+.section {
+  margin-top: 15px;
+}
+
+.small {
+  font-size: 12px;
+  color: #555;
+}
+
+.block {
+  margin-left: 15px;
+}
+
+.verbatim {
+  font-style: italic;
+  margin-left: 15px;
+   font-size: 12px;
+  color: #555;
+}
+
+@media print {
+  body {
+    margin: 20mm;
+  }
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  margin-bottom: 15px;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 4px 6px;
+  font-size: 12px;
+  vertical-align: top;
+}
+
+th {
+  background: #f2f2f2;
+  font-weight: bold;
+}
+
+
+@media print {
+  .actions {
+    display: none;
+  }
+}
+@media print {
+
+  h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  table {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+}
+/* === Tableaux GPAQ : colonnes strictement identiques === */
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* 3 colonnes = 1/3 chacune */
+table th,
+table td {
+  width: 33.33%;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Première colonne (texte) alignée à gauche */
+table th:first-child,
+table td:first-child {
+  text-align: left;
+}
+
+/* En-têtes discrets */
+table th {
+  background: #f3f3f3;
+  font-weight: 600;
+}
+
+/* Alignement vertical homogène */
+table th,
+table td {
+  vertical-align: middle;
+  line-height: 1.3;
+}
+
+/* En-têtes plus discrets */
+table th {
+  background: #f3f3f3;
+  font-weight: 600;
+}
+/* Bloc actions : vertical */
+.actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+/* Boutons sur une même ligne */
+.actions-buttons {
+  display: inline-flex;        /* clé : inline-flex */
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Boutons harmonisés */
+.actions-buttons button {
+  width: 260px;                /* plus fin, passe partout */
+  padding: 10px 14px;
+  font-size: 14px;
+  border: 1px solid #999;
+  background: #f5f5f5;
+  cursor: pointer;
+  text-align: center;
+}
+
+.actions-buttons button:hover {
+  background: #eaeaea;
+}
+/* Bloc individuel bouton + texte */
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 260px;
+}
+
+/* Texte discret sous bouton */
+.action-text {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Texte TOUJOURS en dessous */
+.actions-note {
+  margin-top: 10px;
+  font-size: 11px;
+  color: #777;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Impression : masqué */
+@media print {
+  .actions {
+    display: none;
+  }
+}
+
+/* Correctif iOS / écrans étroits : éviter chevauchement dans tableaux */
+@media screen and (max-width: 600px) {
+
+  table {
+    table-layout: fixed;
+  }
+
+  th, td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Colonne "Intensité / Type" autorise le retour à la ligne */
+  td:first-child {
+    white-space: normal;
+  }
+}
+@media screen and (max-width: 600px) {
+
+  .actions {
+    margin-top: 40px;
+    text-align: center;   /* Centre le bloc sur mobile */
+  }
+
+  .actions-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;  /* Centre les blocs */
+  }
+
+  .action-item {
+    align-items: center;  /* Centre bouton + texte */
+  }
+
+  .actions-buttons button {
+    width: 100%;
+    max-width: 320px;
+    font-size: 14px;
+    white-space: nowrap;      /* 🔹 force une seule ligne */
+  }
+}
+
+  .actions-note {
+    margin-top: 12px;          /* espace clair sous les boutons */
+    text-align: center;        /* centré (plus joli sur mobile) */
+  }
+
+/* Correctif impression iOS : forcer 1 page A4 */
+@media print and (max-width: 600px) {
+
+  body {
+    font-size: 13px;          /* très léger */
+    line-height: 1.25;
+    margin: 18mm;             /* réduit légèrement vs PC */
+  }
+
+  h1 {
+    font-size: 18px;
+    margin-bottom: 3px;
+  }
+
+  h2 {
+    margin-top: 16px;
+  }
+
+  h3 {
+    margin-top: 10px;
+  }
+
+  table {
+    margin-bottom: 10px;
+  }
+
+  p {
+    margin: 3px 0;
+  }
+}
+/* === Correctif final iOS : marges latérales trop grandes à l’impression === */
+@media print and (max-width: 600px) {
+
+  @page {
+    size: A4;
+    margin: 12mm;              /* clé : réduire les marges */
+  }
+
+  html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-size: 13px;
+    line-height: 1.25;
+    padding: 12mm;             /* contrôle réel des marges */
+    box-sizing: border-box;
+  }
+
+  /* Tables : éviter qu’elles élargissent la page */
+  table {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+/* Bouton retour depuis la version imprimable */
+.nav-back {
+  margin-bottom: 15px;
+}
+
+.nav-back button {
+  background: none;
+  border: none;
+  color: #007BFF;
+  font-size: 14px;
+  padding: 6px 0;
+  cursor: pointer;
+}
+
+/* Jamais affiché à l’impression */
+@media print {
+  .nav-back {
+    display: none;
+  }
+}
+
+</style>
+</head>
+
+<body>
+  
+<div class="nav-back">
+    <button onclick="goBack()">← Retour au questionnaire</button>
+  </div>
+  
+<h1>Résumé de l'évaluation de préparation de la consultation d'activité physique</h1>
+
+<p id="questionnaire-type" class="small"></p>
+
+<p class="small">
+Questionnaire d’auto-évaluation à conserver si vous le souhaitez et à transmettre à votre médecin pour en discuter.<br>
+Date : <span id="date"></span>
+</p>
+
+<div id="content"></div>
+
+<script>
+function goBack() {
+  window.location.href = "index.html";
+}
+  
+function getJSONFromURL(){
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get("data");
+  if (!data) return null;
+
+  try {
+    return JSON.parse(decodeURIComponent(data));
+  } catch (e) {
+    console.warn("Données URL invalides", e);
+    return null;
+  }
+}
+const rawData = getJSONFromURL();
+let storedData = null;
+
+if (typeof window.sessionStorage !== "undefined") {
+  try {
+    storedData = sessionStorage.getItem("preconsultation_final");
+  } catch (e) {
+    console.warn("Impossible de lire les données de session", e);
+  }
+}
+
+let parsedStored = null;
+
+if (storedData) {
+  try {
+    parsedStored = JSON.parse(storedData);
+  } catch (e) {
+    console.warn("JSON session invalide", e);
+  }
+}
+
+const data = parsedStored || rawData;
+
+// 🔹 Affichage date du jour (format français)
+const today = new Date();
+const formattedDate = today.toLocaleDateString("fr-FR");
+
+const dateElement = document.getElementById("date");
+if (dateElement) {
+  dateElement.textContent = formattedDate;
+}
+if (!data) {
+  document.getElementById("content").innerHTML =
+    "<p>Données indisponibles.</p>";
+}
+
+document.getElementById("content").innerHTML = `
+
+<h2>1. Synthèse</h2>
+
+<p class="synthese-line">
+  <strong>Niveau d’activité physique :</strong>
+  ${data.resultats.niveau_activite.replace("_"," ")}
+  ${
+    data.meta.questionnaires === "GPAQ" &&
+    data.resultats.met_minutes_semaine != null
+      ? `<span class="small">
+           (volume estimé : ${data.resultats.met_minutes_semaine} MET-min / semaine)
+         </span>`
+      : ""
+  }
+</p>
+
+${data.resultats.pas_moyens_jour_1_mois
+  ? `<p class="synthese-line">
+       <strong>Nombre de pas moyen (1 mois) :</strong>
+       ${data.resultats.pas_moyens_jour_1_mois} pas / jour
+     </p>`
+  : ""
+}
+
+<p class="synthese-line">
+  <strong>Stade motivationnel :</strong>
+  ${data.motivation.stade}
+</p>
+
+<p class="synthese-line">
+  <strong>Importance de l’activité physique :</strong>
+  ${data.motivation.importance_eva_0_10}/10
+</p>
+
+${data.motivation.importance_commentaire
+  ? `<p class="verbatim small">“${data.motivation.importance_commentaire}”</p>`
+  : ""
+}
+
+<p class="synthese-line">
+  <strong>Confiance en soi pour augmenter / maintenir son niveau d’activité :</strong>
+  ${data.motivation.confiance_eva_0_10}/10
+</p>
+
+${data.motivation.confiance_commentaire
+  ? `<p class="verbatim small">“${data.motivation.confiance_commentaire}”</p>`
+  : ""
+}
+
+<div id="gpaq-section">
+  <h2 id="gpaq-title">Questionnaire GPAQ – Détail</h2>
+
+  <h3>Travail</h3>
+
+  <table>
+    <tr>
+      <th>Intensité</th>
+      <th>Fréquence</th>
+      <th>Durée par jour</th>
+    </tr>
+
+    <tr>
+      <td>Intense</td>
+      <td>
+        ${data.questionnaires.gpaq?.travail?.intense?.jours_par_semaine ?? 0} jours / semaine
+      </td>
+      <td>
+        ${(data.questionnaires.gpaq?.travail?.intense?.heures_par_jour || 0)} h
+        ${(data.questionnaires.gpaq?.travail?.intense?.minutes_par_jour || 0)} min
+      </td>
+    </tr>
+
+    <tr>
+      <td>Modérée</td>
+      <td>
+        ${data.questionnaires.gpaq?.travail?.moderee?.jours_par_semaine ?? 0} jours / semaine
+      </td>
+      <td>
+        ${(data.questionnaires.gpaq?.travail?.moderee?.heures_par_jour || 0)} h
+        ${(data.questionnaires.gpaq?.travail?.moderee?.minutes_par_jour || 0)} min
+      </td>
+    </tr>
+  </table>
+
+  <h3>Déplacements</h3>
+
+  <table>
+    <tr>
+      <th>Type</th>
+      <th>Fréquence</th>
+      <th>Durée par jour</th>
+    </tr>
+
+    <tr>
+      <td>Marche / vélo ≥ 10 min</td>
+      <td>
+        ${data.questionnaires.gpaq?.deplacements?.jours_par_semaine ?? 0} jours / semaine
+      </td>
+      <td>
+        ${(data.questionnaires.gpaq?.deplacements?.heures_par_jour || 0)} h
+        ${(data.questionnaires.gpaq?.deplacements?.minutes_par_jour || 0)} min
+      </td>
+    </tr>
+  </table>
+
+  <h3>Loisirs</h3>
+
+  <table>
+    <tr>
+      <th>Intensité</th>
+      <th>Fréquence</th>
+      <th>Durée par jour</th>
+    </tr>
+
+    <tr>
+      <td>Intense</td>
+      <td>
+        ${data.questionnaires.gpaq?.loisirs?.intense?.jours_par_semaine ?? 0} jours / semaine
+      </td>
+      <td>
+        ${(data.questionnaires.gpaq?.loisirs?.intense?.heures_par_jour || 0)} h
+        ${(data.questionnaires.gpaq?.loisirs?.intense?.minutes_par_jour || 0)} min
+      </td>
+    </tr>
+
+    <tr>
+      <td>Modérée</td>
+      <td>
+        ${data.questionnaires.gpaq?.loisirs?.moderee?.jours_par_semaine ?? 0} jours / semaine
+      </td>
+      <td>
+        ${(data.questionnaires.gpaq?.loisirs?.moderee?.heures_par_jour || 0)} h
+        ${(data.questionnaires.gpaq?.loisirs?.moderee?.minutes_par_jour || 0)} min
+      </td>
+    </tr>
+  </table>
+
+  <h3>Comportement sédentaire</h3>
+
+  <table>
+    <tr>
+      <th>Temps assis / couché (hors sommeil)</th>
+    </tr>
+    <tr>
+      <td>
+        ${(data.questionnaires.gpaq?.sedentarite?.heures_par_jour || 0)} h
+        ${(data.questionnaires.gpaq?.sedentarite?.minutes_par_jour || 0)} min / jour
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="marshall-section">
+  <h2 id="marshall-title">2. Questionnaire Marshall</h2>
+  <p>
+    Score :
+    ${(data.questionnaires.marshall?.q1 || 0) + (data.questionnaires.marshall?.q2 || 0)}
+  </p>
+</div>
+
+<p class="small" style="margin-top:40px;">
+  A l'aide des boutons situés dessous, gardez une copie pour pouvoir la présenter à votre médecin ou envoyer lui ce document pour en discuter avec lui. "Au pire", faites une copie d'écran.
+</p>
+
+<div class="actions">
+  <div class="actions-buttons">
+    <div class="action-item">
+      <button onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+      <div class="action-text">Document complet à imprimer ou à partager</div>
+    </div>
+
+    <div class="action-item">
+      <button onclick="shareToDoctor()">Transmettre au médecin</button>
+      <div class="action-text">Envoie les données du questionnaire par email</div>
+    </div>
+
+    <div class="action-item">
+      <button onclick="copyContent()">Copier le contenu</button>
+      <div class="action-text">Copie le résumé pour le partager</div>
+    </div>
+  </div>
+
+`;
+
+  if (data.meta.questionnaires === "GPAQ") {
+  const gpaqTitle = document.getElementById("gpaq-title");
+  if (gpaqTitle) {
+    gpaqTitle.innerText = "2. Questionnaire GPAQ – Détail";
+  }
+}
+
+if (data.meta.questionnaires === "Marshall") {
+  const marshallTitle = document.getElementById("marshall-title");
+  if (marshallTitle) {
+    marshallTitle.innerText = "2. Questionnaire Marshall";
+  }
+}
+  if (data.meta.questionnaires === "Marshall") {
+  const gpaq = document.getElementById("gpaq-section");
+  if (gpaq) gpaq.style.display = "none";
+}
+
+if (data.meta.questionnaires === "GPAQ") {
+  const marshall = document.getElementById("marshall-section");
+  if (marshall) marshall.style.display = "none";
+}
+function buildReadableSummary(data) {
+
+  if (!data) return "";
+
+let output = "";
+
+/* =========================
+   TITRE
+========================= */
+
+output += "RÉSUMÉ DE LA PRÉ-CONSULTATION D’ACTIVITÉ PHYSIQUE\n";
+output += "--------------------------------------------------\n\n";
+
+/* =========================
+   1. SYNTHÈSE
+========================= */
+
+output += "1. SYNTHÈSE\n";
+output += "───────────\n";
+
+output += "Niveau d’activité physique : ";
+output += data.resultats.niveau_activite.replace("_"," ");
+output += "\n";
+
+output += "Volume estimé : ";
+output += data.resultats.met_minutes_semaine;
+output += " MET-min / semaine\n";
+
+output += "\n";   // espace entre blocs
+  
+if (data.resultats.pas_moyens_jour_1_mois !== null) {
+  output += "Nombre de pas moyen (1 mois) : ";
+  output += data.resultats.pas_moyens_jour_1_mois;
+  output += " pas / jour\n";
+}
+
+output += "\n";
+
+/* =========================
+   MOTIVATION
+========================= */
+
+output += "Stade motivationnel : ";
+output += data.motivation.stade;
+output += "\n";
+
+output += "Importance (0–10) : ";
+output += data.motivation.importance_eva_0_10;
+output += "/10\n";
+
+output += "Confiance (0–10) : ";
+output += data.motivation.confiance_eva_0_10;
+output += "/10\n";
+
+output += "\n";   // espace avant conclusion
+  
+/* =========================
+   2. QUESTIONNAIRE UTILISÉ
+========================= */
+
+output += "2. QUESTIONNAIRE UTILISÉ\n";
+output += "------------------------\n";
+
+output += data.meta.questionnaires + "\n\n";
+
+if (data.meta.questionnaires === "Marshall") {
+
+  output += "Détail des réponses :\n";
+  output += "Question 1 : " + (data.questionnaires.marshall.q1 || 0) + " points\n";
+  output += "Question 2 : " + (data.questionnaires.marshall.q2 || 0) + " points\n";
+  output += "Score total : " +
+    ((data.questionnaires.marshall.q1 || 0) +
+     (data.questionnaires.marshall.q2 || 0)) +
+    "\n\n";
+}
+
+if (data.meta.questionnaires === "GPAQ") {
+
+  output += "DÉTAIL DES RÉPONSES (GPAQ)\n";
+  output += "---------------------------------------------\n";
+  output += "Type                | Jours | Durée / jour\n";
+  output += "---------------------------------------------\n";
+
+  const g = data.questionnaires.gpaq;
+
+  function formatLine(label, obj) {
+    const jours = obj?.jours_par_semaine ?? 0;
+    const h = obj?.heures_par_jour ?? 0;
+    const m = obj?.minutes_par_jour ?? 0;
+
+    const duree = `${h}h ${m}min`;
+
+    return label.padEnd(20) + " | " +
+           String(jours).padEnd(5) + " | " +
+           duree + "\n";
+  }
+
+  output += formatLine("Travail intense", g?.travail?.intense);
+  output += formatLine("Travail modéré", g?.travail?.moderee);
+  output += formatLine("Déplacements", g?.deplacements);
+  output += formatLine("Loisirs intenses", g?.loisirs?.intense);
+  output += formatLine("Loisirs modérés", g?.loisirs?.moderee);
+  // Ligne sédentarité (hors sommeil)
+  const sedH = g?.sedentarite?.heures_par_jour ?? 0;
+  const sedM = g?.sedentarite?.minutes_par_jour ?? 0;
+
+  output += "\n";
+  output += "Sédentarité (hors sommeil)\n";
+  output += "Temps assis / couché : " + sedH + "h " + sedM + "min / jour\n";
+  output += "---------------------------------------------\n\n";
+}
+
+output += "Ce document est destiné à être discuté avec votre médecin.";
+
+return output;
+}
+  
+function copyContent() {
+
+  if (!data) {
+    alert("Données indisponibles.");
+    return;
+  }
+
+  const text = buildReadableSummary(data);
+
+   if (!navigator.clipboard || !navigator.clipboard.writeText) {
+    alert("La copie automatique n’est pas disponible sur ce navigateur.");
+    return;
+  }
+
+  navigator.clipboard.writeText(text)
+    .catch(() => {
+      alert("Copie impossible.");
+    });
+}
+function shareToDoctor() {
+  const frozen = data;
+
+  if (!frozen) {
+    alert("Données indisponibles.");
+    return;
+  }
+
+  const mailTitle = "Auto-évaluation de l’activité physique – consultation médicale";
+
+  const dataBlock =
+`--- DÉBUT DES DONNÉES ---
+${JSON.stringify(frozen, null, 2)}
+--- FIN DES DONNÉES ---`;
+
+  const mailBody =
+`Bonjour,
+
+Vous trouverez ci-dessous les informations issues de mon questionnaire
+d’auto-évaluation de l’activité physique, rempli en amont de la consultation.
+
+Ces données peuvent être copiées et intégrées dans votre compte-rendu médical.
+
+${dataBlock}`;
+
+  const subject = encodeURIComponent(mailTitle);
+  const body = encodeURIComponent(mailBody);
+
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+
+
+ // 🔒 Safari macOS : figer le DOM après construction complète
+setTimeout(() => {
+  try {
+    window.onbeforeunload = null;
+  } catch (e) {}
+}, 0);
+
+
+</script>
+
+</body>
+</html>
