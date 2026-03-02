@@ -359,11 +359,12 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   heures_assises: document.querySelector('input[name="heures_assises"]')?.value || null
 },
 
-    evaluation: {
-      niveau_retenu: document.querySelector('input[name="niveau_actuel"]:checked')?.value || null,
-      sedentarite: document.querySelector('input[name="sedentaire"]:checked')?.value || null,
-      rcv: document.querySelector('input[name="rcv"]:checked')?.value || null
-    },
+   evaluation: {
+  classification: document.querySelector('input[name="niveau_actuel"]:checked')?.value || null,
+  questionnaire_source: document.querySelector('input[name="questionnaire"]:checked')?.value || null,
+  sedentarite: document.querySelector('input[name="sedentaire"]:checked')?.value || null,
+  rcv: document.querySelector('input[name="rcv"]:checked')?.value || null
+},
 
     motivation: {
       stade: getStadeMotivation(),
@@ -506,24 +507,24 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   const e = model.evaluation;
   const p = model.patient;
 
-  if (!e.niveau_retenu) {
+  if (!e.classification) {
     return "Le niveau d’activité physique n’a pas pu être précisément évalué lors de cette consultation.";
   }
 
   let phrase = "Son niveau d’activité physique est actuellement ";
 
   // Reformulation clinique
-  if (e.niveau_retenu === "actif") {
-    phrase += "considéré comme actif";
-  }
+ if (e.classification === "actif") {
+  phrase += "considéré comme actif au regard des recommandations actuelles";
+}
 
-  if (e.niveau_retenu === "inactif") {
-    phrase += "considéré comme insuffisamment actif au regard des recommandations actuelles";
-  }
+if (e.classification === "inactif") {
+  phrase += "considéré comme insuffisamment actif au regard des recommandations actuelles";
+}
 
   // Questionnaire synthétique
   if (p.questionnaire) {
-    phrase += ` (questionnaire ${p.questionnaire})`;
+  phrase += `, évalué à l’aide du questionnaire ${e.questionnaire_source}`;
   }
 
   // Nombre de pas
