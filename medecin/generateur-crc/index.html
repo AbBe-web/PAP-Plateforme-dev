@@ -313,9 +313,13 @@
     </div>
 
     <div id="reportActions">
-        <button type="button" id="printReport" class="btn">Imprimer</button>
-        <button type="button" id="copyReport" class="btn">Copier le CRC</button>
-    </div>
+    <button type="button" id="generateParagraph" class="btn secondary">
+        Version paragraphe
+    </button>
+
+    <button type="button" id="printReport" class="btn">Imprimer</button>
+    <button type="button" id="copyReport" class="btn">Copier le CRC</button>
+</div>
 
 </div>
 
@@ -450,7 +454,16 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   document.getElementById('reportOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 });
-           document.getElementById('printReport').addEventListener('click', function() {
+         document.getElementById('generateParagraph').addEventListener('click', function() {
+
+  const model = buildClinicalModel();
+  const paragraphText = renderParagraphVersion(model);
+
+  document.getElementById('reportText').innerHTML = paragraphText;
+  document.getElementById('reportOutput').classList.remove('hidden');
+});
+            
+            document.getElementById('printReport').addEventListener('click', function() {
 
   const nom = prompt("Nom du patient (facultatif) :");
   const prenom = prompt("Prénom du patient (facultatif) :");
@@ -747,6 +760,28 @@ Je me tiens à votre disposition pour toute précision complémentaire.
 <p>Bien confraternellement.</p>
 `;
 }     
+            function renderParagraphVersion(model) {
+
+  const p = model.patient;
+  const titre = p.sexe === "femme" ? "Madame" : "Monsieur";
+  const participe = p.sexe === "femme" ? "vue" : "vu";
+                
+  const evaluationBloc = buildEvaluationAP(model);
+  const motivationBloc = buildMotivation(model);
+  const rcvBloc = buildRCV(model);
+  const prescriptionBloc = buildPrescription(model);
+
+  return `
+<p>
+${titre} _____ a été ${participe} en consultation d’activité physique.
+${evaluationBloc}
+${motivationBloc}
+${rcvBloc}
+Les objectifs principaux sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
+${prescriptionBloc}
+</p>
+`;
+}
         });
     </script>
     <div id="identityModal" class="modal hidden">
