@@ -54,13 +54,15 @@
 
   #reportOutput {
     display: block !important;
+  }
+
+  #reportContent {
+    display: block;
     width: 100%;
     margin: 0;
   }
 
-  /* Masquer les boutons */
-  #printReport,
-  #copyReport {
+  #reportActions {
     display: none !important;
   }
 
@@ -298,10 +300,17 @@
             </div>
            <button type="button" id="generateReport" class="btn">Générer le compte-rendu</button>
         </form>
-       <div id="reportOutput" class="hidden">
-    <p id="reportText"></p>
-    <button type="button" id="printReport" class="btn">Imprimer</button>
-    <button type="button" id="copyReport" class="btn">Copier le CRC</button>
+      <div id="reportOutput" class="hidden">
+
+    <div id="reportContent">
+        <p id="reportText"></p>
+    </div>
+
+    <div id="reportActions">
+        <button type="button" id="printReport" class="btn">Imprimer</button>
+        <button type="button" id="copyReport" class="btn">Copier le CRC</button>
+    </div>
+
 </div>
 
     </div>
