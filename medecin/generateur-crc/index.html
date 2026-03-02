@@ -638,37 +638,7 @@ if (m.confiance !== null && m.confiance !== "") {
 
   return phrases.join(" ");
 }
-        function buildConclusion(model) {
-
-  const rcv = model.evaluation.rcv;
-  const stade = model.motivation.stade;
-
-  let phrase = "Au total, ";
-
-  if (rcv === "faible") {
-    phrase += "la mise en place ou la poursuite d’une activité physique adaptée apparaît indiquée dans un contexte de faible risque cardiovasculaire.";
-  }
-
-  else if (rcv === "modere") {
-    phrase += "la pratique d’une activité physique adaptée est encouragée avec une progression prudente compte tenu d’un risque cardiovasculaire modéré.";
-  }
-
-  else if (rcv === "eleve_tres_eleve") {
-    phrase += "la pratique d’une activité physique devra être encadrée et adaptée au regard du risque cardiovasculaire élevé à très élevé.";
-  }
-
-  else {
-    // Si RCV non renseigné → pas de phrase creuse
-    return "";
-  }
-
-  // Ajout motivation uniquement si pertinente
-  if (stade && stade !== "indétermination") {
-    phrase += ` La stratégie proposée tient compte d’un stade motivationnel de ${stade}.`;
-  }
-
-  return phrase;
-}
+       
       function renderLongLetterV2(model) {
 
   const p = model.patient;
@@ -684,8 +654,7 @@ if (m.confiance !== null && m.confiance !== "") {
   const motivationBloc = buildMotivation(model);
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
-  const conclusionBloc = buildConclusion(model);
-
+ 
   return `
 <p>${salutations}</p>
 
@@ -711,10 +680,6 @@ Les objectifs de cette prescription d’activité physique sont : ${model.therap
 
 <p>
 ${prescriptionBloc}
-</p>
-
-<p>
-${conclusionBloc}
 </p>
 
 <p>
