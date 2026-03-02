@@ -43,22 +43,27 @@
 }
 
 @media print {
-  body * {
-    visibility: hidden;
+
+  body {
+    margin: 0;
   }
 
-  #reportOutput, #reportOutput * {
-    visibility: visible;
+  .container.crc-page > * {
+    display: none;
   }
 
   #reportOutput {
-    position: absolute;
-    left: 0;
-    top: 0;
+    display: block !important;
+    position: static;
     width: 100%;
+    margin: 0;
   }
-}
 
+  #reportOutput * {
+    display: block;
+  }
+
+}
 </style>
 </style>
  </head>
