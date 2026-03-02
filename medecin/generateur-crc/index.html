@@ -52,7 +52,17 @@
             <a href="https://www.cnil.fr/fr/les-droits-pour-maitriser-vos-donnees-personnelles" target="_blank" rel="noopener noreferrer">Vos droits (CNIL)</a>
         </div>
      <h1>Générateur de compte-rendu – Consultation d’activité physique</h1>
-
+    
+<div id="preconsultationNotice" style="display:none; 
+background:#eef2ff; 
+border:1px solid #c7d2fe; 
+padding:10px; 
+margin-bottom:15px; 
+font-size:14px;">
+Données de pré-consultation détectées et intégrées automatiquement. 
+Vous pouvez les modifier si nécessaire.
+    
+</div>
         <p>Veuillez renseigner les différents items ci-dessous pour générer le compte-rendu. Vous pouvez vous aider du « Guide Prescription Activité Physique et Lutte contre la Sédentarité (« Adulte » >15 ans) »</p>
         <form id="consultationForm">
             <div class="form-group">
@@ -497,6 +507,112 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // ⚠️ Phase 1 : on ne pré-remplit rien encore.
   // On pose uniquement la brique d’infrastructure.
+});
+            /******************************************************************
+ * IMPORT + PRÉ-REMPLISSAGE AUTOMATIQUE
+ ******************************************************************/
+
+function detectPreconsultationJSON() {
+  try {
+    const raw = sessionStorage.getItem("preconsultation_final");
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw);
+
+    if (
+      !parsed ||
+      typeof parsed !== "object" ||
+      !parsed.resultats ||
+      !parsed.motivation ||
+      !parsed.meta
+    ) {
+      return null;
+    }
+
+    return parsed;
+
+  } catch {
+    return null;
+  }
+}
+
+function applyPreconsultationToForm(data) {
+
+  if (!data) return;
+
+  const questionnaire = data.meta.questionnaires;
+  const niveau = data.resultats.niveau_activite;
+  const pas = data.resultats.pas_moyens_jour_1_mois;
+  const stade = data.motivation.stade;
+  const importance = data.motivation.importance_eva_0_10;
+  const confiance = data.motivation.confiance_eva_0_10;
+
+  // Questionnaire
+  if (questionnaire) {
+    const qRadio = document.querySelector(`input[name="questionnaire"][value="${questionnaire}"]`);
+    if (qRadio) qRadio.checked = true;
+  }
+
+  // Niveau
+  if (niveau === "insuffisamment_actif") {
+    const r = document.querySelector(`input[name="niveau_actuel"][value="inactif"]`);
+    if (r) r.checked = true;
+  }
+
+  if (
+    niveau === "très_actif" ||
+    niveau === "moyennement_actif" ||
+    niveau === "suffisamment_actif"
+  ) {
+    const r = document.querySelector(`input[name="niveau_actuel"][value="actif"]`);
+    if (r) r.checked = true;
+  }
+
+  // Pas
+  if (pas != null) {
+    const inputPas = document.querySelector(`input[name="nombre_pas"]`);
+    if (inputPas) inputPas.value = pas;
+  }
+
+  // Stade
+  if (stade === "préparation") {
+    const apOui = document.querySelector(`input[name="ap_envisagee"][value="oui"]`);
+    if (apOui) apOui.checked = true;
+  }
+
+  if (stade === "consolidation") {
+    const plus6 = document.querySelector(`input[name="actif_depuis"][value="plus_6_mois"]`);
+    if (plus6) plus6.checked = true;
+  }
+
+  if (stade === "action") {
+    const moins6 = document.querySelector(`input[name="actif_depuis"][value="moins_6_mois"]`);
+    if (moins6) moins6.checked = true;
+  }
+
+  // EVA
+  if (importance != null) {
+    const imp = document.querySelector(`input[name="importance_ap"]`);
+    if (imp) imp.value = importance;
+  }
+
+  if (confiance != null) {
+    const conf = document.querySelector(`input[name="confiance_ap"]`);
+    if (conf) conf.value = confiance;
+  }
+
+  // Affichage message
+  const notice = document.getElementById("preconsultationNotice");
+  if (notice) notice.style.display = "block";
+}
+
+
+// Exécution automatique
+document.addEventListener("DOMContentLoaded", function () {
+  const data = detectPreconsultationJSON();
+  if (data) {
+    applyPreconsultationToForm(data);
+  }
 });
         document.getElementById('generateReport').addEventListener('click', function() {
 
