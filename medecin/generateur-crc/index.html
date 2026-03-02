@@ -638,7 +638,7 @@ if (m.confiance !== null && m.confiance !== "") {
 
   return phrases.join(" ");
 }
-            function buildConclusion(model) {
+        function buildConclusion(model) {
 
   const rcv = model.evaluation.rcv;
   const stade = model.motivation.stade;
@@ -646,26 +646,26 @@ if (m.confiance !== null && m.confiance !== "") {
   let phrase = "Au total, ";
 
   if (rcv === "faible") {
-    phrase += "la mise en place ou la poursuite d’une activité physique adaptée apparaît indiquée dans un contexte de faible risque cardiovasculaire";
+    phrase += "la mise en place ou la poursuite d’une activité physique adaptée apparaît indiquée dans un contexte de faible risque cardiovasculaire.";
   }
 
-  if (rcv === "modere") {
-    phrase += "la pratique d’une activité physique adaptée est encouragée avec une progression prudente compte tenu d’un risque cardiovasculaire modéré";
+  else if (rcv === "modere") {
+    phrase += "la pratique d’une activité physique adaptée est encouragée avec une progression prudente compte tenu d’un risque cardiovasculaire modéré.";
   }
 
-  if (rcv === "eleve_tres_eleve") {
-    phrase += "la pratique d’une activité physique devra être encadrée et adaptée au regard du risque cardiovasculaire élevé à très élevé";
+  else if (rcv === "eleve_tres_eleve") {
+    phrase += "la pratique d’une activité physique devra être encadrée et adaptée au regard du risque cardiovasculaire élevé à très élevé.";
   }
 
-  if (!rcv) {
-    phrase += "une adaptation individualisée de l’activité physique est proposée";
+  else {
+    // Si RCV non renseigné → pas de phrase creuse
+    return "";
   }
 
-  if (stade) {
-    phrase += `, en tenant compte d’un stade motivationnel de ${stade}`;
+  // Ajout motivation uniquement si pertinente
+  if (stade && stade !== "indétermination") {
+    phrase += ` La stratégie proposée tient compte d’un stade motivationnel de ${stade}.`;
   }
-
-  phrase += ".";
 
   return phrase;
 }
