@@ -529,7 +529,7 @@ if (e.classification === "inactif") {
 
   // Nombre de pas
   if (p.pas_moyens) {
-    phrase += `, avec un nombre moyen estimé à environ ${p.pas_moyens} pas par jour sur le dernier mois`;
+   phrase += `, avec un nombre moyen de ${p.pas_moyens} pas par jour sur le dernier mois`;
   }
 
   // Sédentarité différenciée
@@ -559,7 +559,7 @@ if (e.sedentarite === "non_recherche") {
   let phrase = "Sur le plan motivationnel, ";
 
   if (m.stade && m.stade !== "indétermination") {
-    phrase += `la personne se situe dans un stade motivationnel de ${m.stade}`;
+    phrase += `la personne se situe dans un stade de ${m.stade}`;
   } else {
     phrase += "le stade motivationnel n’a pas pu être précisé";
   }
