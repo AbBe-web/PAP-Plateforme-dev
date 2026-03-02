@@ -563,11 +563,10 @@ if (e.sedentarite === "sedentaire") {
     phrase += "le stade motivationnel n’a pas pu être précisé";
   }
 
-  if (m.importance) {
+if (m.importance !== null && m.importance !== "") {
     phrase += `, avec une importance accordée à l’activité physique évaluée à ${m.importance}/10`;
   }
-
-  if (m.confiance) {
+if (m.confiance !== null && m.confiance !== "") {
     phrase += ` et un niveau de confiance estimé à ${m.confiance}/10`;
   }
 
@@ -699,8 +698,15 @@ const sedentariteTexte = e.sedentarite
 
 // 🔹 Motivation
 const stadeTexte = m.stade || "non précisé";
-const importanceTexte = m.importance || "—";
-const confianceTexte = m.confiance || "—";
+const importanceTexte =
+  (m.importance !== null && m.importance !== "")
+    ? m.importance
+    : "non renseignée";
+
+const confianceTexte =
+  (m.confiance !== null && m.confiance !== "")
+    ? m.confiance
+    : "non renseignée";
 
 const freinsLeviersTexte =
   (m.freins || m.leviers)
