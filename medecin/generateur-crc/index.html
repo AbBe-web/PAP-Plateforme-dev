@@ -515,11 +515,11 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   // Reformulation clinique
  if (e.classification === "actif") {
-  phrase += "considéré comme actif au regard des recommandations actuelles";
+  phrase += "phrase += "actif au regard des recommandations actuelles";";
 }
 
 if (e.classification === "inactif") {
-  phrase += "considéré comme insuffisamment actif au regard des recommandations actuelles";
+  phrase += "insuffisamment actif au regard des recommandations actuelles";
 }
 
   // Questionnaire synthétique
@@ -534,19 +534,19 @@ if (e.classification === "inactif") {
 
   // Sédentarité différenciée
 if (e.sedentarite === "sedentaire") {
-  phrase += ", dans un contexte de sédentarité associée";
+  phrase += ", avec une sédentarité associée";
   if (p.heures_assises) {
     phrase += ` (environ ${p.heures_assises} heures assises par jour)`;
   }
 }
 
-  if (e.sedentarite === "non_sedentaire") {
-    phrase += ", sans sédentarité associée identifiée";
-  }
+if (e.sedentarite === "non_sedentaire") {
+  phrase += ", sans sédentarité associée identifiée";
+}
 
-  if (e.sedentarite === "non_recherche") {
-    phrase += ", le statut de sédentarité n’ayant pas été recherché lors de cette consultation";
-  }
+if (e.sedentarite === "non_recherche") {
+  phrase += ", le statut de sédentarité n’ayant pas été recherché lors de cette consultation";
+}
 
   phrase += ".";
 
@@ -559,7 +559,7 @@ if (e.sedentarite === "sedentaire") {
   let phrase = "Sur le plan motivationnel, ";
 
   if (m.stade && m.stade !== "indétermination") {
-    phrase += `la personne se situe dans un stade de ${m.stade}`;
+    phrase += `la personne se situe dans un stade motivationnel de ${m.stade}`;
   } else {
     phrase += "le stade motivationnel n’a pas pu être précisé";
   }
