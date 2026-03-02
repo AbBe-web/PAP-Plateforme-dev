@@ -41,6 +41,25 @@
   justify-content: space-between;
   margin-top: 10px;
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #reportOutput, #reportOutput * {
+    visibility: visible;
+  }
+
+  #reportOutput {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+</style>
 </style>
  </head>
 <body>
@@ -534,7 +553,7 @@ if (e.classification === "inactif") {
 
   // Sédentarité différenciée
 if (e.sedentarite === "sedentaire") {
-  phrase += ", avec une sédentarité associée";
+  phrase += ", et une sédentarité associée";
   if (p.heures_assises) {
     phrase += ` (environ ${p.heures_assises} heures assises par jour)`;
   }
