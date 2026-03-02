@@ -399,6 +399,105 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   };
 }
+            /******************************************************************
+ * IMPORT AUTOMATIQUE PRÉ-CONSULTATION (MODE SILENCIEUX – PHASE 1)
+ ******************************************************************/
+
+function detectPreconsultationJSON() {
+
+  try {
+    const raw = sessionStorage.getItem("preconsultation_final");
+    if (!raw) return null;
+
+    const parsed = JSON.parse(raw);
+
+    // Validation minimale structure
+    if (
+      !parsed ||
+      typeof parsed !== "object" ||
+      !parsed.resultats ||
+      !parsed.motivation ||
+      !parsed.meta
+    ) {
+      console.warn("Préconsultation : structure invalide");
+      return null;
+    }
+
+    return parsed;
+
+  } catch (e) {
+    console.warn("Préconsultation : JSON invalide", e);
+    return null;
+  }
+}
+
+
+function normalizeFromPreconsultation(data) {
+
+  if (!data) return null;
+
+  const questionnaire = data.meta?.questionnaires ?? null;
+
+  const categorieDetaillee = data.resultats?.niveau_activite ?? null;
+
+  // Déduction niveau global
+  let niveauGlobal = null;
+
+  if (categorieDetaillee) {
+    if (
+      categorieDetaillee === "très_actif" ||
+      categorieDetaillee === "moyennement_actif" ||
+      categorieDetaillee === "suffisamment_actif"
+    ) {
+      niveauGlobal = "suffisamment_actif";
+    }
+
+    if (categorieDetaillee === "insuffisamment_actif") {
+      niveauGlobal = "insuffisamment_actif";
+    }
+  }
+
+  return {
+
+    questionnaire: questionnaire,
+    categorie_detaillee: categorieDetaillee,
+    niveau_global: niveauGlobal,
+    met_min_semaine: data.resultats?.met_minutes_semaine ?? null,
+    score_marshall:
+      questionnaire === "Marshall"
+        ? (data.questionnaires?.marshall?.q1 || 0) +
+          (data.questionnaires?.marshall?.q2 || 0)
+        : null,
+
+    pas_moyens: data.resultats?.pas_moyens_jour_1_mois ?? null,
+
+    sedentarite_heures:
+      data.questionnaires?.gpaq?.sedentarite?.heures_par_jour ?? null,
+
+    stade: data.motivation?.stade ?? null,
+    importance: data.motivation?.importance_eva_0_10 ?? null,
+    confiance: data.motivation?.confiance_eva_0_10 ?? null
+  };
+}
+
+
+// Exécution automatique au chargement
+document.addEventListener("DOMContentLoaded", function() {
+
+  const detected = detectPreconsultationJSON();
+
+  if (!detected) {
+    console.log("CRC : aucune préconsultation détectée.");
+    return;
+  }
+
+  const normalized = normalizeFromPreconsultation(detected);
+
+  console.log("CRC : préconsultation détectée et normalisée →", normalized);
+
+  // ⚠️ Phase 1 : on ne pré-remplit rien encore.
+  // On pose uniquement la brique d’infrastructure.
+});
         document.getElementById('generateReport').addEventListener('click', function() {
 
   const model = buildClinicalModel();
