@@ -299,8 +299,11 @@
                 <h2>10/ Le destinataire du courrier est :</h2>
               <label class="inline-option"><input type="radio" name="destinataire" value="consoeur"> Une consœur</label>
 <label class="inline-option"><input type="radio" name="destinataire" value="confrere"> Un confrère</label>
-
             </div>
+            <div class="form-group">
+  <h2>11/ Date du courrier (facultatif) :</h2>
+  <input type="date" name="date_courrier">
+</div>
            <button type="button" id="generateReport" class="btn">Générer le compte-rendu</button>
         </form>
       <div id="reportOutput" class="hidden">
@@ -680,7 +683,21 @@ if (m.confiance !== null && m.confiance !== "") {
       function renderLongLetterV2(model) {
 
   const p = model.patient;
+          
+  const inputDate = document.querySelector('input[name="date_courrier"]')?.value;
 
+  const today = inputDate
+    ? new Date(inputDate).toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      })
+    : new Date().toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+          
   const salutations =
     model.meta.destinataire === "consoeur" ? "Chère consœur," :
     model.meta.destinataire === "confrere" ? "Cher confrère," :
@@ -694,6 +711,8 @@ if (m.confiance !== null && m.confiance !== "") {
   const prescriptionBloc = buildPrescription(model);
  
   return `
+<p style="text-align:right;">Le ${today}</p>
+
 <p>${salutations}</p>
 
 <p>
