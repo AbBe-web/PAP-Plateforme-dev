@@ -563,29 +563,35 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   };
 }
-   document.getElementById('generateReport').addEventListener('click', function() {
+  const generateBtn = document.getElementById('generateReport');
 
-  // ✅ Corrige le double tap iOS
+function handleGenerate() {
+
   if (document.activeElement) {
     document.activeElement.blur();
   }
 
-  setTimeout(() => {
+  clinicalModel = buildClinicalModel();
+  activeMode = "long";
 
-    clinicalModel = buildClinicalModel();
-    activeMode = "long";
+  document.getElementById("formatTabs").classList.remove("hidden");
+  document.getElementById("reportOutput").classList.remove("hidden");
 
-    document.getElementById("formatTabs").classList.remove("hidden");
-    document.getElementById("reportOutput").classList.remove("hidden");
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
 
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+  renderActiveMode();
+}
 
-    renderActiveMode();
-
-  }, 50);
-
+/* iOS */
+generateBtn.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  handleGenerate();
 });
+
+/* Desktop / autres navigateurs */
+generateBtn.addEventListener('click', handleGenerate);
+            
             document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", function () {
 
