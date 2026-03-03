@@ -155,7 +155,6 @@
   opacity: 1;
 }
 </style>
-</style>
  </head>
 <body>
 <div class="container crc-page">
@@ -977,10 +976,13 @@ ${prescriptionBloc}</p>
 container.classList.remove("fade-out");
 container.classList.add("fade-in");
 
-window.scrollTo({
-  top: document.getElementById("reportOutput").offsetTop,
-  behavior: "smooth"
-});
+setTimeout(() => {
+  document.getElementById("reportOutput").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}, 50);
+      
   }, 120);
 }
           });
