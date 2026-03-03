@@ -580,6 +580,11 @@ function handleGenerate(e) {
   e.preventDefault();
   e.stopPropagation();
 
+  // 🔹 Forcer la perte de focus (corrige bug iOS Safari)
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+
   clinicalModel = buildClinicalModel();
   activeMode = "long";
 
