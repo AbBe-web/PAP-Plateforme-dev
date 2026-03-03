@@ -867,6 +867,35 @@ ${prescriptionBloc}
 </p>
 `;
 }
+            function renderMedicalRecord(model) {
+
+  const evaluationBloc = buildEvaluationAP(model);
+  const motivationBloc = buildMotivation(model);
+  const rcvBloc = buildRCV(model);
+  const prescriptionBloc = buildPrescription(model);
+
+  return `
+<p><strong>Consultation d’activité physique – Synthèse</strong></p>
+
+<p><strong>Motif :</strong><br>
+Consultation d’activité physique sur adressage.</p>
+
+<p><strong>Évaluation de l’activité physique :</strong><br>
+${evaluationBloc}</p>
+
+<p><strong>Évaluation motivationnelle :</strong><br>
+${motivationBloc}</p>
+
+<p><strong>Risque cardiovasculaire global :</strong><br>
+${rcvBloc.replace("Le risque cardiovasculaire global est évalué comme ", "").replace(".", "")}</p>
+
+<p><strong>Objectifs :</strong><br>
+${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
+
+<p><strong>Prescription :</strong><br>
+${prescriptionBloc}</p>
+`;
+}
             function renderActiveMode() {
 
   if (!clinicalModel) return;
