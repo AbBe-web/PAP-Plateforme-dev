@@ -950,43 +950,28 @@ ${prescriptionBloc}</p>
 
   const container = document.getElementById("outputContainer");
 
-  container.classList.add("fade-out");
+  let html = "";
 
-  setTimeout(() => {
+  switch (activeMode) {
+    case "long":
+      html = renderLongLetterV2(clinicalModel);
+      break;
 
-    let html = "";
+    case "paragraph":
+      html = renderParagraphVersion(clinicalModel);
+      break;
 
-    switch (activeMode) {
-      case "long":
-        html = renderLongLetterV2(clinicalModel);
-        break;
+    case "medical":
+      html = renderMedicalRecord(clinicalModel);
+      break;
+  }
 
-      case "paragraph":
-        html = renderParagraphVersion(clinicalModel);
-        break;
+  container.innerHTML = html;
 
-      case "medical":
-        html = renderMedicalRecord(clinicalModel);
-        break;
-
-      case "patient":
-        html = renderPatientVersion(clinicalModel);
-        break;
-    }
-
-    container.innerHTML = html;
-
-container.classList.remove("fade-out");
-container.classList.add("fade-in");
-
-setTimeout(() => {
   document.getElementById("reportOutput").scrollIntoView({
-    behavior: "smooth",
+    behavior: "auto",
     block: "start"
   });
-}, 50);
-      
-  }, 120);
 }
           });
     </script>
