@@ -70,6 +70,26 @@
     @page {
   margin: 15mm;
 }
+    .format-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background: #0077cc;
+  color: white;
+  border-color: #0077cc;
+}
 </style>
 </style>
  </head>
@@ -306,27 +326,35 @@
 </div>
            <button type="button" id="generateReport" class="btn">Générer le compte-rendu</button>
         </form>
-      <div id="reportOutput" class="hidden">
+    
+     <div id="reportOutput" class="hidden">
 
-    <div id="reportContent">
-        <p id="reportText"></p>
-    </div>
+  <!-- Onglets de format -->
+  <div id="formatTabs" class="format-tabs hidden">
+    <button type="button" class="tab-btn active" data-mode="long">Courrier complet</button>
+    <button type="button" class="tab-btn" data-mode="paragraph">Paragraphe</button>
+    <button type="button" class="tab-btn" data-mode="medical">Dossier médical</button>
+    <button type="button" class="tab-btn" data-mode="patient">Version patient</button>
+  </div>
 
-    <div id="reportActions">
-    <button type="button" id="generateParagraph" class="btn secondary">
-        Version paragraphe
-    </button>
+  <!-- Contenu rendu -->
+  <div id="outputContainer"></div>
 
+  <!-- Actions -->
+  <div id="reportActions">
     <button type="button" id="printReport" class="btn">Imprimer</button>
-    <button type="button" id="copyReport" class="btn">Copier le CRC</button>
-</div>
+    <button type="button" id="copyReport" class="btn">Copier</button>
+  </div>
 
+</div>
 </div>
 
     </div>
     <script>
         
         document.addEventListener('DOMContentLoaded', function() {
+            let clinicalModel = null;
+let activeMode = "long";
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
                     if (this.value === 'actif') {
@@ -444,13 +472,19 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   };
 }
-        document.getElementById('generateReport').addEventListener('click', function() {
+      document.getElementById('generateReport').addEventListener('click', function() {
 
-  const model = buildClinicalModel();
-  const reportText = renderLongLetterV2(model);
+  clinicalModel = buildClinicalModel();
+  activeMode = "long";
 
-  document.getElementById('reportText').innerHTML = reportText;
-  document.getElementById('reportOutput').classList.remove('hidden');
+  document.getElementById("formatTabs").classList.remove("hidden");
+  document.getElementById("reportOutput").classList.remove("hidden");
+
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+
+  renderActiveMode();
+
   document.getElementById('reportOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
 
 });
@@ -461,6 +495,32 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   document.getElementById('reportText').innerHTML = paragraphText;
   document.getElementById('reportOutput').classList.remove('hidden');
+       function renderActiveMode() {
+
+  if (!clinicalModel) return;
+
+  let html = "";
+
+  switch (activeMode) {
+    case "long":
+      html = renderLongLetterV2(clinicalModel);
+      break;
+
+    case "paragraph":
+      html = renderParagraphVersion(clinicalModel);
+      break;
+
+    case "medical":
+      html = renderMedicalRecord(clinicalModel);
+      break;
+
+    case "patient":
+      html = renderPatientVersion(clinicalModel);
+      break;
+  }
+
+  document.getElementById("outputContainer").innerHTML = html;
+}      
 });
             
             document.getElementById('printReport').addEventListener('click', function() {
