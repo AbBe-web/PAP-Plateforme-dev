@@ -91,12 +91,34 @@
   white-space: nowrap;
   font-size: 0.9rem;
   min-height: 42px;
+
+  -webkit-tap-highlight-color: transparent; /* suppression flash iOS */
+}
+/* ===== Animations boutons onglets ===== */
+
+.tab-btn {
+  transition: 
+    background-color 0.2s ease,
+    transform 0.08s ease,
+    box-shadow 0.2s ease;
 }
 
+/* Hover PC */
+.tab-btn:hover {
+  background-color: #e9f2fb;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+/* Clic (PC + iOS) */
+.tab-btn:active {
+  transform: translateY(0px) scale(0.98);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
 .tab-btn.active {
-  background: #0077cc;
+  background: var(--primary-color, #0077cc);
   color: white;
-  border-color: #0077cc;
+  border-color: var(--primary-color, #0077cc);
 }
 
 /* ===== Adaptation mobile ===== */
@@ -119,7 +141,19 @@
   flex: 1;
   min-height: 42px;
 }
-    
+    /* Animation douce du contenu */
+
+#outputContainer {
+  transition: opacity 0.15s ease;
+}
+
+#outputContainer.fade-out {
+  opacity: 0;
+}
+
+#outputContainer.fade-in {
+  opacity: 1;
+}
 </style>
 </style>
  </head>
@@ -837,26 +871,39 @@ ${prescriptionBloc}
 
   if (!clinicalModel) return;
 
-  let html = "";
+  const container = document.getElementById("outputContainer");
 
-  switch (activeMode) {
-    case "long":
-      html = renderLongLetterV2(clinicalModel);
-      break;
+  container.classList.add("fade-out");
 
-    case "paragraph":
-      html = renderParagraphVersion(clinicalModel);
-      break;
+  setTimeout(() => {
 
-    case "medical":
-      html = renderMedicalRecord(clinicalModel);
-      break;
+    let html = "";
 
-    case "patient":
-      html = renderPatientVersion(clinicalModel);
-      break;
-  }
+    switch (activeMode) {
+      case "long":
+        html = renderLongLetterV2(clinicalModel);
+        break;
 
+      case "paragraph":
+        html = renderParagraphVersion(clinicalModel);
+        break;
+
+      case "medical":
+        html = renderMedicalRecord(clinicalModel);
+        break;
+
+      case "patient":
+        html = renderPatientVersion(clinicalModel);
+        break;
+    }
+
+    container.innerHTML = html;
+
+    container.classList.remove("fade-out");
+    container.classList.add("fade-in");
+
+  }, 120);
+}
   document.getElementById("outputContainer").innerHTML = html;
 }
         });
