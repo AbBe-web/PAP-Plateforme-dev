@@ -563,33 +563,35 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   };
 }
-  const generateBtn = document.getElementById('generateReport');
+const generateBtn = document.getElementById('generateReport');
+const form = document.getElementById('consultationForm');
 
-function handleGenerate() {
+function handleGenerate(e) {
+
+  e.preventDefault();
+  e.stopPropagation();
 
   if (document.activeElement) {
     document.activeElement.blur();
   }
 
-  clinicalModel = buildClinicalModel();
-  activeMode = "long";
+  // petit délai iOS pour fermeture clavier + recalcul layout
+  requestAnimationFrame(() => {
 
-  document.getElementById("formatTabs").classList.remove("hidden");
-  document.getElementById("reportOutput").classList.remove("hidden");
+    clinicalModel = buildClinicalModel();
+    activeMode = "long";
 
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+    document.getElementById("formatTabs").classList.remove("hidden");
+    document.getElementById("reportOutput").classList.remove("hidden");
 
-  renderActiveMode();
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+
+    renderActiveMode();
+
+  });
 }
 
-/* iOS */
-generateBtn.addEventListener('touchend', function(e) {
-  e.preventDefault();
-  handleGenerate();
-});
-
-/* Desktop / autres navigateurs */
 generateBtn.addEventListener('click', handleGenerate);
             
             document.querySelectorAll(".tab-btn").forEach(btn => {
