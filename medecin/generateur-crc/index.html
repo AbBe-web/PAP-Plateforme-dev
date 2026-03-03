@@ -947,6 +947,70 @@ ${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
 ${prescriptionBloc}</p>
 `;
 }
+           function renderPatientVersion(model) {
+
+  const evaluationBloc = buildEvaluationAP(model)
+    .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
+    .replace("au regard des recommandations actuelles", "par rapport aux recommandations de santé");
+
+  const motivationBloc = buildMotivation(model)
+    .replace("Sur le plan motivationnel,", "")
+    .replace("la personne se situe dans un stade de", "")
+    .replace("Les principaux freins identifiés sont :", "Les difficultés que vous avez évoquées sont :")
+    .replace("Les leviers mobilisables sont :", "Les points positifs sur lesquels vous pouvez vous appuyer sont :");
+
+  const stade = model.motivation.stade && model.motivation.stade !== "indétermination"
+    ? `Sur le plan de la motivation à pratiquer de l’activité physique, vous êtes actuellement dans une phase de ${model.motivation.stade}.`
+    : "Le stade motivationnel n’a pas pu être précisé.";
+
+  const rcvBloc = buildRCV(model)
+    .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
+    .replace(".", "");
+
+  const prescriptionBloc = buildPrescription(model)
+    .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
+    .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
+    .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
+
+  return `
+<p><strong>Compte-rendu de votre consultation d’activité physique</strong></p>
+
+<p>
+${evaluationBloc}
+</p>
+
+<p>
+${stade}
+${motivationBloc}
+</p>
+
+<p>
+${rcvBloc}.
+</p>
+
+<p>
+Lors de l’échange que vous avez eu avec votre médecin, l’objectif principal retenu en termes d’activité physique est :
+<strong>${model.therapeutic_plan.objectif_principal || "à définir progressivement ensemble"}</strong>.
+</p>
+
+<p>
+${prescriptionBloc}
+</p>
+
+<p>
+Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
+</p>
+
+<p>
+En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.
+Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercices :
+<br>
+<a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf" target="_blank">
+Les règles d’or en cardiologie du sport
+</a>
+</p>
+`;
+}
            function renderActiveMode() {
 
   if (!clinicalModel) return;
@@ -967,6 +1031,9 @@ ${prescriptionBloc}</p>
     case "medical":
       html = renderMedicalRecord(clinicalModel);
       break;
+    case "patient":
+  html = renderPatientVersion(clinicalModel);
+  break;
   }
 
   container.classList.add("fade-out");
