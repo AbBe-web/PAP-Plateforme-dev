@@ -70,25 +70,60 @@
     @page {
   margin: 15mm;
 }
-    .format-tabs {
+   /* ===== Onglets pleine largeur harmonisés ===== */
+
+.format-tabs {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 25px;
+  gap: 0; /* pas d’espace entre boutons */
 }
 
 .tab-btn {
-  padding: 8px 14px;
-  border-radius: 8px;
+  flex: 1;                 /* chaque bouton prend 25% */
+  padding: 10px 12px;
   border: 1px solid #ccc;
   background: #f5f5f5;
   cursor: pointer;
+  font-weight: 500;
+  border-radius: 0;        /* on enlève les arrondis généraux */
+}
+
+/* Coins arrondis uniquement aux extrémités */
+.tab-btn:first-child {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.tab-btn:last-child {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* Supprime double bordure interne */
+.tab-btn + .tab-btn {
+  border-left: none;
 }
 
 .tab-btn.active {
   background: #0077cc;
   color: white;
   border-color: #0077cc;
+}
+    .tab-btn {
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+    /* ===== Boutons d'action pleine largeur ===== */
+
+#reportActions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+#reportActions .btn {
+  flex: 1;
 }
 </style>
 </style>
@@ -327,7 +362,10 @@
            <button type="button" id="generateReport" class="btn">Générer le compte-rendu</button>
         </form>
     
-     <div id="reportOutput" class="hidden">
+    <div id="reportOutput" class="hidden">
+
+  <!-- Contenu rendu -->
+  <div id="outputContainer"></div>
 
   <!-- Onglets de format -->
   <div id="formatTabs" class="format-tabs hidden">
@@ -337,16 +375,12 @@
     <button type="button" class="tab-btn" data-mode="patient">Version patient</button>
   </div>
 
-  <!-- Contenu rendu -->
-  <div id="outputContainer"></div>
-
   <!-- Actions -->
   <div id="reportActions">
     <button type="button" id="printReport" class="btn">Imprimer</button>
     <button type="button" id="copyReport" class="btn">Copier</button>
   </div>
 
-</div>
 </div>
 
     </div>
