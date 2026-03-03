@@ -416,7 +416,8 @@
   <!-- Actions -->
   <div id="reportActions">
     <button type="button" id="printReport" class="btn">Imprimer</button>
-    <button type="button" id="copyReport" class="btn">Copier</button>
+<button type="button" id="copyReport" class="btn">Copier</button>
+<button type="button" id="downloadPdf" class="btn hidden">Télécharger en PDF</button>
   </div>
 
 </div>
@@ -633,7 +634,24 @@ generateBtn.addEventListener('click', handleGenerate);
   container.style.transition = previousTransition;
 
 });
-           
+           document.getElementById('downloadPdf').addEventListener('click', function (e) {
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+
+  const container = document.getElementById("outputContainer");
+  const previousTransition = container.style.transition;
+  container.style.transition = "none";
+
+  window.print();
+
+  container.style.transition = previousTransition;
+
+});
             document.getElementById('copyReport').addEventListener('click', function() {
               const reportText = document.getElementById('outputContainer').innerText;
                 navigator.clipboard.writeText(reportText).then(function() {
@@ -1066,7 +1084,9 @@ Les 10 règles d’or du Club des Cardiologues du Sport
   const container = document.getElementById("outputContainer");
 
   let html = "";
-
+               
+const pdfBtn = document.getElementById("downloadPdf");
+               
   switch (activeMode) {
     case "long":
       html = renderLongLetterV2(clinicalModel);
@@ -1085,7 +1105,13 @@ Les 10 règles d’or du Club des Cardiologues du Sport
   }
 
   container.classList.add("fade-out");
-
+               
+// Affiche bouton PDF uniquement en mode patient
+if (activeMode === "patient") {
+  pdfBtn.classList.remove("hidden");
+} else {
+  pdfBtn.classList.add("hidden");
+}
  container.style.opacity = "0";
 container.innerHTML = html;
 container.style.opacity = "1";
