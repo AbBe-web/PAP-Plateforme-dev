@@ -515,17 +515,18 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
     },
 
     prescription: {
-      aerobie: {
-        frequence: document.querySelector('input[name="fois_aerobie"]')?.value || null,
-        intensite: document.querySelector('input[name="intensite_aerobie"]:checked')?.value || null
-      },
-      renforcement: {
-        frequence: document.querySelector('input[name="fois_renforcement"]')?.value || null
-      },
-      souplesse: {
-        frequence: document.querySelector('input[name="fois_souplesse"]')?.value || null
-      }
-    },
+  aerobie: {
+    frequence: document.querySelector('input[name="fois_aerobie"]')?.value || null,
+    intensite: document.querySelector('input[name="intensite_aerobie"]:checked')?.value || null
+  },
+  renforcement: {
+    frequence: document.querySelector('input[name="fois_renforcement"]')?.value || null
+  },
+  souplesse: {
+    frequence: document.querySelector('input[name="fois_souplesse"]')?.value || null
+  },
+  fiches_promotion: document.querySelector('input[name="fiches_promotion"]:checked')?.value || null
+},
 
     decision: {
       specialite: "aucune", // on structurera l’interface ensuite
@@ -770,7 +771,10 @@ if (m.confiance !== null && m.confiance !== "") {
   if (pr.souplesse.frequence) {
     phrases.push(`Un travail de souplesse et de mobilité est proposé ${pr.souplesse.frequence} fois par semaine.`);
   }
-
+                
+if (pr.fiches_promotion === "oui") {
+  phrases.push("Des fiches de promotion d’activité physique ont été remises.");
+}
   if (phrases.length === 0) {
     return "Aucune prescription spécifique n’a été formalisée lors de cette consultation.";
   }
