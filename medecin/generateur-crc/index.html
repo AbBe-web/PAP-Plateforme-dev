@@ -588,21 +588,16 @@ function handleGenerate(e) {
   e.preventDefault();
   e.stopPropagation();
 
-    // petit délai iOS pour fermeture clavier + recalcul layout
-  requestAnimationFrame(() => {
+  clinicalModel = buildClinicalModel();
+  activeMode = "long";
 
-    clinicalModel = buildClinicalModel();
-    activeMode = "long";
+  document.getElementById("formatTabs").classList.remove("hidden");
+  document.getElementById("reportOutput").classList.remove("hidden");
 
-    document.getElementById("formatTabs").classList.remove("hidden");
-    document.getElementById("reportOutput").classList.remove("hidden");
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
 
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
-
-    renderActiveMode();
-
-  });
+  renderActiveMode();
 }
 
 generateBtn.addEventListener('click', handleGenerate);
