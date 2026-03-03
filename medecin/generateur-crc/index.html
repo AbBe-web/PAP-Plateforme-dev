@@ -43,7 +43,6 @@
 }
 
 @media print {
-
   body {
     margin: 0;
   }
@@ -56,53 +55,42 @@
     display: block !important;
   }
 
-  #reportContent {
+  #outputContainer {
     display: block;
     width: 100%;
     margin: 0;
   }
 
-  #reportActions {
+  #reportActions,
+  #formatTabs {
     display: none !important;
   }
-
 }
     @page {
   margin: 15mm;
 }
-   /* ===== Onglets pleine largeur harmonisés ===== */
+
+/* ===== Onglets séparés et responsive ===== */
 
 .format-tabs {
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 25px;
-  gap: 0; /* pas d’espace entre boutons */
 }
 
 .tab-btn {
-  flex: 1;                 /* chaque bouton prend 25% */
+  flex: 1 1 calc(25% - 10px);
   padding: 10px 12px;
+  border-radius: 8px;
   border: 1px solid #ccc;
   background: #f5f5f5;
   cursor: pointer;
   font-weight: 500;
-  border-radius: 0;        /* on enlève les arrondis généraux */
-}
-
-/* Coins arrondis uniquement aux extrémités */
-.tab-btn:first-child {
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
-.tab-btn:last-child {
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-}
-
-/* Supprime double bordure interne */
-.tab-btn + .tab-btn {
-  border-left: none;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  min-height: 42px;
 }
 
 .tab-btn.active {
@@ -110,11 +98,16 @@
   color: white;
   border-color: #0077cc;
 }
-    .tab-btn {
-  white-space: nowrap;
-  font-size: 0.9rem;
+
+/* ===== Adaptation mobile ===== */
+
+@media (max-width: 768px) {
+  .tab-btn {
+    flex: 1 1 calc(50% - 10px);
+  }
 }
-    /* ===== Boutons d'action pleine largeur ===== */
+
+/* ===== Boutons d'action ===== */
 
 #reportActions {
   margin-top: 20px;
@@ -124,7 +117,9 @@
 
 #reportActions .btn {
   flex: 1;
+  min-height: 42px;
 }
+    
 </style>
 </style>
  </head>
