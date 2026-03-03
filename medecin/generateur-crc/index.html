@@ -578,11 +578,7 @@ function handleGenerate(e) {
   e.preventDefault();
   e.stopPropagation();
 
-  if (document.activeElement) {
-    document.activeElement.blur();
-  }
-
-  // petit délai iOS pour fermeture clavier + recalcul layout
+    // petit délai iOS pour fermeture clavier + recalcul layout
   requestAnimationFrame(() => {
 
     clinicalModel = buildClinicalModel();
