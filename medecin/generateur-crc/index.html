@@ -416,17 +416,37 @@
     <script>
         
         document.addEventListener('DOMContentLoaded', function() {
+            function scrollIfNeeded(element) {
+
+  if (!element) return;
+
+  const rect = element.getBoundingClientRect();
+  const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+  if (!isVisible && window.innerWidth <= 768) {
+    window.scrollTo({
+      top: window.scrollY + rect.top - 20,
+      behavior: "smooth"
+    });
+  }
+}
             let clinicalModel = null;
 let activeMode = "long";
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
                     if (this.value === 'actif') {
-                        document.getElementById('actif-subgroup').classList.remove('hidden');
-                        document.getElementById('inactif-subgroup').classList.add('hidden');
-                    } else if (this.value === 'inactif') {
-                        document.getElementById('inactif-subgroup').classList.remove('hidden');
-                        document.getElementById('actif-subgroup').classList.add('hidden');
-                    } else {
+  const actifBlock = document.getElementById('actif-subgroup');
+  actifBlock.classList.remove('hidden');
+  document.getElementById('inactif-subgroup').classList.add('hidden');
+
+  scrollIfNeeded(actifBlock);
+} else if (this.value === 'inactif') {
+  const inactifBlock = document.getElementById('inactif-subgroup');
+  inactifBlock.classList.remove('hidden');
+  document.getElementById('actif-subgroup').classList.add('hidden');
+
+  scrollIfNeeded(inactifBlock);
+} else {
                         document.getElementById('actif-subgroup').classList.add('hidden');
                         document.getElementById('inactif-subgroup').classList.add('hidden');
                     }
@@ -457,10 +477,12 @@ function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   function updateDisplay() {
     const selected = document.querySelector(`input[name="${groupName}"]:checked`);
 
-    if (selected && selected.value === "oui") {
-      subgroup.style.display = "flex";
-      if (extraBlock) extraBlock.style.display = "block";
-    } else {
+   if (selected && selected.value === "oui") {
+  subgroup.style.display = "flex";
+  if (extraBlock) extraBlock.style.display = "block";
+
+  scrollIfNeeded(subgroup);
+} else {
       subgroup.style.display = "none";
       if (extraBlock) extraBlock.style.display = "none";
       resetFields(); // 👈 nettoyage automatique
