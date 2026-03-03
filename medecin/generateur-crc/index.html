@@ -423,12 +423,16 @@
   if (window.innerWidth <= 768) {
 
     setTimeout(() => {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }, 50);
 
+  const yOffset = -15; // petit espace au-dessus
+  const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+  window.scrollTo({
+    top: y,
+    behavior: "smooth"
+  });
+
+}, 90);
   }
 }
             let clinicalModel = null;
