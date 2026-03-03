@@ -947,7 +947,7 @@ ${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
 ${prescriptionBloc}</p>
 `;
 }
-           function renderPatientVersion(model) {
+         function renderPatientVersion(model) {
 
   const evaluationBloc = buildEvaluationAP(model)
     .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
@@ -961,7 +961,7 @@ ${prescriptionBloc}</p>
 
   const stade = model.motivation.stade && model.motivation.stade !== "indétermination"
     ? `Sur le plan de la motivation à pratiquer de l’activité physique, vous êtes actuellement dans une phase de ${model.motivation.stade}.`
-    : "Le stade motivationnel n’a pas pu être précisé.";
+    : "";
 
   const rcvBloc = buildRCV(model)
     .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
@@ -971,6 +971,14 @@ ${prescriptionBloc}</p>
     .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
     .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
     .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
+
+  // 🔹 Message progressivité seulement si insuffisamment actif
+  const progressiviteMessage =
+    model.evaluation.classification === "inactif"
+      ? `<p>
+Augmenter progressivement votre niveau d’activité physique est important à la fois pour votre motivation (afin que cela ne soit pas trop difficile), mais aussi pour votre cœur, vos articulations et vos tendons, afin qu’ils puissent s’adapter sans risque pour vous.
+</p>`
+      : "";
 
   return `
 <p><strong>Compte-rendu de votre consultation d’activité physique</strong></p>
@@ -1001,13 +1009,14 @@ ${prescriptionBloc}
 Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
 </p>
 
+${progressiviteMessage}
+
 <p>
 En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.
 Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercices :
-<br>
 <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf" target="_blank">
-Les règles d’or en cardiologie du sport
-</a>
+Les 10 règles d’or du Club des Cardiologues du Sport
+</a>.
 </p>
 `;
 }
