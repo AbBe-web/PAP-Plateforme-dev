@@ -144,15 +144,7 @@
     /* Animation douce du contenu */
 
 #outputContainer {
-  transition: opacity 0.15s ease;
-}
-
-#outputContainer.fade-out {
-  opacity: 0;
-}
-
-#outputContainer.fade-in {
-  opacity: 1;
+  transition: opacity 0.18s ease;
 }
     #generateReport {
   position: relative;
@@ -974,7 +966,9 @@ ${prescriptionBloc}</p>
 
   container.classList.add("fade-out");
 
-  container.innerHTML = html;
+ container.style.opacity = "0";
+container.innerHTML = html;
+container.style.opacity = "1";
 
   container.classList.remove("fade-out");
   container.classList.add("fade-in");
