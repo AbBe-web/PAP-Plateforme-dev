@@ -612,8 +612,26 @@ generateBtn.addEventListener('click', handleGenerate);
     renderActiveMode();
   });
 });
-              document.getElementById('printReport').addEventListener('click', function () {
+            document.getElementById('printReport').addEventListener('click', function (e) {
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  // 🔹 Sécurise Safari iOS
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+
+  // 🔹 Désactive temporairement la transition (évite conflit iOS)
+  const container = document.getElementById("outputContainer");
+  const previousTransition = container.style.transition;
+  container.style.transition = "none";
+
   window.print();
+
+  // 🔹 Restaure la transition
+  container.style.transition = previousTransition;
+
 });
            
             document.getElementById('copyReport').addEventListener('click', function() {
