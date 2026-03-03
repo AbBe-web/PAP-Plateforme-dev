@@ -972,13 +972,25 @@ ${prescriptionBloc}</p>
     .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
     .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
 
-  // 🔹 Message progressivité seulement si insuffisamment actif
-  const progressiviteMessage =
-    model.evaluation.classification === "inactif"
-      ? `<p>
+  // 🔹 Message progressivité seulement si insuffisamment actif ou actif depuis moins de 6 mois
+const progressiviteMessage = (() => {
+
+  if (model.evaluation.classification === "inactif") {
+    return `<p>
 Augmenter progressivement votre niveau d’activité physique est important à la fois pour votre motivation (afin que cela ne soit pas trop difficile), mais aussi pour votre cœur, vos articulations et vos tendons, afin qu’ils puissent s’adapter sans risque pour vous.
-</p>`
-      : "";
+</p>`;
+  }
+
+  if (model.motivation.stade === "action") {
+    return `<p>
+Bravo ! Vous avez réussi à être plus actif depuis plusieurs semaines ou mois. Continuez, vous êtes sur la bonne voie. 
+Augmenter progressivement votre niveau d’activité physique reste important pour votre motivation, mais aussi pour votre cœur, vos articulations et vos tendons, afin qu’ils puissent continuer à s’adapter en toute sécurité.
+</p>`;
+  }
+
+  return "";
+
+})();
 
   return `
 <p><strong>Compte-rendu de votre consultation d’activité physique</strong></p>
