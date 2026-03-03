@@ -902,6 +902,8 @@ ${prescriptionBloc}
     container.classList.remove("fade-out");
     container.classList.add("fade-in");
 
+      document.getElementById("reportOutput")
+  .scrollIntoView({ behavior: "smooth", block: "start" });
   }, 120);
 }
           });
