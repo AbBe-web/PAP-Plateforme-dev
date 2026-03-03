@@ -949,34 +949,43 @@ ${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
 ${prescriptionBloc}</p>
 `;
 }
-            function renderActiveMode() {
+           function renderActiveMode() {
 
   if (!clinicalModel) return;
 
   const container = document.getElementById("outputContainer");
 
-  let html = "";
+  container.classList.add("fade-out");
 
-  switch (activeMode) {
-    case "long":
-      html = renderLongLetterV2(clinicalModel);
-      break;
+  setTimeout(() => {
 
-    case "paragraph":
-      html = renderParagraphVersion(clinicalModel);
-      break;
+    let html = "";
 
-    case "medical":
-      html = renderMedicalRecord(clinicalModel);
-      break;
-  }
+    switch (activeMode) {
+      case "long":
+        html = renderLongLetterV2(clinicalModel);
+        break;
 
-  container.innerHTML = html;
+      case "paragraph":
+        html = renderParagraphVersion(clinicalModel);
+        break;
 
-  document.getElementById("reportOutput").scrollIntoView({
-    behavior: "auto",
-    block: "start"
-  });
+      case "medical":
+        html = renderMedicalRecord(clinicalModel);
+        break;
+    }
+
+    container.innerHTML = html;
+
+    container.classList.remove("fade-out");
+    container.classList.add("fade-in");
+
+    document.getElementById("reportOutput").scrollIntoView({
+      behavior: "auto",
+      block: "start"
+    });
+
+  }, 120);
 }
           });
     </script>
