@@ -563,20 +563,27 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   };
 }
-      document.getElementById('generateReport').addEventListener('click', function() {
+   document.getElementById('generateReport').addEventListener('click', function() {
 
-  clinicalModel = buildClinicalModel();
-  activeMode = "long";
+  // ✅ Corrige le double tap iOS
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
 
-  document.getElementById("formatTabs").classList.remove("hidden");
-  document.getElementById("reportOutput").classList.remove("hidden");
+  setTimeout(() => {
 
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+    clinicalModel = buildClinicalModel();
+    activeMode = "long";
 
-  renderActiveMode();
+    document.getElementById("formatTabs").classList.remove("hidden");
+    document.getElementById("reportOutput").classList.remove("hidden");
 
-  document.getElementById('reportOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+
+    renderActiveMode();
+
+  }, 50);
 
 });
             document.querySelectorAll(".tab-btn").forEach(btn => {
