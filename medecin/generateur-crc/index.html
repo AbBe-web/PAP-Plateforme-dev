@@ -601,29 +601,7 @@ form.addEventListener("submit", function(e) {
   e.stopPropagation();
 }); 
 function handleGenerate(e) {
-
-  e.preventDefault();
-  e.stopPropagation();
-
-  if (document.activeElement) {
-    document.activeElement.blur();
-  }
-
-requestAnimationFrame(() => {
-
-    clinicalModel = buildClinicalModel();
-    activeMode = "long";
-
-    document.getElementById("formatTabs").classList.remove("hidden");
-    document.getElementById("reportOutput").classList.remove("hidden");
-    document.getElementById("generateReport").classList.add("hidden");
-
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
-
-    renderActiveMode();
-
-  }, 40);
+  alert("clic détecté");
 }
 generateBtn.addEventListener('click', handleGenerate);
             
