@@ -590,19 +590,38 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   };
 }
 const generateBtn = document.getElementById('generateReport');
-            generateBtn.addEventListener("touchstart", function() {
-  if (document.activeElement) {
-    document.activeElement.blur();
-  }
-});
+           
 const form = document.getElementById('consultationForm');
 form.addEventListener("submit", function(e) {
   e.preventDefault();
   e.stopPropagation();
 }); 
 function handleGenerate(e) {
-  alert("clic détecté");
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  if (document.activeElement) {
+    document.activeElement.blur();
+  }
+
+  requestAnimationFrame(() => {
+
+    clinicalModel = buildClinicalModel();
+    activeMode = "long";
+
+    document.getElementById("formatTabs").classList.remove("hidden");
+    document.getElementById("reportOutput").classList.remove("hidden");
+    document.getElementById("generateReport").classList.add("hidden");
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+
+    renderActiveMode();
+
+  }, 40);
 }
+            
 generateBtn.addEventListener('click', handleGenerate);
             
             document.querySelectorAll(".tab-btn").forEach(btn => {
