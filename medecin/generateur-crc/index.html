@@ -703,12 +703,13 @@ savedScrollPosition = window.scrollY;
   container.style.transition = previousTransition;
 
 });
-          document.getElementById('copyReport').addEventListener('click', function() {
+        document.getElementById('copyReport').addEventListener('click', function() {
 
   const container = document.getElementById("outputContainer").cloneNode(true);
 
   container.querySelectorAll("a").forEach(link => {
-    link.replaceWith(link.href);
+    const replacement = link.innerText + " :\n" + link.href;
+    link.replaceWith(replacement);
   });
 
   const reportText = container.innerText;
