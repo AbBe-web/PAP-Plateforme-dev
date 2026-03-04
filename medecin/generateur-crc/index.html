@@ -156,10 +156,16 @@ border: 1px solid #d1d5db;
 #outputContainer {
   transition: opacity 0.18s ease;
 }
-    #generateReport {
+ #generateReport {
   position: relative;
   z-index: 10;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
 
+button {
+  -webkit-tap-highlight-color: transparent;
 }
     #reportOutput.hidden {
   display: none;
