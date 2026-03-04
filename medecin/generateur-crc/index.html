@@ -146,14 +146,18 @@ border: 1px solid #d1d5db;
 #reportActions {
   margin-top: 20px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 #reportActions .btn {
   min-height: 42px;
-  width: 180px;
+  padding: 10px 12px;
+  font-size: 14px;
+  width: auto;
+  flex: 0 1 auto;
 }
     /* Animation douce du contenu */
 
@@ -434,7 +438,7 @@ button {
   <div id="reportActions">
     <button type="button" id="printReport" class="btn">Imprimer</button>
 <button type="button" id="copyReport" class="btn">Copier</button>
-<button type="button" id="downloadPdf" class="btn hidden">Télécharger en PDF</button>
+<button type="button" id="downloadPdf" class="btn hidden">Télécharger PDF</button>
   </div>
 
 </div>
