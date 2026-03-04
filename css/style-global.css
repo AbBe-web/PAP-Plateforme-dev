@@ -56,8 +56,7 @@ background: linear-gradient(135deg, var(--primary-color), var(--primary-color-da
 }
 
 .btn:hover {
-  transform: translateY(-2px);
-box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
 }
 
 .btn.secondary {
@@ -541,13 +540,10 @@ h1, h2, h3 {
   }
 
   .btn:active {
-    transform: scale(0.97);
     box-shadow: 0 3px 10px rgba(37, 99, 235, 0.25);
   }
 
   .btn.secondary:active {
-    transform: scale(0.97);
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
   }
-
 }
