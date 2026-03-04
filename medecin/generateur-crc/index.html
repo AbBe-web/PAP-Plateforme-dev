@@ -597,24 +597,28 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   };
 }
-const generateBtn = document.getElementById('generateReport');
+document.addEventListener("DOMContentLoaded", function() {
 
-if (generateBtn) {
+  const generateBtn = document.getElementById('generateReport');
 
-  generateBtn.addEventListener("touchend", function () {
-    const active = document.activeElement;
+  if (generateBtn) {
 
-    if (
-      active &&
-      (active.tagName === "INPUT" || active.tagName === "TEXTAREA")
-    ) {
-      active.blur();
-    }
-  });
+    generateBtn.addEventListener("touchend", function () {
+      const active = document.activeElement;
 
-  generateBtn.addEventListener("click", handleGenerate);
+      if (
+        active &&
+        (active.tagName === "INPUT" || active.tagName === "TEXTAREA")
+      ) {
+        active.blur();
+      }
+    });
 
-}
+    generateBtn.addEventListener("click", handleGenerate);
+
+  }
+
+});
             
 const form = document.getElementById('consultationForm');
 form.addEventListener("submit", function(e) {
