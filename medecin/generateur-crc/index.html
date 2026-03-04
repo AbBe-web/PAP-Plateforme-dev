@@ -1062,9 +1062,11 @@ ${prescriptionBloc}</p>
   .replace("Les principaux freins identifiés sont :", "Les difficultés que vous avez évoquées sont :")
   .replace("Les leviers mobilisables sont :", "Les points positifs sur lesquels vous pouvez vous appuyer sont :");
 
-  const stade = model.motivation.stade && model.motivation.stade !== "indétermination"
-    ? `Sur le plan de la motivation à pratiquer de l’activité physique, vous êtes actuellement dans une phase de ${model.motivation.stade}.`
-    : "";
+const stadePatient = getStadeMotivationPatient(model.motivation.stade);
+
+const stade = stadePatient
+  ? `Concernant l’activité physique, actuellement ${stadePatient}.`
+  : "";
 
   const rcvBloc = buildRCV(model)
     .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
