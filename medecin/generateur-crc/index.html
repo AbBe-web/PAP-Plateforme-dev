@@ -403,7 +403,7 @@ border: 1px solid #d1d5db;
 </div>
          </form>
 
-<button type="button" id="generateReport" class="btn">
+<button type="button" id="generateReport" class="btn" onclick="alert('clic')">
   Générer le compte-rendu
 </button>
     
@@ -619,7 +619,7 @@ function handleGenerate(e) {
   }, 40);
 }
             
-generateBtn.addEventListener('pointerup', handleGenerate);
+
             
             document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", function () {
