@@ -406,7 +406,7 @@ border: 1px solid #d1d5db;
 <button type="button" id="generateReport" class="btn">
   Générer le compte-rendu
 </button>
-</form>
+
     
     <div id="reportOutput" class="hidden">
 
@@ -588,7 +588,8 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   };
 }
 const generateBtn = document.getElementById('generateReport');
-           
+generateBtn.addEventListener('click', handleGenerate);
+            
 const form = document.getElementById('consultationForm');
 form.addEventListener("submit", function(e) {
   e.preventDefault();
