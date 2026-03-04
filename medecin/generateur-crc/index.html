@@ -1048,11 +1048,12 @@ ${prescriptionBloc}</p>
     .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
     .replace("au regard des recommandations actuelles", "par rapport aux recommandations de santé");
 
-  const motivationBloc = buildMotivation(model)
-    .replace("Sur le plan motivationnel,", "")
-    .replace("la personne se situe dans un stade de", "")
-    .replace("Les principaux freins identifiés sont :", "Les difficultés que vous avez évoquées sont :")
-    .replace("Les leviers mobilisables sont :", "Les points positifs sur lesquels vous pouvez vous appuyer sont :");
+ const motivationBloc = buildMotivation(model)
+  .replace("Sur le plan motivationnel,", "")
+  .replace("la personne se situe dans un stade de", "")
+  .replace(model.motivation.stade + ".", "")
+  .replace("Les principaux freins identifiés sont :", "Les difficultés que vous avez évoquées sont :")
+  .replace("Les leviers mobilisables sont :", "Les points positifs sur lesquels vous pouvez vous appuyer sont :");
 
   const stade = model.motivation.stade && model.motivation.stade !== "indétermination"
     ? `Sur le plan de la motivation à pratiquer de l’activité physique, vous êtes actuellement dans une phase de ${model.motivation.stade}.`
