@@ -85,6 +85,8 @@
 
   padding-top: 8px;
   padding-bottom: 8px;
+
+  scroll-margin-top: 20px;
 }
 
 .tab-btn {
@@ -413,11 +415,6 @@ button {
   Générer le compte-rendu
 </button>
 
-<button type="button" id="testButton" class="btn">
-  TEST CLICK SAFARI
-</button>
-
-    
     <div id="reportOutput" class="hidden">
 
   <!-- Contenu rendu -->
@@ -1183,25 +1180,12 @@ container.style.opacity = "1";
   container.classList.remove("fade-out");
   container.classList.add("fade-in");
                
-document.getElementById("reportOutput").scrollIntoView({
+document.getElementById("formatTabs").scrollIntoView({
   behavior: "smooth",
   block: "start"
 });
                
-  // document.getElementById("reportOutput").scrollIntoView({
-//   behavior: "auto",
-//   block: "start"
-// });
-}
-            const testBtn = document.getElementById("testButton");
-
-if (testBtn) {
-  testBtn.addEventListener("click", function () {
-    alert("TEST OK");
-  });
-}
-
-    </script>
+               </script>
     
     <div id="identityModal" class="modal hidden">
   <div class="modal-content">
