@@ -1003,7 +1003,17 @@ if (pr.fiches_promotion === "oui") {
 
   return phrases.join(" ");
 }
-       
+       function cleanMedicalText(text) {
+
+  return text
+    .replace(/\s+/g, " ")        // supprime espaces multiples
+    .replace(/\s+\./g, ".")      // espace avant point
+    .replace(/\s+,/g, ",")       // espace avant virgule
+    .replace(/\s+:/g, " :")      // espace correct avant :
+    .replace(/\.\s*/g, ". ")     // garantit espace après point
+    .trim();
+
+}
       function renderLongLetterV2(model) {
 
   const p = model.patient;
@@ -1243,7 +1253,7 @@ if (activeMode === "patient") {
   pdfBtn.classList.add("hidden");
 }
  container.style.opacity = "0";
-container.innerHTML = html;
+container.innerHTML = cleanMedicalText(html);
 container.style.opacity = "1";
 
   container.classList.remove("fade-out");
