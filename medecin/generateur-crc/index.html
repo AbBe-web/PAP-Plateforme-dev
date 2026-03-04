@@ -725,17 +725,39 @@ savedScrollPosition = window.scrollY;
   }
 
 });
-            function getStadeMotivation() {
-                const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked') ? document.querySelector('input[name="niveau_actuel"]:checked').value : '';
-                if (niveauActuel === 'actif') {
-                    const actifDepuis = document.querySelector('input[name="actif_depuis"]:checked') ? document.querySelector('input[name="actif_depuis"]:checked').value : '';
-                    return actifDepuis === 'plus_6_mois' ? 'consolidation' : 'action';
-                } else if (niveauActuel === 'inactif') {
-                    const apEnvisagee = document.querySelector('input[name="ap_envisagee"]:checked') ? document.querySelector('input[name="ap_envisagee"]:checked').value : '';
-                    return apEnvisagee === 'oui' ? 'préparation' : 'intention';
-                }
-                return 'indétermination';
-            }
+          function getStadeMotivation() {
+    const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked') ? document.querySelector('input[name="niveau_actuel"]:checked').value : '';
+    if (niveauActuel === 'actif') {
+        const actifDepuis = document.querySelector('input[name="actif_depuis"]:checked') ? document.querySelector('input[name="actif_depuis"]:checked').value : '';
+        return actifDepuis === 'plus_6_mois' ? 'consolidation' : 'action';
+    } else if (niveauActuel === 'inactif') {
+        const apEnvisagee = document.querySelector('input[name="ap_envisagee"]:checked') ? document.querySelector('input[name="ap_envisagee"]:checked').value : '';
+        return apEnvisagee === 'oui' ? 'préparation' : 'intention';
+    }
+    return 'indétermination';
+}
+
+function getStadeMotivationPatient(stade) {
+
+  switch (stade) {
+
+    case "intention":
+      return "vous envisagez de reprendre ou de débuter une activité physique";
+
+    case "préparation":
+      return "vous êtes en train de vous préparer à débuter une activité physique";
+
+    case "action":
+      return "vous avez commencé à pratiquer une activité physique récemment";
+
+    case "consolidation":
+      return "vous pratiquez déjà une activité physique de manière régulière";
+
+    default:
+      return "";
+  }
+
+}
             function getStadeMotivationText() {
                 const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked') ? document.querySelector('input[name="niveau_actuel"]:checked').value : '';
                 if (niveauActuel === 'actif') {
