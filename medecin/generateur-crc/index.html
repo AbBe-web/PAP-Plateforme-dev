@@ -628,12 +628,14 @@ function handleGenerate(e) {
   e.preventDefault();
   e.stopPropagation();
 
+  const btn = document.getElementById("generateReport");
+  btn.disabled = true;
+
   if (document.activeElement) {
     document.activeElement.blur();
   }
 
   requestAnimationFrame(() => {
-
     clinicalModel = buildClinicalModel();
     activeMode = "long";
 
