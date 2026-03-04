@@ -837,22 +837,29 @@ if (e.sedentarite === "non_recherche") {
 
   const m = model.motivation;
 
-  let phrase = "Sur le plan motivationnel, ";
+let phrase = "Sur le plan motivationnel, ";
 
-  if (m.stade && m.stade !== "indétermination") {
-    phrase += `la personne se situe dans un stade de ${m.stade}`;
-  } else {
-    phrase += "le stade motivationnel n’a pas pu être précisé";
-  }
+if (m.stade && m.stade !== "indétermination") {
+  phrase += `la personne se situe dans un stade de ${m.stade}`;
+} else {
+  phrase += "le stade motivationnel n’a pas pu être précisé";
+}
+
+let details = [];
 
 if (m.importance !== null && m.importance !== "") {
-    phrase += `, avec une importance accordée à l’activité physique évaluée à ${m.importance}/10`;
-  }
-if (m.confiance !== null && m.confiance !== "") {
-    phrase += ` et un niveau de confiance estimé à ${m.confiance}/10`;
-  }
+  details.push(`une importance accordée à l’activité physique évaluée à ${m.importance}/10`);
+}
 
-  phrase += ".";
+if (m.confiance !== null && m.confiance !== "") {
+  details.push(`un niveau de confiance estimé à ${m.confiance}/10`);
+}
+
+if (details.length > 0) {
+  phrase += ", avec " + details.join(" et ");
+}
+
+phrase += ".";
 
   if (m.freins) {
     phrase += ` Les principaux freins identifiés sont : ${m.freins}.`;
