@@ -590,8 +590,19 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 const generateBtn = document.getElementById('generateReport');
 
 if (generateBtn) {
+
+  generateBtn.addEventListener("touchstart", function(){
+    if (document.activeElement) {
+      document.activeElement.blur();
+    }
+  });
+
   generateBtn.addEventListener('click', handleGenerate);
-  generateBtn.addEventListener('click', function(){ alert("clic détecté"); });
+
+  generateBtn.addEventListener('click', function(){
+    alert("clic détecté");
+  });
+
 }
             
 const form = document.getElementById('consultationForm');
