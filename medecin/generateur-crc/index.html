@@ -708,7 +708,7 @@ savedScrollPosition = window.scrollY;
   const container = document.getElementById("outputContainer").cloneNode(true);
 
   container.querySelectorAll("a").forEach(link => {
-    const replacement = link.innerText + " :\n" + link.href;
+  const replacement = link.innerText + " : " + link.href;
     link.replaceWith(replacement);
   });
 
