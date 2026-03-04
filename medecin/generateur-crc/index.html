@@ -588,13 +588,18 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   };
 }
 const generateBtn = document.getElementById('generateReport');
-generateBtn.addEventListener('click', handleGenerate);
+
+if (generateBtn) {
+  generateBtn.addEventListener('click', handleGenerate);
+  generateBtn.addEventListener('click', function(){ alert("clic détecté"); });
+}
             
 const form = document.getElementById('consultationForm');
 form.addEventListener("submit", function(e) {
   e.preventDefault();
   e.stopPropagation();
 }); 
+
 function handleGenerate(e) {
 
   e.preventDefault();
