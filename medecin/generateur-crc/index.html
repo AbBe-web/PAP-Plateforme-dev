@@ -622,7 +622,7 @@ function handleGenerate(e) {
     document.activeElement.blur();
   }
 
-  setTimeout(() => {
+requestAnimationFrame(() => {
 
     clinicalModel = buildClinicalModel();
     activeMode = "long";
