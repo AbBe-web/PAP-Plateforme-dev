@@ -462,20 +462,7 @@ let lastScrollY = 0;
             window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
 });
-            document.addEventListener("focusout", function(e) {
-
-  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
-
-    setTimeout(() => {
-      window.scrollTo({
-        top: lastScrollY,
-        behavior: "auto"
-      });
-    }, 50);
-
-  }
-
-});
+         
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
                     if (this.value === 'actif') {
