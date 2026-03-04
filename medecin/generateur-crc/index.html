@@ -610,24 +610,26 @@ function handleGenerate(e) {
   e.preventDefault();
   e.stopPropagation();
 
-  // 🔹 Forcer la perte de focus (corrige bug iOS Safari)
   if (document.activeElement) {
     document.activeElement.blur();
   }
 
-  clinicalModel = buildClinicalModel();
-  activeMode = "long";
+  setTimeout(() => {
 
-  document.getElementById("formatTabs").classList.remove("hidden");
-  document.getElementById("reportOutput").classList.remove("hidden");
-document.getElementById("generateReport").classList.add("hidden");
-    
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+    clinicalModel = buildClinicalModel();
+    activeMode = "long";
 
-  renderActiveMode();
+    document.getElementById("formatTabs").classList.remove("hidden");
+    document.getElementById("reportOutput").classList.remove("hidden");
+    document.getElementById("generateReport").classList.add("hidden");
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+
+    renderActiveMode();
+
+  }, 40);
 }
-
 generateBtn.addEventListener('click', handleGenerate);
             
             document.querySelectorAll(".tab-btn").forEach(btn => {
