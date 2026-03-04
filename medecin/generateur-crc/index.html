@@ -455,10 +455,27 @@ border: 1px solid #d1d5db;
 }, 90);
   }
 }
-            let clinicalModel = null;
+        let clinicalModel = null;
 let activeMode = "long";
-            let savedScrollPosition = 0;
-            
+let savedScrollPosition = 0;
+let lastScrollY = 0;
+            window.addEventListener("scroll", function () {
+  lastScrollY = window.scrollY;
+});
+            document.addEventListener("focusout", function(e) {
+
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") {
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: lastScrollY,
+        behavior: "auto"
+      });
+    }, 50);
+
+  }
+
+});
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
                     if (this.value === 'actif') {
