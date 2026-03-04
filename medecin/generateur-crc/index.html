@@ -401,10 +401,14 @@ border: 1px solid #d1d5db;
   <h2>11/ Date du courrier (facultatif, si laissée vide = aujourd'hui) :</h2>
   <input type="date" name="date_courrier">
 </div>
-         </form>
+        </form>
 
 <button type="button" id="generateReport" class="btn">
   Générer le compte-rendu
+</button>
+
+<button type="button" id="testButton" class="btn">
+  TEST CLICK SAFARI
 </button>
 
     
@@ -1173,8 +1177,16 @@ container.style.opacity = "1";
 //   block: "start"
 // });
 }
+            const testBtn = document.getElementById("testButton");
+
+if (testBtn) {
+  testBtn.addEventListener("click", function () {
+    alert("TEST OK");
+  });
+}
           });
     </script>
+    
     <div id="identityModal" class="modal hidden">
   <div class="modal-content">
     <h3>Identification (facultatif)</h3>
