@@ -457,6 +457,8 @@ border: 1px solid #d1d5db;
 }
             let clinicalModel = null;
 let activeMode = "long";
+            let savedScrollPosition = 0;
+            
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
                     if (this.value === 'actif') {
@@ -615,7 +617,7 @@ generateBtn.addEventListener('click', handleGenerate);
   btn.addEventListener("click", function () {
 
     if (!clinicalModel) return;
-
+savedScrollPosition = window.scrollY;
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
 
     this.classList.add("active");
@@ -671,6 +673,16 @@ generateBtn.addEventListener('click', handleGenerate);
                     console.error('Erreur lors de la copie du texte: ', err);
                 });
             });
+            document.addEventListener("visibilitychange", function () {
+
+  if (document.visibilityState === "visible" && savedScrollPosition > 0) {
+    window.scrollTo({
+      top: savedScrollPosition,
+      behavior: "auto"
+    });
+  }
+
+});
             function getStadeMotivation() {
                 const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked') ? document.querySelector('input[name="niveau_actuel"]:checked').value : '';
                 if (niveauActuel === 'actif') {
@@ -1091,7 +1103,7 @@ Les 10 règles d’or du Club des Cardiologues du Sport
            function renderActiveMode() {
 
   if (!clinicalModel) return;
-
+savedScrollPosition = window.scrollY;
   const container = document.getElementById("outputContainer");
 
   let html = "";
