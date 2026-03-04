@@ -604,7 +604,10 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 }
 const generateBtn = document.getElementById('generateReport');
 const form = document.getElementById('consultationForm');
-
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}); 
 function handleGenerate(e) {
 
   e.preventDefault();
