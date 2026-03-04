@@ -703,14 +703,23 @@ savedScrollPosition = window.scrollY;
   container.style.transition = previousTransition;
 
 });
-            document.getElementById('copyReport').addEventListener('click', function() {
-              const reportText = document.getElementById('outputContainer').innerText;
-                navigator.clipboard.writeText(reportText).then(function() {
-                    alert('Le compte-rendu a été copié dans le presse-papiers.');
-                }).catch(function(err) {
-                    console.error('Erreur lors de la copie du texte: ', err);
-                });
-            });
+          document.getElementById('copyReport').addEventListener('click', function() {
+
+  const container = document.getElementById("outputContainer").cloneNode(true);
+
+  container.querySelectorAll("a").forEach(link => {
+    link.replaceWith(link.href);
+  });
+
+  const reportText = container.innerText;
+
+  navigator.clipboard.writeText(reportText).then(function() {
+    alert('Le compte-rendu a été copié dans le presse-papiers.');
+  }).catch(function(err) {
+    console.error('Erreur lors de la copie du texte: ', err);
+  });
+
+});
             document.addEventListener("visibilitychange", function () {
 
   if (document.visibilityState === "visible" && savedScrollPosition > 0) {
