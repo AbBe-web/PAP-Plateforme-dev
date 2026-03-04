@@ -871,6 +871,42 @@ phrase += ".";
 
   return phrase;
 } 
+        function buildMotivationPatient(model) {
+
+  const m = model.motivation;
+
+  let phrase = "";
+
+  const stadePatient = getStadeMotivationPatient(m.stade);
+
+  if (stadePatient) {
+    phrase += `Concernant l’activité physique, actuellement ${stadePatient}. `;
+  }
+
+  let details = [];
+
+  if (m.importance !== null && m.importance !== "") {
+    details.push(`vous avez indiqué que l’activité physique est importante pour vous à ${m.importance}/10`);
+  }
+
+  if (m.confiance !== null && m.confiance !== "") {
+    details.push(`votre confiance pour réussir à augmenter votre activité physique est estimée à ${m.confiance}/10`);
+  }
+
+  if (details.length > 0) {
+    phrase += details.join(", ") + ". ";
+  }
+
+  if (m.freins) {
+    phrase += `Les difficultés que vous avez évoquées sont : ${m.freins}. `;
+  }
+
+  if (m.leviers) {
+    phrase += `Les points positifs sur lesquels vous pouvez vous appuyer sont : ${m.leviers}.`;
+  }
+
+  return phrase.trim();
+}
             function buildRCV(model) {
 
   const rcv = model.evaluation.rcv;
@@ -1055,18 +1091,7 @@ ${prescriptionBloc}</p>
     .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
     .replace("au regard des recommandations actuelles", "par rapport aux recommandations de santé");
 
- const motivationBloc = buildMotivation(model)
-  .replace("Sur le plan motivationnel,", "")
-  .replace("la personne se situe dans un stade de", "")
-  .replace(model.motivation.stade + ".", "")
-  .replace("Les principaux freins identifiés sont :", "Les difficultés que vous avez évoquées sont :")
-  .replace("Les leviers mobilisables sont :", "Les points positifs sur lesquels vous pouvez vous appuyer sont :");
-
-const stadePatient = getStadeMotivationPatient(model.motivation.stade);
-
-const stade = stadePatient
-  ? `Concernant l’activité physique, actuellement ${stadePatient}.`
-  : "";
+ const motivationBloc = buildMotivationPatient(model);
 
   const rcvBloc = buildRCV(model)
     .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
@@ -1105,7 +1130,6 @@ ${evaluationBloc}
 </p>
 
 <p>
-${stade}
 ${motivationBloc}
 </p>
 
