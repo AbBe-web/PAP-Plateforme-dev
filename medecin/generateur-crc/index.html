@@ -712,7 +712,10 @@ savedScrollPosition = window.scrollY;
     link.replaceWith(replacement);
   });
 
-  const reportText = container.innerText;
+ const reportText = container.innerText
+  .replace(/\n+/g, " ")
+  .replace(/\s+/g, " ")
+  .trim();
 
   navigator.clipboard.writeText(reportText).then(function() {
     alert('Le compte-rendu a été copié dans le presse-papiers.');
@@ -946,19 +949,19 @@ phrase += ".";
   const rcv = model.evaluation.rcv;
 
   if (!rcv) {
-    return "Le risque cardiovasculaire global n’a pas été précisé.";
+    return "Le risque cardiovasculaire global n’a pas été précisé. ";
   }
 
   if (rcv === "faible") {
-    return "Le risque cardiovasculaire global est évalué comme faible.";
+    return "Le risque cardiovasculaire global est évalué comme faible. ";
   }
 
   if (rcv === "modere") {
-    return "Le risque cardiovasculaire global est évalué comme modéré.";
+    return "Le risque cardiovasculaire global est évalué comme modéré. ";
   }
 
   if (rcv === "eleve_tres_eleve") {
-    return "Le risque cardiovasculaire global est évalué comme élevé à très élevé.";
+    return "Le risque cardiovasculaire global est évalué comme élevé à très élevé. ";
   }
 
 }
