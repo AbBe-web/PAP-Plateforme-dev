@@ -620,7 +620,19 @@ qrContainer.appendChild(qrDiv);
 document.getElementById("content").appendChild(qrContainer);
 
 // génération QR
-const qrData = JSON.stringify(data);
+const qrPayload = {
+  questionnaire: data.meta.questionnaire,
+  niveau: data.resultats.niveau_activite,
+  met: data.resultats.met_minutes_semaine,
+  pas: data.resultats.pas_moyens_jour_1_mois,
+  stade: data.motivation.stade,
+  importance: data.motivation.importance_eva_0_10,
+  confiance: data.motivation.confiance_eva_0_10,
+  ci: (data.motivation.importance_commentaire || "").slice(0,120),
+  cc: (data.motivation.confiance_commentaire || "").slice(0,120)
+};
+
+const qrData = JSON.stringify(qrPayload);
 
 new QRCode(qrDiv, {
   text: qrData,
