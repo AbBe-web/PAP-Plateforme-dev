@@ -600,7 +600,32 @@ ${data.motivation.confiance_commentaire
   </div>
 
 `;
+// ==============================
+// QR CODE POUR LE MÉDECIN
+// ==============================
 
+const qrContainer = document.createElement("div");
+qrContainer.style.marginTop = "40px";
+qrContainer.style.textAlign = "center";
+
+const qrTitle = document.createElement("h2");
+qrTitle.textContent = "QR code pour votre médecin";
+
+const qrDiv = document.createElement("div");
+
+qrContainer.appendChild(qrTitle);
+qrContainer.appendChild(qrDiv);
+
+document.getElementById("content").appendChild(qrContainer);
+
+// génération QR
+const qrData = JSON.stringify(data);
+
+new QRCode(qrDiv, {
+  text: qrData,
+  width: 180,
+  height: 180
+});
   if (data.meta.questionnaires === "GPAQ") {
   const gpaqTitle = document.getElementById("gpaq-title");
   if (gpaqTitle) {
@@ -608,18 +633,18 @@ ${data.motivation.confiance_commentaire
   }
 }
 
-if (data.meta.questionnaires === "Marshall") {
+if (data.meta.questionnaire === "Marshall") {
   const marshallTitle = document.getElementById("marshall-title");
   if (marshallTitle) {
     marshallTitle.innerText = "2. Questionnaire Marshall";
   }
 }
-  if (data.meta.questionnaires === "Marshall") {
+  if (data.meta.questionnaire === "Marshall") {
   const gpaq = document.getElementById("gpaq-section");
   if (gpaq) gpaq.style.display = "none";
 }
 
-if (data.meta.questionnaires === "GPAQ") {
+if (data.meta.questionnaire === "GPAQ") {
   const marshall = document.getElementById("marshall-section");
   if (marshall) marshall.style.display = "none";
 }
