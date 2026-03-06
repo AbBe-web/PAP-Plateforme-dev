@@ -1016,12 +1016,12 @@ Vous allez maintenant voir un résumé à apporter à votre consultation.
 function buildExportJSON(){
   return {
     meta: {
-      outil: "preconsultation-activite-physique",
-      version: "v0.x",
-      date: new Date().toISOString(),
-      questionnaires: state.tool === "gpaq" ? "GPAQ" : "Marshall",
-      donnees_enregistrees: false
-    },
+  outil: "preconsultation-activite-physique",
+  format_version: "1.0",
+  date: new Date().toISOString(),
+  questionnaire: state.tool === "gpaq" ? "GPAQ" : "Marshall",
+  donnees_enregistrees: false
+},
 
     questionnaires: {
       marshall: state.marshall,
