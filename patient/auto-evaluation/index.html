@@ -1101,90 +1101,15 @@ function freezeExportJSON() {
 }
 
 function openPrintable() {
-  const frozen = freezeExportJSON();
-
-  const json = encodeURIComponent(
-    JSON.stringify(frozen)
-  );
+  freezeExportJSON();
 
   window.open(
-    "print.html?data=" + json,
+    "print.html",
     "_blank"
   );
 }
 
-
-// 🔐 Copie de secours (utilisée si partage / mail échoue)
-// 🔐 Copie de secours (utilisée si partage / mail échoue)
-function copyFallback(text) {
-  if (!navigator.clipboard || !navigator.clipboard.writeText) {
-    console.warn("Clipboard indisponible");
-    return;
-  }
-
-  navigator.clipboard.writeText(text)
-    .catch(() => {
-      console.warn("Copie de secours impossible");
-    });
-}
-
-function shareToDoctor() {
-  const frozen = freezeExportJSON();
-
-  if (!frozen) {
-    alert("Données indisponibles.");
-    return;
-  }
-
-  const mailTitle = "Auto-évaluation de l’activité physique – consultation médicale";
-
-  const dataBlock =
-`--- DÉBUT DES DONNÉES ---
-${JSON.stringify(frozen, null, 2)}
---- FIN DES DONNÉES ---`;
-
-  const mailBody =
-`Bonjour,
-
-Vous trouverez ci-dessous les informations issues de mon questionnaire
-d’auto-évaluation de l’activité physique, rempli en amont de la consultation.
-
-Ces données peuvent être copiées et intégrées dans votre compte-rendu médical.
-
-${dataBlock}`;
-
-  const subject = encodeURIComponent(mailTitle);
-  const body = encodeURIComponent(mailBody);
-
-  /* 📱 Mobile → partage natif */
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-  if (isMobile && navigator.share) {
-    navigator.share({
-      title: mailTitle,
-      text: mailTitle + "\n\n" + mailBody
-    }).catch(() => {
-      copyFallback(mailTitle + "\n\n" + mailBody);
-    });
-    return;
-  }
-
-  /* 🖥️ PC → client mail par défaut (Outlook / Exchange) */
-  window.location.href = `mailto:?subject=${subject}&body=${body}`;
-
-/* Aide explicite pour les webmails */
-setTimeout(() => {
-  alert(
-    "Si aucun nouveau message ne s’est ouvert automatiquement, " +
-    "les données ont été copiées.\n\n" +
-    "Vous pouvez les coller manuellement dans un email à destination de votre médecin."
-  );
-}, 500);
-
-/* Copie systématique de secours */
-copyFallback(mailTitle + "\n\n" + mailBody);
-}
-  
+ 
 function final(){
 
   state.exportJSON = buildExportJSON();
