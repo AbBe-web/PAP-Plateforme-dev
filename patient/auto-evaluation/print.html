@@ -646,13 +646,13 @@ new QRCode(qrDiv, {
   }
 }
 
-if (data.meta.questionnaire === "Marshall") {
+if (data.meta.questionnaires === "Marshall") {
   const marshallTitle = document.getElementById("marshall-title");
   if (marshallTitle) {
     marshallTitle.innerText = "2. Questionnaire Marshall";
   }
 }
-  if (data.meta.questionnaire === "Marshall") {
+  if (data.meta.questionnaires === "Marshall") {
   const gpaq = document.getElementById("gpaq-section");
   if (gpaq) gpaq.style.display = "none";
 }
