@@ -364,16 +364,21 @@ function goBack() {
 }
   
 function getJSONFromURL(){
-  const params = new URLSearchParams(window.location.search);
-  const data = params.get("data");
-  if (!data) return null;
 
-  try {
-    return JSON.parse(decodeURIComponent(data));
-  } catch (e) {
-    console.warn("Données URL invalides", e);
+  const stored = sessionStorage.getItem("preconsultation_final");
+
+  if (!stored) {
+    console.warn("Aucune donnée trouvée dans sessionStorage");
     return null;
   }
+
+  try {
+    return JSON.parse(stored);
+  } catch (e) {
+    console.warn("JSON invalide", e);
+    return null;
+  }
+
 }
 const rawData = getJSONFromURL();
 let storedData = null;
