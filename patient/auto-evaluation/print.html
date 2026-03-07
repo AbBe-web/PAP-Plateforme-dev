@@ -623,7 +623,8 @@ document.getElementById("content").appendChild(qrContainer);
 // Construction du payload
 // ------------------------------
 
-let qrPayload = {
+const qrPayload = {
+  version: 1,
   questionnaire: data.meta.questionnaires,
   niveau: data.resultats.niveau_activite,
   met: data.resultats.met_minutes_semaine,
