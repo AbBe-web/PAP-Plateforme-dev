@@ -632,13 +632,54 @@ const qrPayload = {
   cc: (data.motivation.confiance_commentaire || "").slice(0,120)
 };
 
-const qrData = JSON.stringify(qrPayload);
+let qrData = JSON.stringify(qrPayload);
 
-new QRCode(qrDiv, {
-  text: qrData,
-  width: 180,
-  height: 180
-});
+try {
+
+  new QRCode(qrDiv, {
+    text: qrData,
+    width: 180,
+    height: 180
+  });
+
+} catch (e) {
+
+  console.warn("QR trop grand, réduction des commentaires");
+
+  delete qrPayload.ci;
+  delete qrPayload.cc;
+
+  qrData = JSON.stringify(qrPayload);
+
+  try {
+
+    new QRCode(qrDiv, {
+      text: qrData,
+      width: 180,
+      height: 180
+    });
+
+  } catch (e2) {
+
+    console.warn("QR encore trop grand, réduction supplémentaire");
+
+    const minimalQR = {
+      questionnaire: qrPayload.questionnaire,
+      niveau: qrPayload.niveau,
+      stade: qrPayload.stade,
+      importance: qrPayload.importance,
+      confiance: qrPayload.confiance
+    };
+
+    new QRCode(qrDiv, {
+      text: JSON.stringify(minimalQR),
+      width: 180,
+      height: 180
+    });
+
+  }
+
+}
   if (data.meta.questionnaires === "GPAQ") {
   const gpaqTitle = document.getElementById("gpaq-title");
   if (gpaqTitle) {
