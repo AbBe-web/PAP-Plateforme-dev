@@ -616,11 +616,14 @@ const qrDiv = document.createElement("div");
 
 qrContainer.appendChild(qrTitle);
 qrContainer.appendChild(qrDiv);
-
 document.getElementById("content").appendChild(qrContainer);
 
-// génération QR
-const qrPayload = {
+
+// ------------------------------
+// Construction du payload
+// ------------------------------
+
+let qrPayload = {
   questionnaire: data.meta.questionnaires,
   niveau: data.resultats.niveau_activite,
   met: data.resultats.met_minutes_semaine,
@@ -628,58 +631,54 @@ const qrPayload = {
   stade: data.motivation.stade,
   importance: data.motivation.importance_eva_0_10,
   confiance: data.motivation.confiance_eva_0_10,
-  ci: (data.motivation.importance_commentaire || "").slice(0,120),
-  cc: (data.motivation.confiance_commentaire || "").slice(0,120)
+  ci: data.motivation.importance_commentaire || "",
+  cc: data.motivation.confiance_commentaire || ""
 };
 
 let qrData = JSON.stringify(qrPayload);
 
-try {
 
-  new QRCode(qrDiv, {
-    text: qrData,
-    width: 180,
-    height: 180
-  });
+// ------------------------------
+// Réduction automatique si trop grand
+// ------------------------------
 
-} catch (e) {
+if (qrData.length > 1500) {
 
-  console.warn("QR trop grand, réduction des commentaires");
+  console.warn("QR trop grand : suppression commentaires");
 
   delete qrPayload.ci;
   delete qrPayload.cc;
 
   qrData = JSON.stringify(qrPayload);
-
-  try {
-
-    new QRCode(qrDiv, {
-      text: qrData,
-      width: 180,
-      height: 180
-    });
-
-  } catch (e2) {
-
-    console.warn("QR encore trop grand, réduction supplémentaire");
-
-    const minimalQR = {
-      questionnaire: qrPayload.questionnaire,
-      niveau: qrPayload.niveau,
-      stade: qrPayload.stade,
-      importance: qrPayload.importance,
-      confiance: qrPayload.confiance
-    };
-
-    new QRCode(qrDiv, {
-      text: JSON.stringify(minimalQR),
-      width: 180,
-      height: 180
-    });
-
-  }
-
 }
+
+
+if (qrData.length > 1500) {
+
+  console.warn("QR encore trop grand : version minimale");
+
+  qrPayload = {
+    questionnaire: data.meta.questionnaires,
+    niveau: data.resultats.niveau_activite,
+    stade: data.motivation.stade,
+    importance: data.motivation.importance_eva_0_10,
+    confiance: data.motivation.confiance_eva_0_10
+  };
+
+  qrData = JSON.stringify(qrPayload);
+}
+
+
+// ------------------------------
+// Génération du QR
+// ------------------------------
+
+new QRCode(qrDiv, {
+  text: qrData,
+  width: 180,
+  height: 180
+});
+  
   if (data.meta.questionnaires === "GPAQ") {
   const gpaqTitle = document.getElementById("gpaq-title");
   if (gpaqTitle) {
@@ -698,7 +697,7 @@ if (data.meta.questionnaires === "Marshall") {
   if (gpaq) gpaq.style.display = "none";
 }
 
-if (data.meta.questionnaire === "GPAQ") {
+if (data.meta.questionnaires === "GPAQ") {
   const marshall = document.getElementById("marshall-section");
   if (marshall) marshall.style.display = "none";
 }
