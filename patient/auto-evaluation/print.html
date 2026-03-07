@@ -425,7 +425,7 @@ document.getElementById("content").innerHTML = `
   <strong>Niveau d’activité physique :</strong>
   ${data.resultats.niveau_activite.replace("_"," ")}
   ${
-    data.meta.questionnaires === "GPAQ" &&
+    data.meta.questionnaire === "GPAQ" &&
     data.resultats.met_minutes_semaine != null
       ? `<span class="small">
            (volume estimé : ${data.resultats.met_minutes_semaine} MET-min / semaine)
@@ -626,7 +626,7 @@ document.getElementById("content").appendChild(qrContainer);
 
 const qrPayload = {
   version: 1,
-  questionnaire: data.meta.questionnaires,
+  questionnaire: data.meta.questionnaire,
   niveau: data.resultats.niveau_activite,
   met: data.resultats.met_minutes_semaine,
   pas: data.resultats.pas_moyens_jour_1_mois,
@@ -660,7 +660,7 @@ if (qrData.length > 1500) {
   console.warn("QR encore trop grand : version minimale");
 
   qrPayload = {
-    questionnaire: data.meta.questionnaires,
+    questionnaire: data.meta.questionnaire,
     niveau: data.resultats.niveau_activite,
     stade: data.motivation.stade,
     importance: data.motivation.importance_eva_0_10,
@@ -681,25 +681,25 @@ new QRCode(qrDiv, {
   height: 180
 });
   
-  if (data.meta.questionnaires === "GPAQ") {
+  if (data.meta.questionnaire === "GPAQ") {
   const gpaqTitle = document.getElementById("gpaq-title");
   if (gpaqTitle) {
     gpaqTitle.innerText = "2. Questionnaire GPAQ – Détail";
   }
 }
 
-if (data.meta.questionnaires === "Marshall") {
+if (data.meta.questionnaire === "Marshall") {
   const marshallTitle = document.getElementById("marshall-title");
   if (marshallTitle) {
     marshallTitle.innerText = "2. Questionnaire Marshall";
   }
 }
-  if (data.meta.questionnaires === "Marshall") {
+  if (data.meta.questionnaire === "Marshall") {
   const gpaq = document.getElementById("gpaq-section");
   if (gpaq) gpaq.style.display = "none";
 }
 
-if (data.meta.questionnaires === "GPAQ") {
+if (data.meta.questionnaire === "GPAQ") {
   const marshall = document.getElementById("marshall-section");
   if (marshall) marshall.style.display = "none";
 }
@@ -766,9 +766,9 @@ output += "\n";   // espace avant conclusion
 output += "2. QUESTIONNAIRE UTILISÉ\n";
 output += "------------------------\n";
 
-output += data.meta.questionnaires + "\n\n";
+output += data.meta.questionnaire + "\n\n";
 
-if (data.meta.questionnaires === "Marshall") {
+if (data.meta.questionnaire === "Marshall") {
 
   output += "Détail des réponses :\n";
   output += "Question 1 : " + (data.questionnaires.marshall.q1 || 0) + " points\n";
@@ -779,7 +779,7 @@ if (data.meta.questionnaires === "Marshall") {
     "\n\n";
 }
 
-if (data.meta.questionnaires === "GPAQ") {
+if (data.meta.questionnaire === "GPAQ") {
 
   output += "DÉTAIL DES RÉPONSES (GPAQ)\n";
   output += "---------------------------------------------\n";
