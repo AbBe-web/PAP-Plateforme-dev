@@ -420,8 +420,12 @@ Importer les données patient (QR / JSON)
     
 <button type="button" id="generateReport" class="btn">
   Générer le compte-rendu
-</button>
 
+</button>
+<div style="margin-top:10px;">
+  <input type="file" id="importJSON" accept=".json">
+</div>
+    
     <div id="reportOutput" class="hidden">
 
   <!-- Contenu rendu -->
@@ -681,6 +685,54 @@ document.addEventListener("DOMContentLoaded", function() {
 });
             
 const form = document.getElementById('consultationForm');
+
+        // =============================
+// IMPORT JSON AUTO-EVALUATION
+// =============================
+
+document.getElementById("importJSON")
+.addEventListener("change", function(e){
+
+  const file = e.target.files[0];
+
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(){
+
+    try{
+
+      const data = JSON.parse(reader.result);
+
+      // Pas moyens
+      const pas = data?.resultats?.pas_moyens_jour_1_mois;
+      if(pas){
+        const inputPas = document.querySelector('input[name="nombre_pas"]');
+        if(inputPas) inputPas.value = pas;
+      }
+
+      // Questionnaire utilisé
+      const q = data?.meta?.questionnaire;
+
+      if(q){
+        const radio = document.querySelector(`input[name="questionnaire"][value="${q}"]`);
+        if(radio) radio.checked = true;
+      }
+
+      alert("Données du questionnaire importées.");
+
+    }catch(err){
+
+      alert("Fichier JSON invalide.");
+
+    }
+
+  };
+
+  reader.readAsText(file);
+
+});
 form.addEventListener("submit", function(e) {
   e.preventDefault();
   e.stopPropagation();
