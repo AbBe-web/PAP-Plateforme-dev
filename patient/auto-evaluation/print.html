@@ -840,29 +840,7 @@ function copyContent() {
     });
 }
 
-  const mailTitle = "Auto-évaluation de l’activité physique – consultation médicale";
-
-  const dataBlock =
-`--- DÉBUT DES DONNÉES ---
-${JSON.stringify(frozen, null, 2)}
---- FIN DES DONNÉES ---`;
-
-  const mailBody =
-`Bonjour,
-
-Vous trouverez ci-dessous les informations issues de mon questionnaire
-d’auto-évaluation de l’activité physique, rempli en amont de la consultation.
-
-Ces données peuvent être copiées et intégrées dans votre compte-rendu médical.
-
-${dataBlock}`;
-
-  const subject = encodeURIComponent(mailTitle);
-  const body = encodeURIComponent(mailBody);
-
-  window.location.href = `mailto:?subject=${subject}&body=${body}`;
-}
-function downloadJSON(){
+ function downloadJSON(){
 
   const data = sessionStorage.getItem("preconsultation_final");
 
