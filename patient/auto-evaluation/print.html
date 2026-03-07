@@ -589,12 +589,7 @@ ${data.motivation.confiance_commentaire
       <div class="action-text">Document complet à imprimer ou à partager</div>
     </div>
 
-    <div class="action-item">
-      <button onclick="shareToDoctor()">Transmettre au médecin</button>
-      <div class="action-text">Envoie les données du questionnaire par email</div>
-    </div>
-
-    <div class="action-item">
+      <div class="action-item">
       <button onclick="copyContent()">Copier le contenu</button>
       <div class="action-text">Copie le résumé pour le partager</div>
     </div>
@@ -844,13 +839,6 @@ function copyContent() {
       alert("Copie impossible.");
     });
 }
-function shareToDoctor() {
-  const frozen = data;
-
-  if (!frozen) {
-    alert("Données indisponibles.");
-    return;
-  }
 
   const mailTitle = "Auto-évaluation de l’activité physique – consultation médicale";
 
