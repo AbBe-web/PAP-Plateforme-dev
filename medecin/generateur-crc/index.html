@@ -414,6 +414,10 @@ button {
 </div>
         </form>
 
+    <button type="button" id="importJSON" class="btn">
+Importer les données patient (QR / JSON)
+</button>
+    
 <button type="button" id="generateReport" class="btn">
   Générer le compte-rendu
 </button>
@@ -465,7 +469,50 @@ button {
 }
         let clinicalModel = null;
 let activeMode = "long";
-let savedScrollPosition = 0;
+
+    function importPatientJSON(jsonText) {
+
+  let data;
+
+  try {
+    data = JSON.parse(jsonText);
+  } catch (e) {
+    alert("JSON invalide");
+    return;
+  }
+
+  // questionnaire
+  if (data.questionnaire) {
+    const q = document.querySelector(`input[name="questionnaire"][value="${data.questionnaire}"]`);
+    if (q) q.checked = true;
+  }
+
+  // niveau activité
+  if (data.niveau) {
+    const n = document.querySelector(`input[name="niveau_actuel"][value="${data.niveau}"]`);
+    if (n) n.checked = true;
+  }
+
+  // pas
+  if (data.pas) {
+    const pas = document.querySelector('input[name="nombre_pas"]');
+    if (pas) pas.value = data.pas;
+  }
+
+  // motivation
+  if (data.importance) {
+    const imp = document.querySelector('input[name="importance_ap"]');
+    if (imp) imp.value = data.importance;
+  }
+
+  if (data.confiance) {
+    const conf = document.querySelector('input[name="confiance_ap"]');
+    if (conf) conf.value = data.confiance;
+  }
+
+}    
+        
+        let savedScrollPosition = 0;
 let lastScrollY = 0;
             window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
@@ -615,6 +662,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     generateBtn.addEventListener("click", handleGenerate);
+
+  }
+
+  // 🔹 AJOUT IMPORT JSON
+  const importBtn = document.getElementById("importJSON");
+
+  if (importBtn) {
+
+    importBtn.addEventListener("click", function(){
+
+      const jsonText = prompt("Collez ici les données JSON du patient :");
+
+      if (!jsonText) return;
+
+      importPatientJSON(jsonText);
+
+    });
 
   }
 
