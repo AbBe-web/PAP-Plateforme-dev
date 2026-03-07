@@ -470,7 +470,7 @@ Importer les données patient (QR / JSON)
         let clinicalModel = null;
 let activeMode = "long";
 
-    function importPatientJSON(jsonText) {
+        function importPatientJSON(jsonText) {
 
   let data;
 
@@ -481,25 +481,21 @@ let activeMode = "long";
     return;
   }
 
-  // questionnaire
   if (data.questionnaire) {
     const q = document.querySelector(`input[name="questionnaire"][value="${data.questionnaire}"]`);
     if (q) q.checked = true;
   }
 
-  // niveau activité
   if (data.niveau) {
     const n = document.querySelector(`input[name="niveau_actuel"][value="${data.niveau}"]`);
     if (n) n.checked = true;
   }
 
-  // pas
   if (data.pas) {
     const pas = document.querySelector('input[name="nombre_pas"]');
     if (pas) pas.value = data.pas;
   }
 
-  // motivation
   if (data.importance) {
     const imp = document.querySelector('input[name="importance_ap"]');
     if (imp) imp.value = data.importance;
@@ -510,7 +506,7 @@ let activeMode = "long";
     if (conf) conf.value = data.confiance;
   }
 
-}    
+}
         
         let savedScrollPosition = 0;
 let lastScrollY = 0;
