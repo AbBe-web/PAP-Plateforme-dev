@@ -707,15 +707,56 @@ document.getElementById("importJSONFile")
       }
 
       // Questionnaire utilisé
-      const q = data?.meta?.questionnaire;
+const q = data?.meta?.questionnaire;
 
-      if(q){
-        const radio = document.querySelector(`input[name="questionnaire"][value="${q}"]`);
-        if(radio) radio.checked = true;
-      }
+if(q){
+  const radio = document.querySelector(`input[name="questionnaire"][value="${q}"]`);
+  if(radio) radio.checked = true;
+}
 
-      alert("Données du questionnaire importées.");
+/* ======================
+   IMPORT EVA IMPORTANCE
+====================== */
 
+const importance = data?.motivation?.importance_eva_0_10;
+
+if(importance !== undefined && importance !== null){
+  const inputImportance = document.querySelector('input[name="importance_ap"]');
+  if(inputImportance) inputImportance.value = importance;
+}        
+/* ======================
+   IMPORT EVA CONFIANCE
+====================== */
+
+const confiance = data?.motivation?.confiance_eva_0_10;
+
+if(confiance !== undefined && confiance !== null){
+  const inputConfiance = document.querySelector('input[name="confiance_ap"]');
+  if(inputConfiance) inputConfiance.value = confiance;
+}
+
+/* ======================
+   IMPORT NIVEAU ACTIVITÉ
+====================== */
+
+const niveau = data?.resultats?.niveau_activite;
+
+if(niveau === "suffisamment_actif"){
+  const actif = document.querySelector('input[name="niveau_actuel"][value="actif"]');
+  if(actif) actif.checked = true;
+}
+
+if(niveau === "insuffisamment_actif"){
+  const inactif = document.querySelector('input[name="niveau_actuel"][value="inactif"]');
+  if(inactif) inactif.checked = true;
+}
+
+alert("Données du questionnaire importées.");
+
+document.getElementById("generateReport").scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
     }catch(err){
 
       alert("Fichier JSON invalide.");
