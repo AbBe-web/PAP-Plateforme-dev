@@ -414,17 +414,14 @@ button {
 </div>
         </form>
 
-    <button type="button" id="importJSON" class="btn">
+  <button type="button" id="importJSONBtn" class="btn">
 Importer les données patient (QR / JSON)
 </button>
     
 <button type="button" id="generateReport" class="btn">
   Générer le compte-rendu
 
-</button>
-<div style="margin-top:10px;">
-  <input type="file" id="importJSON" accept=".json">
-</div>
+<input type="file" id="importJSONFile" accept=".json" style="display:none;">
     
     <div id="reportOutput" class="hidden">
 
@@ -665,19 +662,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
   }
 
-  // 🔹 AJOUT IMPORT JSON
-  const importBtn = document.getElementById("importJSON");
+  // 🔹 IMPORT JSON (ouvre le sélecteur de fichier)
 
-  if (importBtn) {
+  const importBtn = document.getElementById("importJSONBtn");
+  const importFile = document.getElementById("importJSONFile");
+
+  if(importBtn && importFile){
 
     importBtn.addEventListener("click", function(){
-
-      const jsonText = prompt("Collez ici les données JSON du patient :");
-
-      if (!jsonText) return;
-
-      importPatientJSON(jsonText);
-
+      importFile.click();
     });
 
   }
@@ -690,7 +683,7 @@ const form = document.getElementById('consultationForm');
 // IMPORT JSON AUTO-EVALUATION
 // =============================
 
-document.getElementById("importJSON")
+document.getElementById("importJSONFile")
 .addEventListener("change", function(e){
 
   const file = e.target.files[0];
