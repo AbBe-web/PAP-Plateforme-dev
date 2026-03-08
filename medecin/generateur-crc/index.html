@@ -88,7 +88,44 @@
 
   scroll-margin-top: 20px;
 }
+/* =========================
+   Réponses patient importées
+========================= */
 
+.patient-comment-block{
+  margin-top:6px;
+  padding:8px;
+  background:#f7f7f7;
+  border-left:3px solid #d1d5db;
+  font-size:0.85rem;
+}
+
+.patient-comment-label{
+  color:#666;
+  font-size:0.75rem;
+  margin-bottom:4px;
+}
+
+.patient-comment-text{
+  width:100%;
+  resize:vertical;
+  font-size:0.85rem;
+  background:#fafafa;
+}
+
+.patient-copy-btn{
+  margin-top:4px;
+  font-size:0.75rem;
+  padding:2px 6px;
+  border:1px solid #ccc;
+  background:#f3f3f3;
+  cursor:pointer;
+}
+
+.patient-copy-btn:hover{
+  background:#e9e9e9;
+}
+    
 .tab-btn {
   flex: 1 1 calc(25% - 10px);
   padding: 10px 12px;
@@ -285,25 +322,63 @@ Importer les données patient (QR / JSON)
         <h3 class="black-text">La personne présente les <u>leviers</u> suivants :</h3>
         <textarea name="leviers"></textarea>
     </div>
-    <div class="sub-group">
-        <h3 class="black-text">Importance accordée à l’AP de 0 à 10 :</h3>
+   <div class="sub-group">
+
+<h3 class="black-text">Importance accordée à l’AP de 0 à 10 :</h3>
+
 <input type="number" name="importance_ap" min="0" max="10">
 
-<div id="importance_patient_block" style="display:none; margin-top:6px;">
-  <div style="font-size:12px;color:#666;">🛈 Réponse du patient (questionnaire)</div>
-  <textarea id="importance_patient_comment" readonly style="width:100%;"></textarea>
+<div id="importance_patient_block" class="patient-comment-block" style="display:none;">
+
+  <div class="patient-comment-label">
+  🛈 Réponse du patient (questionnaire)
+  </div>
+
+  <textarea
+  id="importance_patient_comment"
+  class="patient-comment-text"
+  readonly></textarea>
+
+  <button
+  type="button"
+  class="patient-copy-btn"
+  onclick="copyPatientComment('importance_patient_comment')">
+  copier
+  </button>
+
 </div>
-    </div>
-    <div class="sub-group">
-        <h3 class="black-text">Confiance en soi pour réussir à augmenter son niveau d’AP de 0 à 10 :</h3>
+
+</div>
+
+
+<div class="sub-group">
+
+<h3 class="black-text">Confiance en soi pour réussir à augmenter son niveau d’AP de 0 à 10 :</h3>
+
 <input type="number" name="confiance_ap" min="0" max="10">
 
-<div id="confiance_patient_block" style="display:none; margin-top:6px;">
-  <div style="font-size:12px;color:#666;">🛈 Réponse du patient (questionnaire)</div>
-  <textarea id="confiance_patient_comment" readonly style="width:100%;"></textarea>
+<div id="confiance_patient_block" class="patient-comment-block" style="display:none;">
+
+  <div class="patient-comment-label">
+  🛈 Réponse du patient (questionnaire)
+  </div>
+
+  <textarea
+  id="confiance_patient_comment"
+  class="patient-comment-text"
+  readonly></textarea>
+
+  <button
+  type="button"
+  class="patient-copy-btn"
+  onclick="copyPatientComment('confiance_patient_comment')">
+  copier
+  </button>
+
 </div>
-    </div>
+
 </div>
+
 
 <div class="form-group">
     <h2>5/ Une consultation Médicale d’AP est préconisée :</h2>
@@ -577,6 +652,16 @@ function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
     }
   }
 
+    function copyPatientComment(id){
+
+  const field = document.getElementById(id);
+
+  if(!field) return;
+
+  navigator.clipboard.writeText(field.value);
+
+}
+    
   function updateDisplay() {
     const selected = document.querySelector(`input[name="${groupName}"]:checked`);
 
