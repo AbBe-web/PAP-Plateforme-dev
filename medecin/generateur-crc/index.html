@@ -189,10 +189,23 @@ button {
             <a href="https://abbe-web.github.io/Compte-Rendu-Consultation-PAP/politique-confidentialite.html" target="_blank" rel="noopener noreferrer">Consulter la politique de confidentialité</a> |
             <a href="https://www.cnil.fr/fr/les-droits-pour-maitriser-vos-donnees-personnelles" target="_blank" rel="noopener noreferrer">Vos droits (CNIL)</a>
         </div>
-     <h1>Générateur de compte-rendu – Consultation d’activité physique</h1>
+    <h1>Générateur de compte-rendu – Consultation d’activité physique</h1>
 
-        <p>Veuillez renseigner les différents items ci-dessous pour générer le compte-rendu. Vous pouvez vous aider du « Guide Prescription Activité Physique et Lutte contre la Sédentarité (« Adulte » >15 ans) »</p>
-        <form id="consultationForm">
+<p>
+Vous pouvez importer les données issues du questionnaire d’auto-évaluation
+rempli par le patient afin de préremplir certains champs du formulaire.
+</p>
+
+<button type="button" id="importJSONBtn" class="btn">
+Importer les données patient (QR / JSON)
+</button>
+
+<input type="file" id="importJSONFile" accept=".json" style="display:none;">
+
+<p>Veuillez ensuite vérifier et compléter les informations avant de générer le compte-rendu.</p>
+
+<form id="consultationForm">
+    
             <div class="form-group">
                 <h2>1/ La personne adressée est dans une des situations suivantes (page 3) :</h2>
                 <label><input type="radio" name="situation" value="symptomes"> Elle a des symptômes de maladie CV, respiratoire, métabolique et rénale décompensée</label>
@@ -413,10 +426,6 @@ button {
   <input type="date" name="date_courrier">
 </div>
         </form>
-
-  <button type="button" id="importJSONBtn" class="btn">
-Importer les données patient (QR / JSON)
-</button>
     
 <button type="button" id="generateReport" class="btn">
   Générer le compte-rendu
