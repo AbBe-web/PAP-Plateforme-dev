@@ -216,7 +216,10 @@ button {
 #reportOutput {
   transition: opacity 0.2s ease;
 }
+
+    
 </style>
+    <script src="https://unpkg.com/html5-qrcode"></script>
  </head>
 <body>
 <div class="container crc-page">
@@ -233,12 +236,20 @@ Vous pouvez importer les données issues du questionnaire d’auto-évaluation
 rempli par le patient afin de préremplir certains champs du formulaire.
 </p>
 
+<button type="button" id="scanQRBtn" class="btn">
+Scanner QR patient
+</button>
+
 <button type="button" id="importJSONBtn" class="btn">
-Importer les données patient (QR / JSON)
+Importer fichier JSON
 </button>
 
 <input type="file" id="importJSONFile" accept=".json" style="display:none;">
-
+<div id="qrScannerContainer" style="display:none;margin-top:15px;">
+  <div id="qr-reader" style="width:300px;"></div>
+  <button type="button" id="closeQRScanner" class="btn">Fermer scanner</button>
+</div>
+    
 <p>Veuillez ensuite vérifier et compléter les informations avant de générer le compte-rendu.</p>
 
 <form id="consultationForm">
@@ -766,7 +777,67 @@ document.addEventListener("DOMContentLoaded", function() {
     generateBtn.addEventListener("click", handleGenerate);
 
   }
+/* =========================
+   SCANNER QR CODE
+========================= */
 
+const scanBtn = document.getElementById("scanQRBtn");
+const qrContainer = document.getElementById("qrScannerContainer");
+const closeQR = document.getElementById("closeQRScanner");
+
+let qrScanner = null;
+
+if(scanBtn){
+
+  scanBtn.addEventListener("click", function(){
+
+    qrContainer.style.display = "block";
+
+    qrScanner = new Html5Qrcode("qr-reader");
+
+    qrScanner.start(
+      { facingMode: "environment" },
+      {
+        fps: 10,
+        qrbox: 250
+      },
+      function(decodedText){
+
+        try{
+
+          importPatientJSON(decodedText);
+
+          qrScanner.stop();
+          qrContainer.style.display = "none";
+
+          alert("QR patient importé.");
+
+        }catch(e){
+
+          alert("QR invalide.");
+
+        }
+
+      }
+    );
+
+  });
+
+}
+
+if(closeQR){
+
+  closeQR.addEventListener("click", function(){
+
+    if(qrScanner){
+      qrScanner.stop();
+    }
+
+    qrContainer.style.display = "none";
+
+  });
+
+}
   // 🔹 IMPORT JSON (ouvre le sélecteur de fichier)
 
   const importBtn = document.getElementById("importJSONBtn");
