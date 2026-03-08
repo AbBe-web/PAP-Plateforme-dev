@@ -849,20 +849,15 @@ function downloadJSON(){
     return;
   }
 
-  const blob = new Blob([data], {type: "application/json"});
-  const url = URL.createObjectURL(blob);
+  const dataStr = "data:application/json;charset=utf-8," + encodeURIComponent(data);
 
   const link = document.createElement("a");
-  link.href = url;
+  link.href = dataStr;
   link.download = "auto-evaluation-activite-physique.json";
 
   document.body.appendChild(link);
   link.click();
-
-  setTimeout(() => {
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  }, 100);
+  document.body.removeChild(link);
 
 }
 
