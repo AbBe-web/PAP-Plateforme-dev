@@ -287,11 +287,21 @@ Importer les données patient (QR / JSON)
     </div>
     <div class="sub-group">
         <h3 class="black-text">Importance accordée à l’AP de 0 à 10 :</h3>
-        <input type="number" name="importance_ap" min="0" max="10">
+<input type="number" name="importance_ap" min="0" max="10">
+
+<div id="importance_patient_block" style="display:none; margin-top:6px;">
+  <div style="font-size:12px;color:#666;">🛈 Réponse du patient (questionnaire)</div>
+  <textarea id="importance_patient_comment" readonly style="width:100%;"></textarea>
+</div>
     </div>
     <div class="sub-group">
         <h3 class="black-text">Confiance en soi pour réussir à augmenter son niveau d’AP de 0 à 10 :</h3>
-        <input type="number" name="confiance_ap" min="0" max="10">
+<input type="number" name="confiance_ap" min="0" max="10">
+
+<div id="confiance_patient_block" style="display:none; margin-top:6px;">
+  <div style="font-size:12px;color:#666;">🛈 Réponse du patient (questionnaire)</div>
+  <textarea id="confiance_patient_comment" readonly style="width:100%;"></textarea>
+</div>
     </div>
 </div>
 
@@ -732,7 +742,20 @@ const importance = data?.motivation?.importance_eva_0_10;
 if(importance !== undefined && importance !== null){
   const inputImportance = document.querySelector('input[name="importance_ap"]');
   if(inputImportance) inputImportance.value = importance;
-}        
+}    
+        const importanceComment = data?.motivation?.importance_commentaire;
+
+if(importanceComment){
+
+  const block = document.getElementById("importance_patient_block");
+  const field = document.getElementById("importance_patient_comment");
+
+  if(block && field){
+    field.value = importanceComment;
+    block.style.display = "block";
+  }
+
+}
 /* ======================
    IMPORT EVA CONFIANCE
 ====================== */
@@ -743,7 +766,19 @@ if(confiance !== undefined && confiance !== null){
   const inputConfiance = document.querySelector('input[name="confiance_ap"]');
   if(inputConfiance) inputConfiance.value = confiance;
 }
+const confianceComment = data?.motivation?.confiance_commentaire;
 
+if(confianceComment){
+
+  const block = document.getElementById("confiance_patient_block");
+  const field = document.getElementById("confiance_patient_comment");
+
+  if(block && field){
+    field.value = confianceComment;
+    block.style.display = "block";
+  }
+
+}
 /* ======================
    IMPORT NIVEAU ACTIVITÉ
 ====================== */
