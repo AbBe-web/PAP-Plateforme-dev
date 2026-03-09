@@ -626,13 +626,6 @@ qrDiv.style.borderRadius = "6px";
 qrContainer.appendChild(qrTitle);
 qrContainer.appendChild(qrDiv);
 
-new QRCode(qrDiv, {
-  text: qrData,
-  width: 260,
-  height: 260,
-  correctLevel: QRCode.CorrectLevel.M
-});
-  
 const qrNote = document.createElement("p");
 qrNote.className = "small";
 qrNote.style.marginTop = "10px";
@@ -684,7 +677,7 @@ if (qrData.length > 1500) {
 
   console.warn("QR encore trop grand : version minimale");
 
-qrPayload = {
+let qrPayload = {
   q: data.meta.questionnaire,
   n: data.resultats.niveau_activite,
   s: data.motivation.stade,
