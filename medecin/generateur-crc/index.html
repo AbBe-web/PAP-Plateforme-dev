@@ -899,16 +899,25 @@ if(importance !== undefined && importance !== null){
   const inputImportance = document.querySelector('input[name="importance_ap"]');
   if(inputImportance) inputImportance.value = importance;
 }    
-        const importanceComment = data?.motivation?.importance_commentaire;
+       const importanceComment = data?.motivation?.importance_commentaire;
 
-if(importanceComment){
+const block = document.getElementById("importance_patient_block");
+const field = document.getElementById("importance_patient_comment");
 
-  const block = document.getElementById("importance_patient_block");
-  const field = document.getElementById("importance_patient_comment");
+if(block && field){
 
-  if(block && field){
+  if(importanceComment){
+
     field.value = importanceComment;
     block.style.display = "block";
+
+  }
+
+  else if(data?.importance){
+
+    field.value = "Commentaire non transmis via QR code.";
+    block.style.display = "block";
+
   }
 
 }
@@ -924,14 +933,23 @@ if(confiance !== undefined && confiance !== null){
 }
 const confianceComment = data?.motivation?.confiance_commentaire;
 
-if(confianceComment){
+const blockC = document.getElementById("confiance_patient_block");
+const fieldC = document.getElementById("confiance_patient_comment");
 
-  const block = document.getElementById("confiance_patient_block");
-  const field = document.getElementById("confiance_patient_comment");
+if(blockC && fieldC){
 
-  if(block && field){
-    field.value = confianceComment;
-    block.style.display = "block";
+  if(confianceComment){
+
+    fieldC.value = confianceComment;
+    blockC.style.display = "block";
+
+  }
+
+  else if(data?.confiance){
+
+    fieldC.value = "Commentaire non transmis via QR code.";
+    blockC.style.display = "block";
+
   }
 
 }
