@@ -615,12 +615,14 @@ const qrTitle = document.createElement("h2");
 qrTitle.textContent = "QR code pour votre consultation médicale";
 
 const qrDiv = document.createElement("div");
+
 qrDiv.style.padding = "16px";
 qrDiv.style.background = "white";
 qrDiv.style.display = "inline-block";
-  qrDiv.style.width = "220px";
 qrDiv.style.margin = "20px auto";
-
+qrDiv.style.boxSizing = "content-box";
+qrDiv.style.borderRadius = "6px";
+  
 qrContainer.appendChild(qrTitle);
 qrContainer.appendChild(qrDiv);
   
