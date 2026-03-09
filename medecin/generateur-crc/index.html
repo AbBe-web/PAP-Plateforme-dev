@@ -803,22 +803,29 @@ if(scanBtn){
       },
       function(decodedText){
 
-        try{
+  console.log("QR détecté :");
+  console.log(decodedText);
 
-          importPatientJSON(decodedText);
+  try{
 
-          qrScanner.stop();
-          qrContainer.style.display = "none";
+    importPatientJSON(decodedText);
 
-          alert("QR patient importé.");
+    qrScanner.stop();
+    qrContainer.style.display = "none";
 
-        }catch(e){
+    alert("QR patient importé.");
 
-          alert("QR invalide.");
+  }catch(e){
 
-        }
+    console.log("Erreur import :");
+    console.log(e);
 
-      }
+    alert("QR invalide.");
+
+  }
+
+}
+        
     );
 
   });
