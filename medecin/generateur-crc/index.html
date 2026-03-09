@@ -605,12 +605,28 @@ let activeMode = "long";
     const imp = document.querySelector('input[name="importance_ap"]');
     if (imp) imp.value = data.importance;
   }
+const impBlock = document.getElementById("importance_patient_block");
+const impField = document.getElementById("importance_patient_comment");
 
+if (impBlock && impField && !data.ci) {
+
+  impField.value = "Commentaire éventuellement non transmis via QR code.\nConsultez le fichier JSON ou interrogez le patient.";
+  impBlock.style.display = "block";
+
+}
   if (data.confiance) {
     const conf = document.querySelector('input[name="confiance_ap"]');
     if (conf) conf.value = data.confiance;
   }
+const confBlock = document.getElementById("confiance_patient_block");
+const confField = document.getElementById("confiance_patient_comment");
 
+if (confBlock && confField && !data.cc) {
+
+  confField.value = "Commentaire éventuellement non transmis via QR code.\nConsultez le fichier JSON ou interrogez le patient.";
+  confBlock.style.display = "block";
+
+}
 }
         
         let savedScrollPosition = 0;
@@ -910,15 +926,7 @@ if(block && field){
     block.style.display = "block";
 
   }
-
-  else if(data?.importance){
-
-    field.value = "le patient a peut-être écrit un commentaire.\nLe QR ne le transmet pas";
-    block.style.display = "block";
-
-  }
-
-}
+ }
 /* ======================
    IMPORT EVA CONFIANCE
 ====================== */
@@ -943,14 +951,7 @@ if(blockC && fieldC){
 
   }
 
-  else if(data?.confiance){
-
-    fieldC.value = "Le patient a peut-être écrit un commentaire.\nLe QR ne le transmet pas";
-    blockC.style.display = "block";
-
   }
-
-}
 /* ======================
    IMPORT NIVEAU ACTIVITÉ
 ====================== */
