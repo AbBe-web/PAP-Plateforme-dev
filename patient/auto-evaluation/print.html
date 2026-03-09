@@ -615,7 +615,10 @@ const qrTitle = document.createElement("h2");
 qrTitle.textContent = "QR code pour votre consultation médicale";
 
 const qrDiv = document.createElement("div");
-qrDiv.style.width = "220px";
+qrDiv.style.padding = "12px";
+qrDiv.style.background = "white";
+qrDiv.style.display = "inline-block";
+  qrDiv.style.width = "220px";
 qrDiv.style.margin = "20px auto";
 
 qrContainer.appendChild(qrTitle);
@@ -688,8 +691,9 @@ if (qrData.length > 1500) {
 
 new QRCode(qrDiv, {
   text: qrData,
-  width: 220,
-  height: 220
+  width: 260,
+  height: 260,
+  correctLevel: QRCode.CorrectLevel.M
 });
   
   if (data.meta.questionnaire === "GPAQ") {
