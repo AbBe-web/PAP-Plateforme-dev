@@ -801,10 +801,7 @@ if(scanBtn){
         fps: 10,
         qrbox: 250
       },
-      function(decodedText){
-
-  console.log("QR détecté :");
-  console.log(decodedText);
+ function(decodedText){
 
   try{
 
@@ -817,15 +814,11 @@ if(scanBtn){
 
   }catch(e){
 
-    console.log("Erreur import :");
-    console.log(e);
-
     alert("QR invalide.");
 
   }
 
-}
-        
+}       
     );
 
   });
