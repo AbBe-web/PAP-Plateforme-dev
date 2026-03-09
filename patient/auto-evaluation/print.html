@@ -615,7 +615,7 @@ const qrTitle = document.createElement("h2");
 qrTitle.textContent = "QR code pour votre consultation médicale";
 
 const qrDiv = document.createElement("div");
-qrDiv.style.padding = "12px";
+qrDiv.style.padding = "16px";
 qrDiv.style.background = "white";
 qrDiv.style.display = "inline-block";
   qrDiv.style.width = "220px";
@@ -650,8 +650,10 @@ c: data.motivation.confiance_eva_0_10,
 ci: data.motivation.importance_commentaire || "",
 cc: data.motivation.confiance_commentaire || ""
 };
-
-let qrData = JSON.stringify(qrPayload);
+if (!qrPayload.ci) delete qrPayload.ci;
+if (!qrPayload.cc) delete qrPayload.cc;
+  
+let qrData = JSON.stringify(qrPayload, null, 0);
 
 
 // ------------------------------
