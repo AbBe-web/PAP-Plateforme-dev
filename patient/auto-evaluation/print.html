@@ -639,16 +639,16 @@ document.getElementById("content").appendChild(qrContainer);
 // ------------------------------
 
 const qrPayload = {
-format_version: 1,
-  questionnaire: data.meta.questionnaire,
-  niveau: data.resultats.niveau_activite,
-  met: data.resultats.met_minutes_semaine,
-  pas: data.resultats.pas_moyens_jour_1_mois,
-  stade: data.motivation.stade,
-  importance: data.motivation.importance_eva_0_10,
-  confiance: data.motivation.confiance_eva_0_10,
-  ci: data.motivation.importance_commentaire || "",
-  cc: data.motivation.confiance_commentaire || ""
+v:1,
+q: data.meta.questionnaire,
+n: data.resultats.niveau_activite,
+m: data.resultats.met_minutes_semaine,
+p: data.resultats.pas_moyens_jour_1_mois,
+s: data.motivation.stade,
+i: data.motivation.importance_eva_0_10,
+c: data.motivation.confiance_eva_0_10,
+ci: data.motivation.importance_commentaire || "",
+cc: data.motivation.confiance_commentaire || ""
 };
 
 let qrData = JSON.stringify(qrPayload);
