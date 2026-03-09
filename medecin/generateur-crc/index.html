@@ -915,7 +915,8 @@ if(block && field){
 
   else if(data?.importance){
 
-    field.value = "Commentaire non transmis via QR code.";
+    field.value = "le patient a peut-être écrit un commentaire
+mais le QR ne le transmet pas";
     block.style.display = "block";
 
   }
@@ -947,7 +948,8 @@ if(blockC && fieldC){
 
   else if(data?.confiance){
 
-    fieldC.value = "Commentaire non transmis via QR code.";
+    fieldC.value = "le patient a peut-être écrit un commentaire
+mais le QR ne le transmet pas";
     blockC.style.display = "block";
 
   }
