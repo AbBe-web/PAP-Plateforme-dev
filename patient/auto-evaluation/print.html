@@ -868,15 +868,22 @@ function downloadJSON(){
     return;
   }
 
+  const filename = "auto-evaluation-activite-physique.json";
+
+  // Méthode mobile robuste
   const dataStr = "data:application/json;charset=utf-8," + encodeURIComponent(data);
 
   const link = document.createElement("a");
-  link.href = dataStr;
-  link.download = "auto-evaluation-activite-physique.json";
+  link.setAttribute("href", dataStr);
+  link.setAttribute("download", filename);
+  link.style.display = "none";
 
   document.body.appendChild(link);
   link.click();
-  document.body.removeChild(link);
+
+  setTimeout(function(){
+    document.body.removeChild(link);
+  }, 100);
 
 }
  // 🔒 Safari macOS : figer le DOM après construction complète
