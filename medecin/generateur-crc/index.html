@@ -581,52 +581,78 @@ let activeMode = "long";
 
   try {
     data = JSON.parse(jsonText);
+// Compatibilité QR ancien / QR compact
+const questionnaire = data.q ?? data.questionnaire;
+const niveau = data.n ?? data.niveau;
+const pas = data.p ?? data.pas;
+const importance = data.i ?? data.importance;
+const confiance = data.c ?? data.confiance;
+const importanceComment = data.ci ?? data.importance_commentaire;
+const confianceComment = data.cc ?? data.confiance_commentaire;
+      
   } catch (e) {
     alert("JSON invalide");
     return;
   }
 
-  if (data.questionnaire) {
-    const q = document.querySelector(`input[name="questionnaire"][value="${data.questionnaire}"]`);
-    if (q) q.checked = true;
-  }
+if (questionnaire) {
+  const radio = document.querySelector(`input[name="questionnaire"][value="${questionnaire}"]`);
+  if (radio) radio.checked = true;
+}
 
-  if (data.niveau) {
-    const n = document.querySelector(`input[name="niveau_actuel"][value="${data.niveau}"]`);
-    if (n) n.checked = true;
-  }
+  if (niveau) {
+  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
+  if (n) n.checked = true;
+}
+ if (pas !== undefined && pas !== null) {
+  const pasInput = document.querySelector('input[name="nombre_pas"]');
+  if (pasInput) pasInput.value = pas;
+}
 
-  if (data.pas) {
-    const pas = document.querySelector('input[name="nombre_pas"]');
-    if (pas) pas.value = data.pas;
-  }
-
-  if (data.importance) {
-    const imp = document.querySelector('input[name="importance_ap"]');
-    if (imp) imp.value = data.importance;
-  }
+if (importance !== undefined && importance !== null) {
+  const imp = document.querySelector('input[name="importance_ap"]');
+  if (imp) imp.value = importance;
+}
+            
 const impBlock = document.getElementById("importance_patient_block");
 const impField = document.getElementById("importance_patient_comment");
 
-if (impBlock && impField && !data.ci) {
+if (impBlock && impField) {
 
-  impField.value = "Commentaire éventuellement non transmis via QR code.\nConsultez le fichier JSON ou interrogez le patient.";
-  impBlock.style.display = "block";
+  if (importanceComment) {
+
+    impField.value = importanceComment;
+    impBlock.style.display = "block";
+
+  } else {
+
+    impField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
+    impBlock.style.display = "block";
+
+  }
 
 }
-  if (data.confiance) {
-    const conf = document.querySelector('input[name="confiance_ap"]');
-    if (conf) conf.value = data.confiance;
-  }
+ if (confiance !== undefined && confiance !== null) {
+  const conf = document.querySelector('input[name="confiance_ap"]');
+  if (conf) conf.value = confiance;
+}
 const confBlock = document.getElementById("confiance_patient_block");
 const confField = document.getElementById("confiance_patient_comment");
 
-if (confBlock && confField && !data.cc) {
+if (confBlock && confField) {
 
-  confField.value = "Commentaire éventuellement non transmis via QR code.\nConsultez le fichier JSON ou interrogez le patient.";
-  confBlock.style.display = "block";
+  if (confianceComment) {
 
-}
+    confField.value = confianceComment;
+    confBlock.style.display = "block";
+
+  } else {
+
+    confField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
+    confBlock.style.display = "block";
+
+  }
+
 }
         
         let savedScrollPosition = 0;
