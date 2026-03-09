@@ -612,7 +612,7 @@ qrContainer.style.marginTop = "40px";
 qrContainer.style.textAlign = "center";
 
 const qrTitle = document.createElement("h2");
-qrTitle.textContent = "QR code pour votre médecin";
+qrTitle.textContent = "QR code pour votre consultation médicale";
 
 const qrDiv = document.createElement("div");
 qrDiv.style.width = "220px";
@@ -620,6 +620,14 @@ qrDiv.style.margin = "20px auto";
 
 qrContainer.appendChild(qrTitle);
 qrContainer.appendChild(qrDiv);
+  
+const qrNote = document.createElement("p");
+qrNote.className = "small";
+qrNote.style.marginTop = "10px";
+qrNote.textContent = "Ce QR code peut être scanné par votre médecin pour importer vos réponses.";
+
+qrContainer.appendChild(qrNote);
+  
 document.getElementById("content").appendChild(qrContainer);
 
 
