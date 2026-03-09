@@ -527,8 +527,6 @@ Importer fichier JSON
   Générer le compte-rendu
 </button>
     
-<input type="file" id="importJSONFile" accept=".json" style="display:none;">
-    
     <div id="reportOutput" class="hidden">
 
   <!-- Contenu rendu -->
@@ -915,8 +913,7 @@ if(block && field){
 
   else if(data?.importance){
 
-    field.value = "le patient a peut-être écrit un commentaire
-mais le QR ne le transmet pas";
+    field.value = "le patient a peut-être écrit un commentaire.\nLe QR ne le transmet pas";
     block.style.display = "block";
 
   }
@@ -948,8 +945,7 @@ if(blockC && fieldC){
 
   else if(data?.confiance){
 
-    fieldC.value = "le patient a peut-être écrit un commentaire
-mais le QR ne le transmet pas";
+    fieldC.value = "Le patient a peut-être écrit un commentaire.\nLe QR ne le transmet pas";
     blockC.style.display = "block";
 
   }
