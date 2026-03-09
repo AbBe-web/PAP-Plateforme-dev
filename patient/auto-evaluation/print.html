@@ -415,6 +415,7 @@ if (dateElement) {
 if (!data) {
   document.getElementById("content").innerHTML =
     "<p>Données indisponibles.</p>";
+  throw new Error("Aucune donnée patient disponible");
 }
 
 document.getElementById("content").innerHTML = `
@@ -614,6 +615,8 @@ const qrTitle = document.createElement("h2");
 qrTitle.textContent = "QR code pour votre médecin";
 
 const qrDiv = document.createElement("div");
+qrDiv.style.width = "220px";
+qrDiv.style.margin = "20px auto";
 
 qrContainer.appendChild(qrTitle);
 qrContainer.appendChild(qrDiv);
