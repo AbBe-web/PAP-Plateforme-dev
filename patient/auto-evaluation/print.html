@@ -677,7 +677,7 @@ if (qrData.length > 1500) {
 
   console.warn("QR encore trop grand : version minimale");
 
-let qrPayload = {
+qrPayload = {
   q: data.meta.questionnaire,
   n: data.resultats.niveau_activite,
   s: data.motivation.stade,
