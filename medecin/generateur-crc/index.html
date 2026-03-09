@@ -600,15 +600,9 @@ let activeMode = "long";
     confianceComment = data.cc ?? data.confiance_commentaire;
 
   } catch (e) {
-
     alert("JSON invalide");
     return;
       
-  } catch (e) {
-    alert("JSON invalide");
-    return;
-  }
-
 if (questionnaire) {
   const radio = document.querySelector(`input[name="questionnaire"][value="${questionnaire}"]`);
   if (radio) radio.checked = true;
