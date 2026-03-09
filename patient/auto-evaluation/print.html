@@ -684,13 +684,13 @@ if (qrData.length > 1500) {
 
   console.warn("QR encore trop grand : version minimale");
 
-  qrPayload = {
-    questionnaire: data.meta.questionnaire,
-    niveau: data.resultats.niveau_activite,
-    stade: data.motivation.stade,
-    importance: data.motivation.importance_eva_0_10,
-    confiance: data.motivation.confiance_eva_0_10
-  };
+qrPayload = {
+  q: data.meta.questionnaire,
+  n: data.resultats.niveau_activite,
+  s: data.motivation.stade,
+  i: data.motivation.importance_eva_0_10,
+  c: data.motivation.confiance_eva_0_10
+};
 
   qrData = JSON.stringify(qrPayload);
 }
