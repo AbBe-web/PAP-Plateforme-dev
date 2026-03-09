@@ -575,20 +575,36 @@ Importer fichier JSON
         let clinicalModel = null;
 let activeMode = "long";
 
-        function importPatientJSON(jsonText) {
+      function importPatientJSON(jsonText) {
 
   let data;
 
+  let questionnaire;
+  let niveau;
+  let pas;
+  let importance;
+  let confiance;
+  let importanceComment;
+  let confianceComment;
+
   try {
+
     data = JSON.parse(jsonText);
-// Compatibilité QR ancien / QR compact
-const questionnaire = data.q ?? data.questionnaire;
-const niveau = data.n ?? data.niveau;
-const pas = data.p ?? data.pas;
-const importance = data.i ?? data.importance;
-const confiance = data.c ?? data.confiance;
-const importanceComment = data.ci ?? data.importance_commentaire;
-const confianceComment = data.cc ?? data.confiance_commentaire;
+
+    questionnaire = data.q ?? data.questionnaire;
+    niveau = data.n ?? data.niveau;
+    pas = data.p ?? data.pas;
+    importance = data.i ?? data.importance;
+    confiance = data.c ?? data.confiance;
+    importanceComment = data.ci ?? data.importance_commentaire;
+    confianceComment = data.cc ?? data.confiance_commentaire;
+
+  } catch (e) {
+
+    alert("JSON invalide");
+    return;
+
+  }
       
   } catch (e) {
     alert("JSON invalide");
