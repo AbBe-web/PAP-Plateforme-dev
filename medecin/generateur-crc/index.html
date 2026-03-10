@@ -810,6 +810,10 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
     document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
     document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
 
+    document.getElementById("actif-subgroup").style.display = "none";
+    document.getElementById("inactif-subgroup").style.display = "none";
+    document.getElementById("sixmois-subgroup").style.display = "none";
+      
   });
 
 });
