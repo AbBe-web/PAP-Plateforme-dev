@@ -266,7 +266,7 @@ Importer fichier JSON
             <div class="form-group">
                 <h2>2/ Évaluation de l’Activité Physique (niveau actuel et visé, motivation)</h2>
                 <div class="sub-group">
-              <h3>Niveau actuel (mesuré par 
+<h3 id="niveau-actuel-title">Niveau actuel (mesuré par 
 <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>, 
 <label><input type="radio" name="questionnaire" value="Marshall"> Marshall</label>) :
 </h3>
@@ -813,7 +813,11 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
     document.getElementById("actif-subgroup").style.display = "none";
     document.getElementById("inactif-subgroup").style.display = "none";
     document.getElementById("sixmois-subgroup").style.display = "none";
-      
+     
+    document.getElementById("niveau-actuel-title").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   });
 
 });
