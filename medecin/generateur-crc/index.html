@@ -731,13 +731,49 @@ if (confBlock && confField) {
 
 }
    }
-          
-        let savedScrollPosition = 0;
+
+        function updateNiveauButtons(mode){
+
+  const tres = document.getElementById("niveau_tres_actif").parentElement.parentElement;
+  const actif = document.getElementById("niveau_actif").parentElement.parentElement;
+  const moyen = document.getElementById("niveau_moyen").parentElement.parentElement;
+  const inactif = document.getElementById("niveau_inactif").parentElement.parentElement;
+
+  if(mode === "clinique"){
+
+    tres.style.display = "";
+    actif.style.display = "";
+    moyen.style.display = "none";
+    inactif.style.display = "";
+
+  }
+
+  if(mode === "gpaq"){
+
+    tres.style.display = "";
+    actif.style.display = "none";
+    moyen.style.display = "";
+    inactif.style.display = "";
+
+  }
+
+  if(mode === "marshall"){
+
+    tres.style.display = "none";
+    actif.style.display = "";
+    moyen.style.display = "none";
+    inactif.style.display = "";
+
+  }
+
+}
+        
+let savedScrollPosition = 0;
 let lastScrollY = 0;
             window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
 });
-         
+
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
 if (this.value === 'actif' || this.value === 'tres_actif') {
