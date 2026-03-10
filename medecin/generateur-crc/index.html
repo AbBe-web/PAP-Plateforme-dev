@@ -615,7 +615,7 @@ Pas d’AP envisagée dans les 6 mois
 
   if (!element) return;
 
-  if (window.innerWidth <= 768) {
+if (window.matchMedia("(max-width: 768px)").matches) {
 
     setTimeout(() => {
 
@@ -849,11 +849,13 @@ document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
 
     if(!sixMoisBlock) return;
 
-    sixMoisBlock.classList.add("hidden");
+  sixMoisBlock.classList.add("hidden");
+sixMoisBlock.style.display = "none";
 
-    if(this.value === "non"){
-      sixMoisBlock.classList.remove("hidden");
-    }
+if(this.value === "non"){
+  sixMoisBlock.classList.remove("hidden");
+  sixMoisBlock.style.display = "block";
+}
 
   });
 
