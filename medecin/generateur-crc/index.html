@@ -1071,19 +1071,12 @@ if(scanBtn){
         qrbox: 250
       },
         
-function(decodedText){     
-    
-console.log("QR brut:", decodedText);
+function(decodedText){
 
-// nettoyage robuste du texte QR
-const match = decodedText.match(/\{.*\}/s);
-if(match){
-  decodedText = match[0];
-}
+  try{
 
-try{
+    importPatientJSON(decodedText);
 
-  importPatientJSON(decodedText);
     qrScanner.stop();
     qrContainer.style.display = "none";
 
@@ -1093,7 +1086,8 @@ try{
 
     alert("QR invalide.");
   }
-}       
+
+}     
     );
   });
 }
