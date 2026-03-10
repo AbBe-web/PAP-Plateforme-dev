@@ -817,9 +817,14 @@ document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio)
     inactifBlock.classList.add('hidden');
     sixMoisBlock.classList.add('hidden');
 
+    actifBlock.style.display = "none";
+    inactifBlock.style.display = "none";
+    sixMoisBlock.style.display = "none";
+
     if (this.value === 'actif' || this.value === 'tres_actif' || this.value === 'moyennement_actif') {
 
       actifBlock.classList.remove('hidden');
+      actifBlock.style.display = "block";
       scrollIfNeeded(actifBlock);
 
     }
@@ -827,6 +832,7 @@ document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio)
     if (this.value === 'inactif') {
 
       inactifBlock.classList.remove('hidden');
+      inactifBlock.style.display = "block";
       scrollIfNeeded(inactifBlock);
 
     }
