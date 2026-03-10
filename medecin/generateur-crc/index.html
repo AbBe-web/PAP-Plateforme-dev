@@ -264,24 +264,78 @@ Importer fichier JSON
             <div class="form-group">
                 <h2>2/ Évaluation de l’Activité Physique (niveau actuel et visé, motivation)</h2>
                 <div class="sub-group">
-                   <h3>Niveau actuel (mesuré par <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>, <label><input type="radio" name="questionnaire" value="Marshall"> Marshall</label>) :</h3>
-                   <div id="niveau_detail" style="margin:6px 0 10px 0;font-size:0.9em;color:#555;"></div>
-                    <div style="display: flex; align-items: center;">
-                        <div style="margin-right: 20px;">
-                            <label><input type="radio" name="niveau_actuel" value="actif"> Actif</label>
-                            <div id="actif-subgroup" class="hidden">
-                                <label><input type="radio" name="actif_depuis" value="plus_6_mois"> Oui, depuis plus de 6 mois</label>
-                                <label><input type="radio" name="actif_depuis" value="moins_6_mois"> Non, depuis moins de 6 mois</label>
-                            </div>
-                        </div>
-                        <div>
-                            <label><input type="radio" name="niveau_actuel" value="inactif"> Inactif</label>
-                            <div id="inactif-subgroup" class="hidden">
-                                <label><input type="radio" name="ap_envisagee" value="oui"> AP envisagée dans les 30 jours</label>
-                                <label><input type="radio" name="ap_envisagee" value="non"> Pas d’AP envisagée dans les 30 jours</label>
-                            </div>
-                        </div>
-                    </div>
+              <h3>Niveau actuel (mesuré par 
+<label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>, 
+<label><input type="radio" name="questionnaire" value="Marshall"> Marshall</label>) :
+</h3>
+
+<div style="display: flex; align-items: center; gap:25px;">
+
+<div>
+
+<label>
+ <input type="radio" name="niveau_actuel" value="tres_actif">
+ Très actif
+</label>
+
+</div>
+
+<div>
+
+<label>
+ <input type="radio" name="niveau_actuel" value="actif">
+ Actif
+</label>
+
+<div id="actif-subgroup" class="hidden">
+
+<label>
+<input type="radio" name="actif_depuis" value="plus_6_mois">
+Oui, depuis plus de 6 mois
+</label>
+
+<label>
+<input type="radio" name="actif_depuis" value="moins_6_mois">
+Non, depuis moins de 6 mois
+</label>
+
+</div>
+
+</div>
+
+<div>
+
+<label>
+ <input type="radio" name="niveau_actuel" value="moyennement_actif">
+ Moyennement actif
+</label>
+
+</div>
+
+<div>
+
+<label>
+ <input type="radio" name="niveau_actuel" value="inactif">
+ Inactif
+</label>
+
+<div id="inactif-subgroup" class="hidden">
+
+<label>
+<input type="radio" name="ap_envisagee" value="oui">
+AP envisagée dans les 30 jours
+</label>
+
+<label>
+<input type="radio" name="ap_envisagee" value="non">
+Pas d’AP envisagée dans les 30 jours
+</label>
+
+</div>
+
+</div>
+
+</div>
                    <div>
     <label>
         <input type="radio" name="sedentaire" value="sedentaire">
@@ -631,14 +685,7 @@ let activeMode = "long";
   }
 
 }
-  const niveauDetail = document.getElementById("niveau_detail");
-
-if (niveauDetail && niveau) {
-
-  niveauDetail.textContent =
-  "Niveau activité questionnaire : " + niveau.replaceAll("_"," ");
-
-}
+  
  if (pas !== undefined && pas !== null) {
   const pasInput = document.querySelector('input[name="nombre_pas"]');
   if (pasInput) pasInput.value = pas;
@@ -699,13 +746,13 @@ let lastScrollY = 0;
          
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
-                    if (this.value === 'actif') {
+if (this.value === 'actif' || this.value === 'tres_actif') {
   const actifBlock = document.getElementById('actif-subgroup');
   actifBlock.classList.remove('hidden');
   document.getElementById('inactif-subgroup').classList.add('hidden');
 
   scrollIfNeeded(actifBlock);
-} else if (this.value === 'inactif') {
+else if (this.value === 'inactif' || this.value === 'moyennement_actif')
   const inactifBlock = document.getElementById('inactif-subgroup');
   inactifBlock.classList.remove('hidden');
   document.getElementById('actif-subgroup').classList.add('hidden');
