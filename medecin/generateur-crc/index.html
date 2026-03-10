@@ -791,7 +791,7 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
 
 });
         
-            document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
+  document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
 if (this.value === 'actif' || this.value === 'tres_actif') {
   const actifBlock = document.getElementById('actif-subgroup');
@@ -1108,14 +1108,15 @@ if(blockC && fieldC){
 
 const niveau = data?.resultats?.niveau_activite;
 
-if(niveau === "suffisamment_actif"){
-  const actif = document.querySelector('input[name="niveau_actuel"][value="actif"]');
-  if(actif) actif.checked = true;
-}
+if(niveau){
 
-if(niveau === "insuffisamment_actif"){
-  const inactif = document.querySelector('input[name="niveau_actuel"][value="inactif"]');
-  if(inactif) inactif.checked = true;
+  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
+
+  if(n){
+    n.checked = true;
+    n.dispatchEvent(new Event("change"));
+  }
+
 }
 
 alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");
