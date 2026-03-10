@@ -321,10 +321,25 @@ Pas d’AP envisagée dans les 30 jours
 
 </div>
 
+<div id="sixmois-subgroup" class="hidden">
+
+<label>
+<input type="radio" name="ap_6_mois" value="oui">
+AP envisagée dans les 6 mois
+</label>
+
+<label>
+<input type="radio" name="ap_6_mois" value="non">
+Pas d’AP envisagée dans les 6 mois
+</label>
+
 </div>
 
 </div>
-                   <div>
+
+</div>
+
+<div>
     <label>
         <input type="radio" name="sedentaire" value="sedentaire">
         Sédentaire
@@ -769,32 +784,18 @@ window.addEventListener("DOMContentLoaded", function(){
 
 });
         
-document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
-
-  radio.addEventListener("change", function(){
-
-    if(this.value === "GPAQ"){
-      updateNiveauButtons("gpaq");
-    }
-
-    if(this.value === "Marshall"){
-      updateNiveauButtons("marshall");
-    }
-
-  });
-
-});
-        
- document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
+document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
 
   radio.addEventListener('change', function() {
 
     const actifBlock = document.getElementById('actif-subgroup');
     const inactifBlock = document.getElementById('inactif-subgroup');
+    const sixMoisBlock = document.getElementById('sixmois-subgroup');
 
     // on ferme tout au départ
     actifBlock.classList.add('hidden');
     inactifBlock.classList.add('hidden');
+    sixMoisBlock.classList.add('hidden');
 
     if (this.value === 'actif' || this.value === 'tres_actif' || this.value === 'moyennement_actif') {
 
@@ -813,7 +814,26 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
   });
 
 });
-            
+
+document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    const sixMoisBlock = document.getElementById("sixmois-subgroup");
+
+    if(!sixMoisBlock) return;
+
+    sixMoisBlock.classList.add("hidden");
+
+    if(this.value === "non"){
+      sixMoisBlock.classList.remove("hidden");
+    }
+
+  });
+
+});
+        
+        
 function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
   const subgroup = document.getElementById(subgroupId);
