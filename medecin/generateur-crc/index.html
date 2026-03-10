@@ -770,10 +770,14 @@ if (confBlock && confField) {
         
 let savedScrollPosition = 0;
 let lastScrollY = 0;
-            window.addEventListener("scroll", function () {
+window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
 });
+window.addEventListener("DOMContentLoaded", function(){
 
+  updateNiveauButtons("clinique");
+
+});
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
 if (this.value === 'actif' || this.value === 'tres_actif') {
