@@ -665,21 +665,12 @@ let activeMode = "long";
   }
 
 }
- if (niveau) {
+if (niveau) {
 
-  let niveauClinique;
-
-  if (niveau === "actif" || niveau === "tres_actif") {
-    niveauClinique = "actif";
-  } else {
-    niveauClinique = "inactif";
-  }
-
-  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveauClinique}"]`);
+  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
 
   if (n) {
     n.checked = true;
-    // déclenche l'affichage des sous-groupes
     n.dispatchEvent(new Event("change"));
   }
 
@@ -994,20 +985,14 @@ if(scanBtn){
   }catch(e){
 
     alert("QR invalide.");
-
   }
-
 }       
     );
-
   });
-
 }
 
 if(closeQR){
-
   closeQR.addEventListener("click", function(){
-
     if(qrScanner){
       qrScanner.stop();
     }
