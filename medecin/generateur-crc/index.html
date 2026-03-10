@@ -648,6 +648,7 @@ let activeMode = "long";
     questionnaire = data.q ?? data.questionnaire;
     niveau = data.n ?? data.niveau;
     pas = data.p ?? data.pas;
+    const heures = data.h ?? data.heures_assises;
     importance = data.i ?? data.importance;
     confiance = data.c ?? data.confiance;
     importanceComment = data.ci ?? data.importance_commentaire;
@@ -686,6 +687,11 @@ if (niveau) {
   if (pasInput) pasInput.value = pas;
 }
 
+ if (heures !== undefined && heures !== null) {
+  const hInput = document.querySelector('input[name="heures_assises"]');
+  if (hInput) hInput.value = heures;
+}
+          
 if (importance !== undefined && importance !== null) {
   const imp = document.querySelector('input[name="importance_ap"]');
   if (imp) imp.value = importance;
