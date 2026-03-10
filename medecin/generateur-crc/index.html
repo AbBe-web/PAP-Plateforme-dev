@@ -604,7 +604,9 @@ let activeMode = "long";
     return;
       }
           
-if (questionnaire) {
+    console.log("niveau QR importé :", niveau);       
+
+          if (questionnaire) {
   const radio = document.querySelector(`input[name="questionnaire"][value="${questionnaire}"]`);
   if (radio) radio.checked = true;
 }
