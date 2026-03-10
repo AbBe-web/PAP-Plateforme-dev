@@ -778,6 +778,23 @@ window.addEventListener("DOMContentLoaded", function(){
   updateNiveauButtons("clinique");
 
 });
+        
+document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    if(this.value === "GPAQ"){
+      updateNiveauButtons("gpaq");
+    }
+
+    if(this.value === "Marshall"){
+      updateNiveauButtons("marshall");
+    }
+
+  });
+
+});
+        
             document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
                 radio.addEventListener('change', function() {
 if (this.value === 'actif' || this.value === 'tres_actif') {
