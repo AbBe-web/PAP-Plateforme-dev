@@ -752,7 +752,7 @@ if (this.value === 'actif' || this.value === 'tres_actif') {
   document.getElementById('inactif-subgroup').classList.add('hidden');
 
   scrollIfNeeded(actifBlock);
-else if (this.value === 'inactif' || this.value === 'moyennement_actif')
+} else if (this.value === 'inactif' || this.value === 'moyennement_actif') {
   const inactifBlock = document.getElementById('inactif-subgroup');
   inactifBlock.classList.remove('hidden');
   document.getElementById('actif-subgroup').classList.add('hidden');
