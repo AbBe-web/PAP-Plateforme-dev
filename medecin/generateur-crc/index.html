@@ -867,7 +867,7 @@ document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio)
     if (this.value === 'actif' || this.value === 'tres_actif' || this.value === 'moyennement_actif') {
 
       actifBlock.classList.remove('hidden');
-      actifBlock.style.display = "block";
+      actifBlock.style.display = "";
 if (window.matchMedia("(max-width: 768px)").matches) {
   scrollIfNeeded(actifBlock);
 }
@@ -877,7 +877,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
     if (this.value === 'inactif') {
 
       inactifBlock.classList.remove('hidden');
-      inactifBlock.style.display = "block";
+    inactifBlock.style.display = "";
 if (window.matchMedia("(max-width: 768px)").matches) {
   scrollIfNeeded(inactifBlock);
 }
