@@ -1071,13 +1071,14 @@ if(scanBtn){
         qrbox: 250
       },
         
- function(decodedText){
+console.log("QR brut:", decodedText);
 
-  console.log("QR brut:", decodedText);
+// nettoyage BOM et espaces
+decodedText = decodedText.replace(/^\uFEFF/, "").trim();
 
-  try{
+try{
 
-    importPatientJSON(decodedText);
+  importPatientJSON(decodedText);
 
     qrScanner.stop();
     qrContainer.style.display = "none";
