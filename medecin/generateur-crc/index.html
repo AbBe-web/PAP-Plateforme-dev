@@ -1076,10 +1076,10 @@ function(decodedText){
 console.log("QR brut:", decodedText);
 
 // nettoyage robuste du texte QR
-decodedText = decodedText.substring(
-  decodedText.indexOf("{"),
-  decodedText.lastIndexOf("}") + 1
-);
+const match = decodedText.match(/\{.*\}/s);
+if(match){
+  decodedText = match[0];
+}
 
 try{
 
