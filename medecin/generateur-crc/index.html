@@ -868,7 +868,7 @@ document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio)
 
       actifBlock.classList.remove('hidden');
       actifBlock.style.display = "block";
-if (window.innerWidth <= 768) {
+if (window.matchMedia("(max-width: 768px)").matches) {
   scrollIfNeeded(actifBlock);
 }
 
@@ -878,7 +878,7 @@ if (window.innerWidth <= 768) {
 
       inactifBlock.classList.remove('hidden');
       inactifBlock.style.display = "block";
-if (window.innerWidth <= 768) {
+if (window.matchMedia("(max-width: 768px)").matches) {
   scrollIfNeeded(inactifBlock);
 }
 
