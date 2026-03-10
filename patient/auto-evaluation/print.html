@@ -639,11 +639,16 @@ document.getElementById("content").appendChild(qrContainer);
 // ------------------------------
 // Construction du payload
 // ------------------------------
+let niveau = data.resultats.niveau_activite;
 
+// normalisation Marshall
+if (niveau === "insuffisamment_actif") niveau = "inactif";
+if (niveau === "suffisamment_actif") niveau = "actif";
+  
 const qrPayload = {
 v:1,
 q: data.meta.questionnaire,
-n: data.resultats.niveau_activite,
+n: niveau,
 m: data.resultats.met_minutes_semaine,
 p: data.resultats.pas_moyens_jour_1_mois,
 s: data.motivation.stade,
