@@ -265,6 +265,7 @@ Importer fichier JSON
                 <h2>2/ Évaluation de l’Activité Physique (niveau actuel et visé, motivation)</h2>
                 <div class="sub-group">
                    <h3>Niveau actuel (mesuré par <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>, <label><input type="radio" name="questionnaire" value="Marshall"> Marshall</label>) :</h3>
+                   <div id="niveau_detail" style="margin:6px 0 10px 0;font-size:0.9em;color:#555;"></div>
                     <div style="display: flex; align-items: center;">
                         <div style="margin-right: 20px;">
                             <label><input type="radio" name="niveau_actuel" value="actif"> Actif</label>
@@ -611,9 +612,32 @@ let activeMode = "long";
   if (radio) radio.checked = true;
 }
 
-  if (niveau) {
-  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
-  if (n) n.checked = true;
+ if (niveau) {
+
+  let niveauClinique;
+
+  if (niveau === "actif" || niveau === "tres_actif") {
+    niveauClinique = "actif";
+  } else {
+    niveauClinique = "inactif";
+  }
+
+  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveauClinique}"]`);
+
+  if (n) {
+    n.checked = true;
+    // déclenche l'affichage des sous-groupes
+    n.dispatchEvent(new Event("change"));
+  }
+
+}
+  const niveauDetail = document.getElementById("niveau_detail");
+
+if (niveauDetail && niveau) {
+
+  niveauDetail.textContent =
+  "Niveau activité questionnaire : " + niveau.replaceAll("_"," ");
+
 }
  if (pas !== undefined && pas !== null) {
   const pasInput = document.querySelector('input[name="nombre_pas"]');
