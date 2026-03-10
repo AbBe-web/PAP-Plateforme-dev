@@ -739,11 +739,11 @@ if (confBlock && confField) {
 
         function updateNiveauButtons(mode){
 
-  const tres = document.getElementById("niveau_tres_actif").parentElement.parentElement;
-  const actif = document.getElementById("niveau_actif").parentElement.parentElement;
-  const moyen = document.getElementById("niveau_moyen").parentElement.parentElement;
-  const inactif = document.getElementById("niveau_inactif").parentElement.parentElement;
-
+const tres = document.getElementById("niveau_tres_actif").parentElement;
+const actif = document.getElementById("niveau_actif").parentElement;
+const moyen = document.getElementById("niveau_moyen").parentElement;
+const inactif = document.getElementById("niveau_inactif").parentElement;
+            
   if(mode === "clinique"){
 
     tres.style.display = "";
