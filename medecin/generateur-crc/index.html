@@ -1075,8 +1075,11 @@ function(decodedText){
     
 console.log("QR brut:", decodedText);
 
-// nettoyage BOM et espaces
-decodedText = decodedText.replace(/^\uFEFF/, "").trim();
+// nettoyage robuste du texte QR
+decodedText = decodedText.substring(
+  decodedText.indexOf("{"),
+  decodedText.lastIndexOf("}") + 1
+);
 
 try{
 
