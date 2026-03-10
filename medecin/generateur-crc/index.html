@@ -1049,8 +1049,14 @@ document.getElementById("importJSONFile")
 const q = data?.meta?.questionnaire;
 
 if(q){
+
   const radio = document.querySelector(`input[name="questionnaire"][value="${q}"]`);
-  if(radio) radio.checked = true;
+
+  if(radio){
+    radio.checked = true;
+    radio.dispatchEvent(new Event("change"));
+  }
+
 }
 
 /* ======================
