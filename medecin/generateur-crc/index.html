@@ -791,26 +791,34 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
 
 });
         
-  document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
-                radio.addEventListener('change', function() {
-if (this.value === 'actif' || this.value === 'tres_actif') {
-  const actifBlock = document.getElementById('actif-subgroup');
-  actifBlock.classList.remove('hidden');
-  document.getElementById('inactif-subgroup').classList.add('hidden');
+ document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
 
-  scrollIfNeeded(actifBlock);
-} else if (this.value === 'inactif' || this.value === 'moyennement_actif') {
-  const inactifBlock = document.getElementById('inactif-subgroup');
-  inactifBlock.classList.remove('hidden');
-  document.getElementById('actif-subgroup').classList.add('hidden');
+  radio.addEventListener('change', function() {
 
-  scrollIfNeeded(inactifBlock);
-} else {
-                        document.getElementById('actif-subgroup').classList.add('hidden');
-                        document.getElementById('inactif-subgroup').classList.add('hidden');
-                    }
-                });
-          });
+    const actifBlock = document.getElementById('actif-subgroup');
+    const inactifBlock = document.getElementById('inactif-subgroup');
+
+    // on ferme tout au départ
+    actifBlock.classList.add('hidden');
+    inactifBlock.classList.add('hidden');
+
+    if (this.value === 'actif' || this.value === 'tres_actif' || this.value === 'moyennement_actif') {
+
+      actifBlock.classList.remove('hidden');
+      scrollIfNeeded(actifBlock);
+
+    }
+
+    if (this.value === 'inactif') {
+
+      inactifBlock.classList.remove('hidden');
+      scrollIfNeeded(inactifBlock);
+
+    }
+
+  });
+
+});
             
 function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
