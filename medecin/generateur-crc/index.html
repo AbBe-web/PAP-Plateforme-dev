@@ -799,6 +799,45 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
   });
 
 });      
+
+// reset niveaux et motivation si changement questionnaire
+document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+  });
+
+});
+
+// reset motivation si changement niveau activité
+document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+  });
+
+});
+
+
+// reset 6 mois si changement réponse 30 jours
+document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+  });
+
+});
         
 document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
 
