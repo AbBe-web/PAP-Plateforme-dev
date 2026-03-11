@@ -709,6 +709,7 @@ new QRCode(qrDiv, {
   height: 260,
   correctLevel: QRCode.CorrectLevel.M
 });
+  console.log("QR children count:", qrDiv.children.length);
   
   if (data.meta.questionnaire === "GPAQ") {
   const gpaqTitle = document.getElementById("gpaq-title");
