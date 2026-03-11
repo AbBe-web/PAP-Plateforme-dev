@@ -694,26 +694,21 @@ qrPayload = {
 }
 
 // ------------------------------
-// Génération du QR (robuste)
+// Génération du QR
 // ------------------------------
 
-setTimeout(function(){
+// DEBUG H1
+console.log("QR payload:", qrPayload);
+console.log("QR data length:", qrData.length);
+console.log("QR div exists:", !!qrDiv);
+console.log("QR generation triggered");
 
-  // sécurité : vider le conteneur
-  qrDiv.innerHTML = "";
-
-  // sécurité : JSON propre
-  const cleanQRData = JSON.stringify(JSON.parse(qrData));
-
-  new QRCode(qrDiv, {
-    text: cleanQRData,
-    width: 260,
-    height: 260,
-    correctLevel: QRCode.CorrectLevel.M
-  });
-
-}, 50);
-
+new QRCode(qrDiv, {
+  text: qrData,
+  width: 260,
+  height: 260,
+  correctLevel: QRCode.CorrectLevel.M
+});
   
   if (data.meta.questionnaire === "GPAQ") {
   const gpaqTitle = document.getElementById("gpaq-title");
