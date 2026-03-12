@@ -932,29 +932,22 @@ function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
     }
   }
 
- function copyPatientComment(id){
+ window.copyPatientComment = function(id){
 
   const field = document.getElementById(id);
   if(!field) return;
 
-  const text = field.value;
+  const text = field.value || field.innerText || "";
 
-  if(navigator.clipboard && window.isSecureContext){
-    navigator.clipboard.writeText(text);
-  } else {
+  const temp = document.createElement("textarea");
+  temp.value = text;
 
-    const temp = document.createElement("textarea");
-    temp.value = text;
-    document.body.appendChild(temp);
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand("copy");
+  document.body.removeChild(temp);
 
-    temp.select();
-    document.execCommand("copy");
-
-    document.body.removeChild(temp);
-
-  }
-
-}
+};
     
   function updateDisplay() {
     const selected = document.querySelector(`input[name="${groupName}"]:checked`);
