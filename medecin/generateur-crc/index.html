@@ -932,13 +932,27 @@ function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
     }
   }
 
-    function copyPatientComment(id){
+ function copyPatientComment(id){
 
   const field = document.getElementById(id);
-
   if(!field) return;
 
-  navigator.clipboard.writeText(field.value);
+  const text = field.value;
+
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text);
+  } else {
+
+    const temp = document.createElement("textarea");
+    temp.value = text;
+    document.body.appendChild(temp);
+
+    temp.select();
+    document.execCommand("copy");
+
+    document.body.removeChild(temp);
+
+  }
 
 }
     
