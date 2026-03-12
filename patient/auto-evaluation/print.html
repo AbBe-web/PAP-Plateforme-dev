@@ -696,20 +696,12 @@ qrPayload = {
 // ------------------------------
 // Génération du QR
 // ------------------------------
-
-// DEBUG H1
-console.log("QR payload:", qrPayload);
-console.log("QR data length:", qrData.length);
-console.log("QR div exists:", !!qrDiv);
-console.log("QR generation triggered");
-
 new QRCode(qrDiv, {
   text: qrData,
   width: 260,
   height: 260,
   correctLevel: QRCode.CorrectLevel.M
 });
-  console.log("QR children count:", qrDiv.children.length);
   
   if (data.meta.questionnaire === "GPAQ") {
   const gpaqTitle = document.getElementById("gpaq-title");
