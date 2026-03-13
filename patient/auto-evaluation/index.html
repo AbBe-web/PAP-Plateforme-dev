@@ -498,6 +498,62 @@ function finishMarshall(q2){
   state.result.marshall_score=score;
   stepsQuestion();
 }
+function stepsQuestion(){
+
+pushScreen(
+  state.tool === "marshall"
+    ? "MAR-STEPS"
+    : "GPAQ-STEPS"
+);
+
+render(`
+<h2>Activité quotidienne (facultatif)</h2>
+
+<p>
+Si vous suivez votre nombre de pas, indiquez votre moyenne sur le dernier mois.
+</p>
+
+<input type="number" min="0" placeholder="Ex. : 6500"
+oninput="state.result.pas_mois=this.value">
+
+<div class="section">
+
+<p>
+Combien de temps passez-vous assis ou couché par jour (hors sommeil) lors d'une journée habituelle ?
+</p>
+
+<div class="time-row">
+
+<input type="number"
+id="hSed"
+min="0"
+max="23"
+placeholder="Heures"
+oninput="
+if(state.tool==='marshall'){state.marshall.sed_h=this.value}
+else{state.gpaq.sed_h=this.value}
+">
+
+<input type="number"
+id="mSed"
+min="0"
+max="59"
+placeholder="Minutes"
+oninput="
+if(state.tool==='marshall'){state.marshall.sed_m=this.value}
+else{state.gpaq.sed_m=this.value}
+">
+
+</div>
+
+</div>
+
+<button class="btn" onclick="motivation()">Continuer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+
+`,94);
+
+}
 
 /*************************************************
  * GPAQ — FLUX COMPLET
