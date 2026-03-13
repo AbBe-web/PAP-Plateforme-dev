@@ -702,7 +702,9 @@ qrPayload = {
 
 requestAnimationFrame(() => {
 
-  try {
+ try {
+
+   if(!qrDiv) return;
 
    const parent = qrDiv.parentNode;
    const newDiv = qrDiv.cloneNode(false);
