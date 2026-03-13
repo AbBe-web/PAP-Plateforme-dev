@@ -647,7 +647,11 @@ let activeMode = "long";
     data = JSON.parse(jsonText);
 
     questionnaire = data.q ?? data.questionnaire;
-    niveau = data.n ?? data.niveau;
+    niveau =
+     data.n ??
+     data.niveau ??
+     data.resultats?.niveau_activite ??
+     null;
     pas = data.p ?? data.pas;
     sedentarite = data.sd ?? data.sedentarite;
     importance = data.i ?? data.importance;
