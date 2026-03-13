@@ -698,12 +698,59 @@ qrPayload = {
 // ------------------------------
 
 requestAnimationFrame(() => {
-  new QRCode(qrDiv, {
-    text: qrData,
-    width: 260,
-    height: 260,
-    correctLevel: QRCode.CorrectLevel.M
-  });
+
+  try {
+
+    new QRCode(qrDiv, {
+      text: qrData,
+      width: 260,
+      height: 260,
+      correctLevel: QRCode.CorrectLevel.M
+    });
+
+  } catch (e) {
+
+    console.warn("QR overflow → suppression commentaires");
+
+    delete qrPayload.ci;
+    delete qrPayload.cc;
+
+    qrData = JSON.stringify(qrPayload);
+
+    try {
+
+      new QRCode(qrDiv, {
+        text: qrData,
+        width: 260,
+        height: 260,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+    } catch (e2) {
+
+      console.warn("QR overflow → payload minimal");
+
+      const minimalPayload = {
+        q: data.meta.questionnaire,
+        n: niveau,
+        s: data.motivation.stade,
+        i: data.motivation.importance_eva_0_10,
+        c: data.motivation.confiance_eva_0_10
+      };
+
+      qrData = JSON.stringify(minimalPayload);
+
+      new QRCode(qrDiv, {
+        text: qrData,
+        width: 260,
+        height: 260,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+
+    }
+
+  }
+
 });
   
   if (data.meta.questionnaire === "GPAQ") {
