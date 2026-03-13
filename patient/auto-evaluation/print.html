@@ -701,24 +701,29 @@ requestAnimationFrame(() => {
 
   try {
 
-    new QRCode(qrDiv, {
+  qrDiv.innerHTML = "";
+    
+   new QRCode(qrDiv, {
       text: qrData,
       width: 260,
       height: 260,
       correctLevel: QRCode.CorrectLevel.M
     });
 
-  } catch (e) {
+} catch (e) {
 
-    console.warn("QR overflow → suppression commentaires");
+  if (!e.message || !e.message.includes("overflow")) throw e;
 
-    delete qrPayload.ci;
-    delete qrPayload.cc;
+  console.warn("QR overflow → suppression commentaires");
+
+  delete qrPayload.ci;
+  delete qrPayload.cc;
 
     qrData = JSON.stringify(qrPayload);
 
     try {
-
+      qrDiv.innerHTML = "";
+    
       new QRCode(qrDiv, {
         text: qrData,
         width: 260,
@@ -726,11 +731,13 @@ requestAnimationFrame(() => {
         correctLevel: QRCode.CorrectLevel.M
       });
 
-    } catch (e2) {
+} catch (e2) {
 
-      console.warn("QR overflow → payload minimal");
+  if (!e2.message || !e2.message.includes("overflow")) throw e2;
 
-      const minimalPayload = {
+  console.warn("QR overflow → payload minimal");
+
+  const minimalPayload = {
         q: data.meta.questionnaire,
         n: niveau,
         s: data.motivation.stade,
@@ -739,7 +746,8 @@ requestAnimationFrame(() => {
       };
 
       qrData = JSON.stringify(minimalPayload);
-
+      qrDiv.innerHTML = "";
+    
       new QRCode(qrDiv, {
         text: qrData,
         width: 260,
