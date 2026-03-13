@@ -513,7 +513,10 @@ render(`
 Si vous suivez votre nombre de pas, indiquez votre moyenne sur le dernier mois.
 </p>
 
-<input type="number" min="0" placeholder="Ex. : 6500"
+<input type="number"
+min="0"
+placeholder="Ex. : 6500"
+value="${state.result.pas_mois ?? ""}"
 oninput="state.result.pas_mois=this.value">
 
 <div class="section">
