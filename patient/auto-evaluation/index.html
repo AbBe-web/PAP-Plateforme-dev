@@ -529,6 +529,11 @@ id="hSed"
 min="0"
 max="23"
 placeholder="Heures"
+value="${
+state.tool==='marshall'
+? (state.marshall.sed_h ?? "")
+: (state.gpaq.sed_h ?? "")
+}"
 oninput="
 if(state.tool==='marshall'){state.marshall.sed_h=this.value}
 else{state.gpaq.sed_h=this.value}
@@ -539,6 +544,11 @@ id="mSed"
 min="0"
 max="59"
 placeholder="Minutes"
+value="${
+state.tool==='marshall'
+? (state.marshall.sed_m ?? "")
+: (state.gpaq.sed_m ?? "")
+}"
 oninput="
 if(state.tool==='marshall'){state.marshall.sed_m=this.value}
 else{state.gpaq.sed_m=this.value}
