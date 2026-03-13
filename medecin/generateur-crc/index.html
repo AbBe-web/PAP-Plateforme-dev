@@ -1062,6 +1062,7 @@ const qrContainer = document.getElementById("qrScannerContainer");
 const closeQR = document.getElementById("closeQRScanner");
 
 let qrScanner = null;
+let qrAlreadyRead = false;   // ← AJOUT ICI
 
 if(scanBtn){
 
@@ -1080,7 +1081,15 @@ if(scanBtn){
         
 function(decodedText){
 
+  if(qrAlreadyRead) return;
+  qrAlreadyRead = true;
+
   try{
+
+    decodedText = decodedText.substring(
+      decodedText.indexOf("{"),
+      decodedText.lastIndexOf("}") + 1
+    );
 
     importPatientJSON(decodedText);
 
@@ -1091,10 +1100,11 @@ function(decodedText){
 
   }catch(e){
 
+    qrAlreadyRead = false;
     alert("QR invalide.");
   }
 
-}     
+}   
     );
   });
 }
