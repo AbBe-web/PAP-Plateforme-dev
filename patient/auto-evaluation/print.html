@@ -830,7 +830,21 @@ if (data.resultats.pas_moyens_jour_1_mois !== null) {
 }
 
 output += "\n";
+  
+const sedH =
+  data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+  data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+  null;
 
+const sedM =
+  data?.questionnaires?.gpaq?.sedentarite?.minutes_par_jour ??
+  data?.questionnaires?.marshall?.sedentarite?.minutes_par_jour ??
+  null;
+
+if (sedH !== null) {
+  output += `\nTemps assis / couché (hors sommeil) : ${sedH}h ${sedM ?? 0}min / jour\n`;
+}
+  output += "\n";
 /* =========================
    MOTIVATION
 ========================= */
