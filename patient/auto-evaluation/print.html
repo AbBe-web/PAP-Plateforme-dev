@@ -670,7 +670,7 @@ console.info("QR initial size:", qrData.length);ata = JSON.stringify(qrPayload, 
 // Réduction automatique si trop grand
 // ------------------------------
 
-if (qrData.length > 800) {
+if (qrData.length > 650) {
 
   console.warn("QR trop grand : suppression commentaires");
 
@@ -681,7 +681,7 @@ if (qrData.length > 800) {
 }
 
 
-if (qrData.length > 800) {
+if (qrData.length > 650) {
 
   console.warn("QR encore trop grand : version minimale");
 
