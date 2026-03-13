@@ -690,11 +690,21 @@ if (niveau) {
           
 if (sedentarite !== undefined && sedentarite !== null) {
 
-  const sed = document.querySelector(`input[name="sedentaire"][value="${sedentarite}"]`);
+  const heuresInput = document.querySelector('input[name="heures_assises"]');
 
-  if (sed) {
-    sed.checked = true;
-    sed.dispatchEvent(new Event("change"));
+  if (heuresInput) {
+    heuresInput.value = sedentarite;
+  }
+
+  // déduction automatique du statut sédentaire
+  const sedRadio =
+    sedentarite >= 7
+      ? document.querySelector('input[name="sedentaire"][value="sedentaire"]')
+      : document.querySelector('input[name="sedentaire"][value="non_sedentaire"]');
+
+  if (sedRadio) {
+    sedRadio.checked = true;
+    sedRadio.dispatchEvent(new Event("change"));
   }
 
 }
