@@ -1179,12 +1179,24 @@ document.getElementById("importJSONFile")
 
       const data = JSON.parse(reader.result);
 
-      // Pas moyens
-      const pas = data?.resultats?.pas_moyens_jour_1_mois;
-      if(pas){
-        const inputPas = document.querySelector('input[name="nombre_pas"]');
-        if(inputPas) inputPas.value = pas;
-      }
+    // Pas moyens
+const pas = data?.resultats?.pas_moyens_jour_1_mois;
+if(pas){
+  const inputPas = document.querySelector('input[name="nombre_pas"]');
+  if(inputPas) inputPas.value = pas;
+}
+
+// Heures assises (sédentarité)
+const heuresAssises =
+  data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ?? null;
+
+if (heuresAssises !== null) {
+
+  const input = document.querySelector('input[name="heures_assises"]');
+
+if (input) input.value = Number(heuresAssises);
+
+}
 
       // Questionnaire utilisé
 const q = data?.meta?.questionnaire;
