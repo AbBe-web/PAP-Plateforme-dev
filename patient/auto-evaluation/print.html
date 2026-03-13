@@ -842,7 +842,17 @@ const sedM =
   null;
 
 if (sedH !== null) {
-  output += `\nTemps assis / couché (hors sommeil) : ${sedH}h ${sedM ?? 0}min / jour\n`;
+let sedText = "";
+
+if ((sedH ?? 0) > 0 && (sedM ?? 0) > 0) {
+  sedText = `${sedH} h ${sedM} min / jour`;
+} else if ((sedH ?? 0) > 0) {
+  sedText = `${sedH} h / jour`;
+} else if ((sedM ?? 0) > 0) {
+  sedText = `${sedM} min / jour`;
+}
+
+output += `\nTemps assis / couché (hors sommeil) : ${sedText}\n`;
 }
   output += "\n";
 /* =========================
