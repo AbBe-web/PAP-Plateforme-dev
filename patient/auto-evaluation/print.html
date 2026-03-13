@@ -696,11 +696,13 @@ qrPayload = {
 // ------------------------------
 // Génération du QR
 // ------------------------------
-new QRCode(qrDiv, {
-  text: qrData,
-  width: 260,
-  height: 260,
-  correctLevel: QRCode.CorrectLevel.M
+requestAnimationFrame(() => {
+  new QRCode(qrDiv, {
+    text: qrData,
+    width: 260,
+    height: 260,
+    correctLevel: QRCode.CorrectLevel.M
+  });
 });
   
   if (data.meta.questionnaire === "GPAQ") {
