@@ -1188,7 +1188,9 @@ if(pas){
 
 // Heures assises (sédentarité)
 const heuresAssises =
-  data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ?? null;
+  data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+  data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+  null;
 
 if (heuresAssises !== null) {
 
