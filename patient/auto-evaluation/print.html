@@ -696,6 +696,9 @@ qrPayload = {
 // ------------------------------
 // Génération du QR
 // ------------------------------
+console.log("Longueur qrData:", qrData.length);
+console.log(qrData);
+  
 requestAnimationFrame(() => {
   new QRCode(qrDiv, {
     text: qrData,
