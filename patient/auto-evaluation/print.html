@@ -645,7 +645,7 @@ let niveau = data.resultats.niveau_activite;
 if (niveau === "insuffisamment_actif") niveau = "inactif";
 if (niveau === "suffisamment_actif") niveau = "actif";
   
-const qrPayload = {
+let qrPayload = {
 v:1,
 q: data.meta.questionnaire,
 n: niveau,
@@ -667,7 +667,7 @@ let qrData = JSON.stringify(qrPayload, null, 0);
 // Réduction automatique si trop grand
 // ------------------------------
 
-if (qrData.length > 1500) {
+if (qrData.length > 800) {
 
   console.warn("QR trop grand : suppression commentaires");
 
@@ -678,7 +678,7 @@ if (qrData.length > 1500) {
 }
 
 
-if (qrData.length > 1500) {
+if (qrData.length > 800) {
 
   console.warn("QR encore trop grand : version minimale");
 
@@ -696,9 +696,7 @@ qrPayload = {
 // ------------------------------
 // Génération du QR
 // ------------------------------
-console.log("Longueur qrData:", qrData.length);
-console.log(qrData);
-  
+
 requestAnimationFrame(() => {
   new QRCode(qrDiv, {
     text: qrData,
