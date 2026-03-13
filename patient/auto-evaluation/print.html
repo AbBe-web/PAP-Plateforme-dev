@@ -702,9 +702,11 @@ requestAnimationFrame(() => {
 
   try {
 
-  qrDiv.innerHTML = "";
-    
-   new QRCode(qrDiv, {
+    qrDiv.innerHTML = "";
+
+    console.info("QR payload size:", qrData.length);
+
+    new QRCode(qrDiv, {
       text: qrData,
       width: 260,
       height: 260,
