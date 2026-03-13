@@ -704,7 +704,10 @@ requestAnimationFrame(() => {
 
   try {
 
-    qrDiv.innerHTML = "";
+   const parent = qrDiv.parentNode;
+   const newDiv = qrDiv.cloneNode(false);
+   parent.replaceChild(newDiv, qrDiv);
+   qrDiv = newDiv;
 
     console.info("QR payload size:", qrData.length);
 
