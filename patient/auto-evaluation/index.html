@@ -1146,7 +1146,14 @@ function buildExportJSON(){
 },
 
     questionnaires: {
-      marshall: state.marshall,
+      marshall: {
+        q1: state.marshall.q1 ?? null,
+        q2: state.marshall.q2 ?? null,
+        sedentarite: {
+          heures_par_jour: state.marshall.sed_h ?? null,
+          minutes_par_jour: state.marshall.sed_m ?? null
+     }
+    },
 
       gpaq: {
         travail: {
