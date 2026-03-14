@@ -519,10 +519,37 @@ placeholder="Ex. : 6500"
 value="${state.result.pas_mois ?? ""}"
 oninput="state.result.pas_mois=this.value">
 
+${state.tool === "marshall" ? `
+
 <div class="section">
 
 <p>
 Combien de temps passez-vous assis ou couché par jour (hors sommeil) lors d'une journée habituelle ?
+</p>
+
+<div class="time-row">
+
+<input type="number"
+id="hSed"
+min="0"
+max="23"
+placeholder="Heures"
+value="${state.marshall.sed_h ?? ""}"
+oninput="state.marshall.sed_h=this.value">
+
+<input type="number"
+id="mSed"
+min="0"
+max="59"
+placeholder="Minutes"
+value="${state.marshall.sed_m ?? ""}"
+oninput="state.marshall.sed_m=this.value">
+
+</div>
+
+</div>
+
+` : ""}
 </p>
 
 <div class="time-row">
