@@ -811,11 +811,11 @@ output += "1. SYNTHÈSE\n";
 output += "───────────\n";
 
 output += "Niveau d’activité physique : ";
-output += data.resultats.niveau_activite.replace("_"," ");
+output += (data.resultats?.niveau_activite ?? "non_defini").replace("_"," ");
 output += "\n";
 
 output += "Volume estimé : ";
-output += data.resultats.met_minutes_semaine;
+output += data.resultats?.met_minutes_semaine ?? 0;
 output += " MET-min / semaine\n";
 
 output += "\n";   // espace entre blocs
