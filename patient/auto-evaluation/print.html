@@ -682,7 +682,7 @@ cc: data.motivation.confiance_commentaire || ""
 if (!qrPayload.ci) delete qrPayload.ci;
 if (!qrPayload.cc) delete qrPayload.cc;
   
-let qrData = JSON.stringify(qrPayload, null, 0);
+let qrData = JSON.stringify(qrPayload);
 
 console.info("QR initial size:", qrData.length);
 
