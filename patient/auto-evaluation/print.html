@@ -757,16 +757,18 @@ requestAnimationFrame(() => {
       qrData = JSON.stringify(minimalPayload);
       qrDiv.innerHTML = "";
     
-      new QRCode(qrDiv, {
-        text: qrData,
-        width: 260,
-        height: 260,
-        correctLevel: QRCode.CorrectLevel.M
-      });
+ new QRCode(qrDiv, {
+  text: qrData,
+  width: 260,
+  height: 260,
+  correctLevel: QRCode.CorrectLevel.M
+});
 
     }
 
   }
+
+  },0);
 
 });
   
