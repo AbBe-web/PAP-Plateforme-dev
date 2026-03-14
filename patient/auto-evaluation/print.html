@@ -783,20 +783,22 @@ new QRCode(qrDiv, {
 
   if (!e2.message || !e2.message.includes("overflow")) throw e2;
 
-  console.warn("QR overflow → payload minimal");
+ console.warn("QR overflow → payload minimal");
 
-  const minimalPayload = {
-        q: data.meta.questionnaire,
-        n: niveau,
-        s: data.motivation.stade,
-        i: data.motivation.importance_eva_0_10,
-        c: data.motivation.confiance_eva_0_10
-      };
+const minimalPayload = {
+  q: data.meta.questionnaire,
+  n: niveau,
+  s: data.motivation.stade,
+  i: data.motivation.importance_eva_0_10,
+  c: data.motivation.confiance_eva_0_10
+};
 
-      qrData = JSON.stringify(minimalPayload);
-      qrDiv.innerHTML = "";
-    
- new QRCode(qrDiv, {
+const minimalData = JSON.stringify(minimalPayload);
+
+qrDiv.innerHTML = "";
+
+new QRCode(qrDiv,{
+  text: minimalData,
   text: qrData,
   width: 260,
   height: 260,
