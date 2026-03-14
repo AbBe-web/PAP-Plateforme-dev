@@ -443,6 +443,24 @@ ${data.resultats.pas_moyens_jour_1_mois
   : ""
 }
 
+${(() => {
+
+const sedH =
+  data.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+  data.questionnaires?.marshall?.sedentarite?.heures_par_jour;
+
+const sedM =
+  data.questionnaires?.gpaq?.sedentarite?.minutes_par_jour ??
+  data.questionnaires?.marshall?.sedentarite?.minutes_par_jour;
+
+if(!sedH && !sedM) return "";
+
+return `<p class="synthese-line">
+<strong>Temps assis / couché (hors sommeil) :</strong>
+${sedH ?? 0} h ${sedM ?? 0} min / jour
+</p>`;
+
+})()}
 <p class="synthese-line">
   <strong>Stade motivationnel :</strong>
   ${data.motivation.stade}
@@ -651,7 +669,10 @@ q: data.meta.questionnaire,
 n: niveau,
 m: data.resultats.met_minutes_semaine,
 p: data.resultats.pas_moyens_jour_1_mois,
-sd: data.resultats.heures_assises,
+sd:
+  data.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+  data.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+  null,
 s: data.motivation.stade,
 i: data.motivation.importance_eva_0_10,
 c: data.motivation.confiance_eva_0_10,
