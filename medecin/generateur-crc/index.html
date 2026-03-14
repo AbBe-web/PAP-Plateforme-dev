@@ -653,7 +653,12 @@ let activeMode = "long";
      data.resultats?.niveau_activite ??
      null;
     pas = data.p ?? data.pas;
-    sedentarite = data.sd ?? data.sedentarite;
+   sedentarite =
+     data.sd ??
+     data.sedentarite ??
+     data.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+     data.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+     null;
     importance = data.i ?? data.importance;
     confiance = data.c ?? data.confiance;
     importanceComment = data.ci ?? data.importance_commentaire;
