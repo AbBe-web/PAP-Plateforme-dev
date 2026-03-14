@@ -1235,15 +1235,23 @@ ${state.result.pas_mois ? `
   <div class="answer">${state.result.pas_mois} pas / jour</div>
 </div>
 ` : ""}
-${(state.gpaq?.sed_h && state.gpaq.sed_h !== "0") || 
-(state.gpaq?.sed_m && state.gpaq.sed_m !== "0") ? `
+${(() => {
+
+const sedH = state.gpaq?.sed_h ?? state.marshall?.sed_h;
+const sedM = state.gpaq?.sed_m ?? state.marshall?.sed_m;
+
+if(!sedH && !sedM) return "";
+
+return `
 <div class="section">
-  <strong>Temps passé assis (hors sommeil)</strong>
-  <div class="answer">
-    ${state.gpaq.sed_h ?? 0} h ${state.gpaq.sed_m ?? 0} min / jour
-  </div>
+<strong>Temps passé assis (hors sommeil)</strong>
+<div class="answer">
+${sedH ? sedH + " h " : ""}${sedM ? sedM + " min" : ""}
 </div>
-` : ""}
+</div>
+`;
+
+})()}
 
 <div class="section">
   <strong>Stade motivationnel</strong>
