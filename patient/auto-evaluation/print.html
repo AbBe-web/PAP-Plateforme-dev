@@ -713,17 +713,16 @@ if (qrData.length > 350) {
 
   console.warn("QR encore trop grand : version minimale");
 
-qrPayload = {
-  q: data.meta.questionnaire,
-  n: data.resultats.niveau_activite,
-  s: data.motivation.stade,
-  i: data.motivation.importance_eva_0_10,
-  c: data.motivation.confiance_eva_0_10
-};
+  const minimalPayload = {
+    q: data.meta.questionnaire,
+    n: niveau,
+    s: data.motivation.stade,
+    i: data.motivation.importance_eva_0_10,
+    c: data.motivation.confiance_eva_0_10
+  };
 
-  qrData = JSON.stringify(qrPayload);
+  qrData = JSON.stringify(minimalPayload);
 }
-
 // ------------------------------
 // Génération du QR
 // ------------------------------
