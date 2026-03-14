@@ -784,22 +784,20 @@ new QRCode(qrDiv, {
 
  console.warn("QR overflow → payload minimal");
 
-const minimalPayload = {
+const minimalData = JSON.stringify({
   q: data.meta.questionnaire,
   n: niveau,
   s: data.motivation.stade,
   i: data.motivation.importance_eva_0_10,
   c: data.motivation.confiance_eva_0_10
-};
-
-const minimalData = JSON.stringify(minimalPayload);
+});
 
 qrDiv.innerHTML = "";
 
 new QRCode(qrDiv,{
   text: minimalData,
-  width: 260,
-  height: 260,
+  width: 220,
+  height: 220,
   correctLevel: QRCode.CorrectLevel.L
 });
 
