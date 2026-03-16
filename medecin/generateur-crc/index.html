@@ -702,6 +702,21 @@ if (niveau) {
     n.dispatchEvent(new Event("change"));
   }
 
+  // forcer affichage des sous-groupes motivation
+
+  const actif = document.getElementById("actif-subgroup");
+  const inactif = document.getElementById("inactif-subgroup");
+  const sixmois = document.getElementById("sixmois-subgroup");
+
+  if (niveau === "actif" || niveau === "tres_actif") {
+    if (actif) actif.style.display = "block";
+  }
+
+  if (niveau === "inactif" || niveau === "moyennement_actif") {
+    if (inactif) inactif.style.display = "block";
+    if (sixmois) sixmois.style.display = "block";
+  }
+
 }
   
  if (pas !== undefined && pas !== null) {
