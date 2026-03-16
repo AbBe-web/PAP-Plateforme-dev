@@ -1258,7 +1258,8 @@ document.getElementById("importJSONFile")
     try{
 
       const data = JSON.parse(reader.result);
-
+      importPatientJSON(reader.result);
+        
     // Pas moyens
 const pas = data?.resultats?.pas_moyens_jour_1_mois;
 if(pas){
