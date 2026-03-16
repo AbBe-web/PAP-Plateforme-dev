@@ -1352,16 +1352,20 @@ if(blockC && fieldC){
 
 const niveau = data?.resultats?.niveau_activite;
 
-if(niveau){
+setTimeout(() => {
 
-  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
+  if(niveau){
 
-  if(n){
-    n.checked = true;
-    n.dispatchEvent(new Event("change"));
+    const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
+
+    if(n){
+      n.checked = true;
+      n.dispatchEvent(new Event("change"));
+    }
+
   }
 
-}
+}, 0);
 
 alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");
 
