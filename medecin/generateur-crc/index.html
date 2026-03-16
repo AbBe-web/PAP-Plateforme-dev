@@ -706,8 +706,10 @@ if (sedentarite !== undefined && sedentarite !== null) {
   }
 
   // déduction automatique du statut sédentaire
-  const sedRadio =
-    sedentarite >= 7
+ const heures = parseInt(sedentarite);
+    
+ const sedRadio =
+  heures >= 7
       ? document.querySelector('input[name="sedentaire"][value="sedentaire"]')
       : document.querySelector('input[name="sedentaire"][value="non_sedentaire"]');
 
@@ -1218,7 +1220,9 @@ if(q){
 
   if(radio){
     radio.checked = true;
-    radio.dispatchEvent(new Event("change"));
+    setTimeout(() => {
+      radio.dispatchEvent(new Event("change"));
+    },0);
   }
 
 }
