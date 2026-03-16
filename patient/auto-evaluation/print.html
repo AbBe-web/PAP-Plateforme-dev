@@ -680,15 +680,25 @@ n: niveau,
 m: data.resultats.met_minutes_semaine,
 p: data.resultats.pas_moyens_jour_1_mois,
 sd: `${sedH}:${sedM}`,
+
+// motivation
 s: data.motivation.stade,
+ad: data.motivation.actif_depuis || null,
+ae: data.motivation.ap_envisagee || null,
+a6: data.motivation.ap_6_mois || null,
+
+// EVA
 i: data.motivation.importance_eva_0_10,
 c: data.motivation.confiance_eva_0_10,
+
 ci: data.motivation.importance_commentaire || "",
 cc: data.motivation.confiance_commentaire || ""
 };
 if (!qrPayload.ci) delete qrPayload.ci;
 if (!qrPayload.cc) delete qrPayload.cc;
-  
+if (!qrPayload.ad) delete qrPayload.ad;
+if (!qrPayload.ae) delete qrPayload.ae;
+if (!qrPayload.a6) delete qrPayload.a6;
 let qrData = JSON.stringify(qrPayload);
 
 console.info("QR initial size:", qrData.length);
