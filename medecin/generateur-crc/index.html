@@ -650,7 +650,8 @@ let confianceComment;
   try {
 
     data = JSON.parse(jsonText);
-
+    console.log("JSON importé :", data);
+      
     questionnaire = data.q ?? data.questionnaire;
    niveau =
  data.n ??
