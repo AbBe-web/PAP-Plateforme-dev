@@ -358,7 +358,7 @@ Date : <span id="date"></span>
 
 <div id="content"></div>
   
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script>
 function goBack() {
   window.location.href = "index.html";
@@ -695,35 +695,6 @@ console.info("QR initial size:", qrData.length);
 
 
 // ------------------------------
-// Réduction automatique si trop grand
-// ------------------------------
-
-if (qrData.length > 350) {
-
-  console.warn("QR trop grand : suppression commentaires");
-
-  delete qrPayload.ci;
-  delete qrPayload.cc;
-
-  qrData = JSON.stringify(qrPayload);
-}
-
-
-if (qrData.length > 350) {
-
-  console.warn("QR encore trop grand : version minimale");
-
-  const minimalPayload = {
-    q: data.meta.questionnaire,
-    n: niveau,
-    s: data.motivation.stade,
-    i: data.motivation.importance_eva_0_10,
-    c: data.motivation.confiance_eva_0_10
-  };
-
-  qrData = JSON.stringify(minimalPayload);
-}
-// ------------------------------
 // Génération du QR
 // ------------------------------
 
@@ -750,11 +721,18 @@ if (qrData.length > 350) {
 
 console.info("QR payload size:", qrData.length);
 
-new QRCode(qrDiv, {
-  text: qrData,
+QRCode.toCanvas(qrData, {
   width: 260,
-  height: 260,
-  correctLevel: QRCode.CorrectLevel.L
+  errorCorrectionLevel: "M"
+}, function (err, canvas) {
+
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  qrDiv.innerHTML = "";
+  qrDiv.appendChild(canvas);
 });
 
 } catch (e) {
