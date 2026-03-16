@@ -664,7 +664,10 @@ let confianceComment;
      data.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
      data.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
      null;
-      actifDepuis = data.ad ?? data.motivation?.actif_depuis ?? null;
+   actifDepuis = data.ad ?? data.motivation?.actif_depuis ?? null;
+
+if (actifDepuis === "oui") actifDepuis = "plus_6_mois";
+if (actifDepuis === "non") actifDepuis = "moins_6_mois";
       apEnvisagee = data.ae ?? data.motivation?.ap_envisagee ?? null;
       ap6Mois = data.a6 ?? data.motivation?.ap_6_mois ?? null;
     importance = data.i ?? data.importance;
