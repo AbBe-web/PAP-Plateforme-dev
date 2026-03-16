@@ -700,27 +700,16 @@ if (actifDepuis === "non") actifDepuis = "moins_6_mois";
 }
 if (niveau) {
 
-  const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
+  const radios = document.querySelectorAll('input[name="niveau_actuel"]');
 
-  if (n) {
-    n.checked = true;
-    n.dispatchEvent(new Event("change"));
-  }
-
-  // forcer affichage des sous-groupes motivation
-
-  const actif = document.getElementById("actif-subgroup");
-  const inactif = document.getElementById("inactif-subgroup");
-  const sixmois = document.getElementById("sixmois-subgroup");
-
-  if (niveau === "actif" || niveau === "tres_actif") {
-    if (actif) actif.style.display = "block";
-  }
-
-  if (niveau === "inactif" || niveau === "moyennement_actif") {
-    if (inactif) inactif.style.display = "block";
-    if (sixmois) sixmois.style.display = "block";
-  }
+  radios.forEach(r => {
+    if (r.value === niveau) {
+      r.checked = true;
+      r.click();
+    } else {
+      r.checked = false;
+    }
+  });
 
 }
   
