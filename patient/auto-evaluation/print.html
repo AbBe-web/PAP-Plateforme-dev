@@ -702,86 +702,37 @@ requestAnimationFrame(() => {
 
   setTimeout(() => {
 
- try {
-
-   if(!qrDiv) return;
-
-  qrDiv.innerHTML = "";
-
-// Stabilisation 1
-if (!qrData || qrData.length === 0) {
-  console.warn("QR payload vide");
-  return;
-}
-
-// Stabilisation 2
-if (qrData.length > 350) {
-  console.warn("QR payload > 350 caractères");
-}
-
-console.info("QR payload size:", qrData.length);
-
-QRCode.toCanvas(qrData, {
-  width: 260,
-  errorCorrectionLevel: "M"
-}, function (err, canvas) {
-
-  if (err) {
-    console.error(err);
-    return;
-  }
-
-  qrDiv.innerHTML = "";
-  qrDiv.appendChild(canvas);
-});
-
-} catch (e) {
-
-  if (!e.message || !e.message.includes("overflow")) throw e;
-
-  console.warn("QR overflow → suppression commentaires");
-
-  delete qrPayload.ci;
-  delete qrPayload.cc;
-
-    qrData = JSON.stringify(qrPayload);
-
     try {
+
+      if(!qrDiv) return;
+
       qrDiv.innerHTML = "";
-    
-      new QRCode(qrDiv, {
-        text: qrData,
+
+      if (!qrData || qrData.length === 0) {
+        console.warn("QR payload vide");
+        return;
+      }
+
+      console.info("QR payload size:", qrData.length);
+
+      QRCode.toCanvas(qrData, {
         width: 260,
-        height: 260,
-        correctLevel: QRCode.CorrectLevel.L
+        errorCorrectionLevel: "M"
+      }, function (err, canvas) {
+
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        qrDiv.innerHTML = "";
+        qrDiv.appendChild(canvas);
+
       });
 
-} catch (e2) {
-
-  if (!e2.message || !e2.message.includes("overflow")) throw e2;
-
- console.warn("QR overflow → payload minimal");
-
-const minimalData = JSON.stringify({
-  q: data.meta.questionnaire,
-  n: niveau,
-  s: data.motivation.stade,
-  i: data.motivation.importance_eva_0_10,
-  c: data.motivation.confiance_eva_0_10
-});
-
-qrDiv.innerHTML = "";
-
-new QRCode(qrDiv,{
-  text: minimalData,
-  width: 220,
-  height: 220,
-  correctLevel: QRCode.CorrectLevel.L
-});
-
+    } catch (e) {
+      console.error("Erreur QR:", e);
     }
-
-  }
 
   },0);
 
