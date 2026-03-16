@@ -776,44 +776,50 @@ if (confBlock && confField) {
   }
 
 }
+// import motivation (attendre affichage des champs)
 
-// import motivation
+setTimeout(() => {
 
-if (actifDepuis) {
+  if (actifDepuis) {
 
-  const r = document.querySelector(
-    `input[name="actif_depuis"][value="${actifDepuis}"]`
-  );
+    const r = document.querySelector(
+      `input[name="actif_depuis"][value="${actifDepuis}"]`
+    );
 
-  if (r) {
-    r.checked = true;
-    r.dispatchEvent(new Event("change"));
+    if (r) {
+      r.checked = true;
+      r.dispatchEvent(new Event("change"));
+    }
+
   }
-}
 
-if (apEnvisagee) {
+  if (apEnvisagee) {
 
-  const r = document.querySelector(
-    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
-  );
+    const r = document.querySelector(
+      `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+    );
 
-  if (r) {
-    r.checked = true;
-    r.dispatchEvent(new Event("change"));
+    if (r) {
+      r.checked = true;
+      r.dispatchEvent(new Event("change"));
+    }
+
   }
-}
 
-if (ap6Mois) {
+  if (ap6Mois) {
 
-  const r = document.querySelector(
-    `input[name="ap_6_mois"][value="${ap6Mois}"]`
-  );
+    const r = document.querySelector(
+      `input[name="ap_6_mois"][value="${ap6Mois}"]`
+    );
 
-  if (r) {
-    r.checked = true;
-    r.dispatchEvent(new Event("change"));
+    if (r) {
+      r.checked = true;
+      r.dispatchEvent(new Event("change"));
+    }
+
   }
-}
+
+}, 200);
 
 }
 
