@@ -633,14 +633,19 @@ let activeMode = "long";
 
   let data;
 
-  let questionnaire;
-  let niveau;
-  let pas;
-  let sedentarite;
-  let importance;
-  let confiance;
-  let importanceComment;
-  let confianceComment;
+ let questionnaire;
+let niveau;
+let pas;
+let sedentarite;
+
+let actifDepuis;
+let apEnvisagee;
+let ap6Mois;
+
+let importance;
+let confiance;
+let importanceComment;
+let confianceComment;
 
   try {
 
@@ -659,6 +664,9 @@ let activeMode = "long";
      data.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
      data.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
      null;
+      actifDepuis = data.ad ?? data.motivation?.actif_depuis ?? null;
+      apEnvisagee = data.ae ?? data.motivation?.ap_envisagee ?? null;
+      ap6Mois = data.a6 ?? data.motivation?.ap_6_mois ?? null;
     importance = data.i ?? data.importance;
     confiance = data.c ?? data.confiance;
     importanceComment = data.ci ?? data.importance_commentaire;
@@ -699,17 +707,20 @@ if (niveau) {
           
 if (sedentarite !== undefined && sedentarite !== null) {
 
-  const heuresInput = document.querySelector('input[name="heures_assises"]');
+  let heures = 0;
 
-  if (heuresInput) {
-    heuresInput.value = sedentarite;
+  if (typeof sedentarite === "string" && sedentarite.includes(":")) {
+    const parts = sedentarite.split(":");
+    heures = parseInt(parts[0]);
+  } else {
+    heures = parseInt(sedentarite);
   }
 
-  // déduction automatique du statut sédentaire
- const heures = parseInt(sedentarite);
-    
- const sedRadio =
-  heures >= 7
+  const heuresInput = document.querySelector('input[name="heures_assises"]');
+  if (heuresInput) heuresInput.value = heures;
+
+  const sedRadio =
+    heures >= 7
       ? document.querySelector('input[name="sedentaire"][value="sedentaire"]')
       : document.querySelector('input[name="sedentaire"][value="non_sedentaire"]');
 
@@ -717,7 +728,6 @@ if (sedentarite !== undefined && sedentarite !== null) {
     sedRadio.checked = true;
     sedRadio.dispatchEvent(new Event("change"));
   }
-
 }
           
 if (importance !== undefined && importance !== null) {
@@ -765,7 +775,46 @@ if (confBlock && confField) {
   }
 
 }
-   }
+
+// import motivation
+
+if (actifDepuis) {
+
+  const r = document.querySelector(
+    `input[name="actif_depuis"][value="${actifDepuis}"]`
+  );
+
+  if (r) {
+    r.checked = true;
+    r.dispatchEvent(new Event("change"));
+  }
+}
+
+if (apEnvisagee) {
+
+  const r = document.querySelector(
+    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+  );
+
+  if (r) {
+    r.checked = true;
+    r.dispatchEvent(new Event("change"));
+  }
+}
+
+if (ap6Mois) {
+
+  const r = document.querySelector(
+    `input[name="ap_6_mois"][value="${ap6Mois}"]`
+  );
+
+  if (r) {
+    r.checked = true;
+    r.dispatchEvent(new Event("change"));
+  }
+}
+
+}
 
         function updateNiveauButtons(mode){
 
