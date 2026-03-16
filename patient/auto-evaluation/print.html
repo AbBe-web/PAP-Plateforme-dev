@@ -708,14 +708,15 @@ requestAnimationFrame(() => {
 
       qrDiv.innerHTML = "";
 
-      if (!qrData || qrData.length === 0) {
-        console.warn("QR payload vide");
-        return;
-      }
+     if (!qrData || qrData.length === 0) {
+  console.warn("QR payload vide");
+  return;
+}
 
-      console.info("QR payload size:", qrData.length);
+console.info("QR payload size:", qrData.length);
+console.log("QR payload:", qrData);
 
-      QRCode.toCanvas(qrData, {
+QRCode.toCanvas(qrData, {
         width: 260,
         errorCorrectionLevel: "M"
       }, function (err, canvas) {
