@@ -935,13 +935,17 @@ function motivation(){
       <h2>Motivation</h2>
       <p>Envisagez-vous d’augmenter votre activité physique dans les 30 jours ?</p>
 
-      <button class="btn" onclick="
-        advanceProgress(2);
-        state.result.stade='préparation';
-        evaImportance();
-      ">Oui</button>
+     <button class="btn" onclick="
+     advanceProgress(2);
+     state.result.ap_envisagee='oui';
+     state.result.stade='préparation';
+     evaImportance();
+     ">Oui</button>
 
-      <button class="btn" onclick="motivation2()">Non</button>
+    <button class="btn" onclick="
+    state.result.ap_envisagee='non';
+    motivation2();
+    ">Non</button>
 
       <button class="btn secondary" onclick="back()">Retour</button>
 
@@ -957,17 +961,19 @@ function motivation(){
       <h2>Motivation</h2>
       <p>Êtes-vous actif à ce niveau depuis plus de 6 mois ?</p>
 
-      <button class="btn" onclick="
-        advanceProgress(2);
-        state.result.stade='consolidation';
-        evaImportance();
-      ">Oui</button>
+   <button class="btn" onclick="
+   advanceProgress(2);
+   state.result.actif_depuis='oui';
+   state.result.stade='consolidation';
+   evaImportance();
+  ">Oui</button>
 
-      <button class="btn" onclick="
-        advanceProgress(2);
-        state.result.stade='action';
-        evaImportance();
-      ">Non</button>
+  <button class="btn" onclick="
+  advanceProgress(2);
+  state.result.actif_depuis='non';
+  state.result.stade='action';
+  evaImportance();
+  ">Non</button>
 
       <button class="btn secondary" onclick="back()">Retour</button>
 
@@ -987,8 +993,19 @@ pushScreen(
   render(`
 <h2>Motivation</h2>
 <p>Avez-vous l’intention de vous engager dans une activité physique régulière dans les 6 mois ?</p>
-<button class="btn" onclick="advanceProgress(2); state.result.stade='intention'; evaImportance()">Oui</button>
-<button class="btn" onclick="advanceProgress(2); state.result.stade='indétermination'; evaImportance()">Non</button>
+<button class="btn" onclick="
+advanceProgress(2);
+state.result.ap_6_mois='oui';
+state.result.stade='intention';
+evaImportance();
+">Oui</button>
+
+<button class="btn" onclick="
+advanceProgress(2);
+state.result.ap_6_mois='non';
+state.result.stade='indétermination';
+evaImportance();
+">Non</button>
 <button class="btn secondary" onclick="back()">Retour</button>
 <div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
 `,96);
@@ -1171,8 +1188,11 @@ function buildExportJSON(){
   pas_moyens_jour_1_mois: state.result.pas_mois ?? null
 },
 
-    motivation: {
+motivation: {
       stade: state.result.stade ?? null,
+      actif_depuis: state.result.actif_depuis ?? null,
+      ap_envisagee: state.result.ap_envisagee ?? null,
+      ap_6_mois: state.result.ap_6_mois ?? null,
       importance_eva_0_10: state.result.importance ?? null,
       importance_commentaire: state.result.importance_comment ?? null,
       confiance_eva_0_10: state.result.confiance ?? null,
