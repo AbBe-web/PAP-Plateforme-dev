@@ -790,9 +790,11 @@ if (confBlock && confField) {
 
 }
 // import motivation (attendre affichage des champs)
+// import motivation (après mise à jour DOM)
 
 setTimeout(() => {
 
+  // actif depuis plus / moins de 6 mois
   if (actifDepuis) {
 
     const r = document.querySelector(
@@ -806,6 +808,7 @@ setTimeout(() => {
 
   }
 
+  // AP envisagée dans 30 jours
   if (apEnvisagee) {
 
     const r = document.querySelector(
@@ -819,6 +822,7 @@ setTimeout(() => {
 
   }
 
+  // AP envisagée dans 6 mois
   if (ap6Mois) {
 
     const r = document.querySelector(
@@ -832,7 +836,7 @@ setTimeout(() => {
 
   }
 
-}, 500);
+}, 0);
 
 }
 
