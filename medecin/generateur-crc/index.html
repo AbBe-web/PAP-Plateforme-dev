@@ -1350,7 +1350,10 @@ if(blockC && fieldC){
    IMPORT NIVEAU ACTIVITÉ
 ====================== */
 
-const niveau = data?.resultats?.niveau_activite;
+let niveau = data?.resultats?.niveau_activite;
+
+if(niveau === "suffisamment_actif") niveau = "actif";
+if(niveau === "insuffisamment_actif") niveau = "inactif";
 
 setTimeout(() => {
 
