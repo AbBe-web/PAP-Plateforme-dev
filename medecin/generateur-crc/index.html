@@ -652,11 +652,15 @@ let confianceComment;
     data = JSON.parse(jsonText);
 
     questionnaire = data.q ?? data.questionnaire;
-    niveau =
-     data.n ??
-     data.niveau ??
-     data.resultats?.niveau_activite ??
-     null;
+   niveau =
+ data.n ??
+ data.niveau ??
+ data.resultats?.niveau_activite ??
+ null;
+
+// normalisation niveau JSON → formulaire
+if (niveau === "suffisamment_actif") niveau = "actif";
+if (niveau === "insuffisamment_actif") niveau = "inactif";
     pas = data.p ?? data.pas;
    sedentarite =
      data.sd ??
