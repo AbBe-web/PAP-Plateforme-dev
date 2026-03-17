@@ -809,9 +809,16 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("DEBUG actifDepuis:", actifDepuis, r);  // ← AJOUT ICI
 
-  if (r) {
-    r.click();
-  }
+if (r) {
+
+  r.click();
+
+  // 🔍 TEST CRITIQUE
+  setTimeout(() => {
+    console.log("ETAT APRES 100ms (actif_depuis):", r.checked);
+  }, 100);
+
+}
 
 }
 
