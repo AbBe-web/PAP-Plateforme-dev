@@ -825,24 +825,33 @@ if (r) {
 
 }
 
-  if (apEnvisagee) {
-    const r = document.querySelector(
-      `input[name="ap_envisagee"][value="${apEnvisagee}"]`
-    );
-    if (r) {
-  r.click();
-}
-  }
+if (apEnvisagee) {
 
-  if (ap6Mois) {
-    const r = document.querySelector(
-      `input[name="ap_6_mois"][value="${ap6Mois}"]`
-    );
-    if (r) {
-  r.click();
-}
-  }
+  const r = document.querySelector(
+    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+  );
 
+  if (r) {
+
+    r.click();
+
+    // 🔥 gestion spécifique du cas "non" → affichage bloc 6 mois
+    if (apEnvisagee === "non" && ap6Mois) {
+
+      setTimeout(() => {
+
+        const r6 = document.querySelector(
+          `input[name="ap_6_mois"][value="${ap6Mois}"]`
+        );
+
+        if (r6) {
+          r6.click();
+        }
+
+      }, 80);
+    }
+  }
+}
 }
         
         function updateNiveauButtons(mode){
