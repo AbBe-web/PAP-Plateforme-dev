@@ -48,20 +48,31 @@
     margin: 0;
   }
 
-  body * {
-    visibility: hidden;
+  /* cacher tout sauf le rapport */
+  body > *:not(.container) {
+    display: none !important;
   }
 
-  #reportOutput,
-  #reportOutput * {
-    visibility: visible;
+  /* garder le container */
+  .container {
+    display: block !important;
   }
 
+  /* cacher le formulaire */
+  form,
+  #generateReport,
+  #scanQRBtn,
+  #importJSONBtn,
+  #qrScannerContainer {
+    display: none !important;
+  }
+
+  /* garder uniquement le rendu */
   #reportOutput {
     display: block !important;
-    width: 100%;
   }
 
+  /* cacher boutons */
   #reportActions,
   #formatTabs {
     display: none !important;
