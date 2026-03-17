@@ -915,16 +915,18 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
 // reset niveaux et motivation si changement questionnaire
 document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
 
-  radio.addEventListener("change", function(){
+ radio.addEventListener("change", function(){
 
-    document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+  if(isImporting) return;   // ← ICI EXACTEMENT
 
-    document.getElementById("actif-subgroup").style.display = "none";
-    document.getElementById("inactif-subgroup").style.display = "none";
-    document.getElementById("sixmois-subgroup").style.display = "none";
+  document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+  document.getElementById("actif-subgroup").style.display = "none";
+  document.getElementById("inactif-subgroup").style.display = "none";
+  document.getElementById("sixmois-subgroup").style.display = "none";
      
     document.getElementById("niveau-actuel-title").scrollIntoView({
   behavior: "auto",
