@@ -628,18 +628,6 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 }
         let clinicalModel = null;
 let activeMode = "long";
-
-        function waitForElement(selector, callback){
-
-           const el = document.querySelector(selector);
-
-           if(el){
-             callback(el);
-           } else {
-             setTimeout(() => waitForElement(selector, callback), 50);
-           }
-
-         }
         
       function importPatientJSON(jsonText) {
       console.log("IMPORT JSON APPELE");
@@ -723,7 +711,10 @@ if (niveau) {
       r.checked = false;
     }
   });
-
+// forcer affichage complet avant motivation
+setTimeout(() => {
+  appliquerMotivation();
+}, 50);
 }
   
  if (pas !== undefined && pas !== null) {
@@ -801,55 +792,43 @@ if (confBlock && confField) {
   }
 
 }
-// import motivation (robuste DOM)
+ }
 
-waitForElement('input[name="ap_envisagee"], input[name="actif_depuis"]', () => {
+function appliquerMotivation(){
 
-  console.log("DOM prêt pour motivation");
+  console.log("Application motivation après affichage UI");
 
-  // actif depuis plus / moins de 6 mois
   if (actifDepuis) {
-
     const r = document.querySelector(
       `input[name="actif_depuis"][value="${actifDepuis}"]`
     );
-
-   if (r) {
-  r.checked = true;
-  r.dispatchEvent(new Event("change"));
-}
-
+    if (r) {
+      r.checked = true;
+      r.dispatchEvent(new Event("change"));
+    }
   }
 
-  // AP envisagée dans 30 jours
   if (apEnvisagee) {
-
     const r = document.querySelector(
       `input[name="ap_envisagee"][value="${apEnvisagee}"]`
     );
-
-   if (r) {
-  r.checked = true;
-  r.dispatchEvent(new Event("change"));
-}
+    if (r) {
+      r.checked = true;
+      r.dispatchEvent(new Event("change"));
+    }
   }
 
-  // AP envisagée dans 6 mois
   if (ap6Mois) {
-
     const r = document.querySelector(
       `input[name="ap_6_mois"][value="${ap6Mois}"]`
     );
-
-   if (r) {
-  r.checked = true;
-  r.dispatchEvent(new Event("change"));
-}
-
+    if (r) {
+      r.checked = true;
+      r.dispatchEvent(new Event("change"));
+    }
   }
 
-});
- }
+}
         
         function updateNiveauButtons(mode){
 
