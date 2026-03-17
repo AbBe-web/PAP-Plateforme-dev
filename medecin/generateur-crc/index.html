@@ -813,9 +813,12 @@ if (r) {
 
   r.click();
 
-  // 🔍 TEST CRITIQUE
   setTimeout(() => {
     console.log("ETAT APRES 100ms (actif_depuis):", r.checked);
+
+    const block = document.getElementById("actif-subgroup");
+    console.log("DISPLAY actif-subgroup:", block.style.display);
+
   }, 100);
 
 }
