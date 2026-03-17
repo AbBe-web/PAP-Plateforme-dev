@@ -43,13 +43,28 @@
 }
 
 @media print {
+
   body {
     margin: 0;
   }
 
-  .container.crc-page > * {
-    display: none;
+  body * {
+    visibility: hidden;
   }
+
+  #reportOutput,
+  #reportOutput * {
+    visibility: visible;
+  }
+
+  #reportOutput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+}
 
   #reportOutput {
     display: block !important;
