@@ -1222,8 +1222,9 @@ function(decodedText){
 
     importPatientJSON(decodedText);
 
-    qrScanner.stop();
-    qrContainer.style.display = "none";
+   qrScanner.stop();
+   qrAlreadyRead = false;   // 🔥 reset immédiat
+   qrContainer.style.display = "none";
 
     alert("QR patient importé.");
 
@@ -1244,10 +1245,10 @@ if(closeQR){
       qrScanner.stop();
     }
 
+    qrAlreadyRead = false;   // 🔥 AJOUT CRITIQUE
+
     qrContainer.style.display = "none";
-
   });
-
 }
   // 🔹 IMPORT JSON (ouvre le sélecteur de fichier)
 
