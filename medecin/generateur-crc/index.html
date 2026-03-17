@@ -801,24 +801,25 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("Application motivation après affichage UI");
 
- if (actifDepuis) {
+  // 🔒 GARDE-FOU
+  if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
+    return;
+  }
+
+  if (actifDepuis) {
 
   const r = document.querySelector(
     `input[name="actif_depuis"][value="${actifDepuis}"]`
   );
-
-  console.log("DEBUG actifDepuis:", actifDepuis, r);  // ← AJOUT ICI
 
 if (r) {
 
   r.click();
 
   setTimeout(() => {
-    console.log("ETAT APRES 100ms (actif_depuis):", r.checked);
-
+    
     const block = document.getElementById("actif-subgroup");
-    console.log("DISPLAY actif-subgroup:", block.style.display);
-
+  
   }, 100);
 
 }
@@ -926,8 +927,7 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
  
     radio.addEventListener("change", function(){
         
-    console.log("RESET QUESTIONNAIRE déclenché");
- 
+    
         if(isImporting) return;   // ← ICI EXACTEMENT
 
   document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
