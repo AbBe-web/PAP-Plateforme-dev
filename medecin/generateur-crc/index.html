@@ -629,6 +629,18 @@ if (window.matchMedia("(max-width: 768px)").matches) {
         let clinicalModel = null;
 let activeMode = "long";
 
+        function waitForElement(selector, callback){
+
+           const el = document.querySelector(selector);
+
+           if(el){
+             callback(el);
+           } else {
+             setTimeout(() => waitForElement(selector, callback), 50);
+           }
+
+         }
+        
       function importPatientJSON(jsonText) {
       console.log("IMPORT JSON APPELE");
       console.log("JSON reçu :", jsonText);
@@ -789,10 +801,11 @@ if (confBlock && confField) {
   }
 
 }
-// import motivation (attendre affichage des champs)
-// import motivation (après mise à jour DOM)
+// import motivation (robuste DOM)
 
-setTimeout(() => {
+waitForElement('input[name="ap_envisagee"], input[name="actif_depuis"]', () => {
+
+  console.log("DOM prêt pour motivation");
 
   // actif depuis plus / moins de 6 mois
   if (actifDepuis) {
@@ -803,7 +816,6 @@ setTimeout(() => {
 
     if (r) {
       r.checked = true;
-      r.dispatchEvent(new Event("change"));
     }
 
   }
@@ -817,7 +829,6 @@ setTimeout(() => {
 
     if (r) {
       r.checked = true;
-      r.dispatchEvent(new Event("change"));
     }
 
   }
@@ -831,14 +842,11 @@ setTimeout(() => {
 
     if (r) {
       r.checked = true;
-      r.dispatchEvent(new Event("change"));
     }
 
   }
 
-}, 0);
-
-}
+});
 
         function updateNiveauButtons(mode){
 
