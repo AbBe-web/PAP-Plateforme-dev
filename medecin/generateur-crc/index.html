@@ -713,7 +713,7 @@ if (niveau) {
   });
 // forcer affichage complet avant motivation
 setTimeout(() => {
-  appliquerMotivation();
+  appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois);
 }, 50);
 }
   
@@ -794,7 +794,7 @@ if (confBlock && confField) {
 }
  }
 
-function appliquerMotivation(){
+function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("Application motivation après affichage UI");
 
@@ -803,9 +803,8 @@ function appliquerMotivation(){
       `input[name="actif_depuis"][value="${actifDepuis}"]`
     );
     if (r) {
-      r.checked = true;
-      r.dispatchEvent(new Event("change"));
-    }
+  r.click();
+}
   }
 
   if (apEnvisagee) {
@@ -813,9 +812,8 @@ function appliquerMotivation(){
       `input[name="ap_envisagee"][value="${apEnvisagee}"]`
     );
     if (r) {
-      r.checked = true;
-      r.dispatchEvent(new Event("change"));
-    }
+  r.click();
+}
   }
 
   if (ap6Mois) {
@@ -823,9 +821,8 @@ function appliquerMotivation(){
       `input[name="ap_6_mois"][value="${ap6Mois}"]`
     );
     if (r) {
-      r.checked = true;
-      r.dispatchEvent(new Event("change"));
-    }
+  r.click();
+}
   }
 
 }
@@ -1340,29 +1337,7 @@ if(blockC && fieldC){
   }
 
   }
-/* ======================
-   IMPORT NIVEAU ACTIVITÉ
-====================== */
 
-let niveau = data?.resultats?.niveau_activite;
-
-if(niveau === "suffisamment_actif") niveau = "actif";
-if(niveau === "insuffisamment_actif") niveau = "inactif";
-
-setTimeout(() => {
-
-  if(niveau){
-
-    const n = document.querySelector(`input[name="niveau_actuel"][value="${niveau}"]`);
-
-    if(n){
-      n.checked = true;
-      n.dispatchEvent(new Event("change"));
-    }
-
-  }
-
-}, 0);
 
 alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");
 
