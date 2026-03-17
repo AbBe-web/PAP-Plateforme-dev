@@ -630,6 +630,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 let activeMode = "long";
         
       function importPatientJSON(jsonText) {
+          isImporting = true;
       console.log("IMPORT JSON APPELE");
       console.log("JSON reçu :", jsonText);
       let data;
@@ -792,7 +793,9 @@ if (confBlock && confField) {
   }
 
 }
- }
+setTimeout(() => {
+  isImporting = false;
+}, 100); }
 
 function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
@@ -924,13 +927,15 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
 // reset motivation si changement niveau activité
 document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio){
 
-  radio.addEventListener("change", function(){
+radio.addEventListener("change", function(){
 
-    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+  if(isImporting) return;   // ← AJOUT ICI UNIQUEMENT
 
-  });
+  document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+});
 
 });
 
