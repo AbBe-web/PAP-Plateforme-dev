@@ -49,24 +49,23 @@
   }
 
   body * {
-    visibility: hidden;
-  }
-
-  #reportOutput,
-  #reportOutput * {
-    visibility: visible;
+    display: none !important;
   }
 
   #reportOutput {
-    position: absolute;
-    top: 0;
-    left: 0;
+    display: block !important;
     width: 100%;
   }
- #reportActions,
+
+  #reportOutput * {
+    display: block;
+  }
+
+  #reportActions,
   #formatTabs {
     display: none !important;
   }
+
 }
 
   #reportOutput {
