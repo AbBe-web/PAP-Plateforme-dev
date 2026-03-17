@@ -798,14 +798,19 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("Application motivation après affichage UI");
 
-  if (actifDepuis) {
-    const r = document.querySelector(
-      `input[name="actif_depuis"][value="${actifDepuis}"]`
-    );
-    if (r) {
-  r.click();
-}
+ if (actifDepuis) {
+
+  const r = document.querySelector(
+    `input[name="actif_depuis"][value="${actifDepuis}"]`
+  );
+
+  console.log("DEBUG actifDepuis:", actifDepuis, r);  // ← AJOUT ICI
+
+  if (r) {
+    r.click();
   }
+
+}
 
   if (apEnvisagee) {
     const r = document.querySelector(
