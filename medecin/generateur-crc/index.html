@@ -707,7 +707,7 @@ if (niveau) {
   radios.forEach(r => {
     if (r.value === niveau) {
       r.checked = true;
-      r.click();
+      r.dispatchEvent(new Event("change", { bubbles: true }));
     } else {
       r.checked = false;
     }
@@ -914,10 +914,12 @@ document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio)
 
 // reset niveaux et motivation si changement questionnaire
 document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
-
- radio.addEventListener("change", function(){
-
-  if(isImporting) return;   // ← ICI EXACTEMENT
+ 
+    radio.addEventListener("change", function(){
+        
+    console.log("RESET QUESTIONNAIRE déclenché");
+ 
+        if(isImporting) return;   // ← ICI EXACTEMENT
 
   document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
   document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
