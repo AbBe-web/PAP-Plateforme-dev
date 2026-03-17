@@ -966,8 +966,10 @@ document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
 document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
 
   radio.addEventListener('change', function() {
-
-  document.activeElement.blur();
+  
+      console.log("NIVEAU CHANGE DETECTÉ:", this.value);
+ 
+      document.activeElement.blur();
 
     const actifBlock = document.getElementById('actif-subgroup');
     const inactifBlock = document.getElementById('inactif-subgroup');
