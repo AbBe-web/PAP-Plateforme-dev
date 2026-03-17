@@ -814,9 +814,10 @@ waitForElement('input[name="ap_envisagee"], input[name="actif_depuis"]', () => {
       `input[name="actif_depuis"][value="${actifDepuis}"]`
     );
 
-    if (r) {
-      r.checked = true;
-    }
+   if (r) {
+  r.checked = true;
+  r.dispatchEvent(new Event("change"));
+}
 
   }
 
@@ -827,10 +828,10 @@ waitForElement('input[name="ap_envisagee"], input[name="actif_depuis"]', () => {
       `input[name="ap_envisagee"][value="${apEnvisagee}"]`
     );
 
-    if (r) {
-      r.checked = true;
-    }
-
+   if (r) {
+  r.checked = true;
+  r.dispatchEvent(new Event("change"));
+}
   }
 
   // AP envisagée dans 6 mois
@@ -840,9 +841,10 @@ waitForElement('input[name="ap_envisagee"], input[name="actif_depuis"]', () => {
       `input[name="ap_6_mois"][value="${ap6Mois}"]`
     );
 
-    if (r) {
-      r.checked = true;
-    }
+   if (r) {
+  r.checked = true;
+  r.dispatchEvent(new Event("change"));
+}
 
   }
 
