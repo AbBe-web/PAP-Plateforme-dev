@@ -1387,26 +1387,43 @@ savedScrollPosition = window.scrollY;
   });
 });
  
-        document.getElementById('downloadPdf').addEventListener('click', function (e) {
+document.getElementById('downloadPdf').addEventListener('click', function (e) {
 
   e.preventDefault();
   e.stopPropagation();
 
-  if (document.activeElement) {
-    document.activeElement.blur();
-  }
+  const content = document.getElementById("outputContainer").innerHTML;
 
-  const container = document.getElementById("outputContainer");
-  const previousTransition = container.style.transition;
-  container.style.transition = "none";
+  const win = window.open('', '', 'width=800,height=600');
 
-setTimeout(() => {
-  window.print();
-}, 100);
+  win.document.write(`
+    <html>
+      <head>
+        <title>PDF</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 15mm;
+          }
+        </style>
+      </head>
+      <body>
+        ${content}
+      </body>
+    </html>
+  `);
 
-  container.style.transition = previousTransition;
+  win.document.close();
+
+  win.focus();
+
+  setTimeout(() => {
+    win.print();
+    win.close();
+  }, 300);
 
 });
+        
         document.getElementById('copyReport').addEventListener('click', function() {
 
   const container = document.getElementById("outputContainer").cloneNode(true);
