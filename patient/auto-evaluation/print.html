@@ -626,13 +626,7 @@ ${data.motivation.confiance_commentaire
 `;
 
 document.getElementById("printBtn")?.addEventListener("click", function () {
-
-  try {
-    window.print();
-  } catch (e) {
-    window.location.href = window.location.href;
-  }
-
+  window.location.href = window.location.href;
 });
   
 document.getElementById("downloadBtn")?.addEventListener("click", function () {
