@@ -606,7 +606,7 @@ ${data.motivation.confiance_commentaire
 <div class="actions">
   <div class="actions-buttons">
     <div class="action-item">
-      <button onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+     <button id="printBtn">Imprimer / Enregistrer en PDF</button>
       <div class="action-text">Document complet à imprimer ou à partager</div>
     </div>
 
@@ -622,7 +622,34 @@ ${data.motivation.confiance_commentaire
 
   </div>
 </div>
+
 `;
+
+document.getElementById("printBtn")?.addEventListener("click", function () {
+  setTimeout(() => {
+    window.print();
+  }, 50);
+});
+
+// PRINT
+document.getElementById("printBtn")?.addEventListener("click", function () {
+  setTimeout(() => {
+    window.print();
+  }, 50);
+});
+
+// DOWNLOAD
+document.getElementById("downloadBtn")?.addEventListener("click", function () {
+  downloadJSON();
+});
+
+// COPY
+document.getElementById("copyBtn")?.addEventListener("click", function () {
+  copyContent();
+});
+
+
+  
 // ==============================
 // QR CODE POUR LE MÉDECIN
 // ==============================
