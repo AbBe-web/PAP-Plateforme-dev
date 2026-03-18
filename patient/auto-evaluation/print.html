@@ -627,11 +627,15 @@ ${data.motivation.confiance_commentaire
 
 document.getElementById("printBtn")?.addEventListener("click", function () {
 
-  alert("PRINT CLICK OK");
+  alert("PRINT CLICK OK"); // tu peux garder temporairement
 
-  setTimeout(() => {
+  try {
     window.print();
-  }, 50);
+  } catch (e) {
+    // fallback Firefox iOS
+    window.open(window.location.href, "_blank");
+  }
+
 });
   
 document.getElementById("downloadBtn")?.addEventListener("click", function () {
@@ -966,19 +970,26 @@ function downloadJSON(){
   const filename = "auto-evaluation-activite-physique.json";
 
   // Méthode mobile robuste
-  const dataStr = "data:application/json;charset=utf-8," + encodeURIComponent(data);
+try {
 
-  const link = document.createElement("a");
-  link.setAttribute("href", dataStr);
-  link.setAttribute("download", filename);
-  link.style.display = "none";
+  const blob = new Blob([data], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
 
-  document.body.appendChild(link);
-  link.click();
+  const newWindow = window.open(url);
 
-  setTimeout(function(){
-    document.body.removeChild(link);
-  }, 100);
+  if (!newWindow) {
+    throw new Error("Popup bloquée");
+  }
+
+  setTimeout(() => {
+    URL.revokeObjectURL(url);
+  }, 1000);
+
+} catch(e) {
+
+  alert("Téléchargement non supporté. Utilisez 'Copier le contenu' ou une capture d’écran.");
+
+}
 
 }
  // 🔒 Safari macOS : figer le DOM après construction complète
