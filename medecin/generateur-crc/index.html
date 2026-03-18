@@ -41,26 +41,31 @@
   justify-content: space-between;
   margin-top: 10px;
 }
+    
 @media print {
 
   body {
     margin: 0;
   }
 
-  /* 🔴 cacher tout */
-  .container * {
-    display: none !important;
+  .container.crc-page > * {
+    display: none;
   }
 
-  /* 🔴 réafficher UNIQUEMENT le report */
-  #reportOutput,
-  #reportOutput * {
-    display: block !important;
-  }
-
-  /* éviter décalage */
   #reportOutput {
+    display: block !important;
+    position: relative !important;
+  }
+
+  #outputContainer {
+    display: block;
     width: 100%;
+    margin: 0;
+  }
+
+  #reportActions,
+  #formatTabs {
+    display: none !important;
   }
 
 }
