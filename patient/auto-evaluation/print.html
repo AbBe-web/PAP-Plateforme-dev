@@ -625,9 +625,7 @@ ${data.motivation.confiance_commentaire
 
 `;
 
-document.getElementById("downloadBtn")?.addEventListener("click", function () {
-  downloadJSON();
-});
+document.getElementById("downloadBtn")?.onclick = downloadJSON;
 
 // ==============================
 // QR CODE POUR LE MÉDECIN
@@ -991,16 +989,30 @@ function downloadJSON(){
   
 async function sharePage() {
 
-  if (navigator.share) {
-    try {
-      await navigator.share({
-        title: document.title,
-        text: "Résumé de votre évaluation d’activité physique",
-        url: window.location.href
-      });
-    } catch (e) {}
-  } else {
-    alert("Utilisez le menu de votre navigateur pour imprimer ou enregistrer ce document.");
+  // Détection Firefox iOS
+  const isFirefoxIOS = navigator.userAgent.includes("FxiOS");
+
+  if (isFirefoxIOS) {
+    // fallback iOS Firefox
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: document.title,
+          text: "Résumé de votre évaluation d’activité physique",
+          url: window.location.href
+        });
+      } catch (e) {}
+    } else {
+      alert("Utilisez le menu de votre navigateur pour imprimer.");
+    }
+    return;
+  }
+
+  // Tous les autres navigateurs → print normal
+  try {
+    window.print();
+  } catch (e) {
+    alert("Impression non disponible.");
   }
 
 }
