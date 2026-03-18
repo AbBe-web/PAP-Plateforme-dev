@@ -626,12 +626,18 @@ ${data.motivation.confiance_commentaire
 `;
 
 document.getElementById("printBtn")?.addEventListener("click", function () {
+
+  console.log("PRINT CLICK OK");
+
   setTimeout(() => {
     window.print();
   }, 50);
 });
 
 document.getElementById("downloadBtn")?.addEventListener("click", function () {
+
+  console.log("DOWNLOAD CLICK OK");
+
   setTimeout(() => {
     downloadJSON();
   }, 50);
