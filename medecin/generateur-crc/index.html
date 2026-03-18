@@ -44,6 +44,12 @@
     
 @media print {
 
+  * {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+  }
+
   body {
     margin: 0;
   }
@@ -55,7 +61,6 @@
   #reportOutput,
   #reportOutput.hidden {
     display: block !important;
-    position: relative !important;
   }
 
   #outputContainer {
