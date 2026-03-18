@@ -969,8 +969,13 @@ function downloadJSON(){
     return;
   }
 
-  // 🔴 Affichage direct (compatible Firefox iOS)
-  document.body.innerHTML = `
+  const container = document.getElementById("downloadContainer");
+
+  if (!container) return;
+
+  container.style.display = "block";
+
+  container.innerHTML = `
     <div style="padding:20px; font-family: monospace;">
       
       <h2 style="margin-bottom:10px;">Données de votre évaluation</h2>
@@ -989,20 +994,19 @@ function downloadJSON(){
       ">${data}</pre>
 
       <div style="margin-top:20px;">
-        <button onclick="location.reload()" style="
+        <button onclick="document.getElementById('downloadContainer').style.display='none'" style="
           padding:10px 14px;
           font-size:14px;
           border:1px solid #999;
           background:#f5f5f5;
           cursor:pointer;
         ">
-          ← Retour
+          ← Fermer
         </button>
       </div>
 
     </div>
   `;
-
 }
 
 // 🔒 Safari macOS : figer le DOM après construction complète
@@ -1013,6 +1017,8 @@ setTimeout(() => {
 }, 0);
 
 </script>
-
+  
+<div id="downloadContainer" style="display:none;"></div>
+  
 </body>
 </html>
