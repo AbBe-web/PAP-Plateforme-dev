@@ -426,7 +426,7 @@ document.getElementById("content").innerHTML = `
 
 <p class="synthese-line">
   <strong>Niveau d’activité physique :</strong>
-${(data.resultats?.niveau_activite || "").replace("_"," ")}
+  ${data.resultats.niveau_activite.replace("_"," ")}
   ${
     data.meta.questionnaire === "GPAQ" &&
     data.resultats.met_minutes_semaine != null
@@ -606,7 +606,7 @@ ${data.motivation.confiance_commentaire
 <div class="actions">
   <div class="actions-buttons">
     <div class="action-item">
-     <button onclick="sharePage()">Imprimer / Enregistrer</button>
+      <button onclick="window.print()">Imprimer / Enregistrer en PDF</button>
       <div class="action-text">Document complet à imprimer ou à partager</div>
     </div>
 
@@ -616,17 +616,13 @@ ${data.motivation.confiance_commentaire
     </div>
 
     <div class="action-item">
-      <button id="downloadBtn">Télécharger mes réponses</button>
+      <button onclick="downloadJSON()">Télécharger mes réponses</button>
       <div class="action-text">Fichier à conserver ou transmettre à votre médecin</div>
     </div>
 
   </div>
 </div>
-
 `;
-
-document.getElementById("downloadBtn")?.onclick = downloadJSON;
-
 // ==============================
 // QR CODE POUR LE MÉDECIN
 // ==============================
@@ -947,60 +943,33 @@ function downloadJSON(){
     return;
   }
 
-  const container = document.getElementById("downloadContainer");
+  const filename = "auto-evaluation-activite-physique.json";
 
-  if (!container) return;
+  // Méthode mobile robuste
+  const dataStr = "data:application/json;charset=utf-8," + encodeURIComponent(data);
 
-  container.style.display = "block";
+  const link = document.createElement("a");
+  link.setAttribute("href", dataStr);
+  link.setAttribute("download", filename);
+  link.style.display = "none";
 
-  container.innerHTML = `
-    <div style="padding:20px; font-family: monospace;">
-      
-      <h2 style="margin-bottom:10px;">Données de votre évaluation</h2>
-      
-      <p style="font-size:13px; color:#555;">
-        Vous pouvez copier ces données ou faire une capture d’écran.
-      </p>
+  document.body.appendChild(link);
+  link.click();
 
-      <pre style="
-        white-space: pre-wrap;
-        font-size:14px;
-        background:#f5f5f5;
-        padding:12px;
-        border-radius:6px;
-        margin-top:15px;
-      ">${data}</pre>
+  setTimeout(function(){
+    document.body.removeChild(link);
+  }, 100);
 
-      <div style="margin-top:20px;">
-        <button onclick="document.getElementById('downloadContainer').style.display='none'" style="
-          padding:10px 14px;
-          font-size:14px;
-          border:1px solid #999;
-          background:#f5f5f5;
-          cursor:pointer;
-        ">
-          ← Fermer
-        </button>
-      </div>
-
-    </div>
-  `;
 }
-  
-  function sharePage() {
-  window.print();
-}
-
-// 🔒 Safari macOS : figer le DOM après construction complète
+ // 🔒 Safari macOS : figer le DOM après construction complète
 setTimeout(() => {
   try {
     window.onbeforeunload = null;
   } catch (e) {}
 }, 0);
 
+
 </script>
-  
-<div id="downloadContainer" style="display:none;"></div>
-  
+
 </body>
 </html>
