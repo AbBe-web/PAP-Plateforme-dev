@@ -1461,7 +1461,9 @@ savedScrollPosition = window.scrollY;
   const previousTransition = container.style.transition;
   container.style.transition = "none";
 
+setTimeout(() => {
   window.print();
+}, 100);
 
   // 🔹 Restaure la transition
   container.style.transition = previousTransition;
@@ -1480,7 +1482,9 @@ savedScrollPosition = window.scrollY;
   const previousTransition = container.style.transition;
   container.style.transition = "none";
 
+setTimeout(() => {
   window.print();
+}, 100);
 
   container.style.transition = previousTransition;
 
