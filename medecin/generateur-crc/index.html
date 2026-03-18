@@ -92,7 +92,7 @@
 
   font-weight: 600;
   text-align: center;
-white-space: normal;
+  white-space: normal;
   font-size: 0.9rem;
   min-height: 42px;
 
@@ -129,15 +129,11 @@ white-space: normal;
 /* ===== Adaptation mobile ===== */
 
 @media (max-width: 768px) {
-.format-tabs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 25px;
 
-  background: white;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  .tab-btn {
+    flex: 1 1 calc(50% - 10px);
+  }
+
 }
     
 /* ===== Boutons d'action ===== */
