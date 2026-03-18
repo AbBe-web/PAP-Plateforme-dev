@@ -627,24 +627,16 @@ ${data.motivation.confiance_commentaire
 
 document.getElementById("printBtn")?.addEventListener("click", function () {
 
-  alert("PRINT CLICK OK"); // tu peux garder temporairement
-
   try {
     window.print();
   } catch (e) {
-    // fallback Firefox iOS
-    window.open(window.location.href, "_blank");
+    window.location.href = window.location.href;
   }
 
 });
   
 document.getElementById("downloadBtn")?.addEventListener("click", function () {
-
-  alert("DOWNLOAD CLICK OK");
-
-  setTimeout(() => {
-    downloadJSON();
-  }, 50);
+  downloadJSON();
 });
 
 // ==============================
@@ -957,8 +949,6 @@ function copyContent() {
       alert("Copie impossible.");
     });
 }
-
-<script>
 
 function downloadJSON(){
 
