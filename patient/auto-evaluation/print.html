@@ -606,7 +606,7 @@ ${data.motivation.confiance_commentaire
 <div class="actions">
   <div class="actions-buttons">
     <div class="action-item">
-     <button id="printBtn">Imprimer / Enregistrer en PDF</button>
+     <button onclick="sharePage()">Imprimer / Enregistrer</button>
       <div class="action-text">Document complet à imprimer ou à partager</div>
     </div>
 
@@ -625,10 +625,6 @@ ${data.motivation.confiance_commentaire
 
 `;
 
-document.getElementById("printBtn")?.addEventListener("click", function () {
-  window.location.href = window.location.href;
-});
-  
 document.getElementById("downloadBtn")?.addEventListener("click", function () {
   downloadJSON();
 });
@@ -992,7 +988,22 @@ function downloadJSON(){
     </div>
   `;
 }
+  
+async function sharePage() {
 
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: document.title,
+        text: "Résumé de votre évaluation d’activité physique",
+        url: window.location.href
+      });
+    } catch (e) {}
+  } else {
+    alert("Utilisez le menu de votre navigateur pour imprimer ou enregistrer ce document.");
+  }
+
+}
 // 🔒 Safari macOS : figer le DOM après construction complète
 setTimeout(() => {
   try {
