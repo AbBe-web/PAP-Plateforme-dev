@@ -48,9 +48,9 @@
     margin: 0;
   }
 
-  .container.crc-page > * {
-    display: none;
-  }
+.container.crc-page > *:not(#reportOutput) {
+  display: none !important;
+}
 
   #reportOutput {
     display: block !important;
