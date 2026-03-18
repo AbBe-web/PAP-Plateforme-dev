@@ -42,43 +42,6 @@
   margin-top: 10px;
 }
     
-document.getElementById('printReport').addEventListener('click', function (e) {
-
-  e.preventDefault();
-  e.stopPropagation();
-
-  const content = document.getElementById("outputContainer").innerHTML;
-
-  const win = window.open('', '', 'width=800,height=600');
-
-  win.document.write(`
-    <html>
-      <head>
-        <title>Impression</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 15mm;
-          }
-        </style>
-      </head>
-      <body>
-        ${content}
-      </body>
-    </html>
-  `);
-
-  win.document.close();
-
-  win.focus();
-
-  setTimeout(() => {
-    win.print();
-    win.close();
-  }, 300);
-
-});
-
 /* =========================
    Réponses patient importées
 ========================= */
@@ -1423,30 +1386,8 @@ savedScrollPosition = window.scrollY;
     renderActiveMode();
   });
 });
-            document.getElementById('printReport').addEventListener('click', function (e) {
-
-  e.preventDefault();
-  e.stopPropagation();
-
-  // 🔹 Sécurise Safari iOS
-  if (document.activeElement) {
-    document.activeElement.blur();
-  }
-
-  // 🔹 Désactive temporairement la transition (évite conflit iOS)
-  const container = document.getElementById("outputContainer");
-  const previousTransition = container.style.transition;
-  container.style.transition = "none";
-
-setTimeout(() => {
-  window.print();
-}, 100);
-
-  // 🔹 Restaure la transition
-  container.style.transition = previousTransition;
-
-});
-           document.getElementById('downloadPdf').addEventListener('click', function (e) {
+ 
+        document.getElementById('downloadPdf').addEventListener('click', function (e) {
 
   e.preventDefault();
   e.stopPropagation();
@@ -1497,6 +1438,44 @@ setTimeout(() => {
   }
 
 });
+
+        document.getElementById('printReport').addEventListener('click', function (e) {
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  const content = document.getElementById("outputContainer").innerHTML;
+
+  const win = window.open('', '', 'width=800,height=600');
+
+  win.document.write(`
+    <html>
+      <head>
+        <title>Impression</title>
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 15mm;
+          }
+        </style>
+      </head>
+      <body>
+        ${content}
+      </body>
+    </html>
+  `);
+
+  win.document.close();
+
+  win.focus();
+
+  setTimeout(() => {
+    win.print();
+    win.close();
+  }, 300);
+
+});
+        
           function getStadeMotivation() {
     const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked') ? document.querySelector('input[name="niveau_actuel"]:checked').value : '';
     if (niveauActuel === 'actif') {
