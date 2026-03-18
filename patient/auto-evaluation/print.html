@@ -426,7 +426,7 @@ document.getElementById("content").innerHTML = `
 
 <p class="synthese-line">
   <strong>Niveau d’activité physique :</strong>
-  ${data.resultats.niveau_activite.replace("_"," ")}
+${(data.resultats?.niveau_activite || "").replace("_"," ")}
   ${
     data.meta.questionnaire === "GPAQ" &&
     data.resultats.met_minutes_semaine != null
