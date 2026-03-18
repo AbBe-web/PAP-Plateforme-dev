@@ -41,41 +41,26 @@
   justify-content: space-between;
   margin-top: 10px;
 }
-
 @media print {
 
   body {
     margin: 0;
   }
 
-  /* cacher tout sauf le rapport */
-  body > *:not(.container) {
+  /* 🔴 cacher tout */
+  .container * {
     display: none !important;
   }
 
-  /* garder le container */
-  .container {
+  /* 🔴 réafficher UNIQUEMENT le report */
+  #reportOutput,
+  #reportOutput * {
     display: block !important;
   }
 
-  /* cacher le formulaire */
-  form,
-  #generateReport,
-  #scanQRBtn,
-  #importJSONBtn,
-  #qrScannerContainer {
-    display: none !important;
-  }
-
-  /* garder uniquement le rendu */
+  /* éviter décalage */
   #reportOutput {
-    display: block !important;
-  }
-
-  /* cacher boutons */
-  #reportActions,
-  #formatTabs {
-    display: none !important;
+    width: 100%;
   }
 
 }
