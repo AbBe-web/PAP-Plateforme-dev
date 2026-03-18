@@ -48,11 +48,12 @@
     margin: 0;
   }
 
-.container.crc-page > *:not(#reportOutput) {
-  display: none !important;
-}
+  .container.crc-page > *:not(#reportOutput) {
+    display: none !important;
+  }
 
-  #reportOutput {
+  #reportOutput,
+  #reportOutput.hidden {
     display: block !important;
     position: relative !important;
   }
