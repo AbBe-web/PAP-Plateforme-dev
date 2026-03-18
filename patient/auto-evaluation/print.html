@@ -972,22 +972,18 @@ function downloadJSON(){
   // Méthode mobile robuste
 try {
 
-  const blob = new Blob([data], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-
-  const newWindow = window.open(url);
+  const newWindow = window.open();
 
   if (!newWindow) {
     throw new Error("Popup bloquée");
   }
 
-  setTimeout(() => {
-    URL.revokeObjectURL(url);
-  }, 1000);
+  newWindow.document.write("<pre>" + data + "</pre>");
+  newWindow.document.close();
 
 } catch(e) {
 
-  alert("Téléchargement non supporté. Utilisez 'Copier le contenu' ou une capture d’écran.");
+  alert("Impossible d’ouvrir les données. Utilisez 'Copier le contenu'.");
 
 }
 
