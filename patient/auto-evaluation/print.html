@@ -958,6 +958,8 @@ function copyContent() {
     });
 }
 
+<script>
+
 function downloadJSON(){
 
   const data = sessionStorage.getItem("preconsultation_final");
@@ -967,34 +969,48 @@ function downloadJSON(){
     return;
   }
 
-  const filename = "auto-evaluation-activite-physique.json";
+  // 🔴 Affichage direct (compatible Firefox iOS)
+  document.body.innerHTML = `
+    <div style="padding:20px; font-family: monospace;">
+      
+      <h2 style="margin-bottom:10px;">Données de votre évaluation</h2>
+      
+      <p style="font-size:13px; color:#555;">
+        Vous pouvez copier ces données ou faire une capture d’écran.
+      </p>
 
-  // Méthode mobile robuste
-try {
+      <pre style="
+        white-space: pre-wrap;
+        font-size:14px;
+        background:#f5f5f5;
+        padding:12px;
+        border-radius:6px;
+        margin-top:15px;
+      ">${data}</pre>
 
-  const newWindow = window.open();
+      <div style="margin-top:20px;">
+        <button onclick="location.reload()" style="
+          padding:10px 14px;
+          font-size:14px;
+          border:1px solid #999;
+          background:#f5f5f5;
+          cursor:pointer;
+        ">
+          ← Retour
+        </button>
+      </div>
 
-  if (!newWindow) {
-    throw new Error("Popup bloquée");
-  }
-
-  newWindow.document.write("<pre>" + data + "</pre>");
-  newWindow.document.close();
-
-} catch(e) {
-
-  alert("Impossible d’ouvrir les données. Utilisez 'Copier le contenu'.");
+    </div>
+  `;
 
 }
 
-}
- // 🔒 Safari macOS : figer le DOM après construction complète
+// 🔒 Safari macOS : figer le DOM après construction complète
 setTimeout(() => {
   try {
     window.onbeforeunload = null;
   } catch (e) {}
 }, 0);
-
 
 </script>
 
