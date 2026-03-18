@@ -616,7 +616,7 @@ ${data.motivation.confiance_commentaire
     </div>
 
     <div class="action-item">
-      <button onclick="downloadJSON()">Télécharger mes réponses</button>
+      <button id="downloadBtn">Télécharger mes réponses</button>
       <div class="action-text">Fichier à conserver ou transmettre à votre médecin</div>
     </div>
 
@@ -631,25 +631,12 @@ document.getElementById("printBtn")?.addEventListener("click", function () {
   }, 50);
 });
 
-// PRINT
-document.getElementById("printBtn")?.addEventListener("click", function () {
+document.getElementById("downloadBtn")?.addEventListener("click", function () {
   setTimeout(() => {
-    window.print();
+    downloadJSON();
   }, 50);
 });
 
-// DOWNLOAD
-document.getElementById("downloadBtn")?.addEventListener("click", function () {
-  downloadJSON();
-});
-
-// COPY
-document.getElementById("copyBtn")?.addEventListener("click", function () {
-  copyContent();
-});
-
-
-  
 // ==============================
 // QR CODE POUR LE MÉDECIN
 // ==============================
