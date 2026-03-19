@@ -794,6 +794,13 @@ function formatCommentaire(value) {
   return value && value.trim() !== "" ? value : "Aucun commentaire";
 }
 
+
+// Fonction centrale utilisée pour :
+/*
+- bouton Copier
+- fallback Firefox iOS (Télécharger)
+→ NE PAS DUPLIQUER
+*/
 function buildReadableSummary(data) {
 
   if (!data) return "";
