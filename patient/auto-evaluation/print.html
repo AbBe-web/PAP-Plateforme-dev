@@ -828,7 +828,7 @@ function buildReadableSummary(data) {
   output += "\n";
 
   if (data.resultats.pas_moyens_jour_1_mois !== null) {
-    output += "Nombre de pas moyen        : ";
+output += "Nombre de pas moyen : ";
     output += data.resultats.pas_moyens_jour_1_mois;
     output += " pas / jour\n";
   }
@@ -844,14 +844,14 @@ function buildReadableSummary(data) {
     null;
 
   if (sedH !== null) {
-    output += "Temps assis / couché       : ";
+output += "Temps assis / couché       : ";
     output += `${sedH ?? 0} h ${sedM ?? 0} min / jour\n`;
   }
 
   output += "\n";
 
   // 👉 stade dans synthèse (avec interprétation)
-  output += "Stade motivationnel        : ";
+output += "Stade motivationnel       : ";
   output += formatStadeMotivationnel(data.motivation.stade);
   output += "\n\n";
 
@@ -913,12 +913,12 @@ function buildReadableSummary(data) {
   output += "3. MOTIVATION ET PERCEPTION\n";
   output += "---------------------------\n";
 
-  output += "Importance (0–10)          : ";
+output += "Importance (0–10) : ";
   output += data.motivation.importance_eva_0_10 + "/10\n";
   output += "Commentaire :\n";
   output += formatCommentaire(data.motivation.importance_commentaire) + "\n\n";
 
-  output += "Confiance (0–10)           : ";
+output += "Confiance (0–10) : ";
   output += data.motivation.confiance_eva_0_10 + "/10\n";
   output += "Commentaire :\n";
   output += formatCommentaire(data.motivation.confiance_commentaire) + "\n\n";
