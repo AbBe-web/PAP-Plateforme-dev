@@ -950,7 +950,16 @@ function copyContent() {
       alert("Copie impossible.");
     });
 }
+  
+function isFirefoxIOS() {
+  return /FxiOS/i.test(navigator.userAgent);
+}
 
+const FORCE_DOWNLOAD_TEST = false; 
+// mettre à true uniquement pour tester si Firefox corrige le download
+
+
+  
 function downloadJSON(){
 
   const data = sessionStorage.getItem("preconsultation_final");
@@ -960,9 +969,39 @@ function downloadJSON(){
     return;
   }
 
+  if (isFirefoxIOS() && !FORCE_DOWNLOAD_TEST) {
+
+   let parsed;
+try {
+  parsed = JSON.parse(data);
+} catch(e) {
+  alert("Erreur de lecture des données.");
+  return;
+}
+
+const text = buildReadableSummary(parsed);
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert(
+            "Le téléchargement n'est pas disponible sur ce navigateur.\n\n" +
+            "Les résultats ont été copiés.\n" +
+            "Vous pouvez les coller dans un mail."
+          );
+        })
+        .catch(() => {
+          alert("Copie impossible.");
+        });
+    } else {
+      alert("Copie non supportée sur ce navigateur.");
+    }
+
+    return;
+  }
+
   const filename = "auto-evaluation-activite-physique.json";
 
-  // Méthode mobile robuste
   const dataStr = "data:application/json;charset=utf-8," + encodeURIComponent(data);
 
   const link = document.createElement("a");
@@ -976,7 +1015,6 @@ function downloadJSON(){
   setTimeout(function(){
     document.body.removeChild(link);
   }, 100);
-
 }
  // 🔒 Safari macOS : figer le DOM après construction complète
 setTimeout(() => {
