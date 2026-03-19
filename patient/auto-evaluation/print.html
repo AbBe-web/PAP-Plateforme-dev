@@ -773,145 +773,162 @@ if (data.meta.questionnaire === "GPAQ") {
   const marshall = document.getElementById("marshall-section");
   if (marshall) marshall.style.display = "none";
 }
+function formatStadeMotivationnel(stade) {
+  switch (stade) {
+    case "indetermination":
+      return "indétermination (activité physique non envisagée)";
+    case "intention":
+      return "intention (activité physique envisagée dans les 6 mois)";
+    case "preparation":
+      return "préparation (activité physique envisagée dans les 30 jours)";
+    case "action":
+      return "action (actif depuis moins de 6 mois)";
+    case "consolidation":
+      return "consolidation (actif depuis plus de 6 mois)";
+    default:
+      return stade;
+  }
+}
+
+function formatCommentaire(value) {
+  return value && value.trim() !== "" ? value : "Aucun commentaire";
+}
+
 function buildReadableSummary(data) {
 
   if (!data) return "";
 
-let output = "";
+  let output = "";
+  const isGPAQ = data.meta.questionnaire === "GPAQ";
 
-/* =========================
-   TITRE
-========================= */
+  /* =========================
+     TITRE
+  ========================= */
 
-output += "RÉSUMÉ DE LA PRÉ-CONSULTATION D’ACTIVITÉ PHYSIQUE\n";
-output += "--------------------------------------------------\n\n";
+  output += "RÉSUMÉ DE LA PRÉ-CONSULTATION D’ACTIVITÉ PHYSIQUE\n";
+  output += "--------------------------------------------------\n\n";
 
-/* =========================
-   1. SYNTHÈSE
-========================= */
+  /* =========================
+     1. SYNTHÈSE
+  ========================= */
 
-output += "1. SYNTHÈSE\n";
-output += "───────────\n";
+  output += "1. SYNTHÈSE\n";
+  output += "───────────\n";
 
-output += "Niveau d’activité physique : ";
-output += (data.resultats?.niveau_activite ?? "non_defini").replace("_"," ");
-output += "\n";
-
-output += "Volume estimé : ";
-output += data.resultats?.met_minutes_semaine ?? 0;
-output += " MET-min / semaine\n";
-
-output += "\n";   // espace entre blocs
-  
-if (data.resultats.pas_moyens_jour_1_mois !== null) {
-  output += "Nombre de pas moyen (1 mois) : ";
-  output += data.resultats.pas_moyens_jour_1_mois;
-  output += " pas / jour\n";
-}
-
-output += "\n";
-  
-const sedH =
-  data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
-  data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
-  null;
-
-const sedM =
-  data?.questionnaires?.gpaq?.sedentarite?.minutes_par_jour ??
-  data?.questionnaires?.marshall?.sedentarite?.minutes_par_jour ??
-  null;
-
-if (sedH !== null) {
-let sedText = "";
-
-if ((sedH ?? 0) > 0 && (sedM ?? 0) > 0) {
-  sedText = `${sedH} h ${sedM} min / jour`;
-} else if ((sedH ?? 0) > 0) {
-  sedText = `${sedH} h / jour`;
-} else if ((sedM ?? 0) > 0) {
-  sedText = `${sedM} min / jour`;
-}
-
-output += `\nTemps assis / couché (hors sommeil) : ${sedText}\n`;
-}
+  output += "Niveau d’activité physique : ";
+  output += (data.resultats?.niveau_activite ?? "non_defini").replace("_"," ");
   output += "\n";
-/* =========================
-   MOTIVATION
-========================= */
 
-output += "Stade motivationnel : ";
-output += data.motivation.stade;
-output += "\n";
-
-output += "Importance (0–10) : ";
-output += data.motivation.importance_eva_0_10;
-output += "/10\n";
-
-output += "Confiance (0–10) : ";
-output += data.motivation.confiance_eva_0_10;
-output += "/10\n";
-
-output += "\n";   // espace avant conclusion
-  
-/* =========================
-   2. QUESTIONNAIRE UTILISÉ
-========================= */
-
-output += "2. QUESTIONNAIRE UTILISÉ\n";
-output += "------------------------\n";
-
-output += data.meta.questionnaire + "\n\n";
-
-if (data.meta.questionnaire === "Marshall") {
-
-  output += "Détail des réponses :\n";
-  output += "Question 1 : " + (data.questionnaires.marshall.q1 || 0) + " points\n";
-  output += "Question 2 : " + (data.questionnaires.marshall.q2 || 0) + " points\n";
-  output += "Score total : " +
-    ((data.questionnaires.marshall.q1 || 0) +
-     (data.questionnaires.marshall.q2 || 0)) +
-    "\n\n";
-}
-
-if (data.meta.questionnaire === "GPAQ") {
-
-  output += "DÉTAIL DES RÉPONSES (GPAQ)\n";
-  output += "---------------------------------------------\n";
-  output += "Type                | Jours | Durée / jour\n";
-  output += "---------------------------------------------\n";
-
-  const g = data.questionnaires.gpaq;
-
-  function formatLine(label, obj) {
-    const jours = obj?.jours_par_semaine ?? 0;
-    const h = obj?.heures_par_jour ?? 0;
-    const m = obj?.minutes_par_jour ?? 0;
-
-    const duree = `${h}h ${m}min`;
-
-    return label.padEnd(20) + " | " +
-           String(jours).padEnd(5) + " | " +
-           duree + "\n";
+  if (isGPAQ) {
+    output += "Volume estimé              : ";
+    output += data.resultats?.met_minutes_semaine ?? 0;
+    output += " MET-min / semaine\n";
   }
 
-  output += formatLine("Travail intense", g?.travail?.intense);
-  output += formatLine("Travail modéré", g?.travail?.moderee);
-  output += formatLine("Déplacements", g?.deplacements);
-  output += formatLine("Loisirs intenses", g?.loisirs?.intense);
-  output += formatLine("Loisirs modérés", g?.loisirs?.moderee);
-  // Ligne sédentarité (hors sommeil)
-  const sedH = g?.sedentarite?.heures_par_jour ?? 0;
-  const sedM = g?.sedentarite?.minutes_par_jour ?? 0;
+  output += "\n";
+
+  if (data.resultats.pas_moyens_jour_1_mois !== null) {
+    output += "Nombre de pas moyen        : ";
+    output += data.resultats.pas_moyens_jour_1_mois;
+    output += " pas / jour\n";
+  }
+
+  const sedH =
+    data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+    data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+    null;
+
+  const sedM =
+    data?.questionnaires?.gpaq?.sedentarite?.minutes_par_jour ??
+    data?.questionnaires?.marshall?.sedentarite?.minutes_par_jour ??
+    null;
+
+  if (sedH !== null) {
+    output += "Temps assis / couché       : ";
+    output += `${sedH ?? 0} h ${sedM ?? 0} min / jour\n`;
+  }
 
   output += "\n";
-  output += "Sédentarité (hors sommeil)\n";
-  output += "Temps assis / couché : " + sedH + "h " + sedM + "min / jour\n";
-  output += "---------------------------------------------\n\n";
-}
 
-output += "Ce document est destiné à être discuté avec votre médecin.";
+  // 👉 stade dans synthèse (avec interprétation)
+  output += "Stade motivationnel        : ";
+  output += formatStadeMotivationnel(data.motivation.stade);
+  output += "\n\n";
 
-return output;
+  /* =========================
+     2. QUESTIONNAIRE
+  ========================= */
+
+  output += "2. QUESTIONNAIRE UTILISÉ\n";
+  output += "------------------------\n";
+  output += data.meta.questionnaire + "\n\n";
+
+  if (data.meta.questionnaire === "Marshall") {
+
+    output += "Détail des réponses :\n";
+    output += "Question 1 : " + (data.questionnaires.marshall.q1 || 0) + " points\n";
+    output += "Question 2 : " + (data.questionnaires.marshall.q2 || 0) + " points\n";
+    output += "Score total : " +
+      ((data.questionnaires.marshall.q1 || 0) +
+       (data.questionnaires.marshall.q2 || 0)) +
+      "\n\n";
+  }
+
+  if (data.meta.questionnaire === "GPAQ") {
+
+    output += "DÉTAIL DES RÉPONSES (GPAQ)\n";
+    output += "---------------------------------------------\n";
+    output += "Type                | Jours | Durée / jour\n";
+    output += "---------------------------------------------\n";
+
+    const g = data.questionnaires.gpaq;
+
+    function formatLine(label, obj) {
+      const jours = obj?.jours_par_semaine ?? 0;
+      const h = obj?.heures_par_jour ?? 0;
+      const m = obj?.minutes_par_jour ?? 0;
+      return label.padEnd(20) + " | " +
+             String(jours).padEnd(5) + " | " +
+             `${h} h ${m} min` + "\n";
+    }
+
+    output += formatLine("Travail intense", g?.travail?.intense);
+    output += formatLine("Travail modéré", g?.travail?.moderee);
+    output += formatLine("Déplacements", g?.deplacements);
+    output += formatLine("Loisirs intenses", g?.loisirs?.intense);
+    output += formatLine("Loisirs modérés", g?.loisirs?.moderee);
+
+    output += "\nSédentarité (hors sommeil)\n";
+    output += "Temps assis / couché : " +
+      (g?.sedentarite?.heures_par_jour ?? 0) + " h " +
+      (g?.sedentarite?.minutes_par_jour ?? 0) + " min / jour\n";
+
+    output += "---------------------------------------------\n\n";
+  }
+
+  /* =========================
+     3. MOTIVATION ET PERCEPTION
+  ========================= */
+
+  output += "3. MOTIVATION ET PERCEPTION\n";
+  output += "---------------------------\n";
+
+  output += "Importance (0–10)          : ";
+  output += data.motivation.importance_eva_0_10 + "/10\n";
+  output += "Commentaire :\n";
+  output += formatCommentaire(data.motivation.importance_commentaire) + "\n\n";
+
+  output += "Confiance (0–10)           : ";
+  output += data.motivation.confiance_eva_0_10 + "/10\n";
+  output += "Commentaire :\n";
+  output += formatCommentaire(data.motivation.confiance_commentaire) + "\n\n";
+
+  /* ========================= */
+
+  output += "--------------------------------------------------\n";
+  output += "Ce document est destiné à être discuté avec votre médecin.";
+
+  return output;
 }
   
 function copyContent() {
