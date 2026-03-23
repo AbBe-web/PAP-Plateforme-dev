@@ -729,9 +729,34 @@ let qrData = JSON.stringify(qrPayload);
 
 console.info("QR initial size:", qrData.length);
 
-const MAX_QR_SIZE = 900;
+const MAX_QR_SIZE = 700; // 🔥 plus sécurisé Safari
 
 if (qrData.length > MAX_QR_SIZE) {
+
+  console.warn("QR trop grand → suppression commentaires");
+
+  delete qrPayload.ci;
+  delete qrPayload.cc;
+
+  qrPayload.ci_truncated = true;
+  qrPayload.cc_truncated = true;
+
+  qrData = JSON.stringify(qrPayload);
+
+  // 🔥 2e sécurité : si encore trop grand
+  if (qrData.length > MAX_QR_SIZE) {
+
+    console.warn("QR encore trop grand → simplification payload");
+
+    delete qrPayload.sd; // optionnel mais non critique clinique
+    delete qrPayload.m;  // MET (optionnel si Marshall)
+
+    qrData = JSON.stringify(qrPayload);
+
+  }
+
+  console.info("QR final size:", qrData.length);
+}
 
   console.warn("QR trop grand → suppression forcée des commentaires");
 
