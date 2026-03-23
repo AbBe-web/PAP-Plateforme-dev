@@ -658,7 +658,7 @@ if (actifDepuis === "non") actifDepuis = "moins_6_mois";
     importanceComment = data.ci ?? data.importance_commentaire;
       const importanceTruncated = data.ci_truncated ?? false;
     confianceComment = data.cc ?? data.confiance_commentaire;
-
+      const confianceTruncated = data.cc_truncated ?? false;
   } catch (e) {
     alert("JSON invalide");
     return;
@@ -735,15 +735,19 @@ const impField = document.getElementById("importance_patient_comment");
 
 if (impBlock && impField) {
 
-  if (importanceComment) {
+if (typeof importanceComment === "string" && importanceComment.trim() !== "")
 
     impField.value = importanceComment;
     impBlock.style.display = "block";
 
+  } else if (importanceTruncated) {
+
+    impField.value = "Commentaire non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
+    impBlock.style.display = "block";
+
   } else {
 
-    impField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
-    impBlock.style.display = "block";
+    impBlock.style.display = "none";
 
   }
 
@@ -756,20 +760,24 @@ const confBlock = document.getElementById("confiance_patient_block");
 const confField = document.getElementById("confiance_patient_comment");
 
 if (confBlock && confField) {
-
-  if (confianceComment) {
+if (typeof confianceComment === "string" && confianceComment.trim() !== "")
 
     confField.value = confianceComment;
     confBlock.style.display = "block";
 
+  } else if (confianceTruncated) {
+
+    confField.value = "Commentaire non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
+    confBlock.style.display = "block";
+
   } else {
 
-    confField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
-    confBlock.style.display = "block";
+    confBlock.style.display = "none";
 
   }
 
 }
+          
 setTimeout(() => {
   isImporting = false;
 }, 100); }
