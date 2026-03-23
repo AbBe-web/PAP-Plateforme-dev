@@ -693,11 +693,35 @@ a6: data.motivation.ap_6_mois || null,
 i: data.motivation.importance_eva_0_10,
 c: data.motivation.confiance_eva_0_10,
 
-ci: data.motivation.importance_commentaire || "",
-cc: data.motivation.confiance_commentaire || ""
+ci: data.motivation.importance_commentaire,
+cc: data.motivation.confiance_commentaire
 };
-if (!qrPayload.ci) delete qrPayload.ci;
-if (!qrPayload.cc) delete qrPayload.cc;
+  
+let ci_truncated = false;
+let cc_truncated = false;
+
+const LIMITE_QR = 150;
+
+if (typeof qrPayload.ci === "string" && qrPayload.ci.trim().length > LIMITE_QR) {
+  delete qrPayload.ci;
+  ci_truncated = true;
+}
+
+if (typeof qrPayload.cc === "string" && qrPayload.cc.trim().length > LIMITE_QR) {
+  delete qrPayload.cc;
+  cc_truncated = true;
+}
+  
+if (ci_truncated) qrPayload.ci_truncated = true;
+if (cc_truncated) qrPayload.cc_truncated = true;
+
+if (typeof qrPayload.ci !== "string" || qrPayload.ci.trim() === "") {
+  delete qrPayload.ci;
+}
+
+if (typeof qrPayload.cc !== "string" || qrPayload.cc.trim() === "") {
+  delete qrPayload.cc;
+}
 if (!qrPayload.ad) delete qrPayload.ad;
 if (!qrPayload.ae) delete qrPayload.ae;
 if (!qrPayload.a6) delete qrPayload.a6;
