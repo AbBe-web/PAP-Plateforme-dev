@@ -735,7 +735,7 @@ const impField = document.getElementById("importance_patient_comment");
 
 if (impBlock && impField) {
 
-if (typeof importanceComment === "string" && importanceComment.trim() !== "")
+  if (typeof importanceComment === "string" && importanceComment.trim() !== "") {
 
     impField.value = importanceComment;
     impBlock.style.display = "block";
@@ -760,7 +760,8 @@ const confBlock = document.getElementById("confiance_patient_block");
 const confField = document.getElementById("confiance_patient_comment");
 
 if (confBlock && confField) {
-if (typeof confianceComment === "string" && confianceComment.trim() !== "")
+
+  if (typeof confianceComment === "string" && confianceComment.trim() !== "") {
 
     confField.value = confianceComment;
     confBlock.style.display = "block";
