@@ -656,6 +656,7 @@ if (actifDepuis === "non") actifDepuis = "moins_6_mois";
     importance = data.i ?? data.importance;
     confiance = data.c ?? data.confiance;
     importanceComment = data.ci ?? data.importance_commentaire;
+      const importanceTruncated = data.ci_truncated ?? false;
     confianceComment = data.cc ?? data.confiance_commentaire;
 
   } catch (e) {
