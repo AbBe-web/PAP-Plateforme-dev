@@ -708,7 +708,7 @@ if (sedentarite !== undefined && sedentarite !== null) {
     const parts = sedentarite.split(":");
     heures = parseInt(parts[0]);
   } else {
-    heures = parseInt(sedentarite);
+ heures = parseInt(sedentarite) || 0;
   }
 
   const heuresInput = document.querySelector('input[name="heures_assises"]');
