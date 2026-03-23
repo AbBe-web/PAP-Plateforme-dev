@@ -1019,7 +1019,7 @@ pushScreen(
     );
   render(`
 <h2>Importance de l’activité physique</h2>
-<p>Quelle importance accordez-vous à l’activité physique dans votre vie ?</p>
+<p>Quelle importance accordez-vous à l’activité physique dans votre vie, entre 0 aucune importance et 10 une importance majeure ?</p>
 <input type="range" min="0" max="10" value="5"
 oninput="this.nextElementSibling.innerText=this.value">
 <div>5</div>
@@ -1055,8 +1055,8 @@ onchange="state.result.importance_comment=this.value"></textarea>
 
 function evaConfiance(){
   const question = state.result.niveau==="insuffisamment_actif"
-    ? "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à augmenter votre niveau d’activité physique ?"
-    : "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à maintenir voire augmenter votre niveau d’activité physique ?";
+    ? "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à augmenter votre niveau d’activité physique, entre 0 aucune confiance en moi et 10 une extrêmement grande confiance en moi ?"
+    : "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à maintenir voire augmenter votre niveau d’activité physique, entre 0 aucune confiance en moi et 10 une extrêmement grande confiance en moi ?";
 pushScreen(
   state.tool === "marshall"
   ? "MAR-EVA-CONF"
@@ -1087,7 +1087,7 @@ pushScreen(
   render(`
 <h2>Votre réponse</h2>
 <p>
-Pouvez-vous m’indiquer en quelques mots ce qui vous rend confiant(e) ou, au contraire, ce qui vous freine ?<br>
+Pouvez-vous m’indiquer en quelques mots ce qui vous rend confiant(e) en vous ou, au contraire, ce qui vous freine ?<br>
 <em>Sinon, passez à la question suivante.</em>
 </p>
 <textarea placeholder="Votre réponse (facultative)"
@@ -1243,7 +1243,7 @@ pushScreen(
       : null
   );
 render(`
-<h2>Résultat</h2>
+<h2>Bilan résumé d'activité physique</h2>
 
 <p>
   <strong>Niveau d’activité :</strong>
@@ -1294,7 +1294,7 @@ ${sedH ? sedH + " h " : ""}${sedM ? sedM + " min" : ""}
   </div>
 </div>
 
-<button class="btn" onclick="openPrintable()">Voir mon bilan d'activité physique</button>
+<button class="btn" onclick="openPrintable()">Voir mon bilan complet d'activité physique et de sédentarité</button>
 <button class="btn secondary" onclick="restart()">Recommencer</button>
 <button class="btn secondary" onclick="safeBack()">Retour</button>
 
