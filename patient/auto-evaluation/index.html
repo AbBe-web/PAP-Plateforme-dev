@@ -1019,7 +1019,7 @@ pushScreen(
     );
   render(`
 <h2>Importance de l’activité physique</h2>
-<p>Quelle importance accordez-vous à l’activité physique dans votre vie, entre 0 aucune importance et 10 une importance majeure ?</p>
+<p>Quelle importance accordez-vous à l’activité physique dans votre vie, entre 0, aucune importance, et 10, une importance majeure ?</p>
 <input type="range" min="0" max="10" value="5"
 oninput="this.nextElementSibling.innerText=this.value">
 <div>5</div>
@@ -1055,8 +1055,8 @@ onchange="state.result.importance_comment=this.value"></textarea>
 
 function evaConfiance(){
   const question = state.result.niveau==="insuffisamment_actif"
-    ? "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à augmenter votre niveau d’activité physique, entre 0 aucune confiance en moi et 10 une extrêmement grande confiance en moi ?"
-    : "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à maintenir voire augmenter votre niveau d’activité physique, entre 0 aucune confiance en moi et 10 une extrêmement grande confiance en moi ?";
+    ? "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à augmenter votre niveau d’activité physique, entre 0, aucune confiance en vous, et 10, une extrêmement grande confiance en moi ?"
+    : "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à maintenir voire augmenter votre niveau d’activité physique, entre 0, aucune confiance en vous, et 10, une très grande grande confiance en vous ?";
 pushScreen(
   state.tool === "marshall"
   ? "MAR-EVA-CONF"
