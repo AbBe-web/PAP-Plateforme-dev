@@ -734,21 +734,17 @@ const impField = document.getElementById("importance_patient_comment");
 
 if (impBlock && impField) {
 
-  if (importanceComment !== null && importanceComment !== undefined && importanceComment !== "") {
+  if (importanceComment) {
 
-  impField.value = importanceComment;
-  impBlock.style.display = "block";
+    impField.value = importanceComment;
+    impBlock.style.display = "block";
 
-} else if (importanceComment === undefined) {
+  } else {
 
-  impField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
-  impBlock.style.display = "block";
+    impField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
+    impBlock.style.display = "block";
 
-} else {
-
-  impBlock.style.display = "none";
-
-}
+  }
 
 }
  if (confiance !== undefined && confiance !== null) {
@@ -760,21 +756,17 @@ const confField = document.getElementById("confiance_patient_comment");
 
 if (confBlock && confField) {
 
- if (confianceComment !== null && confianceComment !== undefined && confianceComment !== "") {
+  if (confianceComment) {
 
-  confField.value = confianceComment;
-  confBlock.style.display = "block";
+    confField.value = confianceComment;
+    confBlock.style.display = "block";
 
-} else if (confianceComment === undefined) {
+  } else {
 
-  confField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
-  confBlock.style.display = "block";
+    confField.value = "Commentaire éventuellement non transmis via QR code (trop long).\nConsultez le fichier JSON ou interrogez le patient.";
+    confBlock.style.display = "block";
 
-} else {
-
-  confBlock.style.display = "none";
-
-}
+  }
 
 }
 setTimeout(() => {
