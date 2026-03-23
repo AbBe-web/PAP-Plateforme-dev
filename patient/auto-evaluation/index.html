@@ -480,7 +480,7 @@ render(`
 <p>
 Au cours d’une semaine habituelle, combien de fois pratiquez-vous au moins 20 minutes une activité physique intense, au point de transpirer ou d'haleter ?
 <span class="example">
-Exemples : jogging, port de charge lourde, aérobic ou cyclisme à allure rapide
+Exemples : jogging, port de charge lourde, aérobic ou cyclisme à allure rapide.
 </span>
 </p>
 <button class="btn" onclick="state.marshall.q1=4; advanceProgress(1); marshallQ2()">≥ 3 fois / semaine</button>
@@ -498,7 +498,7 @@ pushScreen("MAR-Q2");
 <p>
 Combien de fois par semaine pratiquez-vous pendant au moins 30 minutes une activité physique modérée ou de la marche rapide qui augmente votre fréquence cardiaque ou qui vous fait respirer plus fort que normalement ?
 <span class="example">
-Exemples : tondre la pelouse, porter des charges légères, faire du vélo à allure modérée ou jouer au tennis en double
+Exemples : tondre la pelouse, porter des charges légères, faire du vélo à allure modérée ou jouer au tennis en double.
 </span>
 </p>
 <button class="btn" onclick="advanceProgress(1); finishMarshall(4)">≥ 5 fois / semaine</button>
@@ -1075,7 +1075,7 @@ onchange="state.result.importance_comment=this.value"></textarea>
 function evaConfiance(){
   const question = state.result.niveau==="insuffisamment_actif"
     ? "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à augmenter votre niveau d’activité physique, entre 0, aucune confiance en vous, et 10, une extrêmement grande confiance en moi ?"
-    : "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à maintenir voire augmenter votre niveau d’activité physique, entre 0, aucune confiance en vous, et 10, une très grande grande confiance en vous ?";
+    : "Dans quelle mesure êtes-vous confiant(e) en vous pour réussir à maintenir voire augmenter votre niveau d’activité physique, entre 0, aucune confiance en vous, et 10, une très grande confiance en vous ?";
 pushScreen(
   state.tool === "marshall"
   ? "MAR-EVA-CONF"
