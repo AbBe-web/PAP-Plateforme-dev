@@ -32,6 +32,15 @@ p + p {
   color: #6b7280;
 }
 
+/* ===== Exemples questions ===== */
+.example {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 400;
+}
+
 /* ===== Buttons ===== */
 
 .btn:disabled {
@@ -468,7 +477,12 @@ function marshallQ1(){
 pushScreen("MAR-Q1");
 render(`
 <h2>Marshall – Question 1</h2>
-<p>Au cours d’une semaine habituelle, combien de fois pratiquez-vous au moins 20 minutes une activité physique intense, au point de transpirer ou d'haleter ? (par exemple, jogging, port de charge lourde, aérobic ou cyclisme à allure rapide) </p>
+<p>
+Au cours d’une semaine habituelle, combien de fois pratiquez-vous au moins 20 minutes une activité physique intense, au point de transpirer ou d'haleter ?
+<span class="example">
+Exemples : jogging, port de charge lourde, aérobic ou cyclisme à allure rapide
+</span>
+</p>
 <button class="btn" onclick="state.marshall.q1=4; advanceProgress(1); marshallQ2()">≥ 3 fois / semaine</button>
 <button class="btn" onclick="state.marshall.q1=2; advanceProgress(1); marshallQ2()">1–2 fois / semaine</button>
 <button class="btn" onclick="state.marshall.q1=0; advanceProgress(1); marshallQ2()">Jamais</button>
@@ -481,7 +495,12 @@ function marshallQ2(){
 pushScreen("MAR-Q2");
   render(`
 <h2>Marshall – Question 2</h2>
-<p>Combien de fois par semaine pratiquez-vous pendant au moins 30 minutes une activité physique modérée ou de la marche rapide qui augmente votre fréquence cardiaque ou qui vous font respirer plus fort que normalement ? (par exemple, tondre la pelouse, porter des charges légères, faire du vélo à allure modérée ou jouer au tennis en double) </p>
+<p>
+Combien de fois par semaine pratiquez-vous pendant au moins 30 minutes une activité physique modérée ou de la marche rapide qui augmente votre fréquence cardiaque ou qui vous fait respirer plus fort que normalement ?
+<span class="example">
+Exemples : tondre la pelouse, porter des charges légères, faire du vélo à allure modérée ou jouer au tennis en double
+</span>
+</p>
 <button class="btn" onclick="advanceProgress(1); finishMarshall(4)">≥ 5 fois / semaine</button>
 <button class="btn" onclick="advanceProgress(1); finishMarshall(2)">3–4 fois / semaine</button>
 <button class="btn" onclick="advanceProgress(1); finishMarshall(1)">1–2 fois / semaine</button>
