@@ -1197,43 +1197,65 @@ if(scanBtn){
 function(decodedText){
 
   if(qrAlreadyRead) return;
+
   qrAlreadyRead = true;
 
   try{
 
-    decodedText = decodedText.substring(
-      decodedText.indexOf("{"),
-      decodedText.lastIndexOf("}") + 1
-    );
+    // 🔒 sécurisation JSON
+    const start = decodedText.indexOf("{");
+    const end = decodedText.lastIndexOf("}");
+
+    if(start === -1 || end === -1){
+      throw new Error("QR incomplet");
+    }
+
+    decodedText = decodedText.substring(start, end + 1);
 
     importPatientJSON(decodedText);
 
-   qrScanner.stop();
-   qrAlreadyRead = false;   // 🔥 reset immédiat
-   qrContainer.style.display = "none";
+    // ✅ STOP propre AVANT toute UI
+    if(qrScanner){
+      qrScanner.stop().then(() => {
+        qrContainer.style.display = "none";
+      });
+    }
 
-    alert("QR patient importé.");
+    // ✅ reset différé (évite double scan iOS)
+    setTimeout(() => {
+      qrAlreadyRead = false;
+    }, 1500);
+
+    console.info("QR importé avec succès");
 
   }catch(e){
 
-    qrAlreadyRead = false;
-    alert("QR invalide.");
+    console.warn("QR invalide ou lecture partielle");
+
+    // ❌ PAS d'alert → blocage iOS
+    // on ignore juste
+
+    setTimeout(() => {
+      qrAlreadyRead = false;
+    }, 1000);
   }
 
-}   
+}
     );
   });
 }
-
 if(closeQR){
   closeQR.addEventListener("click", function(){
+
     if(qrScanner){
-      qrScanner.stop();
+      qrScanner.stop().then(() => {
+        qrContainer.style.display = "none";
+      });
+    } else {
+      qrContainer.style.display = "none";
     }
 
-    qrAlreadyRead = false;   // 🔥 AJOUT CRITIQUE
-
-    qrContainer.style.display = "none";
+    qrAlreadyRead = false;
   });
 }
   // 🔹 IMPORT JSON (ouvre le sélecteur de fichier)
