@@ -360,8 +360,15 @@ Date : <span id="date"></span>
   
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
 <script>
+  
 function goBack() {
   window.location.href = "index.html";
+}
+
+function safePrint() {
+  setTimeout(() => {
+    window.print();
+  }, 500);
 }
   
 function getJSONFromURL(){
@@ -606,7 +613,7 @@ ${data.motivation.confiance_commentaire
 <div class="actions">
   <div class="actions-buttons">
     <div class="action-item">
-      <button onclick="window.print()">Imprimer / Enregistrer en PDF</button>
+     <button onclick="safePrint()">Imprimer / Enregistrer en PDF</button>
       <div class="action-text">Document complet à imprimer ou à partager</div>
     </div>
 
