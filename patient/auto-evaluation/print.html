@@ -757,19 +757,6 @@ if (qrData.length > MAX_QR_SIZE) {
 
   console.info("QR final size:", qrData.length);
 }
-
-  console.warn("QR trop grand → suppression forcée des commentaires");
-
-  delete qrPayload.ci;
-  delete qrPayload.cc;
-
-  qrPayload.ci_truncated = true;
-  qrPayload.cc_truncated = true;
-
-  qrData = JSON.stringify(qrPayload);
-
-  console.info("QR réduit size:", qrData.length);
-}
   
 // ------------------------------
 // Génération du QR
