@@ -359,6 +359,7 @@ Date : <span id="date"></span>
 <div id="content"></div>
   
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
 <script>
   
 function goBack() {
@@ -682,6 +683,27 @@ const sedM =
   data.questionnaires?.marshall?.sedentarite?.minutes_par_jour ??
   0;
 
+const MAX_COMMENT = 300;
+
+function sanitizeComment(value){
+  if (typeof value !== "string") return null;
+
+  const trimmed = value.trim();
+  if (trimmed === "") return null;
+
+  if (trimmed.length > MAX_COMMENT) {
+    return {
+      text: trimmed.substring(0, MAX_COMMENT),
+      truncated: true
+    };
+  }
+
+  return {
+    text: trimmed,
+    truncated: false
+  };
+}
+  
 let qrPayload = {
 v:1,
 q: data.meta.questionnaire,
@@ -703,36 +725,33 @@ c: data.motivation.confiance_eva_0_10,
 ci: data.motivation.importance_commentaire,
 cc: data.motivation.confiance_commentaire
 };
-  
-let ci_truncated = false;
-let cc_truncated = false;
 
-const LIMITE_QR = 150;
+// ------------------------------
+// Nettoyage commentaires (AVANT compression)
+// ------------------------------
 
-if (typeof qrPayload.ci === "string" && qrPayload.ci.trim().length > LIMITE_QR) {
-  delete qrPayload.ci;
-  ci_truncated = true;
-}
-
-if (typeof qrPayload.cc === "string" && qrPayload.cc.trim().length > LIMITE_QR) {
-  delete qrPayload.cc;
-  cc_truncated = true;
-}
-  
-if (ci_truncated) qrPayload.ci_truncated = true;
-if (cc_truncated) qrPayload.cc_truncated = true;
-
-if (typeof qrPayload.ci !== "string" || qrPayload.ci.trim() === "") {
+// importance
+const ci = sanitizeComment(qrPayload.ci);
+if (ci) {
+  qrPayload.ci = ci.text;
+  if (ci.truncated) qrPayload.ci_truncated = true;
+} else {
   delete qrPayload.ci;
 }
 
-if (typeof qrPayload.cc !== "string" || qrPayload.cc.trim() === "") {
+// confiance
+const cc = sanitizeComment(qrPayload.cc);
+if (cc) {
+  qrPayload.cc = cc.text;
+  if (cc.truncated) qrPayload.cc_truncated = true;
+} else {
   delete qrPayload.cc;
 }
+
 if (!qrPayload.ad) delete qrPayload.ad;
 if (!qrPayload.ae) delete qrPayload.ae;
 if (!qrPayload.a6) delete qrPayload.a6;
-let qrData = JSON.stringify(qrPayload);
+let qrData = LZString.compressToEncodedURIComponent(JSON.stringify(qrPayload));
 
 console.info("QR initial size:", qrData.length);
 
@@ -748,7 +767,7 @@ if (qrData.length > MAX_QR_SIZE) {
   qrPayload.ci_truncated = true;
   qrPayload.cc_truncated = true;
 
-  qrData = JSON.stringify(qrPayload);
+ qrData = LZString.compressToEncodedURIComponent(JSON.stringify(qrPayload));
 
   // 🔥 2e sécurité : si encore trop grand
   if (qrData.length > MAX_QR_SIZE) {
@@ -758,7 +777,7 @@ if (qrData.length > MAX_QR_SIZE) {
     delete qrPayload.sd; // optionnel mais non critique clinique
     delete qrPayload.m;  // MET (optionnel si Marshall)
 
-    qrData = JSON.stringify(qrPayload);
+ qrData = LZString.compressToEncodedURIComponent(JSON.stringify(qrPayload));
 
   }
 
