@@ -1211,60 +1211,51 @@ if(scanBtn){
 
     qrScanner = new Html5Qrcode("qr-reader");
 
-    qrScanner.start(
-      { facingMode: "environment" },
-      {
-        fps: 10,
-        qrbox: 250
-      },
-        
-function(decodedText){
+qrScanner.start(
+  { facingMode: "environment" },
+  { fps: 10, qrbox: 250 },
 
-  if(qrAlreadyRead) return;
+  function(decodedText){
 
-  qrAlreadyRead = true;
+    if(qrAlreadyRead) return;
+    qrAlreadyRead = true;
 
-  try{
-   
-    importPatientJSON(decodedText);
+    try{
+      importPatientJSON(decodedText);
 
-    // ✅ STOP propre AVANT toute UI
-    if(qrScanner){
-      qrScanner.stop().then(() => {
-        qrContainer.style.display = "none";
-      });
+      if(qrScanner){
+        qrScanner.stop().then(() => {
+          qrContainer.style.display = "none";
+        });
+      }
+
+      setTimeout(() => {
+        qrAlreadyRead = false;
+      }, 1500);
+
+    } catch(e){
+      console.warn("QR invalide");
+      setTimeout(() => {
+        qrAlreadyRead = false;
+      }, 1000);
     }
 
-    // ✅ reset différé (évite double scan iOS)
-    setTimeout(() => {
-      qrAlreadyRead = false;
-    }, 1500);
+  },
 
-    console.info("QR importé avec succès");
-
-  }catch(e){
-
-    console.warn("QR invalide ou lecture partielle");
-
-    // ❌ PAS d'alert → blocage iOS
-    // on ignore juste
-
-    setTimeout(() => {
-      qrAlreadyRead = false;
-    }, 1000);
+  function(error){
+    // ⚠️ obligatoire pour éviter bug syntaxique + compat iOS
+    console.warn("Scan error", error);
   }
 
-}
-    )
-      
+)
 .then(() => {
   console.log("Scanner QR démarré");
 })
 .catch(err => {
   console.error("Erreur caméra :", err);
-  alert("Impossible d'accéder à la caméra sur ce navigateur");
 });
 });
+}
     
 if(closeQR){
   closeQR.addEventListener("click", function(){
