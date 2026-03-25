@@ -628,24 +628,34 @@ let confianceComment;
 
   try {
 
-   try {
+try {
 
-  const decompressed = LZString.decompressFromEncodedURIComponent(jsonText);
+  let decompressed = null;
+
+  // tentative Base64 (nouveau format)
+  decompressed = LZString.decompressFromBase64(jsonText);
 
   if (decompressed) {
-    data = JSON.parse(decompressed); // QR compressé
+    data = JSON.parse(decompressed);
   } else {
-    data = JSON.parse(jsonText); // ancien QR
+
+    // fallback ancien format compressé URI
+    decompressed = LZString.decompressFromEncodedURIComponent(jsonText);
+
+    if (decompressed) {
+      data = JSON.parse(decompressed);
+    } else {
+
+      // fallback JSON brut
+      data = JSON.parse(jsonText);
+
+    }
   }
 
 } catch(e) {
-
-  try {
-    data = JSON.parse(jsonText); // fallback ultime
-  } catch {
-    alert("QR invalide");
-    return;
-  }
+  alert("QR invalide");
+  return;
+}
 
 }
     console.log("JSON importé :", data);
