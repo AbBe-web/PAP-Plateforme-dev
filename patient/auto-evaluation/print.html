@@ -751,11 +751,12 @@ if (cc) {
 if (!qrPayload.ad) delete qrPayload.ad;
 if (!qrPayload.ae) delete qrPayload.ae;
 if (!qrPayload.a6) delete qrPayload.a6;
-LZString.compressToBase64(JSON.stringify(qrPayload))
+  
+let qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
 
 console.info("QR initial size:", qrData.length);
 
-const MAX_QR_SIZE = 700; // 🔥 plus sécurisé Safari
+const MAX_QR_SIZE = 700;
 
 if (qrData.length > MAX_QR_SIZE) {
 
@@ -767,18 +768,16 @@ if (qrData.length > MAX_QR_SIZE) {
   qrPayload.ci_truncated = true;
   qrPayload.cc_truncated = true;
 
-qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
+  qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
 
-  // 🔥 2e sécurité : si encore trop grand
   if (qrData.length > MAX_QR_SIZE) {
 
     console.warn("QR encore trop grand → simplification payload");
 
-    delete qrPayload.sd; // optionnel mais non critique clinique
-    delete qrPayload.m;  // MET (optionnel si Marshall)
+    delete qrPayload.sd;
+    delete qrPayload.m;
 
-let qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
-
+    qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
   }
 
   console.info("QR final size:", qrData.length);
