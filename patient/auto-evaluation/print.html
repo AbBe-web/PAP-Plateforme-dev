@@ -352,7 +352,7 @@ table th {
 <p id="questionnaire-type" class="small"></p>
 
 <p class="small">
-Questionnaire d’auto-évaluation à conserver si vous le souhaitez et à transmettre à votre médecin pour en discuter.<br>
+À conserver ou à partager avec votre médecin pour en discuter.<br>
 Date : <span id="date"></span>
 </p>
 
@@ -607,28 +607,24 @@ ${data.motivation.confiance_commentaire
   </p>
 </div>
 
-<p class="small" style="margin-top:40px;">
-  A l'aide des boutons situés dessous, gardez une copie pour pouvoir la présenter à votre médecin ou envoyer lui ce document pour en discuter avec lui. "Au pire", faites une copie d'écran.
-</p>
+<div class="actions-buttons">
 
-<div class="actions">
-  <div class="actions-buttons">
-    <div class="action-item">
-     <button onclick="safePrint()">Imprimer / Enregistrer en PDF</button>
-      <div class="action-text">Document complet à imprimer ou à partager</div>
-    </div>
-
-      <div class="action-item">
-      <button onclick="copyContent()">Copier le contenu</button>
-      <div class="action-text">Copie le résumé pour le partager</div>
-    </div>
-
-    <div class="action-item">
-      <button onclick="downloadJSON()">Télécharger mes réponses</button>
-      <div class="action-text">Fichier à conserver ou transmettre à votre médecin</div>
-    </div>
-
+  <div class="action-item">
+    <button onclick="safePrint()">📄 Imprimer / PDF</button>
+    <div class="action-text">Version complète à partager ou apporter en consultation</div>
   </div>
+
+  <div class="action-item">
+    <button onclick="copyContent()">📋 Copier</button>
+    <div class="action-text">Résumé texte à envoyer facilement (mail, message…)</div>
+  </div>
+
+  <div class="action-item">
+    <button onclick="downloadJSON()">💾 Télécharger</button>
+    <div class="action-text">Fichier complet pour votre médecin (import automatique possible)</div>
+  </div>
+
+</div>
 </div>
 `;
 // ==============================
@@ -657,7 +653,7 @@ qrContainer.appendChild(qrDiv);
 const qrNote = document.createElement("p");
 qrNote.className = "small";
 qrNote.style.marginTop = "10px";
-qrNote.textContent = "Ce QR code peut être scanné par votre médecin pour importer vos réponses.";
+qrNote.textContent = "Ce QR code contient vos réponses et peut être scanné par votre médecin pour les importer.";
 
 qrContainer.appendChild(qrNote);
   
@@ -806,19 +802,33 @@ console.info("QR payload size:", qrData.length);
 console.log("QR payload:", qrData);
 
 QRCode.toCanvas(qrData, {
-        width: 260,
-        errorCorrectionLevel: "M"
-      }, function (err, canvas) {
+  width: 260,
+  errorCorrectionLevel: "M"
+}, function (err, canvas) {
 
-        if (err) {
-          console.error(err);
-          return;
-        }
+  if (err) {
+    console.error(err);
+    return;
+  }
 
-        qrDiv.innerHTML = "";
-        qrDiv.appendChild(canvas);
+  qrDiv.innerHTML = "";
+  qrDiv.appendChild(canvas);
 
-      });
+  // ✅ AJOUT ICI
+  if (qrPayload.ci_truncated || qrPayload.cc_truncated) {
+
+    const warning = document.createElement("p");
+    warning.className = "small";
+    warning.style.color = "#b45309";
+    warning.style.marginTop = "8px";
+
+    warning.textContent =
+      "Certains commentaires sont trop longs pour le QR code. Ils sont visibles uniquement dans ce document.";
+
+    qrContainer.appendChild(warning);
+  }
+
+});
 
     } catch (e) {
       console.error("Erreur QR:", e);
