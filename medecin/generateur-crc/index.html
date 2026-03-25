@@ -627,8 +627,6 @@ let confiance;
 let importanceComment;
 let confianceComment;
 
-let data = null;
-
 try {
 
   let decompressed = LZString.decompressFromBase64(jsonText);
@@ -1261,9 +1259,17 @@ function(decodedText){
   }
 
 }
-    );
-  });
+    )
+      
+.then(() => {
+  console.log("Scanner QR démarré");
+})
+.catch(err => {
+  console.error("Erreur caméra :", err);
+  alert("Impossible d'accéder à la caméra sur ce navigateur");
+});
 }
+    
 if(closeQR){
   closeQR.addEventListener("click", function(){
 
