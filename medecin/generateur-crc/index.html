@@ -198,6 +198,7 @@ button {
     
 </style>
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
  </head>
 <body>
 <div class="container crc-page">
@@ -627,7 +628,26 @@ let confianceComment;
 
   try {
 
-    data = JSON.parse(jsonText);
+   try {
+
+  const decompressed = LZString.decompressFromEncodedURIComponent(jsonText);
+
+  if (decompressed) {
+    data = JSON.parse(decompressed); // QR compressé
+  } else {
+    data = JSON.parse(jsonText); // ancien QR
+  }
+
+} catch(e) {
+
+  try {
+    data = JSON.parse(jsonText); // fallback ultime
+  } catch {
+    alert("QR invalide");
+    return;
+  }
+
+}
     console.log("JSON importé :", data);
       
     questionnaire = data.q ?? data.questionnaire;
