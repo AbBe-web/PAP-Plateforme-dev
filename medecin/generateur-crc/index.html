@@ -583,7 +583,8 @@ Pas d’AP envisagée dans les 6 mois
     </div>
     <script>
         
-     
+     let isImporting = false;
+        
            function scrollIfNeeded(element) {
 
   if (!element) return;
@@ -626,36 +627,35 @@ let confiance;
 let importanceComment;
 let confianceComment;
 
-  try {
+let data = null;
 
 try {
 
-  let decompressed = null;
+  let decompressed = LZString.decompressFromBase64(jsonText);
 
-  // tentative Base64 (nouveau format)
-  decompressed = LZString.decompressFromBase64(jsonText);
+  if (decompressed && decompressed.length > 0) {
 
-  if (decompressed) {
     data = JSON.parse(decompressed);
+
   } else {
 
-    // fallback ancien format compressé URI
     decompressed = LZString.decompressFromEncodedURIComponent(jsonText);
 
-    if (decompressed) {
+    if (decompressed && decompressed.length > 0) {
+
       data = JSON.parse(decompressed);
+
     } else {
 
-      // fallback JSON brut
       data = JSON.parse(jsonText);
 
     }
   }
 
-} catch(e) {
-  alert("QR invalide");
+} catch (e) {
+
+  alert("QR invalide ou illisible");
   return;
-}
 
 }
     console.log("JSON importé :", data);
@@ -1231,17 +1231,7 @@ function(decodedText){
   qrAlreadyRead = true;
 
   try{
-
-    // 🔒 sécurisation JSON
-    const start = decodedText.indexOf("{");
-    const end = decodedText.lastIndexOf("}");
-
-    if(start === -1 || end === -1){
-      throw new Error("QR incomplet");
-    }
-
-    decodedText = decodedText.substring(start, end + 1);
-
+   
     importPatientJSON(decodedText);
 
     // ✅ STOP propre AVANT toute UI
@@ -1323,7 +1313,7 @@ document.getElementById("importJSONFile")
     try{
 
       const data = JSON.parse(reader.result);
-      importPatientJSON(reader.result);
+   importPatientJSON(JSON.stringify(data));
         
     // Pas moyens
 const pas = data?.resultats?.pas_moyens_jour_1_mois;
