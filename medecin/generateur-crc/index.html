@@ -687,11 +687,7 @@ if (actifDepuis === "non") actifDepuis = "moins_6_mois";
       const importanceTruncated = data.ci_truncated ?? false;
     confianceComment = data.cc ?? data.confiance_commentaire;
       const confianceTruncated = data.cc_truncated ?? false;
-  } catch (e) {
-    alert("JSON invalide");
-    return;
-      }
-          
+           
     console.log("niveau QR importé :", niveau);       
     console.log("motivation import :", actifDepuis, apEnvisagee, ap6Mois);
           
