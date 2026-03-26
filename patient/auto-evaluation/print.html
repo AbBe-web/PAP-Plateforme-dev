@@ -334,9 +334,9 @@ table th {
 
 /* === QR code centré proprement === */
 .qr-wrapper {
-  margin: 40px;
+  margin: 40px auto;   /* 🔥 clé du centrage */
   text-align: center;
-  max-width: 520px;
+  max-width: 600px;
 }
 
 .qr-wrapper h2 {
@@ -679,14 +679,13 @@ ${buildNextStep(data)}
   </div>
 
 </div>
-</div>
 `;
 // ==============================
 // QR CODE POUR LE MÉDECIN
 // ==============================
 
 const qrContainer = document.createElement("div");
-qrContainer.className = "actions";
+qrContainer.className = "qr-wrapper";
 
 const qrTitle = document.createElement("h2");
 qrTitle.textContent = "QR code pour votre consultation médicale";
