@@ -339,16 +339,16 @@ table th {
 
 /* === QR code centré proprement === */
 .qr-wrapper {
-  margin: 40px auto;
-  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 🔥 centrage réel */
+  justify-content: center;
+  margin-top: 40px;
 }
 
-.qr-wrapper h2 {
-  text-align: center;
-}
-
-.qr-wrapper .small {
-  text-align: center;
+.qr-wrapper canvas {
+  display: block;
 }
   
 /* Bouton retour depuis la version imprimable */
