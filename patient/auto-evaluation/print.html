@@ -160,11 +160,12 @@ table th {
 
 /* Boutons sur une même ligne */
 .actions-buttons {
-  display: inline-flex;        /* clé : inline-flex */
+  display: inline-flex;
   gap: 12px;
   justify-content: center;
+  margin-top: 30px;   /* 🔥 AJOUT ICI */
 }
-
+  
 /* Boutons harmonisés */
 .actions-buttons button {
   width: auto;
@@ -347,8 +348,29 @@ table th {
     display: none;
   }
 }
+  
+@media print {
 
+  body {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  h2 {
+    font-size: 15px;
+  }
+
+  .section {
+    margin-top: 16px;
+  }
+
+}
 </style>
+
 </head>
 
 <body>
