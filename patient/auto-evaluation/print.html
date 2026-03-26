@@ -339,12 +339,11 @@ table th {
 
 /* === QR code centré proprement === */
 .qr-wrapper {
-  width: 100%;
+  max-width: 800px;   /* 🔥 même valeur que ton page-container */
+  margin: 40px auto;  /* centre le bloc entier */
   display: flex;
   flex-direction: column;
-  align-items: center;   /* 🔥 centrage réel */
-  justify-content: center;
-  margin-top: 40px;
+  align-items: center;
 }
 
 .qr-wrapper canvas {
