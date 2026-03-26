@@ -10,8 +10,14 @@
 <style>
   
 .page-container {
-  max-width: 800px;     /* largeur de référence */
-  margin: 0 auto;       /* centrage horizontal */
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 🔥 AJOUT JUSTE ICI */
+#content {
+  max-width: 800px;
+  margin: 0 auto;
 }
   
 @page {
@@ -25,9 +31,10 @@
   }
 }
   
-  body {
+ body {
   font-family: Arial, sans-serif;
-  margin: 30px;
+  margin: 0;
+  padding: 30px;
   color: #000;
   font-size: 14px;
 }
@@ -391,12 +398,6 @@ table th {
     margin-top: 16px;
   }
 
-#content {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-  
 </style>
 
 </head>
@@ -407,17 +408,23 @@ table th {
     <button onclick="goBack()">← Retour au questionnaire</button>
   </div>
   
-<h1>Résumé de l'auto-évaluation "activité physique et sédentarité"</h1>
-
-<p id="questionnaire-type" class="small"></p>
-
-<p class="small">
-À conserver ou à partager avec votre médecin pour en discuter.<br>
-Date : <span id="date"></span>
-</p>
-  
 <div class="page-container">
+
+  <div class="nav-back">
+    <button onclick="goBack()">← Retour au questionnaire</button>
+  </div>
+
+  <h1>Résumé de l'auto-évaluation "activité physique et sédentarité"</h1>
+
+  <p id="questionnaire-type" class="small"></p>
+
+  <p class="small">
+    À conserver ou à partager avec votre médecin pour en discuter.<br>
+    Date : <span id="date"></span>
+  </p>
+
   <div id="content"></div>
+
 </div>
   
 <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
