@@ -328,6 +328,22 @@ table th {
     max-width: 100%;
   }
 }
+
+/* === QR code centré proprement === */
+.qr-wrapper {
+  margin: 40px auto;
+  text-align: center;
+  max-width: 520px;
+}
+
+.qr-wrapper h2 {
+  text-align: center;
+}
+
+.qr-wrapper .small {
+  text-align: center;
+}
+  
 /* Bouton retour depuis la version imprimable */
 .nav-back {
   margin-bottom: 15px;
@@ -667,8 +683,7 @@ ${buildNextStep(data)}
 // ==============================
 
 const qrContainer = document.createElement("div");
-qrContainer.style.marginTop = "40px";
-qrContainer.style.textAlign = "center";
+qrContainer.className = "qr-wrapper";
 
 const qrTitle = document.createElement("h2");
 qrTitle.textContent = "QR code pour votre consultation médicale";
