@@ -607,6 +607,10 @@ ${data.motivation.confiance_commentaire
   </p>
 </div>
 
+${buildPositiveFeedback(data)}
+${buildKeyMessage(data)}
+${buildNextStep(data)}
+
 <div class="actions-buttons">
 
   <div class="action-item">
@@ -880,7 +884,140 @@ function formatStadeMotivationnel(stade) {
 function formatCommentaire(value) {
   return value && value.trim() !== "" ? value : "Aucun commentaire";
 }
+// ==============================
+// FEEDBACK POSITIF
+// ==============================
+function buildPositiveFeedback(data){
 
+  const niveau = data.resultats?.niveau_activite;
+
+  if (niveau === "suffisamment_actif" || niveau === "actif") {
+    return `
+      <p class="small">
+        ✔ Vous avez déjà un niveau d’activité physique bénéfique pour votre santé. Continuez ainsi.
+      </p>
+    `;
+  }
+
+  return "";
+}
+
+// ==============================
+// MOTIVATION
+// ==============================
+function buildMotivationMessage(data){
+
+  const stade = data?.motivation?.stade;
+
+  if (!stade) return "";
+
+  switch(stade){
+
+    case "intention":
+      return "Vous envisagez de vous y mettre : c’est une excellente première étape.";
+
+    case "preparation":
+      return "Vous êtes prêt à passer à l’action : le bon moment pour commencer progressivement.";
+
+    case "action":
+      return "Vous avez déjà commencé : continuer régulièrement est la clé.";
+
+    case "consolidation":
+      return "Vous avez une bonne dynamique : maintenir cette régularité est essentiel.";
+
+    case "indetermination":
+    case "indétermination":
+      return "Réfléchir à l’activité physique est déjà un début : chaque petit pas compte.";
+
+    default:
+      return "";
+  }
+}
+
+// ==============================
+// À RETENIR
+// ==============================
+function buildKeyMessage(data){
+
+  if (!data) return "";
+
+  const niveau = data.resultats?.niveau_activite;
+
+  const sedH =
+    data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+    data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+    null;
+
+  const isSedentaire = sedH !== null && sedH >= 7;
+
+  const confiance = data?.motivation?.confiance_eva_0_10;
+
+  let messages = [];
+
+  if (niveau === "insuffisamment_actif") {
+    messages.push("Augmenter progressivement votre activité physique");
+    if (isSedentaire) messages.push("Réduire le temps passé assis");
+  }
+
+  if (niveau === "suffisamment_actif" || niveau === "actif") {
+    messages.push("Maintenir votre niveau d’activité physique");
+    if (isSedentaire) messages.push("Réduire le temps passé assis");
+  }
+
+  if (messages.length === 0) return "";
+
+  const motivation = buildMotivationMessage(data);
+
+  let confianceMsg = "";
+  if (confiance !== null && confiance !== undefined && confiance <= 4) {
+    confianceMsg = "Commencer par des objectifs simples et réalistes peut vous aider à prendre confiance.";
+  }
+
+  const proMsg = "N’hésitez pas à en parler avec votre médecin ou votre infirmier en pratique avancée.";
+
+  return `
+    <div class="section">
+      <h2>À retenir</h2>
+
+      <ul style="margin-top:6px;">
+        ${messages.map(m => `<li>${m}</li>`).join("")}
+      </ul>
+
+      ${motivation ? `<p class="small" style="margin-top:8px;">${motivation}</p>` : ""}
+      ${confianceMsg ? `<p class="small">${confianceMsg}</p>` : ""}
+
+      <p class="small" style="margin-top:6px; color:#555;">
+        ${proMsg}
+      </p>
+    </div>
+  `;
+}
+
+// ==============================
+// PROCHAINE ÉTAPE
+// ==============================
+function buildNextStep(data){
+
+  const niveau = data.resultats?.niveau_activite;
+
+  if (niveau === "insuffisamment_actif") {
+    return `
+      <p class="small">
+        👉 Prochaine étape : essayer d’intégrer 10 à 15 minutes d’activité physique supplémentaire dans votre journée.
+      </p>
+    `;
+  }
+
+  if (niveau === "suffisamment_actif" || niveau === "actif") {
+    return `
+      <p class="small">
+        👉 Prochaine étape : maintenir votre régularité et prévoir vos séances à l’avance.
+      </p>
+    `;
+  }
+
+  return "";
+}
 
 // Fonction centrale utilisée pour :
 /*
