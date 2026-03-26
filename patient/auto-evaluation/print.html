@@ -991,19 +991,40 @@ function buildKeyMessage(data){
     if (isSedentaire) messages.push("Réduire le temps passé assis");
   }
 
-  if (niveau === "suffisamment_actif" || niveau === "actif") {
-    messages.push("Maintenir votre niveau d’activité physique");
-    if (isSedentaire) messages.push("Réduire le temps passé assis");
+ if (niveau === "suffisamment_actif" || niveau === "actif") {
+  messages.push("Maintenir votre niveau d’activité physique");
+
+  if (isSedentaire) {
+    messages.push("Réduire le temps passé assis");
+    messages.push("Même en étant actif, réduire le temps assis apporte des bénéfices supplémentaires pour la santé.");
   }
+}
 
   if (messages.length === 0) return "";
 
   const motivation = buildMotivationMessage(data);
 
-  let confianceMsg = "";
-  if (confiance !== null && confiance !== undefined && confiance <= 4) {
-    confianceMsg = "Commencer par des objectifs simples et réalistes peut vous aider à prendre confiance.";
-  }
+ let confianceMsg = "";
+
+// 👉 CAS 1 : INACTIF + confiance basse → message adapté
+if (
+  (niveau === "insuffisamment_actif" || niveau === "inactif") &&
+  confiance !== null &&
+  confiance !== undefined &&
+  confiance <= 4
+) {
+  confianceMsg = "Commencer par des objectifs simples et réalistes peut vous aider à prendre confiance.";
+}
+
+// 👉 CAS 2 : ACTIF + confiance basse → message différent (rare mais propre)
+else if (
+  (niveau === "suffisamment_actif" || niveau === "actif") &&
+  confiance !== null &&
+  confiance !== undefined &&
+  confiance <= 4
+) {
+  confianceMsg = "Vous êtes déjà actif : vous pouvez continuer à votre rythme en adaptant vos objectifs si besoin.";
+}
 
   const proMsg = "N’hésitez pas à en parler avec votre médecin ou votre infirmier en pratique avancée.";
 
