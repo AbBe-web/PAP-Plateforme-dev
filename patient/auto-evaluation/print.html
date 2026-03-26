@@ -639,7 +639,6 @@ ${data.motivation.confiance_commentaire
   </p>
 </div>
 
-${buildPositiveFeedback(data)}
 ${buildKeyMessage(data)}
 ${buildNextStep(data)}
 
@@ -1003,7 +1002,8 @@ function buildKeyMessage(data){
   if (messages.length === 0) return "";
 
   const motivation = buildMotivationMessage(data);
-
+  const profileMsg = buildPatientProfileMessage(data);
+  
  let confianceMsg = "";
 
 // 👉 CAS 1 : INACTIF + confiance basse → message adapté
@@ -1028,24 +1028,65 @@ else if (
 
   const proMsg = "N’hésitez pas à en parler avec votre médecin ou votre infirmier en pratique avancée.";
 
-  return `
-    <div class="section">
-      <h2>3. À retenir</h2>
+return `
+  <div class="section">
+    <h2>3. À retenir</h2>
 
-      <ul style="margin-top:6px;">
-        ${messages.map(m => `<li>${m}</li>`).join("")}
-      </ul>
+    ${profileMsg ? `<p class="small" style="margin-bottom:6px;"><strong>${profileMsg}</strong></p>` : ""}
 
-      ${motivation ? `<p class="small" style="margin-top:8px;">${motivation}</p>` : ""}
-      ${confianceMsg ? `<p class="small">${confianceMsg}</p>` : ""}
+    <ul style="margin-top:6px;">
+      ${messages.map(m => `<li>${m}</li>`).join("")}
+    </ul>
 
-      <p class="small" style="margin-top:6px; color:#555;">
-        ${proMsg}
-      </p>
-    </div>
-  `;
+    ${motivation ? `<p class="small" style="margin-top:8px;">${motivation}</p>` : ""}
+    ${confianceMsg ? `<p class="small">${confianceMsg}</p>` : ""}
+
+    <p class="small" style="margin-top:6px; color:#555;">
+      ${proMsg}
+    </p>
+  </div>
+`;
 }
 
+  // ==============================
+// PROFIL PATIENT
+// ==============================
+function buildPatientProfileMessage(data){
+
+  const niveau = data.resultats?.niveau_activite;
+  const importance = data?.motivation?.importance_eva_0_10;
+  const confiance = data?.motivation?.confiance_eva_0_10;
+
+  const sedH =
+    data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+    data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+    null;
+
+  const isSedentaire = sedH !== null && sedH >= 7;
+
+  if (importance <= 3) {
+    return "Pour le moment, l’activité physique ne semble pas être une priorité pour vous.";
+  }
+
+  if (importance <= 6 && confiance <= 5) {
+    return "Vous hésitez encore à vous engager : c’est une étape normale avant le changement.";
+  }
+
+  if (importance >= 7 && confiance <= 4) {
+    return "L’activité physique est importante pour vous, mais vous manquez de confiance pour vous lancer.";
+  }
+
+  if ((niveau === "actif" || niveau === "suffisamment_actif") && isSedentaire) {
+    return "Vous êtes actif mais restez longtemps assis : réduire la sédentarité est un objectif complémentaire pertinent.";
+  }
+
+  if (importance >= 7 && confiance >= 7) {
+    return "Vous êtes prêt et confiant : vous avez toutes les bases pour maintenir ou améliorer votre activité.";
+  }
+
+  return "";
+}
+  
 // ==============================
 // PROCHAINE ÉTAPE
 // ==============================
