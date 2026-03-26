@@ -615,12 +615,12 @@ ${buildNextStep(data)}
 
   <div class="action-item">
     <button onclick="safePrint()">📄 Imprimer / PDF</button>
-    <div class="action-text">Version complète à partager ou apporter en consultation</div>
+    <div class="action-text">Version complète à partager ou à apporter en consultation</div>
   </div>
 
   <div class="action-item">
     <button onclick="copyContent()">📋 Copier</button>
-    <div class="action-text">Résumé texte à envoyer facilement (mail, message…)</div>
+    <div class="action-text">Résumé texte à partager facilement (mail, message…)</div>
   </div>
 
   <div class="action-item">
@@ -977,7 +977,7 @@ function buildKeyMessage(data){
 
   return `
     <div class="section">
-      <h2>À retenir</h2>
+      <h2>3. À retenir</h2>
 
       <ul style="margin-top:6px;">
         ${messages.map(m => `<li>${m}</li>`).join("")}
@@ -1002,15 +1002,15 @@ function buildNextStep(data){
 
   if (niveau === "insuffisamment_actif") {
     return `
-      <p class="small">
-        👉 Prochaine étape : essayer d’intégrer 10 à 15 minutes d’activité physique supplémentaire dans votre journée.
+      <p class="small"> style="margin-bottom:20px;"
+        👉 Prochaine étape : essayer d’intégrer 5 à 10 minutes d’activité physique supplémentaire dans votre journée.
       </p>
     `;
   }
 
   if (niveau === "suffisamment_actif" || niveau === "actif") {
     return `
-      <p class="small">
+      <p class="small"> style="margin-bottom:20px;"
         👉 Prochaine étape : maintenir votre régularité et prévoir vos séances à l’avance.
       </p>
     `;
