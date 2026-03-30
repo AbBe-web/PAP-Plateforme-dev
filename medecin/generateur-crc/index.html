@@ -206,7 +206,46 @@ button {
 .hidden{
   display:none;
 }
-    
+.patient-tool {
+  margin-top: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fafafa;
+  padding: 8px 12px;
+}
+
+.patient-tool summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  list-style: none;
+}
+
+.patient-tool summary::-webkit-details-marker {
+  display: none;
+}
+
+.patient-tool[open] {
+  background: #f0f6ff;
+  border-left: 4px solid #2b7cff;
+}
+
+.patient-tool-content {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.patient-tool-actions {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.patient-qr {
+  margin-top: 10px;
+  text-align: center;
+}    
 </style>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
@@ -219,6 +258,40 @@ button {
             <a href="https://abbe-web.github.io/Compte-Rendu-Consultation-PAP/politique-confidentialite.html" target="_blank" rel="noopener noreferrer">Consulter la politique de confidentialité</a> |
             <a href="https://www.cnil.fr/fr/les-droits-pour-maitriser-vos-donnees-personnelles" target="_blank" rel="noopener noreferrer">Vos droits (CNIL)</a>
         </div>
+    <details class="patient-tool">
+
+  <summary>📄 Questionnaire patient (optionnel)</summary>
+
+  <div class="patient-tool-content">
+
+    <p>
+      Vous pouvez proposer au patient de remplir un questionnaire d’activité physique
+      avant la consultation (papier ou QR code).
+    </p>
+
+    <div class="patient-tool-actions">
+
+      <a href="https://zgqwa4.short.gy/auto-eval-ap" target="_blank" class="btn">
+        📄 Ouvrir / imprimer
+      </a>
+
+      <button type="button" onclick="copyPatientLink()" class="btn secondary">
+        🔗 Copier le lien
+      </button>
+
+    </div>
+
+    <div class="patient-qr">
+      <img
+        src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=TON_LIEN_SHORT_IO"
+        alt="QR code questionnaire patient"
+        loading="lazy"
+      >
+    </div>
+
+  </div>
+
+</details>
     <h1>Générateur de compte-rendu – Consultation d’activité physique</h1>
 
 <p>
@@ -2173,7 +2246,21 @@ document.getElementById("formatTabs").scrollIntoView({
   block: "start"
 });
 
-}          
+}   
+        
+ function copyPatientLink() {
+
+  const url = "https://zgqwa4.short.gy/auto-eval-ap";
+
+  navigator.clipboard.writeText(url)
+    .then(() => {
+      alert("Lien copié ✔️");
+    })
+    .catch(() => {
+      alert("Impossible de copier le lien");
+    });
+
+}
                </script>
     
     <div id="identityModal" class="modal hidden">
