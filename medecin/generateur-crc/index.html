@@ -206,6 +206,15 @@ button {
 .hidden{
   display:none;
 }
+    .ios-warning {
+  margin-top: 10px;
+  padding: 10px;
+  background: #fff4e5;
+  border-left: 4px solid #f59e0b;
+  font-size: 0.85rem;
+  border-radius: 6px;
+}
+    
 .patient-tool {
   margin-top: 12px;
   margin-bottom: 12px; /* espace entre les 2 blocs */
@@ -263,7 +272,20 @@ button {
             <a href="https://abbe-web.github.io/Compte-Rendu-Consultation-PAP/politique-confidentialite.html" target="_blank" rel="noopener noreferrer">Consulter la politique de confidentialité</a> |
             <a href="https://www.cnil.fr/fr/les-droits-pour-maitriser-vos-donnees-personnelles" target="_blank" rel="noopener noreferrer">Vos droits (CNIL)</a>
         </div>
+    
+<div id="iosBrowserWarning" class="ios-warning hidden">
 
+  ⚠️ Installation en mode application non disponible sur ce navigateur.<br>
+  👉 Ouvrez ce lien dans <strong>Safari</strong> pour installer l’application.
+
+  <div style="margin-top:8px;">
+    <button type="button" onclick="copyAppLink()" class="btn secondary">
+      🔗 Copier le lien
+    </button>
+  </div>
+
+</div>
+    
     <h2 style="margin-top:20px;">Préparer la consultation</h2>
 
 <details class="patient-tool">
@@ -1167,6 +1189,21 @@ let savedScrollPosition = 0;
         
 document.addEventListener("DOMContentLoaded", function() {
 
+    // 🔹 Détection Firefox iOS
+if (
+  navigator.userAgent.includes("FxiOS") ||   // Firefox iOS
+  navigator.userAgent.includes("CriOS")      // Chrome iOS
+) {
+  const warning = document.getElementById("iosBrowserWarning");
+  if (warning) {
+    warning.classList.remove("hidden");
+  }
+}
+  const warning = document.getElementById("iosBrowserWarning");
+  if (warning) {
+    warning.classList.remove("hidden");
+  }
+}
 window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
 });
@@ -2317,7 +2354,21 @@ document.getElementById("formatTabs").scrollIntoView({
     });
 
 }
+        
+function copyAppLink() {
 
+  const url = window.location.href;
+
+  navigator.clipboard.writeText(url)
+    .then(() => {
+      alert("✔️ Lien copié\n\nOuvrez Safari → collez dans la barre d’adresse");
+    })
+    .catch(() => {
+      alert("Impossible de copier le lien");
+    });
+
+}
+        
   function copyGuideLink() {
 
   const url = "https://zgqwa4.short.gy/guide-pap-pc";
