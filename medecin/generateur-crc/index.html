@@ -613,7 +613,10 @@ if (window.matchMedia("(max-width: 768px)").matches) {
   }
 }
         let clinicalModel = null;
-let activeMode = "long";
+        let activeMode = "long";
+
+        let lastPrenom = "";
+        let lastNom = "";
         
       function importPatientJSON(jsonText) {
           isImporting = true;
@@ -1181,12 +1184,11 @@ document.getElementById("sixmois-subgroup")?.classList.add("hidden");
     
   document.getElementById("confirmPrint").addEventListener("click", function() {
 
-    const prenom = document.getElementById("modalPrenom").value.trim();
-    const nom = document.getElementById("modalNom").value.trim();
+ const prenom = document.getElementById("modalPrenom").value.trim();
+ const nom = document.getElementById("modalNom").value.trim();
 
-    closeIdentityModal();
-    proceedWithAction(prenom, nom);
-
+ lastPrenom = prenom;
+ lastNom = nom;
   });
 
   document.getElementById("cancelPrint").addEventListener("click", function() {
@@ -1529,6 +1531,10 @@ let identityAction = null;
 
 function openIdentityModal(action) {
   identityAction = action;
+
+  document.getElementById("modalPrenom").value = lastPrenom || "";
+  document.getElementById("modalNom").value = lastNom || "";
+
   document.getElementById("identityModal").classList.remove("hidden");
 }
 
@@ -1540,17 +1546,26 @@ function injectIdentityIntoHTML(html, prenom, nom) {
 
   if (!prenom && !nom) return html;
 
-  const identityLine = `<p><strong>Patient :</strong> ${prenom || ""} ${nom || ""}</p>`;
+  const identity = `${prenom || ""} ${nom || ""}`.trim();
 
-  // injection juste après la date si présente
-  return html.replace(/(<p style="text-align:right;">.*?<\/p>)/, `$1${identityLine}`);
+  return html.replace("_____", identity);
 }
 
 function proceedWithAction(prenom, nom) {
 
   let content = document.getElementById("outputContainer").innerHTML;
-
+// injection conditionnelle selon mode
+if (activeMode === "long") {
   content = injectIdentityIntoHTML(content, prenom, nom);
+}
+
+if (activeMode === "medical" || activeMode === "patient") {
+
+  const identityLine = `<p><strong>Patient :</strong> ${prenom || ""} ${nom || ""}</p>`;
+
+  content = identityLine + content;
+
+}
 
   if (identityAction === "print") {
 
