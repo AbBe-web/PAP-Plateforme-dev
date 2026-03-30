@@ -293,14 +293,18 @@ button {
         >
       </a>
     </div>
-
+<div style="text-align:right; margin-top:10px;">
+  <button type="button" class="btn secondary" onclick="closeDetails(this)">
+    Fermer
+  </button>
+</div>
   </div>
 
 </details>
 
 <details class="patient-tool">
 
-  <summary>📘 Guide pratique PAP (Prescription d'Activité Physique - médecin)</summary>
+  <summary>📘 Guide pratique PAP (médecin)</summary>
 
   <div class="patient-tool-content">
 
@@ -329,7 +333,11 @@ button {
         >
       </a>
     </div>
-
+   <div style="text-align:right; margin-top:10px;">
+  <button type="button" class="btn secondary" onclick="closeDetails(this)">
+    Fermer
+  </button>
+</div>
   </div>
 
 </details>
@@ -2316,6 +2324,19 @@ document.getElementById("formatTabs").scrollIntoView({
     .catch(() => {
       alert("Impossible de copier le lien");
     });
+
+}
+        function closeDetails(btn) {
+
+  const details = btn.closest("details");
+
+  if (details) {
+    details.removeAttribute("open");
+
+    setTimeout(() => {
+      details.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }
 
 }
                </script>
