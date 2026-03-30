@@ -1471,13 +1471,20 @@ if(closeQR){
   }
           
 const form = document.getElementById('consultationForm');
-
+if (form) {
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+}
         // =============================
 // IMPORT JSON AUTO-EVALUATION
 // =============================
 
-document.getElementById("importJSONFile")
-.addEventListener("change", function(e){
+const importJSONInput = document.getElementById("importJSONFile");
+
+if (importJSONInput) {
+  importJSONInput.addEventListener("change", function(e){
 
   const file = e.target.files[0];
 
@@ -1494,7 +1501,7 @@ document.getElementById("importJSONFile")
         
     // Pas moyens
 const pas = data?.resultats?.pas_moyens_jour_1_mois;
-if(pas){
+if (pas !== undefined && pas !== null) {
   const inputPas = document.querySelector('input[name="nombre_pas"]');
   if(inputPas) inputPas.value = pas;
 }
@@ -1516,7 +1523,7 @@ if (input) input.value = Number(heuresAssises);
       // Questionnaire utilisé
 const q = data?.meta?.questionnaire;
 
-if(q){
+if (q !== undefined && q !== null) {
 
   const radio = document.querySelector(`input[name="questionnaire"][value="${q}"]`);
 
@@ -1546,7 +1553,7 @@ const field = document.getElementById("importance_patient_comment");
 
 if(block && field){
 
-  if(importanceComment){
+if (importanceComment && importanceComment.trim() !== "") {
 
     field.value = importanceComment;
     block.style.display = "block";
@@ -1593,11 +1600,8 @@ alert("Données patient importées.\n\nVérifiez et complétez les champs avant 
   reader.readAsText(file);
 
 });
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-  e.stopPropagation();
-}); 
-
+  }
+        
 function handleGenerate(e) {
 
   e.preventDefault();
@@ -2401,12 +2405,6 @@ function copyAppLink() {
 
 }
 
-function closeIOSWarning() {
-  const warning = document.getElementById("iosBrowserWarning");
-  if (warning) {
-    warning.classList.add("hidden");
-  }
-
   // mémorise le choix utilisateur
 function closeIOSWarning() {
   const warning = document.getElementById("iosBrowserWarning");
@@ -2418,7 +2416,6 @@ function closeIOSWarning() {
   try {
     localStorage.setItem("iosWarningClosed", "true");
   } catch(e) {}
-}
 }
     
   function copyGuideLink() {
