@@ -918,73 +918,8 @@ window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
 });
  
-document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
-
-  radio.addEventListener("change", function(){
-
-    if(this.value === "GPAQ"){
-      updateNiveauButtons("gpaq");
-    }
-
-    if(this.value === "Marshall"){
-      updateNiveauButtons("marshall");
-    }
-
-  });
-
-});      
-
-// reset niveaux et motivation si changement questionnaire
-document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
- 
-    radio.addEventListener("change", function(){
-        
-    
-        if(isImporting) return;   // ← ICI EXACTEMENT
-
-  document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
-  document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
-  document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
-  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
-
-  document.getElementById("actif-subgroup").style.display = "none";
-  document.getElementById("inactif-subgroup").style.display = "none";
-  document.getElementById("sixmois-subgroup").style.display = "none";
-     
-    document.getElementById("niveau-actuel-title").scrollIntoView({
-  behavior: "auto",
-  block: "start"
-});
-  });
-
-});
-
-// reset motivation si changement niveau activité
-document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio){
-
-radio.addEventListener("change", function(){
-
-  if(isImporting) return;   // ← AJOUT ICI UNIQUEMENT
-
-  document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
-  document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
-  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
-
-});
-
-});
 
 
-// reset 6 mois si changement réponse 30 jours
-document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
-
-  radio.addEventListener("change", function(){
-
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
-
-  });
-
-});
         
 document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
 
@@ -1029,28 +964,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 
   });
 
-});
-
-document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
-
-  radio.addEventListener("change", function(){
-
-    const sixMoisBlock = document.getElementById("sixmois-subgroup");
-
-    if(!sixMoisBlock) return;
-
-  sixMoisBlock.classList.add("hidden");
-sixMoisBlock.style.display = "none";
-
-if(this.value === "non"){
-  sixMoisBlock.classList.remove("hidden");
-  sixMoisBlock.style.display = "block";
-}
-
-  });
-
-});
-        
+});       
         
 function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
@@ -1175,17 +1089,113 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   };
 }
 document.addEventListener("DOMContentLoaded", function() {
+
 // 🔹 INIT UI
 updateNiveauButtons("clinique");
 
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
-    
+
+
+// ==========================
+// QUESTIONNAIRE
+// ==========================
+document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    if(this.value === "GPAQ"){
+      updateNiveauButtons("gpaq");
+    }
+
+    if(this.value === "Marshall"){
+      updateNiveauButtons("marshall");
+    }
+
+    if(isImporting) return;
+
+    document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+    document.getElementById("actif-subgroup").style.display = "none";
+    document.getElementById("inactif-subgroup").style.display = "none";
+    document.getElementById("sixmois-subgroup").style.display = "none";
+
+  });
+
+});
+
+
+// ==========================
+// NIVEAU ACTIVITÉ
+// ==========================
+document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    console.log("NIVEAU CHANGE DETECTÉ:", this.value);
+
+    if(isImporting) return;
+
+    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+    const actifBlock = document.getElementById('actif-subgroup');
+    const inactifBlock = document.getElementById('inactif-subgroup');
+    const sixMoisBlock = document.getElementById('sixmois-subgroup');
+
+    actifBlock.style.display = "none";
+    inactifBlock.style.display = "none";
+    sixMoisBlock.style.display = "none";
+
+    if (this.value === 'actif' || this.value === 'tres_actif' || this.value === 'moyennement_actif') {
+      actifBlock.style.display = "";
+    }
+
+    if (this.value === 'inactif') {
+      inactifBlock.style.display = "";
+    }
+
+  });
+
+});
+
+
+// ==========================
+// AP ENVISAGÉE
+// ==========================
+document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
+
+  radio.addEventListener("change", function(){
+
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+    const sixMoisBlock = document.getElementById("sixmois-subgroup");
+
+    if(!sixMoisBlock) return;
+
+    sixMoisBlock.style.display = "none";
+
+    if(this.value === "non"){
+      sixMoisBlock.style.display = "block";
+    }
+
+  });
+
+});
+
+
+// ==========================
+// MODAL + BOUTONS
+// ==========================
 document.getElementById("confirmPrint").addEventListener("click", function() {
 
   const prenom = formatName(document.getElementById("modalPrenom").value);
-const nom = formatName(document.getElementById("modalNom").value);
+  const nom = formatName(document.getElementById("modalNom").value);
 
   lastPrenom = prenom;
   lastNom = nom;
@@ -1195,32 +1205,24 @@ const nom = formatName(document.getElementById("modalNom").value);
 
 });
 
-  document.getElementById("cancelPrint").addEventListener("click", function() {
-    closeIdentityModal();
-  });
+document.getElementById("cancelPrint").addEventListener("click", function() {
+  closeIdentityModal();
+});
 
-  const generateBtn = document.getElementById('generateReport');
+document.getElementById('generateReport')?.addEventListener("click", handleGenerate);
 
-  if (generateBtn) {
-    generateBtn.addEventListener("click", handleGenerate);
-  }
-const printBtn = document.getElementById('printReport');
-if (printBtn) {
-  printBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    openIdentityModal("print");
-  });
-}
+document.getElementById('printReport')?.addEventListener("click", function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  openIdentityModal("print");
+});
 
-const copyBtn = document.getElementById('copyReport');
-if (copyBtn) {
-  copyBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    openIdentityModal("copy");
-  });
-}
+document.getElementById('copyReport')?.addEventListener("click", function(e){
+  e.preventDefault();
+  e.stopPropagation();
+  openIdentityModal("copy");
+});
+
 });
 /* =========================
    SCANNER QR CODE
