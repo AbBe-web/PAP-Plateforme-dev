@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="/PAP-Plateforme-dev/manifest.json">
+<link rel="manifest" href="/PAP-Plateforme-dev/manifest.json">
 
 <link rel="icon" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
-<link rel="apple-touch-icon" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
-
+<link rel="apple-touch-icon" sizes="180x180" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
+    
 <meta name="theme-color" content="#2b7cff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+ <meta name="apple-mobile-web-app-title" content="CRC Pro">  
     
     <title>PAP – Générateur de compte-rendu médical</title>
 
@@ -274,15 +275,21 @@ button {
         </div>
     
 <div id="iosBrowserWarning" class="ios-warning hidden">
+⚠️ Installation non optimale sur ce navigateur.<br><br>
 
-  ⚠️ Installation en mode application non disponible sur ce navigateur.<br>
-  👉 Ouvrez ce lien dans <strong>Safari</strong> pour installer l’application.
+👉 Pour une application avec icône et nom corrects (CRC Pro),<br>
+ouvrez cette page dans <strong>Safari</strong> puis cliquez sur 
+<strong>Partager</strong> → <strong>Sur l’écran d’accueil</strong>.<br><br>
 
-  <div style="margin-top:8px;">
-    <button type="button" onclick="copyAppLink()" class="btn secondary">
-      🔗 Copier le lien
-    </button>
-  </div>
+Sinon :
+• l’icône peut apparaître noire<br>
+• le nom peut être incorrect<br>
+
+<div style="margin-top:8px;">
+  <button type="button" onclick="copyAppLink()" class="btn secondary">
+    🔗 Copier le lien pour ouvrir dans Safari
+  </button>
+</div>
 
 </div>
     
@@ -1190,13 +1197,23 @@ let savedScrollPosition = 0;
 document.addEventListener("DOMContentLoaded", function () {
 
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-  const isNotSafari = navigator.userAgent.includes("FxiOS") || navigator.userAgent.includes("CriOS");
 
-  if (isIOS && isNotSafari) {
-    const warning = document.getElementById("iosBrowserWarning");
-    if (warning) {
-      warning.classList.remove("hidden");
-    }
+  const isFirefoxOrChromeIOS =
+    navigator.userAgent.includes("FxiOS") ||
+    navigator.userAgent.includes("CriOS");
+
+  const isStandalone =
+    window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+
+  const warning = document.getElementById("iosBrowserWarning");
+
+  if (!warning) return;
+
+  // 👉 Affiche uniquement :
+  // iOS + Firefox/Chrome + PAS installé
+  if (isIOS && isFirefoxOrChromeIOS && !isStandalone) {
+    warning.classList.remove("hidden");
   }
 
 });
