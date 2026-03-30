@@ -275,19 +275,26 @@ button {
         </div>
     
 <div id="iosBrowserWarning" class="ios-warning hidden">
-⚠️ Installation non optimale sur ce navigateur.<br><br>
 
-👉 Pour une application avec icône et nom corrects (CRC Pro),<br>
+ℹ️ Information iOS<br><br>
+
+✅ L’application fonctionne normalement dans ce navigateur.<br><br>
+
+👉 En revanche, l’installation sur l’écran d’accueil depuis Firefox ou Chrome n’est pas optimale :<br>
+• l’icône peut apparaître incorrecte<br>
+• le nom peut être différent (ex : CRC Pro)<br><br>
+
+👉 Pour une installation optimale :<br>
 ouvrez cette page dans <strong>Safari</strong> puis cliquez sur 
 <strong>Partager</strong> → <strong>Sur l’écran d’accueil</strong>.<br><br>
 
-Sinon :
-• l’icône peut apparaître noire<br>
-• le nom peut être incorrect<br>
-
-<div style="margin-top:8px;">
+<div style="display:flex; gap:10px; margin-top:10px;">
   <button type="button" onclick="copyAppLink()" class="btn secondary">
-    🔗 Copier le lien pour ouvrir dans Safari
+    🔗 Copier le lien
+  </button>
+
+  <button type="button" onclick="closeIOSWarning()" class="btn secondary">
+    Fermer
   </button>
 </div>
 
@@ -1197,30 +1204,31 @@ let savedScrollPosition = 0;
 document.addEventListener("DOMContentLoaded", function () {
 
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
-
-  const isFirefoxOrChromeIOS =
-    navigator.userAgent.includes("FxiOS") ||
-    navigator.userAgent.includes("CriOS");
-
-  const isStandalone =
-    window.navigator.standalone === true ||
-    window.matchMedia('(display-mode: standalone)').matches;
+  const isFirefox = navigator.userAgent.includes("FxiOS");
+  const isChrome = navigator.userAgent.includes("CriOS");
 
   const warning = document.getElementById("iosBrowserWarning");
-
   if (!warning) return;
 
-  // 👉 Affiche uniquement :
-  // iOS + Firefox/Chrome + PAS installé
-  if (isIOS && isFirefoxOrChromeIOS && !isStandalone) {
-    warning.classList.remove("hidden");
+  // 🔒 déjà fermé → ne jamais réafficher
+  if (localStorage.getItem("iosWarningClosed") === "true") return;
+
+  // 👉 condition cible
+  if (isIOS && (isFirefox || isChrome)) {
+
+    // ⏱️ affichage après interaction (scroll ou touch)
+    const showWarning = () => {
+      warning.classList.remove("hidden");
+
+      // nettoyage listeners (important)
+      window.removeEventListener("scroll", showWarning);
+      window.removeEventListener("touchstart", showWarning);
+    };
+
+    window.addEventListener("scroll", showWarning, { once: true });
+    window.addEventListener("touchstart", showWarning, { once: true });
   }
 
-});
-
-
-window.addEventListener("scroll", function () {
-  lastScrollY = window.scrollY;
 });
     
 // 🔹 INIT UI + SETUP
@@ -2383,7 +2391,17 @@ function copyAppLink() {
     });
 
 }
-        
+
+function closeIOSWarning() {
+  const warning = document.getElementById("iosBrowserWarning");
+  if (warning) {
+    warning.classList.add("hidden");
+  }
+
+  // mémorise le choix utilisateur
+  localStorage.setItem("iosWarningClosed", "true");
+}
+    
   function copyGuideLink() {
 
   const url = "https://zgqwa4.short.gy/guide-pap-pc";
