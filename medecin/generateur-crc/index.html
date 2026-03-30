@@ -911,61 +911,7 @@ const inactif = document.getElementById("niveau_inactif").parentElement;
   }
 
 }
-        
-let savedScrollPosition = 0;
-let lastScrollY = 0;
-window.addEventListener("scroll", function () {
-  lastScrollY = window.scrollY;
-});
- 
-
-
-        
-document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio) {
-
-  radio.addEventListener('change', function() {
-  
-      console.log("NIVEAU CHANGE DETECTÉ:", this.value);
- 
-      document.activeElement.blur();
-
-    const actifBlock = document.getElementById('actif-subgroup');
-    const inactifBlock = document.getElementById('inactif-subgroup');
-    const sixMoisBlock = document.getElementById('sixmois-subgroup');
-
-    // on ferme tout au départ
-    actifBlock.classList.add('hidden');
-    inactifBlock.classList.add('hidden');
-    sixMoisBlock.classList.add('hidden');
-
-    actifBlock.style.display = "none";
-    inactifBlock.style.display = "none";
-    sixMoisBlock.style.display = "none";
-
-    if (this.value === 'actif' || this.value === 'tres_actif' || this.value === 'moyennement_actif') {
-
-      actifBlock.classList.remove('hidden');
-      actifBlock.style.display = "";
-if (window.matchMedia("(max-width: 768px)").matches) {
-  scrollIfNeeded(actifBlock);
-}
-
-    }
-
-    if (this.value === 'inactif') {
-
-      inactifBlock.classList.remove('hidden');
-    inactifBlock.style.display = "";
-if (window.matchMedia("(max-width: 768px)").matches) {
-  scrollIfNeeded(inactifBlock);
-}
-
-    }
-
-  });
-
-});       
-        
+                    
 function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
   const subgroup = document.getElementById(subgroupId);
@@ -1026,11 +972,8 @@ function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   updateDisplay(); // état initial
 }
 
-toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
-toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
-toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
          
-            function buildClinicalModel() {
+function buildClinicalModel() {
   return {
 
     meta: {
@@ -1088,11 +1031,23 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 
   };
 }
+
+let savedScrollPosition = 0;
+let lastScrollY = 0;
+        
 document.addEventListener("DOMContentLoaded", function() {
 
-// 🔹 INIT UI
+window.addEventListener("scroll", function () {
+  lastScrollY = window.scrollY;
+});
+    
+// 🔹 INIT UI + SETUP
 updateNiveauButtons("clinique");
 
+toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
+toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
+toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
+    
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
