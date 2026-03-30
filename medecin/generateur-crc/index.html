@@ -1182,39 +1182,27 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 }
 document.addEventListener("DOMContentLoaded", function() {
 
+  document.getElementById("confirmPrint").addEventListener("click", function() {
+
+    const prenom = document.getElementById("modalPrenom").value.trim();
+    const nom = document.getElementById("modalNom").value.trim();
+
+    closeIdentityModal();
+    proceedWithAction(prenom, nom);
+
+  });
+
+  document.getElementById("cancelPrint").addEventListener("click", function() {
+    closeIdentityModal();
+  });
+
   const generateBtn = document.getElementById('generateReport');
 
   if (generateBtn) {
-
-    generateBtn.addEventListener("touchend", function () {
-      const active = document.activeElement;
-
-      if (
-        active &&
-        (active.tagName === "INPUT" || active.tagName === "TEXTAREA")
-      ) {
-        active.blur();
-      }
-        // === MODALE IDENTITÉ ===
-
-document.getElementById("confirmPrint").addEventListener("click", function() {
-
-  const prenom = document.getElementById("modalPrenom").value.trim();
-  const nom = document.getElementById("modalNom").value.trim();
-
-  closeIdentityModal();
-  proceedWithAction(prenom, nom);
-
-});
-
-document.getElementById("cancelPrint").addEventListener("click", function() {
-  closeIdentityModal();
-});
-    });
-
     generateBtn.addEventListener("click", handleGenerate);
-
   }
+
+});
 /* =========================
    SCANNER QR CODE
 ========================= */
