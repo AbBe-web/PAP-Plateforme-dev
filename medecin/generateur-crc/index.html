@@ -1184,8 +1184,8 @@ document.getElementById("sixmois-subgroup")?.classList.add("hidden");
     
 document.getElementById("confirmPrint").addEventListener("click", function() {
 
-  const prenom = document.getElementById("modalPrenom").value.trim();
-  const nom = document.getElementById("modalNom").value.trim();
+  const prenom = formatName(document.getElementById("modalPrenom").value);
+const nom = formatName(document.getElementById("modalNom").value);
 
   lastPrenom = prenom;
   lastNom = nom;
@@ -1553,8 +1553,59 @@ function injectIdentityIntoHTML(html, prenom, nom) {
   const identity = `${prenom || ""} ${nom || ""}`.trim();
 
   return html.replace("_____", identity);
+} 
+        
+function formatName(str) {
+
+  if (!str) return "";
+
+  const particles = [
+    "de", "du", "des", "la", "le", "les",
+    "van", "von", "der", "den", "da", "dos", "das"
+  ];
+
+  return str
+    .toLowerCase()
+    .trim()
+    .split(/[\s-]+/)
+    .map((word, index) => {
+
+      // particules → minuscule sauf en début
+      if (particles.includes(word) && index !== 0) {
+        return word;
+      }
+
+      // cas McDonald / MacDonald
+      if (word.startsWith("mc") && word.length > 2) {
+        return "Mc" + word.charAt(2).toUpperCase() + word.slice(3);
+      }
+
+      if (word.startsWith("mac") && word.length > 3) {
+        return "Mac" + word.charAt(3).toUpperCase() + word.slice(4);
+      }
+
+      // normal
+      return word.charAt(0).toUpperCase() + word.slice(1);
+
+    })
+    .join(" ")
+    .replace(/\s-\s/g, "-"); // sécurité tiret
 }
 
+ function updateNamePreview(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+
+  if (!input || !preview) return;
+
+  const value = input.value;
+  const formatted = formatName(value);
+
+preview.textContent = (formatted && formatted !== value)
+  ? `→ ${formatted}`
+  : "";
+}
+        
 function proceedWithAction(prenom, nom) {
 
   let content = document.getElementById("outputContainer").innerHTML;
@@ -2171,13 +2222,17 @@ document.getElementById("formatTabs").scrollIntoView({
   <div class="modal-content">
     <h3>Identification (facultatif)</h3>
 
-    <label>Prénom :
-      <input type="text" id="modalPrenom">
-    </label>
+   <label>Prénom :
+  <input type="text" id="modalPrenom"
+         oninput="updateNamePreview('modalPrenom','previewPrenom')">
+</label>
+<div id="previewPrenom" style="font-size:0.8rem;color:#666;"></div>
 
-    <label>Nom :
-      <input type="text" id="modalNom">
-    </label>
+<label>Nom :
+  <input type="text" id="modalNom"
+         oninput="updateNamePreview('modalNom','previewNom')">
+</label>
+<div id="previewNom" style="font-size:0.8rem;color:#666;"></div>
 
     <div class="modal-buttons">
       <button id="confirmPrint" class="btn">Imprimer</button>
