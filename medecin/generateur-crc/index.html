@@ -1187,23 +1187,21 @@ function buildClinicalModel() {
 
 let savedScrollPosition = 0;
         
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // 🔹 Détection Firefox iOS
-if (
-  navigator.userAgent.includes("FxiOS") ||   // Firefox iOS
-  navigator.userAgent.includes("CriOS")      // Chrome iOS
-) {
-  const warning = document.getElementById("iosBrowserWarning");
-  if (warning) {
-    warning.classList.remove("hidden");
+  const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
+  const isNotSafari = navigator.userAgent.includes("FxiOS") || navigator.userAgent.includes("CriOS");
+
+  if (isIOS && isNotSafari) {
+    const warning = document.getElementById("iosBrowserWarning");
+    if (warning) {
+      warning.classList.remove("hidden");
+    }
   }
-}
-  const warning = document.getElementById("iosBrowserWarning");
-  if (warning) {
-    warning.classList.remove("hidden");
-  }
-}
+
+});
+
+
 window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
 });
