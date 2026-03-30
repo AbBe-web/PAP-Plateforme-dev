@@ -1211,7 +1211,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!warning) return;
 
   // 🔒 déjà fermé → ne jamais réafficher
-  if (localStorage.getItem("iosWarningClosed") === "true") return;
+let warningClosed = false;
+
+try {
+  warningClosed = localStorage.getItem("iosWarningClosed") === "true";
+} catch(e) {
+  warningClosed = false;
+}
+
+if (warningClosed) return;
 
   // 👉 condition cible
   if (isIOS && (isFirefox || isChrome)) {
@@ -1225,8 +1233,18 @@ document.addEventListener("DOMContentLoaded", function () {
       window.removeEventListener("touchstart", showWarning);
     };
 
-    window.addEventListener("scroll", showWarning, { once: true });
-    window.addEventListener("touchstart", showWarning, { once: true });
+   let hasInteracted = false;
+
+const showWarning = () => {
+  if (hasInteracted) return;
+  hasInteracted = true;
+
+  warning.classList.remove("hidden");
+
+  window.removeEventListener("scroll", showWarning);
+};
+
+window.addEventListener("scroll", showWarning, { once: true });
   }
 
 });
@@ -1354,21 +1372,29 @@ document.getElementById("cancelPrint")?.addEventListener("click", function() {
   closeIdentityModal();
 });
 
-document.getElementById('generateReport')?.addEventListener("click", handleGenerate);
+const generateBtn = document.getElementById('generateReport');
+if (generateBtn) {
+  generateBtn.addEventListener("click", handleGenerate);
+}
 
-document.getElementById('printReport')?.addEventListener("click", function(e){
-  e.preventDefault();
-  e.stopPropagation();
-  openIdentityModal("print");
-});
+const printBtn = document.getElementById('printReport');
+if (printBtn) {
+  printBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    openIdentityModal("print");
+  });
+}
 
-document.getElementById('copyReport')?.addEventListener("click", function(e){
-  e.preventDefault();
-  e.stopPropagation();
-  openIdentityModal("copy");
-});
-
-});
+const copyBtn = document.getElementById('copyReport');
+if (copyBtn) {
+  copyBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    openIdentityModal("copy");
+  });
+}
+        
 /* =========================
    SCANNER QR CODE
 ========================= */
@@ -2399,7 +2425,17 @@ function closeIOSWarning() {
   }
 
   // mémorise le choix utilisateur
-  localStorage.setItem("iosWarningClosed", "true");
+function closeIOSWarning() {
+  const warning = document.getElementById("iosBrowserWarning");
+  if (warning) {
+    warning.classList.add("hidden");
+  }
+
+  // mémorise le choix utilisateur (sécurisé)
+  try {
+    localStorage.setItem("iosWarningClosed", "true");
+  } catch(e) {}
+}
 }
     
   function copyGuideLink() {
