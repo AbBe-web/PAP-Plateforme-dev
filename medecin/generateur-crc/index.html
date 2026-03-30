@@ -1182,14 +1182,18 @@ document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
     
-  document.getElementById("confirmPrint").addEventListener("click", function() {
+document.getElementById("confirmPrint").addEventListener("click", function() {
 
- const prenom = document.getElementById("modalPrenom").value.trim();
- const nom = document.getElementById("modalNom").value.trim();
+  const prenom = document.getElementById("modalPrenom").value.trim();
+  const nom = document.getElementById("modalNom").value.trim();
 
- lastPrenom = prenom;
- lastNom = nom;
-  });
+  lastPrenom = prenom;
+  lastNom = nom;
+
+  closeIdentityModal();
+  proceedWithAction(prenom, nom);
+
+});
 
   document.getElementById("cancelPrint").addEventListener("click", function() {
     closeIdentityModal();
