@@ -1,0 +1,20 @@
+{
+  "name": "PAP Consultation",
+  "short_name": "PAP Pro",
+  "start_url": "/PAP-Plateforme-dev/medecin/generateur-crc/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2b7cff",
+  "icons": [
+    {
+      "src": "/PAP-Plateforme-dev/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/PAP-Plateforme-dev/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
