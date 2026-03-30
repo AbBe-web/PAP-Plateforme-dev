@@ -1224,28 +1224,11 @@ if (warningClosed) return;
   // 👉 condition cible
   if (isIOS && (isFirefox || isChrome)) {
 
-    // ⏱️ affichage après interaction (scroll ou touch)
-    const showWarning = () => {
-      warning.classList.remove("hidden");
+  setTimeout(() => {
+    warning.classList.remove("hidden");
+  }, 800);
 
-      // nettoyage listeners (important)
-      window.removeEventListener("scroll", showWarning);
-      window.removeEventListener("touchstart", showWarning);
-    };
-
-   let hasInteracted = false;
-
-const showWarning = () => {
-  if (hasInteracted) return;
-  hasInteracted = true;
-
-  warning.classList.remove("hidden");
-
-  window.removeEventListener("scroll", showWarning);
-};
-
-window.addEventListener("scroll", showWarning, { once: true });
-  }
+}
 
 });
     
