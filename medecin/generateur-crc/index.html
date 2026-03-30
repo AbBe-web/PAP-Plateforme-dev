@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-<link rel="manifest" href="/PAP-Plateforme-dev/manifest.json">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="manifest" href="/PAP-Plateforme-dev/manifest.json">
 
 <link rel="icon" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
 <link rel="apple-touch-icon" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
@@ -8,9 +13,7 @@
 <meta name="theme-color" content="#2b7cff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>PAP – Générateur de compte-rendu médical</title>
 
         <link rel="stylesheet" href="../../css/style-global.css">
@@ -911,7 +914,23 @@ const inactif = document.getElementById("niveau_inactif").parentElement;
   }
 
 }
-                    
+ window.copyPatientComment = function(id){
+
+  const field = document.getElementById(id);
+  if(!field) return;
+
+  const text = field.value || field.innerText || "";
+
+  const temp = document.createElement("textarea");
+  temp.value = text;
+
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand("copy");
+  document.body.removeChild(temp);
+
+};
+        
 function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
   const subgroup = document.getElementById(subgroupId);
@@ -932,23 +951,6 @@ function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
       });
     }
   }
-
- window.copyPatientComment = function(id){
-
-  const field = document.getElementById(id);
-  if(!field) return;
-
-  const text = field.value || field.innerText || "";
-
-  const temp = document.createElement("textarea");
-  temp.value = text;
-
-  document.body.appendChild(temp);
-  temp.select();
-  document.execCommand("copy");
-  document.body.removeChild(temp);
-
-};
     
   function updateDisplay() {
     const selected = document.querySelector(`input[name="${groupName}"]:checked`);
@@ -1033,7 +1035,6 @@ function buildClinicalModel() {
 }
 
 let savedScrollPosition = 0;
-let lastScrollY = 0;
         
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -1147,7 +1148,7 @@ document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
 // ==========================
 // MODAL + BOUTONS
 // ==========================
-document.getElementById("confirmPrint").addEventListener("click", function() {
+document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
   const prenom = formatName(document.getElementById("modalPrenom").value);
   const nom = formatName(document.getElementById("modalNom").value);
@@ -1160,7 +1161,7 @@ document.getElementById("confirmPrint").addEventListener("click", function() {
 
 });
 
-document.getElementById("cancelPrint").addEventListener("click", function() {
+document.getElementById("cancelPrint")?.addEventListener("click", function() {
   closeIdentityModal();
 });
 
@@ -1439,7 +1440,7 @@ savedScrollPosition = window.scrollY;
   });
 });
  
-document.getElementById('downloadPdf').addEventListener('click', function (e) {
+document.getElementById('downloadPdf')?.addEventListener('click', function (e) {
 
   e.preventDefault();
   e.stopPropagation();
