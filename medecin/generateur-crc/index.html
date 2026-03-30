@@ -1539,34 +1539,6 @@ document.getElementById('printReport').addEventListener('click', function (e) {
   openIdentityModal("print");
 });
 
-  win.document.write(`
-    <html>
-      <head>
-        <title>Impression</title>
-        <style>
-          body {
-            font-family: Arial, sans-serif;
-            margin: 15mm;
-          }
-        </style>
-      </head>
-      <body>
-        ${content}
-      </body>
-    </html>
-  `);
-
-  win.document.close();
-
-  win.focus();
-
-  setTimeout(() => {
-    win.print();
-    win.close();
-  }, 300);
-
-});
-
 let identityAction = null;
 
 function openIdentityModal(action) {
