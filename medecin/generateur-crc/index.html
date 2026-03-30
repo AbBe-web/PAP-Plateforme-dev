@@ -914,15 +914,6 @@ let lastScrollY = 0;
 window.addEventListener("scroll", function () {
   lastScrollY = window.scrollY;
 });
-window.addEventListener("DOMContentLoaded", function(){
-
-  updateNiveauButtons("clinique");
-
-  document.getElementById("actif-subgroup").classList.add("hidden");
-  document.getElementById("inactif-subgroup").classList.add("hidden");
-  document.getElementById("sixmois-subgroup").classList.add("hidden");
-
-});
  
 document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
 
@@ -1181,7 +1172,13 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
   };
 }
 document.addEventListener("DOMContentLoaded", function() {
+// 🔹 INIT UI
+updateNiveauButtons("clinique");
 
+document.getElementById("actif-subgroup")?.classList.add("hidden");
+document.getElementById("inactif-subgroup")?.classList.add("hidden");
+document.getElementById("sixmois-subgroup")?.classList.add("hidden");
+    
   document.getElementById("confirmPrint").addEventListener("click", function() {
 
     const prenom = document.getElementById("modalPrenom").value.trim();
@@ -1201,7 +1198,23 @@ document.addEventListener("DOMContentLoaded", function() {
   if (generateBtn) {
     generateBtn.addEventListener("click", handleGenerate);
   }
+const printBtn = document.getElementById('printReport');
+if (printBtn) {
+  printBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    openIdentityModal("print");
+  });
+}
 
+const copyBtn = document.getElementById('copyReport');
+if (copyBtn) {
+  copyBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    openIdentityModal("copy");
+  });
+}
 });
 /* =========================
    SCANNER QR CODE
@@ -1500,12 +1513,6 @@ document.getElementById('downloadPdf').addEventListener('click', function (e) {
 
 });
         
-document.getElementById('copyReport').addEventListener('click', function(e) {
-  e.preventDefault();
-  e.stopPropagation();
-
-  openIdentityModal("copy");
-});
 
 document.addEventListener("visibilitychange", function () {
 
@@ -1516,13 +1523,6 @@ document.addEventListener("visibilitychange", function () {
     });
   }
 
-});
-
-document.getElementById('printReport').addEventListener('click', function (e) {
-  e.preventDefault();
-  e.stopPropagation();
-
-  openIdentityModal("print");
 });
 
 let identityAction = null;
