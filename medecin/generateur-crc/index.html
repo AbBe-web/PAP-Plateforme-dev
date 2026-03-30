@@ -258,15 +258,18 @@ button {
             <a href="https://abbe-web.github.io/Compte-Rendu-Consultation-PAP/politique-confidentialite.html" target="_blank" rel="noopener noreferrer">Consulter la politique de confidentialité</a> |
             <a href="https://www.cnil.fr/fr/les-droits-pour-maitriser-vos-donnees-personnelles" target="_blank" rel="noopener noreferrer">Vos droits (CNIL)</a>
         </div>
-    <details class="patient-tool">
 
-  <summary>📄 Accès questionnaire patient (optionnel)</summary>
+    <h2 style="margin-top:20px;">Préparer la consultation</h2>
+
+<details class="patient-tool">
+
+  <summary>📄 Questionnaire patient</summary>
 
   <div class="patient-tool-content">
 
     <p>
-      Vous pouvez proposer au patient de remplir un questionnaire d’activité physique
-      avant la consultation (papier à imprimer ou faire scanner le QR code par la/le patient.e).
+      Questionnaire d’auto-évaluation à proposer au patient avant la consultation
+      (papier ou QR code).
     </p>
 
     <div class="patient-tool-actions">
@@ -282,11 +285,49 @@ button {
     </div>
 
     <div class="patient-qr">
-      <img
-        src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://zgqwa4.short.gy/auto-eval-ap"
-        alt="QR code questionnaire patient"
-        loading="lazy"
-      >
+      <a href="https://zgqwa4.short.gy/auto-eval-ap" target="_blank">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://zgqwa4.short.gy/auto-eval-ap"
+          alt="QR code questionnaire patient"
+          loading="lazy"
+        >
+      </a>
+    </div>
+
+  </div>
+
+</details>
+
+<details class="patient-tool">
+
+  <summary>📘 Guide pratique PAP (médecin)</summary>
+
+  <div class="patient-tool-content">
+
+    <p>
+      Guide d’aide à la prescription d’activité physique (version PC).
+    </p>
+
+    <div class="patient-tool-actions">
+
+      <a href="https://zgqwa4.short.gy/guide-pap-pc" target="_blank" class="btn">
+        📘 Ouvrir le guide
+      </a>
+
+      <button type="button" onclick="copyGuideLink()" class="btn secondary">
+        🔗 Copier le lien
+      </button>
+
+    </div>
+
+    <div class="patient-qr">
+      <a href="https://zgqwa4.short.gy/guide-pap-pc" target="_blank">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://zgqwa4.short.gy/guide-pap-pc"
+          alt="QR code guide PAP"
+          loading="lazy"
+        >
+      </a>
     </div>
 
   </div>
@@ -665,6 +706,8 @@ Pas d’AP envisagée dans les 6 mois
 </div>
 
     </div>
+
+
     <script>
         
      let isImporting = false;
@@ -2255,6 +2298,20 @@ document.getElementById("formatTabs").scrollIntoView({
   navigator.clipboard.writeText(url)
     .then(() => {
       alert("Lien copié ✔️");
+    })
+    .catch(() => {
+      alert("Impossible de copier le lien");
+    });
+
+}
+
+  function copyGuideLink() {
+
+  const url = "https://zgqwa4.short.gy/guide-pap-pc";
+
+  navigator.clipboard.writeText(url)
+    .then(() => {
+      alert("Lien du guide copié ✔️");
     })
     .catch(() => {
       alert("Impossible de copier le lien");
