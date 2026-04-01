@@ -987,9 +987,11 @@ Pas d’AP envisagée dans les 6 mois
     </div>
 
 
-    <script>
-          
-     let isImporting = false;
+<script>
+
+const DEBUG = false; // ✅ AJOUT ICI
+
+let isImporting = false;
             
            function scrollIfNeeded(element) {
 
@@ -1310,6 +1312,14 @@ if(mode === "marshall"){
   moyen.style.setProperty("display", "none", "important");
   inactif.style.setProperty("display", "", "important");
 
+}
+    if (DEBUG) {
+  console.log("DEBUG niveau :", mode, {
+    tres: document.getElementById("niveau_tres_actif").parentElement.style.display,
+    actif: document.getElementById("niveau_actif").parentElement.style.display,
+    moyen: document.getElementById("niveau_moyen").parentElement.style.display,
+    inactif: document.getElementById("niveau_inactif").parentElement.style.display
+  });
 }
 }
 
