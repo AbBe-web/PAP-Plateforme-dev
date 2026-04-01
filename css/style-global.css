@@ -547,3 +547,13 @@ h1, h2, h3 {
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
   }
 }
+/* =========================
+   CHECKBOX STYLE (aspect rond)
+========================= */
+
+input[type="checkbox"] {
+  accent-color: #2b7cff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+}
