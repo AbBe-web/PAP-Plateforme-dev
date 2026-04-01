@@ -273,6 +273,7 @@ button {
 .form-group label input[type="number"] {
   margin-top: 4px;
 }
+    
 /* 🔥 CORRECTION FINALE : champs AP en vertical */
 .crc-page input[name="heures_assises"],
 .crc-page input[name="nombre_pas"] {
@@ -284,7 +285,23 @@ button {
 .crc-page label:has(input[name="heures_assises"]),
 .crc-page label:has(input[name="nombre_pas"]) {
   display: block !important;
-}    
+}   
+    /* 🔥 ISOLATION TOTALE des champs AP */
+.ap-field {
+  display: block !important;
+  margin-top: 10px;
+}
+
+.ap-field label {
+  display: block !important;
+  margin-bottom: 4px;
+}
+
+.ap-field input {
+  display: block !important;
+  width: 100% !important;
+  max-width: 180px;
+}
 </style>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
@@ -718,18 +735,15 @@ Pas d’AP envisagée dans les 6 mois
         <input type="radio" name="sedentaire" value="non_recherche">
         Statut de sédentarité non recherché
     </label>
+<div class="ap-field">
+  <label>Nombre moyen d’heures assises par jour :</label>
+  <input type="number" name="heures_assises" min="0" max="24" placeholder="Ex : 8">
 </div>
-<label>
-  Nombre moyen d’heures assises par jour :
-  <input type="number" name="heures_assises" placeholder="Ex : 8">
-</label>
 
-<label>
-  Nombre de pas par jour sur le dernier mois :
-  <input type="number" name="nombre_pas" placeholder="Ex : 7500">
-</label>
-
-                </div>
+<div class="ap-field">
+  <label>Nombre de pas par jour sur le dernier mois :</label>
+  <input type="number" name="nombre_pas" min="0" placeholder="Ex : 7500">
+</div>
                 <div class="sub-group">
                     <h3>Niveau visé (intensité) :</h3>
                     <label><input type="radio" name="niveau_vise" value="faible"> Faible</label>
