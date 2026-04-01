@@ -409,53 +409,55 @@ Importer fichier JSON
     
                   <div class="form-group">
 
-  <h2>1/ Données générales</h2>
+<h2>1/ Données générales</h2>
 
-  <div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center;">
+<div style="display:flex; flex-wrap:wrap; gap:15px; align-items:flex-end;">
 
-    <!-- Sexe -->
-    <div>
-      <label>
-        <input type="radio" name="sexe" value="femme"> Femme
-      </label>
-      <label>
-        <input type="radio" name="sexe" value="homme"> Homme
-      </label>
-    </div>
+  <!-- Sexe -->
+  <div>
+    <label><input type="radio" name="sexe" value="femme"> Femme</label>
+    <label><input type="radio" name="sexe" value="homme"> Homme</label>
+  </div>
 
-    <!-- Âge -->
-   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-  <span>Âge</span>
-  <input type="number" id="age_input" style="width:80px;">
+  <!-- Âge -->
+  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+    <span>Âge</span>
+    <input type="number" id="age_input" style="width:80px;">
+  </div>
+
+  <!-- Taille -->
+  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+    <span>Taille (cm)</span>
+    <input type="number" id="taille_input" style="width:110px;">
+  </div>
+
+  <!-- Poids -->
+  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+    <span>Poids (kg)</span>
+    <input type="number" id="poids_input" style="width:110px;">
+  </div>
+
+  <!-- IMC -->
+  <div id="imc_result" style="font-size:0.9rem; min-width:140px;"></div>
+
 </div>
 
-    <!-- Fallback âge -->
-    <div id="age_fallback" style="display:none; font-size:0.8rem;">
-      <label><input type="radio" name="age_condition" value="<65"> &lt;65</label>
-      <label><input type="radio" name="age_condition" value=">=65"> ≥65</label>
-    </div>
+<!-- 🔻 FALLBACKS SUR LIGNE À PART (clé UX +++) -->
 
-    <!-- Taille -->
-   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-  <span>Taille (cm)</span>
-  <input type="number" id="taille_input" style="width:110px;">
-</div>
+<div style="margin-top:6px; display:flex; gap:20px; flex-wrap:wrap; font-size:0.8rem;">
 
-    <!-- Poids -->
-   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-  <span>Poids (kg)</span>
-  <input type="number" id="poids_input" style="width:110px;">
-</div>
+  <!-- Fallback âge -->
+  <div id="age_fallback" style="display:none;">
+    <span>Âge :</span>
+    <label><input type="radio" name="age_condition" value="<65"> &lt;65</label>
+    <label><input type="radio" name="age_condition" value=">=65"> ≥65</label>
+  </div>
 
-    <!-- IMC -->
-    <div id="imc_result" style="font-size:0.9rem;"></div>
-
-    <!-- Fallback IMC -->
-    <div id="imc_fallback" style="display:none; font-size:0.8rem;">
-      <label><input type="radio" name="imc_condition" value="<35"> ≤35</label>
-      <label><input type="radio" name="imc_condition" value=">=35"> ≥35</label>
-    </div>
-
+  <!-- Fallback IMC -->
+  <div id="imc_fallback" style="display:none;">
+    <span>IMC :</span>
+    <label><input type="radio" name="imc_condition" value="<35"> ≤35</label>
+    <label><input type="radio" name="imc_condition" value=">=35"> ≥35</label>
   </div>
 
 </div>
@@ -1458,6 +1460,7 @@ document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 
+document.addEventListener("DOMContentLoaded", function () {
 // ==========================
 // GROSSESSE (affichage si femme)
 // ==========================
@@ -1500,6 +1503,7 @@ if (!selectedSexe || selectedSexe.value === "femme") {
 } else {
   grossesseContainer.style.display = "none";
 }
+ });
         
 // ==========================
 // SYMPTÔMES (alerte)
@@ -1546,7 +1550,9 @@ if (handicapCheckbox) {
   });
 }
 
- // ==========================
+document.addEventListener("DOMContentLoaded", function () {
+
+// ==========================
 // AGE + ATCD FAMILIAL
 // ==========================
 
@@ -1585,6 +1591,8 @@ if (ageInput) {
 
 // 🔥 INITIALISATION
 updateAgeUI();
+
+});
         
 // ==========================
 // ALERTE SYMPTÔMES ⚠️
