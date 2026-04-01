@@ -411,49 +411,53 @@ Importer fichier JSON
 
 <h2>1/ Données générales</h2>
 
-<div style="display:flex; flex-wrap:wrap; gap:15px; align-items:flex-end;">
+<div style="display:flex; gap:20px; align-items:flex-end; flex-wrap:wrap;">
 
   <!-- Sexe -->
-  <div>
-    <label><input type="radio" name="sexe" value="femme"> Femme</label>
-    <label><input type="radio" name="sexe" value="homme"> Homme</label>
+  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+    <span style="font-weight:500;">Sexe</span>
+    <div style="display:flex; gap:10px;">
+      <label><input type="radio" name="sexe" value="femme"> F</label>
+      <label><input type="radio" name="sexe" value="homme"> H</label>
+    </div>
   </div>
 
   <!-- Âge -->
   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span>Âge</span>
-    <input type="number" id="age_input" style="width:80px;">
+    <span style="font-weight:500;">Âge</span>
+    <input type="number" id="age_input" style="width:70px;">
   </div>
 
   <!-- Taille -->
   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span>Taille (cm)</span>
-    <input type="number" id="taille_input" style="width:110px;">
+    <span style="font-weight:500;">Taille</span>
+    <input type="number" id="taille_input" style="width:90px;">
   </div>
 
   <!-- Poids -->
   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span>Poids (kg)</span>
-    <input type="number" id="poids_input" style="width:110px;">
+    <span style="font-weight:500;">Poids</span>
+    <input type="number" id="poids_input" style="width:90px;">
   </div>
 
   <!-- IMC -->
-  <div id="imc_result" style="font-size:0.9rem; min-width:140px;"></div>
+  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+    <span style="font-weight:500;">IMC</span>
+    <div id="imc_result" style="min-width:120px;"></div>
+  </div>
 
 </div>
 
-<!-- 🔻 FALLBACKS SUR LIGNE À PART (clé UX +++) -->
+<!-- 🔻 FALLBACKS EN DESSOUS -->
 
 <div style="margin-top:6px; display:flex; gap:20px; flex-wrap:wrap; font-size:0.8rem;">
 
-  <!-- Fallback âge -->
   <div id="age_fallback" style="display:none;">
     <span>Âge :</span>
     <label><input type="radio" name="age_condition" value="<65"> &lt;65</label>
     <label><input type="radio" name="age_condition" value=">=65"> ≥65</label>
   </div>
 
-  <!-- Fallback IMC -->
   <div id="imc_fallback" style="display:none;">
     <span>IMC :</span>
     <label><input type="radio" name="imc_condition" value="<35"> ≤35</label>
@@ -933,7 +937,7 @@ Pas d’AP envisagée dans les 6 mois
 
 
     <script>
-        
+          
      let isImporting = false;
         
            function scrollIfNeeded(element) {
@@ -1407,7 +1411,8 @@ if (warningClosed) return;
 // ==========================
 // IMC (calcul intelligent)
 // ==========================
-
+function initIMC() {
+    
 const tailleInput = document.getElementById("taille_input");
 const poidsInput = document.getElementById("poids_input");
 const imcResult = document.getElementById("imc_result");
@@ -2815,6 +2820,14 @@ function closeIOSWarning() {
   }
 
 }
+               document.addEventListener("DOMContentLoaded", function () {
+  initIMC();
+  initAge();
+  initGrossesse();
+  initSymptomes();
+  initBPCO();
+  initHandicap();
+}); 
                </script>
     
     <div id="identityModal" class="modal hidden">
