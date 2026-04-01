@@ -408,8 +408,85 @@ Importer fichier JSON
 <form id="consultationForm">
     
             <div class="form-group">
+                <div class="form-group">
+  <h2>1/ Données générales</h2>
+
+  <label>
+    <input type="radio" name="sexe" value="femme">
+    Femme
+  </label>
+
+  <label>
+    <input type="radio" name="sexe" value="homme">
+    Homme
+  </label>
+
+</div>
+              <br>
+
+<label>
+  Âge :
+  <input type="number" id="age_input" min="0" max="120" placeholder="Ex : 68">
+</label>
+
+<div id="age_fallback" style="margin-top:8px; display:none;">
+  <span>Si âge non renseigné :</span><br>
+
+  <label>
+    <input type="radio" name="age_condition" value="<65">
+    Âge &lt; 65 ans
+  </label>
+
+  <label>
+    <input type="radio" name="age_condition" value=">=65">
+    Âge ≥ 65 ans
+  </label>
+</div>
+         <br>
+
+<label>
+  Taille (cm) :
+  <input type="number" id="taille_input" min="100" max="250" placeholder="Ex : 170">
+</label>
+
+<label>
+  Poids (kg) :
+  <input type="number" id="poids_input" min="30" max="250" placeholder="Ex : 70">
+</label>
+
+<div id="imc_result" style="margin-top:8px;"></div>
+
+<div id="imc_fallback" style="margin-top:8px; display:none;">
+  <span>Si taille/poids non renseignés :</span><br>
+
+  <label>
+    <input type="radio" name="imc_condition" value="<35">
+    IMC ≤ 35 kg/m²
+  </label>
+
+  <label>
+    <input type="radio" name="imc_condition" value=">=35">
+    IMC ≥ 35 kg/m²
+  </label>
+</div>
+                
                 <h2>1/ La personne adressée est dans une des situations suivantes (page 3) :</h2>
-                <label><input type="radio" name="situation" value="symptomes"> Elle a des symptômes de maladie CV, respiratoire, métabolique et rénale décompensée</label>
+               <label>
+  <input type="radio" name="situation" value="symptomes" id="symptomes_radio">
+  Elle a des symptômes de maladie CV, respiratoire, métabolique et rénale décompensée
+</label>
+
+<div id="symptomes_alert" class="hidden" style="
+  margin-top:8px;
+  padding:10px;
+  background:#fff4e5;
+  border-left:4px solid #f59e0b;
+  border-radius:6px;
+  font-size:0.9rem;
+">
+  ⚠️ Situation nécessitant une prise en charge médicale préalable.  
+  L’outil d’aide à la prescription d’activité physique peut ne pas être adapté dans ce contexte.
+</div>
                 <label><input type="radio" name="situation" value="limitations"> Elle présente des limitations ou CI à l’AP (tableau 7-9)</label>
                 <label><input type="radio" name="situation" value="situations_particulieres"> Elle est dans une des situations particulières (situation 3)</label>
                 <label><input type="radio" name="situation" value="aucune"> Votre patient n’est dans aucune de ces situations</label>
@@ -710,13 +787,6 @@ Pas d’AP envisagée dans les 6 mois
 
 </div>
 
-   
-            <div class="form-group">
-                <h2>9/ La personne adressée est :</h2>
-<label class="inline-option"><input type="radio" name="sexe" value="femme"> Une femme</label>
-<label class="inline-option"><input type="radio" name="sexe" value="homme"> Un homme</label>
-
-            </div>
             <div class="form-group">
                 <h2>10/ Le destinataire du courrier est :</h2>
               <label class="inline-option"><input type="radio" name="destinataire" value="consoeur"> Une consœur</label>
@@ -1229,6 +1299,48 @@ if (warningClosed) return;
   }, 800);
 
 }
+// ==========================
+// IMC (calcul intelligent)
+// ==========================
+
+const tailleInput = document.getElementById("taille_input");
+const poidsInput = document.getElementById("poids_input");
+const imcResult = document.getElementById("imc_result");
+const imcFallback = document.getElementById("imc_fallback");
+
+function calculIMC() {
+
+  const taille = parseFloat(tailleInput.value);
+  const poids = parseFloat(poidsInput.value);
+
+  if (!taille || !poids) {
+    imcResult.innerHTML = "";
+    imcFallback.style.display = "block";
+    return;
+  }
+
+  const imc = poids / ((taille / 100) ** 2);
+  const imcRounded = imc.toFixed(1);
+
+  let interpretation = "";
+
+  if (imc >= 35) {
+    interpretation = "IMC ≥ 35 kg/m²";
+  } else {
+    interpretation = "IMC ≤ 35 kg/m²";
+  }
+
+  imcResult.innerHTML = `IMC : <strong>${imcRounded}</strong> (${interpretation})`;
+
+  imcFallback.style.display = "none";
+
+  document.querySelectorAll('input[name="imc_condition"]').forEach(r => r.checked = false);
+}
+
+if (tailleInput && poidsInput) {
+  tailleInput.addEventListener("input", calculIMC);
+  poidsInput.addEventListener("input", calculIMC);
+}
 
 });
     
@@ -1243,6 +1355,52 @@ document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 
+
+// ==========================
+// AGE (fallback intelligent)
+// ==========================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const ageInput = document.getElementById("age_input");
+  const ageFallback = document.getElementById("age_fallback");
+
+  if (ageInput) {
+    ageInput.addEventListener("input", function(){
+
+      if (this.value === "" || this.value === null) {
+        ageFallback.style.display = "block";
+      } else {
+        ageFallback.style.display = "none";
+
+        // reset fallback
+        document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
+      }
+
+    });
+  }
+
+});
+// ==========================
+// ALERTE SYMPTÔMES ⚠️
+// ==========================
+
+const symptomesRadio = document.getElementById("symptomes_radio");
+const symptomesAlert = document.getElementById("symptomes_alert");
+
+const situationRadios = document.querySelectorAll('input[name="situation"]');
+
+situationRadios.forEach(radio => {
+  radio.addEventListener("change", function(){
+
+    if (symptomesRadio.checked) {
+      symptomesAlert.classList.remove("hidden");
+    } else {
+      symptomesAlert.classList.add("hidden");
+    }
+
+  });
+});
 
 // ==========================
 // QUESTIONNAIRE
