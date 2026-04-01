@@ -1453,7 +1453,83 @@ function initHandicap() {
   });
 
 }
-            
+ 
+        function initActivitePhysique() {
+
+  const questionnaireRadios = document.querySelectorAll('input[name="questionnaire"]');
+  const niveauRadios = document.querySelectorAll('input[name="niveau_actuel"]');
+  const apRadios = document.querySelectorAll('input[name="ap_envisagee"]');
+
+  const actifBlock = document.getElementById('actif-subgroup');
+  const inactifBlock = document.getElementById('inactif-subgroup');
+  const sixMoisBlock = document.getElementById('sixmois-subgroup');
+
+  function resetMotivation() {
+    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+    actifBlock.style.display = "none";
+    inactifBlock.style.display = "none";
+    sixMoisBlock.style.display = "none";
+  }
+
+  function updateNiveauUI(value) {
+
+    resetMotivation();
+
+    if (value === 'actif' || value === 'tres_actif' || value === 'moyennement_actif') {
+      actifBlock.style.display = "";
+    }
+
+    if (value === 'inactif') {
+      inactifBlock.style.display = "";
+    }
+  }
+
+  function updateAP(value) {
+
+    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+    sixMoisBlock.style.display = "none";
+
+    if (value === "non") {
+      sixMoisBlock.style.display = "block";
+    }
+  }
+
+  // 🎯 QUESTIONNAIRE
+  questionnaireRadios.forEach(radio => {
+    radio.addEventListener("change", function(){
+
+      if(this.value === "GPAQ") updateNiveauButtons("gpaq");
+      if(this.value === "Marshall") updateNiveauButtons("marshall");
+
+      if(isImporting) return;
+
+      document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
+      resetMotivation();
+    });
+  });
+
+  // 🎯 NIVEAU
+  niveauRadios.forEach(radio => {
+    radio.addEventListener("change", function(){
+      if(isImporting) return;
+      updateNiveauUI(this.value);
+    });
+  });
+
+  // 🎯 AP ENVISAGÉE
+  apRadios.forEach(radio => {
+    radio.addEventListener("change", function(){
+      updateAP(this.value);
+    });
+  });
+
+  // 🔥 INIT ÉTAT
+  resetMotivation();
+}     
+        
             function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
   const subgroup = document.getElementById(subgroupId);
@@ -1596,7 +1672,7 @@ initGrossesse();
 initSymptomes();
 initBPCO();
 initHandicap();
-
+initActivitePhysique();
 });
     
 // 🔹 INIT UI + SETUP
@@ -1613,92 +1689,16 @@ document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 // ==========================
 // QUESTIONNAIRE
 // ==========================
-document.querySelectorAll('input[name="questionnaire"]').forEach(function(radio){
 
-  radio.addEventListener("change", function(){
-
-    if(this.value === "GPAQ"){
-      updateNiveauButtons("gpaq");
-    }
-
-    if(this.value === "Marshall"){
-      updateNiveauButtons("marshall");
-    }
-
-    if(isImporting) return;
-
-    document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
-
-    document.getElementById("actif-subgroup").style.display = "none";
-    document.getElementById("inactif-subgroup").style.display = "none";
-    document.getElementById("sixmois-subgroup").style.display = "none";
-
-  });
-
-});
 
 
 // ==========================
 // NIVEAU ACTIVITÉ
 // ==========================
-document.querySelectorAll('input[name="niveau_actuel"]').forEach(function(radio){
-
-  radio.addEventListener("change", function(){
-
-    console.log("NIVEAU CHANGE DETECTÉ:", this.value);
-
-    if(isImporting) return;
-
-    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
-
-    const actifBlock = document.getElementById('actif-subgroup');
-    const inactifBlock = document.getElementById('inactif-subgroup');
-    const sixMoisBlock = document.getElementById('sixmois-subgroup');
-
-    actifBlock.style.display = "none";
-    inactifBlock.style.display = "none";
-    sixMoisBlock.style.display = "none";
-
-    if (this.value === 'actif' || this.value === 'tres_actif' || this.value === 'moyennement_actif') {
-      actifBlock.style.display = "";
-    }
-
-    if (this.value === 'inactif') {
-      inactifBlock.style.display = "";
-    }
-
-  });
-
-});
-
 
 // ==========================
 // AP ENVISAGÉE
 // ==========================
-document.querySelectorAll('input[name="ap_envisagee"]').forEach(function(radio){
-
-  radio.addEventListener("change", function(){
-
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
-
-    const sixMoisBlock = document.getElementById("sixmois-subgroup");
-
-    if(!sixMoisBlock) return;
-
-    sixMoisBlock.style.display = "none";
-
-    if(this.value === "non"){
-      sixMoisBlock.style.display = "block";
-    }
-
-  });
-
-});
 
 
 // ==========================
