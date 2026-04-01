@@ -465,7 +465,7 @@ Importer fichier JSON
   <!-- 🔹 SITUATIONS SPÉCIFIQUES -->
   <!-- ========================= -->
 
-  <div style="margin-bottom:8px;">
+<div style="margin:10px 0 6px 0; font-weight:600;">
     <strong>Situations spécifiques</strong>
   </div>
 
@@ -493,8 +493,6 @@ Importer fichier JSON
 
   </div>
 
-  <hr style="margin:10px 0;">
-
   <!-- ========================= -->
   <!-- 🔹 SITUATIONS CLINIQUES -->
   <!-- ========================= -->
@@ -518,16 +516,12 @@ Importer fichier JSON
   </div>
 
   <!-- ATCD CV -->
-<div style="margin-top:8px; margin-bottom:4px; font-size:0.9rem;">
-  Antécédents cardiovasculaires :
-</div>
-
 <label>
   <input type="checkbox" name="atcd_cv">
   ATCD personnel de maladie cardiovasculaire (hors HTA équilibrée)
 </label>
 
-<div id="atcd_familial_block">
+<div id="atcd_familial_block" style="display:none;">
   <label>
     <input type="checkbox" name="atcd_familial_cv">
     Âge ≤ 35 ans ET ATCD familial de maladie CV héréditaire
@@ -587,9 +581,7 @@ Importer fichier JSON
   </label>
 
   <!-- Biologie -->
- <hr style="margin:10px 0;">
-
-<div style="margin-bottom:8px;">
+<div style="margin:10px 0 6px 0; font-weight:600;">
   <strong>Biologie récente</strong>
 </div>
 
@@ -1542,27 +1534,44 @@ if (handicapCheckbox) {
   });
 }
 // ==========================
-// AGE (fallback intelligent)
+// AGE (fallback + ATCD familial)
 // ==========================
 
 document.addEventListener("DOMContentLoaded", function () {
 
   const ageInput = document.getElementById("age_input");
   const ageFallback = document.getElementById("age_fallback");
+  const atcdFamilialBlock = document.getElementById("atcd_familial_block");
+
+  function updateAgeUI() {
+
+    const value = ageInput.value;
+    const age = parseInt(value);
+
+    // 🔹 gestion fallback âge
+    if (value === "" || value === null) {
+      ageFallback.style.display = "block";
+    } else {
+      ageFallback.style.display = "none";
+
+      document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
+    }
+
+    // 🔹 gestion ATCD familial
+    if (!value || age <= 35) {
+      atcdFamilialBlock.style.display = "block";
+    } else {
+      atcdFamilialBlock.style.display = "none";
+
+      // reset checkbox
+      document.querySelectorAll('input[name="atcd_familial_cv"]').forEach(r => r.checked = false);
+    }
+
+  }
 
   if (ageInput) {
-    ageInput.addEventListener("input", function(){
-
-      if (this.value === "" || this.value === null) {
-        ageFallback.style.display = "block";
-      } else {
-        ageFallback.style.display = "none";
-
-        // reset fallback
-        document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
-      }
-
-    });
+    ageInput.addEventListener("input", updateAgeUI);
+    updateAgeUI(); // init au chargement
   }
 
 });
