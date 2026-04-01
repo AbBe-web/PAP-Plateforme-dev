@@ -1592,8 +1592,11 @@ questionnaireRadios.forEach(radio => {
   });
 
   // 🔥 INIT ÉTAT
-  resetMotivation();
-}     
+resetMotivation();
+
+console.log("INIT ACTIVITE PHYSIQUE TERMINÉE"); // ✅ ICI EXACTEMENT
+
+} 
         
             function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
@@ -1735,7 +1738,10 @@ initSymptomes();
 initBPCO();
 initHandicap();
 initActivitePhysique();
-    updateNiveauButtons("clinique");
+
+console.log("APPEL CLINIQUE AU DEMARRAGE"); // ✅ ICI EXACTEMENT
+
+updateNiveauButtons("clinique");
 });
     
 
