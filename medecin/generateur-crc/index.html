@@ -966,7 +966,9 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 
         let lastPrenom = "";
         let lastNom = "";
-        
+            
+
+            
       function importPatientJSON(jsonText) {
           isImporting = true;
       console.log("IMPORT JSON APPELE");
@@ -1276,8 +1278,173 @@ const inactif = document.getElementById("niveau_inactif").parentElement;
   document.body.removeChild(temp);
 
 };
-        
-function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
+
+// ==========================
+// AGE + ATCD FAMILIAL
+// ==========================
+
+function initAge() {
+    
+const ageInput = document.getElementById("age_input");
+const ageFallback = document.getElementById("age_fallback");
+const atcdFamilialBlock = document.getElementById("atcd_familial_block");
+
+function updateAgeUI() {
+
+  if (!ageInput || !atcdFamilialBlock) return;
+
+  const value = ageInput.value;
+  const age = parseInt(value);
+
+  // fallback âge
+  if (!value) {
+    ageFallback.style.display = "block";
+  } else {
+    ageFallback.style.display = "none";
+    document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
+  }
+
+  // ATCD familial
+  if (!value || age <= 35) {
+    atcdFamilialBlock.style.display = "block";
+  } else {
+    atcdFamilialBlock.style.display = "none";
+    document.querySelectorAll('input[name="atcd_familial_cv"]').forEach(r => r.checked = false);
+  }
+}
+
+// écoute
+if (ageInput) {
+  ageInput.addEventListener("input", updateAgeUI);
+}
+
+// 🔥 INITIALISATION
+updateAgeUI();
+ }
+
+function initIMC() {
+
+  const tailleInput = document.getElementById("taille_input");
+  const poidsInput = document.getElementById("poids_input");
+  const imcResult = document.getElementById("imc_result");
+  const imcFallback = document.getElementById("imc_fallback");
+
+  function calculIMC() {
+
+    const taille = parseFloat(tailleInput.value);
+    const poids = parseFloat(poidsInput.value);
+
+    if (!taille || !poids) {
+      imcResult.innerHTML = "";
+      imcFallback.style.display = "block";
+      return;
+    }
+
+    const imc = poids / ((taille / 100) ** 2);
+    const imcRounded = imc.toFixed(1);
+
+    let interpretation = imc >= 35
+      ? "IMC ≥ 35 kg/m²"
+      : "IMC ≤ 35 kg/m²";
+
+    imcResult.innerHTML = `IMC : <strong>${imcRounded}</strong> (${interpretation})`;
+
+    imcFallback.style.display = "none";
+
+    document.querySelectorAll('input[name="imc_condition"]').forEach(r => r.checked = false);
+  }
+
+  if (tailleInput && poidsInput) {
+    tailleInput.addEventListener("input", calculIMC);
+    poidsInput.addEventListener("input", calculIMC);
+  }
+
+}
+            
+ function initGrossesse() {
+
+  const sexeRadios = document.querySelectorAll('input[name="sexe"]');
+  const grossesseContainer = document.getElementById("grossesse_container");
+  const grossesseCheckbox = document.getElementById("grossesse_checkbox");
+  const grossesseBlock = document.getElementById("grossesse_block");
+
+  if (!sexeRadios || !grossesseContainer) return;
+
+  sexeRadios.forEach(radio => {
+    radio.addEventListener("change", function(){
+
+      if (this.value === "femme") {
+        grossesseContainer.style.display = "block";
+      } else {
+        grossesseContainer.style.display = "none";
+
+        if (grossesseCheckbox) grossesseCheckbox.checked = false;
+        if (grossesseBlock) grossesseBlock.style.display = "none";
+
+        document.querySelectorAll('input[name="grossesse_comorbidite"], input[name="grossesse_complication"]')
+          .forEach(r => r.checked = false);
+      }
+
+    });
+  });
+
+  if (grossesseCheckbox) {
+    grossesseCheckbox.addEventListener("change", function(){
+      grossesseBlock.style.display = this.checked ? "block" : "none";
+    });
+  }
+
+}           
+
+function initSymptomes() {
+
+  const symptomesCheckbox = document.getElementById("symptomes_checkbox");
+  const symptomesAlert = document.getElementById("symptomes_alert");
+
+  if (!symptomesCheckbox || !symptomesAlert) return;
+
+  symptomesCheckbox.addEventListener("change", function(){
+    symptomesAlert.style.display = this.checked ? "block" : "none";
+  });
+
+}
+
+function initBPCO() {
+
+  const bpcoCheckbox = document.getElementById("bpco_checkbox");
+  const bpcoBlock = document.getElementById("bpco_block");
+
+  const bpcoSevere = document.getElementById("bpco_severe");
+  const bpcoSevereBlock = document.getElementById("bpco_severe_block");
+
+  if (bpcoCheckbox) {
+    bpcoCheckbox.addEventListener("change", function(){
+      bpcoBlock.style.display = this.checked ? "block" : "none";
+    });
+  }
+
+  if (bpcoSevere) {
+    bpcoSevere.addEventListener("change", function(){
+      bpcoSevereBlock.style.display = this.checked ? "block" : "none";
+    });
+  }
+
+}
+            
+function initHandicap() {
+
+  const handicapCheckbox = document.getElementById("handicap_checkbox");
+  const handicapBlock = document.getElementById("handicap_block");
+
+  if (!handicapCheckbox || !handicapBlock) return;
+
+  handicapCheckbox.addEventListener("change", function(){
+    handicapBlock.style.display = this.checked ? "block" : "none";
+  });
+
+}
+            
+            function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
   const radios = document.querySelectorAll(`input[name="${groupName}"]`);
   const subgroup = document.getElementById(subgroupId);
   const extraBlock = extraBlockId ? document.getElementById(extraBlockId) : null;
@@ -1410,56 +1577,11 @@ if (warningClosed) return;
   }, 800);
 
 }
-// ==========================
-// IMC (calcul intelligent)
-// ==========================
 
     
-const tailleInput = document.getElementById("taille_input");
-const poidsInput = document.getElementById("poids_input");
-const imcResult = document.getElementById("imc_result");
-const imcFallback = document.getElementById("imc_fallback");
-
-function calculIMC() {
-
-  const taille = parseFloat(tailleInput.value);
-  const poids = parseFloat(poidsInput.value);
-
-  if (!taille || !poids) {
-    imcResult.innerHTML = "";
-    imcFallback.style.display = "block";
-    return;
-  }
-
-  const imc = poids / ((taille / 100) ** 2);
-  const imcRounded = imc.toFixed(1);
-
-  let interpretation = "";
-
-  if (imc >= 35) {
-    interpretation = "IMC ≥ 35 kg/m²";
-  } else {
-    interpretation = "IMC ≤ 35 kg/m²";
-  }
-
-  imcResult.innerHTML = `IMC : <strong>${imcRounded}</strong> (${interpretation})`;
-
-  imcFallback.style.display = "none";
-
-  document.querySelectorAll('input[name="imc_condition"]').forEach(r => r.checked = false);
-}
-
-if (tailleInput && poidsInput) {
-  tailleInput.addEventListener("input", calculIMC);
-  poidsInput.addEventListener("input", calculIMC);
-}
 // ===== INIT GLOBAL =====
 initIMC();
-initAge();
-initGrossesse();
-initSymptomes();
-initBPCO();
-initHandicap();
+
 });
     
 // 🔹 INIT UI + SETUP
@@ -1562,45 +1684,7 @@ if (handicapCheckbox) {
   });
 }
 
-// ==========================
-// AGE + ATCD FAMILIAL
-// ==========================
 
-const ageInput = document.getElementById("age_input");
-const ageFallback = document.getElementById("age_fallback");
-const atcdFamilialBlock = document.getElementById("atcd_familial_block");
-
-function updateAgeUI() {
-
-  if (!ageInput || !atcdFamilialBlock) return;
-
-  const value = ageInput.value;
-  const age = parseInt(value);
-
-  // fallback âge
-  if (!value) {
-    ageFallback.style.display = "block";
-  } else {
-    ageFallback.style.display = "none";
-    document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
-  }
-
-  // ATCD familial
-  if (!value || age <= 35) {
-    atcdFamilialBlock.style.display = "block";
-  } else {
-    atcdFamilialBlock.style.display = "none";
-    document.querySelectorAll('input[name="atcd_familial_cv"]').forEach(r => r.checked = false);
-  }
-}
-
-// écoute
-if (ageInput) {
-  ageInput.addEventListener("input", updateAgeUI);
-}
-
-// 🔥 INITIALISATION
-updateAgeUI();
 
       
 // ==========================
@@ -2824,15 +2908,8 @@ function closeIOSWarning() {
   }
 
 }
-               document.addEventListener("DOMContentLoaded", function () {
-  initIMC();
-  initAge();
-  initGrossesse();
-  initSymptomes();
-  initBPCO();
-  initHandicap();
-}); 
-               </script>
+            
+            </script>
     
     <div id="identityModal" class="modal hidden">
   <div class="modal-content">
