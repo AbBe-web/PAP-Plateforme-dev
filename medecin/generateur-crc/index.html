@@ -1271,12 +1271,21 @@ if (apEnvisagee) {
 }
 }
         
-        function updateNiveauButtons(mode){
+function updateNiveauButtons(mode){
 
-const tres = document.getElementById("niveau_tres_actif").parentElement;
-const actif = document.getElementById("niveau_actif").parentElement;
-const moyen = document.getElementById("niveau_moyen").parentElement;
-const inactif = document.getElementById("niveau_inactif").parentElement;
+  console.log("updateNiveauButtons appelé avec :", mode); // ✅ AJOUT 1
+
+  const tres = document.getElementById("niveau_tres_actif").parentElement;
+  const actif = document.getElementById("niveau_actif").parentElement;
+  const moyen = document.getElementById("niveau_moyen").parentElement;
+  const inactif = document.getElementById("niveau_inactif").parentElement;
+
+  console.log("Avant modification :", { // ✅ AJOUT 2
+    tres: tres.style.display,
+    actif: actif.style.display,
+    moyen: moyen.style.display,
+    inactif: inactif.style.display
+  });
             
   if(mode === "clinique"){
 
@@ -1304,7 +1313,13 @@ const inactif = document.getElementById("niveau_inactif").parentElement;
     inactif.style.display = "";
 
   }
-
+  console.log("Après modification :", { // ✅ AJOUT 3
+    tres: tres.style.display,
+    actif: actif.style.display,
+    moyen: moyen.style.display,
+    inactif: inactif.style.display
+  });
+}
 }
  window.copyPatientComment = function(id){
 
@@ -1534,7 +1549,9 @@ function initHandicap() {
   // 🎯 QUESTIONNAIRE
   questionnaireRadios.forEach(radio => {
     radio.addEventListener("change", function(){
-
+  
+        console.log("QUESTIONNAIRE CHANGÉ :", this.value);
+        
       if(this.value === "GPAQ") updateNiveauButtons("gpaq");
       if(this.value === "Marshall") updateNiveauButtons("marshall");
 
