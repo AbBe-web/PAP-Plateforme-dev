@@ -1289,32 +1289,32 @@ function updateNiveauButtons(mode){
     inactif: inactif.style.display
   });
             
-  if(mode === "clinique"){
+if(mode === "clinique"){
 
-    tres.style.display = "";
-    actif.style.display = "";
-    moyen.style.display = "none";
-    inactif.style.display = "";
+  tres.style.setProperty("display", "", "important");
+  actif.style.setProperty("display", "", "important");
+  moyen.style.setProperty("display", "none", "important");
+  inactif.style.setProperty("display", "", "important");
 
-  }
+}
 
-  if(mode === "gpaq"){
+if(mode === "gpaq"){
 
-    tres.style.display = "";
-    actif.style.display = "none";
-    moyen.style.display = "";
-    inactif.style.display = "";
+  tres.style.setProperty("display", "", "important");
+  actif.style.setProperty("display", "none", "important");
+  moyen.style.setProperty("display", "", "important");
+  inactif.style.setProperty("display", "", "important");
 
-  }
+}
 
-  if(mode === "marshall"){
+if(mode === "marshall"){
 
-    tres.style.display = "none";
-    actif.style.display = "";
-    moyen.style.display = "none";
-    inactif.style.display = "";
+  tres.style.setProperty("display", "none", "important");
+  actif.style.setProperty("display", "", "important");
+  moyen.style.setProperty("display", "none", "important");
+  inactif.style.setProperty("display", "", "important");
 
-  }
+}
   console.log("Après modification :", { // ✅ AJOUT 3
     tres: tres.style.display,
     actif: actif.style.display,
