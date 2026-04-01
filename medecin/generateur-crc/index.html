@@ -276,25 +276,6 @@ button {
   display: inline-block;
   margin-left: 8px;
 }
-    
-/* =========================
-   CHAMPS VERTICAUX (AP)
-========================= */
-
-.vertical-field {
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-}
-
-.vertical-field label {
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.vertical-field input {
-  max-width: 120px;
-}
 
     /* 🔥 CORRECTION FORCÉE : champs inline heures + pas */
 .form-group label input[type="number"] {
@@ -303,11 +284,13 @@ button {
   margin-left: 8px;
   vertical-align: middle;
 }
+/* 🔥 FIX FINAL PROPRE */
 .crc-page input[name="heures_assises"],
 .crc-page input[name="nombre_pas"] {
   width: auto !important;
   display: inline-block !important;
   margin-left: 8px;
+  margin-top: 0 !important;   /* 🔥 LE POINT CLÉ */
   vertical-align: middle;
 }
     
@@ -745,11 +728,11 @@ Pas d’AP envisagée dans les 6 mois
         Statut de sédentarité non recherché
     </label>
 </div>
- <label>
+<label style="display:inline;">
   Nombre moyen d’heures assises par jour :
-  <input type="number" name="heures_assises" min="0" max="24" placeholder="Ex : 8">
+  <input type="number" name="heures_assises">
 </label>
-<label>
+<label style="display:inline;">
   Nombre de pas par jour sur le dernier mois :
   <input type="number" name="nombre_pas" min="0" placeholder="Ex : 7500">
 </label>
