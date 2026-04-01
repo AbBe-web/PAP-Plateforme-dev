@@ -940,6 +940,8 @@ Pas d’AP envisagée dans les 6 mois
           
      let isImporting = false;
         
+        function initIMC() {
+            
            function scrollIfNeeded(element) {
 
   if (!element) return;
@@ -1411,7 +1413,7 @@ if (warningClosed) return;
 // ==========================
 // IMC (calcul intelligent)
 // ==========================
-function initIMC() {
+
     
 const tailleInput = document.getElementById("taille_input");
 const poidsInput = document.getElementById("poids_input");
@@ -1451,7 +1453,13 @@ if (tailleInput && poidsInput) {
   tailleInput.addEventListener("input", calculIMC);
   poidsInput.addEventListener("input", calculIMC);
 }
-
+// ===== INIT GLOBAL =====
+initIMC();
+initAge();
+initGrossesse();
+initSymptomes();
+initBPCO();
+initHandicap();
 });
     
 // 🔹 INIT UI + SETUP
@@ -1465,7 +1473,6 @@ document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 
-document.addEventListener("DOMContentLoaded", function () {
 // ==========================
 // GROSSESSE (affichage si femme)
 // ==========================
@@ -1508,7 +1515,7 @@ if (!selectedSexe || selectedSexe.value === "femme") {
 } else {
   grossesseContainer.style.display = "none";
 }
- });
+
         
 // ==========================
 // SYMPTÔMES (alerte)
@@ -1555,8 +1562,6 @@ if (handicapCheckbox) {
   });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-
 // ==========================
 // AGE + ATCD FAMILIAL
 // ==========================
@@ -1597,8 +1602,7 @@ if (ageInput) {
 // 🔥 INITIALISATION
 updateAgeUI();
 
-});
-        
+      
 // ==========================
 // ALERTE SYMPTÔMES ⚠️
 // ==========================
