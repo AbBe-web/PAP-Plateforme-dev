@@ -270,6 +270,12 @@ button {
   display: block;
   margin-bottom: 6px;
 }
+
+/* ✅ exception pour garder input sur la même ligne */
+.form-group label input {
+  display: inline-block;
+  margin-left: 8px;
+}
     
 /* =========================
    CHAMPS VERTICAUX (AP)
@@ -290,6 +296,14 @@ button {
   max-width: 120px;
 }
 
+    /* 🔥 CORRECTION FORCÉE : champs inline heures + pas */
+.form-group label input[type="number"] {
+  display: inline-block;
+  width: auto;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+    
 </style>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
