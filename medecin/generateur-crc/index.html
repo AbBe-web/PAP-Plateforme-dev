@@ -1550,20 +1550,31 @@ function initHandicap() {
   }
 
   // 🎯 QUESTIONNAIRE
-  questionnaireRadios.forEach(radio => {
-    radio.addEventListener("change", function(){
-  
-        console.log("QUESTIONNAIRE CHANGÉ :", this.value);
-        
-      if(this.value === "GPAQ") updateNiveauButtons("gpaq");
-      if(this.value === "Marshall") updateNiveauButtons("marshall");
+questionnaireRadios.forEach(radio => {
+  radio.addEventListener("change", function(){
 
-      if(isImporting) return;
+    console.log("QUESTIONNAIRE CHANGÉ :", this.value);
 
-      document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
-      resetMotivation();
-    });
+    const mode = this.value === "GPAQ"
+      ? "gpaq"
+      : this.value === "Marshall"
+      ? "marshall"
+      : "clinique";
+
+    // 🔥 1. appliquer affichage
+    updateNiveauButtons(mode);
+
+    if(isImporting) return;
+
+    // 🔥 2. reset
+    document.querySelectorAll('input[name="niveau_actuel"]').forEach(r => r.checked = false);
+    resetMotivation();
+
+    // 🔥 3. RÉAPPLIQUER (clé du bug)
+    updateNiveauButtons(mode);
+
   });
+});
 
   // 🎯 NIVEAU
   niveauRadios.forEach(radio => {
