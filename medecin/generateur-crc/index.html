@@ -518,21 +518,28 @@ Importer fichier JSON
   </div>
 
   <!-- ATCD CV -->
-  <label>
-    <input type="checkbox" name="atcd_cv">
-    ATCD cardiovasculaire personnel (hors HTA équilibrée)
-  </label>
+<div style="margin-top:8px;">
+  <strong>Antécédents cardiovasculaires particuliers :</strong>
+</div>
 
+<label>
+  <input type="checkbox" name="atcd_cv">
+  ATCD personnel de maladie cardiovasculaire (hors HTA équilibrée)
+</label>
+
+<div id="atcd_familial_block">
   <label>
     <input type="checkbox" name="atcd_familial_cv">
-    ≤ 35 ans + ATCD familial CV héréditaire / mort subite < 50 ans
+    Âge ≤ 35 ans ET ATCD familial de maladie CV héréditaire
+    ou mort subite < 50 ans (1er degré)
   </label>
+</div>
 
-  <label>
-    <input type="checkbox" name="cardiotoxicite">
-    ATCD de cancer avec traitement cardiotoxique
-  </label>
-
+<label>
+  <input type="checkbox" name="cardiotoxicite">
+  ATCD de cancer avec traitement cardiotoxique
+</label>
+    
   <!-- BPCO -->
   <label>
     <input type="checkbox" id="bpco_checkbox">
