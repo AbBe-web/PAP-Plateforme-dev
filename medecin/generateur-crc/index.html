@@ -1280,21 +1280,12 @@ if (apEnvisagee) {
         
 function updateNiveauButtons(mode){
 
-  console.log("updateNiveauButtons appelé avec :", mode); // ✅ AJOUT 1
-
   const tres = document.getElementById("niveau_tres_actif").closest("label");
   const actif = document.getElementById("niveau_actif").closest("label");
   const moyen = document.getElementById("niveau_moyen").closest("label");
   const inactif = document.getElementById("niveau_inactif").closest("label");
 
-  console.log("Avant modification :", { // ✅ AJOUT 2
-    tres: tres.style.display,
-    actif: actif.style.display,
-    moyen: moyen.style.display,
-    inactif: inactif.style.display
-  });
-            
-if(mode === "clinique"){
+          if(mode === "clinique"){
 
   tres.style.setProperty("display", "", "important");
   actif.style.setProperty("display", "", "important");
@@ -1320,12 +1311,6 @@ if(mode === "marshall"){
   inactif.style.setProperty("display", "", "important");
 
 }
-  console.log("Après modification :", { // ✅ AJOUT 3
-    tres: tres.style.display,
-    actif: actif.style.display,
-    moyen: moyen.style.display,
-    inactif: inactif.style.display
-  });
 }
 
  window.copyPatientComment = function(id){
@@ -1513,7 +1498,6 @@ function initHandicap() {
         function initActivitePhysique() {
 
   const questionnaireRadios = document.querySelectorAll('input[name="questionnaire"]');
-            console.log("nombre radios questionnaire :", questionnaireRadios.length);
   const niveauRadios = document.querySelectorAll('input[name="niveau_actuel"]');
   const apRadios = document.querySelectorAll('input[name="ap_envisagee"]');
 
@@ -1558,8 +1542,6 @@ function initHandicap() {
 questionnaireRadios.forEach(radio => {
   radio.addEventListener("change", function(){
 
-    console.log("QUESTIONNAIRE CHANGÉ :", this.value);
-
     const mode = this.value === "GPAQ"
       ? "gpaq"
       : this.value === "Marshall"
@@ -1598,8 +1580,6 @@ questionnaireRadios.forEach(radio => {
 
   // 🔥 INIT ÉTAT
 resetMotivation();
-
-console.log("INIT ACTIVITE PHYSIQUE TERMINÉE"); // ✅ ICI EXACTEMENT
 
 } 
         
@@ -1743,8 +1723,6 @@ initSymptomes();
 initBPCO();
 initHandicap();
 initActivitePhysique();
-
-console.log("APPEL CLINIQUE AU DEMARRAGE"); // ✅ ICI EXACTEMENT
 
 updateNiveauButtons("clinique");
 });
