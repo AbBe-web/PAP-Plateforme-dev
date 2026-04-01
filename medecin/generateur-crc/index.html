@@ -1581,6 +1581,11 @@ if (warningClosed) return;
     
 // ===== INIT GLOBAL =====
 initIMC();
+initAge();
+initGrossesse();
+initSymptomes();
+initBPCO();
+initHandicap();
 
 });
     
@@ -1594,119 +1599,6 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
-
-// ==========================
-// GROSSESSE (affichage si femme)
-// ==========================
-const sexeRadios = document.querySelectorAll('input[name="sexe"]');
-const grossesseContainer = document.getElementById("grossesse_container");
-
-sexeRadios.forEach(radio => {
-  radio.addEventListener("change", function(){
-
-    if (this.value === "femme") {
-      grossesseContainer.style.display = "block";
-    } else {
-      grossesseContainer.style.display = "none";
-
-      document.getElementById("grossesse_checkbox").checked = false;
-      document.getElementById("grossesse_block").style.display = "none";
-
-      document.querySelectorAll('input[name="grossesse_comorbidite"], input[name="grossesse_complication"]')
-        .forEach(r => r.checked = false);
-    }
-
-  });
-});
-
-// Sous-bloc grossesse
-const grossesseCheckbox = document.getElementById("grossesse_checkbox");
-const grossesseBlock = document.getElementById("grossesse_block");
-
-if (grossesseCheckbox) {
-  grossesseCheckbox.addEventListener("change", function(){
-    grossesseBlock.style.display = this.checked ? "block" : "none";
-  });
-}
-// 🔥 INITIALISATION AU CHARGEMENT (IMPORTANT)
-
-const selectedSexe = document.querySelector('input[name="sexe"]:checked');
-
-if (!selectedSexe || selectedSexe.value === "femme") {
-  grossesseContainer.style.display = "block";
-} else {
-  grossesseContainer.style.display = "none";
-}
-
-        
-// ==========================
-// SYMPTÔMES (alerte)
-// ==========================
-const symptomesCheckbox = document.getElementById("symptomes_checkbox");
-const symptomesAlert = document.getElementById("symptomes_alert");
-
-if (symptomesCheckbox) {
-  symptomesCheckbox.addEventListener("change", function(){
-    symptomesAlert.style.display = this.checked ? "block" : "none";
-  });
-}
-
-// ==========================
-// BPCO
-// ==========================
-const bpcoCheckbox = document.getElementById("bpco_checkbox");
-const bpcoBlock = document.getElementById("bpco_block");
-
-if (bpcoCheckbox) {
-  bpcoCheckbox.addEventListener("change", function(){
-    bpcoBlock.style.display = this.checked ? "block" : "none";
-  });
-}
-
-const bpcoSevere = document.getElementById("bpco_severe");
-const bpcoSevereBlock = document.getElementById("bpco_severe_block");
-
-if (bpcoSevere) {
-  bpcoSevere.addEventListener("change", function(){
-    bpcoSevereBlock.style.display = this.checked ? "block" : "none";
-  });
-}
-
-// ==========================
-// HANDICAP
-// ==========================
-const handicapCheckbox = document.getElementById("handicap_checkbox");
-const handicapBlock = document.getElementById("handicap_block");
-
-if (handicapCheckbox) {
-  handicapCheckbox.addEventListener("change", function(){
-    handicapBlock.style.display = this.checked ? "block" : "none";
-  });
-}
-
-
-
-      
-// ==========================
-// ALERTE SYMPTÔMES ⚠️
-// ==========================
-
-const symptomesRadio = document.getElementById("symptomes_radio");
-const symptomesAlert = document.getElementById("symptomes_alert");
-
-const situationRadios = document.querySelectorAll('input[name="situation"]');
-
-situationRadios.forEach(radio => {
-  radio.addEventListener("change", function(){
-
-    if (symptomesRadio.checked) {
-      symptomesAlert.classList.remove("hidden");
-    } else {
-      symptomesAlert.classList.add("hidden");
-    }
-
-  });
-});
 
 // ==========================
 // QUESTIONNAIRE
