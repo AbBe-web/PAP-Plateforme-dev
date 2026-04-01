@@ -459,29 +459,136 @@ Importer fichier JSON
 
 <div class="form-group">
 
-  <h2>2/ La personne adressée est dans une des situations suivantes (page 3) :</h2>
-               <label>
-  <input type="radio" name="situation" value="symptomes" id="symptomes_radio">
-  Elle a des symptômes de maladie CV, respiratoire, métabolique et rénale décompensée
-</label>
+  <h2>2/ Contexte médical et situations particulières</h2>
 
-<div id="symptomes_alert" class="hidden" style="
-  margin-top:8px;
-  padding:10px;
-  background:#fff4e5;
-  border-left:4px solid #f59e0b;
-  border-radius:6px;
-  font-size:0.9rem;
-">
-  ⚠️ Situation nécessitant une prise en charge médicale préalable.  
-  L’outil d’aide à la prescription d’activité physique peut ne pas être adapté dans ce contexte.
+  <!-- ========================= -->
+  <!-- 🔹 SITUATIONS SPÉCIFIQUES -->
+  <!-- ========================= -->
+
+  <div style="margin-bottom:8px;">
+    <strong>Situations spécifiques</strong>
+  </div>
+
+  <!-- Grossesse (conditionnelle) -->
+  <div id="grossesse_container" style="display:none; margin-bottom:10px;">
+
+    <label>
+      <input type="checkbox" id="grossesse_checkbox">
+      Grossesse en cours
+    </label>
+
+    <div id="grossesse_block" style="display:none; margin-left:15px;">
+
+      <label>
+        <input type="checkbox" name="grossesse_comorbidite">
+        Comorbidité associée
+      </label>
+
+      <label>
+        <input type="checkbox" name="grossesse_complication">
+        Complication obstétricale
+      </label>
+
+    </div>
+
+  </div>
+
+  <hr style="margin:10px 0;">
+
+  <!-- ========================= -->
+  <!-- 🔹 SITUATIONS CLINIQUES -->
+  <!-- ========================= -->
+
+  <!-- Symptômes -->
+  <label>
+    <input type="checkbox" id="symptomes_checkbox">
+    Symptômes de maladie CV, respiratoire, métabolique ou rénale décompensée
+  </label>
+
+  <div id="symptomes_alert" style="
+    display:none;
+    margin-top:6px;
+    padding:8px;
+    background:#fff4e5;
+    border-left:4px solid #f59e0b;
+    border-radius:6px;
+    font-size:0.9rem;
+  ">
+    ⚠️ Situation nécessitant une prise en charge médicale préalable.
+  </div>
+
+  <!-- ATCD CV -->
+  <label>
+    <input type="checkbox" name="atcd_cv">
+    ATCD cardiovasculaire personnel (hors HTA équilibrée)
+  </label>
+
+  <label>
+    <input type="checkbox" name="atcd_familial_cv">
+    ≤ 35 ans + ATCD familial CV héréditaire / mort subite < 50 ans
+  </label>
+
+  <label>
+    <input type="checkbox" name="cardiotoxicite">
+    ATCD de cancer avec traitement cardiotoxique
+  </label>
+
+  <!-- BPCO -->
+  <label>
+    <input type="checkbox" id="bpco_checkbox">
+    Maladie respiratoire chronique
+  </label>
+
+  <div id="bpco_block" style="display:none; margin-left:15px;">
+
+    <label>
+      <input type="checkbox" name="efr_ok">
+      EFR < 1 an
+    </label>
+
+    <label>
+      <input type="checkbox" id="bpco_severe">
+      Stade sévère
+    </label>
+
+    <div id="bpco_severe_block" style="display:none; margin-left:15px;">
+      <label>
+        <input type="checkbox" name="test_marche_ok">
+        Test de marche avec SpO₂ < 1 an
+      </label>
+    </div>
+
+  </div>
+
+  <!-- Handicap -->
+  <label>
+    <input type="checkbox" id="handicap_checkbox">
+    Situation de handicap
+  </label>
+
+  <div id="handicap_block" style="display:none; margin-left:15px;">
+    <label>
+      <input type="checkbox" name="avis_specialise_ok">
+      Avis spécialisé / CMAP < 1 an
+    </label>
+  </div>
+
+  <!-- Risque MSK -->
+  <label>
+    <input type="checkbox" name="risque_msk">
+    Risque de blessure musculosquelettique ou cutanée
+  </label>
+
+  <!-- Biologie -->
+  <label>
+    <input type="checkbox" name="bio_ok">
+    Bilan biologique (lipides + créatinine) < 1 an
+  </label>
+
 </div>
-                <label><input type="radio" name="situation" value="limitations"> Elle présente des limitations ou CI à l’AP (tableau 7-9)</label>
-                <label><input type="radio" name="situation" value="situations_particulieres"> Elle est dans une des situations particulières (situation 3)</label>
-                <label><input type="radio" name="situation" value="aucune"> Votre patient n’est dans aucune de ces situations</label>
-            </div>
+    
             <div class="form-group">
-                <h2>2/ Évaluation de l’Activité Physique (niveau actuel et visé, motivation)</h2>
+                <h2>3/ Évaluation de l’Activité Physique (niveau actuel et visé, motivation)</h2>
                 <div class="sub-group">
 <h3 id="niveau-actuel-title">Niveau actuel (mesuré par 
 <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>, 
@@ -588,14 +695,14 @@ Pas d’AP envisagée dans les 6 mois
  </div>
 
 <div class="form-group">
-    <h2>3/ Évaluation du RCV (tableau 3) :</h2>
+    <h2>4/ Évaluation du RCV (tableau 3) :</h2>
     <label><input type="radio" name="rcv" value="faible"> Faible</label>
     <label><input type="radio" name="rcv" value="modere"> Modéré</label>
     <label><input type="radio" name="rcv" value="eleve_tres_eleve"> Élevé/très élevé</label>
 </div>
 
 <div class="form-group">
-    <h2>4/ Évaluation motivationnelle (complément) :</h2>
+    <h2>5/ Évaluation motivationnelle (complément) :</h2>
     <div class="sub-group">
         <h3 class="black-text">La personne adressée présente les <u>freins</u> suivants :</h3>
         <textarea name="freins"></textarea>
@@ -663,27 +770,27 @@ Pas d’AP envisagée dans les 6 mois
 
 
 <div class="form-group">
-    <h2>5/ Une consultation Médicale d’AP est préconisée :</h2>
+    <h2>6/ Une consultation Médicale d’AP est préconisée :</h2>
     <label><input type="radio" name="consultation_ap" value="oui"> Oui</label>
     <label><input type="radio" name="consultation_ap" value="non"> Non</label>
     <label><input type="radio" name="consultation_ap" value="peut_etre"> Peut être proposée</label>
 </div>
 
 <div class="form-group">
-    <h2>6/ Une épreuve d’effort est préconisée :</h2>
+    <h2>7/ Une épreuve d’effort est préconisée :</h2>
     <label><input type="radio" name="epreuve_effort" value="oui"> Oui</label>
     <label><input type="radio" name="epreuve_effort" value="non"> Non</label>
     <label><input type="radio" name="epreuve_effort" value="peut_etre"> Peut être proposée</label>
 </div>
 
 <div class="form-group">
-    <h2>7/ Les objectifs principaux en termes d’activité physique sont :</h2>
+    <h2>8/ Les objectifs principaux en termes d’activité physique sont :</h2>
     <textarea name="objectifs_ap"></textarea>
 </div>
 
         
 <div class="form-group">
-<h2>8/ Je lui ai remis :</h2>
+<h2>9/ Je lui ai remis :</h2>
 
 <!-- ================= AEROBIE ================= -->
 <div class="sub-group">
@@ -1344,7 +1451,84 @@ document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 
+// ==========================
+// GROSSESSE (affichage si femme)
+// ==========================
+const sexeRadios = document.querySelectorAll('input[name="sexe"]');
+const grossesseContainer = document.getElementById("grossesse_container");
 
+sexeRadios.forEach(radio => {
+  radio.addEventListener("change", function(){
+
+    if (this.value === "femme") {
+      grossesseContainer.style.display = "block";
+    } else {
+      grossesseContainer.style.display = "none";
+
+      document.getElementById("grossesse_checkbox").checked = false;
+      document.getElementById("grossesse_block").style.display = "none";
+
+      document.querySelectorAll('input[name="grossesse_comorbidite"], input[name="grossesse_complication"]')
+        .forEach(r => r.checked = false);
+    }
+
+  });
+});
+
+// Sous-bloc grossesse
+const grossesseCheckbox = document.getElementById("grossesse_checkbox");
+const grossesseBlock = document.getElementById("grossesse_block");
+
+if (grossesseCheckbox) {
+  grossesseCheckbox.addEventListener("change", function(){
+    grossesseBlock.style.display = this.checked ? "block" : "none";
+  });
+}
+
+// ==========================
+// SYMPTÔMES (alerte)
+// ==========================
+const symptomesCheckbox = document.getElementById("symptomes_checkbox");
+const symptomesAlert = document.getElementById("symptomes_alert");
+
+if (symptomesCheckbox) {
+  symptomesCheckbox.addEventListener("change", function(){
+    symptomesAlert.style.display = this.checked ? "block" : "none";
+  });
+}
+
+// ==========================
+// BPCO
+// ==========================
+const bpcoCheckbox = document.getElementById("bpco_checkbox");
+const bpcoBlock = document.getElementById("bpco_block");
+
+if (bpcoCheckbox) {
+  bpcoCheckbox.addEventListener("change", function(){
+    bpcoBlock.style.display = this.checked ? "block" : "none";
+  });
+}
+
+const bpcoSevere = document.getElementById("bpco_severe");
+const bpcoSevereBlock = document.getElementById("bpco_severe_block");
+
+if (bpcoSevere) {
+  bpcoSevere.addEventListener("change", function(){
+    bpcoSevereBlock.style.display = this.checked ? "block" : "none";
+  });
+}
+
+// ==========================
+// HANDICAP
+// ==========================
+const handicapCheckbox = document.getElementById("handicap_checkbox");
+const handicapBlock = document.getElementById("handicap_block");
+
+if (handicapCheckbox) {
+  handicapCheckbox.addEventListener("change", function(){
+    handicapBlock.style.display = this.checked ? "block" : "none";
+  });
+}
 // ==========================
 // AGE (fallback intelligent)
 // ==========================
