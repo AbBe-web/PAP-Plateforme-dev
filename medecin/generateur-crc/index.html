@@ -270,28 +270,8 @@ button {
   display: block;
   margin-bottom: 6px;
 }
-
-/* ✅ exception pour garder input sur la même ligne */
-.form-group label input {
-  display: inline-block;
-  margin-left: 8px;
-}
-
-    /* 🔥 CORRECTION FORCÉE : champs inline heures + pas */
 .form-group label input[type="number"] {
-  display: inline-block;
-  width: auto;
-  margin-left: 8px;
-  vertical-align: middle;
-}
-/* 🔥 FIX FINAL PROPRE */
-.crc-page input[name="heures_assises"],
-.crc-page input[name="nombre_pas"] {
-  width: auto !important;
-  display: inline-block !important;
-  margin-left: 8px;
-  margin-top: 0 !important;   /* 🔥 LE POINT CLÉ */
-  vertical-align: middle;
+  margin-top: 4px;
 }
     
 </style>
@@ -728,13 +708,14 @@ Pas d’AP envisagée dans les 6 mois
         Statut de sédentarité non recherché
     </label>
 </div>
-<label style="display:inline;">
+<label>
   Nombre moyen d’heures assises par jour :
-  <input type="number" name="heures_assises">
+  <input type="number" name="heures_assises" placeholder="Ex : 8">
 </label>
-<label style="display:inline;">
+
+<label>
   Nombre de pas par jour sur le dernier mois :
-  <input type="number" name="nombre_pas" min="0" placeholder="Ex : 7500">
+  <input type="number" name="nombre_pas" placeholder="Ex : 7500">
 </label>
 
                 </div>
