@@ -407,70 +407,57 @@ Importer fichier JSON
 
 <form id="consultationForm">
     
-            <div class="form-group">
-                <div class="form-group">
+                  <div class="form-group">
+
   <h2>1/ Données générales</h2>
 
-  <label>
-    <input type="radio" name="sexe" value="femme">
-    Femme
-  </label>
+  <div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center;">
 
-  <label>
-    <input type="radio" name="sexe" value="homme">
-    Homme
-  </label>
+    <!-- Sexe -->
+    <div>
+      <label>
+        <input type="radio" name="sexe" value="femme"> Femme
+      </label>
+      <label>
+        <input type="radio" name="sexe" value="homme"> Homme
+      </label>
+    </div>
 
-</div>
-              <br>
+    <!-- Âge -->
+    <div>
+      <input type="number" id="age_input" placeholder="Âge" style="width:80px;">
+    </div>
 
-<label>
-  Âge :
-  <input type="number" id="age_input" min="0" max="120" placeholder="Ex : 68">
-</label>
+    <!-- Fallback âge -->
+    <div id="age_fallback" style="display:none; font-size:0.8rem;">
+      <label><input type="radio" name="age_condition" value="<65"> &lt;65</label>
+      <label><input type="radio" name="age_condition" value=">=65"> ≥65</label>
+    </div>
 
-<div id="age_fallback" style="margin-top:8px; display:none;">
-  <span>Si âge non renseigné :</span><br>
+    <!-- Taille -->
+    <div>
+      <input type="number" id="taille_input" placeholder="Taille (cm)" style="width:110px;">
+    </div>
 
-  <label>
-    <input type="radio" name="age_condition" value="<65">
-    Âge &lt; 65 ans
-  </label>
+    <!-- Poids -->
+    <div>
+      <input type="number" id="poids_input" placeholder="Poids (kg)" style="width:110px;">
+    </div>
 
-  <label>
-    <input type="radio" name="age_condition" value=">=65">
-    Âge ≥ 65 ans
-  </label>
-</div>
-         <br>
+    <!-- IMC -->
+    <div id="imc_result" style="font-size:0.9rem;"></div>
 
-<label>
-  Taille (cm) :
-  <input type="number" id="taille_input" min="100" max="250" placeholder="Ex : 170">
-</label>
+    <!-- Fallback IMC -->
+    <div id="imc_fallback" style="display:none; font-size:0.8rem;">
+      <label><input type="radio" name="imc_condition" value="<35"> ≤35</label>
+      <label><input type="radio" name="imc_condition" value=">=35"> ≥35</label>
+    </div>
 
-<label>
-  Poids (kg) :
-  <input type="number" id="poids_input" min="30" max="250" placeholder="Ex : 70">
-</label>
+  </div>
 
-<div id="imc_result" style="margin-top:8px;"></div>
-
-<div id="imc_fallback" style="margin-top:8px; display:none;">
-  <span>Si taille/poids non renseignés :</span><br>
-
-  <label>
-    <input type="radio" name="imc_condition" value="<35">
-    IMC ≤ 35 kg/m²
-  </label>
-
-  <label>
-    <input type="radio" name="imc_condition" value=">=35">
-    IMC ≥ 35 kg/m²
-  </label>
 </div>
                 
-                <h2>1/ La personne adressée est dans une des situations suivantes (page 3) :</h2>
+                <h2>2/ La personne adressée est dans une des situations suivantes (page 3) :</h2>
                <label>
   <input type="radio" name="situation" value="symptomes" id="symptomes_radio">
   Elle a des symptômes de maladie CV, respiratoire, métabolique et rénale décompensée
