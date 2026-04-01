@@ -424,9 +424,10 @@ Importer fichier JSON
     </div>
 
     <!-- Âge -->
-    <div>
-      <input type="number" id="age_input" placeholder="Âge" style="width:80px;">
-    </div>
+   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+  <span>Âge</span>
+  <input type="number" id="age_input" style="width:80px;">
+</div>
 
     <!-- Fallback âge -->
     <div id="age_fallback" style="display:none; font-size:0.8rem;">
@@ -435,14 +436,16 @@ Importer fichier JSON
     </div>
 
     <!-- Taille -->
-    <div>
-      <input type="number" id="taille_input" placeholder="Taille (cm)" style="width:110px;">
-    </div>
+   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+  <span>Taille (cm)</span>
+  <input type="number" id="taille_input" style="width:110px;">
+</div>
 
     <!-- Poids -->
-    <div>
-      <input type="number" id="poids_input" placeholder="Poids (kg)" style="width:110px;">
-    </div>
+   <div style="display:flex; flex-direction:column; font-size:0.8rem;">
+  <span>Poids (kg)</span>
+  <input type="number" id="poids_input" style="width:110px;">
+</div>
 
     <!-- IMC -->
     <div id="imc_result" style="font-size:0.9rem;"></div>
@@ -1488,7 +1491,16 @@ if (grossesseCheckbox) {
     grossesseBlock.style.display = this.checked ? "block" : "none";
   });
 }
+// 🔥 INITIALISATION AU CHARGEMENT (IMPORTANT)
 
+const selectedSexe = document.querySelector('input[name="sexe"]:checked');
+
+if (!selectedSexe || selectedSexe.value === "femme") {
+  grossesseContainer.style.display = "block";
+} else {
+  grossesseContainer.style.display = "none";
+}
+        
 // ==========================
 // SYMPTÔMES (alerte)
 // ==========================
@@ -1533,48 +1545,47 @@ if (handicapCheckbox) {
     handicapBlock.style.display = this.checked ? "block" : "none";
   });
 }
+
+ // ==========================
+// AGE + ATCD FAMILIAL
 // ==========================
-// AGE (fallback + ATCD familial)
-// ==========================
 
-document.addEventListener("DOMContentLoaded", function () {
+const ageInput = document.getElementById("age_input");
+const ageFallback = document.getElementById("age_fallback");
+const atcdFamilialBlock = document.getElementById("atcd_familial_block");
 
-  const ageInput = document.getElementById("age_input");
-  const ageFallback = document.getElementById("age_fallback");
-  const atcdFamilialBlock = document.getElementById("atcd_familial_block");
+function updateAgeUI() {
 
-  function updateAgeUI() {
+  if (!ageInput || !atcdFamilialBlock) return;
 
-    const value = ageInput.value;
-    const age = parseInt(value);
+  const value = ageInput.value;
+  const age = parseInt(value);
 
-    // 🔹 gestion fallback âge
-    if (value === "" || value === null) {
-      ageFallback.style.display = "block";
-    } else {
-      ageFallback.style.display = "none";
-
-      document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
-    }
-
-    // 🔹 gestion ATCD familial
-    if (!value || age <= 35) {
-      atcdFamilialBlock.style.display = "block";
-    } else {
-      atcdFamilialBlock.style.display = "none";
-
-      // reset checkbox
-      document.querySelectorAll('input[name="atcd_familial_cv"]').forEach(r => r.checked = false);
-    }
-
+  // fallback âge
+  if (!value) {
+    ageFallback.style.display = "block";
+  } else {
+    ageFallback.style.display = "none";
+    document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
   }
 
-  if (ageInput) {
-    ageInput.addEventListener("input", updateAgeUI);
-    updateAgeUI(); // init au chargement
+  // ATCD familial
+  if (!value || age <= 35) {
+    atcdFamilialBlock.style.display = "block";
+  } else {
+    atcdFamilialBlock.style.display = "none";
+    document.querySelectorAll('input[name="atcd_familial_cv"]').forEach(r => r.checked = false);
   }
+}
 
-});
+// écoute
+if (ageInput) {
+  ageInput.addEventListener("input", updateAgeUI);
+}
+
+// 🔥 INITIALISATION
+updateAgeUI();
+        
 // ==========================
 // ALERTE SYMPTÔMES ⚠️
 // ==========================
