@@ -273,6 +273,25 @@ button {
   margin-bottom: 6px;
 }
     
+/* =========================
+   CHAMPS VERTICAUX (AP)
+========================= */
+
+.vertical-field {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+}
+
+.vertical-field label {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.vertical-field input {
+  max-width: 120px;
+}
+
 </style>
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
@@ -706,15 +725,14 @@ Pas d’AP envisagée dans les 6 mois
         <input type="radio" name="sedentaire" value="non_recherche">
         Statut de sédentarité non recherché
     </label>
-</div>
-                    <label>
-  Nombre moyen d’heures assises par jour :
+</div><div class="vertical-field">
+  <label>Nombre moyen d’heures assises par jour :</label>
   <input type="number" name="heures_assises" min="0" max="24" placeholder="Ex : 8">
-</label>
-<label>
-  Nombre de pas par jour sur le dernier mois :
+</div>
+<div class="vertical-field">
+  <label>Nombre de pas par jour sur le dernier mois :</label>
   <input type="number" name="nombre_pas" min="0" placeholder="Ex : 7500">
-</label>
+</div>
 
                 </div>
                 <div class="sub-group">
