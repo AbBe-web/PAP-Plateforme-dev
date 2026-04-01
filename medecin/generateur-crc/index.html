@@ -273,19 +273,24 @@ button {
 .form-group label input[type="number"] {
   margin-top: 4px;
 }
-/* 🔥 CORRECTION FINALE : champs AP en vertical */
-.crc-page input[name="heures_assises"],
-.crc-page input[name="nombre_pas"] {
-  display: block !important;
-  width: 100% !important;
-  margin-top: 6px;
+
+/* 🔥 FIX DÉFINITIF champs AP */
+.form-group label:has(input[name="heures_assises"]),
+.form-group label:has(input[name="nombre_pas"]) {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
 }
 
-.crc-page label:has(input[name="heures_assises"]),
-.crc-page label:has(input[name="nombre_pas"]) {
-  display: block !important;
-}    
+.form-group input[name="heures_assises"],
+.form-group input[name="nombre_pas"] {
+  width: 100%;
+  max-width: 180px;
+  margin-top: 4px;
+}
+    
 </style>
+    
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
  </head>
