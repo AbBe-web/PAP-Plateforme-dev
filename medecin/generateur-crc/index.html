@@ -2087,12 +2087,14 @@ function runHAS(model){
   const p = model.patient;
 
   // 🔹 Raccourcis
-  const niveauVise = evalData.niveau_vise;
+const niveauVise = document.querySelector('input[name="niveau_vise"]:checked')?.value;
   const niveauActuel = evalData.classification;
   const rcv = evalData.rcv;
 
   const age = parseInt(document.getElementById("age_input")?.value) || null;
-  const imc = parseFloat(document.getElementById("imc_result")?.innerText) || null;
+const imcText = document.getElementById("imc_result")?.innerText || "";
+const imcMatch = imcText.match(/IMC : ([0-9.]+)/);
+const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
 
   const handicap = document.getElementById("handicap_checkbox")?.checked;
   const bpco = document.getElementById("bpco_checkbox")?.checked;
@@ -2120,9 +2122,14 @@ function runHAS(model){
   }
 
   if (
-    niveauVise === "eleve" &&
-    (rcv !== "faible" || cardiotox || (age && age >= 65))
-  ) {
+  niveauVise === "eleve" &&
+  (
+    rcv === "modere" ||
+    rcv === "eleve_tres_eleve" ||
+    cardiotox ||
+    (age && age >= 65)
+  )
+) {
     cmapReco.push("preconisee");
   }
 
