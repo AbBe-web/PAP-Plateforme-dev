@@ -1273,26 +1273,30 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
   }
 
   // 🔹 AP ENVISAGÉE
-  if (apEnvisagee) {
-    const r = document.querySelector(
-      `input[name="ap_envisagee"][value="${apEnvisagee}"]`
-    );
+if (apEnvisagee) {
 
-    if (r) {
-      r.checked = true;
+  // 🔥 AJOUT CRITIQUE → afficher bloc inactif
+  document.getElementById('inactif-subgroup').style.display = "";
 
-      if (apEnvisagee === "non") {
-        document.getElementById('sixmois-subgroup').style.display = "";
+  const r = document.querySelector(
+    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+  );
 
-        if (ap6Mois) {
-          const r6 = document.querySelector(
-            `input[name="ap_6_mois"][value="${ap6Mois}"]`
-          );
-          if (r6) r6.checked = true;
-        }
+  if (r) {
+    r.checked = true;
+
+    if (apEnvisagee === "non") {
+      document.getElementById('sixmois-subgroup').style.display = "";
+
+      if (ap6Mois) {
+        const r6 = document.querySelector(
+          `input[name="ap_6_mois"][value="${ap6Mois}"]`
+        );
+        if (r6) r6.checked = true;
       }
     }
   }
+}
 }
 
     
