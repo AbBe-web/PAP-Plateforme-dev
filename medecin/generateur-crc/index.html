@@ -1018,10 +1018,32 @@ if (window.matchMedia("(max-width: 768px)").matches) {
         let lastPrenom = "";
         let lastNom = "";
             
+function resetFormulaireComplet() {
 
+  // 🔹 reset radios / checkbox
+  document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => {
+    el.checked = false;
+  });
+
+  // 🔹 reset inputs texte / number
+  document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
+    el.value = "";
+  });
+
+  // 🔹 reset motivation UI (important)
+  document.querySelectorAll('#actif-subgroup, #inactif-subgroup, #sixmois-subgroup')
+    .forEach(el => el.style.display = "none");
+
+}
             
-      function importPatientJSON(jsonText) {
-          isImporting = true;
+function importPatientJSON(jsonText) {
+
+  isImporting = true;
+
+  // 🔥 AJOUT CRITIQUE
+  resetFormulaireComplet();
+
+  console.log("IMPORT JSON APPELE");
       console.log("IMPORT JSON APPELE");
       console.log("JSON reçu :", jsonText);
       let data;
@@ -1126,10 +1148,8 @@ if (niveau) {
       r.checked = false;
     }
   });
-// forcer affichage complet avant motivation
-setTimeout(() => {
-  appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois);
-}, 50);
+// 🔥 appliquer motivation APRÈS mise à jour UI
+appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois);    
 }
   
  if (pas !== undefined && pas !== null) {
@@ -1215,7 +1235,8 @@ if (confBlock && confField) {
   }
 
 }
-          
+    
+alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");          
 setTimeout(() => {
   isImporting = false;
 }, 100); 
@@ -1226,58 +1247,52 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("Application motivation après affichage UI");
 
+  // 🔥 RESET COMPLET
+  document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+
+  document.getElementById('actif-subgroup').style.display = "none";
+  document.getElementById('inactif-subgroup').style.display = "none";
+  document.getElementById('sixmois-subgroup').style.display = "none";
+
   // 🔒 GARDE-FOU
   if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
     return;
   }
 
+  // 🔹 ACTIF
   if (actifDepuis) {
-
-  const r = document.querySelector(
-    `input[name="actif_depuis"][value="${actifDepuis}"]`
-  );
-
-if (r) {
-
-  r.click();
-
-  setTimeout(() => {
-    
-    const block = document.getElementById("actif-subgroup");
-  
-  }, 100);
-
-}
-
-}
-
-if (apEnvisagee) {
-
-  const r = document.querySelector(
-    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
-  );
-
-  if (r) {
-
-    r.click();
-
-    // 🔥 gestion spécifique du cas "non" → affichage bloc 6 mois
-    if (apEnvisagee === "non" && ap6Mois) {
-
-      setTimeout(() => {
-
-        const r6 = document.querySelector(
-          `input[name="ap_6_mois"][value="${ap6Mois}"]`
-        );
-
-        if (r6) {
-          r6.click();
-        }
-
-      }, 80);
+    const r = document.querySelector(
+      `input[name="actif_depuis"][value="${actifDepuis}"]`
+    );
+    if (r) {
+      r.checked = true;
+      document.getElementById('actif-subgroup').style.display = "";
     }
   }
-}
+
+  // 🔹 AP ENVISAGÉE
+  if (apEnvisagee) {
+    const r = document.querySelector(
+      `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+    );
+
+    if (r) {
+      r.checked = true;
+
+      if (apEnvisagee === "non") {
+        document.getElementById('sixmois-subgroup').style.display = "";
+
+        if (ap6Mois) {
+          const r6 = document.querySelector(
+            `input[name="ap_6_mois"][value="${ap6Mois}"]`
+          );
+          if (r6) r6.checked = true;
+        }
+      }
+    }
+  }
 }
         
 function updateNiveauButtons(mode){
@@ -1538,7 +1553,17 @@ function initHandicap() {
     }
   }
 
-  function updateAP(value) {
+ function updateAP(value) {
+
+  if (isImporting) return; // 🔥 AJOUT
+
+  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+  sixMoisBlock.style.display = "none";
+
+  if (value === "non") {
+    sixMoisBlock.style.display = "block";
+  }
+}
 
     document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
     sixMoisBlock.style.display = "none";
@@ -1748,24 +1773,6 @@ document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 
-// ==========================
-// QUESTIONNAIRE
-// ==========================
-
-
-
-// ==========================
-// NIVEAU ACTIVITÉ
-// ==========================
-
-// ==========================
-// AP ENVISAGÉE
-// ==========================
-
-
-// ==========================
-// MODAL + BOUTONS
-// ==========================
 document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
   const prenom = formatName(document.getElementById("modalPrenom").value);
