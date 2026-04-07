@@ -1918,8 +1918,11 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
   lastPrenom = prenom;
   lastNom = nom;
 
-  closeIdentityModal();
+closeIdentityModal();
+
+setTimeout(() => {
   proceedWithAction(prenom, nom);
+}, 50);
 
 });
 
@@ -2562,33 +2565,45 @@ if (activeMode === "medical" || activeMode === "patient") {
 
 }
 
-  if (identityAction === "print") {
+if (identityAction === "print") {
 
-    const win = window.open('', '', 'width=800,height=600');
+  const win = window.open('', '_blank');
 
-    win.document.write(`
-      <html>
-        <head>
-          <title>Impression</title>
-          <style>
-            body { font-family: Arial; margin: 15mm; }
-          </style>
-        </head>
-        <body>
-          ${content}
-        </body>
-      </html>
-    `);
-
-    win.document.close();
-    win.focus();
-
-    setTimeout(() => {
-      win.print();
-      win.close();
-    }, 300);
-
+  if (!win) {
+    alert("Popup bloquée par le navigateur");
+    return;
   }
+
+  win.document.write(`
+    <html>
+      <head>
+        <title>Impression</title>
+        <style>
+          body { font-family: Arial; margin: 15mm; }
+        </style>
+      </head>
+      <body>
+        ${content}
+      </body>
+    </html>
+  `);
+
+  win.document.close();
+
+  // 🔥 IMPORTANT : attendre chargement réel
+  win.onload = () => {
+    win.focus();
+    win.print();
+
+    // 🔥 laisser le navigateur gérer fermeture
+    setTimeout(() => {
+      try { win.close(); } catch(e){}
+    }, 500);
+  };
+
+  // 🔥 RESET état (IMPORTANT)
+  identityAction = null;
+}
 
   if (identityAction === "copy") {
 
