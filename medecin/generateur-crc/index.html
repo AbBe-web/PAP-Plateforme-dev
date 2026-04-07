@@ -1902,6 +1902,18 @@ if (refreshBtn) {
   refreshBtn.addEventListener("click", updateHAS);
 }
 updateNiveauButtons("clinique");
+
+// 🔥 FIX PRINT BUTTON (À AJOUTER ICI)
+const printBtn = document.getElementById("printReport");
+
+if (printBtn) {
+  printBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    openIdentityModal("print");
+  });
+}
+
 });
     
 
@@ -1939,14 +1951,6 @@ const generateBtn = document.getElementById('generateReport');
 if (generateBtn) {
   generateBtn.addEventListener("click", handleGenerate);
 }
-
-document.querySelectorAll('#printReport').forEach(btn => {
-  btn.addEventListener("click", function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    openIdentityModal("print");
-  });
-});
 
 const copyBtn = document.getElementById('copyReport');
 if (copyBtn) {
