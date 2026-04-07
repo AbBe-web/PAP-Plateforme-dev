@@ -2099,73 +2099,94 @@ const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
   const atcdFamilial = document.querySelector('input[name="atcd_familial_cv"]')?.checked;
   const cardiotox = document.querySelector('input[name="cardiotoxicite"]')?.checked;
 
-  const cancer = false; // ⚠️ à brancher si champ ajouté
+const cancer = document.querySelector('input[name="cancer"]:checked')?.value === "oui";
   const msk = document.querySelector('input[name="risque_msk"]')?.checked;
 
   const bioOk = document.querySelector('input[name="bio_ok"]')?.checked;
   const efrOk = document.querySelector('input[name="efr_ok"]')?.checked;
   const testMarcheOk = document.querySelector('input[name="test_marche_ok"]')?.checked;
 
-  // =========================
-  // 1️⃣ CMAP
-  // =========================
+// =========================
+// 1️⃣ CMAP — VERSION CLEAN SÉCURISÉE
+// =========================
 
-  let cmapReco = [];
+let cmapReco = [];
 
-    // 🔥 NOUVELLE RÈGLE ATCD CV (PRIORITAIRE)
+// 🔹 RÈGLES PRIORITAIRES
+
+// Handicap
+if (handicap) {
+  cmapReco.push("prioritaire_handicap");
+}
+
+// Cancer
+if (cancer) {
+  cmapReco.push("preconisee");
+}
+
+// Risque MSK
+if (msk) {
+  cmapReco.push("preconisee");
+}
+
+// 🔹 AP INTENSE — RÈGLE MAJEURE HAS
 if (
   niveauVise === "eleve" &&
-  (atcdCV || atcdFamilial)
+  (
+    rcv !== "faible" ||
+    cardiotox ||
+    (age && age >= 65) ||
+    atcdCV
+  )
 ) {
   cmapReco.push("preconisee");
 }
-    
-  if (handicap) {
-    cmapReco.push("prioritaire_handicap");
-  }
 
-  if (
-  niveauVise === "eleve" &&
+// 🔹 IMC ≥ 35 + AP intense
+if (niveauVise === "eleve" && imc >= 35) {
+  cmapReco.push("proposable");
+}
+
+// 🔹 AP modérée + inactif + haut risque
+if (
+  niveauVise === "modere" &&
+  niveauActuel === "inactif" &&
   (
-    rcv === "modere" ||
     rcv === "eleve_tres_eleve" ||
     cardiotox ||
-    (age && age >= 65)
+    (age && age >= 70)
   )
 ) {
-    cmapReco.push("preconisee");
-  }
+  cmapReco.push("proposable");
+}
 
-  if (niveauVise === "eleve" && imc >= 35) {
-    cmapReco.push("proposable");
-  }
+// 🔹 BPCO (info complémentaire, non prioritaire)
+if (bpco && (niveauVise === "modere" || niveauVise === "eleve")) {
+  cmapReco.push("pneumo");
+}
 
-  if (
-    niveauVise === "modere" &&
-    niveauActuel === "inactif" &&
-    (rcv === "eleve_tres_eleve" || cardiotox || (age && age >= 70))
-  ) {
-    cmapReco.push("proposable");
-  }
+// =========================
+// 🔥 PRIORISATION FINALE
+// =========================
 
-  if (bpco && (niveauVise === "modere" || niveauVise === "eleve")) {
-    cmapReco.push("pneumo");
-  }
+if (cmapReco.includes("prioritaire_handicap")) {
 
-  if (msk) {
-    cmapReco.push("preconisee");
-  }
+  reco.cmap.push("Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.");
 
-  // 🔥 PRIORISATION
-  if (cmapReco.includes("prioritaire_handicap")) {
-    reco.cmap.push("Une consultation médicale d’activité physique est préconisée et un avis spécialisé peut se justifier.");
-  } else if (cmapReco.includes("preconisee")) {
-    reco.cmap.push("Une consultation médicale d’activité physique est préconisée.");
-  } else if (cmapReco.includes("proposable")) {
-    reco.cmap.push("Une consultation médicale d’activité physique peut être proposée.");
-  } else {
-    reco.cmap.push("Une consultation médicale d’activité physique n’est pas recommandée.");
-  }
+} else if (cmapReco.includes("preconisee")) {
+
+  reco.cmap.push("Une consultation médicale d’activité physique est préconisée.");
+
+} else if (cmapReco.includes("proposable")) {
+
+  reco.cmap.push("Une consultation médicale d’activité physique peut être proposée.");
+
+} else {
+
+  // 🔐 CAS NON PRÉVU = NON RECOMMANDÉE (sécurité)
+  reco.cmap.push("Une consultation médicale d’activité physique n’est pas recommandée.");
+
+}
 
   // =========================
   // 2️⃣ CARDIO
