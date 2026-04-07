@@ -1784,10 +1784,26 @@ function updateHAS(){
   const ageInput = document.getElementById("age_input");
   const age = parseInt(ageInput?.value);
 
-  // 🔴 BLOQUANT SI ÂGE MANQUANT
-  if (!age) {
+  const rcv = document.querySelector('input[name="rcv"]:checked')?.value;
 
-    const container = document.getElementById("hasContent");
+  const container = document.getElementById("hasContent");
+
+  // 🔹 ÉTAT 1 : RIEN REMPLI → message neutre
+  if (!age && !rcv) {
+
+    if (container) {
+      container.innerHTML = `
+        <div style="font-size:0.9rem; color:#666;">
+        Remplissez les informations pour afficher les recommandations.
+        </div>
+      `;
+    }
+
+    return;
+  }
+
+  // 🔴 ÉTAT 2 : âge manquant
+  if (!age) {
 
     if (container) {
       container.innerHTML = `
@@ -1804,10 +1820,31 @@ function updateHAS(){
       `;
     }
 
-    return; // 🔥 STOP moteur
+    return;
   }
 
-  // ✅ sinon fonctionnement normal
+  // 🔴 ÉTAT 3 : RCV manquant
+  if (!rcv) {
+
+    if (container) {
+      container.innerHTML = `
+        <div style="
+          padding:10px;
+          border-left:4px solid #f59e0b;
+          background:#fff4e5;
+          border-radius:6px;
+          font-size:0.9rem;
+        ">
+        ⚠️ Merci de renseigner le niveau de risque cardiovasculaire (RCV).<br><br>
+        Cela est nécessaire pour afficher les recommandations du guide HAS.
+        </div>
+      `;
+    }
+
+    return;
+  }
+
+  // ✅ ÉTAT 4 : OK → moteur normal
   const model = buildClinicalModel();
   const reco = runHAS(model);
   displayHASRecommendations(reco);
