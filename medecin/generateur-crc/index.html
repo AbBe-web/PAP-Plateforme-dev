@@ -1811,18 +1811,18 @@ function updateHAS(){
   rcvRadios.forEach(r => clearHighlight(r.closest("label")));
 
   // 🔹 ÉTAT 1 : RIEN REMPLI
-  if (!age && !rcv) {
+ if (!age && !rcv) {
 
-    if (container) {
-      container.innerHTML = `
-        <div style="font-size:0.9rem; color:#666;">
-        Remplissez les informations pour afficher les recommandations.
-        </div>
-      `;
-    }
-
-    return;
+  if (container) {
+    container.innerHTML = `
+      <div style="font-size:0.9rem; color:#666;">
+      Remplissez l'âge et le risque cardiovasculaire pour afficher les recommandations.
+      </div>
+    `;
   }
+
+  return;
+}
 
   // 🔴 ÉTAT 2 : âge manquant
   if (!age) {
@@ -1884,6 +1884,11 @@ document.getElementById("hasBlock").scrollIntoView({
 // écoute changements
 document.querySelectorAll('input, textarea').forEach(el => {
   el.addEventListener("change", updateHAS);
+  el.addEventListener("input", updateHAS); // 🔥 AJOUT
+});
+
+document.querySelectorAll('input[type="radio"]').forEach(el => {
+  el.addEventListener("click", updateHAS); // 🔥 SÉCURITÉ RADIO
 });
 
 // bouton manuel
