@@ -308,6 +308,13 @@ button {
   gap: 4px;
 }  
     
+ .has-missing {
+  outline: 2px solid #f59e0b;
+  border-radius: 6px;
+  background: #fff7ed;
+  transition: all 0.2s ease;
+}   
+    
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -1778,17 +1785,32 @@ initBPCO();
 initHandicap();
 initActivitePhysique();
 
+function highlightMissing(el){
+  if (!el) return;
+  el.classList.add("has-missing");
+}
+
+function clearHighlight(el){
+  if (!el) return;
+  el.classList.remove("has-missing");
+}
+    
 // 🔥 AUTO UPDATE HAS
 function updateHAS(){
 
   const ageInput = document.getElementById("age_input");
   const age = parseInt(ageInput?.value);
 
+  const rcvRadios = document.querySelectorAll('input[name="rcv"]');
   const rcv = document.querySelector('input[name="rcv"]:checked')?.value;
 
   const container = document.getElementById("hasContent");
 
-  // 🔹 ÉTAT 1 : RIEN REMPLI → message neutre
+  // 🔹 RESET visuel (AJOUT)
+  clearHighlight(ageInput);
+  rcvRadios.forEach(r => clearHighlight(r.closest("label")));
+
+  // 🔹 ÉTAT 1 : RIEN REMPLI
   if (!age && !rcv) {
 
     if (container) {
@@ -1804,6 +1826,8 @@ function updateHAS(){
 
   // 🔴 ÉTAT 2 : âge manquant
   if (!age) {
+
+    highlightMissing(ageInput); // ✅ AJOUT
 
     if (container) {
       container.innerHTML = `
@@ -1826,6 +1850,8 @@ function updateHAS(){
   // 🔴 ÉTAT 3 : RCV manquant
   if (!rcv) {
 
+    rcvRadios.forEach(r => highlightMissing(r.closest("label"))); // ✅ AJOUT
+
     if (container) {
       container.innerHTML = `
         <div style="
@@ -1844,7 +1870,7 @@ function updateHAS(){
     return;
   }
 
-  // ✅ ÉTAT 4 : OK → moteur normal
+  // ✅ OK
   const model = buildClinicalModel();
   const reco = runHAS(model);
   displayHASRecommendations(reco);
