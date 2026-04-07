@@ -32,7 +32,12 @@
 .modal.hidden {
   display: none;
 }
-
+    
+.modal,
+.modal * {
+  pointer-events: auto !important;
+}
+    
 .modal-content {
   background: white;
   padding: 24px;
@@ -2481,8 +2486,16 @@ function openIdentityModal(action) {
 
   document.getElementById("modalPrenom").value = lastPrenom || "";
   document.getElementById("modalNom").value = lastNom || "";
-
+    
+// 🔥 RESET éventuel overlay fantôme
+document.body.style.pointerEvents = "auto";
+    
   document.getElementById("identityModal").classList.remove("hidden");
+
+  // 🔥 FIX FOCUS
+  setTimeout(() => {
+    document.getElementById("modalPrenom")?.focus();
+  }, 50);
 }
 
 function closeIdentityModal() {
@@ -2591,15 +2604,19 @@ if (identityAction === "print") {
   win.document.close();
 
   // 🔥 IMPORTANT : attendre chargement réel
-  win.onload = () => {
-    win.focus();
-    win.print();
+ win.onload = () => {
+  win.focus();
+  win.print();
 
-    // 🔥 laisser le navigateur gérer fermeture
-    setTimeout(() => {
-      try { win.close(); } catch(e){}
-    }, 500);
-  };
+  setTimeout(() => {
+    try { win.close(); } catch(e){}
+
+    // 🔥 RESET FOCUS GLOBAL
+    window.focus();
+    document.body.focus();
+
+  }, 500);
+};
 
   // 🔥 RESET état (IMPORTANT)
   identityAction = null;
@@ -3265,6 +3282,9 @@ function closeIOSWarning() {
 
   const details = btn.closest("details");
 
+ function closeDetails(btn) {
+  const details = btn.closest("details");
+
   if (details) {
     details.removeAttribute("open");
 
@@ -3272,9 +3292,15 @@ function closeIOSWarning() {
       details.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   }
-
 }
-            
+
+// 🔥 TEST GLOBAL CLICK (à ajouter ici)
+document.addEventListener("click", () => {
+  console.log("GLOBAL CLICK");
+});
+            document.getElementById("confirmPrint")?.addEventListener("click", () => {
+  console.log("CONFIRM CLICK");
+});
             </script>
     
     <div id="identityModal" class="modal hidden">
