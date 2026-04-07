@@ -1407,13 +1407,8 @@ function updateAgeUI() {
     document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
   }
 
-  // ATCD familial
-  if (!value || age <= 35) {
-    atcdFamilialBlock.style.display = "block";
-  } else {
-    atcdFamilialBlock.style.display = "none";
-    document.querySelectorAll('input[name="atcd_familial_cv"]').forEach(r => r.checked = false);
-  }
+// 🔥 ATCD familial toujours visible
+atcdFamilialBlock.style.display = "block";
 }
 
 // écoute
@@ -2117,6 +2112,14 @@ const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
 
   let cmapReco = [];
 
+    // 🔥 NOUVELLE RÈGLE ATCD CV (PRIORITAIRE)
+if (
+  niveauVise === "eleve" &&
+  (atcdCV || atcdFamilial)
+) {
+  cmapReco.push("preconisee");
+}
+    
   if (handicap) {
     cmapReco.push("prioritaire_handicap");
   }
