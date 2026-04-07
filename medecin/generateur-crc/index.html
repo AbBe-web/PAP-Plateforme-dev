@@ -1927,9 +1927,8 @@ if (generateBtn) {
   generateBtn.addEventListener("click", handleGenerate);
 }
 
-const printBtn = document.getElementById('printReport');
-if (printBtn) {
-  printBtn.addEventListener("click", function(e){
+document.querySelectorAll('#printReport').forEach(btn => {
+  btn.addEventListener("click", function(e){
     e.preventDefault();
     e.stopPropagation();
     openIdentityModal("print");
@@ -2235,8 +2234,7 @@ if (
   (
     rcv !== "faible" ||
     cardiotox ||
-    (age && age >= 65) ||
-    atcdCV
+    (age && age >= 65)
   )
 ) {
   cmapReco.push("preconisee");
@@ -2319,27 +2317,28 @@ if (cmapReco.includes("prioritaire_handicap")) {
   if (niveauVise === "modere" && rcv !== "faible") {
     effortReco.push("non_preconise");
   }
+if (niveauVise === "eleve") {
 
-  if (niveauVise === "eleve") {
+  if (atcdFamilial) {
+    effortReco.push("indique");
+  } 
 
-    if (atcdFamilial) {
-      effortReco.push("indique");
-    } else {
+  else {
 
-      if (niveauActuel === "inactif") {
-        if (rcv === "faible") effortReco.push("non_preconise");
-        if (rcv === "modere") effortReco.push("possible");
-        if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
-      }
-
-      if (niveauActuel === "actif") {
-        if (rcv === "faible") effortReco.push("non");
-        if (rcv === "modere") effortReco.push("non_preconise");
-        if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
-      }
-
+    if (niveauActuel === "inactif") {
+      if (rcv === "faible") effortReco.push("non_preconise");
+      if (rcv === "modere") effortReco.push("possible");
+      if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
     }
+
+    if (niveauActuel === "actif") {
+      if (rcv === "faible") effortReco.push("non");
+      if (rcv === "modere") effortReco.push("non_preconise");
+      if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
+    }
+
   }
+}
 
   // 🔥 PRIORISATION
   if (effortReco.includes("recommande")) {
