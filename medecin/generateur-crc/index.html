@@ -581,7 +581,7 @@ Importer fichier JSON
 <div id="atcd_familial_block" style="display:none;">
   <label>
     <input type="checkbox" name="atcd_familial_cv">
-    Âge ≤ 35 ans ET ATCD familial de maladie CV héréditaire
+    ATCD familial de maladie CV héréditaire
     ou mort subite < 50 ans (1er degré)
   </label>
 </div>
@@ -1780,11 +1780,44 @@ initActivitePhysique();
 
 // 🔥 AUTO UPDATE HAS
 function updateHAS(){
+
+  const ageInput = document.getElementById("age_input");
+  const age = parseInt(ageInput?.value);
+
+  // 🔴 BLOQUANT SI ÂGE MANQUANT
+  if (!age) {
+
+    const container = document.getElementById("hasContent");
+
+    if (container) {
+      container.innerHTML = `
+        <div style="
+          padding:10px;
+          border-left:4px solid #f59e0b;
+          background:#fff4e5;
+          border-radius:6px;
+          font-size:0.9rem;
+        ">
+        ⚠️ Merci d'indiquer l'âge de votre patient.e.<br><br>
+        Cela est nécessaire pour afficher les recommandations du guide HAS.
+        </div>
+      `;
+    }
+
+    return; // 🔥 STOP moteur
+  }
+
+  // ✅ sinon fonctionnement normal
   const model = buildClinicalModel();
   const reco = runHAS(model);
   displayHASRecommendations(reco);
 }
-
+    
+document.getElementById("hasBlock").scrollIntoView({
+  behavior: "smooth",
+  block: "center"
+});
+    
 // écoute changements
 document.querySelectorAll('input, textarea').forEach(el => {
   el.addEventListener("change", updateHAS);
