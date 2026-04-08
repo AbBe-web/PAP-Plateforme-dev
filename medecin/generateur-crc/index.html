@@ -1977,17 +1977,6 @@ if (refreshBtn) {
 
 updateNiveauButtons("clinique");
 
-// 🔥 FIX PRINT BUTTON
-const printBtn = document.getElementById("printReport");
-
-if (printBtn) {
-  printBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    openIdentityModal("print");
-  });
-}
-
 // 🔥 FIX MODALE PRINT
 document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
