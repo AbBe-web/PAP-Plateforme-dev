@@ -2010,7 +2010,13 @@ preview.textContent = (formatted && formatted !== value)
 
 function openIdentityModal(action) {
   identityAction = action;
+    
+const confirmBtn = document.getElementById("confirmPrint");
 
+if (confirmBtn) {
+  confirmBtn.textContent = action === "copy" ? "Copier" : "Imprimer";
+}
+    
   document.getElementById("modalPrenom").value = lastPrenom || "";
   document.getElementById("modalNom").value = lastNom || "";
     
@@ -2842,17 +2848,19 @@ function initHASListeners() {
 }
 function initActionButtons() {
 
-  document.getElementById("confirmPrint")?.addEventListener("click", function() {
+document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
-    const prenom = formatName(document.getElementById("modalPrenom").value);
-    const nom = formatName(document.getElementById("modalNom").value);
+  const prenom = formatName(document.getElementById("modalPrenom").value);
+  const nom = formatName(document.getElementById("modalNom").value);
 
-    lastPrenom = prenom;
-    lastNom = nom;
+  lastPrenom = prenom;
+  lastNom = nom;
 
-    closeIdentityModal();
+  closeIdentityModal();
 
-    setTimeout(() => {
+  setTimeout(() => {
+
+    if (identityAction === "print") {
 
       const win = window.open('', '_blank');
 
@@ -2863,9 +2871,15 @@ function initActionButtons() {
 
       proceedWithAction(prenom, nom, win);
 
-    }, 150);
+    } else {
 
-  });
+      proceedWithAction(prenom, nom);
+
+    }
+
+  }, 150);
+
+});
 
   document.getElementById("cancelPrint")?.addEventListener("click", function() {
     closeIdentityModal();
