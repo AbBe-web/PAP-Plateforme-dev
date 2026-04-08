@@ -1934,16 +1934,20 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
   lastPrenom = prenom;
   lastNom = nom;
 
-  const win = window.open('', '_blank');
-
-  if (!win) {
-    alert("Popup bloquée par le navigateur");
-    return;
-  }
-
   closeIdentityModal();
 
-  proceedWithAction(prenom, nom, win);
+  setTimeout(() => {
+
+    const win = window.open('', '_blank');
+
+    if (!win) {
+      alert("Popup bloquée par le navigateur");
+      return;
+    }
+
+    proceedWithAction(prenom, nom, win);
+
+  }, 150);
 
 });
 
