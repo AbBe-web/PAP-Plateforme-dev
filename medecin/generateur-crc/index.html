@@ -1722,10 +1722,310 @@ if (container) {
 }
 }
 
+/* =====================================
+6. GENERATION CRC / RENDU =============
+===================================== */
+function handleGenerate(e) {
+
+  e.preventDefault();
+  e.stopPropagation();
+
+    if (document.activeElement) {
+    document.activeElement.blur();
+  }
+
+  requestAnimationFrame(() => {
+clinicalModel = buildClinicalModel();
+
+    activeMode = "long";
+
+    document.getElementById("formatTabs").classList.remove("hidden");
+    document.getElementById("reportOutput").classList.remove("hidden");
+    document.getElementById("generateReport").classList.add("hidden");
+
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+
+    renderActiveMode();
+
+  }, 40);
+}
+
+      function renderLongLetterV2(model) {
+
+  const p = model.patient;
+          
+  const inputDate = document.querySelector('input[name="date_courrier"]')?.value;
+
+  const today = inputDate
+    ? new Date(inputDate).toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      })
+    : new Date().toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+          
+  const salutations =
+    model.meta.destinataire === "consoeur" ? "Chère consœur," :
+    model.meta.destinataire === "confrere" ? "Cher confrère," :
+    "Madame, Monsieur,";
+
+  const titre = p.sexe === "femme" ? "Madame" : "Monsieur";
+
+  const evaluationBloc = buildEvaluationAP(model);
+  const motivationBloc = buildMotivation(model);
+  const rcvBloc = buildRCV(model);
+  const prescriptionBloc = buildPrescription(model);
+ 
+  return `
+<p style="text-align:right;">Le ${today}</p>
+
+<p>${salutations}</p>
+
+<p>
+Merci de m’avoir adressé ${titre} _____ en consultation d’activité physique.
+</p>
+
+<p>
+${evaluationBloc}
+</p>
+
+<p>
+${motivationBloc}
+</p>
+
+<p>
+${rcvBloc}
+</p>
+
+<p>
+Les objectifs de cette prescription d’activité physique sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
+</p>
+
+<p>
+${prescriptionBloc}
+</p>
+
+<p>
+J’espère que cette consultation l’aidera à augmenter son niveau d’activité physique en toute sécurité et à en tirer des bénéfices perceptibles à court et moyen terme.
+Je me tiens à votre disposition pour toute précision complémentaire.
+</p>
+
+<p>Bien confraternellement.</p>
+`;
+}     
+            function renderParagraphVersion(model) {
+
+  const p = model.patient;
+  const titre = p.sexe === "femme" ? "Madame" : "Monsieur";
+  const participe = p.sexe === "femme" ? "vue" : "vu";
+                
+  const evaluationBloc = buildEvaluationAP(model);
+  const motivationBloc = buildMotivation(model);
+  const rcvBloc = buildRCV(model);
+  const prescriptionBloc = buildPrescription(model);
+
+  return `
+<p>
+${titre} _____ a été ${participe} en consultation d’activité physique.
+${evaluationBloc}
+${motivationBloc}
+${rcvBloc}
+Les objectifs principaux sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
+${prescriptionBloc}
+</p>
+`;
+}
+            function renderMedicalRecord(model) {
+
+  const evaluationBloc = buildEvaluationAP(model);
+  const motivationBloc = buildMotivation(model);
+  const rcvBloc = buildRCV(model);
+  const prescriptionBloc = buildPrescription(model);
+
+  return `
+<p style="margin-bottom:28px;">
+<p><strong>Consultation d’activité physique – Synthèse</strong></p>
+
+<p><strong>Motif :</strong><br>
+Consultation d’activité physique sur adressage.</p>
+
+<p><strong>Évaluation de l’activité physique :</strong><br>
+${evaluationBloc}</p>
+
+<p><strong>Évaluation motivationnelle :</strong><br>
+${motivationBloc}</p>
+
+<p><strong>Risque cardiovasculaire global :</strong><br>
+${rcvBloc.replace("Le risque cardiovasculaire global est évalué comme ", "").replace(".", "")}</p>
+
+<p><strong>Objectifs :</strong><br>
+${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
+
+<p><strong>Prescription :</strong><br>
+${prescriptionBloc}</p>
+`;
+}
+         function renderPatientVersion(model) {
+
+  const evaluationBloc = buildEvaluationAP(model)
+    .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
+    .replace("au regard des recommandations actuelles", "par rapport aux recommandations de santé");
+
+ const motivationBloc = buildMotivationPatient(model);
+
+  const rcvBloc = buildRCV(model)
+    .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
+    .replace(".", "");
+
+  const prescriptionBloc = buildPrescription(model)
+    .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
+    .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
+    .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
+
+  // 🔹 Message progressivité seulement si insuffisamment actif ou actif depuis moins de 6 mois
+const progressiviteMessage = (() => {
+
+  if (model.evaluation.classification === "inactif") {
+    return `<p>
+Augmenter progressivement votre niveau d’activité physique est important à la fois pour votre motivation (afin que cela ne soit pas trop difficile), mais aussi pour votre cœur, vos articulations et vos tendons, afin qu’ils puissent s’adapter sans risque pour vous.
+</p>`;
+  }
+
+  if (model.motivation.stade === "action") {
+    return `<p>
+Bravo ! Vous avez réussi à être plus actif depuis plusieurs semaines ou mois. Continuez, vous êtes sur la bonne voie. 
+Augmenter progressivement votre niveau d’activité physique reste important pour votre motivation, mais aussi pour votre cœur, vos articulations et vos tendons, afin qu’ils puissent continuer à s’adapter en toute sécurité.
+</p>`;
+  }
+
+  return "";
+
+})();
+
+  return `
+<p style="margin-bottom:28px;">
+  <strong>Compte-rendu de votre consultation d’activité physique</strong>
+</p>
+
+<p>
+${evaluationBloc}
+</p>
+
+<p>
+${motivationBloc}
+</p>
+
+<p>
+${rcvBloc}.
+</p>
+
+<p>
+Lors de l’échange que vous avez eu avec votre médecin, l’objectif principal retenu en termes d’activité physique est :
+<strong>${model.therapeutic_plan.objectif_principal || "à définir progressivement ensemble"}</strong>.
+</p>
+
+<p>
+${prescriptionBloc}
+</p>
+
+<p>
+Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
+</p>
+
+${progressiviteMessage}
+
+<p>
+En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.
+Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercice :
+<a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf" target="_blank">
+les 10 règles d’or du Club des Cardiologues du Sport
+</a>.
+</p>
+
+<div style="margin-top:20px; text-align:center;">
+  <p><strong>Accès rapide :</strong></p>
+
+  <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+     target="_blank"
+     rel="noopener noreferrer">
+
+    <img 
+      src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+      alt="QR code - Règles d’or cardiologie du sport"
+      width="180"
+      height="180"
+      loading="lazy"
+      style="cursor:pointer;"
+    >
+
+  </a>
+</div>
+`;
+}
+           function renderActiveMode() {
+
+  if (!clinicalModel) return;
+savedScrollPosition = window.scrollY;
+  const container = document.getElementById("outputContainer");
+
+  let html = "";
+               
+const pdfBtn = document.getElementById("downloadPdf");
+               
+  switch (activeMode) {
+    case "long":
+      html = renderLongLetterV2(clinicalModel);
+      break;
+
+    case "paragraph":
+      html = renderParagraphVersion(clinicalModel);
+      break;
+
+    case "medical":
+      html = renderMedicalRecord(clinicalModel);
+      break;
+    case "patient":
+  html = renderPatientVersion(clinicalModel);
+  break;
+  }
+
+  container.classList.add("fade-out");
+               
+// Affiche bouton PDF uniquement en mode patient
+if (activeMode === "patient") {
+  pdfBtn.classList.remove("hidden");
+} else {
+  pdfBtn.classList.add("hidden");
+}
+ container.style.opacity = "0";
+container.innerHTML = html;
+container.style.opacity = "1";
+
+  container.classList.remove("fade-out");
+  container.classList.add("fade-in");
+               
+document.getElementById("formatTabs").scrollIntoView({
+  behavior: "auto",
+  block: "start"
+});
+
+}   
+
+
 
     
     
 
+
+
+
+
+    
     
 function resetFormulaireComplet() {
 
@@ -2527,35 +2827,7 @@ if (form) {
     e.preventDefault();
     e.stopPropagation();
   });
-}
-
-    
-function handleGenerate(e) {
-
-  e.preventDefault();
-  e.stopPropagation();
-
-    if (document.activeElement) {
-    document.activeElement.blur();
-  }
-
-  requestAnimationFrame(() => {
-clinicalModel = buildClinicalModel();
-
-    activeMode = "long";
-
-    document.getElementById("formatTabs").classList.remove("hidden");
-    document.getElementById("reportOutput").classList.remove("hidden");
-    document.getElementById("generateReport").classList.add("hidden");
-
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
-
-    renderActiveMode();
-
-  }, 40);
-}
-            
+}          
            
             document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", function () {
@@ -3005,274 +3277,7 @@ if (pr.fiches_promotion === "oui") {
 
   return phrases.join(" ");
 }
-
-      function renderLongLetterV2(model) {
-
-  const p = model.patient;
-          
-  const inputDate = document.querySelector('input[name="date_courrier"]')?.value;
-
-  const today = inputDate
-    ? new Date(inputDate).toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      })
-    : new Date().toLocaleDateString('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-          
-  const salutations =
-    model.meta.destinataire === "consoeur" ? "Chère consœur," :
-    model.meta.destinataire === "confrere" ? "Cher confrère," :
-    "Madame, Monsieur,";
-
-  const titre = p.sexe === "femme" ? "Madame" : "Monsieur";
-
-  const evaluationBloc = buildEvaluationAP(model);
-  const motivationBloc = buildMotivation(model);
-  const rcvBloc = buildRCV(model);
-  const prescriptionBloc = buildPrescription(model);
- 
-  return `
-<p style="text-align:right;">Le ${today}</p>
-
-<p>${salutations}</p>
-
-<p>
-Merci de m’avoir adressé ${titre} _____ en consultation d’activité physique.
-</p>
-
-<p>
-${evaluationBloc}
-</p>
-
-<p>
-${motivationBloc}
-</p>
-
-<p>
-${rcvBloc}
-</p>
-
-<p>
-Les objectifs de cette prescription d’activité physique sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
-</p>
-
-<p>
-${prescriptionBloc}
-</p>
-
-<p>
-J’espère que cette consultation l’aidera à augmenter son niveau d’activité physique en toute sécurité et à en tirer des bénéfices perceptibles à court et moyen terme.
-Je me tiens à votre disposition pour toute précision complémentaire.
-</p>
-
-<p>Bien confraternellement.</p>
-`;
-}     
-            function renderParagraphVersion(model) {
-
-  const p = model.patient;
-  const titre = p.sexe === "femme" ? "Madame" : "Monsieur";
-  const participe = p.sexe === "femme" ? "vue" : "vu";
-                
-  const evaluationBloc = buildEvaluationAP(model);
-  const motivationBloc = buildMotivation(model);
-  const rcvBloc = buildRCV(model);
-  const prescriptionBloc = buildPrescription(model);
-
-  return `
-<p>
-${titre} _____ a été ${participe} en consultation d’activité physique.
-${evaluationBloc}
-${motivationBloc}
-${rcvBloc}
-Les objectifs principaux sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
-${prescriptionBloc}
-</p>
-`;
-}
-            function renderMedicalRecord(model) {
-
-  const evaluationBloc = buildEvaluationAP(model);
-  const motivationBloc = buildMotivation(model);
-  const rcvBloc = buildRCV(model);
-  const prescriptionBloc = buildPrescription(model);
-
-  return `
-<p style="margin-bottom:28px;">
-<p><strong>Consultation d’activité physique – Synthèse</strong></p>
-
-<p><strong>Motif :</strong><br>
-Consultation d’activité physique sur adressage.</p>
-
-<p><strong>Évaluation de l’activité physique :</strong><br>
-${evaluationBloc}</p>
-
-<p><strong>Évaluation motivationnelle :</strong><br>
-${motivationBloc}</p>
-
-<p><strong>Risque cardiovasculaire global :</strong><br>
-${rcvBloc.replace("Le risque cardiovasculaire global est évalué comme ", "").replace(".", "")}</p>
-
-<p><strong>Objectifs :</strong><br>
-${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
-
-<p><strong>Prescription :</strong><br>
-${prescriptionBloc}</p>
-`;
-}
-         function renderPatientVersion(model) {
-
-  const evaluationBloc = buildEvaluationAP(model)
-    .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
-    .replace("au regard des recommandations actuelles", "par rapport aux recommandations de santé");
-
- const motivationBloc = buildMotivationPatient(model);
-
-  const rcvBloc = buildRCV(model)
-    .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
-    .replace(".", "");
-
-  const prescriptionBloc = buildPrescription(model)
-    .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
-    .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
-    .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
-
-  // 🔹 Message progressivité seulement si insuffisamment actif ou actif depuis moins de 6 mois
-const progressiviteMessage = (() => {
-
-  if (model.evaluation.classification === "inactif") {
-    return `<p>
-Augmenter progressivement votre niveau d’activité physique est important à la fois pour votre motivation (afin que cela ne soit pas trop difficile), mais aussi pour votre cœur, vos articulations et vos tendons, afin qu’ils puissent s’adapter sans risque pour vous.
-</p>`;
-  }
-
-  if (model.motivation.stade === "action") {
-    return `<p>
-Bravo ! Vous avez réussi à être plus actif depuis plusieurs semaines ou mois. Continuez, vous êtes sur la bonne voie. 
-Augmenter progressivement votre niveau d’activité physique reste important pour votre motivation, mais aussi pour votre cœur, vos articulations et vos tendons, afin qu’ils puissent continuer à s’adapter en toute sécurité.
-</p>`;
-  }
-
-  return "";
-
-})();
-
-  return `
-<p style="margin-bottom:28px;">
-  <strong>Compte-rendu de votre consultation d’activité physique</strong>
-</p>
-
-<p>
-${evaluationBloc}
-</p>
-
-<p>
-${motivationBloc}
-</p>
-
-<p>
-${rcvBloc}.
-</p>
-
-<p>
-Lors de l’échange que vous avez eu avec votre médecin, l’objectif principal retenu en termes d’activité physique est :
-<strong>${model.therapeutic_plan.objectif_principal || "à définir progressivement ensemble"}</strong>.
-</p>
-
-<p>
-${prescriptionBloc}
-</p>
-
-<p>
-Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
-</p>
-
-${progressiviteMessage}
-
-<p>
-En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.
-Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercice :
-<a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf" target="_blank">
-les 10 règles d’or du Club des Cardiologues du Sport
-</a>.
-</p>
-
-<div style="margin-top:20px; text-align:center;">
-  <p><strong>Accès rapide :</strong></p>
-
-  <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
-     target="_blank"
-     rel="noopener noreferrer">
-
-    <img 
-      src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
-      alt="QR code - Règles d’or cardiologie du sport"
-      width="180"
-      height="180"
-      loading="lazy"
-      style="cursor:pointer;"
-    >
-
-  </a>
-</div>
-`;
-}
-           function renderActiveMode() {
-
-  if (!clinicalModel) return;
-savedScrollPosition = window.scrollY;
-  const container = document.getElementById("outputContainer");
-
-  let html = "";
-               
-const pdfBtn = document.getElementById("downloadPdf");
-               
-  switch (activeMode) {
-    case "long":
-      html = renderLongLetterV2(clinicalModel);
-      break;
-
-    case "paragraph":
-      html = renderParagraphVersion(clinicalModel);
-      break;
-
-    case "medical":
-      html = renderMedicalRecord(clinicalModel);
-      break;
-    case "patient":
-  html = renderPatientVersion(clinicalModel);
-  break;
-  }
-
-  container.classList.add("fade-out");
-               
-// Affiche bouton PDF uniquement en mode patient
-if (activeMode === "patient") {
-  pdfBtn.classList.remove("hidden");
-} else {
-  pdfBtn.classList.add("hidden");
-}
- container.style.opacity = "0";
-container.innerHTML = html;
-container.style.opacity = "1";
-
-  container.classList.remove("fade-out");
-  container.classList.add("fade-in");
-               
-document.getElementById("formatTabs").scrollIntoView({
-  behavior: "auto",
-  block: "start"
-});
-
-}   
-
-
-    
+  
  function copyPatientLink() {
 
   const url = "https://zgqwa4.short.gy/auto-eval-ap";
