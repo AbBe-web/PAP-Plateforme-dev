@@ -2820,36 +2820,30 @@ function buildClinicalModel() {
 
   };
 }
-        
-document.addEventListener("DOMContentLoaded", function () {
 
- initUI();
- initImportExport();
-    
+function initIOSWarning() {
+
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
   const isFirefox = navigator.userAgent.includes("FxiOS");
   const isChrome = navigator.userAgent.includes("CriOS");
 
   const warning = document.getElementById("iosBrowserWarning");
 
-  // 🔒 déjà fermé → ne jamais réafficher
-let warningClosed = false;
+  let warningClosed = false;
 
-try {
-  warningClosed = localStorage.getItem("iosWarningClosed") === "true";
-} catch(e) {
-  warningClosed = false;
-}
+  try {
+    warningClosed = localStorage.getItem("iosWarningClosed") === "true";
+  } catch(e) {
+    warningClosed = false;
+  }
 
-  // 👉 condition cible
-  if (isIOS && (isFirefox || isChrome)) {
-
-  setTimeout(() => {
-    warning.classList.remove("hidden");
-  }, 800);
+  if (isIOS && (isFirefox || isChrome) && !warningClosed) {
+    setTimeout(() => {
+      warning.classList.remove("hidden");
+    }, 800);
+  }
 
 }
-
 function highlightMissing(el){
   if (!el) return;
   el.classList.add("has-missing");
@@ -2859,80 +2853,87 @@ function clearHighlight(el){
   if (!el) return;
   el.classList.remove("has-missing");
 }
-    
-   
-document.getElementById("hasBlock").scrollIntoView({
-  behavior: "smooth",
-  block: "center"
-});
-    
-// écoute changements
-document.querySelectorAll('input, textarea').forEach(el => {
-  el.addEventListener("change", updateHAS);
-  el.addEventListener("input", updateHAS); // 🔥 AJOUT
-});
 
-document.querySelectorAll('input[type="radio"]').forEach(el => {
-  el.addEventListener("click", updateHAS); // 🔥 SÉCURITÉ RADIO
-});
+function initHASListeners() {
 
-// bouton manuel
-const refreshBtn = document.getElementById("refreshHAS");
-if (refreshBtn) {
-  refreshBtn.addEventListener("click", updateHAS);
-}
-
-// 🔥 FIX MODALE PRINT
-document.getElementById("confirmPrint")?.addEventListener("click", function() {
-
-  const prenom = formatName(document.getElementById("modalPrenom").value);
-  const nom = formatName(document.getElementById("modalNom").value);
-
-  lastPrenom = prenom;
-  lastNom = nom;
-
-  closeIdentityModal();
-
-  setTimeout(() => {
-
-    const win = window.open('', '_blank');
-
-    if (!win) {
-      alert("Popup bloquée par le navigateur");
-      return;
-    }
-
-    proceedWithAction(prenom, nom, win);
-
-  }, 150);
-
-});
-
-document.getElementById("cancelPrint")?.addEventListener("click", function() {
-  closeIdentityModal();
-});
-const generateBtn = document.getElementById('generateReport');
-if (generateBtn) {
-  generateBtn.addEventListener("click", handleGenerate);
-}
-
-const printBtn = document.getElementById('printReport');
-if (printBtn) {
-  printBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    openIdentityModal("print");
+  document.querySelectorAll('input, textarea').forEach(el => {
+    el.addEventListener("change", updateHAS);
+    el.addEventListener("input", updateHAS);
   });
-}
 
-const copyBtn = document.getElementById('copyReport');
-if (copyBtn) {
-  copyBtn.addEventListener("click", function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    openIdentityModal("copy");
+  document.querySelectorAll('input[type="radio"]').forEach(el => {
+    el.addEventListener("click", updateHAS);
   });
+
+  const refreshBtn = document.getElementById("refreshHAS");
+
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", updateHAS);
+  }
+
 }
+function initActionButtons() {
+
+  document.getElementById("confirmPrint")?.addEventListener("click", function() {
+
+    const prenom = formatName(document.getElementById("modalPrenom").value);
+    const nom = formatName(document.getElementById("modalNom").value);
+
+    lastPrenom = prenom;
+    lastNom = nom;
+
+    closeIdentityModal();
+
+    setTimeout(() => {
+
+      const win = window.open('', '_blank');
+
+      if (!win) {
+        alert("Popup bloquée par le navigateur");
+        return;
+      }
+
+      proceedWithAction(prenom, nom, win);
+
+    }, 150);
+
+  });
+
+  document.getElementById("cancelPrint")?.addEventListener("click", function() {
+    closeIdentityModal();
+  });
+
+  const generateBtn = document.getElementById('generateReport');
+
+  if (generateBtn) {
+    generateBtn.addEventListener("click", handleGenerate);
+  }
+
+  const printBtn = document.getElementById('printReport');
+
+  if (printBtn) {
+    printBtn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      openIdentityModal("print");
+    });
+  }
+
+  const copyBtn = document.getElementById('copyReport');
+
+  if (copyBtn) {
+    copyBtn.addEventListener("click", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      openIdentityModal("copy");
+    });
+  }
+}
+    
+document.addEventListener("DOMContentLoaded", function () {
+
+ initUI();
+ initImportExport();
 });
             
 
