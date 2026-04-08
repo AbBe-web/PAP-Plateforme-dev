@@ -1935,11 +1935,9 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
   lastPrenom = prenom;
   lastNom = nom;
 
-closeIdentityModal();
+  closeIdentityModal();
 
-setTimeout(() => {
   proceedWithAction(prenom, nom);
-}, 50);
 
 });
 
