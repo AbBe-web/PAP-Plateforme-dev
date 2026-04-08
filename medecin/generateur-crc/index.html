@@ -1395,8 +1395,336 @@ alert("Données patient importées.\n\nVérifiez et complétez les champs avant 
     
 }
 
+/* =====================================
+5. LOGIQUE METIER HAS ==================
+===================================== */
+// 🔥 AUTO UPDATE HAS
+function updateHAS(){
+
+  const ageInput = document.getElementById("age_input");
+  const age = parseInt(ageInput?.value);
+
+  const rcvRadios = document.querySelectorAll('input[name="rcv"]');
+  const rcv = document.querySelector('input[name="rcv"]:checked')?.value;
+
+  const container = document.getElementById("hasContent");
+
+  // 🔹 RESET visuel (AJOUT)
+  clearHighlight(ageInput);
+  rcvRadios.forEach(r => clearHighlight(r.closest("label")));
+
+  // 🔹 ÉTAT 1 : RIEN REMPLI
+ if (!age && !rcv) {
+
+  if (container) {
+    container.innerHTML = `
+      <div style="font-size:0.9rem; color:#666;">
+      Remplissez l'âge et le risque cardiovasculaire pour afficher les recommandations.
+      </div>
+    `;
+  }
+
+  return;
+}
+
+  // 🔴 ÉTAT 2 : âge manquant
+  if (!age) {
+
+    highlightMissing(ageInput); // ✅ AJOUT
+
+    if (container) {
+      container.innerHTML = `
+        <div style="
+          padding:10px;
+          border-left:4px solid #f59e0b;
+          background:#fff4e5;
+          border-radius:6px;
+          font-size:0.9rem;
+        ">
+        ⚠️ Merci d'indiquer l'âge de votre patient.e.<br><br>
+        Cela est nécessaire pour afficher les recommandations du guide HAS.
+        </div>
+      `;
+    }
+
+    return;
+  }
+
+  // 🔴 ÉTAT 3 : RCV manquant
+  if (!rcv) {
+
+    rcvRadios.forEach(r => highlightMissing(r.closest("label"))); // ✅ AJOUT
+
+    if (container) {
+      container.innerHTML = `
+        <div style="
+          padding:10px;
+          border-left:4px solid #f59e0b;
+          background:#fff4e5;
+          border-radius:6px;
+          font-size:0.9rem;
+        ">
+        ⚠️ Merci de renseigner le niveau de risque cardiovasculaire (RCV).<br><br>
+        Cela est nécessaire pour afficher les recommandations du guide HAS.
+        </div>
+      `;
+    }
+
+    return;
+  }
+
+  // ✅ OK
+  const model = buildClinicalModel();
+  const reco = runHAS(model);
+  displayHASRecommendations(reco);
+}
+
+function runHAS(model){
+
+  const reco = {
+    cmap: [],
+    cardio: [],
+    effort: [],
+    bio: [],
+    pneumo: []
+  };
+
+  const evalData = model.evaluation;
+  const p = model.patient;
+
+  // 🔹 Raccourcis
+const niveauVise = document.querySelector('input[name="niveau_vise"]:checked')?.value;
+  const niveauActuel = evalData.classification;
+  const rcv = evalData.rcv;
+
+  const age = parseInt(document.getElementById("age_input")?.value) || null;
+const imcText = document.getElementById("imc_result")?.innerText || "";
+const imcMatch = imcText.match(/IMC : ([0-9.]+)/);
+const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
+
+  const handicap = document.getElementById("handicap_checkbox")?.checked;
+  const bpco = document.getElementById("bpco_checkbox")?.checked;
+  const bpcoSevere = document.getElementById("bpco_severe")?.checked;
+
+  const atcdCV = document.querySelector('input[name="atcd_cv"]')?.checked;
+  const atcdFamilial = document.querySelector('input[name="atcd_familial_cv"]')?.checked;
+  const cardiotox = document.querySelector('input[name="cardiotoxicite"]')?.checked;
+const cancer = document.getElementById("cancer_suivi_checkbox")?.checked;
+  const msk = document.querySelector('input[name="risque_msk"]')?.checked;
+
+  const bioOk = document.querySelector('input[name="bio_ok"]')?.checked;
+  const efrOk = document.querySelector('input[name="efr_ok"]')?.checked;
+  const testMarcheOk = document.querySelector('input[name="test_marche_ok"]')?.checked;
+
+// =========================
+// 1️⃣ CMAP — VERSION CLEAN SÉCURISÉE
+// =========================
+
+let cmapReco = [];
+
+// 🔹 RÈGLES PRIORITAIRES
+
+// Handicap
+if (handicap) {
+  cmapReco.push("prioritaire_handicap");
+}
+
+// Cancer
+if (cancer) {
+  cmapReco.push("preconisee");
+}
+
+// Risque MSK
+if (msk) {
+  cmapReco.push("preconisee");
+}
+
+// 🔹 AP INTENSE — RÈGLE MAJEURE HAS
+if (
+  niveauVise === "eleve" &&
+  (
+    rcv !== "faible" ||
+    cardiotox ||
+    (age && age >= 65)
+  )
+) {
+  cmapReco.push("preconisee");
+}
+
+// 🔹 IMC ≥ 35 + AP intense
+if (niveauVise === "eleve" && imc >= 35) {
+  cmapReco.push("proposable");
+}
+
+// 🔹 AP modérée + inactif + haut risque
+if (
+  niveauVise === "modere" &&
+  niveauActuel === "inactif" &&
+  (
+    rcv === "eleve_tres_eleve" ||
+    cardiotox ||
+    (age && age >= 70)
+  )
+) {
+  cmapReco.push("proposable");
+}
+
+// 🔹 BPCO (info complémentaire, non prioritaire)
+if (bpco && (niveauVise === "modere" || niveauVise === "eleve")) {
+  cmapReco.push("pneumo");
+}
+
+// =========================
+// 🔥 PRIORISATION FINALE
+// =========================
+
+if (cmapReco.includes("prioritaire_handicap")) {
+
+  reco.cmap.push("Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.");
+
+} else if (cmapReco.includes("preconisee")) {
+
+  reco.cmap.push("Une consultation médicale d’activité physique est préconisée.");
+
+} else if (cmapReco.includes("proposable")) {
+
+  reco.cmap.push("Une consultation médicale d’activité physique peut être proposée.");
+
+} else {
+
+  // 🔐 CAS NON PRÉVU = NON RECOMMANDÉE (sécurité)
+  reco.cmap.push("Une consultation médicale d’activité physique n’est pas recommandée.");
+
+}
+
+  // =========================
+  // 2️⃣ CARDIO
+  // =========================
+
+  if (
+    niveauVise === "eleve" &&
+    (
+      atcdCV ||
+      ((age && age <= 35) && atcdFamilial)
+    )
+  ) {
+    reco.cardio.push("Un avis cardiologique spécialisé et/ou un ECG sont recommandés.");
+  }
+
+  // =========================
+  // 3️⃣ ÉPREUVE D’EFFORT
+  // =========================
+
+  let effortReco = [];
+
+  if (niveauVise === "faible") {
+    effortReco.push("non");
+  }
+
+  if (niveauVise === "modere" && rcv === "faible") {
+    effortReco.push("non");
+  }
+
+  if (niveauVise === "modere" && rcv !== "faible") {
+    effortReco.push("non_preconise");
+  }
+if (niveauVise === "eleve") {
+
+  if (atcdFamilial) {
+    effortReco.push("indique");
+  } 
+
+  else {
+
+    if (niveauActuel === "inactif") {
+      if (rcv === "faible") effortReco.push("non_preconise");
+      if (rcv === "modere") effortReco.push("possible");
+      if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
+    }
+
+    if (niveauActuel === "actif") {
+      if (rcv === "faible") effortReco.push("non");
+      if (rcv === "modere") effortReco.push("non_preconise");
+      if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
+    }
+
+  }
+}
+
+  // 🔥 PRIORISATION
+  if (effortReco.includes("recommande")) {
+    reco.effort.push("Une épreuve d’effort est recommandée.");
+  } else if (effortReco.includes("indique")) {
+    reco.effort.push("Une épreuve d’effort est indiquée.");
+  } else if (effortReco.includes("possible")) {
+    reco.effort.push("Une épreuve d’effort peut être réalisée.");
+  } else if (effortReco.includes("non")) {
+    reco.effort.push("Une épreuve d’effort n’est pas recommandée.");
+  } else {
+    reco.effort.push("Une épreuve d’effort n’est pas préconisée.");
+  }
+
+  // =========================
+  // 4️⃣ BIO
+  // =========================
+
+  if (!bioOk && niveauVise !== "faible") {
+    reco.bio.push("Un bilan biologique (glycémie, bilan lipidique, créatininémie) peut se justifier.");
+  }
+
+  // =========================
+  // 5️⃣ BPCO
+  // =========================
+
+  if (bpco && !efrOk && niveauVise !== "faible") {
+    reco.pneumo.push("Un avis pneumologique et un contrôle des EFR peuvent se justifier.");
+  }
+
+  if (bpco && bpcoSevere && !testMarcheOk && niveauVise !== "faible") {
+    reco.pneumo.push("Un test de marche avec SpO₂ peut être indiqué (stade sévère).");
+  }
+
+  return reco;
+}
+
+function displayHASRecommendations(reco){
+
+  let html = `<div style="
+    margin-top:20px;
+    padding:12px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    background:#f9fafb;
+  ">
+  <strong>🧠 Suggestions (référentiel HAS)</strong><br><br>`;
+
+  const all = [
+    ...reco.cmap,
+    ...reco.cardio,
+    ...reco.effort,
+    ...reco.bio,
+    ...reco.pneumo
+  ];
+
+  if (all.length === 0) {
+    html += "Aucune recommandation spécifique.<br>";
+  } else {
+    all.forEach(r => {
+      html += `• ${r}<br>`;
+    });
+  }
+
+  html += `<br><em>Suggestion indicative (HAS)</em></div>`;
+
+const container = document.getElementById("hasContent");
+if (container) {
+  container.innerHTML = html;
+}
+}
 
 
+    
+    
 
     
 function resetFormulaireComplet() {
@@ -2116,87 +2444,7 @@ function clearHighlight(el){
   el.classList.remove("has-missing");
 }
     
-// 🔥 AUTO UPDATE HAS
-function updateHAS(){
-
-  const ageInput = document.getElementById("age_input");
-  const age = parseInt(ageInput?.value);
-
-  const rcvRadios = document.querySelectorAll('input[name="rcv"]');
-  const rcv = document.querySelector('input[name="rcv"]:checked')?.value;
-
-  const container = document.getElementById("hasContent");
-
-  // 🔹 RESET visuel (AJOUT)
-  clearHighlight(ageInput);
-  rcvRadios.forEach(r => clearHighlight(r.closest("label")));
-
-  // 🔹 ÉTAT 1 : RIEN REMPLI
- if (!age && !rcv) {
-
-  if (container) {
-    container.innerHTML = `
-      <div style="font-size:0.9rem; color:#666;">
-      Remplissez l'âge et le risque cardiovasculaire pour afficher les recommandations.
-      </div>
-    `;
-  }
-
-  return;
-}
-
-  // 🔴 ÉTAT 2 : âge manquant
-  if (!age) {
-
-    highlightMissing(ageInput); // ✅ AJOUT
-
-    if (container) {
-      container.innerHTML = `
-        <div style="
-          padding:10px;
-          border-left:4px solid #f59e0b;
-          background:#fff4e5;
-          border-radius:6px;
-          font-size:0.9rem;
-        ">
-        ⚠️ Merci d'indiquer l'âge de votre patient.e.<br><br>
-        Cela est nécessaire pour afficher les recommandations du guide HAS.
-        </div>
-      `;
-    }
-
-    return;
-  }
-
-  // 🔴 ÉTAT 3 : RCV manquant
-  if (!rcv) {
-
-    rcvRadios.forEach(r => highlightMissing(r.closest("label"))); // ✅ AJOUT
-
-    if (container) {
-      container.innerHTML = `
-        <div style="
-          padding:10px;
-          border-left:4px solid #f59e0b;
-          background:#fff4e5;
-          border-radius:6px;
-          font-size:0.9rem;
-        ">
-        ⚠️ Merci de renseigner le niveau de risque cardiovasculaire (RCV).<br><br>
-        Cela est nécessaire pour afficher les recommandations du guide HAS.
-        </div>
-      `;
-    }
-
-    return;
-  }
-
-  // ✅ OK
-  const model = buildClinicalModel();
-  const reco = runHAS(model);
-  displayHASRecommendations(reco);
-}
-    
+   
 document.getElementById("hasBlock").scrollIntoView({
   behavior: "smooth",
   block: "center"
@@ -2281,213 +2529,6 @@ if (form) {
   });
 }
 
-function runHAS(model){
-
-  const reco = {
-    cmap: [],
-    cardio: [],
-    effort: [],
-    bio: [],
-    pneumo: []
-  };
-
-  const evalData = model.evaluation;
-  const p = model.patient;
-
-  // 🔹 Raccourcis
-const niveauVise = document.querySelector('input[name="niveau_vise"]:checked')?.value;
-  const niveauActuel = evalData.classification;
-  const rcv = evalData.rcv;
-
-  const age = parseInt(document.getElementById("age_input")?.value) || null;
-const imcText = document.getElementById("imc_result")?.innerText || "";
-const imcMatch = imcText.match(/IMC : ([0-9.]+)/);
-const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
-
-  const handicap = document.getElementById("handicap_checkbox")?.checked;
-  const bpco = document.getElementById("bpco_checkbox")?.checked;
-  const bpcoSevere = document.getElementById("bpco_severe")?.checked;
-
-  const atcdCV = document.querySelector('input[name="atcd_cv"]')?.checked;
-  const atcdFamilial = document.querySelector('input[name="atcd_familial_cv"]')?.checked;
-  const cardiotox = document.querySelector('input[name="cardiotoxicite"]')?.checked;
-const cancer = document.getElementById("cancer_suivi_checkbox")?.checked;
-  const msk = document.querySelector('input[name="risque_msk"]')?.checked;
-
-  const bioOk = document.querySelector('input[name="bio_ok"]')?.checked;
-  const efrOk = document.querySelector('input[name="efr_ok"]')?.checked;
-  const testMarcheOk = document.querySelector('input[name="test_marche_ok"]')?.checked;
-
-// =========================
-// 1️⃣ CMAP — VERSION CLEAN SÉCURISÉE
-// =========================
-
-let cmapReco = [];
-
-// 🔹 RÈGLES PRIORITAIRES
-
-// Handicap
-if (handicap) {
-  cmapReco.push("prioritaire_handicap");
-}
-
-// Cancer
-if (cancer) {
-  cmapReco.push("preconisee");
-}
-
-// Risque MSK
-if (msk) {
-  cmapReco.push("preconisee");
-}
-
-// 🔹 AP INTENSE — RÈGLE MAJEURE HAS
-if (
-  niveauVise === "eleve" &&
-  (
-    rcv !== "faible" ||
-    cardiotox ||
-    (age && age >= 65)
-  )
-) {
-  cmapReco.push("preconisee");
-}
-
-// 🔹 IMC ≥ 35 + AP intense
-if (niveauVise === "eleve" && imc >= 35) {
-  cmapReco.push("proposable");
-}
-
-// 🔹 AP modérée + inactif + haut risque
-if (
-  niveauVise === "modere" &&
-  niveauActuel === "inactif" &&
-  (
-    rcv === "eleve_tres_eleve" ||
-    cardiotox ||
-    (age && age >= 70)
-  )
-) {
-  cmapReco.push("proposable");
-}
-
-// 🔹 BPCO (info complémentaire, non prioritaire)
-if (bpco && (niveauVise === "modere" || niveauVise === "eleve")) {
-  cmapReco.push("pneumo");
-}
-
-// =========================
-// 🔥 PRIORISATION FINALE
-// =========================
-
-if (cmapReco.includes("prioritaire_handicap")) {
-
-  reco.cmap.push("Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.");
-
-} else if (cmapReco.includes("preconisee")) {
-
-  reco.cmap.push("Une consultation médicale d’activité physique est préconisée.");
-
-} else if (cmapReco.includes("proposable")) {
-
-  reco.cmap.push("Une consultation médicale d’activité physique peut être proposée.");
-
-} else {
-
-  // 🔐 CAS NON PRÉVU = NON RECOMMANDÉE (sécurité)
-  reco.cmap.push("Une consultation médicale d’activité physique n’est pas recommandée.");
-
-}
-
-  // =========================
-  // 2️⃣ CARDIO
-  // =========================
-
-  if (
-    niveauVise === "eleve" &&
-    (
-      atcdCV ||
-      ((age && age <= 35) && atcdFamilial)
-    )
-  ) {
-    reco.cardio.push("Un avis cardiologique spécialisé et/ou un ECG sont recommandés.");
-  }
-
-  // =========================
-  // 3️⃣ ÉPREUVE D’EFFORT
-  // =========================
-
-  let effortReco = [];
-
-  if (niveauVise === "faible") {
-    effortReco.push("non");
-  }
-
-  if (niveauVise === "modere" && rcv === "faible") {
-    effortReco.push("non");
-  }
-
-  if (niveauVise === "modere" && rcv !== "faible") {
-    effortReco.push("non_preconise");
-  }
-if (niveauVise === "eleve") {
-
-  if (atcdFamilial) {
-    effortReco.push("indique");
-  } 
-
-  else {
-
-    if (niveauActuel === "inactif") {
-      if (rcv === "faible") effortReco.push("non_preconise");
-      if (rcv === "modere") effortReco.push("possible");
-      if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
-    }
-
-    if (niveauActuel === "actif") {
-      if (rcv === "faible") effortReco.push("non");
-      if (rcv === "modere") effortReco.push("non_preconise");
-      if (rcv === "eleve_tres_eleve") effortReco.push("recommande");
-    }
-
-  }
-}
-
-  // 🔥 PRIORISATION
-  if (effortReco.includes("recommande")) {
-    reco.effort.push("Une épreuve d’effort est recommandée.");
-  } else if (effortReco.includes("indique")) {
-    reco.effort.push("Une épreuve d’effort est indiquée.");
-  } else if (effortReco.includes("possible")) {
-    reco.effort.push("Une épreuve d’effort peut être réalisée.");
-  } else if (effortReco.includes("non")) {
-    reco.effort.push("Une épreuve d’effort n’est pas recommandée.");
-  } else {
-    reco.effort.push("Une épreuve d’effort n’est pas préconisée.");
-  }
-
-  // =========================
-  // 4️⃣ BIO
-  // =========================
-
-  if (!bioOk && niveauVise !== "faible") {
-    reco.bio.push("Un bilan biologique (glycémie, bilan lipidique, créatininémie) peut se justifier.");
-  }
-
-  // =========================
-  // 5️⃣ BPCO
-  // =========================
-
-  if (bpco && !efrOk && niveauVise !== "faible") {
-    reco.pneumo.push("Un avis pneumologique et un contrôle des EFR peuvent se justifier.");
-  }
-
-  if (bpco && bpcoSevere && !testMarcheOk && niveauVise !== "faible") {
-    reco.pneumo.push("Un test de marche avec SpO₂ peut être indiqué (stade sévère).");
-  }
-
-  return reco;
-}
     
 function handleGenerate(e) {
 
@@ -3230,40 +3271,7 @@ document.getElementById("formatTabs").scrollIntoView({
 
 }   
 
-function displayHASRecommendations(reco){
 
-  let html = `<div style="
-    margin-top:20px;
-    padding:12px;
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-    background:#f9fafb;
-  ">
-  <strong>🧠 Suggestions (référentiel HAS)</strong><br><br>`;
-
-  const all = [
-    ...reco.cmap,
-    ...reco.cardio,
-    ...reco.effort,
-    ...reco.bio,
-    ...reco.pneumo
-  ];
-
-  if (all.length === 0) {
-    html += "Aucune recommandation spécifique.<br>";
-  } else {
-    all.forEach(r => {
-      html += `• ${r}<br>`;
-    });
-  }
-
-  html += `<br><em>Suggestion indicative (HAS)</em></div>`;
-
-const container = document.getElementById("hasContent");
-if (container) {
-  container.innerHTML = html;
-}
-}
     
  function copyPatientLink() {
 
