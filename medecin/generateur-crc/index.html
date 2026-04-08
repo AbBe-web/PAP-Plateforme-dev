@@ -512,12 +512,6 @@ Importer fichier JSON
 
 <div style="margin-top:6px; display:flex; gap:20px; flex-wrap:wrap; font-size:0.8rem;">
 
-  <div id="age_fallback" style="display:none;">
-    <span>Âge :</span>
-    <label><input type="radio" name="age_condition" value="<65"> &lt;65</label>
-    <label><input type="radio" name="age_condition" value=">=65"> ≥65</label>
-  </div>
-
   <div id="imc_fallback" style="display:none;">
     <span>IMC :</span>
     <label><input type="radio" name="imc_condition" value="<35"> ≤35</label>
@@ -1355,14 +1349,20 @@ function updateHAS(){
 
   const rcvRadios = document.querySelectorAll('input[name="rcv"]');
   const rcv = document.querySelector('input[name="rcv"]:checked')?.value;
+  const niveauViseRadios = document.querySelectorAll('input[name="niveau_vise"]');
+  const niveauVise = document.querySelector('input[name="niveau_vise"]:checked')?.value;
 
+  const niveauActuelRadios = document.querySelectorAll('input[name="classification_ap"]');
+  const niveauActuel = document.querySelector('input[name="classification_ap"]:checked')?.value;
   const container = document.getElementById("hasContent");
 
   // 🔹 RESET visuel (AJOUT)
   clearHighlight(ageInput);
   rcvRadios.forEach(r => clearHighlight(r.closest("label")));
-
-  // 🔹 ÉTAT 1 : RIEN REMPLI
+  niveauViseRadios.forEach(r => clearHighlight(r.closest("label")));
+  niveauActuelRadios.forEach(r => clearHighlight(r.closest("label")));
+ 
+    // 🔹 ÉTAT 1 : RIEN REMPLI
  if (!age && !rcv) {
 
   if (container) {
@@ -1423,6 +1423,51 @@ function updateHAS(){
   }
 
   // ✅ OK
+// 🔴 ÉTAT 4 : niveau visé manquant
+if (!niveauVise) {
+
+  niveauViseRadios.forEach(r => highlightMissing(r.closest("label")));
+
+  if (container) {
+    container.innerHTML = `
+      <div style="
+        padding:10px;
+        border-left:4px solid #f59e0b;
+        background:#fff4e5;
+        border-radius:6px;
+        font-size:0.9rem;
+      ">
+      ⚠️ Merci de renseigner le niveau d'activité physique visé.<br><br>
+      Cela est nécessaire pour afficher les recommandations du guide HAS.
+      </div>
+    `;
+  }
+
+  return;
+}
+   // 🔴 ÉTAT 5 : niveau actuel AP manquant
+if (!niveauActuel) {
+
+  niveauActuelRadios.forEach(r => highlightMissing(r.closest("label")));
+
+  if (container) {
+    container.innerHTML = `
+      <div style="
+        padding:10px;
+        border-left:4px solid #f59e0b;
+        background:#fff4e5;
+        border-radius:6px;
+        font-size:0.9rem;
+      ">
+      ⚠️ Merci de renseigner le niveau d'activité physique actuel.<br><br>
+      Cela est nécessaire pour afficher les recommandations du guide HAS.
+      </div>
+    `;
+  }
+
+  return;
+} 
+    
   const model = buildClinicalModel();
   const reco = runHAS(model);
   displayHASRecommendations(reco);
