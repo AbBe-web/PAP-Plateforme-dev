@@ -1027,7 +1027,24 @@ Pas d’AP envisagée dans les 6 mois
 
 
 <script>
+    
+/* =====================================
+1. VARIABLES GLOBALES ==================
+===================================== */
+const DEBUG = false;
 
+let isImporting = false;
+let clinicalModel = null;
+let activeMode = "long";
+
+let lastPrenom = "";
+let lastNom = "";
+
+let savedScrollPosition = 0;
+let identityAction = null;
+
+let qrScanner = null;
+let qrAlreadyRead = false;    
 const DEBUG = false; // ✅ AJOUT ICI
 
 let isImporting = false;
@@ -1051,11 +1068,6 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 }, 90);
   }
 }
-        let clinicalModel = null;
-        let activeMode = "long";
-
-        let lastPrenom = "";
-        let lastNom = "";
             
 function resetFormulaireComplet() {
 
@@ -1751,8 +1763,6 @@ function buildClinicalModel() {
 
   };
 }
-
-let savedScrollPosition = 0;
         
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -1944,20 +1954,6 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
 document.getElementById("cancelPrint")?.addEventListener("click", function() {
   closeIdentityModal();
 });
-
-});
-    
-
-
-
-toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
-toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
-toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
-    
-document.getElementById("actif-subgroup")?.classList.add("hidden");
-document.getElementById("inactif-subgroup")?.classList.add("hidden");
-document.getElementById("sixmois-subgroup")?.classList.add("hidden");
-
 const generateBtn = document.getElementById('generateReport');
 if (generateBtn) {
   generateBtn.addEventListener("click", handleGenerate);
@@ -1980,6 +1976,20 @@ if (copyBtn) {
     openIdentityModal("copy");
   });
 }
+});
+    
+
+
+
+toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
+toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
+toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
+    
+document.getElementById("actif-subgroup")?.classList.add("hidden");
+document.getElementById("inactif-subgroup")?.classList.add("hidden");
+document.getElementById("sixmois-subgroup")?.classList.add("hidden");
+
+
         
 /* =========================
    SCANNER QR CODE
@@ -1988,9 +1998,6 @@ if (copyBtn) {
 const scanBtn = document.getElementById("scanQRBtn");
 const qrContainer = document.getElementById("qrScannerContainer");
 const closeQR = document.getElementById("closeQRScanner");
-
-let qrScanner = null;
-let qrAlreadyRead = false;   // ← AJOUT ICI
 
 if(scanBtn){
 
@@ -2502,8 +2509,6 @@ document.addEventListener("visibilitychange", function () {
   }
 
 });
-
-let identityAction = null;
 
 function openIdentityModal(action) {
   identityAction = action;
