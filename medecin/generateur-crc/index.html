@@ -2508,7 +2508,6 @@ if(mode === "marshall"){
 function initAge() {
     
 const ageInput = document.getElementById("age_input");
-const ageFallback = document.getElementById("age_fallback");
 const atcdFamilialBlock = document.getElementById("atcd_familial_block");
 
 function updateAgeUI() {
@@ -2517,14 +2516,6 @@ function updateAgeUI() {
 
   const value = ageInput.value;
   const age = parseInt(value);
-
-  // fallback âge
-  if (!value) {
-    ageFallback.style.display = "block";
-  } else {
-    ageFallback.style.display = "none";
-    document.querySelectorAll('input[name="age_condition"]').forEach(r => r.checked = false);
-  }
 
 // 🔥 ATCD familial toujours visible
 atcdFamilialBlock.style.display = "block";
