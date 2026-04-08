@@ -1048,8 +1048,11 @@ let qrAlreadyRead = false;
 const DEBUG = false; // ✅ AJOUT ICI
 
 let isImporting = false;
-            
-           function scrollIfNeeded(element) {
+
+/* =====================================
+   ===== FONCTIONS UTILITAIRES =========
+===================================== */
+function scrollIfNeeded(element) {
 
   if (!element) return;
 
@@ -1068,7 +1071,87 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 }, 90);
   }
 }
-            
+
+    function formatName(str) {
+
+  if (!str) return "";
+
+  const particles = [
+    "de", "du", "des", "la", "le", "les",
+    "van", "von", "der", "den", "da", "dos", "das"
+  ];
+
+  return str
+    .toLowerCase()
+    .trim()
+    .split(/[\s-]+/)
+    .map((word, index) => {
+
+      // particules → minuscule sauf en début
+      if (particles.includes(word) && index !== 0) {
+        return word;
+      }
+
+      // cas McDonald / MacDonald
+      if (word.startsWith("mc") && word.length > 2) {
+        return "Mc" + word.charAt(2).toUpperCase() + word.slice(3);
+      }
+
+      if (word.startsWith("mac") && word.length > 3) {
+        return "Mac" + word.charAt(3).toUpperCase() + word.slice(4);
+      }
+
+      // normal
+      return word.charAt(0).toUpperCase() + word.slice(1);
+
+    })
+    .join(" ")
+    .replace(/\s-\s/g, "-"); // sécurité tiret
+}
+
+ function updateNamePreview(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+
+  if (!input || !preview) return;
+
+  const value = input.value;
+  const formatted = formatName(value);
+
+preview.textContent = (formatted && formatted !== value)
+  ? `→ ${formatted}`
+  : "";
+}
+    
+       function cleanMedicalText(text) {
+
+  return text
+    .replace(/\s+/g, " ")        // supprime espaces multiples
+    .replace(/\s+\./g, ".")      // espace avant point
+    .replace(/\s+,/g, ",")       // espace avant virgule
+    .replace(/\s+:/g, " :")      // espace correct avant :
+    .replace(/\.\s*/g, ". ")     // garantit espace après point
+    .trim();
+
+}
+    
+ window.copyPatientComment = function(id){
+
+  const field = document.getElementById(id);
+  if(!field) return;
+
+  const text = field.value || field.innerText || "";
+
+  const temp = document.createElement("textarea");
+  temp.value = text;
+
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand("copy");
+  document.body.removeChild(temp);
+
+};   
+    
 function resetFormulaireComplet() {
 
   // 🔹 reset radios / checkbox
@@ -1393,23 +1476,6 @@ if(mode === "marshall"){
   });
 }
 }
-
- window.copyPatientComment = function(id){
-
-  const field = document.getElementById(id);
-  if(!field) return;
-
-  const text = field.value || field.innerText || "";
-
-  const temp = document.createElement("textarea");
-  temp.value = text;
-
-  document.body.appendChild(temp);
-  temp.select();
-  document.execCommand("copy");
-  document.body.removeChild(temp);
-
-};
 
 // ==========================
 // AGE + ATCD FAMILIAL
@@ -2540,56 +2606,9 @@ function injectIdentityIntoHTML(html, prenom, nom) {
   return html.replace("_____", identity);
 } 
         
-function formatName(str) {
 
-  if (!str) return "";
 
-  const particles = [
-    "de", "du", "des", "la", "le", "les",
-    "van", "von", "der", "den", "da", "dos", "das"
-  ];
 
-  return str
-    .toLowerCase()
-    .trim()
-    .split(/[\s-]+/)
-    .map((word, index) => {
-
-      // particules → minuscule sauf en début
-      if (particles.includes(word) && index !== 0) {
-        return word;
-      }
-
-      // cas McDonald / MacDonald
-      if (word.startsWith("mc") && word.length > 2) {
-        return "Mc" + word.charAt(2).toUpperCase() + word.slice(3);
-      }
-
-      if (word.startsWith("mac") && word.length > 3) {
-        return "Mac" + word.charAt(3).toUpperCase() + word.slice(4);
-      }
-
-      // normal
-      return word.charAt(0).toUpperCase() + word.slice(1);
-
-    })
-    .join(" ")
-    .replace(/\s-\s/g, "-"); // sécurité tiret
-}
-
- function updateNamePreview(inputId, previewId) {
-  const input = document.getElementById(inputId);
-  const preview = document.getElementById(previewId);
-
-  if (!input || !preview) return;
-
-  const value = input.value;
-  const formatted = formatName(value);
-
-preview.textContent = (formatted && formatted !== value)
-  ? `→ ${formatted}`
-  : "";
-}
         
 function proceedWithAction(prenom, nom, existingWin = null) {
 
@@ -2942,17 +2961,7 @@ if (pr.fiches_promotion === "oui") {
 
   return phrases.join(" ");
 }
-       function cleanMedicalText(text) {
 
-  return text
-    .replace(/\s+/g, " ")        // supprime espaces multiples
-    .replace(/\s+\./g, ".")      // espace avant point
-    .replace(/\s+,/g, ",")       // espace avant virgule
-    .replace(/\s+:/g, " :")      // espace correct avant :
-    .replace(/\.\s*/g, ". ")     // garantit espace après point
-    .trim();
-
-}
       function renderLongLetterV2(model) {
 
   const p = model.patient;
