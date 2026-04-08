@@ -1855,6 +1855,8 @@ function buildClinicalModel() {
         
 document.addEventListener("DOMContentLoaded", function () {
 
+ initUI();
+    
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
   const isFirefox = navigator.userAgent.includes("FxiOS");
   const isChrome = navigator.userAgent.includes("CriOS");
@@ -1878,9 +1880,6 @@ try {
   }, 800);
 
 }
-
-    
-
 
 function highlightMissing(el){
   if (!el) return;
