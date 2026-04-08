@@ -1047,7 +1047,7 @@ let qrScanner = null;
 let qrAlreadyRead = false;    
 
 /* =====================================
-   ===== FONCTIONS UTILITAIRES =========
+2.   ===== FONCTIONS UTILITAIRES =========
 ===================================== */
 function scrollIfNeeded(element) {
 
@@ -1069,7 +1069,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
   }
 }
 
-    function formatName(str) {
+function formatName(str) {
 
   if (!str) return "";
 
@@ -1120,7 +1120,7 @@ preview.textContent = (formatted && formatted !== value)
   : "";
 }
     
-       function cleanMedicalText(text) {
+function cleanMedicalText(text) {
 
   return text
     .replace(/\s+/g, " ")        // supprime espaces multiples
@@ -1148,7 +1148,33 @@ preview.textContent = (formatted && formatted !== value)
   document.body.removeChild(temp);
 
 };   
+
+/* =====================================
+3. INITIALISATION UI ===================
+===================================== */
+function initUI() {
+
+initIMC();
+initAge();
+initGrossesse();
+initSymptomes();
+initBPCO();
+initHandicap();
+initActivitePhysique();
+
+
+toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
+toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
+toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
     
+document.getElementById("actif-subgroup")?.classList.add("hidden");
+document.getElementById("inactif-subgroup")?.classList.add("hidden");
+document.getElementById("sixmois-subgroup")?.classList.add("hidden");
+
+updateNiveauButtons("clinique");
+    
+}
+
 function resetFormulaireComplet() {
 
   // 🔹 reset radios / checkbox
@@ -1854,14 +1880,7 @@ try {
 }
 
     
-// ===== INIT GLOBAL =====
-initIMC();
-initAge();
-initGrossesse();
-initSymptomes();
-initBPCO();
-initHandicap();
-initActivitePhysique();
+
 
 function highlightMissing(el){
   if (!el) return;
@@ -1975,8 +1994,6 @@ if (refreshBtn) {
   refreshBtn.addEventListener("click", updateHAS);
 }
 
-updateNiveauButtons("clinique");
-
 // 🔥 FIX MODALE PRINT
 document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
@@ -2029,20 +2046,7 @@ if (copyBtn) {
   });
 }
 });
-    
-
-
-
-toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
-toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
-toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
-    
-document.getElementById("actif-subgroup")?.classList.add("hidden");
-document.getElementById("inactif-subgroup")?.classList.add("hidden");
-document.getElementById("sixmois-subgroup")?.classList.add("hidden");
-
-
-        
+            
 /* =========================
    SCANNER QR CODE
 ========================= */
