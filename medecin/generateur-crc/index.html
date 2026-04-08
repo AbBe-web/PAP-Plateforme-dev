@@ -2130,18 +2130,6 @@ if (!win) {
 
   }
 }
-
-
-
-
-
-    
-    
-
-
-
-
-    
     
 function resetFormulaireComplet() {
 
@@ -2931,11 +2919,19 @@ function initActionButtons() {
 }
     
 document.addEventListener("DOMContentLoaded", function () {
-
+  // Initialisation UI
   initUI();
+
+  // Initialisation UI  
   initImportExport();
+  
+  // Import / export / QR  
   initIOSWarning();
+  
+  // Listeners moteur HAS 
   initHASListeners();
+  
+  // Boutons / modales / impression 
   initActionButtons();
 
 });
