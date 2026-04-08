@@ -1926,7 +1926,6 @@ toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
-
 document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
   const prenom = formatName(document.getElementById("modalPrenom").value);
@@ -1935,9 +1934,16 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
   lastPrenom = prenom;
   lastNom = nom;
 
+  const win = window.open('', '_blank');
+
+  if (!win) {
+    alert("Popup bloquée par le navigateur");
+    return;
+  }
+
   closeIdentityModal();
 
-  proceedWithAction(prenom, nom);
+  proceedWithAction(prenom, nom, win);
 
 });
 
@@ -2573,7 +2579,7 @@ preview.textContent = (formatted && formatted !== value)
   : "";
 }
         
-function proceedWithAction(prenom, nom) {
+function proceedWithAction(prenom, nom, existingWin = null) {
 
   let content = document.getElementById("outputContainer").innerHTML;
 // injection conditionnelle selon mode
@@ -2591,13 +2597,13 @@ if (activeMode === "medical" || activeMode === "patient") {
 
 if (identityAction === "print") {
 
-  const win = window.open('', '_blank');
+const win = existingWin || window.open('', '_blank');
 
-  if (!win) {
-    alert("Popup bloquée par le navigateur");
-    return;
-  }
-
+if (!win) {
+  alert("Popup bloquée par le navigateur");
+  return;
+}
+    
   win.document.write(`
     <html>
       <head>
