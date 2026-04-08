@@ -1901,9 +1901,10 @@ const refreshBtn = document.getElementById("refreshHAS");
 if (refreshBtn) {
   refreshBtn.addEventListener("click", updateHAS);
 }
+
 updateNiveauButtons("clinique");
 
-// 🔥 FIX PRINT BUTTON (À AJOUTER ICI)
+// 🔥 FIX PRINT BUTTON
 const printBtn = document.getElementById("printReport");
 
 if (printBtn) {
@@ -1914,18 +1915,7 @@ if (printBtn) {
   });
 }
 
-});
-    
-
-
-
-toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
-toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
-toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
-    
-document.getElementById("actif-subgroup")?.classList.add("hidden");
-document.getElementById("inactif-subgroup")?.classList.add("hidden");
-document.getElementById("sixmois-subgroup")?.classList.add("hidden");
+// 🔥 FIX MODALE PRINT
 document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
   const prenom = formatName(document.getElementById("modalPrenom").value);
@@ -1954,6 +1944,19 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
 document.getElementById("cancelPrint")?.addEventListener("click", function() {
   closeIdentityModal();
 });
+
+});
+    
+
+
+
+toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
+toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
+toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
+    
+document.getElementById("actif-subgroup")?.classList.add("hidden");
+document.getElementById("inactif-subgroup")?.classList.add("hidden");
+document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 
 const generateBtn = document.getElementById('generateReport');
 if (generateBtn) {
