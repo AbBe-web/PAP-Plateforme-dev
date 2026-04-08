@@ -1068,58 +1068,7 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 }, 90);
   }
 }
-
-function formatName(str) {
-
-  if (!str) return "";
-
-  const particles = [
-    "de", "du", "des", "la", "le", "les",
-    "van", "von", "der", "den", "da", "dos", "das"
-  ];
-
-  return str
-    .toLowerCase()
-    .trim()
-    .split(/[\s-]+/)
-    .map((word, index) => {
-
-      // particules → minuscule sauf en début
-      if (particles.includes(word) && index !== 0) {
-        return word;
-      }
-
-      // cas McDonald / MacDonald
-      if (word.startsWith("mc") && word.length > 2) {
-        return "Mc" + word.charAt(2).toUpperCase() + word.slice(3);
-      }
-
-      if (word.startsWith("mac") && word.length > 3) {
-        return "Mac" + word.charAt(3).toUpperCase() + word.slice(4);
-      }
-
-      // normal
-      return word.charAt(0).toUpperCase() + word.slice(1);
-
-    })
-    .join(" ")
-    .replace(/\s-\s/g, "-"); // sécurité tiret
-}
-
- function updateNamePreview(inputId, previewId) {
-  const input = document.getElementById(inputId);
-  const preview = document.getElementById(previewId);
-
-  if (!input || !preview) return;
-
-  const value = input.value;
-  const formatted = formatName(value);
-
-preview.textContent = (formatted && formatted !== value)
-  ? `→ ${formatted}`
-  : "";
-}
-    
+   
 function cleanMedicalText(text) {
 
   return text
@@ -2016,11 +1965,178 @@ document.getElementById("formatTabs").scrollIntoView({
 
 }   
 
+/* =====================================
+7. MODALES / IMPRESSION / COPIE =======
+===================================== */
+function formatName(str) {
+
+  if (!str) return "";
+
+  const particles = [
+    "de", "du", "des", "la", "le", "les",
+    "van", "von", "der", "den", "da", "dos", "das"
+  ];
+
+  return str
+    .toLowerCase()
+    .trim()
+    .split(/[\s-]+/)
+    .map((word, index) => {
+
+      // particules → minuscule sauf en début
+      if (particles.includes(word) && index !== 0) {
+        return word;
+      }
+
+      // cas McDonald / MacDonald
+      if (word.startsWith("mc") && word.length > 2) {
+        return "Mc" + word.charAt(2).toUpperCase() + word.slice(3);
+      }
+
+      if (word.startsWith("mac") && word.length > 3) {
+        return "Mac" + word.charAt(3).toUpperCase() + word.slice(4);
+      }
+
+      // normal
+      return word.charAt(0).toUpperCase() + word.slice(1);
+
+    })
+    .join(" ")
+    .replace(/\s-\s/g, "-"); // sécurité tiret
+}
+
+ function updateNamePreview(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+
+  if (!input || !preview) return;
+
+  const value = input.value;
+  const formatted = formatName(value);
+
+preview.textContent = (formatted && formatted !== value)
+  ? `→ ${formatted}`
+  : "";
+}  
+
+function openIdentityModal(action) {
+  identityAction = action;
+
+  document.getElementById("modalPrenom").value = lastPrenom || "";
+  document.getElementById("modalNom").value = lastNom || "";
+    
+// 🔥 RESET éventuel overlay fantôme
+document.body.style.pointerEvents = "auto";
+    
+  document.getElementById("identityModal").classList.remove("hidden");
+
+  // 🔥 FIX FOCUS
+  setTimeout(() => {
+    document.getElementById("modalPrenom")?.focus();
+  }, 50);
+}
+
+function closeIdentityModal() {
+  document.getElementById("identityModal").classList.add("hidden");
+}
+
+function injectIdentityIntoHTML(html, prenom, nom) {
+
+  if (!prenom && !nom) return html;
+
+  const identity = `${prenom || ""} ${nom || ""}`.trim();
+
+  return html.replace("_____", identity);
+} 
+    
+function proceedWithAction(prenom, nom, existingWin = null) {
+
+  let content = document.getElementById("outputContainer").innerHTML;
+// injection conditionnelle selon mode
+if (activeMode === "long") {
+  content = injectIdentityIntoHTML(content, prenom, nom);
+}
+
+if (activeMode === "medical" || activeMode === "patient") {
+
+  const identityLine = `<p><strong>Patient :</strong> ${prenom || ""} ${nom || ""}</p>`;
+
+  content = identityLine + content;
+
+}
+
+if (identityAction === "print") {
+
+const win = existingWin || window.open('', '_blank');
+
+if (!win) {
+  alert("Popup bloquée par le navigateur");
+  return;
+}
+    
+  win.document.write(`
+    <html>
+      <head>
+        <title>Impression</title>
+        <style>
+          body { font-family: Arial; margin: 15mm; }
+        </style>
+      </head>
+      <body>
+        ${content}
+      </body>
+    </html>
+  `);
+
+  win.document.close();
+
+  // 🔥 IMPORTANT : attendre chargement réel
+ win.onload = () => {
+  win.focus();
+  win.print();
+
+  setTimeout(() => {
+    try { win.close(); } catch(e){}
+
+    // 🔥 RESET FOCUS GLOBAL
+    window.focus();
+    document.body.focus();
+
+  }, 500);
+};
+
+  // 🔥 RESET état (IMPORTANT)
+  identityAction = null;
+}
+
+  if (identityAction === "copy") {
+
+    const temp = document.createElement("div");
+    temp.innerHTML = content;
+
+    temp.querySelectorAll("a").forEach(link => {
+      const replacement = link.innerText + " : " + link.href;
+      link.replaceWith(replacement);
+    });
+
+    const text = temp.innerText
+      .replace(/\n+/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Compte-rendu copié.");
+    });
+
+  }
+}
+
+
+
 
 
     
     
-
 
 
 
@@ -2891,123 +3007,7 @@ document.addEventListener("visibilitychange", function () {
   }
 
 });
-
-function openIdentityModal(action) {
-  identityAction = action;
-
-  document.getElementById("modalPrenom").value = lastPrenom || "";
-  document.getElementById("modalNom").value = lastNom || "";
-    
-// 🔥 RESET éventuel overlay fantôme
-document.body.style.pointerEvents = "auto";
-    
-  document.getElementById("identityModal").classList.remove("hidden");
-
-  // 🔥 FIX FOCUS
-  setTimeout(() => {
-    document.getElementById("modalPrenom")?.focus();
-  }, 50);
-}
-
-function closeIdentityModal() {
-  document.getElementById("identityModal").classList.add("hidden");
-}
-
-function injectIdentityIntoHTML(html, prenom, nom) {
-
-  if (!prenom && !nom) return html;
-
-  const identity = `${prenom || ""} ${nom || ""}`.trim();
-
-  return html.replace("_____", identity);
-} 
-        
-
-
-
-        
-function proceedWithAction(prenom, nom, existingWin = null) {
-
-  let content = document.getElementById("outputContainer").innerHTML;
-// injection conditionnelle selon mode
-if (activeMode === "long") {
-  content = injectIdentityIntoHTML(content, prenom, nom);
-}
-
-if (activeMode === "medical" || activeMode === "patient") {
-
-  const identityLine = `<p><strong>Patient :</strong> ${prenom || ""} ${nom || ""}</p>`;
-
-  content = identityLine + content;
-
-}
-
-if (identityAction === "print") {
-
-const win = existingWin || window.open('', '_blank');
-
-if (!win) {
-  alert("Popup bloquée par le navigateur");
-  return;
-}
-    
-  win.document.write(`
-    <html>
-      <head>
-        <title>Impression</title>
-        <style>
-          body { font-family: Arial; margin: 15mm; }
-        </style>
-      </head>
-      <body>
-        ${content}
-      </body>
-    </html>
-  `);
-
-  win.document.close();
-
-  // 🔥 IMPORTANT : attendre chargement réel
- win.onload = () => {
-  win.focus();
-  win.print();
-
-  setTimeout(() => {
-    try { win.close(); } catch(e){}
-
-    // 🔥 RESET FOCUS GLOBAL
-    window.focus();
-    document.body.focus();
-
-  }, 500);
-};
-
-  // 🔥 RESET état (IMPORTANT)
-  identityAction = null;
-}
-
-  if (identityAction === "copy") {
-
-    const temp = document.createElement("div");
-    temp.innerHTML = content;
-
-    temp.querySelectorAll("a").forEach(link => {
-      const replacement = link.innerText + " : " + link.href;
-      link.replaceWith(replacement);
-    });
-
-    const text = temp.innerText
-      .replace(/\n+/g, " ")
-      .replace(/\s+/g, " ")
-      .trim();
-
-    navigator.clipboard.writeText(text).then(() => {
-      alert("Compte-rendu copié.");
-    });
-
-  }
-}
-       
+      
         function getStadeMotivation() {
     const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked') ? document.querySelector('input[name="niveau_actuel"]:checked').value : '';
     if (niveauActuel === 'actif') {
