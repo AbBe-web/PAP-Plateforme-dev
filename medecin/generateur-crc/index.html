@@ -1175,6 +1175,230 @@ updateNiveauButtons("clinique");
     
 }
 
+/* =====================================
+4. IMPORT / EXPORT / QR ===============
+===================================== */
+function initImportExport() {
+    
+/* =========================
+   SCANNER QR CODE
+========================= */
+
+const scanBtn = document.getElementById("scanQRBtn");
+const qrContainer = document.getElementById("qrScannerContainer");
+const closeQR = document.getElementById("closeQRScanner");
+
+if(scanBtn){
+
+  scanBtn.addEventListener("click", function(){
+
+    qrContainer.style.display = "block";
+
+    qrScanner = new Html5Qrcode("qr-reader");
+
+qrScanner.start(
+  { facingMode: "environment" },
+  { fps: 10, qrbox: 250 },
+
+  function(decodedText){
+
+    if(qrAlreadyRead) return;
+    qrAlreadyRead = true;
+
+    try{
+      importPatientJSON(decodedText);
+
+      if(qrScanner){
+        qrScanner.stop().then(() => {
+          qrContainer.style.display = "none";
+        });
+      }
+
+      setTimeout(() => {
+        qrAlreadyRead = false;
+      }, 1500);
+
+    } catch(e){
+      console.warn("QR invalide");
+      setTimeout(() => {
+        qrAlreadyRead = false;
+      }, 1000);
+    }
+
+  },
+
+  function(error){
+    // ⚠️ obligatoire pour éviter bug syntaxique + compat iOS
+    console.warn("Scan error", error);
+  }
+
+)
+.then(() => {
+  console.log("Scanner QR démarré");
+})
+.catch(err => {
+  console.error("Erreur caméra :", err);
+});
+});
+}
+    
+if(closeQR){
+  closeQR.addEventListener("click", function(){
+
+    if(qrScanner){
+      qrScanner.stop().then(() => {
+        qrContainer.style.display = "none";
+      });
+    } else {
+      qrContainer.style.display = "none";
+    }
+
+    qrAlreadyRead = false;
+  });
+}
+  // 🔹 IMPORT JSON (ouvre le sélecteur de fichier)
+
+  const importBtn = document.getElementById("importJSONBtn");
+  const importFile = document.getElementById("importJSONFile");
+
+  if(importBtn && importFile){
+
+    importBtn.addEventListener("click", function(){
+      importFile.click();
+    });
+
+  }
+// =============================
+// IMPORT JSON AUTO-EVALUATION
+// =============================
+
+const importJSONInput = document.getElementById("importJSONFile");
+
+if (importJSONInput) {
+  importJSONInput.addEventListener("change", function(e){
+
+  const file = e.target.files[0];
+
+  if(!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = function(){
+
+    try{
+
+      const data = JSON.parse(reader.result);
+   importPatientJSON(JSON.stringify(data));
+        
+    // Pas moyens
+const pas = data?.resultats?.pas_moyens_jour_1_mois;
+if (pas !== undefined && pas !== null) {
+  const inputPas = document.querySelector('input[name="nombre_pas"]');
+  if(inputPas) inputPas.value = pas;
+}
+
+// Heures assises (sédentarité)
+const heuresAssises =
+  data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
+  data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
+  null;
+
+if (heuresAssises !== null) {
+
+  const input = document.querySelector('input[name="heures_assises"]');
+
+if (input) input.value = Number(heuresAssises);
+
+}
+
+      // Questionnaire utilisé
+const q = data?.meta?.questionnaire;
+
+if (q !== undefined && q !== null) {
+
+  const radio = document.querySelector(`input[name="questionnaire"][value="${q}"]`);
+
+  if(radio){
+    radio.checked = true;
+    setTimeout(() => {
+      radio.dispatchEvent(new Event("change"));
+    },0);
+  }
+
+}
+
+/* ======================
+   IMPORT EVA IMPORTANCE
+====================== */
+
+const importance = data?.motivation?.importance_eva_0_10;
+
+if(importance !== undefined && importance !== null){
+  const inputImportance = document.querySelector('input[name="importance_ap"]');
+  if(inputImportance) inputImportance.value = importance;
+}    
+       const importanceComment = data?.motivation?.importance_commentaire;
+
+const block = document.getElementById("importance_patient_block");
+const field = document.getElementById("importance_patient_comment");
+
+if(block && field){
+
+if (importanceComment && importanceComment.trim() !== "") {
+
+    field.value = importanceComment;
+    block.style.display = "block";
+
+  }
+ }
+/* ======================
+   IMPORT EVA CONFIANCE
+====================== */
+
+const confiance = data?.motivation?.confiance_eva_0_10;
+
+if(confiance !== undefined && confiance !== null){
+  const inputConfiance = document.querySelector('input[name="confiance_ap"]');
+  if(inputConfiance) inputConfiance.value = confiance;
+}
+const confianceComment = data?.motivation?.confiance_commentaire;
+
+const blockC = document.getElementById("confiance_patient_block");
+const fieldC = document.getElementById("confiance_patient_comment");
+
+if(blockC && fieldC){
+
+  if(confianceComment){
+
+    fieldC.value = confianceComment;
+    blockC.style.display = "block";
+
+  }
+
+  }
+
+
+alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");
+
+    }catch(err){
+
+      alert("Fichier JSON invalide.");
+
+    }
+
+  };
+
+  reader.readAsText(file);
+
+});
+  }
+    
+}
+
+
+
+
+    
 function resetFormulaireComplet() {
 
   // 🔹 reset radios / checkbox
@@ -1856,6 +2080,7 @@ function buildClinicalModel() {
 document.addEventListener("DOMContentLoaded", function () {
 
  initUI();
+ initImportExport():
     
   const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent);
   const isFirefox = navigator.userAgent.includes("FxiOS");
@@ -2046,94 +2271,7 @@ if (copyBtn) {
 }
 });
             
-/* =========================
-   SCANNER QR CODE
-========================= */
 
-const scanBtn = document.getElementById("scanQRBtn");
-const qrContainer = document.getElementById("qrScannerContainer");
-const closeQR = document.getElementById("closeQRScanner");
-
-if(scanBtn){
-
-  scanBtn.addEventListener("click", function(){
-
-    qrContainer.style.display = "block";
-
-    qrScanner = new Html5Qrcode("qr-reader");
-
-qrScanner.start(
-  { facingMode: "environment" },
-  { fps: 10, qrbox: 250 },
-
-  function(decodedText){
-
-    if(qrAlreadyRead) return;
-    qrAlreadyRead = true;
-
-    try{
-      importPatientJSON(decodedText);
-
-      if(qrScanner){
-        qrScanner.stop().then(() => {
-          qrContainer.style.display = "none";
-        });
-      }
-
-      setTimeout(() => {
-        qrAlreadyRead = false;
-      }, 1500);
-
-    } catch(e){
-      console.warn("QR invalide");
-      setTimeout(() => {
-        qrAlreadyRead = false;
-      }, 1000);
-    }
-
-  },
-
-  function(error){
-    // ⚠️ obligatoire pour éviter bug syntaxique + compat iOS
-    console.warn("Scan error", error);
-  }
-
-)
-.then(() => {
-  console.log("Scanner QR démarré");
-})
-.catch(err => {
-  console.error("Erreur caméra :", err);
-});
-});
-}
-    
-if(closeQR){
-  closeQR.addEventListener("click", function(){
-
-    if(qrScanner){
-      qrScanner.stop().then(() => {
-        qrContainer.style.display = "none";
-      });
-    } else {
-      qrContainer.style.display = "none";
-    }
-
-    qrAlreadyRead = false;
-  });
-}
-  // 🔹 IMPORT JSON (ouvre le sélecteur de fichier)
-
-  const importBtn = document.getElementById("importJSONBtn");
-  const importFile = document.getElementById("importJSONFile");
-
-  if(importBtn && importFile){
-
-    importBtn.addEventListener("click", function(){
-      importFile.click();
-    });
-
-  }
           
 const form = document.getElementById('consultationForm');
 if (form) {
@@ -2142,130 +2280,6 @@ if (form) {
     e.stopPropagation();
   });
 }
-        // =============================
-// IMPORT JSON AUTO-EVALUATION
-// =============================
-
-const importJSONInput = document.getElementById("importJSONFile");
-
-if (importJSONInput) {
-  importJSONInput.addEventListener("change", function(e){
-
-  const file = e.target.files[0];
-
-  if(!file) return;
-
-  const reader = new FileReader();
-
-  reader.onload = function(){
-
-    try{
-
-      const data = JSON.parse(reader.result);
-   importPatientJSON(JSON.stringify(data));
-        
-    // Pas moyens
-const pas = data?.resultats?.pas_moyens_jour_1_mois;
-if (pas !== undefined && pas !== null) {
-  const inputPas = document.querySelector('input[name="nombre_pas"]');
-  if(inputPas) inputPas.value = pas;
-}
-
-// Heures assises (sédentarité)
-const heuresAssises =
-  data?.questionnaires?.gpaq?.sedentarite?.heures_par_jour ??
-  data?.questionnaires?.marshall?.sedentarite?.heures_par_jour ??
-  null;
-
-if (heuresAssises !== null) {
-
-  const input = document.querySelector('input[name="heures_assises"]');
-
-if (input) input.value = Number(heuresAssises);
-
-}
-
-      // Questionnaire utilisé
-const q = data?.meta?.questionnaire;
-
-if (q !== undefined && q !== null) {
-
-  const radio = document.querySelector(`input[name="questionnaire"][value="${q}"]`);
-
-  if(radio){
-    radio.checked = true;
-    setTimeout(() => {
-      radio.dispatchEvent(new Event("change"));
-    },0);
-  }
-
-}
-
-/* ======================
-   IMPORT EVA IMPORTANCE
-====================== */
-
-const importance = data?.motivation?.importance_eva_0_10;
-
-if(importance !== undefined && importance !== null){
-  const inputImportance = document.querySelector('input[name="importance_ap"]');
-  if(inputImportance) inputImportance.value = importance;
-}    
-       const importanceComment = data?.motivation?.importance_commentaire;
-
-const block = document.getElementById("importance_patient_block");
-const field = document.getElementById("importance_patient_comment");
-
-if(block && field){
-
-if (importanceComment && importanceComment.trim() !== "") {
-
-    field.value = importanceComment;
-    block.style.display = "block";
-
-  }
- }
-/* ======================
-   IMPORT EVA CONFIANCE
-====================== */
-
-const confiance = data?.motivation?.confiance_eva_0_10;
-
-if(confiance !== undefined && confiance !== null){
-  const inputConfiance = document.querySelector('input[name="confiance_ap"]');
-  if(inputConfiance) inputConfiance.value = confiance;
-}
-const confianceComment = data?.motivation?.confiance_commentaire;
-
-const blockC = document.getElementById("confiance_patient_block");
-const fieldC = document.getElementById("confiance_patient_comment");
-
-if(blockC && fieldC){
-
-  if(confianceComment){
-
-    fieldC.value = confianceComment;
-    blockC.style.display = "block";
-
-  }
-
-  }
-
-
-alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");
-
-    }catch(err){
-
-      alert("Fichier JSON invalide.");
-
-    }
-
-  };
-
-  reader.readAsText(file);
-
-});
-  }
 
 function runHAS(model){
 
