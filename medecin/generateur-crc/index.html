@@ -1363,70 +1363,34 @@ function updateHAS(){
   niveauActuelRadios.forEach(r => clearHighlight(r.closest("label")));
  
     // 🔹 ÉTAT 1 : RIEN REMPLI
- if (!age && !rcv) {
+let missingFields = [];
 
-  if (container) {
-    container.innerHTML = `
-      <div style="font-size:0.9rem; color:#666;">
-      Remplissez l'âge et le risque cardiovasculaire pour afficher les recommandations.
-      </div>
-    `;
-  }
-
-  return;
+// Vérification âge
+if (!age) {
+  highlightMissing(ageInput);
+  missingFields.push("l'âge");
 }
 
-  // 🔴 ÉTAT 2 : âge manquant
-  if (!age) {
+// Vérification RCV
+if (!rcv) {
+  rcvRadios.forEach(r => highlightMissing(r.closest("label")));
+  missingFields.push("le risque cardiovasculaire");
+}
 
-    highlightMissing(ageInput); // ✅ AJOUT
-
-    if (container) {
-      container.innerHTML = `
-        <div style="
-          padding:10px;
-          border-left:4px solid #f59e0b;
-          background:#fff4e5;
-          border-radius:6px;
-          font-size:0.9rem;
-        ">
-        ⚠️ Merci d'indiquer l'âge de votre patient.e.<br><br>
-        Cela est nécessaire pour afficher les recommandations du guide HAS.
-        </div>
-      `;
-    }
-
-    return;
-  }
-
-  // 🔴 ÉTAT 3 : RCV manquant
-  if (!rcv) {
-
-    rcvRadios.forEach(r => highlightMissing(r.closest("label"))); // ✅ AJOUT
-
-    if (container) {
-      container.innerHTML = `
-        <div style="
-          padding:10px;
-          border-left:4px solid #f59e0b;
-          background:#fff4e5;
-          border-radius:6px;
-          font-size:0.9rem;
-        ">
-        ⚠️ Merci de renseigner le niveau de risque cardiovasculaire (RCV).<br><br>
-        Cela est nécessaire pour afficher les recommandations du guide HAS.
-        </div>
-      `;
-    }
-
-    return;
-  }
-
-  // ✅ OK
-// 🔴 ÉTAT 4 : niveau visé manquant
+// Vérification niveau visé
 if (!niveauVise) {
-
   niveauViseRadios.forEach(r => highlightMissing(r.closest("label")));
+  missingFields.push("le niveau d'activité visé");
+}
+
+// Vérification niveau actuel
+if (!niveauActuel) {
+  niveauActuelRadios.forEach(r => highlightMissing(r.closest("label")));
+  missingFields.push("le niveau d'activité actuel");
+}
+
+// Si champs manquants → message global
+if (missingFields.length > 0) {
 
   if (container) {
     container.innerHTML = `
@@ -1437,7 +1401,9 @@ if (!niveauVise) {
         border-radius:6px;
         font-size:0.9rem;
       ">
-      ⚠️ Merci de renseigner le niveau d'activité physique visé.<br><br>
+      ⚠️ Merci de renseigner les éléments suivants :<br><br>
+      ${missingFields.map(f => "• " + f).join("<br>")}
+      <br><br>
       Cela est nécessaire pour afficher les recommandations du guide HAS.
       </div>
     `;
@@ -1445,28 +1411,6 @@ if (!niveauVise) {
 
   return;
 }
-   // 🔴 ÉTAT 5 : niveau actuel AP manquant
-if (!niveauActuel) {
-
-  niveauActuelRadios.forEach(r => highlightMissing(r.closest("label")));
-
-  if (container) {
-    container.innerHTML = `
-      <div style="
-        padding:10px;
-        border-left:4px solid #f59e0b;
-        background:#fff4e5;
-        border-radius:6px;
-        font-size:0.9rem;
-      ">
-      ⚠️ Merci de renseigner le niveau d'activité physique actuel.<br><br>
-      Cela est nécessaire pour afficher les recommandations du guide HAS.
-      </div>
-    `;
-  }
-
-  return;
-} 
     
   const model = buildClinicalModel();
   const reco = runHAS(model);
