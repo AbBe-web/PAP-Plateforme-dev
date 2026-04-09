@@ -680,10 +680,23 @@ onclick='event.preventDefault(); event.stopPropagation(); openInfoModal(
   </div>
 
   <!-- Risque MSK -->
-  <label>
-    <input type="checkbox" name="risque_msk">
-    Risque de blessure musculosquelettique ou cutanée
-  </label>
+ <label>
+  <input type="checkbox" id="blessure_checkbox">
+
+  Risque de blessure musculosquelettique ou cutanée
+
+  <span
+    class="info-icon"
+    onclick='event.preventDefault(); event.stopPropagation(); openInfoModal(
+      "Risque de blessure musculosquelettique ou cutanée",
+      "Situations à risque HAS :<br><br>• Pathologie osseuse ou articulaire, malformation (agénésie, scoliose…)<br>• Ostéopathie fragilisante et/ou antécédents de chutes<br>• Antécédents de blessures graves liées à l’activité physique<br>• Personnes âgées fragiles ou à risque de chute<br>• Neuropathie des membres inférieurs avec risque de plaie cutanée (diabète…)<br>• Certaines situations de handicap physique : amputation, troubles neuro-orthopédiques, atteinte musculaire, lésion médullaire<br>• Handicap sensoriel / visuel / auditif / troubles de l’équilibre avec risque accru de chute<br>• Troubles psychiques / cognitifs / psychotiques / de l’humeur avec comportements à risque ou psychotropes<br>• Dispositif médical / aide technique : fauteuil roulant, canne, prothèse, orthèse, stomie…",
+      "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=26"
+    )'
+  >
+    i
+  </span>
+
+</label>
 
   <!-- Biologie -->
 <div style="margin:10px 0 6px 0; font-weight:600;">
