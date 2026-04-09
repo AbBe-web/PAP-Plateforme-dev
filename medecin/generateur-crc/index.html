@@ -2626,6 +2626,9 @@ function initHandicap() {
   const niveauRadios = document.querySelectorAll('input[name="niveau_actuel"]');
   const apRadios = document.querySelectorAll('input[name="ap_envisagee"]');
 
+const heuresAssisesInput = document.querySelector('input[name="heures_assises"]');
+const sedentaireRadios = document.querySelectorAll('input[name="sedentaire"]');
+            
   const actifBlock = document.getElementById('actif-subgroup');
   const inactifBlock = document.getElementById('inactif-subgroup');
   const sixMoisBlock = document.getElementById('sixmois-subgroup');
@@ -2664,7 +2667,29 @@ function initHandicap() {
       sixMoisBlock.style.display = "block";
     }
   }
+            
+function updateSedentariteAuto() {
 
+  if (!heuresAssisesInput) return;
+
+  const heures = parseFloat(heuresAssisesInput.value);
+
+  if (isNaN(heures)) return;
+
+  sedentaireRadios.forEach(r => r.checked = false);
+
+  if (heures > 7) {
+
+    document.querySelector('input[name="sedentaire"][value="sedentaire"]').checked = true;
+
+  } else {
+
+    document.querySelector('input[name="sedentaire"][value="non_sedentaire"]').checked = true;
+
+  }
+
+}
+            
   // 🎯 QUESTIONNAIRE
 questionnaireRadios.forEach(radio => {
   radio.addEventListener("change", function(){
@@ -2704,7 +2729,10 @@ questionnaireRadios.forEach(radio => {
       updateAP(this.value);
     });
   });
-
+            
+if (heuresAssisesInput) {
+  heuresAssisesInput.addEventListener("input", updateSedentariteAuto);
+}
   // 🔥 INIT ÉTAT
 resetMotivation();
 
