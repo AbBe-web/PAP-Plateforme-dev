@@ -563,7 +563,32 @@ Importer fichier JSON
   <!-- Symptômes -->
   <label>
     <input type="checkbox" id="symptomes_checkbox">
-    Symptômes de maladie CV, respiratoire, métabolique ou rénale décompensée
+<input type="checkbox" id="symptomes_checkbox">
+Symptômes de maladie CV, respiratoire, métabolique ou rénale décompensée
+
+<button
+  type="button"
+  class="btn secondary"
+  style="padding:2px 8px; font-size:0.75rem;"
+  onclick='openInfoModal(
+    "Symptômes évocateurs de pathologie décompensée",
+    "Principaux signes d’alerte HAS :<br><br>
+     • Douleur thoracique / gêne évocatrice d’ischémie<br>
+     • Essoufflement au repos ou pour effort faible<br>
+     • Fatigue inhabituelle / dyspnée anormale<br>
+     • Orthopnée<br>
+     • Œdèmes des chevilles<br>
+     • Vertiges / syncopes<br>
+     • Palpitations / tachycardie / rythme irrégulier<br>
+     • Claudication intermittente<br>
+     • Bruits anormaux à l’auscultation antérieure",
+    "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=19"
+  )'
+>
+ⓘ
+</button>
+
+</label>
   </label>
 
   <div id="symptomes_alert" style="
@@ -1095,6 +1120,27 @@ function cleanMedicalText(text) {
 function forceUpdateApp() {
   window.location.href = window.location.pathname + "?update=" + Date.now();
 }
+
+    function openInfoModal(title, content, link = null) {
+
+  document.getElementById("infoModalTitle").textContent = title;
+  document.getElementById("infoModalBody").innerHTML = content;
+
+  const linkBtn = document.getElementById("infoModalLink");
+
+  if (link) {
+    linkBtn.href = link;
+    linkBtn.style.display = "inline-block";
+  } else {
+    linkBtn.style.display = "none";
+  }
+
+  document.getElementById("infoModal").classList.remove("hidden");
+}
+
+function closeInfoModal() {
+  document.getElementById("infoModal").classList.add("hidden");
+}   
     
 /* =====================================
 3. INITIALISATION UI ===================
@@ -3438,6 +3484,33 @@ document.addEventListener("click", () => {
     🔄 Vérifier mise à jour
   </button>
 
-</div>          
+</div>   
+<div id="infoModal" class="modal hidden">
+  <div class="modal-content">
+
+    <h3 id="infoModalTitle">Information</h3>
+
+    <div id="infoModalBody" style="margin:15px 0; line-height:1.5;"></div>
+
+    <div style="margin-top:15px;">
+      <a id="infoModalLink"
+         href="#"
+         target="_blank"
+         class="btn secondary"
+         style="display:none;">
+         📖 Voir source HAS
+      </a>
+
+      <button
+        type="button"
+        class="btn"
+        onclick="closeInfoModal()">
+        Fermer
+      </button>
+    </div>
+
+  </div>
+</div>
+          
 </body>
 </html>
