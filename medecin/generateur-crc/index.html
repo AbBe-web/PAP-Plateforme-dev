@@ -2100,19 +2100,20 @@ if (!win) {
   win.document.close();
 
   // 🔥 IMPORTANT : attendre chargement réel
- win.onload = () => {
-  win.focus();
-  win.print();
-
   setTimeout(() => {
-    try { win.close(); } catch(e){}
 
-    // 🔥 RESET FOCUS GLOBAL
-    window.focus();
-    document.body.focus();
+    win.focus();
+    win.print();
+
+    setTimeout(() => {
+      try { win.close(); } catch(e){}
+
+      window.focus();
+      document.body.focus();
+
+    }, 800);
 
   }, 500);
-};
 
   // 🔥 RESET état (IMPORTANT)
   identityAction = null;
