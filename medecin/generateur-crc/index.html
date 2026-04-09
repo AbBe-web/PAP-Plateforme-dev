@@ -1625,6 +1625,21 @@ if (niveauVise === "eleve") {
   return reco;
 }
 
+function formatHASRecommendation(text) {
+
+  return text
+
+    .replace(/n’est pas recommandée/gi, "<strong>n’est pas recommandée</strong>")
+    .replace(/n’est pas préconisée/gi, "<strong>n’est pas préconisée</strong>")
+    .replace(/est recommandée/gi, "<strong>est recommandée</strong>")
+    .replace(/est préconisée/gi, "<strong>est préconisée</strong>")
+    .replace(/est indiquée/gi, "<strong>est indiquée</strong>")
+    .replace(/peut être proposée/gi, "<strong>peut être proposée</strong>")
+    .replace(/peut être réalisée/gi, "<strong>peut être réalisée</strong>")
+    .replace(/peut se justifier/gi, "<strong>peut se justifier</strong>");
+
+}
+    
 function displayHASRecommendations(reco){
 
   let html = `<div style="
@@ -1634,7 +1649,7 @@ function displayHASRecommendations(reco){
     border-radius:10px;
     background:#f9fafb;
   ">
-  <strong>🧠 Suggestions (référentiel HAS)</strong><br><br>`;
+  <strong>🧠 Aide décisionnelle HAS</strong><br><br>`;
 
   const all = [
     ...reco.cmap,
@@ -1647,12 +1662,11 @@ function displayHASRecommendations(reco){
   if (all.length === 0) {
     html += "Aucune recommandation spécifique.<br>";
   } else {
-    all.forEach(r => {
-      html += `• ${r}<br>`;
-    });
+   all.forEach(r => {
+  html += `• ${formatHASRecommendation(r)}<br>`;
+});
   }
-
-  html += `<br><em>Suggestion indicative (HAS)</em></div>`;
+html += `<br><em>À interpréter selon le contexte clinique.</em></div>`;
 
 const container = document.getElementById("hasContent");
 if (container) {
@@ -2856,28 +2870,26 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
   lastPrenom = prenom;
   lastNom = nom;
 
-  closeIdentityModal();
+  if (identityAction === "print") {
 
-  setTimeout(() => {
+    const win = window.open('', '_blank');
 
-    if (identityAction === "print") {
-
-      const win = window.open('', '_blank');
-
-      if (!win) {
-        alert("Popup bloquée par le navigateur");
-        return;
-      }
-
-      proceedWithAction(prenom, nom, win);
-
-    } else {
-
-      proceedWithAction(prenom, nom);
-
+    if (!win) {
+      alert("Popup bloquée par le navigateur");
+      return;
     }
 
-  }, 150);
+    closeIdentityModal();
+
+    proceedWithAction(prenom, nom, win);
+
+  } else {
+
+    closeIdentityModal();
+
+    proceedWithAction(prenom, nom);
+
+  }
 
 });
 
