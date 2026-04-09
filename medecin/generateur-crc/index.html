@@ -1025,7 +1025,8 @@ Pas d’AP envisagée dans les 6 mois
 1. VARIABLES GLOBALES ==================
 ===================================== */
 const DEBUG = false;
-
+const APP_VERSION = "v0.1.0";
+    
 let isImporting = false;
 let clinicalModel = null;
 let activeMode = "long";
@@ -1090,7 +1091,11 @@ function cleanMedicalText(text) {
   document.body.removeChild(temp);
 
 };   
-
+    
+function forceUpdateApp() {
+  window.location.href = window.location.pathname + "?update=" + Date.now();
+}
+    
 /* =====================================
 3. INITIALISATION UI ===================
 ===================================== */
@@ -2939,6 +2944,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Boutons / modales / impression 
   initActionButtons();
 
+    document.getElementById("appVersionLabel").textContent = APP_VERSION;
+    
 });
             
 
@@ -3382,5 +3389,27 @@ document.addEventListener("click", () => {
     </div>
   </div>
 </div>
+<div id="appFooter" style="
+  margin-top:30px;
+  padding:15px;
+  text-align:center;
+  font-size:0.8rem;
+  color:#6b7280;
+">
+
+  <div>
+    Version actuelle : <span id="appVersionLabel"></span>
+  </div>
+
+  <button
+    type="button"
+    class="btn secondary"
+    onclick="forceUpdateApp()"
+    style="margin-top:8px;"
+  >
+    🔄 Vérifier mise à jour
+  </button>
+
+</div>          
 </body>
 </html>
