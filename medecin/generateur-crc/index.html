@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="manifest" href="/PAP-Plateforme-dev/manifest.json">
+<link rel="manifest" href="/PAP<-Plateforme-dev/manifest.json">
 
 <link rel="icon" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
@@ -320,6 +320,26 @@ button {
   transition: all 0.2s ease;
 }   
     
+.info-icon {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  width:18px;
+  height:18px;
+
+  margin-left:6px;
+
+  border-radius:50%;
+  background:#dbeafe;
+  color:#1d4ed8;
+
+  font-size:12px;
+  font-weight:bold;
+
+  cursor:pointer;
+}   
+    
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -561,32 +581,30 @@ Importer fichier JSON
   <!-- ========================= -->
 
   <!-- Symptômes -->
-  <label>
-    <input type="checkbox" id="symptomes_checkbox">
-<input type="checkbox" id="symptomes_checkbox">
-Symptômes de maladie CV, respiratoire, métabolique ou rénale décompensée
+<label>
+  <input type="checkbox" id="symptomes_checkbox">
 
-<button
-  type="button"
-  class="btn secondary"
-  style="padding:2px 8px; font-size:0.75rem;"
-  onclick='openInfoModal(
-    "Symptômes évocateurs de pathologie décompensée",
-    "Principaux signes d’alerte HAS :<br><br>
-     • Douleur thoracique / gêne évocatrice d’ischémie<br>
-     • Essoufflement au repos ou pour effort faible<br>
-     • Fatigue inhabituelle / dyspnée anormale<br>
-     • Orthopnée<br>
-     • Œdèmes des chevilles<br>
-     • Vertiges / syncopes<br>
-     • Palpitations / tachycardie / rythme irrégulier<br>
-     • Claudication intermittente<br>
-     • Bruits anormaux à l’auscultation antérieure",
-    "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=19"
-  )'
->
-ⓘ
-</button>
+  Symptômes de maladie CV, respiratoire, métabolique ou rénale décompensée
+
+  <span
+    class="info-icon"
+    onclick='openInfoModal(
+      "Symptômes évocateurs de pathologie décompensée",
+      "Principaux signes d’alerte HAS :<br><br>
+       • Douleur thoracique / gêne évocatrice d’ischémie<br>
+       • Essoufflement au repos ou pour effort faible<br>
+       • Fatigue inhabituelle / dyspnée anormale<br>
+       • Orthopnée<br>
+       • Œdèmes des chevilles<br>
+       • Vertiges / syncopes<br>
+       • Palpitations / tachycardie / rythme irrégulier<br>
+       • Claudication intermittente<br>
+       • Bruits anormaux à l’auscultation antérieure",
+      "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=19"
+    )'
+  >
+    i
+  </span>
 
 </label>
   </label>
