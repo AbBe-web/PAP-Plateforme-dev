@@ -2582,10 +2582,16 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 document.getElementById('inactif-subgroup').classList.add("hidden");
 document.getElementById('sixmois-subgroup').classList.add("hidden");
 
-  // 🔒 GARDE-FOU
-  if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
-    return;
-  }
+    // 🔍 DEBUG
+console.log(
+  "niveau checked =",
+  document.querySelector('input[name="niveau_actuel"]:checked')
+);
+
+// 🔒 GARDE-FOU
+if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
+  return;
+}
 
   // 🔹 ACTIF
   if (actifDepuis) {
