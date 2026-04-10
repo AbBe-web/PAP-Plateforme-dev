@@ -873,6 +873,13 @@ Pas d’AP envisagée dans les 6 mois
                 </div>
                 <div class="sub-group">
                     <h3>Niveau visé (intensité) :</h3>
+                    <span
+  class="info-icon"
+  onclick="event.preventDefault(); event.stopPropagation(); showIntensiteInfo();"
+>
+  i
+</span>
+                    
                     <label><input type="radio" name="niveau_vise" value="faible"> Faible</label>
                     <label><input type="radio" name="niveau_vise" value="modere"> Modéré</label>
                     <label><input type="radio" name="niveau_vise" value="eleve"> Élevé</label>
@@ -1267,6 +1274,14 @@ function showBiologieInfo() {
     "Bilan biologique",
     "La prescription systématique d’examens biologiques n’est pas recommandée, au préalable d’une AP. Toutefois, la consultation médicale d’AP est l’occasion de vérifier le bon suivi et le contrôle des maladies chroniques et des facteurs de RCV du patient :<br><br>• Dans le cadre des recommandations de bonnes pratiques relatives à la maladie, un contrôle à jeun de la glycémie et du bilan lipidique (cholestérol total, LDL, HDL et triglycérides sériques) et de la créatininémie peut se justifier s’ils datent de plus d’un an.<br><br>• Un bilan lipidique peut aussi être prescrit pour le calcul de l’index SCORE2, si son dosage date de plus d’un an.",
     "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=42"
+  );
+}
+
+function showIntensiteInfo() {
+  openInfoModal(
+    "Classement des activités physiques selon l'intensité et repères",
+    "<strong>Sédentaire</strong><br>• MET : ≤ 1,5<br>• Borg : 0–2<br>• Repère : 0<br>• Type AP : Assis, TV, lecture, déplacements motorisés…<br><br><strong>Faible</strong><br>• MET : 1,6–3<br>• Borg : 3–4<br>• Repère : FC perçue<br>• Type AP : Marche < 4 km/h, s’habiller, promener chien, activités debout<br><br><strong>Modérée</strong><br>• MET : 3–6<br>• Borg : 5–6<br>• Repère : Essoufflement, conversation possible<br>• Type AP : Marche 5–6,5 km/h, montée lente escaliers, CAP < 8 km/h, vélo/nage loisir, jardinage<br><br><strong>Intense</strong><br>• MET : 6–9<br>• Borg : 7–8<br>• Repère : Conversation difficile (3 mots)<br>• Type AP : Marche > 6,5 km/h, montée rapide escaliers, CAP 8–9 km/h, vélo 20–25 km/h<br><br><strong>Très intense</strong><br>• MET : > 9<br>• Borg : 9–10<br>• Repère : Conversation impossible<br>• Type AP : CAP > 9 km/h, vélo > 25 km/h",
+    "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=60"
   );
 }
     
