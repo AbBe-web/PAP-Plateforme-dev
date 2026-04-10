@@ -2883,15 +2883,21 @@ function updateNiveauUI(value) {
 
  function updateAP(value) {
 
-  if (isImporting) return; // 🔥 AJOUT
+  if (isImporting) return;
 
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
- sixMoisBlock.classList.add("hidden");
+  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
 
-    if (value === "non") {
-sixMoisBlock.classList.remove("hidden");
-    }
+  sixMoisBlock.classList.add("hidden");
+  sixMoisBlock.style.display = "none";
+
+  if (value === "non") {
+
+    sixMoisBlock.classList.remove("hidden");
+    sixMoisBlock.style.display = "flex";
+
   }
+
+}
             
 function updateSedentariteAuto() {
 
