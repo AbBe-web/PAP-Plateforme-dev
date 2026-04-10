@@ -803,7 +803,7 @@ Importer fichier JSON
 </div>
 
 
-<div id="actif-subgroup" class="hidden" style="display:none;">
+<div id="actif-subgroup" class="hidden">
 
 <label>
 <input type="radio" name="actif_depuis" value="plus_6_mois">
@@ -818,7 +818,7 @@ Non, depuis moins de 6 mois
 </div>
 
 
-<div id="inactif-subgroup" class="hidden" style="display:none;">
+<div id="inactif-subgroup" class="hidden">
 
 <label>
 <input type="radio" name="ap_envisagee" value="oui">
@@ -832,7 +832,7 @@ Pas d’AP envisagée dans les 30 jours
 
 </div>
 
-<div id="sixmois-subgroup" class="hidden" style="display:none;">
+<div id="sixmois-subgroup" class="hidden">
 
 <label>
 <input type="radio" name="ap_6_mois" value="oui">
@@ -2576,9 +2576,9 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
   document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
   document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
 
-  document.getElementById('actif-subgroup').style.display = "none";
-  document.getElementById('inactif-subgroup').style.display = "none";
-  document.getElementById('sixmois-subgroup').style.display = "none";
+  document.getElementById('actif-subgroup').classList.add("hidden");
+document.getElementById('inactif-subgroup').classList.add("hidden");
+document.getElementById('sixmois-subgroup').classList.add("hidden");
 
   // 🔒 GARDE-FOU
   if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
@@ -2592,7 +2592,7 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
     );
     if (r) {
       r.checked = true;
-      document.getElementById('actif-subgroup').style.display = "";
+     document.getElementById('actif-subgroup').classList.remove("hidden");
     }
   }
 
@@ -2600,7 +2600,7 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 if (apEnvisagee) {
 
   // 🔥 AJOUT CRITIQUE → afficher bloc inactif
-  document.getElementById('inactif-subgroup').style.display = "";
+document.getElementById('inactif-subgroup').classList.remove("hidden");
 
   const r = document.querySelector(
     `input[name="ap_envisagee"][value="${apEnvisagee}"]`
@@ -2610,7 +2610,7 @@ if (apEnvisagee) {
     r.checked = true;
 
     if (apEnvisagee === "non") {
-      document.getElementById('sixmois-subgroup').style.display = "";
+document.getElementById('sixmois-subgroup').classList.remove("hidden");
 
       if (ap6Mois) {
         const r6 = document.querySelector(
@@ -2836,9 +2836,9 @@ const sedentaireRadios = document.querySelectorAll('input[name="sedentaire"]');
     document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
     document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
 
-    actifBlock.style.display = "none";
-    inactifBlock.style.display = "none";
-    sixMoisBlock.style.display = "none";
+  actifBlock.classList.add("hidden");
+inactifBlock.classList.add("hidden");
+sixMoisBlock.classList.add("hidden");
   }
 
   function updateNiveauUI(value) {
@@ -2846,11 +2846,11 @@ const sedentaireRadios = document.querySelectorAll('input[name="sedentaire"]');
     resetMotivation();
 
     if (value === 'actif' || value === 'tres_actif' || value === 'moyennement_actif') {
-      actifBlock.style.display = "";
+     actifBlock.classList.remove("hidden");
     }
 
     if (value === 'inactif') {
-      inactifBlock.style.display = "";
+inactifBlock.classList.remove("hidden");
     }
   }
 
@@ -2859,10 +2859,10 @@ const sedentaireRadios = document.querySelectorAll('input[name="sedentaire"]');
   if (isImporting) return; // 🔥 AJOUT
 
     document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
-    sixMoisBlock.style.display = "none";
+ sixMoisBlock.classList.add("hidden");
 
     if (value === "non") {
-      sixMoisBlock.style.display = "block";
+sixMoisBlock.classList.remove("hidden");
     }
   }
             
