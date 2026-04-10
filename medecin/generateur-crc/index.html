@@ -1179,6 +1179,23 @@ function showBlessureInfo() {
   );
 }
     
+function showContreIndicationsInfo() {
+  openInfoModal(
+    "Contre-indications / limitations à l’activité physique",
+    "• Contre-indications absolues à l’AP<br>o Insuffisance cardiaque décompensée<br>o Troubles rythmiques ventriculaires complexes<br>o Hypertension artérielle sévère non contrôlée<br>o Hypertension artérielle pulmonaire (> 60 mmHg)<br>o Myocardite ou épanchement péricardique aigu<br>o Myocardiopathie obstructive sévère<br>o Rétrécissement aortique serré et/ou symptomatique<br><br>• Contre-indications absolues et temporaires AP ≥ Modérée<br>o Toutes les pathologies aiguës<br>o Toutes pathologies chroniques décompensées / non stabilisées<br>o Dénutrition importante<br>o Fatigue extrême et/ou incapacité physique manifeste à l’AP<br>o Anémie marquée (Hb < 8 g/dL)<br><br>• Contre-indications relatives pour AP élevée<br>o Insuffisance respiratoire chronique sous O2 de longue durée<br>o Patho. respiratoire chronique sévère (risque désat. à l’effort)<br>o Diabète avec rétinopathie sévère, traitement récent au laser chirurgical de l’œil ou dysautonomie sévère<br>o Porteurs de drépanocytose",
+    "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=27"
+  );
+}
+
+
+function showContreIndicationsMSKInfo() {
+  openInfoModal(
+    "Contre-indications et limitations musculosquelettiques et cutanées à l’activité physique",
+    "• CI Absolues et temporaires pour les AP pour la zone concernée<br>o Pathologies traumatiques non consolidées<br>o Path ostéo-articulaires en poussée congestive (arthrose, arthrite)<br><br>• CI absolues / temporaires pour AP ≥ modérée pour la zone concernée<br>o Diabète + mal perforant plantaire pour AP avec 2 MI (même si unilat)<br>o Escarre / plaie évolutive ou chronique selon gravité, localisation<br>▪ Risque contact, frottement physique ou liée à AP (piscine, sable, terre, etc)",
+    "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=28"
+  );
+}   
+    
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
 }   
