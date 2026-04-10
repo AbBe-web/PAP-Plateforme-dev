@@ -51,6 +51,13 @@
 box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
+#infoModalTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+  color: #1e3a8a;
+}
+    
 .modal-content input {
   width: 100%;
   padding: 6px;
@@ -732,9 +739,8 @@ Importer fichier JSON
 </div>
         
     <div class="form-group">
-    <h2>3/ Évaluation du RCV (tableau 3) :</h2>
-    <h3>
-  3/ Evaluation du RCV (tableau 3)
+<h2>
+  3/ Évaluation du RCV (tableau 3) :
 
   <span
     class="info-icon"
@@ -742,7 +748,8 @@ Importer fichier JSON
   >
     i
   </span>
-</h3>
+</h2>
+        
     <label><input type="radio" name="rcv" value="faible"> Faible</label>
     <label><input type="radio" name="rcv" value="modere"> Modéré</label>
     <label><input type="radio" name="rcv" value="eleve_tres_eleve"> Élevé/très élevé</label>
@@ -1235,10 +1242,10 @@ function showContreIndicationsMSKInfo() {
 function showRCVInfo() {
   openInfoModal(
     "Évaluation du RCV",
-    "<strong>Situation 1 : patient.e d'emblée à risque CV élevé ou très élevé</strong><br><br>• Maladie CV documentée (SC et/ou imagerie) : coronaires, maladies vasculaires périphériques (AOMI, revascularisation artérielle) et cérébro-vasculaires (AVC, AIT)<br>• Diabètes de type 1 ou 2 (sauf individus jeunes avec diabète de type 1 et sans autres FDR CV majeurs pouvant être considérés comme à risque modéré ou faible)<br>• IRC modérée (DFG 30-59 ml/min) - sévère (DFG <30 ml/min)<br>• Facteur majeur de RCV nettement augmenté, en particulier : CT > 3,1 g/L (8 mmol/L) ou HTA ≥ 18/11<br><br><strong>Situation 2 : aucunes des situations décrites ci-dessus</strong><br><br>Calculer le RCV par le <a href='https://heartscore.escardio.org/Calculate/quickcalculator.aspx?model=low&_gl=1*1lplgfo*_gcl_au*MjA1ODE1NjE2Ny4xNzA5MTM4MTE2*_ga*NzA0MDEzMjA2LjE3MDkxMTY2MDk.*_ga_TEGGEERRV6*MTcwOTEzODExNi4xLjEuMTcwOTEzODEzMy4wLjAuMA..*_ga_5Y189L6T14*MTcwOTEzODA5Mi4zLjEuMTcwOTEzODEzMy4xOS4wLjA' target='_blank'>SCORE-2</a> ou sur <a href='https://risquecv.fr/' target='_blank'>RisqueCV.fr</a>",
+    "<strong>Situation 1 : patient.e d'emblée à risque CV élevé ou très élevé</strong><br><br>• Maladie CV documentée (SC et/ou imagerie) : coronaires, maladies vasculaires périphériques (AOMI, revascularisation artérielle) et cérébro-vasculaires (AVC, AIT)<br>• Diabètes de type 1 ou 2 (sauf individus jeunes avec diabète de type 1 et sans autres FDR CV majeurs pouvant être considérés comme à risque modéré ou faible)<br>• IRC modérée (DFG 30-59 ml/min) - sévère (DFG <30 ml/min)<br>• Facteur majeur de RCV nettement augmenté, en particulier : CT > 3,1 g/L (8 mmol/L) ou HTA ≥ 18/11<br><br><strong>Situation 2 : aucunes des situations décrites ci-dessus</strong><br><br>Calculer le RCV par le <a href='https://heartscore.escardio.org/Calculate/quickcalculator.aspx?model=low&_gl=1*1lplgfo*_gcl_au*MjA1ODE1NjE2Ny4xNzA5MTM4MTE2*_ga*NzA0MDEzMjA2LjE3MDkxMTY2MDk.*_ga_TEGGEERRV6*MTcwOTEzODExNi4xLjEuMTcwOTEzODEzMy4wLjAuMA..*_ga_5Y189L6T14*MTcwOTEzODA5Mi4zLjEuMTcwOTEzODEzMy4xOS4wLjA' target='_blank'>SCORE-2</a> ou sur <a href='https://risquecv.fr/' target='_blank'>RisqueCV.fr</a><br><br><strong>Situation 3 : facteurs de risque non pris en charge actuellement mais pouvant l'être</strong><br><br>• Obésité (IMC ≥ 30 kg/m2 et/ou périmètre abdominal > 102 cm homme ou > 88 cm femme) et prédiabète<br>• Maladies auto-immunes avec inflammation élevée<br>• Apnée du sommeil<br>• État de santé des femmes : complications obstétricales sévères, prééclampsie, HTA gravidique, SOPK",
     "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=29"
   );
-}  
+}
     
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
