@@ -2473,7 +2473,9 @@ if (niveau) {
     }
   });
 // 🔥 appliquer motivation APRÈS mise à jour UI
-appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois);    
+setTimeout(() => {
+  appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois);
+}, 50);
 }
   
  if (pas !== undefined && pas !== null) {
