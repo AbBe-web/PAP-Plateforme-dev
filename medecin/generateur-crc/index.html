@@ -614,7 +614,20 @@ Importer fichier JSON
   ">
     ⚠️ Situation nécessitant une prise en charge médicale préalable.
   </div>
+    
+<label>
+  <input type="checkbox" id="contre_indications_checkbox">
 
+  Contre-indications / limitations à l'activité physique
+
+  <span
+    class="info-icon"
+    onclick="event.preventDefault(); event.stopPropagation(); showContreIndicationsInfo();"
+  >
+    i
+  </span>
+</label>
+    
   <!-- ATCD CV -->
 <label>
   <input type="checkbox" name="atcd_cv">
