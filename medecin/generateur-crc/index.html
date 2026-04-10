@@ -2568,14 +2568,9 @@ setTimeout(() => {
 }, 100); 
       
 }
-
 function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("Application motivation après affichage UI");
-
-  const actifBlock = document.getElementById('actif-subgroup');
-  const inactifBlock = document.getElementById('inactif-subgroup');
-  const sixMoisBlock = document.getElementById('sixmois-subgroup');
 
   // 🔥 RESET COMPLET
   document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
@@ -2585,10 +2580,6 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
   actifBlock.classList.add("hidden");
   inactifBlock.classList.add("hidden");
   sixMoisBlock.classList.add("hidden");
-
-  actifBlock.style.display = "none";
-  inactifBlock.style.display = "none";
-  sixMoisBlock.style.display = "none";
 
   // 🔒 GARDE-FOU
   if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
@@ -2604,9 +2595,7 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
     if (r) {
       r.checked = true;
-
       actifBlock.classList.remove("hidden");
-      actifBlock.style.display = "block";
     }
   }
 
@@ -2614,7 +2603,6 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
   if (apEnvisagee) {
 
     inactifBlock.classList.remove("hidden");
-    inactifBlock.style.display = "block";
 
     const r = document.querySelector(
       `input[name="ap_envisagee"][value="${apEnvisagee}"]`
@@ -2627,7 +2615,6 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
       if (apEnvisagee === "non") {
 
         sixMoisBlock.classList.remove("hidden");
-        sixMoisBlock.style.display = "block";
 
         if (ap6Mois) {
 
@@ -2640,6 +2627,7 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
       }
     }
   }
+
 }
 
     
@@ -2860,9 +2848,6 @@ function resetMotivation() {
   inactifBlock.classList.add("hidden");
   sixMoisBlock.classList.add("hidden");
 
-  actifBlock.style.display = "none";
-  inactifBlock.style.display = "none";
-  sixMoisBlock.style.display = "none";
 }
 
 function updateNiveauUI(value) {
@@ -2871,31 +2856,22 @@ function updateNiveauUI(value) {
 
   resetMotivation();
 
-  if (value === 'actif' || value === 'tres_actif' || value === 'moyennement_actif') {
-
-    console.log("→ branche ACTIF");
+  if (
+    value === 'actif' ||
+    value === 'tres_actif' ||
+    value === 'moyennement_actif'
+  ) {
 
     actifBlock.classList.remove("hidden");
 
-    console.log("classes actif :", actifBlock.className);
-
-    console.log(
-      "display actif immédiat :",
-      getComputedStyle(actifBlock).display
-    );
   }
 
   if (value === 'inactif') {
 
-    console.log("→ branche INACTIF");
-
     inactifBlock.classList.remove("hidden");
 
-    console.log(
-      "display inactif immédiat :",
-      getComputedStyle(inactifBlock).display
-    );
   }
+
 }
 
  function updateAP(value) {
