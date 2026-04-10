@@ -2572,7 +2572,11 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("Application motivation après affichage UI");
 
-  // 🔥 RESET COMPLET
+    const actifBlock = document.getElementById('actif-subgroup');
+    const inactifBlock = document.getElementById('inactif-subgroup');
+    const sixMoisBlock = document.getElementById('sixmois-subgroup');
+ 
+    // 🔥 RESET COMPLET
   document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
   document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
   document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
