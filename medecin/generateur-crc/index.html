@@ -2591,46 +2591,47 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
   }
 
   // 🔹 ACTIF
-  if (actifDepuis) {
+ if (actifDepuis) {
+  const r = document.querySelector(
+    `input[name="actif_depuis"][value="${actifDepuis}"]`
+  );
 
-    const r = document.querySelector(
-      `input[name="actif_depuis"][value="${actifDepuis}"]`
-    );
+  if (r) {
+    actifBlock.classList.remove("hidden");
+    actifBlock.style.display = "flex";
 
-    if (r) {
-      r.checked = true;
-      actifBlock.classList.remove("hidden");
-    }
+    r.checked = true;
   }
+}
 
   // 🔹 AP ENVISAGÉE
-  if (apEnvisagee) {
+if (apEnvisagee) {
 
-    inactifBlock.classList.remove("hidden");
+  inactifBlock.classList.remove("hidden");
+  inactifBlock.style.display = "flex";
 
-    const r = document.querySelector(
-      `input[name="ap_envisagee"][value="${apEnvisagee}"]`
-    );
+  const r = document.querySelector(
+    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+  );
 
-    if (r) {
+  if (r) {
+    r.checked = true;
 
-      r.checked = true;
+    if (apEnvisagee === "non") {
 
-      if (apEnvisagee === "non") {
+      sixMoisBlock.classList.remove("hidden");
+      sixMoisBlock.style.display = "flex";
 
-        sixMoisBlock.classList.remove("hidden");
+      if (ap6Mois) {
+        const r6 = document.querySelector(
+          `input[name="ap_6_mois"][value="${ap6Mois}"]`
+        );
 
-        if (ap6Mois) {
-
-          const r6 = document.querySelector(
-            `input[name="ap_6_mois"][value="${ap6Mois}"]`
-          );
-
-          if (r6) r6.checked = true;
-        }
+        if (r6) r6.checked = true;
       }
     }
   }
+}
 
 }
 
