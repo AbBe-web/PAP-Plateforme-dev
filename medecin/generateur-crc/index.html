@@ -685,16 +685,12 @@ Importer fichier JSON
 
   Risque de blessure musculosquelettique ou cutanée
 
-  <span
-    class="info-icon"
-    onclick='event.preventDefault(); event.stopPropagation(); openInfoModal(
-      "Risque de blessure musculosquelettique ou cutanée",
-     "Situations à risque de blessures musculosquelettiques et cutanées :<br><br>• Pathologie osseuse ou articulaire, malformation (agénésie, scoliose…)<br>• Ostéopathie fragilisante et/ou avec antécédents de chutes<br>• Antécédents de blessures graves liées à l’activité physique<br>• Personnes âgées fragiles ou à risque de chute<br>• Neuropathie des membres inférieurs avec risque de plaie cutanée (diabète…)<br>• Certaines personnes en situation de handicap :<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Physique<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Amputation, troubles neuro-orthopédiques<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Atteinte musculaire d’origine neurologique, dégénérative ou traumatique<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Lésion médullaire<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Sensoriel, visuel, auditif ou troubles de l’équilibre avec risque accru de chute<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Troubles psychiques / cognitifs / psychotiques / de l’humeur avec comportements à risque ou psychotropes<br>• Personnes avec dispositif médical / aide technique : fauteuil roulant, canne, prothèse, orthèse, stomie…",
-      "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=23"
-    )'
-  >
-    i
-  </span>
+ <span
+  class="info-icon"
+  onclick="event.preventDefault(); event.stopPropagation(); showBlessureInfo();"
+>
+  i
+</span>
 
 </label>
 
@@ -1172,7 +1168,14 @@ function showSymptomesInfo() {
   );
 }
 
-
+function showBlessureInfo() {
+  openInfoModal(
+    "Risque de blessure musculosquelettique ou cutanée",
+    "Situations à risque de blessures musculosquelettiques et cutanées :<br><br>• Pathologie osseuse ou articulaire, malformation (agénésie, scoliose…)<br>• Ostéopathie fragilisante et/ou avec antécédents de chutes<br>• Antécédents de blessures graves liées à l’activité physique<br>• Personnes âgées fragiles ou à risque de chute<br>• Neuropathie des membres inférieurs avec risque de plaie cutanée (diabète…)<br>• Certaines personnes en situation de handicap :<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Physique<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Amputation, troubles neuro-orthopédiques<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Atteinte musculaire d’origine neurologique, dégénérative ou traumatique<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Lésion médullaire<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Sensoriel, visuel, auditif ou troubles de l’équilibre avec risque accru de chute<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Troubles psychiques / cognitifs / psychotiques / de l’humeur avec comportements à risque ou psychotropes<br>• Personnes avec dispositif médical / aide technique : fauteuil roulant, canne, prothèse, orthèse, stomie…",
+    "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=23"
+  );
+}
+    
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
 }   
