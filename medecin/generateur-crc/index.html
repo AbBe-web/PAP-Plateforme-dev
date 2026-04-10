@@ -2841,18 +2841,38 @@ inactifBlock.classList.add("hidden");
 sixMoisBlock.classList.add("hidden");
   }
 
-  function updateNiveauUI(value) {
-console.log("updateNiveauUI appelée avec :", value);
-    resetMotivation();
+function updateNiveauUI(value) {
 
-    if (value === 'actif' || value === 'tres_actif' || value === 'moyennement_actif') {
-     actifBlock.classList.remove("hidden");
-    }
+  console.log("updateNiveauUI appelée avec :", value);
 
-    if (value === 'inactif') {
-inactifBlock.classList.remove("hidden");
-    }
+  resetMotivation();
+
+  if (value === 'actif' || value === 'tres_actif' || value === 'moyennement_actif') {
+
+    console.log("→ branche ACTIF");
+
+    actifBlock.classList.remove("hidden");
+
+    console.log("classes actif :", actifBlock.className);
+
+    console.log(
+      "display actif immédiat :",
+      getComputedStyle(actifBlock).display
+    );
   }
+
+  if (value === 'inactif') {
+
+    console.log("→ branche INACTIF");
+
+    inactifBlock.classList.remove("hidden");
+
+    console.log(
+      "display inactif immédiat :",
+      getComputedStyle(inactifBlock).display
+    );
+  }
+}
 
  function updateAP(value) {
 
