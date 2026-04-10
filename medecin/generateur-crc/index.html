@@ -2625,7 +2625,7 @@ document.getElementById('sixmois-subgroup').classList.remove("hidden");
 
     
 function updateNiveauButtons(mode){
-console.log("updateNiveauUI appelée avec :", value);
+
   const tres = document.getElementById("niveau_tres_actif").closest("label");
   const actif = document.getElementById("niveau_actif").closest("label");
   const moyen = document.getElementById("niveau_moyen").closest("label");
@@ -2842,7 +2842,7 @@ sixMoisBlock.classList.add("hidden");
   }
 
   function updateNiveauUI(value) {
-
+console.log("updateNiveauUI appelée avec :", value);
     resetMotivation();
 
     if (value === 'actif' || value === 'tres_actif' || value === 'moyennement_actif') {
