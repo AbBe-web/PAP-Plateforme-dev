@@ -2832,6 +2832,7 @@ const sedentaireRadios = document.querySelectorAll('input[name="sedentaire"]');
   const sixMoisBlock = document.getElementById('sixmois-subgroup');
 
   function resetMotivation() {
+  console.log("RESET MOTIVATION APPELÉ");    
     document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
     document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
     document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
