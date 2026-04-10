@@ -2573,62 +2573,73 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
 
   console.log("Application motivation après affichage UI");
 
+  const actifBlock = document.getElementById('actif-subgroup');
+  const inactifBlock = document.getElementById('inactif-subgroup');
+  const sixMoisBlock = document.getElementById('sixmois-subgroup');
+
   // 🔥 RESET COMPLET
   document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
   document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
   document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
 
-  document.getElementById('actif-subgroup').classList.add("hidden");
-document.getElementById('inactif-subgroup').classList.add("hidden");
-document.getElementById('sixmois-subgroup').classList.add("hidden");
+  actifBlock.classList.add("hidden");
+  inactifBlock.classList.add("hidden");
+  sixMoisBlock.classList.add("hidden");
 
-    // 🔍 DEBUG
-console.log(
-  "niveau checked =",
-  document.querySelector('input[name="niveau_actuel"]:checked')
-);
+  actifBlock.style.display = "none";
+  inactifBlock.style.display = "none";
+  sixMoisBlock.style.display = "none";
 
-// 🔒 GARDE-FOU
-if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
-  return;
-}
+  // 🔒 GARDE-FOU
+  if (!document.querySelector('input[name="niveau_actuel"]:checked')) {
+    return;
+  }
 
   // 🔹 ACTIF
   if (actifDepuis) {
+
     const r = document.querySelector(
       `input[name="actif_depuis"][value="${actifDepuis}"]`
     );
+
     if (r) {
       r.checked = true;
-     document.getElementById('actif-subgroup').classList.remove("hidden");
+
+      actifBlock.classList.remove("hidden");
+      actifBlock.style.display = "block";
     }
   }
 
   // 🔹 AP ENVISAGÉE
-if (apEnvisagee) {
+  if (apEnvisagee) {
 
-  // 🔥 AJOUT CRITIQUE → afficher bloc inactif
-document.getElementById('inactif-subgroup').classList.remove("hidden");
+    inactifBlock.classList.remove("hidden");
+    inactifBlock.style.display = "block";
 
-  const r = document.querySelector(
-    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
-  );
+    const r = document.querySelector(
+      `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+    );
 
-  if (r) {
-    r.checked = true;
+    if (r) {
 
-    if (apEnvisagee === "non") {
-document.getElementById('sixmois-subgroup').classList.remove("hidden");
+      r.checked = true;
 
-      if (ap6Mois) {
-        const r6 = document.querySelector(
-          `input[name="ap_6_mois"][value="${ap6Mois}"]`
-        );
-        if (r6) r6.checked = true;
+      if (apEnvisagee === "non") {
+
+        sixMoisBlock.classList.remove("hidden");
+        sixMoisBlock.style.display = "block";
+
+        if (ap6Mois) {
+
+          const r6 = document.querySelector(
+            `input[name="ap_6_mois"][value="${ap6Mois}"]`
+          );
+
+          if (r6) r6.checked = true;
+        }
       }
     }
   }
-}
 }
 
     
@@ -2839,16 +2850,20 @@ const sedentaireRadios = document.querySelectorAll('input[name="sedentaire"]');
   const inactifBlock = document.getElementById('inactif-subgroup');
   const sixMoisBlock = document.getElementById('sixmois-subgroup');
 
-  function resetMotivation() {
-  console.log("RESET MOTIVATION APPELÉ");    
-    document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
-    document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
+function resetMotivation() {
+
+  document.querySelectorAll('input[name="actif_depuis"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_envisagee"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ap_6_mois"]').forEach(r => r.checked = false);
 
   actifBlock.classList.add("hidden");
-inactifBlock.classList.add("hidden");
-sixMoisBlock.classList.add("hidden");
-  }
+  inactifBlock.classList.add("hidden");
+  sixMoisBlock.classList.add("hidden");
+
+  actifBlock.style.display = "none";
+  inactifBlock.style.display = "none";
+  sixMoisBlock.style.display = "none";
+}
 
 function updateNiveauUI(value) {
 
