@@ -1,0 +1,62 @@
+# PAP-Plateforme — Développement
+
+Dépôt de développement de la plateforme PAP (Prescription d’Activité Physique)
+
+---
+
+## ⚠️ Statut du dépôt
+
+Ce dépôt correspond à une version en cours de développement.
+
+Le code peut être :
+- incomplet
+- instable
+- non validé cliniquement
+- susceptible d’être modifié à tout moment
+
+---
+
+## 🎯 Objectif
+
+Ce dépôt est destiné à :
+
+- l’expérimentation technique
+- les tests de nouvelles fonctionnalités
+- les itérations de développement
+
+---
+
+## ⚠️ Avertissement clinique
+
+Les éléments présents dans ce dépôt ne doivent pas être utilisés en pratique clinique sans validation préalable.
+
+Seule la version stable (dépôt principal) fait référence pour une utilisation médicale.
+
+---
+
+## 🧱 Structure et logique
+
+Le développement respecte les principes suivants :
+
+- séparation stricte entre logique clinique et implémentation technique
+- respect du protocole DSR (Debug Sans Régression)
+- conservation de l’intégrité des parcours validés
+
+---
+
+## 🔒 Propriété intellectuelle
+
+© Antoine Bosquet – 2026 – Tous droits réservés
+
+Ce dépôt n’est pas distribué sous licence open source.
+
+Toute reproduction, modification ou réutilisation, même partielle, est interdite sans autorisation préalable de l’auteur.
+
+---
+
+## 📌 Référence
+
+Pour la version stable et diffusable :
+→ voir le dépôt principal PAP-Plateforme
+
+--
