@@ -1213,8 +1213,10 @@ regles: [
   "SI traitement antihypertenseur → ALORS risque d’hypotension post-effort à surveiller",
   "SI symptômes à l’effort (vertiges, malaise) → ALORS réévaluation clinique à considérer"
 ],
-   crc: [
-  "TEST_CRC_HTA"
+crc: [
+  "Éviter les efforts en glotte fermée",
+  "Privilégier les activités d’endurance régulières",
+  "Surveiller la tolérance tensionnelle à l’effort"
 ]
   },
 
@@ -1316,7 +1318,12 @@ function updatePathoRules() {
         ${data.regles.map(r => `• ${r}`).join("<br>")}<br><br>
 
         🧾 Éléments intégrables au compte rendu<br>
-        ${data.crc.map(c => `• ${c}`).join("<br>")}
+  ${data.crc.map(c => `
+  <label style="display:block;margin-bottom:4px;">
+    <input type="checkbox" class="crc-item" value="${c}">
+    ${c}
+  </label>
+`).join("")}
 
       </div>
     `;
@@ -2090,7 +2097,20 @@ if (container) {
 /* =====================================
 6. GENERATION CRC / RENDU =============
 ===================================== */
-function handleGenerate(e) {
+function getSelectedCRC(){
+
+  const selected = document.querySelectorAll('.crc-item:checked');
+
+  let values = [];
+
+  selected.forEach(el => {
+    values.push(el.value);
+  });
+
+  return values;
+}
+    
+    function handleGenerate(e) {
 
   e.preventDefault();
   e.stopPropagation();
@@ -3759,11 +3779,17 @@ phrase += ".";
 if (pr.fiches_promotion === "oui") {
   phrases.push("Des fiches de promotion d’activité physique ont été remises.");
 }
-  if (phrases.length === 0) {
-    return "Aucune prescription spécifique n’a été formalisée lors de cette consultation.";
-  }
+const crcElements = getSelectedCRC();
 
-  return phrases.join(" ");
+if (crcElements.length > 0) {
+  phrases.push("Points spécifiques liés aux pathologies : " + crcElements.join(", ") + ".");
+}
+
+if (phrases.length === 0) {
+  return "Aucune prescription spécifique n’a été formalisée lors de cette consultation.";
+}
+
+return phrases.join(" ");
 }
   
  function copyPatientLink() {
