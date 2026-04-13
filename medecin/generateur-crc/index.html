@@ -3880,7 +3880,8 @@ if (pr.fiches_promotion === "oui") {
 }
 const crcElements = getSelectedCRC();
 const crcMode = document.querySelector('input[name="crc_mode"]:checked')?.value;
-
+console.log("crcMode =", crcMode);
+                
 const selectedPathos = document.querySelectorAll('.patho:checked');
 let pathoNames = [];
 
