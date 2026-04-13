@@ -1155,9 +1155,24 @@ Pas d’AP envisagée dans les 6 mois
             <div class="form-group">
   <h2>11/ Date du courrier (facultatif, si laissée vide = aujourd'hui) :</h2>
   <input type="date" name="date_courrier">
-</div>
-        </form>
+</div
     
+</form>
+
+<div style="margin:10px 0;">
+  <strong>Type de compte rendu :</strong><br>
+
+  <label>
+    <input type="radio" name="output_type" value="medecin" checked>
+    Version médecin
+  </label>
+
+  <label style="margin-left:10px;">
+    <input type="radio" name="output_type" value="patient">
+    Version patient
+  </label>
+</div>
+
 <button type="button" id="generateReport" class="btn">
   Générer le compte-rendu
 </button>
@@ -3880,7 +3895,9 @@ if (pr.fiches_promotion === "oui") {
 }
 const crcElements = getSelectedCRC();
 const crcMode = document.querySelector('input[name="crc_mode"]:checked')?.value;
-console.log("crcMode =", crcMode);
+const outputType = document.querySelector('input[name="output_type"]:checked')?.value || "medecin";                
+console.log("outputType =", outputType);
+                console.log("crcMode =", crcMode);
                 
 const selectedPathos = document.querySelectorAll('.patho:checked');
 let pathoNames = [];
