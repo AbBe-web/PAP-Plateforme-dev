@@ -2364,7 +2364,7 @@ ${prescriptionBloc}</p>
     .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
     .replace(".", "");
 
-  const prescriptionBloc = buildPrescription(model)
+const prescriptionBloc = buildPrescription({ ...model, context: "patient" })
     .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
     .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
     .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
@@ -3863,7 +3863,8 @@ phrase += ".";
 }
             function buildPrescription(model) {
 
-  const pr = model.prescription;
+const isPatient = model.context === "patient";
+                const pr = model.prescription;
 
   let phrases = [];
 
@@ -3911,9 +3912,21 @@ if (crcElements.length > 0 && crcMode === "both" && pathoNames.length > 0) {
 
   const pluriel = pathoNames.length > 1;
 
-  const intro = pluriel
+ let intro = "";
+
+if (isPatient) {
+
+  intro = pluriel
+    ? `Des éléments spécifiques liés aux pathologies (${pathoNames.join(", ")}) ont été abordés`
+    : `Des éléments spécifiques liés à la pathologie (${pathoNames[0]}) ont été abordés`;
+
+} else {
+
+  intro = pluriel
     ? `Les points spécifiques liés à ses pathologies (${pathoNames.join(", ")}) ont été abordés en consultation`
     : `Les points spécifiques liés à sa pathologie (${pathoNames[0]}) ont été abordés en consultation`;
+
+}
 
   const details = crcElements
     .map(c => c.charAt(0).toLowerCase() + c.slice(1))
