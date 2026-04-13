@@ -1440,40 +1440,23 @@ function updatePathoHelp(){
 
   let html = "";
 
-  selected.forEach(el => {
+ selected.forEach(el => {
 
-    const data = PATHO_DATA[el.value];
-    if (!data) return;
+  const data = PATHO_DATA[el.value];
+  if (!data) return;
 
-    html += `
-      <div style="margin-top:10px;padding:10px;border-left:4px solid #3b82f6;background:#eff6ff;border-radius:6px;">
-        
-        <strong>${data.titre}</strong><br><br>
+  html += `
+    <div style="margin-top:10px;padding:10px;border-left:4px solid #3b82f6;background:#eff6ff;border-radius:6px;">
+      
+      <strong>${data.titre}</strong><br><br>
 
-        ⚠️ Contraintes<br>
-        ${data.contraintes.map(c => `- ${c}`).join("<br>")}<br><br>
+      ⚠️ Contraintes<br>
+      ${data.contraintes.map(c => `- ${c}`).join("<br>")}
 
-        🔧 Adaptations<br>
-        ${data.adaptations.map(a => `- ${a}`).join("<br>")}<br><br>
-
-        🔎 Situations<br>
-        ${data.situations.map(s => `- ${s}`).join("<br>")}<br><br>
-
-        ⚙️ Règles<br>
-        ${data.regles.map(r => `- ${r}`).join("<br>")}<br><br>
-
-        🧾 CRC<br>
-        ${data.crc.map(c => `
-          <label>
-            <input type="checkbox" class="crc-item" value="${c}">
-            ${c}
-          </label>
-        `).join("<br>")}
-
-      </div>
-    `;
-  });
-
+    </div>
+  `;
+});
+    
   container.innerHTML = html;
 
   crContainer.innerHTML = `
