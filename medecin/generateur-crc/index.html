@@ -1317,39 +1317,40 @@ function updatePathoRules() {
         ⚙️ Points de vigilance<br>
         ${data.regles.map(r => `• ${r}`).join("<br>")}<br><br>
         
-🧾 Éléments intégrables au compte rendu
+🧾 Éléments intégrables au compte rendu<br><br>
 
-<div style="margin-bottom:8px;">
-  <label>
-    <input type="radio" name="crc_mode" value="patient" checked>
-    Patient uniquement
-  </label>
-  <label style="margin-left:10px;">
-    <input type="radio" name="crc_mode" value="both">
-    Médecin + patient
-  </label>
-</div>
-
+<!-- 🔹 QUOI -->
 <div style="margin-bottom:8px;">
   <label>
     <input type="radio" name="crc_detail" value="simple" checked>
-    Mode simple
+    Tous ces éléments
   </label>
   <label style="margin-left:10px;">
     <input type="radio" name="crc_detail" value="detail">
-    Mode détaillé
+    Seulement certains
+  </label>
+</div>
+
+<!-- 🔹 OU -->
+<div style="margin-bottom:10px;">
+  <label>
+    <input type="radio" name="crc_mode" value="both" checked>
+    Intégrer à toutes les versions du compte rendu
+  </label>
+  <label style="margin-left:10px;">
+    <input type="radio" name="crc_mode" value="patient">
+    À la seule version patient
   </label>
 </div>
 
 <div id="crcContainer_${p.value}">
 
+  <!-- MODE SIMPLE -->
   <div class="crc-simple">
-    <label>
-      <input type="checkbox" class="crc-global" value="${data.crc.join("||")}">
-      Intégrer les éléments liés à ${data.titre}
-    </label>
+    <em>Tous les éléments seront intégrés automatiquement.</em>
   </div>
 
+  <!-- MODE DETAIL -->
   <div class="crc-detail" style="display:none;">
     ${data.crc.map(c => `
       <label style="display:block;">
@@ -2164,13 +2165,29 @@ if (container) {
 ===================================== */
 function getSelectedCRC(){
 
-  const selected = document.querySelectorAll('.crc-item:checked');
+  const detailMode = document.querySelector('input[name="crc_detail"]:checked')?.value;
 
   let values = [];
 
-  selected.forEach(el => {
-    values.push(el.value);
-  });
+  if (detailMode === "simple") {
+
+    // 🔹 on prend tous les éléments des pathologies cochées
+    const selectedPathos = document.querySelectorAll('.patho:checked');
+
+    selectedPathos.forEach(p => {
+      const data = PATHO_DATA[p.value];
+      if (data && data.crc) {
+        values = values.concat(data.crc);
+      }
+    });
+
+  } else {
+
+    document.querySelectorAll('.crc-item:checked').forEach(el => {
+      values.push(el.value);
+    });
+
+  }
 
   return values;
 }
