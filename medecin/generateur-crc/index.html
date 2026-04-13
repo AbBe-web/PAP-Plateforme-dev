@@ -3418,6 +3418,7 @@ function clearHighlight(el){
   if (!el) return;
   el.classList.remove("has-missing");
 }
+    
 function initHASListeners() {
 
   document.querySelectorAll('.patho').forEach(cb => {
@@ -3434,9 +3435,24 @@ function initHASListeners() {
   });
 
   const refreshBtn = document.getElementById("refreshHAS");
-
   if (refreshBtn) {
     refreshBtn.addEventListener("click", updateHAS);
+  }
+
+  // 🔹 CRC : auto-refresh (UNE SEULE FOIS)
+  if (!window._crcListenerAdded) {
+    document.addEventListener("change", function(e){
+
+      if (
+        e.target.classList.contains("crc-item") ||
+        e.target.name === "crc_detail" ||
+        e.target.name === "crc_mode"
+      ) {
+        updateHAS();
+      }
+
+    });
+    window._crcListenerAdded = true;
   }
 
   updatePathoRules();
@@ -3863,9 +3879,28 @@ if (pr.fiches_promotion === "oui") {
   phrases.push("Des fiches de promotion d’activité physique ont été remises.");
 }
 const crcElements = getSelectedCRC();
+const crcMode = document.querySelector('input[name="crc_mode"]:checked')?.value;
 
-if (crcElements.length > 0) {
-  phrases.push("Points spécifiques liés aux pathologies : " + crcElements.join(", ") + ".");
+const selectedPathos = document.querySelectorAll('.patho:checked');
+let pathoNames = [];
+
+selectedPathos.forEach(p => {
+  const data = PATHO_DATA[p.value];
+  if (data?.titre) pathoNames.push(data.titre);
+});
+
+if (crcElements.length > 0 && crcMode === "both" && pathoNames.length > 0) {
+
+  const pluriel = pathoNames.length > 1;
+
+  const intro = pluriel
+    ? `Les points spécifiques liés à ses pathologies (${pathoNames.join(", ")}) ont été abordés en consultation`
+    : `Les points spécifiques liés à sa pathologie (${pathoNames[0]}) ont été abordés en consultation`;
+
+  const details = crcElements.join(", ");
+
+  phrases.push(`${intro} : ${details}.`);
+}
 }
 
 if (phrases.length === 0) {
