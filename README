@@ -9,10 +9,11 @@ Dépôt de développement de la plateforme PAP (Prescription d’Activité Physi
 Ce dépôt correspond à une version en cours de développement.
 
 Le code peut être :
-- incomplet
-- instable
-- non validé cliniquement
-- susceptible d’être modifié à tout moment
+
+* incomplet
+* instable
+* non validé cliniquement
+* susceptible d’être modifié à tout moment
 
 ---
 
@@ -20,9 +21,9 @@ Le code peut être :
 
 Ce dépôt est destiné à :
 
-- l’expérimentation technique
-- les tests de nouvelles fonctionnalités
-- les itérations de développement
+* l’expérimentation technique
+* les tests de nouvelles fonctionnalités
+* les itérations de développement
 
 ---
 
@@ -34,13 +35,56 @@ Seule la version stable (dépôt principal) fait référence pour une utilisatio
 
 ---
 
-## 🧱 Structure et logique
+## 🧠 Cadre du projet
 
-Le développement respecte les principes suivants :
+Le développement s’inscrit dans les principes suivants :
 
-- séparation stricte entre logique clinique et implémentation technique
-- respect du protocole DSR (Debug Sans Régression)
-- conservation de l’intégrité des parcours validés
+* Outil clinique devant fonctionner sans IA
+* IA uniquement optionnelle
+* Outil non considéré comme dispositif médical
+* Aucune automatisation décisionnelle
+* Le médecin reste décisionnaire final
+* Le contenu est une aide cognitive structurée
+
+---
+
+## 🧩 Logique de développement
+
+Le système vise à structurer le raisonnement clinique sous forme :
+
+IF condition → THEN éléments à considérer
+
+⚠️ Ces éléments :
+
+* ne constituent pas une décision automatique
+* ne sont pas prescriptifs
+* doivent être interprétés par le médecin
+
+---
+
+## 🧱 Structure et règles
+
+Le développement respecte :
+
+* séparation stricte entre logique clinique et implémentation technique
+* respect du protocole DSR (Debug Sans Régression)
+* conservation de l’intégrité des parcours validés
+
+→ Voir :
+
+* `PROTOCOLE_DSR_PAP.md`
+* `PROTOCOLE_STABILITE_CLINIQUE_PAP.md`
+* `ARCHITECTURE.md`
+
+---
+
+## 🚫 Interdits
+
+* Pas de décision automatique
+* Pas de recommandation imposée
+* Pas de scoring décisionnel automatisé
+* Pas de recommandation individualisée fermée
+* Pas de contenu purement descriptif
 
 ---
 
@@ -59,4 +103,4 @@ Toute reproduction, modification ou réutilisation, même partielle, est interdi
 Pour la version stable et diffusable :
 → voir le dépôt principal PAP-Plateforme
 
---
+---
