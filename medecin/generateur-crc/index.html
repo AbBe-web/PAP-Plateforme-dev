@@ -1341,7 +1341,7 @@ function updatePathoRules() {
   </label>
 </div>
 
-<div id="crcContainer_${el.value}">
+<div id="crcContainer_${p.value}">
 
   <div class="crc-simple">
     <label>
@@ -1365,7 +1365,7 @@ function updatePathoRules() {
   });
 
   container.innerHTML = html;
-
+initCRCModeToggle();
 }
     
 function cleanMedicalText(text) {
@@ -3401,18 +3401,17 @@ function clearHighlight(el){
   if (!el) return;
   el.classList.remove("has-missing");
 }
-
 function initHASListeners() {
+
+  document.querySelectorAll('.patho').forEach(cb => {
+    cb.addEventListener("change", updatePathoRules);
+  });
 
   document.querySelectorAll('input, textarea').forEach(el => {
     el.addEventListener("change", updateHAS);
     el.addEventListener("input", updateHAS);
   });
-    
-document.querySelectorAll('.patho').forEach(el => {
-  el.addEventListener("change", updatePathoRules);
-});
-    
+
   document.querySelectorAll('input[type="radio"]').forEach(el => {
     el.addEventListener("click", updateHAS);
   });
@@ -3422,8 +3421,10 @@ document.querySelectorAll('.patho').forEach(el => {
   if (refreshBtn) {
     refreshBtn.addEventListener("click", updateHAS);
   }
-updatePathoRules();
+
+  updatePathoRules();
 }
+    
 function initActionButtons() {
 
 document.getElementById("confirmPrint")?.addEventListener("click", function() {
