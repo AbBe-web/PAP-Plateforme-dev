@@ -1278,7 +1278,37 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 }, 90);
   }
 }
-   
+
+function updatePathoRules() {
+
+  const container = document.getElementById("pathoRulesContainer");
+  if (!container) return;
+
+  let rules = [];
+
+  const selectedPathos = document.querySelectorAll('.patho:checked');
+
+  selectedPathos.forEach(p => {
+
+    const key = p.value;
+
+    if (PATHO_DATA[key] && PATHO_DATA[key].regles) {
+      rules = rules.concat(PATHO_DATA[key].regles);
+    }
+
+  });
+
+  if (rules.length === 0) {
+    container.innerHTML = "Aucune pathologie sélectionnée.";
+    return;
+  }
+
+  container.innerHTML = rules
+    .map(r => "• " + r.replace(/\n/g, ""))
+    .join("<br>");
+
+}
+    
 function cleanMedicalText(text) {
 
   return text
@@ -3292,7 +3322,11 @@ function initHASListeners() {
     el.addEventListener("change", updateHAS);
     el.addEventListener("input", updateHAS);
   });
-
+    
+document.querySelectorAll('.patho').forEach(el => {
+  el.addEventListener("change", updatePathoRules);
+});
+    
   document.querySelectorAll('input[type="radio"]').forEach(el => {
     el.addEventListener("click", updateHAS);
   });
@@ -3302,7 +3336,7 @@ function initHASListeners() {
   if (refreshBtn) {
     refreshBtn.addEventListener("click", updateHAS);
   }
-
+updatePathoRules();
 }
 function initActionButtons() {
 
