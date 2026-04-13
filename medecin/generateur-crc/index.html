@@ -1278,34 +1278,52 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 }, 90);
   }
 }
-
 function updatePathoRules() {
 
   const container = document.getElementById("pathoRulesContainer");
   if (!container) return;
 
-  let rules = [];
-
   const selectedPathos = document.querySelectorAll('.patho:checked');
 
-  selectedPathos.forEach(p => {
-
-    const key = p.value;
-
-    if (PATHO_DATA[key] && PATHO_DATA[key].regles) {
-      rules = rules.concat(PATHO_DATA[key].regles);
-    }
-
-  });
-
-  if (rules.length === 0) {
+  // 🔒 sécurité
+  if (selectedPathos.length === 0) {
     container.innerHTML = "Aucune pathologie sélectionnée.";
     return;
   }
 
-  container.innerHTML = rules
-    .map(r => "• " + r.replace(/\n/g, ""))
-    .join("<br>");
+  let html = "";
+
+  selectedPathos.forEach(p => {
+
+    const data = PATHO_DATA[p.value];
+    if (!data) return;
+
+    html += `
+      <div style="margin-bottom:15px;padding:12px;border-left:4px solid #6366f1;background:#f8fafc;border-radius:8px;">
+
+        <strong>${data.titre}</strong><br><br>
+
+        ⚠️ Contraintes<br>
+        ${data.contraintes.map(c => `• ${c}`).join("<br>")}<br><br>
+
+        🔧 Adaptations<br>
+        ${data.adaptations.map(a => `• ${a}`).join("<br>")}<br><br>
+
+        🔎 Situations spécifiques<br>
+        ${data.situations.map(s => `• ${s}`).join("<br>")}<br><br>
+
+        ⚙️ Points de vigilance<br>
+        ${data.regles.map(r => `• ${r}`).join("<br>")}<br><br>
+
+        🧾 Éléments intégrables au compte rendu<br>
+        ${data.crc.map(c => `• ${c}`).join("<br>")}
+
+      </div>
+    `;
+
+  });
+
+  container.innerHTML = html;
 
 }
     
