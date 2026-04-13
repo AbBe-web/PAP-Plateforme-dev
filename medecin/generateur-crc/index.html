@@ -754,6 +754,41 @@ Importer fichier JSON
 </div>
         
     <div class="form-group">
+
+<!-- ========================= -->
+<!-- 🔹 PATHOLOGIES CHRONIQUES -->
+<!-- ========================= -->
+
+<div class="form-group">
+
+  <h2>🩺 Maladies chroniques (aide à la prescription)</h2>
+
+  <div style="display:flex; flex-wrap:wrap; gap:20px;">
+
+    <div>
+      <strong>Cardio</strong><br>
+      <label><input type="checkbox" class="patho" value="hta"> HTA</label><br>
+      <label><input type="checkbox" class="patho" value="coronaropathie"> Coronaropathie</label>
+    </div>
+
+    <div>
+      <strong>Métabolique</strong><br>
+      <label><input type="checkbox" class="patho" value="dt2"> Diabète type 2</label><br>
+      <label><input type="checkbox" class="patho" value="obesite"> Obésité</label>
+    </div>
+
+    <div>
+      <strong>Respiratoire</strong><br>
+      <label><input type="checkbox" class="patho" value="bpco"> BPCO</label>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="pathoHelpContainer" style="margin-top:10px;"></div>
+<div id="pathoCRContainer" style="margin-top:10px;"></div>
+        
 <h2>
   3/ Évaluation du RCV (tableau 3) :
 
@@ -1140,6 +1175,51 @@ Pas d’AP envisagée dans les 6 mois
 /* =====================================
 1. VARIABLES GLOBALES ==================
 ===================================== */
+
+const PATHO_DATA = {
+
+  hta: {
+    titre: "Hypertension artérielle",
+    contraintes: [
+      "PAS ≥ 200 ou PAD ≥ 115 → éviter AP ≥ modérée"
+    ],
+    adaptations: [
+      "Endurance prioritaire",
+      "Éviter Valsalva"
+    ],
+    situations: [
+      "Hypotension post-effort"
+    ],
+    regles: [
+      "IF PAS ≥ 200 → THEN différer AP"
+    ],
+    crc: [
+      "Éviter les efforts en glotte fermée"
+    ]
+  },
+
+  dt2: {
+    titre: "Diabète type 2",
+    contraintes: [
+      "Risque d’hypoglycémie si traitement"
+    ],
+    adaptations: [
+      "Adapter intensité",
+      "Progressivité"
+    ],
+    situations: [
+      "Surveillance glycémique"
+    ],
+    regles: [
+      "IF traitement hypoglycémiant → THEN risque hypoglycémie"
+    ],
+    crc: [
+      "Surveillance glycémique recommandée"
+    ]
+  }
+
+};
+
 const DEBUG = false;
 const APP_VERSION = "v0.1.4";
     
@@ -1293,6 +1373,84 @@ function showIntensiteInfo() {
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
 }  
+function updatePathoHelp(){
+
+  const container = document.getElementById("pathoHelpContainer");
+  const crContainer = document.getElementById("pathoCRContainer");
+
+  if (!container || !crContainer) return;
+
+  const selected = document.querySelectorAll(".patho:checked");
+
+  if (selected.length === 0){
+    container.innerHTML = "";
+    crContainer.innerHTML = "";
+    return;
+  }
+
+  let html = "";
+
+  selected.forEach(el => {
+
+    const data = PATHO_DATA[el.value];
+    if (!data) return;
+
+    html += `
+      <div style="margin-top:10px;padding:10px;border-left:4px solid #3b82f6;background:#eff6ff;border-radius:6px;">
+        
+        <strong>${data.titre}</strong><br><br>
+
+        ⚠️ Contraintes<br>
+        ${data.contraintes.map(c => `- ${c}`).join("<br>")}<br><br>
+
+        🔧 Adaptations<br>
+        ${data.adaptations.map(a => `- ${a}`).join("<br>")}<br><br>
+
+        🔎 Situations<br>
+        ${data.situations.map(s => `- ${s}`).join("<br>")}<br><br>
+
+        ⚙️ Règles<br>
+        ${data.regles.map(r => `- ${r}`).join("<br>")}<br><br>
+
+        🧾 CRC<br>
+        ${data.crc.map(c => `
+          <label>
+            <input type="checkbox" class="crc-item" value="${c}">
+            ${c}
+          </label>
+        `).join("<br>")}
+
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+
+  crContainer.innerHTML = `
+    <div style="margin-top:10px;">
+      <button onclick="copySelectedCRC()">Copier sélection</button>
+      <button onclick="copyAllCRC()">Copier tout</button>
+    </div>
+  `;
+}
+
+function copySelectedCRC(){
+  const selected = document.querySelectorAll(".crc-item:checked");
+  let text = "";
+  selected.forEach(el => text += "- " + el.value + "\\n");
+  navigator.clipboard.writeText(text);
+}
+
+function copyAllCRC(){
+  const selectedPatho = document.querySelectorAll(".patho:checked");
+  let text = "";
+  selectedPatho.forEach(el => {
+    const data = PATHO_DATA[el.value];
+    if (!data) return;
+    data.crc.forEach(c => text += "- " + c + "\\n");
+  });
+  navigator.clipboard.writeText(text);
+}    
     
 /* =====================================
 3. INITIALISATION UI ===================
@@ -1318,6 +1476,9 @@ document.getElementById("sixmois-subgroup")?.classList.add("hidden");
 
 updateNiveauButtons("clinique");
     
+document.querySelectorAll(".patho").forEach(el => {
+  el.addEventListener("change", updatePathoHelp);
+});    
 }
 
 /* =====================================
