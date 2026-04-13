@@ -1316,16 +1316,50 @@ function updatePathoRules() {
 
         ⚙️ Points de vigilance<br>
         ${data.regles.map(r => `• ${r}`).join("<br>")}<br><br>
+        
+🧾 Éléments intégrables au compte rendu
 
-        🧾 Éléments intégrables au compte rendu<br>
-  ${data.crc.map(c => `
-  <label style="display:block;margin-bottom:4px;">
-    <input type="checkbox" class="crc-item" value="${c}">
-    ${c}
+<div style="margin-bottom:8px;">
+  <label>
+    <input type="radio" name="crc_mode" value="patient" checked>
+    Patient uniquement
   </label>
-`).join("")}
+  <label style="margin-left:10px;">
+    <input type="radio" name="crc_mode" value="both">
+    Médecin + patient
+  </label>
+</div>
 
-      </div>
+<div style="margin-bottom:8px;">
+  <label>
+    <input type="radio" name="crc_detail" value="simple" checked>
+    Mode simple
+  </label>
+  <label style="margin-left:10px;">
+    <input type="radio" name="crc_detail" value="detail">
+    Mode détaillé
+  </label>
+</div>
+
+<div id="crcContainer_${el.value}">
+
+  <div class="crc-simple">
+    <label>
+      <input type="checkbox" class="crc-global" value="${data.crc.join("||")}">
+      Intégrer les éléments liés à ${data.titre}
+    </label>
+  </div>
+
+  <div class="crc-detail" style="display:none;">
+    ${data.crc.map(c => `
+      <label style="display:block;">
+        <input type="checkbox" class="crc-item" value="${c}">
+        ${c}
+      </label>
+    `).join("")}
+  </div>
+
+</div>
     `;
 
   });
@@ -1522,7 +1556,7 @@ initSymptomes();
 initBPCO();
 initHandicap();
 initActivitePhysique();
-
+initCRCModeToggle();
 
 toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
 toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
@@ -1539,6 +1573,37 @@ document.querySelectorAll(".patho").forEach(el => {
 });    
 }
 
+function initCRCModeToggle(){
+
+  document.addEventListener("change", function(e){
+
+    if (e.target.name === "crc_detail") {
+
+      const mode = e.target.value;
+
+      document.querySelectorAll('[id^="crcContainer_"]').forEach(container => {
+
+        const simple = container.querySelector(".crc-simple");
+        const detail = container.querySelector(".crc-detail");
+
+        if (!simple || !detail) return;
+
+        if (mode === "simple") {
+          simple.style.display = "block";
+          detail.style.display = "none";
+        } else {
+          simple.style.display = "none";
+          detail.style.display = "block";
+        }
+
+      });
+
+    }
+
+  });
+
+}
+    
 /* =====================================
 4. IMPORT / EXPORT / QR ===============
 ===================================== */
