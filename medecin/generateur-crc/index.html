@@ -1031,6 +1031,23 @@ Pas d’AP envisagée dans les 6 mois
 </div>
 
 <div class="form-group">
+    
+<div id="pathoRulesBlock" style="
+  margin:20px 0;
+  padding:12px;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  background:#fefce8;
+">
+
+  <strong>⚙️ Points de vigilance liés aux pathologies</strong>
+
+  <div id="pathoRulesContainer" style="margin-top:10px; font-size:0.9rem;">
+    Aucune pathologie sélectionnée.
+  </div>
+
+</div>
+    
     <h2>8/ Les objectifs principaux en termes d’activité physique sont :</h2>
     <textarea name="objectifs_ap"></textarea>
 </div>
@@ -1190,9 +1207,12 @@ const PATHO_DATA = {
     situations: [
       "Hypotension post-effort"
     ],
-    regles: [
-      "IF PAS ≥ 200 → THEN différer AP"
-    ],
+regles: [
+  "SI PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → ALORS différer l’activité physique d’intensité ≥ modérée",
+  "SI HTA non contrôlée → ALORS à stabiliser avant reprise ou progression de l’activité physique",
+  "SI traitement antihypertenseur → ALORS risque d’hypotension post-effort à surveiller",
+  "SI symptômes à l’effort (vertiges, malaise) → ALORS réévaluation clinique à considérer"
+],
     crc: [
       "Éviter les efforts en glotte fermée"
     ]
