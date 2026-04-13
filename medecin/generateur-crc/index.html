@@ -3897,8 +3897,6 @@ if (crcElements.length > 0 && crcMode === "both" && pathoNames.length > 0) {
     ? `Les points spécifiques liés à ses pathologies (${pathoNames.join(", ")}) ont été abordés en consultation`
     : `Les points spécifiques liés à sa pathologie (${pathoNames[0]}) ont été abordés en consultation`;
 
-  const details = crcElements.join(", ");
-
 const details = crcElements
   .map(c => c.charAt(0).toLowerCase() + c.slice(1))
   .join(", ");
