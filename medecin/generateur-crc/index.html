@@ -1283,7 +1283,6 @@ hta: {
     
 const DEBUG = false;
 const APP_VERSION = "v0.1.4";
-
 function showInfo(text, el) {
 
   const popup = document.getElementById("infoPopup");
@@ -1292,15 +1291,9 @@ function showInfo(text, el) {
 
   const rect = el.getBoundingClientRect();
 
-  let top = rect.bottom + window.scrollY + 5;
-
-  // si trop bas → afficher au-dessus
-  if (top + 60 > window.innerHeight + window.scrollY) {
-    top = rect.top + window.scrollY - 40;
-  }
-
-  popup.style.top = top + "px";
-  popup.style.left = (rect.left + window.scrollX) + "px";
+  // position écran (pas document)
+  popup.style.top = (rect.bottom + 5) + "px";
+  popup.style.left = (rect.left) + "px";
 
   popup.style.display = "block";
 
@@ -4160,19 +4153,18 @@ document.addEventListener("click", () => {
 
   </div>
 </div>
- <div id="infoPopup" style="
+<div id="infoPopup" style="
   display:none;
   position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  background:#111827;
-  color:white;
-  padding:10px 14px;
-  border-radius:8px;
+  background:white;
+  color:#111827;
+  padding:8px 10px;
+  border-radius:6px;
   font-size:0.85em;
   z-index:9999;
-  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  border:1px solid #e5e7eb;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  max-width:220px;
 ">
 </div>
           
