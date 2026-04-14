@@ -1328,7 +1328,7 @@ function updatePathoRules() {
         <strong>${data.titre}</strong><br><br>
 
         ⚠️ Contre-indications<br>
-        ${data.contraintes.map(c => `• ${c}`).join("<br>")}
+        ${data.contraintes.map(c => `• ${c}`).join("<br>")}<br><br>
 
         🔧 Adaptations<br>
         ${data.adaptations.map(a => `• ${a}`).join("<br>")}<br><br>
@@ -1382,6 +1382,7 @@ function updatePathoRules() {
     `).join("")}
   </div>
 
+</div>
 </div>
     `;
 
