@@ -1400,9 +1400,13 @@ function updatePathoRules() {
     if (!data) return;
 
     html += `
-      <div style="margin-bottom:15px;padding:12px;border-left:4px solid #6366f1;background:#f8fafc;border-radius:8px;">
+   <details style="margin-bottom:15px;border-left:4px solid #6366f1;background:#f8fafc;border-radius:8px;padding:10px;" open>
 
-        <strong>${data.titre}</strong><br><br>
+<summary style="cursor:pointer;font-weight:600;">
+  ${data.titre}
+</summary>
+
+<div style="margin-top:10px;">
 
         ⚠️ Contre-indications<br>
         ${data.contraintes.map(c => `• ${c}`).join("<br>")}<br><br>
@@ -1461,6 +1465,7 @@ function updatePathoRules() {
 
 </div>
 </div>
+</details>
     `;
 
   });
