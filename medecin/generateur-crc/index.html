@@ -4141,7 +4141,21 @@ document.addEventListener("click", () => {
             document.getElementById("confirmPrint")?.addEventListener("click", () => {
   console.log("CONFIRM CLICK");
 });
-            </script>
+      
+      document.addEventListener("toggle", function(e) {
+  if (e.target.tagName === "DETAILS") {
+
+    const arrow = e.target.querySelector(".arrow");
+
+    if (arrow) {
+      arrow.style.transform = e.target.open
+        ? "rotate(90deg)"
+        : "rotate(0deg)";
+    }
+  }
+});
+      
+                  </script>
     
     <div id="identityModal" class="modal hidden">
   <div class="modal-content">
