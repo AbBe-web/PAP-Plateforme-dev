@@ -1210,30 +1210,37 @@ Pas d’AP envisagée dans les 6 mois
 
 const PATHO_DATA = {
 
-  hta: {
-    titre: "Hypertension artérielle",
-    contraintes: [
-      "PAS ≥ 200 ou PAD ≥ 115 → éviter AP ≥ modérée"
-    ],
-    adaptations: [
-      "Endurance prioritaire",
-      "Éviter Valsalva"
-    ],
-    situations: [
-      "Hypotension post-effort"
-    ],
-regles: [
-  "SI PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → ALORS différer l’activité physique d’intensité ≥ modérée",
-  "SI HTA non contrôlée → ALORS à stabiliser avant reprise ou progression de l’activité physique",
-  "SI traitement antihypertenseur → ALORS risque d’hypotension post-effort à surveiller",
-  "SI symptômes à l’effort (vertiges, malaise) → ALORS réévaluation clinique à considérer"
-],
-crc: [
-  "Éviter les efforts en glotte fermée",
-  "Privilégier les activités d’endurance régulières",
-  "Surveiller la tolérance tensionnelle à l’effort"
-]
-  },
+hta: {
+  titre: "Hypertension artérielle",
+
+  contraintes: [
+    "PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → contre-indication absolue à une activité physique d’intensité ≥ modérée",
+    "PAS ≥ 180 mmHg ou PAD ≥ 105 mmHg → contre-indication relative à une activité physique d’intensité ≥ modérée (à réévaluer)"
+  ],
+
+  adaptations: [
+    "Privilégier les activités d’endurance et le renforcement musculaire modéré",
+    "Éviter le renforcement musculaire intense en glotte fermée (Valsalva)"
+  ],
+
+  situations: [
+    "Hypotension post-effort, notamment sous traitement antihypertenseur"
+  ],
+
+  regles: [
+    "SI PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → ALORS différer l’activité physique d’intensité ≥ modérée",
+    "SI HTA non contrôlée → ALORS stabilisation préalable à envisager avant reprise ou progression de l’activité physique",
+    "SI traitement antihypertenseur → ALORS risque d’hypotension post-effort à surveiller",
+    "SI traitement diurétique → ALORS risque de déshydratation ou de troubles ioniques, notamment en cas d’effort prolongé ou de chaleur",
+    "SI symptômes à l’effort (vertiges, malaise) → ALORS réévaluation clinique à considérer"
+  ],
+
+  crc: [
+    "éviter les efforts en glotte fermée",
+    "privilégier les activités d’endurance régulières",
+    "surveiller la tolérance tensionnelle à l’effort"
+  ]
+},
 
   dt2: {
     titre: "Diabète type 2",
