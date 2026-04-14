@@ -1413,6 +1413,18 @@ function updatePathoRules() {
   });
 
   container.innerHTML = html;
+
+container.innerHTML += `
+  <div style="margin-top:15px;padding:10px;font-size:0.9em;color:#374151;">
+    📚 <strong>Ressource utile :</strong><br>
+    <a href="https://www.has-sante.fr/jcms/c_2876862/fr/consultation-et-prescription-medicale-d-activite-physique-a-des-fins-de-sante"
+       target="_blank"
+       style="color:#2563eb;text-decoration:underline;">
+      Recommandations HAS – activité physique
+    </a>
+  </div>
+`;
+    
 initCRCModeToggle();
 }
     
