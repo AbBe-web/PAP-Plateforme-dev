@@ -1266,7 +1266,7 @@ hta: {
   ],
 
   regles: [
-    "SI traitement hypoglycémiant → ALORS risque d’hypoglycémie",
+   "SI traitement hypoglycémiant <span style='cursor:pointer;color:#2563eb;' onclick=\"showInfo('Insuline, glinides, sulfamides hypoglycémiants')\">ℹ️</span> → ALORS risque d’hypoglycémie"
     "SI activité inhabituelle → ALORS adaptation des apports glucidiques evt insuline",
     "SI lésion du pied → ALORS adapter ou éviter certaines activités"
   ],
@@ -1283,6 +1283,10 @@ hta: {
     
 const DEBUG = false;
 const APP_VERSION = "v0.1.4";
+
+function showInfo(text) {
+  alert(text);
+}
     
 let isImporting = false;
 let clinicalModel = null;
