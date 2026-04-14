@@ -1242,28 +1242,41 @@ hta: {
   ]
 },
 
-  dt2: {
-    titre: "Diabète type 2",
-    contraintes: [
-      "Risque d’hypoglycémie si traitement"
-    ],
-    adaptations: [
-      "Adapter intensité",
-      "Progressivité"
-    ],
-    situations: [
-      "Surveillance glycémique"
-    ],
- regles: [
-  "SI traitement hypoglycémiant → ALORS risque d’hypoglycémie à prendre en compte"
-],
-    crc: [
-      "Surveillance glycémique recommandée"
-    ]
-  }
+ dt2: {
+  titre: "Diabète de type 2",
 
-};
+  contraintes: [
+    "Glycémie > 2,5 g/L en début d’exercice → contre-indication à une activité physique (objectif < 2 g/L)",
+    "Activité physique d’intensité élevée si glycémie mal contrôlée → à éviter",
+    "Activité physique intense ou renforcement musculaire avec charges lourdes → contre-indication si diabète compliqué (rétinopathie, néphropathie, dysautonomie sévère, HTA non contrôlée)",
+    "Mal perforant plantaire → contre-indication aux activités sollicitant les membres inférieurs"
+  ],
 
+  adaptations: [
+    "Adapter l’intensité de l’activité physique",
+    "Privilégier une progression progressive (début à faible intensité et durée)",
+    "En cas de traitement par insuline ou insulinosécréteur : anticiper le risque d’hypoglycémie (auto-surveillance glycémique, collation possible)",
+    "Surveiller et protéger les pieds, notamment en cas de neuropathie (chaussage adapté, inspection régulière)",
+    "Activité physique possible en post-prandial pour bénéficier de l’effet hypoglycémiant"
+  ],
+
+  situations: [
+    "Surveillance glycémique à adapter selon traitement et intensité de l’activité",
+    "Recherche de complications (neuropathie, rétinopathie, néphropathie)"
+  ],
+
+  regles: [
+    "SI traitement hypoglycémiant (insuline, insulinosécréteur) → ALORS risque d’hypoglycémie à anticiper",
+    "SI activité inhabituelle ou prolongée → ALORS adaptation des apports glucidiques à considérer",
+    "SI lésion du pied → ALORS adaptation ou arrêt des activités sollicitant les membres inférieurs"
+  ],
+
+  crc: [
+    "surveillance glycémique recommandée",
+    "vigilance particulière pour les pieds",
+    "adapter l’alimentation et les collations en fonction de l’activité physique"
+  ]
+},
 const DEBUG = false;
 const APP_VERSION = "v0.1.4";
     
