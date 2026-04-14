@@ -556,4 +556,16 @@ input[type="checkbox"] {
   border-radius: 50%;
   width: 16px;
   height: 16px;
+.button {
+  background: blue;
 }
+
+
+details summary {
+  list-style: none;
+}
+
+details summary::-webkit-details-marker {
+  display: none;
+}
+
