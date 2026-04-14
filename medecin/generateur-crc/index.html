@@ -1286,19 +1286,24 @@ const APP_VERSION = "v0.1.4";
 
 function showInfo(text, el) {
 
-  let popup = document.getElementById("infoPopup");
+  const popup = document.getElementById("infoPopup");
 
   popup.textContent = text;
 
-  // positionnement à côté du bouton cliqué
   const rect = el.getBoundingClientRect();
 
-  popup.style.top = (rect.top + window.scrollY - 10) + "px";
-  popup.style.left = (rect.right + 10) + "px";
+  let top = rect.bottom + window.scrollY + 5;
+
+  // si trop bas → afficher au-dessus
+  if (top + 60 > window.innerHeight + window.scrollY) {
+    top = rect.top + window.scrollY - 40;
+  }
+
+  popup.style.top = top + "px";
+  popup.style.left = (rect.left + window.scrollX) + "px";
 
   popup.style.display = "block";
 
-  // auto fermeture
   setTimeout(() => {
     popup.style.display = "none";
   }, 3000);
