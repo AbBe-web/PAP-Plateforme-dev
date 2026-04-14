@@ -1214,8 +1214,8 @@ hta: {
   titre: "Hypertension artérielle",
 
   contraintes: [
-    "PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → contre-indication absolue à AP d’intensité ≥ modérée",
-    "PAS ≥ 180 mmHg ou PAD ≥ 105 mmHg → contre-indication relative à AP d’intensité ≥ modérée (à réévaluer)"
+    "PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → CI absolue à AP d’intensité ≥ modérée",
+    "PAS ≥ 180 mmHg ou PAD ≥ 105 mmHg → CI relative à AP d’intensité ≥ modérée (à réévaluer)"
   ],
 
   adaptations: [
@@ -1246,18 +1246,18 @@ hta: {
   titre: "Diabète de type 2",
 
   contraintes: [
-    "Glycémie > 2,5 g/L en début d’exercice → contre-indication à une activité physique (objectif < 2 g/L)",
+    "Glycémie > 2,5 g/L en début d’exercice → AP déconseillée tant que > 2 g/L (objectif < 2 g/L)",
     "Activité physique d’intensité élevée si glycémie mal contrôlée → à éviter",
-    "Activité physique intense ou renforcement musculaire avec charges lourdes → contre-indication si diabète compliqué",
+    "Activité physique intense ou avec manoeuvre de Valsalva (ex : renforcement musculaire avec charges lourdes) → contre-indication si diabète compliqué (rétinopathie ou néphropathie ou dysautonomie sévère, hta non contrôlée associée)",
     "Mal perforant plantaire → contre-indication aux activités des membres inférieurs"
   ],
 
   adaptations: [
     "Adapter l’intensité de l’activité physique",
     "Privilégier une progression progressive",
-    "Anticiper le risque d’hypoglycémie en cas de traitement (auto-surveillance, collation possible)",
+    "Anticiper le risque d’hypoglycémie en cas de traitement par insuline ou insulino-sécréteur (auto-surveillance, collation possible)",
     "Surveiller et protéger les pieds",
-    "Activité physique possible en post-prandial"
+    "Possibilité de faire de l'AP en post-prandial pour profiter le l'effet hypoglycémiant de l'AP"
   ],
 
   situations: [
@@ -1267,15 +1267,22 @@ hta: {
 
   regles: [
     "SI traitement hypoglycémiant → ALORS risque d’hypoglycémie",
-    "SI activité inhabituelle → ALORS adaptation des apports glucidiques",
+    "SI activité inhabituelle → ALORS adaptation des apports glucidiques evt insuline",
     "SI lésion du pied → ALORS adapter ou éviter certaines activités"
   ],
 
   crc: [
-    "surveillance glycémique recommandée",
-    "vigilance pour les pieds",
-    "adapter les apports alimentaires à l’activité"
-  ]
+  "surveillance glycémique recommandée",
+  "vigilance pour les pieds",
+  "adapter les apports alimentaires à l’activité"
+],
+
+references: [
+  {
+    label: "Recommandations HAS – activité physique et diabète",
+    url: "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_dt2_vf.pdf"
+  }
+]
   }
     
 };
