@@ -1236,7 +1236,7 @@ hta: {
     "SI symptômes à l’effort (vertiges, malaise) → ALORS réévaluation clinique à considérer"
   ],
 
-  crc: [
+  crc_default: [
     "éviter les efforts en glotte fermée",
     "privilégier les activités d’endurance régulières",
     "surveiller la tolérance tensionnelle à l’effort"
@@ -1272,7 +1272,7 @@ hta: {
     "SI lésion du pied → ALORS adapter ou éviter certaines activités"
   ],
 
-  crc: [
+  crc_default: [
   "surveillance glycémique recommandée",
   "vigilance pour les pieds",
   "adapter les apports alimentaires à l’activité"
@@ -1312,7 +1312,7 @@ icc: {
     "SI environnement extrême (chaleur, froid, altitude > 2500 m) → ALORS adapter ou éviter"
   ],
 
-  crc: [
+  crc_default: [
     "privilégier une activité d’endurance régulière adaptée",
     "progresser progressivement en durée et en intensité",
     "surveiller la tolérance à l’effort (essoufflement, fatigue)"
@@ -1425,12 +1425,12 @@ function updatePathoRules() {
 <!-- 🔹 QUOI -->
 <div style="margin-bottom:8px;">
   <label>
-    <input type="radio" name="crc_detail" value="simple" checked>
-    Tous ces éléments
+    <input type="radio" name="crc_detail" value="simple">
+    Tous
   </label>
   <label style="margin-left:10px;">
-    <input type="radio" name="crc_detail" value="detail">
-    Seulement certains
+    <input type="radio" name="crc_detail" value="detail" checked>
+    Certains
   </label>
 </div>
 
@@ -1438,11 +1438,11 @@ function updatePathoRules() {
 <div style="margin-bottom:10px;">
   <label>
     <input type="radio" name="crc_mode" value="both" checked>
-    Intégrer à toutes les versions du compte rendu
+    Intégrer à tous les CRC
   </label>
   <label style="margin-left:10px;">
     <input type="radio" name="crc_mode" value="patient">
-    À la seule version patient
+    À la version patient
   </label>
 </div>
 
@@ -1455,12 +1455,14 @@ function updatePathoRules() {
 
   <!-- MODE DETAIL -->
   <div class="crc-detail" style="display:none;">
-    ${data.crc.map(c => `
-      <label style="display:block;">
-        <input type="checkbox" class="crc-item" value="${c}">
-        ${c}
-      </label>
-    `).join("")}
+   ${data.crc.map(c => `
+  <label style="display:block;">
+    <input type="checkbox" class="crc-item" value="${c}"
+      ${data.crc_default && data.crc_default.includes(c) ? "checked" : ""}
+    >
+    ${c}
+  </label>
+`).join("")}
   </div>
 
 </div>
