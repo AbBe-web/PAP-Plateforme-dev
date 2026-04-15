@@ -1731,43 +1731,21 @@ function initCRCModeToggle(){
 
   document.addEventListener("change", function(e){
 
-   if (e.target.name.startsWith("crc_detail_")) {
+    if (e.target.name.startsWith("crc_detail_")) {
 
       const mode = e.target.value;
+      const patho = e.target.name.replace("crc_detail_", "");
 
-      document.querySelectorAll('[id^="crcContainer_"]').forEach(container => {
+      const container = document.getElementById(`crcContainer_${patho}`);
 
-        const simple = container.querySelector(".crc-simple");
-        const detail = container.querySelector(".crc-detail");
-
-        if (!simple || !detail) return;
-
-        if (mode === "simple") {
-          simple.style.display = "block";
-          detail.style.display = "none";
-        } else {
-          simple.style.display = "none";
-          detail.style.display = "block";
-        }
-
-      });
-
-    }
-
-  });
-    
-  const selected = document.querySelector('input[name="crc_detail"]:checked')?.value;
-
-  if (selected) {
-
-    document.querySelectorAll('[id^="crcContainer_"]').forEach(container => {
+      if (!container) return;
 
       const simple = container.querySelector(".crc-simple");
       const detail = container.querySelector(".crc-detail");
 
       if (!simple || !detail) return;
 
-      if (selected === "simple") {
+      if (mode === "simple") {
         simple.style.display = "block";
         detail.style.display = "none";
       } else {
@@ -1775,9 +1753,31 @@ function initCRCModeToggle(){
         detail.style.display = "block";
       }
 
-    });
+    }
 
-  }
+  });
+
+  // 🔹 INITIALISATION AU CHARGEMENT
+  document.querySelectorAll('[id^="crcContainer_"]').forEach(container => {
+
+    const patho = container.id.replace("crcContainer_", "");
+
+    const selected = document.querySelector(`input[name="crc_detail_${patho}"]:checked`)?.value;
+
+    const simple = container.querySelector(".crc-simple");
+    const detail = container.querySelector(".crc-detail");
+
+    if (!simple || !detail) return;
+
+    if (selected === "simple") {
+      simple.style.display = "block";
+      detail.style.display = "none";
+    } else {
+      simple.style.display = "none";
+      detail.style.display = "block";
+    }
+
+  });
 
 }
     
