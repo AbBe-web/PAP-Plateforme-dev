@@ -1572,33 +1572,34 @@ function updatePathoRules() {
 ⚙️ Points de vigilance<br>
 ${data.regles.map(r => `• ${r}`).join("<br>")}
 
-<div style="font-size:0.9em; margin-top:6px;">
-  🧾 Éléments intégrables au compte rendu
-</div>
+<div style="margin-top:6px;">
+  <strong style="font-weight:normal;">🧾 Éléments intégrables au compte rendu</strong>
 
-<!-- 🔹 QUOI -->
-<div style="margin-bottom:8px;">
-  <label>
-    <input type="radio" name="crc_detail_${p.value}" value="simple">
-    Tous
-  </label>
-  <label style="margin-left:10px;">
-    <input type="radio" name="crc_detail_${p.value}" value="detail" checked>
-    Certains
-  </label>
-</div>
+  <div style="font-size:0.95em; line-height:1.4; margin-top:4px;">
 
-<!-- 🔹 OU -->
-<div style="margin-bottom:10px;">
-  <label>
-    <input type="radio" name="crc_mode_${p.value}" value="both" checked>
-    Intégrer à tous les CRC
-  </label>
-  <label style="margin-left:10px;">
-    <input type="radio" name="crc_mode_${p.value}" value="patient">
-    À la version patient
-  </label>
-</div>
+    <!-- 🔹 QUOI -->
+    <div style="margin-bottom:4px;">
+      <label>
+        <input type="radio" name="crc_detail_${p.value}" value="simple">
+        Tous
+      </label>
+      <label style="margin-left:10px;">
+        <input type="radio" name="crc_detail_${p.value}" value="detail" checked>
+        Certains
+      </label>
+    </div>
+
+    <!-- 🔹 OU -->
+    <div style="margin-bottom:6px;">
+      <label>
+        <input type="radio" name="crc_mode_${p.value}" value="both" checked>
+        Intégrer à tous les CRC
+      </label>
+      <label style="margin-left:10px;">
+        <input type="radio" name="crc_mode_${p.value}" value="patient">
+        À la version patient
+      </label>
+    </div>
 
 <div id="crcContainer_${p.value}">
 
