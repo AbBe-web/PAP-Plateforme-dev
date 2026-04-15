@@ -1727,7 +1727,6 @@ document.querySelectorAll(".patho").forEach(el => {
   el.addEventListener("change", updatePathoHelp);
 });    
 }
-
 function initCRCModeToggle(){
 
   document.addEventListener("change", function(e){
@@ -1756,6 +1755,29 @@ function initCRCModeToggle(){
     }
 
   });
+    
+  const selected = document.querySelector('input[name="crc_detail"]:checked')?.value;
+
+  if (selected) {
+
+    document.querySelectorAll('[id^="crcContainer_"]').forEach(container => {
+
+      const simple = container.querySelector(".crc-simple");
+      const detail = container.querySelector(".crc-detail");
+
+      if (!simple || !detail) return;
+
+      if (selected === "simple") {
+        simple.style.display = "block";
+        detail.style.display = "none";
+      } else {
+        simple.style.display = "none";
+        detail.style.display = "block";
+      }
+
+    });
+
+  }
 
 }
     
