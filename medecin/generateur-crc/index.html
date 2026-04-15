@@ -1437,11 +1437,11 @@ function updatePathoRules() {
 <!-- 🔹 QUOI -->
 <div style="margin-bottom:8px;">
   <label>
-    <input type="radio" name="crc_detail" value="simple">
+    <input type="radio" name="crc_detail_${p.value}" value="simple">
     Tous
   </label>
   <label style="margin-left:10px;">
-    <input type="radio" name="crc_detail" value="detail" checked>
+    <input type="radio" name="crc_detail_${p.value}" value="detail" checked>
     Certains
   </label>
 </div>
@@ -1449,11 +1449,11 @@ function updatePathoRules() {
 <!-- 🔹 OU -->
 <div style="margin-bottom:10px;">
   <label>
-    <input type="radio" name="crc_mode" value="both" checked>
+    <input type="radio" name="crc_mode_${p.value}" value="both" checked>
     Intégrer à tous les CRC
   </label>
   <label style="margin-left:10px;">
-    <input type="radio" name="crc_mode" value="patient">
+    <input type="radio" name="crc_mode_${p.value}" value="patient">
     À la version patient
   </label>
 </div>
@@ -1731,7 +1731,7 @@ function initCRCModeToggle(){
 
   document.addEventListener("change", function(e){
 
-    if (e.target.name === "crc_detail") {
+   if (e.target.name.startsWith("crc_detail_")) {
 
       const mode = e.target.value;
 
