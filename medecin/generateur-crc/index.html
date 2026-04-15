@@ -761,29 +761,39 @@ Importer fichier JSON
 
 <div class="form-group">
 
-  <h2>🩺 Maladies chroniques (aide à la prescription)</h2>
+<h2>🩺 Maladies chroniques (aide à la prescription)</h2>
 
-  <div style="display:flex; flex-wrap:wrap; gap:20px;">
+<div style="display:flex; flex-wrap:wrap; gap:20px;">
 
-    <div>
-      <strong>Cardio</strong><br>
-      <label><input type="checkbox" class="patho" value="hta"> HTA</label><br>
-      <label><input type="checkbox" class="patho" value="coronaropathie"> Coronaropathie</label>
-    </div>
-
-    <div>
-      <strong>Métabolique</strong><br>
-      <label><input type="checkbox" class="patho" value="dt2"> Diabète type 2</label><br>
-      <label><input type="checkbox" class="patho" value="obesite"> Obésité</label>
-     <label><input type="checkbox" class="patho" value="icc"> Insuffisance cardiaque chronique</label>
-    </div>
-
-    <div>
-      <strong>Respiratoire</strong><br>
-      <label><input type="checkbox" class="patho" value="bpco"> BPCO</label>
-    </div>
-
+<div style="min-width:180px; flex:1;">
+    <strong>Cardio</strong><br>
+    <label><input type="checkbox" class="patho" value="hta"> HTA</label><br>
+    <label><input type="checkbox" class="patho" value="coronaropathie"> Coronaropathie</label><br>
+    <label><input type="checkbox" class="patho" value="icc"> Insuffisance cardiaque chronique</label>
   </div>
+
+<div style="min-width:180px; flex:1;">
+    <strong>Métabolique</strong><br>
+    <label><input type="checkbox" class="patho" value="dt2"> Diabète type 2</label><br>
+    <label><input type="checkbox" class="patho" value="obesite"> Obésité</label>
+  </div>
+
+<div style="min-width:180px; flex:1;">
+    <strong>Respiratoire</strong><br>
+    <label><input type="checkbox" class="patho" value="bpco"> BPCO</label>
+  </div>
+    
+<div style="min-width:180px; flex:1;">
+    <strong>Neurologique</strong><br>
+    <label><input type="checkbox" class="patho" value="avc"> AVC</label>
+  </div>
+
+<div style="min-width:180px; flex:1;">
+    <strong>Locomoteur</strong><br>
+    <label><input type="checkbox" class="patho" value="lombalgie"> Lombalgie chronique</label>
+  </div>
+
+</div>
 
 </div>
 
@@ -1329,7 +1339,137 @@ crc_default: [
   "privilégier une activité d’endurance régulière adaptée",
   "surveiller la tolérance à l’effort (essoufflement, fatigue)"
 ]
-}
+}, 
+
+bpco: {
+  titre: "BPCO",
+
+  contraintes: [
+    "BPCO décompensée ou exacerbation récente → contre-indication temporaire à l’AP d’intensité élevée",
+    "Insuffisance respiratoire non contrôlée → adaptation nécessaire",
+    "Désaturation à l’effort → limitation des intensités élevées"
+  ],
+
+  adaptations: [
+    "Privilégier les activités d’endurance (marche, vélo)",
+    "Fractionner les séances (périodes de 5–10 minutes si besoin)",
+    "Adapter l’intensité selon dyspnée (Borg 3–6)",
+    "Être très progressif (déconditionnement fréquent)",
+    "Limiter la sédentarité dans tous les cas"
+  ],
+
+  situations: [
+    "Dyspnée chronique (échelle mMRC)",
+    "Déconditionnement à l’effort",
+    "Comorbidités fréquentes (cardio, anxiété, dépression)"
+  ],
+
+  regles: [
+    "SI dyspnée importante → ALORS réduire intensité ou fractionner",
+    "SI exacerbation récente → ALORS reprise progressive sur plusieurs semaines",
+    "SI BPCO sévère (GOLD 3–4) → ALORS réadaptation respiratoire à privilégier",
+    "SI désaturation à l’effort → ALORS adaptation ou encadrement spécialisé"
+  ],
+
+  crc: [
+    "être actif régulièrement même à faible intensité",
+    "adapter l’effort en fonction de l’essoufflement",
+    "fractionner les activités si nécessaire",
+    "éviter de rester trop longtemps inactif"
+  ],
+
+  crc_default: [
+    "être actif régulièrement même à faible intensité",
+    "adapter l’effort en fonction de l’essoufflement"
+  ]
+}, 
+    
+avc: {
+  titre: "Accident vasculaire cérébral",
+
+  contraintes: [
+    "AVC récent avec instabilité clinique → contre-indication temporaire à l’AP",
+    "Déficits neurologiques sévères non stabilisés → adaptation nécessaire",
+    "Troubles de l’équilibre → risque de chute à prendre en compte"
+  ],
+
+  adaptations: [
+    "Privilégier les activités d’endurance (marche +++)",
+    "Associer renforcement musculaire (sans majoration de spasticité)",
+    "Proposer activité continue ou fractionnée selon tolérance",
+    "Encourager les activités de la vie quotidienne en complément",
+    "Progressivité ++ (fatigue fréquente)"
+  ],
+
+  situations: [
+    "Fatigue post-AVC fréquente",
+    "Syndrome dépressif fréquent",
+    "Handicap fonctionnel variable"
+  ],
+
+  regles: [
+    "SI déficit neurologique important → ALORS encadrement recommandé (rééducation)",
+    "SI fatigue importante → ALORS fractionner les séances",
+    "SI facteurs de risque cardiovasculaire non contrôlés → ALORS réévaluation à considérer",
+    "SI perte de motivation → ALORS accompagnement et encouragement nécessaires"
+  ],
+
+  crc: [
+    "privilégier la marche régulière",
+    "être progressif dans la durée et l’intensité",
+    "ajouter de l’activité physique dans la vie quotidienne",
+    "ne pas se décourager malgré une progression lente"
+  ],
+
+  crc_default: [
+    "privilégier la marche régulière",
+    "être progressif dans la durée et l’intensité"
+  ]
+}, 
+
+lombalgie: {
+  titre: "Lombalgie chronique",
+
+  contraintes: [
+    "Lombalgie aiguë ou radiculalgie aiguë → contre-indication temporaire",
+    "Suite opératoire récente rachidienne → adaptation nécessaire"
+  ],
+
+  adaptations: [
+    "Maintenir une activité physique (traitement principal)",
+    "Adapter les exercices selon la douleur (éviter aggravation)",
+    "Associer endurance, renforcement et mobilité",
+    "Intégrer exercices de contrôle moteur (gainage, proprioception)",
+    "Progressivité ++"
+  ],
+
+  situations: [
+    "Facteurs psychosociaux (drapeaux jaunes, bleus, noirs)",
+    "Déconditionnement à l’effort",
+    "Douleur chronique fluctuante"
+  ],
+
+  regles: [
+    "SI douleur augmente fortement → ALORS adapter ou modifier l’exercice",
+    "SI peur du mouvement → ALORS rassurer (douleur ≠ lésion)",
+    "SI inactivité → ALORS encourager reprise progressive",
+    "SI retentissement biopsychosocial → ALORS prise en charge globale à considérer"
+  ],
+
+  crc: [
+    "rester actif malgré la douleur",
+    "être progressif dans les exercices",
+    "choisir des exercices qui n’aggravent pas les symptômes",
+    "éviter le repos prolongé"
+  ],
+
+  crc_default: [
+    "rester actif malgré la douleur",
+    "être progressif dans les exercices"
+  ]
+}, 
+
+
     
     
 };
