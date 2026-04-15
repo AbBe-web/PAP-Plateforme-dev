@@ -1593,28 +1593,28 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
 
 <!-- 🔹 QUOI -->
 <div style="margin-bottom:4px;">
-  <label style="display:inline-block; margin-right:10px; font-size:1em;">
-    <input type="radio" name="crc_detail_${p.value}" value="simple">
-    Tous
-  </label>
+ <label style="display:inline-block; margin-right:10px; line-height:1.2;">
+  <input type="radio" name="crc_detail_${p.value}" value="simple" style="vertical-align:middle;">
+  Tous
+</label>
 
-  <label style="display:inline-block; margin-right:10px; font-size:1em;">
-    <input type="radio" name="crc_detail_${p.value}" value="detail" checked>
-    Certains
-  </label>
+<label style="display:inline-block; margin-right:10px; line-height:1.2;">
+  <input type="radio" name="crc_detail_${p.value}" value="detail" checked style="vertical-align:middle;">
+  Certains
+</label>
 </div>
 
 <!-- 🔹 OU -->
 <div style="margin-bottom:4px;">
-  <label style="display:inline-block; margin-right:10px; font-size:1em;">
-    <input type="radio" name="crc_mode_${p.value}" value="both" checked>
-    Intégrer à tous les CRC
-  </label>
+ <label style="display:inline-block; margin-right:10px; line-height:1.2;">
+  <input type="radio" name="crc_mode_${p.value}" value="both" checked style="vertical-align:middle;">
+  Intégrer à tous les CRC
+</label>
 
-  <label style="display:inline-block; margin-right:10px; font-size:1em;">
-    <input type="radio" name="crc_mode_${p.value}" value="patient">
-    À la version patient
-  </label>
+<label style="display:inline-block; margin-right:10px; line-height:1.2;">
+  <input type="radio" name="crc_mode_${p.value}" value="patient" style="vertical-align:middle;">
+  À la version patient
+</label>
 </div>
 
 <div id="crcContainer_${p.value}" class="crc-container">
@@ -1627,8 +1627,8 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
   <!-- MODE DETAIL -->
   <div class="crc-detail" style="display:none;">
    ${data.crc.map(c => `
-<label style="display:block; margin:1px 0;">
-    <input type="checkbox" class="crc-item" value="${c}"
+<label style="display:block; margin:1px 0; line-height:1.2;">
+<input type="checkbox" class="crc-item" value="${c}" style="vertical-align:middle;"
       ${data.crc_default && data.crc_default.includes(c) ? "checked" : ""}
     >
     ${c}
