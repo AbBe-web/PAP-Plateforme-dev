@@ -1586,9 +1586,10 @@ function updatePathoRules() {
 ⚙️ Points de vigilance<br>
 ${data.regles.map(r => `• ${r}`).join("<br>")}
 
-  <strong style="font-weight:normal;">🧾 Éléments intégrables au compte rendu</strong>
-
-  <div style="font-size:0.95em; line-height:1.4; margin-top:4px;">
+<br>
+<span style="display:block; margin-top:6px;">
+  🧾 Éléments intégrables au compte rendu
+</span>
 
 <!-- 🔹 QUOI -->
 <div style="margin-bottom:4px;">
@@ -1626,7 +1627,7 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
   <!-- MODE DETAIL -->
   <div class="crc-detail" style="display:none;">
    ${data.crc.map(c => `
-  <label style="display:block;">
+<label style="display:block; margin:1px 0;">
     <input type="checkbox" class="crc-item" value="${c}"
       ${data.crc_default && data.crc_default.includes(c) ? "checked" : ""}
     >
@@ -1635,7 +1636,6 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
 `).join("")}
   </div>
 
-</div>
 </div>
 </details>
     `;
