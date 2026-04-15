@@ -19,6 +19,20 @@
 
         <link rel="stylesheet" href="../../css/style-global.css">
 <style>
+.crc-container label {
+  font-size: 0.95em !important;
+  margin-bottom: 2px;
+}
+
+.crc-container input {
+  transform: scale(0.95);
+}
+
+.crc-container {
+  line-height: 1.35;
+  margin-top: 6px;
+}
+    
 .modal {
   position: fixed;
   inset: 0;
@@ -1572,7 +1586,7 @@ function updatePathoRules() {
 ⚙️ Points de vigilance<br>
 ${data.regles.map(r => `• ${r}`).join("<br>")}
 
-<div style="margin-top:6px;">
+<div class="crc-container">
   <strong style="font-weight:normal;">🧾 Éléments intégrables au compte rendu</strong>
 
   <div style="font-size:0.95em; line-height:1.4; margin-top:4px;">
