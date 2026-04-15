@@ -1592,29 +1592,29 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
 </span>
 
 <!-- 🔹 QUOI -->
-<div style="margin-bottom:4px;">
- <label style="display:inline-block; margin-right:10px; line-height:1.2;">
-  <input type="radio" name="crc_detail_${p.value}" value="simple" style="vertical-align:middle;">
-  Tous
-</label>
+<div style="display:flex; gap:10px; align-items:center; margin:2px 0;">
+  <label style="margin:0;">
+    <input type="radio" name="crc_detail_${p.value}" value="simple">
+    Tous
+  </label>
 
-<label style="display:inline-block; margin-right:10px; line-height:1.2;">
-  <input type="radio" name="crc_detail_${p.value}" value="detail" checked style="vertical-align:middle;">
-  Certains
-</label>
+  <label style="margin:0;">
+    <input type="radio" name="crc_detail_${p.value}" value="detail" checked>
+    Certains
+  </label>
 </div>
 
 <!-- 🔹 OU -->
-<div style="margin-bottom:4px;">
- <label style="display:inline-block; margin-right:10px; line-height:1.2;">
-  <input type="radio" name="crc_mode_${p.value}" value="both" checked style="vertical-align:middle;">
-  Intégrer à tous les CRC
-</label>
+<div style="display:flex; gap:10px; align-items:center; margin:2px 0;">
+  <label style="margin:0;">
+    <input type="radio" name="crc_mode_${p.value}" value="both" checked>
+    Intégrer à tous les CRC
+  </label>
 
-<label style="display:inline-block; margin-right:10px; line-height:1.2;">
-  <input type="radio" name="crc_mode_${p.value}" value="patient" style="vertical-align:middle;">
-  À la version patient
-</label>
+  <label style="margin:0;">
+    <input type="radio" name="crc_mode_${p.value}" value="patient">
+    À la version patient
+  </label>
 </div>
 
 <div id="crcContainer_${p.value}" class="crc-container">
