@@ -769,7 +769,7 @@ Importer fichier JSON
 <strong style="display:block; margin-bottom:6px;">Cardio</strong>
     <label><input type="checkbox" class="patho" value="hta"> HTA</label>
     <label><input type="checkbox" class="patho" value="coronaropathie"> Coronaropathie</label>
-    <label><input type="checkbox" class="patho" value="icc"> Insuffisance cardiaque chronique</label>
+    <label><input type="checkbox" class="patho" value="icc"> Insuf. cardiaque chronique</label>
   </div>
 
 <div>
@@ -1569,10 +1569,12 @@ function updatePathoRules() {
         🔎 Situations spécifiques<br>
         ${data.situations.map(s => `• ${s}`).join("<br>")}<br><br>
 
-        ⚙️ Points de vigilance<br>
-        ${data.regles.map(r => `• ${r}`).join("<br>")}<br><br>
-        
-🧾 Éléments intégrables au compte rendu<br><br>
+⚙️ Points de vigilance<br>
+${data.regles.map(r => `• ${r}`).join("<br>")}
+
+<div style="font-size:0.9em; margin-top:6px;">
+  🧾 Éléments intégrables au compte rendu
+</div>
 
 <!-- 🔹 QUOI -->
 <div style="margin-bottom:8px;">
