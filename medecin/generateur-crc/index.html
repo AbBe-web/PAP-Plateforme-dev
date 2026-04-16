@@ -2573,12 +2573,12 @@ function buildCRCPathoBloc(mode = "long") {
       items = PATHO_DATA[p.value]?.crc || [];
     }
 
-    const pathoLabel = PATHO_DATA[p.value]?.titre || p.value;
+    const pathoLabel = PATHO_DATA[p.value]?.titre?.toLowerCase() || p.value;
 
     items.forEach(i => {
       allItems.push({
         text: i,
-        patho: pathoLabel.toLowerCase()
+        patho: pathoLabel
       });
     });
 
@@ -2589,49 +2589,36 @@ function buildCRCPathoBloc(mode = "long") {
   const nbPathos = selectedPathos.length;
   const nbItems = allItems.length;
 
-  // 🔹 TEXTE LISTE
-  const itemsText = allItems
-    .map(i => `${i.text} (${i.patho})`)
-    .join(", ");
-
-  // 🎯 MODE PATIENT
-  if (mode === "patient") {
-
-    const probleme = nbPathos > 1 ? "vos problèmes" : "votre problème";
-
-    return `
-En lien avec ${probleme} de santé, voici quelques conseils adaptés : ${itemsText}.
-`;
-  }
-
-  // 🎯 MODE COURRIER / DOSSIER MEDICAL (STRUCTURÉ)
-  if (mode === "long" || mode === "medical") {
-
-    const pathoTxt = nbPathos > 1 ? "ses pathologies" : "sa pathologie";
-    const recoTxt = nbItems > 1 ? "Les recommandations spécifiques" : "La recommandation spécifique";
-    const verbe = nbItems > 1 ? "ont été abordées" : "a été abordée";
-
-    // version dossier médical sans phrase complète
-    if (mode === "medical") {
-      return `
-<strong>Recommandations spécifiques en lien avec ${pathoTxt} abordée(s) en consultation :</strong><br>
-${allItems.map(i => `- ${i.text} (${i.patho})`).join("<br>")}
-`;
+  // 🔹 TEXTE LISTE (patho uniquement sur DERNIER item)
+  const itemsText = allItems.map((item, index) => {
+    if (index === allItems.length - 1) {
+      return `${item.text} (${item.patho})`;
     }
+    return item.text;
+  }).join(", ");
 
-    // version courrier complet
-    return `
-${recoTxt} en rapport avec ${pathoTxt} ${verbe} lors de la consultation :<br>
-${allItems.map(i => `- ${i.text} (${i.patho})`).join("<br>")}
-`;
+  const pathoTxt = nbPathos > 1 ? "ses pathologies" : "sa pathologie";
+  const recoTxt = nbItems > 1 ? "Les recommandations spécifiques" : "La recommandation spécifique";
+  const verbe = nbItems > 1 ? "ont été abordées" : "a été abordée";
+
+  // 🎯 PATIENT → uniquement la liste (pas d’intro)
+  if (mode === "patient") {
+    return `${itemsText}.`;
   }
 
-  // 🎯 MODE PARAGRAPHE
+  // 🎯 PARAGRAPHE
   if (mode === "paragraph") {
+    return `${recoTxt} suivantes en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.`;
+  }
 
-    return `
-${itemsText}.
-`;
+  // 🎯 COURRIER COMPLET
+  if (mode === "long") {
+    return `Recommandations spécifiques : ${recoTxt} en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.`;
+  }
+
+  // 🎯 DOSSIER MÉDICAL
+  if (mode === "medical") {
+    return `Recommandations spécifiques en lien avec ${pathoTxt} abordée(s) en consultation : ${itemsText}.`;
   }
 
   return "";
