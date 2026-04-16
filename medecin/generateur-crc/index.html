@@ -1885,17 +1885,16 @@ document.querySelectorAll(".patho").forEach(el => {
   el.addEventListener("change", updatePathoHelp);
 });    
 }
+    
 function initCRCModeToggle(){
 
   document.addEventListener("change", function(e){
 
-    if (e.target.name.startsWith("crc_detail_")) {
+    // 🔹 1. Gestion affichage simple/détail
+    if (e.target.name && e.target.name.startsWith("crc_detail_")) {
 
-      const mode = e.target.value;
       const patho = e.target.name.replace("crc_detail_", "");
-
       const container = document.getElementById(`crcContainer_${patho}`);
-
       if (!container) return;
 
       const simple = container.querySelector(".crc-simple");
@@ -1903,19 +1902,33 @@ function initCRCModeToggle(){
 
       if (!simple || !detail) return;
 
-      if (mode === "simple") {
+      if (e.target.value === "simple") {
         simple.style.display = "block";
         detail.style.display = "none";
       } else {
         simple.style.display = "none";
         detail.style.display = "block";
       }
+    }
+
+    // 🔹 2. 🔥 MAJ AUTOMATIQUE DU CRC
+    const isRelevantChange =
+      e.target.classList.contains("patho") ||
+      e.target.classList.contains("crc-item") ||
+      (e.target.name && e.target.name.startsWith("crc_detail_")) ||
+      (e.target.name && e.target.name.startsWith("crc_mode_"));
+
+    if (isRelevantChange) {
+
+      if (typeof renderActiveMode === "function") {
+        renderActiveMode();
+      }
 
     }
 
   });
 
-  // 🔹 INITIALISATION AU CHARGEMENT
+  // 🔹 INITIALISATION AU CHARGEMENT (CONSERVÉE)
   document.querySelectorAll('[id^="crcContainer_"]').forEach(container => {
 
     const patho = container.id.replace("crcContainer_", "");
