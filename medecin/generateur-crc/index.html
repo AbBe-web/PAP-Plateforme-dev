@@ -2551,12 +2551,12 @@ clinicalModel = buildClinicalModel();
 
   }, 40);
 }
-
+    
 function buildCRCPathoBloc(mode = "long") {
 
-  let html = "";
+  const selectedPathos = Array.from(document.querySelectorAll(".patho:checked"));
 
-  const selectedPathos = document.querySelectorAll(".patho:checked");
+  let allItems = [];
 
   selectedPathos.forEach(p => {
 
@@ -2573,41 +2573,68 @@ function buildCRCPathoBloc(mode = "long") {
       items = PATHO_DATA[p.value]?.crc || [];
     }
 
-    if (items.length === 0) return;
-
     const pathoLabel = PATHO_DATA[p.value]?.titre || p.value;
 
-    // 🎯 FORMULATION SELON MODE
-    if (mode === "long") {
-      html += `
-Dans le cadre de la prise en charge de (${pathoLabel}) :<br>
-${items.map(i => "- " + i).join("<br>")}<br><br>
-`;
-    }
-
-    else if (mode === "paragraph") {
-      html += `
-Concernant (${pathoLabel}) : ${items.join(", ")}.<br>
-`;
-    }
-
-    else if (mode === "medical") {
-      html += `
-<strong>${pathoLabel}</strong><br>
-${items.map(i => "- " + i).join("<br>")}<br>
-`;
-    }
-
-    else if (mode === "patient") {
-      html += `
-Pour (${pathoLabel}) :<br>
-${items.map(i => "- " + i).join("<br>")}<br>
-`;
-    }
+    items.forEach(i => {
+      allItems.push({
+        text: i,
+        patho: pathoLabel.toLowerCase()
+      });
+    });
 
   });
 
-  return html;
+  if (allItems.length === 0) return "";
+
+  const nbPathos = selectedPathos.length;
+  const nbItems = allItems.length;
+
+  // 🔹 TEXTE LISTE
+  const itemsText = allItems
+    .map(i => `${i.text} (${i.patho})`)
+    .join(", ");
+
+  // 🎯 MODE PATIENT
+  if (mode === "patient") {
+
+    const probleme = nbPathos > 1 ? "vos problèmes" : "votre problème";
+
+    return `
+En lien avec ${probleme} de santé, voici quelques conseils adaptés : ${itemsText}.
+`;
+  }
+
+  // 🎯 MODE COURRIER / DOSSIER MEDICAL (STRUCTURÉ)
+  if (mode === "long" || mode === "medical") {
+
+    const pathoTxt = nbPathos > 1 ? "ses pathologies" : "sa pathologie";
+    const recoTxt = nbItems > 1 ? "Les recommandations spécifiques" : "La recommandation spécifique";
+    const verbe = nbItems > 1 ? "ont été abordées" : "a été abordée";
+
+    // version dossier médical sans phrase complète
+    if (mode === "medical") {
+      return `
+<strong>Recommandations spécifiques en lien avec ${pathoTxt} abordée(s) en consultation :</strong><br>
+${allItems.map(i => `- ${i.text} (${i.patho})`).join("<br>")}
+`;
+    }
+
+    // version courrier complet
+    return `
+${recoTxt} en rapport avec ${pathoTxt} ${verbe} lors de la consultation :<br>
+${allItems.map(i => `- ${i.text} (${i.patho})`).join("<br>")}
+`;
+  }
+
+  // 🎯 MODE PARAGRAPHE
+  if (mode === "paragraph") {
+
+    return `
+${itemsText}.
+`;
+  }
+
+  return "";
 }
     
       function renderLongLetterV2(model) {
