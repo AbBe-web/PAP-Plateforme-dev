@@ -2784,11 +2784,11 @@ ${crcPathoBloc}
     .replace(".", "");
 
 const prescriptionBloc = buildPrescription({ ...model, context: "patient" })
-    const crcPathoBloc = buildCRCPathoBloc("patient");
-    .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
-    .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
-    .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
+  .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
+  .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
+  .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
 
+const crcPathoBloc = buildCRCPathoBloc("patient");
   // 🔹 Message progressivité seulement si insuffisamment actif ou actif depuis moins de 6 mois
 const progressiviteMessage = (() => {
 
