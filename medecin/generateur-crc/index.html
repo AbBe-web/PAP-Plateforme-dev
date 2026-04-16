@@ -2552,6 +2552,64 @@ clinicalModel = buildClinicalModel();
   }, 40);
 }
 
+function buildCRCPathoBloc(mode = "long") {
+
+  let html = "";
+
+  const selectedPathos = document.querySelectorAll(".patho:checked");
+
+  selectedPathos.forEach(p => {
+
+    const container = document.getElementById(`crcContainer_${p.value}`);
+    if (!container) return;
+
+    const detailMode = document.querySelector(`input[name="crc_detail_${p.value}"]:checked`)?.value;
+
+    let items = [];
+
+    if (detailMode === "detail") {
+      items = Array.from(container.querySelectorAll(".crc-item:checked")).map(el => el.value);
+    } else {
+      items = PATHO_DATA[p.value]?.crc || [];
+    }
+
+    if (items.length === 0) return;
+
+    const pathoLabel = PATHO_DATA[p.value]?.titre || p.value;
+
+    // 🎯 FORMULATION SELON MODE
+    if (mode === "long") {
+      html += `
+Dans le cadre de la prise en charge de (${pathoLabel}) :<br>
+${items.map(i => "- " + i).join("<br>")}<br><br>
+`;
+    }
+
+    else if (mode === "paragraph") {
+      html += `
+Concernant (${pathoLabel}) : ${items.join(", ")}.<br>
+`;
+    }
+
+    else if (mode === "medical") {
+      html += `
+<strong>${pathoLabel}</strong><br>
+${items.map(i => "- " + i).join("<br>")}<br>
+`;
+    }
+
+    else if (mode === "patient") {
+      html += `
+Pour (${pathoLabel}) :<br>
+${items.map(i => "- " + i).join("<br>")}<br>
+`;
+    }
+
+  });
+
+  return html;
+}
+    
       function renderLongLetterV2(model) {
 
   const p = model.patient;
@@ -2581,7 +2639,8 @@ clinicalModel = buildClinicalModel();
   const motivationBloc = buildMotivation(model);
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
-
+  const crcPathoBloc = buildCRCPathoBloc("long");
+          
           let crcPathoBloc = "";
 
 const selectedPathos = document.querySelectorAll(".patho:checked");
@@ -2660,7 +2719,8 @@ Je me tiens à votre disposition pour toute précision complémentaire.
   const motivationBloc = buildMotivation(model);
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
-              
+  const crcPathoBloc = buildCRCPathoBloc("paragraph");    
+                
   return `
 <p>
 ${titre} _____ a été ${participe} en consultation d’activité physique.
@@ -2669,6 +2729,8 @@ ${motivationBloc}
 ${rcvBloc}
 Les objectifs principaux sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
 ${prescriptionBloc}
+
+${crcPathoBloc}
 </p>
 `;
 }
@@ -2678,7 +2740,8 @@ ${prescriptionBloc}
   const motivationBloc = buildMotivation(model);
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
-
+  const crcPathoBloc = buildCRCPathoBloc("medical");
+                
   return `
 <p style="margin-bottom:28px;">
 <p><strong>Consultation d’activité physique – Synthèse</strong></p>
@@ -2700,6 +2763,12 @@ ${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
 
 <p><strong>Prescription :</strong><br>
 ${prescriptionBloc}</p>
+
+${crcPathoBloc ? `
+<p><strong>Éléments spécifiques par pathologie :</strong><br>
+${crcPathoBloc}
+</p>
+` : ""}
 `;
 }
          function renderPatientVersion(model) {
@@ -2715,6 +2784,7 @@ ${prescriptionBloc}</p>
     .replace(".", "");
 
 const prescriptionBloc = buildPrescription({ ...model, context: "patient" })
+    const crcPathoBloc = buildCRCPathoBloc("patient");
     .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
     .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
     .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
@@ -2764,6 +2834,13 @@ Lors de l’échange que vous avez eu avec votre médecin, l’objectif principa
 <p>
 ${prescriptionBloc}
 </p>
+
+${crcPathoBloc ? `
+<p>
+En lien avec votre/vos problème(s) de santé, voici quelques conseils adaptés :<br>
+${crcPathoBloc}
+</p>
+` : ""}
 
 <p>
 Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
