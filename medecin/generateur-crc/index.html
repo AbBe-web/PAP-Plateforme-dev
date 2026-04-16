@@ -2560,7 +2560,7 @@ clinicalModel = buildClinicalModel();
     document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
     document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
 
-    renderActiveMode();
+   renderActiveMode({ scroll: true });
 
   }, 40);
 }
@@ -2939,10 +2939,62 @@ container.style.opacity = "1";
   container.classList.remove("fade-out");
   container.classList.add("fade-in");
                
-document.getElementById("formatTabs").scrollIntoView({
-  behavior: "auto",
-  block: "start"
-});
+function renderActiveMode(options = {}) {
+
+  const { scroll = false } = options;
+
+  if (!clinicalModel) return;
+
+  savedScrollPosition = window.scrollY;
+
+  const container = document.getElementById("outputContainer");
+
+  let html = "";
+
+  const pdfBtn = document.getElementById("downloadPdf");
+
+  switch (activeMode) {
+    case "long":
+      html = renderLongLetterV2(clinicalModel);
+      break;
+
+    case "paragraph":
+      html = renderParagraphVersion(clinicalModel);
+      break;
+
+    case "medical":
+      html = renderMedicalRecord(clinicalModel);
+      break;
+
+    case "patient":
+      html = renderPatientVersion(clinicalModel);
+      break;
+  }
+
+  container.classList.add("fade-out");
+
+  if (activeMode === "patient") {
+    pdfBtn.classList.remove("hidden");
+  } else {
+    pdfBtn.classList.add("hidden");
+  }
+
+  container.style.opacity = "0";
+  container.innerHTML = html;
+  container.style.opacity = "1";
+
+  container.classList.remove("fade-out");
+  container.classList.add("fade-in");
+
+  // 🔹 SCROLL UNIQUEMENT SI DEMANDÉ
+  if (scroll) {
+    document.getElementById("formatTabs").scrollIntoView({
+      behavior: "auto",
+      block: "start"
+    });
+  }
+
+}
 
 }   
 
