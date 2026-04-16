@@ -1239,12 +1239,14 @@ hta: {
   titre: "Hypertension artérielle",
 
   contraintes: [
-    "PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → CI absolue à AP d’intensité ≥ modérée",
-    "PAS ≥ 180 mmHg ou PAD ≥ 105 mmHg → CI relative à AP d’intensité ≥ modérée (à réévaluer)"
+    "HTA non équilibrée symptomatique + PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → CI absolue à AP ≥ modérée",
+    "HTA non équilibrée symptomatique + PAS ≥ 180 mmHg ou PAD ≥ 105 mmHg → CI relative à AP ≥ modérée (à réévaluer)",
+    "HTA mal équilibrée et/ou symptomatique et/ou atteinte d’organe → précautions si AP très élevée (90-100% VO2 max) ou renforcement musculaire élevé (avis cardio, CI parfois)"
   ],
 
   adaptations: [
     "Privilégier les activités d’endurance et le renforcement musculaire modéré",
+    "En cas d'AP intense, bien s'échauffer",
     "Éviter le renforcement musculaire intense en glotte fermée (Valsalva)"
   ],
 
@@ -1255,20 +1257,21 @@ hta: {
   regles: [
     "SI PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg → ALORS différer l’AP d’intensité ≥ modérée",
     "SI HTA non contrôlée → ALORS stabilisation préalable à envisager avant reprise ou progression de l’AP",
-    "SI traitement antihypertenseur → ALORS risque d’hypotension post-effort à surveiller",
+    "SI traitement antihypertenseur → ALORS risque d’hypotension post-effort à surveiller (parfois plusieurs heures après)",
     "SI traitement diurétique → ALORS risque de déshydratation ou de troubles ioniques, notamment en cas d’effort prolongé ou de chaleur",
-    "SI symptômes à l’effort (vertiges, malaise) → ALORS réévaluation clinique à considérer"
+    "SI symptômes à ou post effort (vertiges, malaise) → ALORS réévaluation clinique (adaptation posologie tt anti HTA à discuter avant les séances d’AP)"
   ],
 
-crc: [
-  "éviter les efforts en glotte fermée",
-  "privilégier les activités d’endurance régulières",
-  "surveiller la tolérance tensionnelle à l’effort"
-],
-crc_default: [
-  "privilégier les activités d’endurance régulières",
-  "surveiller la tolérance tensionnelle à l’effort"
-]
+  crc: [
+    "éviter les efforts en glotte fermée",
+    "privilégier les activités d’endurance régulières",
+    "surveiller la tolérance tensionnelle à l’effort"
+  ],
+
+  crc_default: [
+    "privilégier les activités d’endurance régulières",
+    "surveiller la tolérance tensionnelle à l’effort"
+  ]
 },
 
  dt2: {
@@ -1574,7 +1577,7 @@ function updatePathoRules() {
 
 <div style="margin-top:10px;">
 
-        ⚠️ Contre-indications<br>
+       ⚠️ Contre-indications / Limitations<br>
         ${data.contraintes.map(c => `• ${c}`).join("<br>")}<br><br>
 
         🔧 Adaptations<br>
