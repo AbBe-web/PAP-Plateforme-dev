@@ -2639,32 +2639,8 @@ ${items.map(i => "- " + i).join("<br>")}<br>
   const motivationBloc = buildMotivation(model);
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
-  const crcPathoBloc = buildCRCPathoBloc("long");
+const crcPathoBloc = buildCRCPathoBloc("long");
           
-          let crcPathoBloc = "";
-
-const selectedPathos = document.querySelectorAll(".patho:checked");
-
-selectedPathos.forEach(p => {
-
-  const container = document.getElementById(`crcContainer_${p.value}`);
-  if (!container) return;
-
-  const detailMode = document.querySelector(`input[name="crc_detail_${p.value}"]:checked`)?.value;
-
-  let items = [];
-
-  if (detailMode === "detail") {
-    items = Array.from(container.querySelectorAll(".crc-item:checked")).map(el => el.value);
-  } else {
-    items = PATHO_DATA[p.value]?.crc || [];
-  }
-
-  if (items.length > 0) {
-    crcPathoBloc += items.map(i => "- " + i).join("<br>") + "<br>";
-  }
-
-});
   return `
 <p style="text-align:right;">Le ${today}</p>
 
