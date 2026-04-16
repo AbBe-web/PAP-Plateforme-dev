@@ -2556,7 +2556,7 @@ function buildCRCPathoBloc(mode = "long") {
 
   const selectedPathos = Array.from(document.querySelectorAll(".patho:checked"));
 
-  let allItems = [];
+  let grouped = {};
 
   selectedPathos.forEach(p => {
 
@@ -2573,52 +2573,71 @@ function buildCRCPathoBloc(mode = "long") {
       items = PATHO_DATA[p.value]?.crc || [];
     }
 
-    const pathoLabel = PATHO_DATA[p.value]?.titre?.toLowerCase() || p.value;
+    // 🔹 LABEL
+    const full = PATHO_DATA[p.value]?.titre || p.value;
+    const short = p.value.toUpperCase(); // HTA, DT2...
 
-    items.forEach(i => {
-      allItems.push({
-        text: i,
-        patho: pathoLabel
-      });
-    });
+    grouped[p.value] = {
+      items,
+      full,
+      short
+    };
 
   });
 
-  if (allItems.length === 0) return "";
+  const pathoKeys = Object.keys(grouped);
+  if (pathoKeys.length === 0) return "";
 
-  const nbPathos = selectedPathos.length;
-  const nbItems = allItems.length;
+  // 🔹 construire texte : groupé par pathologie
+  let parts = [];
 
-  // 🔹 TEXTE LISTE (patho uniquement sur DERNIER item)
-  const itemsText = allItems.map((item, index) => {
-    if (index === allItems.length - 1) {
-      return `${item.text} (${item.patho})`;
-    }
-    return item.text;
-  }).join(", ");
+  pathoKeys.forEach(key => {
+
+    const { items, full, short } = grouped[key];
+    if (!items || items.length === 0) return;
+
+    const label = (mode === "long" || mode === "medical" || mode === "paragraph")
+      ? short
+      : full.toLowerCase();
+
+    parts.push(`${items.join(", ")} (${label})`);
+  });
+
+  const itemsText = parts.join(", ");
+
+  const nbPathos = pathoKeys.length;
+  const nbItems = parts.length;
 
   const pathoTxt = nbPathos > 1 ? "ses pathologies" : "sa pathologie";
-  const recoTxt = nbItems > 1 ? "Les recommandations spécifiques" : "La recommandation spécifique";
   const verbe = nbItems > 1 ? "ont été abordées" : "a été abordée";
 
-  // 🎯 PATIENT → uniquement la liste (pas d’intro)
+  // 🎯 PATIENT
   if (mode === "patient") {
-    return `${itemsText}.`;
-  }
 
-  // 🎯 PARAGRAPHE
-  if (mode === "paragraph") {
-    return `${recoTxt} suivantes en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.`;
+    const probleme = nbPathos > 1 ? "vos problèmes" : "votre problème";
+    const conseil = nbItems > 1 ? "voici quelques conseils de santé" : "voici un conseil de santé";
+
+    return `En lien avec ${probleme} de santé, ${conseil} : ${itemsText}.`;
   }
 
   // 🎯 COURRIER COMPLET
   if (mode === "long") {
-    return `Recommandations spécifiques : ${recoTxt} en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.`;
+
+    return `Les recommandations spécifiques en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.`;
+  }
+
+  // 🎯 PARAGRAPHE
+  if (mode === "paragraph") {
+
+    return `Les recommandations spécifiques suivantes en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.`;
   }
 
   // 🎯 DOSSIER MÉDICAL
   if (mode === "medical") {
-    return `Recommandations spécifiques en lien avec ${pathoTxt} abordée(s) en consultation : ${itemsText}.`;
+
+    const verbeMed = nbPathos > 1 ? "abordées" : "abordée";
+
+    return `Recommandations spécifiques en lien avec ${pathoTxt} ${verbeMed} en consultation : ${itemsText}.`;
   }
 
   return "";
