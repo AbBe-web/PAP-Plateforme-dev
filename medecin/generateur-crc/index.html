@@ -1369,29 +1369,29 @@ bpco: {
   titre: "BPCO",
 
   contraintes: [
-    "BPCO décompensée ou exacerbation récente → contre-indication temporaire à l’AP d’intensité élevée",
-    "Insuffisance respiratoire non contrôlée → adaptation nécessaire",
-    "Désaturation à l’effort → limitation des intensités élevées"
+    "BPCO sévère avec désaturation à l’effort ou insuffisance respiratoire chronique sous OLD → CI relative des AP d’intensité élevée",
+    "Insuffisance respiratoire non contrôlée ou comorbidité décompensée → CI temporaire"
   ],
 
   adaptations: [
+    "Toujours : limiter la sédentarité, augmenter l’AP d’intensité faible, être très progressif (déconditionnement fréquent)",
     "Privilégier les activités d’endurance (marche, vélo)",
-    "Fractionner les séances (périodes de 5–10 minutes si besoin)",
-    "Adapter l’intensité selon dyspnée (Borg 3–6)",
-    "Être très progressif (déconditionnement fréquent)",
-    "Limiter la sédentarité dans tous les cas"
+    "Fractionner les séances (périodes de 5 à 10 minutes si besoin)",
+    "Adapter l’intensité selon dyspnée (Borg 3 à 6)"
   ],
 
   situations: [
-    "Dyspnée chronique (échelle mMRC)",
-    "Déconditionnement à l’effort",
+    "GOLD 3-4 et/ou insuffisance respiratoire chronique sous OLD et/ou ventilation non invasive ℹ️ : réadaptation respiratoire puis APA",
+    "Critères orientant vers réadaptation : persistance d’une dyspnée invalidante malgré traitement optimal (mMRC ≥ 2), VEMS < 50 %, exacerbations fréquentes (>1/an), désaturation mal contrôlée, HTAP, comorbidité cardiovasculaire ou métabolique",
+    "GOLD 2 sans ces critères : avec comorbidités stabilisées → réadaptation, APA ou section sport santé selon situation ; sans comorbidités → idem GOLD 1",
+    "GOLD 1 : pratique d’activité physique en club sport santé ou en autonomie",
     "Comorbidités fréquentes (cardio, anxiété, dépression)"
   ],
 
   regles: [
-    "SI dyspnée importante → ALORS réduire intensité ou fractionner",
-    "SI exacerbation récente → ALORS reprise progressive sur plusieurs semaines",
-    "SI BPCO sévère (GOLD 3–4) → ALORS réadaptation respiratoire à privilégier",
+    "SI dyspnée importante → ALORS réduire l’intensité ou fractionner",
+    "SI exacerbation récente → ALORS éviter sédentarité et reprise progressive de l’AP sur 4 semaines",
+    "SI BPCO sévère (GOLD 3-4) → ALORS réadaptation respiratoire à privilégier",
     "SI désaturation à l’effort → ALORS adaptation ou encadrement spécialisé"
   ],
 
@@ -1404,9 +1404,10 @@ bpco: {
 
   crc_default: [
     "être actif régulièrement même à faible intensité",
-    "adapter l’effort en fonction de l’essoufflement"
+    "adapter l’effort en fonction de l’essoufflement",
+    "éviter de rester trop longtemps inactif"
   ]
-}, 
+},
     
 avc: {
   titre: "Accident vasculaire cérébral",
