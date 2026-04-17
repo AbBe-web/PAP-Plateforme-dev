@@ -1274,22 +1274,21 @@ hta: {
   ]
 },
 
- dt2: {
+dt2: {
   titre: "Diabète de type 2",
 
   contraintes: [
     "Glycémie > 2,5 g/L en début d’exercice → AP déconseillée tant que > 2 g/L (objectif < 2 g/L)",
     "Activité physique d’intensité élevée si glycémie mal contrôlée → à éviter",
-    "Activité physique intense ou avec manoeuvre de Valsalva (ex : renforcement musculaire avec charges lourdes) → contre-indication si diabète compliqué (rétinopathie ou néphropathie ou dysautonomie sévère, hta non contrôlée associée)",
+    "Activité physique intense ou avec manœuvre de Valsalva (ex : renforcement musculaire avec charges lourdes) → CI si diabète compliqué (rétinopathie ou néphropathie ou dysautonomie sévère, HTA non contrôlée associée)",
     "Mal perforant plantaire → contre-indication aux activités des membres inférieurs"
   ],
 
   adaptations: [
-    "Adapter l’intensité de l’activité physique",
-    "Privilégier une progression progressive",
-    "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant <span style='cursor:pointer;color:#2563eb;' onclick=\"showInfo('Insuline, glinides, sulfamides hypoglycémiants', this)\">ℹ️</span> (auto-surveillance, collation possible)",
+    "Privilégier une progressivité : AP d’intensité faible et courte durée au début (ne pas décourager)",
+    "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant ℹ️ (auto-surveillance, adaptation posologie, collation possible)",
     "Surveiller et protéger les pieds",
-    "Possibilité de faire de l'AP en post-prandial pour profiter le l'effet hypoglycémiant de l'AP"
+    "Possibilité de conseiller AP en post-prandial pour profiter de l'effet hypoglycémiant de l'AP"
   ],
 
   situations: [
@@ -1298,21 +1297,25 @@ hta: {
   ],
 
   regles: [
-  "SI traitement hypoglycémiant <span style='cursor:pointer;color:#2563eb;' onclick=\"showInfo('Insuline, glinides, sulfamides hypoglycémiants', this)\">ℹ️</span> → ALORS risque d’hypoglycémie",
-    "SI activité inhabituelle → ALORS adaptation des apports glucidiques evt insuline",
+    "SI traitement hypoglycémiant ℹ️ → ALORS risque d’hypoglycémie (faire glycémie avant et après effort, avoir une collation avec soi)",
+    "SI activité inhabituelle → ALORS adaptation des apports glucidiques éventuellement insuline",
     "SI lésion du pied → ALORS adapter ou éviter certaines activités"
   ],
 
- crc: [
-  "surveillance glycémique recommandée",
-  "vigilance pour les pieds",
-  "adapter les apports alimentaires à l’activité"
-],
-crc_default: [
-  "surveillance glycémique recommandée",
-  "vigilance pour les pieds"
-],
-  }, 
+  crc: [
+    "surveillance glycémique recommandée",
+    "surveillance glycémie avant et après l’effort, avoir une collation avec soi",
+    "vigilance pour les pieds (chaussage adapté, surveillance)",
+    "adapter les apports alimentaires à l’activité"
+  ],
+
+  crc_default: [
+    "surveillance glycémique recommandée",
+    "vigilance pour les pieds (chaussage adapté, surveillance)",
+    "adapter les apports alimentaires à l’activité"
+  ]
+},
+    
 icc: {
   titre: "Insuffisance cardiaque chronique",
 
