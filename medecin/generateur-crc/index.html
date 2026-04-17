@@ -1506,20 +1506,46 @@ function showInfo(text, el) {
 
   const popup = document.getElementById("infoPopup");
 
+  // 🔹 si déjà ouvert sur le même bouton → fermer
+  if (
+    popup.style.display === "block" &&
+    popup.dataset.anchor === el.outerHTML &&
+    popup.textContent === text
+  ) {
+    popup.style.display = "none";
+    popup.dataset.anchor = "";
+    return;
+  }
+
   popup.textContent = text;
 
   const rect = el.getBoundingClientRect();
 
-  // position écran (pas document)
   popup.style.top = (rect.bottom + 5) + "px";
-  popup.style.left = (rect.left) + "px";
+  popup.style.left = rect.left + "px";
 
   popup.style.display = "block";
+  popup.dataset.anchor = el.outerHTML;
 
-  setTimeout(() => {
-    popup.style.display = "none";
-  }, 3000);
 }
+
+document.addEventListener("click", function(e) {
+
+  const popup = document.getElementById("infoPopup");
+
+  if (!popup) return;
+
+  if (
+    e.target.textContent === "ℹ️" ||
+    popup.contains(e.target)
+  ) {
+    return;
+  }
+
+  popup.style.display = "none";
+  popup.dataset.anchor = "";
+
+});    
     
 let isImporting = false;
 let clinicalModel = null;
