@@ -1305,51 +1305,50 @@ dt2: {
     "adapter les apports alimentaires à l’activité"
   ]
 },
-    
+
 icc: {
   titre: "Insuffisance cardiaque chronique",
 
   contraintes: [
-    "SI insuffisance cardiaque décompensée → contre-indication à l’activité physique",
-    "SI HTA sévère non contrôlée → contre-indication",
-    "SI arythmie ventriculaire non contrôlée → contre-indication",
-    "SI thrombus intracardiaque à haut risque → contre-indication",
-    "SI pathologie aiguë inflammatoire ou infectieuse → contre-indication"
+    "SI IC décompensée, HTA sévère non contrôlée, HTAP sévère symptomatique, tr rythmique ventriculaire complexe → CI à l’AP",
+    "SI syndrome coronarien instable, obstacle symptomatique et/ou sévère sur la chambre de chasse du VG, thrombus intracardiaque à haut risque → CI AP",
+    "SI TVP ± EP récente → CI AP",
+    "SI pathologie aiguë inflammatoire ou infectieuse, incapacité à pratique AP liée à handicap moteur (ostéoarticulaire ou neurologique) ou autre cause → CI AP",
+    "SI dysfonction myocardique sévère, péricardite chronique constrictive, faible capacité d’effort (<5-6 METs), anomalies ETT (ischémie, majoration fuite mitrale, asynchronisme de contraction et/ou HTAP) → CI pratique sportive"
   ],
 
   adaptations: [
-    "Privilégier les activités d’endurance dynamique (marche, vélo, natation)",
-    "Intensité modérée (≈ Borg 3–5) avec progression progressive",
-    "Éviter les efforts statiques intenses et la manœuvre de Valsalva",
-    "Fractionner les séances si tolérance limitée",
-    "Encadrement initial recommandé (réadaptation cardiaque)"
+    "Prescription AP après idéalement séjour en réadaptation cardiaque et avis cardiologique",
+    "Intensité AP à adapter au seuil d’apparition ischémie/angor/arythmie (ETT, avis cardiologique)",
+    "Intensité modérée (≈ Borg 3–5) avec progressivité",
+    "Respect des recommandations habituelles (pollution, règles du club des cardiologues du sport)"
+    "Adapter/éviter AP si altitude > 2500 m, dans eau < 25°"
   ],
 
   situations: [
     "Traitement bêtabloquant → fréquence cardiaque peu fiable → utiliser échelle de Borg",
-    "Traitement diurétique → risque de déshydratation et troubles ioniques",
-    "Traitement par statines → douleurs musculaires possibles",
-    "Traitement antiagrégant ou anticoagulant → risque hémorragique à considérer"
+    "Traitement diurétique → risque de déshydratation et troubles ioniques"
   ],
 
   regles: [
-    "SI dyspnée inhabituelle ou majoration → ALORS interrompre et réévaluer",
     "SI fatigue excessive ou intolérance à l’effort → ALORS adapter l’intensité",
-    "SI prise de poids rapide → ALORS suspecter une décompensation",
-    "SI symptômes cardiaques (palpitations, malaise) → ALORS avis spécialisé",
-    "SI environnement extrême (chaleur, froid, altitude > 2500 m) → ALORS adapter ou éviter"
+    "SI symptômes cardiaques (dyspnée inhabituelle, palpitations, malaise) → ALORS avis spécialisé",
+    "SI environnement extrême (chaleur, froid, altitude > 2500 m) → ALORS adapter ou éviter",
+    "SI symptômes musculaires → ALORS recherche hypokaliémie sous diurétique, statines (rare)"
   ],
 
- crc: [
-  "privilégier une activité d’endurance régulière adaptée",
-  "progresser progressivement en durée et en intensité",
-  "surveiller la tolérance à l’effort (essoufflement, fatigue)"
-],
-crc_default: [
-  "privilégier une activité d’endurance régulière adaptée",
-  "surveiller la tolérance à l’effort (essoufflement, fatigue)"
-]
-}, 
+  crc: [
+    "Respect particulièrement important des règles de précaution (selon pollution et conditions météo, 10 règles du club des cardiologues du sport)",
+    "Connaitre le seuil d’intensité de l’activité physique à respecter",
+    "savoir surveiller sa tolérance à l’effort (essoufflement, fatigue)"
+  ],
+
+  crc_default: [
+    "Respect particulièrement important des règles de précaution (selon pollution et conditions météo, 10 règles du club des cardiologues du sport)",
+    "Connaitre le seuil d’intensité de l’activité physique à respecter",
+    "savoir surveiller sa tolérance à l’effort (essoufflement, fatigue)"
+  ]
+},
 
 bpco: {
   titre: "BPCO",
