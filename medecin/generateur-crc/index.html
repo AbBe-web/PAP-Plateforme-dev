@@ -4,7 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+self.addEventListener('install', event => {
+  self.skipWaiting();
+});
 
+self.addEventListener('activate', event => {
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+});
 <link rel="manifest" href="/PAP-Plateforme-dev/manifest.json">
 
 <link rel="icon" href="/PAP-Plateforme-dev/assets/icons/icon-192.png">
@@ -4685,5 +4694,11 @@ document.addEventListener("click", () => {
 ">
 </div>
           
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/PAP-Plateforme-dev/sw.js');
+}
+</script>
+
 </body>
 </html>
