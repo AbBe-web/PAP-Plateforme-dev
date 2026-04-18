@@ -1272,7 +1272,7 @@ dt2: {
 
   adaptations: [
     "Privilégier une progressivité : AP d’intensité faible et courte durée au début (ne pas décourager)",
- "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant (auto-surveillance, adaptation posologie, collation possible)",
+"Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant <span class='info-trigger' data-info='Insuline, glinides, sulfamides hypoglycémiants' style='cursor:pointer;color:#2563eb;'>ℹ️</span> (auto-surveillance, adaptation posologie, collation possible)",
     "Surveiller et protéger les pieds",
     "Possibilité de conseiller AP en post-prandial pour profiter de l’effet hypoglycémiant de l’AP",
     "Possibilité d’AP séquentielle ou fractionnée si déconditionnement"
@@ -1285,7 +1285,7 @@ dt2: {
   ],
 
   regles: [
-"SI traitement hypoglycémiant → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
+"SI traitement hypoglycémiant <span class='info-trigger' data-info='Insuline, glinides, sulfamides hypoglycémiants' style='cursor:pointer;color:#2563eb;'>ℹ️</span> → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
     "SI activité inhabituelle ou prolongée → ALORS adaptation des apports glucidiques et éventuellement du traitement",
     "SI lésion du pied → ALORS adapter ou éviter certaines activités",
     "SI absence de bilan récent → ALORS envisager recherche de complications et facteurs de risque cardiovasculaire"
@@ -1521,20 +1521,27 @@ function showInfo(text, el) {
 document.addEventListener("click", function(e) {
 
   const popup = document.getElementById("infoPopup");
-
   if (!popup) return;
 
-  if (
-    e.target.textContent === "ℹ️" ||
-    popup.contains(e.target)
-  ) {
+  const trigger = e.target.closest(".info-trigger");
+
+  // 🔹 clic sur icône info
+  if (trigger) {
+    const text = trigger.dataset.info || "";
+    showInfo(text, trigger);
     return;
   }
 
+  // 🔹 clic dans popup = ne rien faire
+  if (popup.contains(e.target)) {
+    return;
+  }
+
+  // 🔹 clic ailleurs = fermer
   popup.style.display = "none";
   popup.dataset.anchor = "";
 
-});    
+});
     
 let isImporting = false;
 let clinicalModel = null;
