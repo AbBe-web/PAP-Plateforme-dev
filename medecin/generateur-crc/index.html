@@ -1931,13 +1931,30 @@ function initCRCModeToggle(){
 
       if (!simple || !detail) return;
 
-      if (e.target.value === "simple") {
-        simple.style.display = "block";
-        detail.style.display = "none";
-      } else {
-        simple.style.display = "none";
-        detail.style.display = "block";
-      }
+const modeBlock = container.previousElementSibling;
+
+if (e.target.value === "simple") {
+
+  if (modeBlock) modeBlock.style.display = "flex";
+
+  container.style.display = "block";
+  simple.style.display = "block";
+  detail.style.display = "none";
+
+} else if (e.target.value === "detail") {
+
+  if (modeBlock) modeBlock.style.display = "flex";
+
+  container.style.display = "block";
+  simple.style.display = "none";
+  detail.style.display = "block";
+
+} else if (e.target.value === "none") {
+
+  if (modeBlock) modeBlock.style.display = "none";
+
+  container.style.display = "none";
+}
     }
 
     // 🔹 2. 🔥 MAJ AUTOMATIQUE DU CRC
@@ -1969,13 +1986,30 @@ function initCRCModeToggle(){
 
     if (!simple || !detail) return;
 
-    if (selected === "simple") {
-      simple.style.display = "block";
-      detail.style.display = "none";
-    } else {
-      simple.style.display = "none";
-      detail.style.display = "block";
-    }
+const modeBlock = container.previousElementSibling;
+
+if (selected === "simple") {
+
+  if (modeBlock) modeBlock.style.display = "flex";
+
+  container.style.display = "block";
+  simple.style.display = "block";
+  detail.style.display = "none";
+
+} else if (selected === "detail") {
+
+  if (modeBlock) modeBlock.style.display = "flex";
+
+  container.style.display = "block";
+  simple.style.display = "none";
+  detail.style.display = "block";
+
+} else if (selected === "none") {
+
+  if (modeBlock) modeBlock.style.display = "none";
+
+  container.style.display = "none";
+}
 
   });
 
