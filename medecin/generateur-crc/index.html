@@ -1617,7 +1617,6 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
   🧾 Éléments intégrables au compte rendu
 </span>
 
-<!-- 🔹 QUOI -->
 <div style="display:flex; gap:10px; align-items:center; margin:2px 0; font-size:0.9em; flex-wrap:wrap;">
 
   <label style="margin:0;">
@@ -1637,8 +1636,8 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
 
 </div>
 
-<!-- 🔹 OU -->
 <div style="display:flex; gap:10px; align-items:center; margin:2px 0; font-size:0.9em;">
+
   <label style="margin:0;">
     <input type="radio" name="crc_mode_${p.value}" value="both" checked>
     Intégrer à tous les CRC
@@ -1648,26 +1647,24 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
     <input type="radio" name="crc_mode_${p.value}" value="patient">
     À la version patient
   </label>
+
 </div>
 
 <div id="crcContainer_${p.value}" class="crc-container">
 
-  <!-- MODE SIMPLE -->
-  <div class="crc-simple">
-    <em>Tous les éléments seront intégrés automatiquement.</em>
-  </div>
+<div class="crc-simple">
+<em>Tous les éléments seront intégrés automatiquement.</em>
+</div>
 
-  <!-- MODE DETAIL -->
-  <div class="crc-detail" style="display:none;">
-   ${data.crc.map(c => `
+<div class="crc-detail" style="display:none;">
+${data.crc.map(c => `
 <label style="display:block; margin:1px 0; line-height:1.2;">
 <input type="checkbox" class="crc-item" value="${c}" style="vertical-align:middle;"
-      ${data.crc_default && data.crc_default.includes(c) ? "checked" : ""}
-    >
-    ${c}
-  </label>
+${data.crc_default && data.crc_default.includes(c) ? "checked" : ""}>
+${c}
+</label>
 `).join("")}
-  </div>
+</div>
 
 </div>
 </details>
