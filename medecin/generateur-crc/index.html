@@ -1858,12 +1858,7 @@ function updatePathoHelp(){
     
   container.innerHTML = html;
 
-  crContainer.innerHTML = `
-    <div style="margin-top:10px;">
-      <button onclick="copySelectedCRC()">Copier sélection</button>
-      <button onclick="copyAllCRC()">Copier tout</button>
-    </div>
-  `;
+crContainer.innerHTML = "";
 }
 
 function copySelectedCRC(){
