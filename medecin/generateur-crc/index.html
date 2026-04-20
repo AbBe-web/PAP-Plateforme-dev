@@ -1529,24 +1529,29 @@ document.addEventListener("keydown", function(e){
 document.addEventListener("click", function(e) {
 
   const modal = document.getElementById("infoModal");
-if (!modal) return;
+  if (!modal) return;
 
   const trigger = e.target.closest(".info-trigger");
 
-  // 🔹 clic sur icône info
+  // clic sur icône info
   if (trigger) {
+    e.preventDefault();
+    e.stopPropagation();
+
     const text = trigger.dataset.info || "";
     showInfo(text, trigger);
     return;
   }
 
-  // 🔹 clic dans popup = ne rien faire
- if (e.target.closest(".modal-content")) {
+  // clic dans la fenêtre = ne rien faire
+  if (e.target.closest(".modal-content")) {
     return;
   }
 
-  // 🔹 clic ailleurs = fermer
- closeInfoModal();
+  // si modal ouverte + clic ailleurs = fermer
+  if (!modal.classList.contains("hidden")) {
+    closeInfoModal();
+  }
 
 });
     
