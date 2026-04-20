@@ -1765,19 +1765,6 @@ function openInfoModal(title, content, link = null) {
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
 }
-
-document.addEventListener("click", function(e) {
-
-  const modal = document.getElementById("infoModal");
-  if (!modal || modal.classList.contains("hidden")) return;
-
-  const box = modal.querySelector(".modal-content");
-
-  if (box && !box.contains(e.target) && !e.target.closest(".info-icon")) {
-    closeInfoModal();
-  }
-
-});
 // =========================
 // FENÊTRES INFO CONTEXTUELLES
 // =========================
