@@ -353,25 +353,7 @@ button {
   transition: all 0.2s ease;
 }   
     
-.info-icon{
-  display:inline-block;
-
-  width:14px;
-  height:14px;
-  line-height:14px;
-
-  border-radius:50%;
-  background:#dbeafe;
-  color:#1d4ed8;
-
-  text-align:center;
-  font-size:10px;
-  font-weight:bold;
-
-  pointer-events:none;
-}
-
-.info-hitbox{
+.info-trigger{
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -385,21 +367,34 @@ button {
   border:none;
   background:transparent;
 
+  cursor:pointer;
   vertical-align:middle;
-  cursor:pointer;
-}
-    
-.info-trigger{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:28px;
-  min-height:28px;
-  padding:2px 4px;
-  cursor:pointer;
+
   touch-action:manipulation;
   -webkit-tap-highlight-color: transparent;
-}    
+}
+
+.info-trigger:focus{
+  outline:none;
+}
+
+.info-icon{
+  display:inline-block;
+
+  width:14px;
+  height:14px;
+  line-height:14px;
+
+  border-radius:50%;
+  background:#dbeafe;
+  color:#2563eb;
+
+  text-align:center;
+  font-size:10px;
+  font-weight:bold;
+
+  pointer-events:none;
+}
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
