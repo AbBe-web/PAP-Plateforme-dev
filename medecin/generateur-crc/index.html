@@ -1074,7 +1074,7 @@ Pas d’AP envisagée dans les 6 mois
   background:#fefce8;
 ">
 
-  <strong>⚙️ Points de vigilance liés aux pathologies</strong>
+  <strong>⚙️ Pathologies : repères pour l'activité physique</strong>
 
   <div id="pathoRulesContainer" style="margin-top:10px; font-size:0.9rem;">
     Aucune pathologie sélectionnée.
@@ -1675,16 +1675,16 @@ function updatePathoRules() {
 
 <div style="margin-top:10px;">
 
-       ⚠️ Contre-indications / Limitations<br>
+       ⚠️ Contre-indications et limitations<br>
         ${data.contraintes.map(c => `• ${c}`).join("<br>")}<br><br>
 
-        🔧 Adaptations prescription AP<br>
+        🔧 Adaptations de la prescription AP<br>
         ${data.adaptations.map(a => `• ${a}`).join("<br>")}<br><br>
 
-        🔎 Situations spécifiques<br>
+        🔎 Situations particulières<br>
         ${data.situations.map(s => `• ${s}`).join("<br>")}<br><br>
 
-⚙️ Points de vigilance<br>
+⚙️ Points de vigilance clinique<br>
 ${data.regles.map(r => `• ${r}`).join("<br>")}
 
 <br>
