@@ -355,10 +355,12 @@ button {
     
 .info-trigger{
   position:relative;
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 
-  width:14px;
-  height:14px;
+  width:16px;
+  height:16px;
 
   padding:0;
   margin:0 4px;
@@ -373,22 +375,27 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-    .info-trigger::after{
+.info-trigger::after{
   content:"";
   position:absolute;
-  top:-13px;
-  bottom:-13px;
-  left:-13px;
-  right:-13px;
+  top:-12px;
+  bottom:-12px;
+  left:-12px;
+  right:-12px;
 }
-    
+
 .info-trigger:focus{
   outline:none;
 }
 
-.info-icon{
-  display:inline-block;
+.info-trigger:not(button){
+  width:16px;
+  height:16px;
+}
 
+.info-icon,
+.info-trigger:not(button)::before{
+  display:inline-block;
   width:16px;
   height:16px;
   line-height:16px;
@@ -399,9 +406,14 @@ button {
 
   text-align:center;
   font-size:11px;
- font-weight:700;
+  font-weight:700;
 
   pointer-events:none;
+  content:"i";
+}
+
+.info-icon{
+  content:none;
 }
     
 </style>
