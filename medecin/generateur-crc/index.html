@@ -1490,8 +1490,9 @@ const DEBUG = false;
 const APP_VERSION = "v0.1.5";
 function showInfo(text, el) {
 
-  const popup = document.getElementById("infoPopup");
+  const modal = document.getElementById("infoModal");
 
+  // identifiant unique du bouton
   if (!el.dataset.uid) {
     el.dataset.uid = "info_" + Math.random().toString(36).slice(2,9);
   }
@@ -1500,83 +1501,35 @@ function showInfo(text, el) {
 
   // si déjà ouvert sur même bouton = fermer
   if (
-    popup.style.display === "block" &&
-    popup.dataset.anchor === uid
+    !modal.classList.contains("hidden") &&
+    modal.dataset.anchor === uid
   ) {
-    popup.style.display = "none";
-    popup.dataset.anchor = "";
+    closeInfoModal();
     return;
   }
 
-  popup.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
-      <div style="flex:1;">${text}</div>
+  document.getElementById("infoModalTitle").textContent = "Information";
+  document.getElementById("infoModalBody").innerHTML = text;
 
-      <button onclick="closeInfoPopup()"
-        style="
-          border:none;
-          background:none;
-          font-size:18px;
-          cursor:pointer;
-          color:#1e3a8a;
-          padding:0;
-          line-height:1;
-        ">×</button>
-    </div>
+  const linkBtn = document.getElementById("infoModalLink");
+  linkBtn.style.display = "none";
 
-    <div style="margin-top:10px;text-align:right;">
-      <button onclick="closeInfoPopup()"
-        style="
-          padding:6px 10px;
-          border:none;
-          border-radius:6px;
-          background:#dbeafe;
-          color:#1e3a8a;
-          cursor:pointer;
-          font-size:0.85em;
-        ">
-        Fermer
-      </button>
-    </div>
-  `;
-
-  popup.style.display = "block";
-  popup.dataset.anchor = uid;
-
-  const rect = el.getBoundingClientRect();
-
-  let top = rect.bottom + 6;
-  let left = rect.left;
-
-  popup.style.top = top + "px";
-  popup.style.left = left + "px";
-
-  // corrige débordement droit
-  const popupRect = popup.getBoundingClientRect();
-
-  if (popupRect.right > window.innerWidth - 10) {
-    left = window.innerWidth - popupRect.width - 10;
-  }
-
-  if (left < 10) left = 10;
-
-  popup.style.left = left + "px";
+  modal.classList.remove("hidden");
+  modal.dataset.anchor = uid;
 }
 
-    function closeInfoPopup() {
-  const popup = document.getElementById("infoPopup");
-  popup.style.display = "none";
-  popup.dataset.anchor = "";
+function closeInfoPopup() {
+  closeInfoModal();
 }
 
 document.addEventListener("keydown", function(e){
-  if(e.key === "Escape") closeInfoPopup();
+  if(e.key === "Escape") closeInfoModal();
 });
     
 document.addEventListener("click", function(e) {
 
-  const popup = document.getElementById("infoPopup");
-  if (!popup) return;
+  const modal = document.getElementById("infoModal");
+if (!modal) return;
 
   const trigger = e.target.closest(".info-trigger");
 
@@ -1588,13 +1541,12 @@ document.addEventListener("click", function(e) {
   }
 
   // 🔹 clic dans popup = ne rien faire
-  if (popup.contains(e.target)) {
+ if (e.target.closest(".modal-content")) {
     return;
   }
 
   // 🔹 clic ailleurs = fermer
-  popup.style.display = "none";
-  popup.dataset.anchor = "";
+ closeInfoModal();
 
 });
     
@@ -1805,6 +1757,22 @@ function openInfoModal(title, content, link = null) {
   document.getElementById("infoModal").classList.remove("hidden");
 }
 
+function closeInfoModal() {
+  document.getElementById("infoModal").classList.add("hidden");
+}
+
+document.addEventListener("click", function(e) {
+
+  const modal = document.getElementById("infoModal");
+  if (!modal || modal.classList.contains("hidden")) return;
+
+  const box = modal.querySelector(".modal-content");
+
+  if (box && !box.contains(e.target) && !e.target.closest(".info-icon")) {
+    closeInfoModal();
+  }
+
+});
 // =========================
 // FENÊTRES INFO CONTEXTUELLES
 // =========================
