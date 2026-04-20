@@ -449,7 +449,18 @@ label:has(input[type="radio"]) .info-icon{
   user-select:none;
   -webkit-user-select:none;
 }
-    
+
+ .form-group label:has(.patho){
+  display:block;
+  line-height:1.35;
+}
+
+.form-group label:has(.patho) input[type="checkbox"]{
+  margin:0 6px 0 0;
+  vertical-align:middle;
+  position:static;
+  top:auto;
+}
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
