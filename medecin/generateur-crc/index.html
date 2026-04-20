@@ -353,29 +353,39 @@ button {
   transition: all 0.2s ease;
 }   
     
-.info-icon {
-
+.info-icon{
   display:inline-block;
 
-  width:22px;
-  height:22px;
-  min-width:22px;
-  min-height:22px;
-
-  margin-left:6px;
+  width:14px;
+  height:14px;
+  line-height:14px;
 
   border-radius:50%;
   background:#dbeafe;
   color:#1d4ed8;
 
-  font-size:14px;
+  text-align:center;
+  font-size:10px;
   font-weight:bold;
 
-  text-align:center;
-  line-height:22px;
-  vertical-align:middle;
+  pointer-events:none;
+}
 
-  flex-shrink:0;
+.info-hitbox{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  width:40px;
+  height:40px;
+
+  padding:0;
+  margin:0 2px;
+
+  border:none;
+  background:transparent;
+
+  vertical-align:middle;
   cursor:pointer;
 }
     
@@ -1293,7 +1303,7 @@ dt2: {
 
   adaptations: [
     "Privilégier une progressivité : AP d’intensité faible et courte durée au début (ne pas décourager)",
-"Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant <span class='info-trigger' data-info='Insuline, glinides, sulfamides hypoglycémiants' style='cursor:pointer;color:#2563eb;'>ℹ️</span> (auto-surveillance, adaptation posologie, collation possible)",
+"Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant <button type='button' class='info-trigger info-hitbox' data-info='Insuline, glinides, sulfamides hypoglycémiants'><span class='info-icon'>i</span></button> (auto-surveillance, adaptation posologie, collation possible)",
     "Surveiller et protéger les pieds",
     "Possibilité de conseiller AP en post-prandial pour profiter de l’effet hypoglycémiant de l’AP",
     "Possibilité d’AP séquentielle ou fractionnée si déconditionnement"
@@ -1306,7 +1316,7 @@ dt2: {
   ],
 
   regles: [
-"SI traitement hypoglycémiant <span class='info-trigger' data-info='Insuline, glinides, sulfamides hypoglycémiants' style='cursor:pointer;color:#2563eb;'>ℹ️</span> → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
+"SI traitement hypoglycémiant <button type='button' class='info-trigger info-hitbox' data-info='Insuline, glinides, sulfamides hypoglycémiants'><span class='info-icon'>i</span></button> → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
     "SI activité inhabituelle ou prolongée → ALORS adaptation des apports glucidiques et éventuellement du traitement",
     "SI lésion du pied → ALORS adapter ou éviter certaines activités",
     "SI absence de bilan récent → ALORS envisager recherche de complications et facteurs de risque cardiovasculaire"
