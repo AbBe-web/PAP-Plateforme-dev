@@ -1492,29 +1492,87 @@ function showInfo(text, el) {
 
   const popup = document.getElementById("infoPopup");
 
-  // 🔹 si déjà ouvert sur le même bouton → fermer
+  if (!el.dataset.uid) {
+    el.dataset.uid = "info_" + Math.random().toString(36).slice(2,9);
+  }
+
+  const uid = el.dataset.uid;
+
+  // si déjà ouvert sur même bouton = fermer
   if (
     popup.style.display === "block" &&
-    popup.dataset.anchor === el.outerHTML &&
-    popup.textContent === text
+    popup.dataset.anchor === uid
   ) {
     popup.style.display = "none";
     popup.dataset.anchor = "";
     return;
   }
 
-  popup.textContent = text;
+  popup.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:8px;">
+      <div style="flex:1;">${text}</div>
+
+      <button onclick="closeInfoPopup()"
+        style="
+          border:none;
+          background:none;
+          font-size:18px;
+          cursor:pointer;
+          color:#1e3a8a;
+          padding:0;
+          line-height:1;
+        ">×</button>
+    </div>
+
+    <div style="margin-top:10px;text-align:right;">
+      <button onclick="closeInfoPopup()"
+        style="
+          padding:6px 10px;
+          border:none;
+          border-radius:6px;
+          background:#dbeafe;
+          color:#1e3a8a;
+          cursor:pointer;
+          font-size:0.85em;
+        ">
+        Fermer
+      </button>
+    </div>
+  `;
+
+  popup.style.display = "block";
+  popup.dataset.anchor = uid;
 
   const rect = el.getBoundingClientRect();
 
-  popup.style.top = (rect.bottom + 5) + "px";
-  popup.style.left = rect.left + "px";
+  let top = rect.bottom + 6;
+  let left = rect.left;
 
-  popup.style.display = "block";
-  popup.dataset.anchor = el.outerHTML;
+  popup.style.top = top + "px";
+  popup.style.left = left + "px";
 
+  // corrige débordement droit
+  const popupRect = popup.getBoundingClientRect();
+
+  if (popupRect.right > window.innerWidth - 10) {
+    left = window.innerWidth - popupRect.width - 10;
+  }
+
+  if (left < 10) left = 10;
+
+  popup.style.left = left + "px";
 }
 
+    function closeInfoPopup() {
+  const popup = document.getElementById("infoPopup");
+  popup.style.display = "none";
+  popup.dataset.anchor = "";
+}
+
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape") closeInfoPopup();
+});
+    
 document.addEventListener("click", function(e) {
 
   const popup = document.getElementById("infoPopup");
@@ -4675,13 +4733,17 @@ document.addEventListener("click", () => {
   position:fixed;
   background:#eff6ff;
   color:#1e3a8a;
-  padding:8px 10px;
-  border-radius:6px;
-  font-size:0.85em;
+  padding:12px;
+  border-radius:10px;
+  font-size:0.9em;
   z-index:9999;
   border:1px solid #bfdbfe;
-  box-shadow:0 2px 8px rgba(0,0,0,0.08);
-  max-width:220px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);
+  max-width:320px;
+  width:calc(100vw - 24px);
+  max-height:60vh;
+  overflow-y:auto;
+  line-height:1.4;
 ">
 </div>
           
