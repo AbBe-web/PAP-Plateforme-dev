@@ -343,14 +343,16 @@ button {
     
 label:has(input[type="checkbox"]),
 label:has(input[type="radio"]){
+  display:inline-flex;
+  align-items:flex-start;
+  gap:6px;
   line-height:1.35;
 }
 
 label:has(input[type="checkbox"]) input[type="checkbox"],
 label:has(input[type="radio"]) input[type="radio"]{
-  position:relative;
-  top:-0.22em;
-  margin-right:6px;
+  margin:0;
+  flex-shrink:0;
 }
 
 label:has(input[type="checkbox"]) .info-icon,
