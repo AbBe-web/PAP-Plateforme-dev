@@ -355,15 +355,13 @@ button {
     
 .info-trigger{
   position:relative;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display:inline-block;
 
   width:16px;
   height:16px;
 
+  margin:0 6px 0 4px;
   padding:0;
-  margin:0 4px;
 
   border:none;
   background:transparent;
@@ -375,6 +373,7 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* zone tactile élargie */
 .info-trigger::after{
   content:"";
   position:absolute;
@@ -384,18 +383,33 @@ button {
   right:-12px;
 }
 
+/* anciens spans : afficher automatiquement le i */
+.info-trigger:not(button)::before{
+  content:"i";
+  display:block;
+
+  width:16px;
+  height:16px;
+  line-height:16px;
+
+  border-radius:50%;
+  background:#bfdbfe;
+  color:#1d4ed8;
+
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+}
+
+/* focus propre */
 .info-trigger:focus{
   outline:none;
 }
 
-.info-trigger:not(button){
-  width:16px;
-  height:16px;
-}
+/* nouveau système bouton + span interne */
+.info-icon{
+  display:block;
 
-.info-icon,
-.info-trigger:not(button)::before{
-  display:inline-block;
   width:16px;
   height:16px;
   line-height:16px;
@@ -409,11 +423,6 @@ button {
   font-weight:700;
 
   pointer-events:none;
-  content:"i";
-}
-
-.info-icon{
-  content:none;
 }
     
 </style>
