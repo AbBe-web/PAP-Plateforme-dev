@@ -354,26 +354,34 @@ button {
 }   
     
 .info-trigger{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  position:relative;
+  display:inline-block;
 
-  width:40px;
-  height:40px;
+  width:14px;
+  height:14px;
 
   padding:0;
-  margin:0 2px;
+  margin:0 4px;
 
   border:none;
   background:transparent;
 
-  cursor:pointer;
   vertical-align:middle;
+  cursor:pointer;
 
   touch-action:manipulation;
   -webkit-tap-highlight-color: transparent;
 }
 
+    .info-trigger::after{
+  content:"";
+  position:absolute;
+  top:-13px;
+  bottom:-13px;
+  left:-13px;
+  right:-13px;
+}
+    
 .info-trigger:focus{
   outline:none;
 }
