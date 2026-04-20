@@ -1686,16 +1686,13 @@ function updatePathoRules() {
 
 <div style="margin-top:10px;">
 
-       ⚠️ Contre-indications et limitations<br>
-        ${data.contraintes.map(c => `• ${c}`).join("<br>")}<br><br>
-
-        🔧 Adaptations de la prescription AP<br>
+        <strong>🔧 Adaptations de la prescription AP</strong><br>
         ${data.adaptations.map(a => `• ${a}`).join("<br>")}<br><br>
 
-        🔎 Situations particulières<br>
+         <strong>🔎 Situations particulières</strong><br>
         ${data.situations.map(s => `• ${s}`).join("<br>")}<br><br>
 
-⚙️ Points de vigilance clinique<br>
+ <strong>⚙️ Points de vigilance clinique</strong><br>
 ${data.regles.map(r => `• ${r}`).join("<br>")}
 
 <br>
