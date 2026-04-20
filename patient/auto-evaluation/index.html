@@ -390,7 +390,7 @@ function checkDurationGuard(hSel, mSel, guardId){
   const m = Number(document.querySelector(mSel)?.value || 0);
   const guard = document.getElementById(guardId);
   if(!guard) return;
-  guard.style.display = (h + m/60) > 12 ? "block" : "none";
+  guard.style.display = (h + m/60) > 18 ? "block" : "none";
 }
 function advanceProgress(points){
   state.progress.current += points;
