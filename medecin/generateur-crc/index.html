@@ -343,16 +343,22 @@ button {
     
 label:has(input[type="checkbox"]),
 label:has(input[type="radio"]){
-  display:flex;
-  align-items:flex-start;
-  gap:6px;
+  display:grid;
+  grid-template-columns:18px 1fr;
+  column-gap:8px;
+  align-items:start;
   line-height:1.35;
 }
 
 label:has(input[type="checkbox"]) input[type="checkbox"],
 label:has(input[type="radio"]) input[type="radio"]{
-  margin-top:2px;
-  flex-shrink:0;
+  grid-column:1;
+  margin:2px 0 0 0;
+}
+
+label:has(input[type="checkbox"]) .info-icon,
+label:has(input[type="radio"]) .info-icon{
+  display:inline-flex;
 }
     
  .has-missing {
