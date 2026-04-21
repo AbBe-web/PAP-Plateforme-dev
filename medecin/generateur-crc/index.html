@@ -500,8 +500,15 @@ label:has(input[type="radio"]) .info-icon{
   }
 }
 
-/* Smartphone portrait */
-@media (max-width: 640px) and (orientation: portrait){
+/* Grand téléphone / petite tablette portrait */
+@media (max-width: 900px) and (orientation: portrait){
+  .pathologies-grid{
+    grid-template-columns:repeat(2, minmax(0,1fr));
+  }
+}
+
+/* Petit téléphone portrait */
+@media (max-width: 480px) and (orientation: portrait){
   .pathologies-grid{
     grid-template-columns:1fr;
     gap:18px;
