@@ -862,31 +862,61 @@ Importer fichier JSON
 
 <div>
 <strong style="display:block; margin-bottom:6px;">Cardio</strong>
-    <label><input type="checkbox" class="patho" value="hta"> HTA</label>
-    <label><input type="checkbox" class="patho" value="coronaropathie"> Coronaropathie</label>
-    <label><input type="checkbox" class="patho" value="icc"> Insuf. cardiaque chronique</label>
-  </div>
+<label><input type="checkbox" class="patho" value="hta"> HTA</label>
+<label><input type="checkbox" class="patho" value="coronaropathie"> Coronaropathie</label>
+<label><input type="checkbox" class="patho" value="icc"> Insuf. cardiaque chronique</label>
+<label><input type="checkbox" class="patho" value="aomi"> AOMI</label>
+</div>
 
 <div>
 <strong style="display:block; margin-bottom:6px;">Métabolique</strong>
-    <label><input type="checkbox" class="patho" value="dt2"> Diabète type 2</label>
-    <label><input type="checkbox" class="patho" value="obesite"> Surpoids / Obésité</label>
-  </div>
+<label><input type="checkbox" class="patho" value="dt1"> Diabète type 1</label>
+<label><input type="checkbox" class="patho" value="dt2"> Diabète type 2</label>
+<label><input type="checkbox" class="patho" value="obesite"> Surpoids / Obésité</label>
+</div>
 
 <div>
 <strong style="display:block; margin-bottom:6px;">Respiratoire</strong>
-    <label><input type="checkbox" class="patho" value="bpco"> BPCO</label>
-  </div>
-    
+<label><input type="checkbox" class="patho" value="bpco"> BPCO</label>
+<label><input type="checkbox" class="patho" value="asthme"> Asthme</label>
+</div>
+
 <div>
 <strong style="display:block; margin-bottom:6px;">Neurologique</strong>
-    <label><input type="checkbox" class="patho" value="avc"> AVC</label>
-  </div>
+<label><input type="checkbox" class="patho" value="avc"> AVC</label>
+<label><input type="checkbox" class="patho" value="parkinson"> Parkinson</label>
+<label><input type="checkbox" class="patho" value="sep"> SEP</label>
+</div>
 
 <div>
 <strong style="display:block; margin-bottom:6px;">Locomoteur</strong>
-    <label><input type="checkbox" class="patho" value="lombalgie"> Lombalgie chronique</label>
-  </div>
+<label><input type="checkbox" class="patho" value="lombalgie"> Lombalgie chronique</label>
+<label><input type="checkbox" class="patho" value="arthrose"> Arthrose</label>
+<label><input type="checkbox" class="patho" value="pr"> Polyarthrite rhumatoïde</label>
+<label><input type="checkbox" class="patho" value="spa"> Spondyloarthrite</label>
+</div>
+
+<div>
+<strong style="display:block; margin-bottom:6px;">Psychique</strong>
+<label><input type="checkbox" class="patho" value="depression"> Dépression</label>
+<label><input type="checkbox" class="patho" value="schizophrenie"> Schizophrénie</label>
+</div>
+
+<div>
+<strong style="display:block; margin-bottom:6px;">Oncologie</strong>
+<label><input type="checkbox" class="patho" value="cancer"> Cancer</label>
+</div>
+
+<div>
+<strong style="display:block; margin-bottom:6px;">Personnes âgées</strong>
+<label><input type="checkbox" class="patho" value="pa_maintien"> Maintien capacités</label>
+<label><input type="checkbox" class="patho" value="pa_chute"> Risque de chute</label>
+</div>
+
+<div>
+<strong style="display:block; margin-bottom:6px;">Spécifiques</strong>
+<label><input type="checkbox" class="patho" value="grossesse_pp"> Grossesse / Post-partum</label>
+</div>
 
 </div>
 
@@ -1411,7 +1441,68 @@ coronaropathie: {
   ]
 },
     
-dt2: {
+aomi: {
+  titre: "AOMI / Artériopathie oblitérante des membres inférieurs",
+
+  contraintes: [
+    "Ischémie chronique sévère, douleur de repos ou lésion tissulaire → avis vasculaire préalable",
+    "AP sollicitant les membres inférieurs temporairement contre-indiquée avant revascularisation si sténose serrée fémorale commune ou lésions fémorales associées",
+    "Douleur intense imposant arrêt immédiat répété → réévaluer programme et situation vasculaire",
+    "Symptômes évocateurs coronariens à l’effort (douleur thoracique, dyspnée anormale) → interrompre activité et avis médical",
+    "Sports à risque de collision → prudence sous antiagrégant plaquettaire"
+  ],
+
+  adaptations: [
+    "Privilégier la marche, activité la plus efficace",
+    "Débuter idéalement par programme supervisé de réadaptation vasculaire",
+    "Objectif pratique : au moins 3 séances/semaine de 30 à 60 minutes pendant 12 semaines puis poursuite autonome",
+    "Utiliser marche intermittente avec alternance effort/récupération",
+    "Limiter l’intensité au seuil de douleur sous-maximale permettant de poursuivre",
+    "Si marche difficile : vélo, ergomètre bras/jambes, exercices des membres supérieurs ou renforcement adapté",
+    "Échauffement progressif 10 minutes et retour au calme 10 minutes",
+    "Utiliser podomètre, application ou coaching pour améliorer l’observance",
+    "Chaussage de qualité, surtout si diabète ou fragilité cutanée"
+  ],
+
+  situations: [
+    "Risque cardiovasculaire global élevé fréquent",
+    "Comorbidités fréquentes : tabagisme, HTA, diabète, coronaropathie",
+    "Claudication intermittente avec limitation du périmètre de marche fréquente",
+    "Sédentarité et déconditionnement fréquents",
+    "Douleurs musculaires possibles sous statines",
+    "Atteinte athéromateuse pluritronculaire possible"
+  ],
+
+  regles: [
+    "SI douleur de mollet à la marche cédant à l'arrêt → ALORS évoquer claudication et adapter l'entraînement",
+    "SI douleur devient intense ou récupération anormalement longue → ALORS réduire intensité et réévaluer",
+    "SI impossibilité de marcher suffisamment → ALORS proposer activité alternative (vélo, ergomètre, renforcement)",
+    "SI douleur thoracique ou malaise à l'effort → ALORS arrêt immédiat et avis médical",
+    "SI patient fumeur → ALORS intégrer aide active au sevrage tabagique",
+    "SI statine mal tolérée musculairement → ALORS réévaluer traitement avec prescripteur sans arrêter l'AP",
+    "SI interruption prolongée du programme → ALORS reprise progressive"
+  ],
+
+  crc: [
+    "La marche régulière est votre traitement principal",
+    "Marchez jusqu'à une douleur supportable puis récupérez avant de repartir",
+    "Répétez les séances plusieurs fois par semaine",
+    "Portez de bonnes chaussures et surveillez vos pieds",
+    "Arrêtez l'effort si douleur thoracique ou malaise",
+    "Le tabac aggrave fortement la maladie artérielle",
+    "Levez-vous au moins 1 minute chaque heure assise"
+  ],
+
+  crc_default: [
+    "La marche régulière est votre traitement principal",
+    "Marchez régulièrement avec pauses si besoin",
+    "Bon chaussage et surveillance des pieds",
+    "Arrêtez l'effort si symptôme anormal",
+    "Limiter les périodes assises prolongées"
+  ]
+},
+    
+    dt2: {
   titre: "Diabète de type 2",
 
   contraintes: [
