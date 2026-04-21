@@ -1501,7 +1501,70 @@ aomi: {
     "Limiter les périodes assises prolongées"
   ]
 },
-    
+
+dt1: {
+  titre: "Diabète de type 1",
+
+  contraintes: [
+    "Hyperglycémie > 2,5 g/L en début d’exercice → éviter séance et corriger si besoin",
+    "Cétonémie > 0,5 mmol/L ou cétonurie positive → activité différée",
+    "Hypoglycémie sévère récente (< 24 h) → contre-indication temporaire",
+    "Hypoglycémie légère récente → prudence renforcée, éviter sports à risque isolé",
+    "Complication diabétique non stabilisée → réévaluation préalable",
+    "Rétinopathie proliférante instable → éviter efforts violents, charges lourdes, Valsalva",
+    "Mal perforant plantaire → contre-indication temporaire aux activités des membres inférieurs"
+  ],
+
+  adaptations: [
+    "Autosurveillance glycémique avant, pendant et après effort",
+    "Capteur de glucose en continu utile si disponible",
+    "Toujours anticiper le risque d’hypoglycémie",
+    "Prévoir collations glucidiques et matériel habituel",
+    "Adapter alimentation et/ou doses d’insuline selon activité prévue",
+    "Privilégier progressivité, surtout si reprise ou sédentarité",
+    "Endurance + renforcement musculaire recommandés",
+    "Renforcement musculaire avant aérobie possible pour limiter baisse glycémique",
+    "Chaussage adapté et surveillance quotidienne des pieds"
+  ],
+
+  situations: [
+    "Risque d’hypoglycémie pendant effort aérobie fréquent",
+    "Risque d’hypoglycémie retardée jusqu’à 24 h, surtout nocturne",
+    "Hyperglycémie transitoire possible après effort intense / anaérobie",
+    "Variabilité glycémique individuelle importante",
+    "Peur de l’hypoglycémie frein fréquent à l’activité",
+    "Complications microvasculaires ou cardiovasculaires possibles"
+  ],
+
+  regles: [
+    "SI activité aérobie prolongée prévue → ALORS anticiper glucides et/ou réduction insuline",
+    "SI activité intense ou anaérobie → ALORS surveiller possible hyperglycémie transitoire",
+    "SI glycémie basse ou tendance descendante → ALORS resucrer avant de débuter",
+    "SI symptôme d’hypoglycémie pendant séance → ALORS arrêter, contrôler glycémie et resucrer",
+    "SI séance l’après-midi ou importante → ALORS vigilance nocturne renforcée",
+    "SI neuropathie ou problème podologique → ALORS renforcer soins des pieds et choix activités",
+    "SI reprise après interruption → ALORS reprendre progressivement"
+  ],
+
+  crc: [
+    "Surveillez votre glycémie avant, pendant et après l’effort",
+    "Gardez toujours une source de sucre rapide avec vous",
+    "Chaque activité peut modifier différemment votre glycémie",
+    "Après une grosse séance, surveillez aussi le soir et la nuit",
+    "Bon chaussage et contrôle quotidien des pieds recommandés",
+    "Commencez progressivement si reprise",
+    "Bouger régulièrement apporte plus de bénéfices que rester inactif"
+  ],
+
+  crc_default: [
+    "Surveillez votre glycémie autour de l’effort",
+    "Gardez une collation sucrée avec vous",
+    "Vigilance après séance importante, surtout la nuit",
+    "Bon chaussage et surveillance des pieds",
+    "Progressivité recommandée"
+  ]
+},
+
     dt2: {
   titre: "Diabète de type 2",
 
@@ -1681,7 +1744,70 @@ bpco: {
   ]
 },
     
-avc: {
+asthme: {
+  titre: "Asthme",
+
+  contraintes: [
+    "Asthme non contrôlé / symptômes fréquents / crise récente → contre-indication temporaire relative à intensification",
+    "Dyspnée inhabituelle ou disproportionnée à l’effort → rechercher cause avant progression",
+    "Comorbidité cardiovasculaire non stabilisée → réévaluation préalable",
+    "Asthme sévère ou difficile à contrôler → reprise plus encadrée",
+    "Froid, pollution, allergènes saisonniers → risque majoré de symptômes / BIE",
+    "Piscine chlorée chez sujet sensible → possible déclenchement BIE",
+    "Plongée sous-marine bouteille → avis spécialisé indispensable"
+  ],
+
+  adaptations: [
+    "Toujours privilégier progressivité et régularité",
+    "Échauffement systématique + retour au calme",
+    "Garder bronchodilatateur de secours disponible selon plan médical habituel",
+    "Marche, vélo, danse, natation non chlorée, activités ludiques selon préférence",
+    "Fractionner en blocs de 10 min si faible tolérance",
+    "Associer endurance + renforcement musculaire",
+    "Réduire sédentarité quotidienne",
+    "Respiration nasale si possible à l’effort modéré",
+    "Adapter lieu/heure selon météo, pollution, pollen"
+  ],
+
+  situations: [
+    "Bronchoconstriction induite par l’exercice possible",
+    "Peur de l’effort fréquente après symptômes",
+    "Déconditionnement fréquent si évitement",
+    "Anxiété / hyperventilation possibles",
+    "Obésité ou tabagisme pouvant aggraver contrôle",
+    "Asthme souvent sous-estimé par patient"
+  ],
+
+  regles: [
+    "SI asthme mal contrôlé → ALORS optimiser prise en charge avant intensification sportive",
+    "SI symptômes après 3-8 min effort intense → ALORS évoquer BIE et adapter séance",
+    "SI froid/pollution/pollen élevé → ALORS privilégier intérieur ou intensité réduite",
+    "SI dyspnée très rapide avec examen habituel rassurant → ALORS évoquer hyperventilation/déconditionnement",
+    "SI fatigue importante → ALORS fractionner séance",
+    "SI bonne stabilité clinique → ALORS progression graduelle vers recommandations générales",
+    "SI aggravation persistante malgré adaptation → ALORS réévaluer médicalement"
+  ],
+
+  crc: [
+    "L’activité physique régulière aide souvent à mieux contrôler l’asthme",
+    "Commencez progressivement, sans rechercher la performance immédiate",
+    "Échauffez-vous avant l’effort",
+    "Gardez votre traitement de secours selon vos consignes habituelles",
+    "La régularité compte plus que l’intensité",
+    "Bougez un peu chaque jour et limitez le temps assis",
+    "Adaptez vos sorties à la météo et à la pollution"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement peut améliorer le contrôle de l’asthme",
+    "Progressivité recommandée",
+    "Échauffement avant effort",
+    "Limiter sédentarité quotidienne",
+    "Adapter l’activité à vos symptômes"
+  ]
+},
+    
+    avc: {
   titre: "Accident vasculaire cérébral",
 
   contraintes: [
@@ -1727,6 +1853,195 @@ avc: {
   ]
 },
 
+parkinson: {
+  titre: "Maladie de Parkinson",
+
+  contraintes: [
+    "Aucune contre-indication spécifique liée à la maladie si activité adaptée",
+    "Risque de chute élevé → sécuriser environnement et activités",
+    "Hypotension orthostatique / dysautonomie → prudence changements de position et efforts prolongés",
+    "Phase OFF marquée ou fluctuations motrices importantes → limiter séances non encadrées",
+    "Troubles cognitifs significatifs → simplifier consignes et supervision renforcée",
+    "Atteinte axiale sévère, freezing majeur ou instabilité importante → réévaluation fonctionnelle préalable",
+    "Comorbidité cardio-respiratoire non stabilisée → avis médical préalable"
+  ],
+
+  adaptations: [
+    "Prescrire l’activité physique dès le diagnostic",
+    "Privilégier séances pendant phases ON si fluctuations motrices",
+    "Associer endurance, renforcement, équilibre, mobilité et coordination",
+    "Progressivité et régularité prioritaires",
+    "Fractionner en périodes de 10 à 15 minutes si fatigue",
+    "Utiliser indicage auditif ou visuel si troubles de la marche",
+    "Activités utiles : marche, vélo, tai-chi, yoga, danse, marche nordique",
+    "Exercices orientés tâches du quotidien recommandés",
+    "Réduire sédentarité quotidienne"
+  ],
+
+  situations: [
+    "Troubles de la marche fréquents : petits pas, lenteur, freezing",
+    "Risque de chute fréquent",
+    "Déconditionnement physique fréquent",
+    "Fatigue et troubles du sommeil fréquents",
+    "Symptômes anxio-dépressifs fréquents",
+    "Troubles cognitifs possibles selon stade",
+    "Perte de dextérité des mains fréquente"
+  ],
+
+  regles: [
+    "SI fluctuations ON/OFF connues → ALORS programmer séance en phase ON",
+    "SI freezing à la marche → ALORS utiliser repères visuels ou rythme sonore",
+    "SI risque de chute élevé → ALORS privilégier activité supervisée ou appui sécurisé",
+    "SI fatigue importante → ALORS fractionner séance ou réduire durée",
+    "SI atteinte cognitive → ALORS préférer consignes simples et exercices d’endurance",
+    "SI bonne tolérance → ALORS augmenter progressivement fréquence puis durée",
+    "SI aggravation brutale motrice ou chutes répétées → ALORS réévaluation médicale"
+  ],
+
+  crc: [
+    "Bouger régulièrement aide la marche, l’équilibre et l’autonomie",
+    "Choisissez les moments où vous êtes le plus mobile",
+    "Même de courtes séances sont utiles",
+    "Marchez avec musique rythmée ou repères au sol si cela aide",
+    "Travaillez aussi l’équilibre et la force",
+    "Levez-vous au moins 1 minute chaque heure assise",
+    "La régularité compte plus que la performance"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement aide votre Parkinson",
+    "Choisir les moments les plus favorables",
+    "Travailler marche, équilibre et force",
+    "Même un peu d’activité est utile",
+    "Réduire les longues périodes assises"
+  ]
+},
+    
+sep: {
+  titre: "Sclérose en plaques",
+
+  contraintes: [
+    "Poussée aiguë de SEP → contre-indication temporaire à l’activité physique",
+    "Fatigue majeure ou récupération prolongée → réduire charge et fractionner",
+    "Environnement chaud ou humide / hyperthermie → risque aggravation transitoire des symptômes",
+    "Troubles de l’équilibre marqués → sécuriser activités et prévention chute",
+    "Troubles vésico-sphinctériens non stabilisés → prudence activités aquatiques",
+    "Handicap sévère avec perte d’autonomie importante → privilégier réadaptation encadrée",
+    "Comorbidité cardiovasculaire non stabilisée → avis médical préalable"
+  ],
+
+  adaptations: [
+    "Rassurer : l’activité physique n’augmente pas le risque de poussée",
+    "Toujours privilégier progressivité",
+    "Choisir environnement frais, pauses régulières et hydratation",
+    "Associer endurance + renforcement + équilibre + mobilité",
+    "Commencer par séances courtes de 10 à 15 minutes si besoin",
+    "Fractionner dans la journée si fatigabilité",
+    "Marche, vélo, aquagym, Pilates, yoga, tai-chi options utiles selon capacités",
+    "Adapter niveau d’encadrement au handicap fonctionnel",
+    "Réduire sédentarité quotidienne"
+  ],
+
+  situations: [
+    "Fatigue fréquente et souvent fluctuante",
+    "Déconditionnement fréquent par évitement de l’effort",
+    "Troubles de l’équilibre fréquents",
+    "Troubles cognitifs possibles",
+    "Troubles du sommeil fréquents",
+    "Peur erronée du déclenchement de poussée fréquente",
+    "Risque cardiovasculaire augmenté par inactivité"
+  ],
+
+  regles: [
+    "SI poussée aiguë en cours → ALORS différer activité structurée et réévaluer ensuite",
+    "SI aggravation des symptômes pendant effort → ALORS arrêter, refroidir, récupérer puis réévaluer",
+    "SI fatigue importante > 24 h après séance → ALORS réduire charge suivante",
+    "SI chaleur extérieure élevée → ALORS privilégier intérieur frais ou séance plus légère",
+    "SI risque de chute → ALORS activité supervisée ou avec appui sécurisé",
+    "SI bonne tolérance sur plusieurs semaines → ALORS augmenter progressivement durée puis fréquence",
+    "SI handicap important → ALORS orienter vers APA/réadaptation spécialisée"
+  ],
+
+  crc: [
+    "Bouger régulièrement aide la fatigue, la mobilité et l’équilibre",
+    "L’activité physique ne déclenche pas les poussées",
+    "Commencez petit puis progressez",
+    "Privilégiez un environnement frais",
+    "Même de courtes séances sont utiles",
+    "La régularité compte plus que la performance",
+    "Levez-vous au moins 1 minute chaque heure assise"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement aide votre SEP",
+    "L’activité physique ne déclenche pas les poussées",
+    "Progressivité recommandée",
+    "Privilégier le frais et éviter surchauffe",
+    "Limiter le temps assis"
+  ]
+},
+    
+    arthrose: {
+  titre: "Arthrose périphérique",
+
+  contraintes: [
+    "Poussée congestive articulaire → contre-indication temporaire pour l’articulation concernée",
+    "Augmentation brutale douleur, gonflement, chaleur locale ou douleurs nocturnes → différer activité et réévaluer",
+    "Sports à fort impact répété ou traumatisants → prudence selon articulation atteinte",
+    "Station debout prolongée ou port de charges en phase douloureuse → à limiter",
+    "Déficience importante (raideur, faiblesse, instabilité) → rééducation préalable à envisager"
+  ],
+
+  adaptations: [
+    "APA = traitement de première intention",
+    "Privilégier progressivité, surtout si patient sédentaire ou en surpoids",
+    "Débuter par intensité faible à modérée puis augmenter selon tolérance",
+    "Associer endurance, renforcement musculaire, mobilité articulaire et proprioception",
+    "Cibler particulièrement les articulations atteintes et muscles péri-articulaires",
+    "Si douleur après exercice → réduire durée/intensité ou changer modalité",
+    "Activités utiles : marche adaptée, vélo, natation, aquagym",
+    "Chaussage adapté si atteinte des membres inférieurs",
+    "Réduction de la sédentarité quotidienne indispensable"
+  ],
+
+  situations: [
+    "Douleur, raideur et faiblesse musculaire fréquentes",
+    "Troubles de proprioception possibles",
+    "Surpoids / obésité fréquents",
+    "Comorbidités cardio-métaboliques fréquentes",
+    "Déconditionnement physique fréquent",
+    "Crainte du mouvement ou peur d'aggraver l’arthrose fréquente"
+  ],
+
+  regles: [
+    "SI poussée congestive suspectée → ALORS repos relatif articulaire et avis médical",
+    "SI douleur augmente durablement après séance → ALORS diminuer charge d’entraînement",
+    "SI raideur, déficit moteur ou instabilité marqués → ALORS envisager kinésithérapie préalable",
+    "SI patient sédentaire ou en surpoids → ALORS débuter par séances courtes et progressives",
+    "SI activité à impact mal tolérée → ALORS proposer vélo, natation ou aquatique",
+    "SI interruption de plusieurs semaines → ALORS reprendre à niveau inférieur puis progresser",
+    "SI faible motivation → ALORS intégrer activités simples du quotidien en première étape"
+  ],
+
+  crc: [
+    "Bouger régulièrement aide à réduire douleur et raideur",
+    "L’exercice n’use pas l’articulation lorsqu’il est adapté",
+    "Commencez progressivement puis augmentez peu à peu",
+    "Si douleur importante durable après séance, diminuez l’intensité",
+    "Bonnes chaussures recommandées",
+    "Levez-vous au moins 1 minute chaque heure assise",
+    "Contrôler le poids aide les articulations"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement aide vos articulations",
+    "Progressivité recommandée",
+    "Réduire les longues périodes assises",
+    "Contrôler le poids aide les articulations",
+    "Adapter l’effort si douleur importante"
+  ]
+},
+    
 lombalgie: {
   titre: "Lombalgie chronique",
 
@@ -1771,6 +2086,507 @@ lombalgie: {
   ]
 },
 
+polyarthrite_rhumatoide: {
+  titre: "Polyarthrite rhumatoïde",
+
+  contraintes: [
+    "Poussée inflammatoire articulaire → contre-indication temporaire pour les articulations concernées",
+    "Douleur importante, gonflement, chaleur locale ou fatigue inflammatoire marquée → différer ou alléger séance",
+    "Lésions destructrices ou instabilité articulaire → adapter contraintes mécaniques",
+    "Atteinte cervicale / suspicion diastasis atloïdo-axoïdien → prudence majeure pour exercices cervicaux",
+    "Atteinte sévère pied / cheville → prudence sports d’impact",
+    "Comorbidité cardiovasculaire non stabilisée ou atteinte extra-articulaire active (cœur, poumon, vascularite) → réévaluation / avis spécialisé",
+    "Corticothérapie prolongée → prudence risque tendineux et osseux"
+  ],
+
+  adaptations: [
+    "L’activité physique fait partie des soins tout au long de la maladie",
+    "Privilégier progressivité lente et régulière",
+    "Débuter faible intensité puis augmenter selon tolérance",
+    "Associer endurance, renforcement musculaire, mobilité et équilibre",
+    "Adapter au jour le jour selon activité de la maladie",
+    "Activités utiles : marche adaptée, vélo, aquatique, yoga doux, tai-chi",
+    "Fractionner les séances si fatigue importante",
+    "Utiliser orthèses, semelles ou aides techniques si besoin",
+    "Réduire la sédentarité quotidienne"
+  ],
+
+  situations: [
+    "Fatigue chronique fréquente",
+    "Douleurs et raideur matinale fréquentes",
+    "Déconditionnement physique fréquent",
+    "Risque cardiovasculaire augmenté",
+    "Atteinte mains, pieds et poignets fréquente",
+    "Peurs du mouvement et croyances erronées fréquentes",
+    "Handicap fonctionnel variable selon activité de la maladie"
+  ],
+
+  regles: [
+    "SI poussée inflammatoire localisée → ALORS repos relatif des articulations concernées",
+    "SI fatigue importante le jour prévu → ALORS réduire durée ou fractionner séance",
+    "SI douleur durable après exercice → ALORS diminuer charge ou changer modalité",
+    "SI atteinte des pieds douloureuse → ALORS privilégier vélo, aquatique ou marche adaptée",
+    "SI instabilité articulaire ou déficit fonctionnel marqué → ALORS envisager kinésithérapie préalable",
+    "SI maladie stabilisée et patient motivé → ALORS envisager progression vers activité autonome sécurisée",
+    "SI projet d’activité intense → ALORS considérer évaluation cardiovasculaire et avis spécialisé"
+  ],
+
+  crc: [
+    "Bouger régulièrement aide sans aggraver la polyarthrite lorsqu’on adapte l’effort",
+    "Commencez doucement puis progressez progressivement",
+    "En cas de poussée, adaptez ou sautez la séance",
+    "Même des séances courtes sont utiles",
+    "Le renforcement musculaire protège les articulations",
+    "Levez-vous au moins 1 minute chaque heure assise",
+    "Signalez toute douleur inhabituelle persistante"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement aide votre polyarthrite",
+    "Progressivité recommandée",
+    "Adapter l’activité en cas de poussée",
+    "Même un peu plus d’activité est bénéfique",
+    "Réduire les longues périodes assises"
+  ]
+},
+
+spa: {
+  titre: "Spondylarthrite axiale",
+
+  contraintes: [
+    "Poussée douloureuse ou inflammatoire importante → alléger temporairement la charge",
+    "Douleur rachidienne ou sacro-iliaque majorée à l’effort → réévaluer type et intensité",
+    "Enthésites douloureuses (talon, rotule, hanches, rachis) → limiter surcharges mécaniques",
+    "Forme sévère ankylosante / colonne bambou → prudence majeure traumatique",
+    "Sport de contact ou risque de chute avec colonne bambou → contre-indication relative / avis spécialisé",
+    "Fracture récente, chute récente ou suspicion lésion rachidienne → AP différée",
+    "Comorbidité cardiovasculaire non stabilisée → réévaluation préalable"
+  ],
+
+  adaptations: [
+    "L’activité physique fait partie du traitement de fond non médicamenteux",
+    "Privilégier régularité plutôt qu’intensité ponctuelle",
+    "Associer mobilité rachidienne, posture, renforcement musculaire et endurance",
+    "Ajouter travail respiratoire et ouverture thoracique si raideur costo-vertébrale",
+    "Débuter faible intensité puis progression par paliers",
+    "Fractionner les séances si fatigue importante",
+    "Vélo, marche, natation, aquatique souvent utiles selon tolérance",
+    "Choisir exercices simples intégrables au quotidien",
+    "Réduire la sédentarité quotidienne"
+  ],
+
+  situations: [
+    "Raideur matinale fréquente",
+    "Fatigue fréquente",
+    "Anxiété ou humeur dépressive fréquentes",
+    "Déconditionnement physique fréquent",
+    "Risque cardiovasculaire augmenté si inflammation active",
+    "Risque osseux / fracture rachidienne dans formes avancées",
+    "Atteinte axiale, périphérique ou enthésitique variable selon patient"
+  ],
+
+  regles: [
+    "SI raideur matinale importante → ALORS privilégier mobilité douce et démarrage progressif",
+    "SI douleur après course ou sauts → ALORS remplacer par activité sans impact",
+    "SI enthésite douloureuse → ALORS diminuer charge mécanique et volume",
+    "SI fatigue marquée → ALORS fractionner séance ou réduire intensité",
+    "SI maladie stabilisée → ALORS progresser vers activité régulière durable",
+    "SI forme ankylosante sévère → ALORS éviter sports à risque de choc ou chute",
+    "SI aggravation inhabituelle des symptômes → ALORS interrompre et réévaluer"
+  ],
+
+  crc: [
+    "Bouger régulièrement aide à limiter l’enraidissement",
+    "Même en période difficile, une activité douce reste souvent possible",
+    "Commencez doucement puis progressez par étapes",
+    "La posture, la mobilité et le renforcement sont importants",
+    "Signalez toute douleur inhabituelle persistante",
+    "Levez-vous au moins 1 minute chaque heure assise",
+    "La régularité compte plus que la performance"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement aide votre spondylarthrite",
+    "Progressivité recommandée",
+    "Entretenir mobilité et posture",
+    "Même un peu d’activité est utile",
+    "Réduire les longues périodes assises"
+  ]
+},
+
+depression: {
+  titre: "Dépression",
+
+  contraintes: [
+    "Aucune contre-indication spécifique liée à la dépression en dehors de désordres majeurs de l’alimentation",
+    "Fatigue extrême ou ralentissement psychomoteur marqué → début très progressif",
+    "Hypotension orthostatique ou sédation sous psychotropes → prudence activités à risque de chute",
+    "Isolement majeur ou absence totale d’élan → besoin d’accompagnement renforcé",
+    "Risque suicidaire aigu ou décompensation psychiatrique sévère → prise en charge prioritaire spécialisée",
+    "Comorbidité cardiovasculaire non stabilisée → réévaluation préalable"
+  ],
+
+  adaptations: [
+    "Objectif initial = remise en mouvement plus que performance",
+    "Débuter très petit si besoin : 5 à 10 minutes de marche",
+    "Privilégier régularité quotidienne plutôt qu’intensité",
+    "Marche = option simple, accessible et efficace",
+    "Associer endurance + renforcement musculaire progressivement",
+    "Yoga, Qi Gong, mobilité douce possibles",
+    "Séances supervisées ou accompagnées souvent utiles",
+    "Activité en groupe utile contre isolement si acceptable",
+    "Réduire sédentarité quotidienne"
+  ],
+
+  situations: [
+    "Fatigue, indécision et démotivation fréquentes",
+    "Perte de plaisir initiale fréquente malgré bénéfices secondaires possibles",
+    "Déconditionnement physique fréquent",
+    "Anxiété associée fréquente",
+    "Troubles du sommeil fréquents",
+    "Récidive possible si arrêt durable du mode de vie actif"
+  ],
+
+  regles: [
+    "SI absence d’énergie importante → ALORS proposer micro-séance de 5 à 10 minutes",
+    "SI séance annulée → ALORS reprendre dès le lendemain sans culpabilisation",
+    "SI patient isolé → ALORS envisager activité accompagnée ou en groupe",
+    "SI sédation médicamenteuse → ALORS privilégier horaires plus favorables et environnement sécurisé",
+    "SI bonne tolérance sur 2 à 3 semaines → ALORS augmenter progressivement durée puis intensité",
+    "SI symptômes s’aggravent nettement ou idées suicidaires → ALORS réévaluation médicale rapide",
+    "SI rémission obtenue → ALORS poursuivre activité régulière pour prévention rechute"
+  ],
+
+  crc: [
+    "Bouger un peu est déjà utile, même sans motivation",
+    "N’attendez pas l’envie pour commencer : l’envie vient souvent après l’action",
+    "Une courte marche vaut mieux que rien",
+    "La régularité compte plus que la performance",
+    "Reprendre après un jour raté est une réussite",
+    "Bouger aide souvent le sommeil et l’humeur",
+    "Levez-vous au moins 1 minute chaque heure assise"
+  ],
+
+  crc_default: [
+    "Bouger un peu chaque jour aide souvent l’humeur",
+    "Commencez petit puis progressez",
+    "La régularité compte plus que l’intensité",
+    "Reprendre après un jour raté",
+    "Limiter le temps assis"
+  ]
+},
+    
+schizophrenie: {
+  titre: "Troubles schizophréniques",
+
+  contraintes: [
+    "Aucune contre-indication spécifique liée au trouble schizophrénique",
+    "Décompensation psychiatrique aiguë ou agitation importante → réévaluation préalable",
+    "Sédation marquée liée aux traitements → prudence activités à risque",
+    "Hypotension orthostatique liée aux psychotropes → prudence changements de position",
+    "Comorbidité cardiovasculaire, respiratoire ou métabolique non stabilisée → avis médical préalable",
+    "Isolement majeur ou désorganisation importante → besoin d’accompagnement renforcé",
+    "Risque suicidaire aigu ou mise en danger → prise en charge prioritaire spécialisée"
+  ],
+
+  adaptations: [
+    "L’activité physique s’intègre au traitement global avec antipsychotiques, psychothérapie et réhabilitation",
+    "Débuter souvent par intensité légère à modérée",
+    "Commencer par séances courtes puis progresser",
+    "Privilégier activités simples et accessibles : marche, vélo, natation, danse, renforcement",
+    "Associer endurance + renforcement musculaire",
+    "Programme APA de 3 mois ou plus souvent utile",
+    "Choisir individuel ou groupe selon stabilité clinique et préférences",
+    "Utiliser entretien motivationnel, objectifs réalistes et soutien social",
+    "Réduire sédentarité quotidienne"
+  ],
+
+  situations: [
+    "Avolition, fatigue et manque d’élan fréquents",
+    "Sédentarité importante fréquente",
+    "Surpoids, tabagisme et syndrome métabolique fréquents",
+    "Anxiété ou symptômes dépressifs fréquents",
+    "Isolement social fréquent",
+    "Espérance de vie réduite surtout par comorbidités somatiques",
+    "Troubles cognitifs possibles"
+  ],
+
+  regles: [
+    "SI motivation faible → ALORS proposer objectif très simple et immédiat",
+    "SI séance manquée → ALORS reprendre sans culpabilisation dès que possible",
+    "SI somnolence liée au traitement → ALORS choisir horaire plus favorable et activité sécurisée",
+    "SI hypotension orthostatique → ALORS transitions lentes et hydratation adaptée",
+    "SI patient isolé → ALORS envisager activité accompagnée ou en groupe",
+    "SI bonne tolérance sur plusieurs semaines → ALORS augmenter progressivement durée puis intensité",
+    "SI aggravation psychiatrique nette → ALORS réévaluation médicale rapide"
+  ],
+
+  crc: [
+    "Bouger régulièrement aide le moral, le sommeil et la santé physique",
+    "Même une courte marche est utile",
+    "N’attendez pas la motivation parfaite pour commencer",
+    "La régularité compte plus que la performance",
+    "Bouger peut aider à réduire fatigue et stress avec le temps",
+    "Être accompagné peut aider à démarrer",
+    "Levez-vous au moins 1 minute chaque heure assise"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement aide votre santé globale",
+    "Commencez petit puis progressez",
+    "La régularité compte plus que l’intensité",
+    "Être accompagné peut aider",
+    "Limiter le temps assis"
+  ]
+},
+    
+    cancer: {
+  titre: "Cancer (pendant ou après traitement)",
+
+  contraintes: [
+    "Fatigue extrême / altération majeure de l’état général → intensification à différer",
+    "Syndrome infectieux sévère en cours → suspension temporaire",
+    "Anémie marquée, thrombopénie, leucopénie significative → réévaluation préalable",
+    "Suites précoces de chirurgie / cicatrisation non acquise → limitation temporaire",
+    "Décompensation cardio-respiratoire → avis spécialisé préalable",
+    "Métastases osseuses / lésions lytiques / fragilité osseuse → adaptation impérative",
+    "Dénutrition sévère / sarcopénie importante → priorité sécurisation + progressivité"
+  ],
+
+  adaptations: [
+    "Toujours individualiser selon type de cancer, traitements, phase thérapeutique et symptômes",
+    "Privilégier régularité plutôt que performance",
+    "Intensité relative (ressenti/Borg) plutôt que repères fixes",
+    "Commencer parfois par séances courtes (5-10 min) puis augmenter progressivement",
+    "Associer endurance + renforcement musculaire + mobilité",
+    "Réduire temps assis et augmenter activités quotidiennes",
+    "Adapter semaine par semaine pendant chimiothérapie / traitements fluctuants",
+    "Encadrement renforcé si fragilité, peur du mouvement ou déconditionnement"
+  ],
+
+  situations: [
+    "Fatigue liée au cancer fréquente mais compatible avec activité adaptée",
+    "Perte musculaire / déconditionnement fréquents",
+    "Douleurs, neuropathies, troubles équilibre possibles",
+    "Perte de confiance corporelle fréquente",
+    "Lymphœdème possible selon contextes",
+    "Cardiotoxicité possible de certains traitements"
+  ],
+
+  regles: [
+    "SI phase active de traitement avec effets secondaires fluctuants → ALORS ajuster durée/intensité fréquemment",
+    "SI fatigue majorée après séance > 24-48 h → ALORS réduire charge suivante",
+    "SI douleur osseuse inhabituelle / vertiges / douleur thoracique / malaise → ALORS suspendre et réévaluer",
+    "SI neuropathie ou instabilité → ALORS sécuriser environnement + privilégier faible risque de chute",
+    "SI chirurgie récente → ALORS respecter délais et zones à protéger",
+    "SI métastases osseuses connues → ALORS éviter contraintes mécaniques sur zone concernée",
+    "SI bonne tolérance clinique → ALORS progression graduelle vers recommandations générales"
+  ],
+
+  crc: [
+    "L’activité physique adaptée fait partie des soins de support utiles",
+    "Même fatigué, bouger doucement est souvent préférable à l’inactivité complète si toléré",
+    "La régularité prime sur l’intensité",
+    "Adaptez les séances selon les jours de traitement et votre forme",
+    "Marche, vélo doux, renforcement progressif, mobilité : options utiles",
+    "Arrêtez et signalez tout symptôme inhabituel",
+    "Chaque petit mouvement compte"
+  ],
+
+  crc_default: [
+    "Bouger régulièrement aide à préserver force et autonomie",
+    "Adapter l’effort à votre forme du jour",
+    "Limiter le temps assis",
+    "Progression graduelle",
+    "Signaler symptômes inhabituels"
+  ]
+},
+
+personnes_agees_maintien: {
+  titre: "Personnes âgées – maintien des capacités",
+
+  contraintes: [
+    "Risque cardiovasculaire augmenté avec l’âge → prudence avant activité au moins modérée",
+    "Risque de chute ou fracture → évaluer et sécuriser",
+    "Déconditionnement marqué / fragilité / sarcopénie → démarrage progressif",
+    "Polymédication → risque hypotension, hypoglycémie, déshydratation",
+    "Troubles cognitifs importants → supervision recommandée",
+    "Douleurs ostéoarticulaires ou troubles de la marche → adapter type d’activité",
+    "Chaleur / mauvaise thermorégulation → éviter ambiance chaude"
+  ],
+
+  adaptations: [
+    "Toujours privilégier progressivité et régularité",
+    "Commencer par activités de vie quotidienne : marche, escaliers, jardinage, déplacements actifs",
+    "Associer endurance + renforcement + équilibre + souplesse",
+    "Utiliser intensité perçue plutôt que performance brute",
+    "Séances courtes au début (5 à 15 min) si fragilité",
+    "Hydratation régulière sans attendre la soif",
+    "Chaussage adapté et environnement sécurisé",
+    "Favoriser activités plaisantes et sociales",
+    "Chez sujets fragiles : vigilance nutrition protéino-énergétique"
+  ],
+
+  situations: [
+    "Perte de force, équilibre et mobilité fréquente avec l’âge",
+    "Sédentarité fréquente",
+    "Peur de tomber limitant l’activité",
+    "Hétérogénéité importante entre personnes du même âge",
+    "Risque dépendance si inactivité prolongée",
+    "Troubles cognitifs possibles"
+  ],
+
+  regles: [
+    "SI chute récente ou répétée → ALORS orienter bilan du risque de chute et activité sécurisée",
+    "SI incapacité à se lever 5 fois d’une chaise rapidement → ALORS envisager évaluation fonctionnelle approfondie",
+    "SI fragilité marquée ou perte motrice importante → ALORS privilégier APA / rééducation encadrée",
+    "SI bonne tolérance plusieurs semaines → ALORS augmenter d’abord durée puis fréquence puis intensité",
+    "SI douleur inhabituelle, malaise, dyspnée anormale, oppression thoracique → ALORS arrêter activité et réévaluer médicalement",
+    "SI troubles cognitifs majeurs → ALORS séances simples, répétitives, supervisées",
+    "SI chaleur importante → ALORS réduire ou reporter séance"
+  ],
+
+  crc: [
+    "Bouger reste utile à tout âge",
+    "Même commencer tard apporte des bénéfices",
+    "La régularité compte plus que la performance",
+    "Travaillez aussi l’équilibre et la force",
+    "Levez-vous et bougez au moins 1 minute chaque heure assise",
+    "Hydratez-vous sans attendre la soif",
+    "Choisissez des activités que vous aimez"
+  ],
+
+  crc_default: [
+    "Bouger aide à garder l’autonomie",
+    "Il n’est jamais trop tard pour commencer",
+    "Progressivité recommandée",
+    "Limiter le temps assis",
+    "Hydratation et sécurité importantes"
+  ]
+},
+
+personnes_agees_risque_chute: {
+  titre: "Personnes âgées – risque de chute",
+
+  contraintes: [
+    "Antécédent de chute = facteur prédictif majeur de nouvelle chute",
+    "Chutes souvent multifactorielles : équilibre, force, vision, médicaments, cognition, environnement",
+    "Risque fracturaire accru (ostéoporose fréquente)",
+    "Peur de tomber pouvant majorer la sédentarité et la perte d’autonomie",
+    "Polymédication : psychotropes, hypotenseurs, hypoglycémiants à considérer",
+    "Troubles cognitifs ou neurologiques possibles",
+    "Déconditionnement rapide après chute ou immobilisation"
+  ],
+
+  adaptations: [
+    "Privilégier programme combiné : équilibre + renforcement MI + marche/endurance + coordination",
+    "Commencer en environnement sécurisé avec appui proche si besoin",
+    "Progressivité stricte : difficulté croissante des appuis et déplacements",
+    "Intégrer exercices fonctionnels : demi-tour, obstacles, changement de cadence, relever du sol",
+    "Favoriser activités de vie quotidienne sécurisées",
+    "Chaussage stable, éclairage suffisant, aides techniques adaptées",
+    "En cas de risque plus élevé : supervision initiale ou APA/kinésithérapie"
+  ],
+
+  situations: [
+    "Chute dans les 12 derniers mois",
+    "Sensation d’instabilité debout ou à la marche",
+    "Peur de tomber",
+    "Marche ralentie / difficulté lever de chaise",
+    "Troubles visuels, vestibulaires, neuropathie, arthrose",
+    "Séjour prolongé au sol après chute antérieure",
+    "Réduction des sorties par crainte"
+  ],
+
+  regles: [
+    "SI ≥2 chutes en 12 mois → ALORS considérer risque élevé et bilan étiologique/fonctionnel",
+    "SI chute avec blessure, hospitalisation ou incapacité à se relever → ALORS considérer haut risque",
+    "SI TUG >15 s OU vitesse <0,8 m/s → ALORS considérer trouble marche/équilibre nécessitant adaptation",
+    "SI peur de tomber sans trouble majeur → ALORS rassurer + réentraînement progressif + exposition graduée",
+    "SI troubles neurologiques, syncopes suspectées ou malaise → ALORS avis médical prioritaire",
+    "SI amélioration après cycle supervisé → ALORS relais possible vers activité ordinaire sécurisée",
+    "SI nouvelle chute ou dégradation fonctionnelle → ALORS réévaluation rapide"
+  ],
+
+  crc: [
+    "Bouger reste un traitement clé contre le risque de chute",
+    "Travailler l’équilibre et la force est prioritaire",
+    "La peur de tomber se traite aussi par l’entraînement progressif",
+    "Signalez toute chute récente à votre médecin",
+    "Sécurisez le domicile : éclairage, tapis, obstacles",
+    "Des progrès sont possibles à tout âge"
+  ],
+
+  crc_default: [
+    "Prévenir les chutes passe aussi par l’activité physique",
+    "Équilibre + force + marche = trio prioritaire",
+    "Toute nouvelle chute mérite d’être signalée",
+    "Progressivité et sécurité recommandées",
+    "Rester actif protège l’autonomie"
+  ]
+},
+
+grossesse_post_partum: {
+  titre: "Grossesse / Post-partum",
+
+  contraintes: [
+    "Adapter à l’évolution de la grossesse, à la condition physique et aux symptômes",
+    "Rechercher contre-indications obstétricales ou médicales avant AP structurée",
+    "Éviter hyperthermie, déshydratation et environnements chauds/humides",
+    "Modification équilibre / centre de gravité avec risque de chute croissant",
+    "Hyperlaxité ligamentaire et contraintes musculo-squelettiques accrues",
+    "Après 24 SA : éviter exercices prolongés allongée sur le dos",
+    "Post-partum : récupération périnéale, abdominale et cicatricielle à considérer"
+  ],
+
+  adaptations: [
+    "Privilégier endurance modérée + renforcement musculaire + mobilité",
+    "Repère intensité : conversation possible / Borg modéré",
+    "Fractionner si fatigue : séances courtes répétées",
+    "Favoriser activités à faible impact : marche, vélo stationnaire, natation, aquagym",
+    "Intégrer renforcement dos, hanches, membres inférieurs et plancher pelvien",
+    "Échauffement 10-15 min et retour au calme 10-15 min",
+    "Hydratation régulière, vêtements adaptés, pauses fréquentes",
+    "Post-partum : reprise progressive d’abord faible impact"
+  ],
+
+  situations: [
+    "Grossesse sans complication",
+    "Sédentarité préalable ou surpoids/obésité",
+    "Douleurs lombaires/pelviennes",
+    "Diabète gestationnel ou risque métabolique",
+    "Césarienne / épisiotomie / déchirure récente",
+    "Fuites urinaires ou pesanteur périnéale",
+    "Sportive souhaitant poursuivre entraînement"
+  ],
+
+  regles: [
+    "SI grossesse sans complication → ALORS viser au moins 150 à 180 min/sem d’AP modérée répartie sur ≥3 jours",
+    "SI femme auparavant inactive → ALORS débuter progressivement (ex : 15 min x3/sem puis augmenter)",
+    "SI contractions douloureuses, saignement, fuite liquide, douleur thoracique, malaise, dyspnée inhabituelle, douleur mollet → ALORS arrêter AP et avis médical rapide",
+    "SI contre-indication absolue obstétricale/médicale → ALORS limiter aux activités légères de vie quotidienne selon avis spécialisé",
+    "SI post-partum immédiat → ALORS reprise douce marche/mobilité selon tolérance",
+    "SI activité avec impacts (course, sauts, tennis) envisagée en post-partum → ALORS attendre rééducation périnéale et fonction périnéale satisfaisante",
+    "SI césarienne ou complications obstétricales → ALORS reprise individualisée avec équipe de suivi"
+  ],
+
+  crc: [
+    "Bouger pendant la grossesse est généralement bénéfique quand il n’existe pas de contre-indication",
+    "L’objectif est la santé, pas la performance",
+    "Marche, natation, vélo stationnaire sont souvent de bons choix",
+    "En post-partum, reprendre progressivement",
+    "Le périnée mérite une attention particulière avant les impacts",
+    "Chaque mouvement compte, même en petites durées"
+  ],
+
+  crc_default: [
+    "Grossesse active = bénéfices pour la mère et l’enfant",
+    "Intensité modérée et progressivité recommandées",
+    "Stopper l’effort si signe d’alerte",
+    "Après accouchement : reprise graduelle",
+    "Impacts après bilan/rééducation périnéale"
+  ]
+},    
 };
 
     
