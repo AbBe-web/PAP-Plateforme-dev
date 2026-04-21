@@ -462,6 +462,51 @@ label:has(input[type="radio"]) .info-icon{
   position:static;
   top:auto;
 }
+
+/* =========================
+   PATHOLOGIES CHRONIQUES
+========================= */
+
+/* =========================
+   PATHOLOGIES CHRONIQUES
+========================= */
+
+.pathologies-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:16px 24px;
+  width:100%;
+  align-items:start;
+}
+
+.pathologies-grid > div{
+  min-width:0;
+}
+
+.pathologies-grid strong{
+  display:block;
+  margin-bottom:8px;
+}
+
+.pathologies-grid label{
+  margin-bottom:8px;
+  overflow-wrap:anywhere;
+}
+    
+/* Tablette */
+@media (max-width: 900px){
+  .pathologies-grid{
+    grid-template-columns:repeat(2, minmax(0,1fr));
+  }
+}
+
+/* Smartphone portrait */
+@media (max-width: 640px){
+  .pathologies-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+}
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -859,7 +904,7 @@ Importer fichier JSON
 
 <h2>🩺 Maladies chroniques (aide à la prescription)</h2>
 
-<div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px 20px;">
+<div class="pathologies-grid">
 
 <div>
 <strong style="display:block; margin-bottom:6px;">Cardio</strong>
