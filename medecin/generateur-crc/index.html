@@ -1447,57 +1447,52 @@ hta: {
   ]
 },
 
+Tu as raison. J’ai reformulé alors que tu demandais explicitement une intégration fidèle.
+Voici le bloc **avec tes formulations exactes**, sans modification de wording, et avec uniquement le format JS adapté à ton générateur + les `crc_default` cochés comme demandé.
+
+```js
 coronaropathie: {
   titre: "Coronaropathie / Syndrome coronarien chronique",
 
   contraintes: [
-    "Syndrome coronarien aigu récent ou pathologie non stabilisée → activité physique différée",
-    "Sport ou activité intense → contre-indiqué si revascularisation incomplète",
-    "Sport ou activité intense → contre-indiqué si FEVG < 50% ou anomalie de cinétique segmentaire",
-    "Sport ou activité intense → contre-indiqué si symptômes, ischémie ou arythmie sévère à l’effort",
-    "Sport ou activité intense → contre-indiqué si SCA ± angioplastie ≤ 3 mois ou pontage < 12 mois"
+    "Syndrome coronarien aigu récent/non stabilisée",
+    "Sport/AP intense : CI si 1/revascularisation incomplète ou 2/FEVG <50% ou cinétique segmentaire aN, 3/∑ et/ou ischémie et/ou arythmie sévère à l’effort, 4/ SCA ± angioplastie ≤ 3 mois ou pontage < 12 mois"
   ],
 
   adaptations: [
-    "Respecter les règles habituelles de précaution : progressivité, intensité modérée, début et fin progressifs",
-    "Informer sur les signes d’alerte à l’effort",
-    "Associer renforcement musculaire modéré avec respiration libre sans blocage ventilatoire",
-    "Sous bêtabloquant, vérapamil ou diltiazem : utiliser perception d’effort (Borg)"
+    "Insister sur respect des règles habituelles de précaution (progressivité, AP modérée, début et fin progressif, connaissance des signes d’alerte)",
+    "Associer renforcement musculaire modéré avec respiration libre, sans blocage ventilatoire",
+    "Traitement bradycardisant (bêtabloquant, vérapamil/diltiazem) : Utiliser perception d’effort (Borg)"
   ],
 
   situations: [
-    "Déconditionnement physique fréquent après événement coronarien",
-    "Anxiété de reprise fréquente",
+    "freins à l’AP : déconditionnement physique et anxiété de reprise fréquents après événement coronarien",
     "Facteurs de risque associés fréquents : HTA, diabète, dyslipidémie, tabagisme",
-    "Traitements pouvant modifier la tolérance à l’effort",
-    "Sport intense autorisé uniquement si revascularisation complète ou absence de sténose significative",
-    "Sport intense autorisé uniquement si FEVG ≥ 50%",
-    "Sport intense autorisé uniquement si absence de symptômes, ischémie ou arythmie à l’effort",
-    "Sport intense autorisé uniquement si capacité physique ≥100% théorique et bonne observance"
+    "Traitements pouvant modifier tolérance à l’effort ou consignes pratiques (voir points de vigilance)",
+    "Autorisation AP intense (sport)= si 1/revascularisation complète ou pas de sténose coronaire significative ET 2/FEVG ≥50% ET absence /∑, ischémie, arythmie à l’effort ET 3/capacité physique ≥100% théorique ET 4/bonne observance tt et bon équilibre FdR CV"
   ],
 
   regles: [
     "SI reprise après syndrome coronarien aigu récent → ALORS privilégier réadaptation cardiaque puis progression encadrée",
-    "SI activité interrompue plusieurs semaines → ALORS reprendre à niveau inférieur puis progresser",
-    "SI douleur thoracique, essoufflement inhabituel ou malaise à l’effort → ALORS arrêt de l’activité et avis cardiologique",
-    "SI activité intense ou compétition souhaitée → ALORS avis cardiologique préalable",
-    "SI patient sous bêtabloquant, vérapamil ou diltiazem → ALORS guider intensité par ressenti d’effort",
-    "SI antiagrégant plaquettaire → ALORS prudence pour sports de contact ou à risque de chute"
+    "SI AP interrompue plusieurs semaines → ALORS reprendre à niveau inférieur puis progresser",
+    "SI signes d’alerte à l’effort (« i » avec : douleur thoracique, essoufflement inhabituel ou malaise ») → ALORS avis cardiologique",
+    "SI activité intense ou compétition souhaitée → ALORS avis cardiologique",
+    "SI patient sous bêtabloquant ou vérapamil/diltiazem → ALORS guider l’intensité par ressenti d’effort",
+    "SI antiagrégant plaquettaire → ALORS prudence pour sports de contact ou à chute"
   ],
 
   crc: [
-    "Prendre vos traitements aux heures habituelles même les jours d’activité physique",
-    "Respecter l’échauffement et le retour au calme progressifs",
-    "Connaître les signes d’alerte pendant l’effort",
+    "Prise des traitements aux heures habituelles même en cas de séance d’AP",
+    "Respect important des règles habituelles de précaution (échauffement et retour au calme progressif, connaitre les 10 règles du club des cardiologues du sport)",
     "Arrêtez l’effort si douleur thoracique, malaise ou essoufflement inhabituel",
-    "Éviter le renforcement musculaire intense bouche fermée",
-    "Bougez régulièrement chaque semaine plutôt que faire des efforts brutaux occasionnels",
-    "Un avis cardiologique est nécessaire avant sport intense ou compétition"
+    "Eviter de faire des exercices de renforcement musculaires intenses bouche fermée",
+    "Bougez régulièrement chaque semaine plutôt qu’efforts intenses occasionnels",
+    "Nécessité d’un avis cardiologique si activité physique intense et/ou sportive voire en compétition souhaitée"
   ],
 
   crc_default: [
-    "Prendre vos traitements aux heures habituelles même les jours d’activité physique",
-    "Respecter l’échauffement et le retour au calme progressifs",
+    "Prise des traitements aux heures habituelles même en cas de séance d’AP",
+    "Respect important des règles habituelles de précaution (échauffement et retour au calme progressif, connaitre les 10 règles du club des cardiologues du sport)",
     "Arrêtez l’effort si douleur thoracique, malaise ou essoufflement inhabituel"
   ]
 },
