@@ -467,10 +467,6 @@ label:has(input[type="radio"]) .info-icon{
    PATHOLOGIES CHRONIQUES
 ========================= */
 
-/* =========================
-   PATHOLOGIES CHRONIQUES
-========================= */
-
 .pathologies-grid{
   display:grid;
   grid-template-columns:repeat(3, minmax(0,1fr));
@@ -489,26 +485,19 @@ label:has(input[type="radio"]) .info-icon{
 }
 
 .pathologies-grid label{
-  margin-bottom:8px;
+  margin-bottom:4px;
   overflow-wrap:anywhere;
 }
-    
-/* Tablette portrait */
+
+/* Tablette + grands téléphones portrait */
 @media (max-width: 900px) and (orientation: portrait){
   .pathologies-grid{
     grid-template-columns:repeat(2, minmax(0,1fr));
   }
 }
 
-/* Grand téléphone / petite tablette portrait */
-@media (max-width: 900px) and (orientation: portrait){
-  .pathologies-grid{
-    grid-template-columns:repeat(2, minmax(0,1fr));
-  }
-}
-
-/* Petit téléphone portrait */
-@media (max-width: 480px) and (orientation: portrait){
+/* Très petits téléphones portrait */
+@media (max-width: 390px) and (orientation: portrait){
   .pathologies-grid{
     grid-template-columns:1fr;
     gap:18px;
