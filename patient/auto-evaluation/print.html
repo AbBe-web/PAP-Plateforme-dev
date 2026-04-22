@@ -424,11 +424,13 @@ table th {
 function goBack() {
   window.location.href = "index.html";
 }
-
+  
 function safePrint() {
-  setTimeout(() => {
+  if (typeof window.print === "function") {
     window.print();
-  }, 500);
+  } else {
+    alert("L’impression n’est pas disponible sur ce navigateur.");
+  }
 }
   
 function getJSONFromURL(){
