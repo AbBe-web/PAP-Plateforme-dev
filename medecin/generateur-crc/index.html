@@ -3814,7 +3814,12 @@ clinicalModel = buildClinicalModel();
 document.getElementById("formatTabs").classList.remove("hidden");
 document.getElementById("reportOutput").classList.remove("hidden");
 document.getElementById("generateReport").classList.add("hidden");
-document.getElementById("resetSection")?.classList.remove("hidden");
+const resetSection = document.getElementById("resetSection");
+
+if (resetSection) {
+    resetSection.classList.remove("hidden");
+    resetSection.style.display = "block";
+}
 
 document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
 document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
