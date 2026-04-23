@@ -1393,10 +1393,6 @@ Pas d’AP envisagée dans les 6 mois
     Nouvelle consultation
   </button>
 </div>
-</div>
-
-    </div>
-
 
 <script>
     
@@ -3814,12 +3810,13 @@ clinicalModel = buildClinicalModel();
 
     activeMode = "long";
 
-    document.getElementById("formatTabs").classList.remove("hidden");
-    document.getElementById("reportOutput").classList.remove("hidden");
-    document.getElementById("generateReport").classList.add("hidden");
+document.getElementById("formatTabs").classList.remove("hidden");
+document.getElementById("reportOutput").classList.remove("hidden");
+document.getElementById("generateReport").classList.add("hidden");
+document.getElementById("resetSection")?.classList.remove("hidden");
 
-    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-    document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
 
    renderActiveMode({ scroll: true });
 
