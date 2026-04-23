@@ -82,14 +82,22 @@ document.addEventListener("DOMContentLoaded", function () {
             "resetSection"
         ];
 
-        dynamicBlocks.forEach(id => {
-            const el = document.getElementById(id);
+       dynamicBlocks.forEach(id => {
+    const el = document.getElementById(id);
 
-            if (el) {
-                el.classList.add("hidden");
-                el.style.display = "none";
-            }
-        });
+    if (el) {
+        el.classList.add("hidden");
+
+        // uniquement pour les blocs qui utilisent display inline
+        if (
+            id === "symptomes_alert" ||
+            id === "renforcement_musculaire_subgroup" ||
+            id === "qrScannerContainer"
+        ) {
+            el.style.display = "none";
+        }
+    }
+});
 
         // Réafficher bouton générer
         const generateBtn = document.getElementById("generateReport");
