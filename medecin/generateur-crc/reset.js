@@ -113,13 +113,22 @@ document.addEventListener("DOMContentLoaded", function () {
             btn.classList.remove("active");
         });
 
-        const firstTab = document.querySelector(
-            '.tab-btn[data-mode="long"]'
-        );
+       const firstTab = document.querySelector(
+'.tab-btn[data-mode="long"]'
+);
 
-        if (firstTab) {
-            firstTab.classList.add("active");
-        }
+if (firstTab) {
+    firstTab.classList.add("active");
+}
+
+// reset état JS du mode CRC
+if (typeof activeMode !== "undefined") {
+    activeMode = "long";
+}
+
+if (typeof crcMode !== "undefined") {
+    crcMode = "long";
+}
 
         //----------------------------------
         // 11. Reset import JSON file
