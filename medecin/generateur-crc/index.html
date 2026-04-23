@@ -1360,9 +1360,17 @@ Pas d’AP envisagée dans les 6 mois
     
 </form>
 
-<button type="button" id="generateReport" class="btn">
-  Générer le compte-rendu
-</button>
+<div class="action-buttons">
+
+  <button type="button" id="generateReport" class="btn">
+    Générer le compte-rendu
+  </button>
+
+  <button type="button" id="resetConsultationBtn" class="btn secondary-btn">
+    Nouvelle consultation
+  </button>
+
+</div>
     
     <div id="reportOutput" class="hidden">
 
@@ -5887,6 +5895,8 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/PAP-Plateforme-dev/sw.js');
 }
 </script>
-
+        
+<script src="reset.js"></script>
+        
 </body>
 </html>
