@@ -1394,6 +1394,7 @@ Pas d’AP envisagée dans les 6 mois
   </button>
 </div>
 
+
 <script>
     
 /* =====================================
@@ -5887,7 +5888,30 @@ document.addEventListener("click", () => {
   transition:opacity .18s ease, transform .18s ease;
 ">
 </div>
-          
+ <div id="resetConfirmModal" class="modal hidden">
+  <div class="modal-content" style="max-width:400px; text-align:center;">
+
+    <h3>Nouvelle consultation</h3>
+
+    <p style="margin:15px 0;">
+      Voulez-vous démarrer une nouvelle consultation ?
+    </p>
+
+    <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+
+      <button type="button" id="confirmResetBtn" class="btn">
+        Oui
+      </button>
+
+      <button type="button" id="cancelResetBtn" class="btn secondary-btn">
+        Annuler
+      </button>
+
+    </div>
+
+  </div>
+</div>    
+        
 <script>
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/PAP-Plateforme-dev/sw.js');
