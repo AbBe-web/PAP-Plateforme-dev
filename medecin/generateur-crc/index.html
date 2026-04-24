@@ -653,8 +653,15 @@ Importer fichier JSON
 
 <input type="file" id="importJSONFile" accept=".json" style="display:none;">
 <div id="qrScannerContainer" style="display:none;margin-top:15px;">
-<div id="qr-reader" style="width:300px; margin:auto;"></div>
-  <button type="button" id="closeQRScanner" class="btn">Fermer scanner</button>
+
+  <div style="text-align:center; margin-bottom:10px;">
+    <button type="button" id="closeQRScanner" class="btn secondary">
+      Fermer scanner
+    </button>
+  </div>
+
+  <div id="qr-reader" style="width:300px; margin:auto;"></div>
+
 </div>
     
 <p>Veuillez ensuite vérifier et compléter les informations avant de générer le compte-rendu.</p>
