@@ -640,7 +640,7 @@ Importer fichier JSON
 
 <input type="file" id="importJSONFile" accept=".json" style="display:none;">
 <div id="qrScannerContainer" style="display:none;margin-top:15px;">
-  <div id="qr-reader" style="width:300px;"></div>
+<div id="qr-reader" style="width:300px; margin:auto;"></div>
   <button type="button" id="closeQRScanner" class="btn">Fermer scanner</button>
 </div>
     
@@ -3232,9 +3232,17 @@ const closeQR = document.getElementById("closeQRScanner");
 
 if(scanBtn){
 
-  scanBtn.addEventListener("click", function(){
+ scanBtn.addEventListener("click", function(){
 
     qrContainer.style.display = "block";
+
+    // scroll automatique iPhone/Safari
+    setTimeout(() => {
+      qrContainer.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }, 300);
 
     qrScanner = new Html5Qrcode("qr-reader");
 
