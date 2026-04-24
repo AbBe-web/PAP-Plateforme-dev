@@ -3263,14 +3263,16 @@ qrScanner.start(
     if(qrAlreadyRead) return;
     qrAlreadyRead = true;
 
-    try{
-      importPatientJSON(decodedText);
+  try{
+  importPatientJSON(decodedText);
 
-      if(qrScanner){
-        qrScanner.stop().then(() => {
-          qrContainer.style.display = "none";
-        });
-      }
+  alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");
+
+  if(qrScanner){
+    qrScanner.stop().then(() => {
+      qrContainer.style.display = "none";
+    });
+  }
 
       setTimeout(() => {
         qrAlreadyRead = false;
