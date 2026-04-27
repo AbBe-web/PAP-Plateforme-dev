@@ -1813,62 +1813,50 @@ asthme: {
   titre: "Asthme",
 
   contraintes: [
-    "Asthme non contrôlé / symptômes fréquents / crise récente → contre-indication temporaire relative à intensification",
-    "Dyspnée inhabituelle ou disproportionnée à l’effort → rechercher cause avant progression",
-    "Comorbidité cardiovasculaire non stabilisée → réévaluation préalable",
-    "Asthme sévère ou difficile à contrôler → reprise plus encadrée",
-    "Froid, pollution, allergènes saisonniers → risque majoré de symptômes / BIE",
-    "Piscine chlorée chez sujet sensible → possible déclenchement BIE",
-    "Plongée sous-marine bouteille → avis spécialisé indispensable"
+    "CI = Asthme non contrôlé / symptômes fréquents / crise récente",
+    "CI = Comorbidité non stabilisée (CV notamment)",
+    "CI = Plongée sous-marine en bouteille si ≥6 crises/an, asthme d’effort ou au froid, syndrome obstructif associé même mineur, crise récente (<48h-7j) (avis pneumologique indispensable)",
+    "L = Allergie selon sport choisi (AP plein air en pleine saison pollinique…)",
+    "L = Natation dans piscine chlorée et sports d’endurance dans le froid ou si pic de pollution, ce qui peut déclencher une BIE <button type='button' class='info-trigger info-hitbox' data-info='Bronchoconstriction Induite par l’Exercice'><span class='info-icon'>i</span></button>"
   ],
 
   adaptations: [
-    "Toujours privilégier progressivité et régularité",
-    "Échauffement systématique + retour au calme",
-    "Garder bronchodilatateur de secours disponible selon plan médical habituel",
-    "Marche, vélo, danse, natation non chlorée, activités ludiques selon préférence",
+    "Importance du respect des règles habituelles : progressivité, régularité, échauffement et retour au calme",
+    "Avoir son bronchodilatateur sur soi + connaître CAT en cas de crise (tt, alerte, appli 114)",
+    "Privilégier respiration nasale si effort modéré",
+    "Si natation en piscine : idéalement dans piscine non chlorée",
     "Fractionner en blocs de 10 min si faible tolérance",
-    "Associer endurance + renforcement musculaire",
-    "Réduire sédentarité quotidienne",
-    "Respiration nasale si possible à l’effort modéré",
-    "Adapter lieu/heure selon météo, pollution, pollen"
+    "Adapter l’AP (lieu/moment) selon météo, pollution, pollen"
   ],
 
   situations: [
-    "Bronchoconstriction induite par l’exercice possible",
-    "Peur de l’effort fréquente après symptômes",
-    "Déconditionnement fréquent si évitement",
-    "Anxiété / hyperventilation possibles",
-    "Obésité ou tabagisme pouvant aggraver contrôle",
-    "Asthme souvent sous-estimé par patient"
+    "Dyspnée d’effort : avis pneumologique pour analyse du mécanisme <button type='button' class='info-trigger info-hitbox' data-info='Asthme insuffisamment contrôlé, bronchoconstriction induite par l’exercice (BIE), syndrome d’hyperventilation, dyskinésie des cordes vocales'><span class='info-icon'>i</span></button>",
+    "Peur de l’effort fréquente",
+    "Obésité ou tabagisme pouvant aggraver contrôle à prendre en charge"
   ],
 
   regles: [
-    "SI asthme mal contrôlé → ALORS optimiser prise en charge avant intensification sportive",
-    "SI symptômes après 3-8 min effort intense → ALORS évoquer BIE et adapter séance",
-    "SI froid/pollution/pollen élevé → ALORS privilégier intérieur ou intensité réduite",
-    "SI dyspnée très rapide avec examen habituel rassurant → ALORS évoquer hyperventilation/déconditionnement",
-    "SI fatigue importante → ALORS fractionner séance",
-    "SI bonne stabilité clinique → ALORS progression graduelle vers recommandations générales",
-    "SI aggravation persistante malgré adaptation → ALORS réévaluer médicalement"
+    "SI symptômes à l’effort → analyser le mécanisme et CAT en fonction",
+    "SI asthme mal contrôlé → optimiser prise en charge avant intensification sportive (↑ tt et/ou observance)",
+    "SI symptômes après 3-8 min (<18) d’effort intense → évoquer BIE <button type='button' class='info-trigger info-hitbox' data-info='Bronchoconstriction induite par l’exercice'><span class='info-icon'>i</span></button> et adapter séance (échauffement et/ou B2 15 min avant l’effort)",
+    "SI dyspnée très rapide avec examen habituel rassurant → évoquer hyperventilation/déconditionnement",
+    "SI froid/pollution/pollen élevé → privilégier intérieur ou intensité réduite",
+    "SI peur de l’effort avec bilan négatif et/ou déconditionnement +++ → rassurer et informer, progressivité/fractionnement (≤10 min)",
+    "SI stabilité clinique → progression graduelle vers recommandations générales"
   ],
 
   crc: [
     "L’activité physique régulière aide souvent à mieux contrôler l’asthme",
-    "Commencez progressivement, sans rechercher la performance immédiate",
-    "Échauffez-vous avant l’effort",
-    "Gardez votre traitement de secours selon vos consignes habituelles",
-    "La régularité compte plus que l’intensité",
-    "Bougez un peu chaque jour et limitez le temps assis",
-    "Adaptez vos sorties à la météo et à la pollution"
+    "Adaptez vos sorties à la météo, la pollution, les pollens (pas d’AP intense si pic de pollution, site atmo.org)",
+    "Commencer progressivement et bien s’échauffer avant l’effort",
+    "Faire sa sortie d’AP avec son inhalateur et savoir quoi faire en cas de crise",
+    "Refaire le point avec mon médecin en cas de gêne respiratoire inhabituelle à l’effort"
   ],
 
   crc_default: [
-    "Bouger régulièrement peut améliorer le contrôle de l’asthme",
-    "Progressivité recommandée",
-    "Échauffement avant effort",
-    "Limiter sédentarité quotidienne",
-    "Adapter l’activité à vos symptômes"
+    "L’activité physique régulière aide souvent à mieux contrôler l’asthme",
+    "Commencer progressivement et bien s’échauffer avant l’effort",
+    "Faire sa sortie d’AP avec son inhalateur et savoir quoi faire en cas de crise"
   ]
 },
     
