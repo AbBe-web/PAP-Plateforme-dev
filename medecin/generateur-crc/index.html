@@ -436,17 +436,14 @@ label:has(input[type="radio"]) .info-icon{
 
 /* nouveau système bouton + span interne */
 .info-icon{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+  display:inline-block;
 
   width:16px;
   height:16px;
-  min-width:16px;
-  min-height:16px;
+  line-height:16px;
 
   margin-left:3px;
-  margin-right:0px;
+  margin-right:0;
 
   border-radius:50%;
   background:#bfdbfe;
@@ -455,9 +452,8 @@ label:has(input[type="radio"]) .info-icon{
   text-align:center;
   font-size:11px;
   font-weight:700;
-  line-height:1;
 
-  vertical-align:middle;
+  vertical-align:text-bottom;
   cursor:pointer;
 
   user-select:none;
