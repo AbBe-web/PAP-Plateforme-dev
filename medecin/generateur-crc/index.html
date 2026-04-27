@@ -1574,62 +1574,57 @@ dt1: {
   titre: "Diabète de type 1",
 
   contraintes: [
-    "Hyperglycémie > 2,5 g/L en début d’exercice → éviter séance et corriger si besoin",
-    "Cétonémie > 0,5 mmol/L ou cétonurie positive → activité différée",
-    "Hypoglycémie sévère récente (< 24 h) → contre-indication temporaire",
-    "Hypoglycémie légère récente → prudence renforcée, éviter sports à risque isolé",
-    "Complication diabétique non stabilisée → réévaluation préalable",
-    "Rétinopathie proliférante instable → éviter efforts violents, charges lourdes, Valsalva",
-    "Mal perforant plantaire → contre-indication temporaire aux activités des membres inférieurs"
+    "G > 2,5 g/L (13.9 mM) ou cétonémie > 0.5 mM/L en début d’exercice → éviter séance et corriger",
+    "Cétonémie > 0,5 mmol/L ou cétonurie positive → différer activité",
+    "Hypoglycémie sévère (≤2.8 mM, 0.5 g ou intervention autre personne) récente (<24 h) → contre-indication temporaire",
+    "Hypoglycémie légère récente (2.9-3.9 mM, 0.5-0.7 g) → prudence renforcée, éviter sports à risque isolé <button type='button' class='info-trigger info-hitbox' data-info='ski alpin, escalade, natation, randonnée en solitaire'><span class='info-icon'>i</span></button>",
+    "DT1 déséquilibré (HbA1C ↑) ou ancien ± compliqué <button type='button' class='info-trigger info-hitbox' data-info='rétinopathie proliférative instable, dysautonomie sévère, néphropathie, pathologie CV dont HTA'><span class='info-icon'>i</span></button> → CI AP intense (aérobie ou RM avec fortes charges)",
+    "Rétinopathie proliférante sévère <button type='button' class='info-trigger info-hitbox' data-info='polycoagulée ou non stabilisée'><span class='info-icon'>i</span></button> → éviter efforts violents et force intense (RM avec Valsalva)",
+    "Mal perforant plantaire → CI temporaire aux activités des membres inférieurs"
   ],
 
   adaptations: [
-    "Autosurveillance glycémique avant, pendant et après effort",
-    "Capteur de glucose en continu utile si disponible",
-    "Toujours anticiper le risque d’hypoglycémie",
-    "Prévoir collations glucidiques et matériel habituel",
-    "Adapter alimentation et/ou doses d’insuline selon activité prévue",
-    "Privilégier progressivité, surtout si reprise ou sédentarité",
-    "Endurance + renforcement musculaire recommandés",
-    "Renforcement musculaire avant aérobie possible pour limiter baisse glycémique",
-    "Chaussage adapté et surveillance quotidienne des pieds"
+    "Coordination diabétologue +++",
+    "Anticiper AP (si possible) pour adapter dose insuline et/ou apport glucides",
+    "Prendre glycémie avant AP : viser 1.3-1.9 g (7.2-10.5 mM) si AP aérobie modérée, 0.9-1.3 g (5-7.2 mM) avant AP anaérobie/intense",
+    "Avoir matériel + collations pour surveillance glycémique et correction hypoglycémie",
+    "Renforcement musculaire avant aérobie possible pour limiter risque hypoglycémie",
+    "Vigilance particulière si effort inhabituel",
+    "Chaussage adapté + contrôle quotidien des pieds"
   ],
 
   situations: [
-    "Risque d’hypoglycémie pendant effort aérobie fréquent",
+    "Respect des CI/limitations",
+    "Neuropathie autonome à risque accru d’hypoglycémie, d’hypotension orthostatique, de thermorégulation réduite et de pathologie coronarienne",
     "Risque d’hypoglycémie retardée jusqu’à 24 h, surtout nocturne",
-    "Hyperglycémie transitoire possible après effort intense / anaérobie",
-    "Variabilité glycémique individuelle importante",
-    "Peur de l’hypoglycémie frein fréquent à l’activité",
-    "Complications microvasculaires ou cardiovasculaires possibles"
+    "Complications microvasculaires/CV fréquentes",
+    "MCG (capteur SC) ou pompe à insuline peut faciliter la gestion de l’effort"
   ],
 
   regles: [
-    "SI activité aérobie prolongée prévue → ALORS anticiper glucides et/ou réduction insuline",
-    "SI activité intense ou anaérobie → ALORS surveiller possible hyperglycémie transitoire",
-    "SI glycémie basse ou tendance descendante → ALORS resucrer avant de débuter",
-    "SI symptôme d’hypoglycémie pendant séance → ALORS arrêter, contrôler glycémie et resucrer",
-    "SI séance l’après-midi ou importante → ALORS vigilance nocturne renforcée",
-    "SI neuropathie ou problème podologique → ALORS renforcer soins des pieds et choix activités",
-    "SI reprise après interruption → ALORS reprendre progressivement"
+    "SI activité aérobie prolongée prévue → anticiper glucides et/ou réduction insuline (hypogly)",
+    "SI activité intense ou anaérobie → surveiller possible hyperglycémie transitoire",
+    "SI glycémie basse ou tendance descendante → resucrer avant de débuter",
+    "SI symptômes d’hypoglycémie pendant AP → arrêter, contrôler glycémie, resucrer",
+    "SI séance l’après-midi ou importante → vigilance nocturne renforcée",
+    "SI neuropathie ou problème podologique → renforcer soins des pieds et choix activités"
   ],
 
   crc: [
-    "Surveillez votre glycémie avant, pendant et après l’effort",
-    "Gardez toujours une source de sucre rapide avec vous",
-    "Chaque activité peut modifier différemment votre glycémie",
-    "Après une grosse séance, surveillez aussi le soir et la nuit",
+    "Importance de surveiller sa glycémie avant, pendant et après l’effort",
+    "Gardez toujours une source de sucre rapide avec soi",
+    "Chaque activité nouvelle peut nécessiter d’adapter différemment la glycémie",
+    "Après une grosse séance, surveillez la glycémie également le soir et la nuit",
     "Bon chaussage et contrôle quotidien des pieds recommandés",
-    "Commencez progressivement si reprise",
     "Bouger régulièrement apporte plus de bénéfices que rester inactif"
   ],
 
   crc_default: [
-    "Surveillez votre glycémie autour de l’effort",
-    "Gardez une collation sucrée avec vous",
-    "Vigilance après séance importante, surtout la nuit",
-    "Bon chaussage et surveillance des pieds",
-    "Progressivité recommandée"
+    "Importance de surveiller sa glycémie avant, pendant et après l’effort",
+    "Gardez toujours une source de sucre rapide avec soi",
+    "Après une grosse séance, surveillez la glycémie également le soir et la nuit",
+    "Bon chaussage et contrôle quotidien des pieds recommandés",
+    "Bouger régulièrement apporte plus de bénéfices que rester inactif"
   ]
 },
 
