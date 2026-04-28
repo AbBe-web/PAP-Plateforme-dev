@@ -2379,7 +2379,7 @@ cancer: {
     "Post-chirurgie : attendre cicatrisation (jusqu’à 8 sem)",
     "Stomies digest/urinaires : pas CI AP si patient autonome (/stomie), avis médical avant RM <button type='button' class='info-trigger info-hitbox' data-info='Renforcement musculaire'><span class='info-icon'>i</span></button> (risque hernie) ou sport de contact (risque coups), arrêt AP si complications (hernie, infection)",
     "Cathéter / sonde digestive : éviter piscine, lac, mer (risque infectieux) et RM <button type='button' class='info-trigger info-hitbox' data-info='Renforcement musculaire'><span class='info-icon'>i</span></button> dans la zone de la sonde (risque délogement)",
-    "Possibilité d’utiliser <a href='https://www.vidal.fr/sante/sport/medicosport-sante.html' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>MEDICOSPORT&nbsp;SANTE</a>"
+  "Possibilité d’utiliser <a href='https://www.vidal.fr/sante/sport/infos-sport-medicosport-sante/quel-sport-patient/' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>MEDICOSPORT&nbsp;SANTE</a>"
   ],
 
   situations: [
@@ -3045,10 +3045,9 @@ function updatePathoHelp(){
 ⚠️ Contre-indications / Limitations<br>
 ${data.contraintes.map((c, index) => 
   index === 0 && c.includes("CI temporaire AP ≥ modérée si")
-    ? `<strong>${c}</strong>`
+    ? `${c}`
     : `- ${c}`
 ).join("<br>")}
-
   </div>
 </details>
   `;
