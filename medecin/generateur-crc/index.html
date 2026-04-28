@@ -3021,6 +3021,7 @@ function showIntensiteInfo() {
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
 }  
+    
 function updatePathoHelp(){
 
   const container = document.getElementById("pathoHelpContainer");
@@ -3066,7 +3067,11 @@ function updatePathoHelp(){
 <div style="margin-top:8px;">
           
 ⚠️ Contre-indications / Limitations<br>
-      ${data.contraintes.map(c => `- ${c}`).join("<br>")}
+${data.contraintes.map((c, index) => 
+  index === 0 && c.includes("CI temporaire AP ≥ modérée si")
+    ? `<strong>${c}</strong>`
+    : `- ${c}`
+).join("<br>")}
 
   </div>
 </details>
