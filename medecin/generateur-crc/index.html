@@ -837,12 +837,12 @@ Importer fichier JSON
 
 <label>
   <input type="checkbox" name="cardiotoxicite">
-  ATCD de cancer avec traitement cardiotoxique
+  ATCD de  avec traitement cardiotoxique
 </label>
 
     <label>
-  <input type="checkbox" id="cancer_suivi_checkbox">
-  Patient actuellement suivi pour un cancer
+  <input type="checkbox" id="_suivi_checkbox">
+  Patient actuellement suivi pour un 
 </label>
     
   <!-- BPCO -->
@@ -973,7 +973,7 @@ Importer fichier JSON
 
 <div>
 <strong style="display:block; margin-bottom:6px;">Oncologie</strong>
-<label><input type="checkbox" class="patho" value="cancer"> Cancer</label>
+<label><input type="checkbox" class="patho" value=""> </label>
 </div>
 
 <div>
@@ -2381,65 +2381,62 @@ schizophrenie: {
   ]
 },
     
-    cancer: {
+cancer: {
   titre: "Cancer (pendant ou après traitement)",
 
   contraintes: [
-    "Fatigue extrême / altération majeure de l’état général → intensification à différer",
-    "Syndrome infectieux sévère en cours → suspension temporaire",
-    "Anémie marquée, thrombopénie, leucopénie significative → réévaluation préalable",
-    "Suites précoces de chirurgie / cicatrisation non acquise → limitation temporaire",
-    "Décompensation cardio-respiratoire → avis spécialisé préalable",
-    "Métastases osseuses / lésions lytiques / fragilité osseuse → adaptation impérative",
-    "Dénutrition sévère / sarcopénie importante → priorité sécurisation + progressivité"
+    "CI temporaire AP ≥ modérée si :",
+    "Fatigue extrême / dénutrition sévère / altération majeure de l’état général",
+    "Syndrome infectieux sévère en cours",
+    "Cytopénies marquées (Hb <8 gr/L, Pl <50 G/L, GB <1.5 G/L)",
+    "Suites précoces de chirurgie / cicatrisation non acquise",
+    "Métastases osseuses lytiques (pour zone concernée)"
   ],
 
   adaptations: [
-    "Toujours individualiser selon type de cancer, traitements, phase thérapeutique et symptômes",
-    "Privilégier régularité plutôt que performance",
+    "Individualiser selon cancer, traitements, phase thérapeutique, symptômes (parfois uniquement AVQ <button type='button' class='info-trigger info-hitbox' data-info='Activités de la vie quotidienne'><span class='info-icon'>i</span></button>)",
+    "Début possible par blocs de 5–10 min puis progression",
     "Intensité relative (ressenti/Borg) plutôt que repères fixes",
-    "Commencer parfois par séances courtes (5-10 min) puis augmenter progressivement",
-    "Associer endurance + renforcement musculaire + mobilité",
-    "Réduire temps assis et augmenter activités quotidiennes",
-    "Adapter semaine par semaine pendant chimiothérapie / traitements fluctuants",
-    "Encadrement renforcé si fragilité, peur du mouvement ou déconditionnement"
+    "Risque fracturaire ↑ <button type='button' class='info-trigger info-hitbox' data-info='Métastases osseuses, hormonothérapie, ostéoporose'><span class='info-icon'>i</span></button> : éviter AP à risque de chute, ↑ encadrement",
+    "Déficit immunitaire : éviter gymnases et piscines publiques (pendant 1 an post greffe)",
+    "RTE <button type='button' class='info-trigger info-hitbox' data-info='Radiothérapie externe'><span class='info-icon'>i</span></button> : pas d’AP aquatique pendant et jusque 2-3 mois après selon avis spécialisé",
+    "Post-chirurgie : attendre cicatrisation (jusqu’à 8 sem)",
+    "Stomies digest/urinaires : pas CI AP si patient autonome (/stomie), avis médical avant RM <button type='button' class='info-trigger info-hitbox' data-info='Renforcement musculaire'><span class='info-icon'>i</span></button> (risque hernie) ou sport de contact (risque coups), arrêt AP si complications (hernie, infection)",
+    "Cathéter / sonde digestive : éviter piscine, lac, mer (risque infectieux) et RM <button type='button' class='info-trigger info-hitbox' data-info='Renforcement musculaire'><span class='info-icon'>i</span></button> dans la zone de la sonde (risque délogement)",
+    "Possibilité d’utiliser <a href='https://www.vidal.fr/sante/sport/medicosport-sante.html' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>MEDICOSPORT&nbsp;SANTE</a>"
   ],
 
   situations: [
-    "Fatigue liée au cancer fréquente mais compatible avec activité adaptée",
-    "Perte musculaire / déconditionnement fréquents",
-    "Douleurs, neuropathies, troubles équilibre possibles",
-    "Perte de confiance corporelle fréquente",
-    "Lymphœdème possible selon contextes",
-    "Cardiotoxicité possible de certains traitements"
+    "Traitement cardiotoxique <button type='button' class='info-trigger info-hitbox' data-info='Anthracyclines (doxo-dauno-épi-ida-rubicine), mitoxantrone, trastuzumab, RTE thoracique'><span class='info-icon'>i</span></button> : ETT ± avis cardio si doute",
+    "Morbidités MS <button type='button' class='info-trigger info-hitbox' data-info='Musculosquelettiques'><span class='info-icon'>i</span></button> et neuropathie périphérique (force, équilibre) : voir si adaptation AP utile",
+    "Métastases osseuses / traitement hormonal : évaluer risque fracturaire ± PEC",
+    "Cancer du sein : évaluer morbidités épaules et bras pour AP membres supérieurs (kiné ?)",
+    "Cancer de prostate : évaluer force/endurance si tt hormonal ± métastases os",
+    "Cancer du côlon avec stomie : voir capacité du patient à gérer AP avant validation AP > marche",
+    "Lymphœdème : pas de CI AP mais discuter PEC médicale si symptômes ou augmentation nette ± vêtement compression",
+    "Mobilité articulaire réduite (chirurgie, RTE, corticoïdes) : intérêt exercices assouplissement"
   ],
 
   regles: [
-    "SI phase active de traitement avec effets secondaires fluctuants → ALORS ajuster durée/intensité fréquemment",
-    "SI fatigue majorée après séance > 24-48 h → ALORS réduire charge suivante",
-    "SI douleur osseuse inhabituelle / vertiges / douleur thoracique / malaise → ALORS suspendre et réévaluer",
-    "SI neuropathie ou instabilité → ALORS sécuriser environnement + privilégier faible risque de chute",
-    "SI chirurgie récente → ALORS respecter délais et zones à protéger",
-    "SI métastases osseuses connues → ALORS éviter contraintes mécaniques sur zone concernée",
-    "SI bonne tolérance clinique → ALORS progression graduelle vers recommandations générales"
+    "SI phase active de traitement avec effets secondaires fluctuants → ajuster durée/intensité fréquemment",
+    "SI fatigue >24–48h après séance → réduire charge suivante",
+    "SI douleur osseuse inhabituelle / vertiges / douleur thoracique / malaise → suspendre et réévaluer",
+    "SI bonne tolérance clinique → progression graduelle vers recommandations générales"
   ],
 
   crc: [
     "L’activité physique adaptée fait partie des soins de support utiles",
-    "Même fatigué, bouger doucement est souvent préférable à l’inactivité complète si toléré",
-    "La régularité prime sur l’intensité",
-    "Adaptez les séances selon les jours de traitement et votre forme",
-    "Marche, vélo doux, renforcement progressif, mobilité : options utiles",
-    "Arrêtez et signalez tout symptôme inhabituel",
-    "Chaque petit mouvement compte"
+    "Même fatigué, bouger doucement est souvent préférable à l’inactivité complète si cela est possible",
+    "AP est le seul traitement validé pour lutter contre la fatigue",
+    "Adapter les séances selon l’état du jour et les traitements",
+    "Arrêtez et signalez tout symptôme inhabituel"
   ],
 
   crc_default: [
-    "Bouger régulièrement aide à préserver force et autonomie",
-    "Adapter l’effort à votre forme du jour",
-    "Limiter le temps assis",
-    "Progression graduelle",
-    "Signaler symptômes inhabituels"
+    "L’activité physique adaptée fait partie des soins de support utiles",
+    "Même fatigué, bouger doucement est souvent préférable à l’inactivité complète si cela est possible",
+    "Adapter les séances selon l’état du jour et les traitements",
+    "Arrêtez et signalez tout symptôme inhabituel"
   ]
 },
 
