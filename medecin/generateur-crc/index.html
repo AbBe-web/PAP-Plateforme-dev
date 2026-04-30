@@ -3483,16 +3483,16 @@ const cancer = document.getElementById("cancer_suivi_checkbox")?.checked;
   const testMarcheOk = document.querySelector('input[name="test_marche_ok"]')?.checked;
 
 // =========================
-// 1️⃣ CMAP — VERSION CLEAN SÉCURISÉE
+// 1️⃣ CMAP — VERSION SÉCURISÉE + PRIORISÉE + NUANCE HAS
 // =========================
 
 let cmapReco = [];
 
-// 🔹 RÈGLES PRIORITAIRES
+// 🔹 RÈGLES
 
-// Handicap
+// Handicap (prioritaire)
 if (handicap) {
-  cmapReco.push("prioritaire_handicap");
+  cmapReco.push("handicap");
 }
 
 // Cancer
@@ -3535,33 +3535,68 @@ if (
   cmapReco.push("proposable");
 }
 
-// 🔹 BPCO (info complémentaire, non prioritaire)
-if (bpco && (niveauVise === "modere" || niveauVise === "eleve")) {
-  cmapReco.push("pneumo");
-}
-
 // =========================
 // 🔥 PRIORISATION FINALE
 // =========================
 
-if (cmapReco.includes("prioritaire_handicap")) {
+let finalCmap = "";
 
-  reco.cmap.push("Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.");
+// 1️⃣ Handicap
+if (cmapReco.includes("handicap")) {
 
-} else if (cmapReco.includes("preconisee")) {
-
-  reco.cmap.push("Une consultation médicale d’activité physique est préconisée.");
-
-} else if (cmapReco.includes("proposable")) {
-
-  reco.cmap.push("Une consultation médicale d’activité physique peut être proposée.");
-
-} else {
-
-  // 🔐 CAS NON PRÉVU = NON RECOMMANDÉE (sécurité)
-  reco.cmap.push("Une consultation médicale d’activité physique n’est pas recommandée.");
+  finalCmap = "Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.";
 
 }
+
+// 2️⃣ Préconisée
+else if (cmapReco.includes("preconisee")) {
+
+  finalCmap = "Une consultation médicale d’activité physique est préconisée.";
+
+}
+
+// 3️⃣ Proposable
+else if (cmapReco.includes("proposable")) {
+
+  finalCmap = "Une consultation médicale d’activité physique peut être proposée.";
+
+}
+
+// 4️⃣ Recommandée (cas spécifiques — ici aucun déclencheur direct encore)
+else if (false) {
+
+  finalCmap = "Une consultation médicale d’activité physique est recommandée.";
+
+}
+
+// 5️⃣ Fallback
+else {
+
+  finalCmap = "Une consultation médicale d’activité physique n’est pas recommandée.";
+
+}
+
+// =========================
+// 🔹 AJOUT NUANCE HAS (CANCER / BPCO)
+// UNIQUEMENT SI "RECOMMANDÉE"
+// =========================
+
+if (
+  finalCmap.includes("est recommandée") &&
+  (cancer || bpco) &&
+  niveauVise === "modere" &&
+  niveauActuel === "actif"
+) {
+
+  finalCmap += " Cependant, chez une personne déjà active, avec une bonne tolérance et sans projet d’augmentation, sa nécessité peut être discutée ; elle reste à privilégier en cas d’augmentation prévue ou de doute clinique.";
+
+}
+
+// =========================
+// 🔹 PUSH FINAL UNIQUE
+// =========================
+
+reco.cmap.push(finalCmap);
 
   // =========================
   // 2️⃣ CARDIO
