@@ -2721,18 +2721,18 @@ function updatePathoRules() {
 
 <div style="margin-top:10px;">
 
-        <strong>🔧 Adaptations de la prescription AP</strong><br>
-        ${data.adaptations.map(a => `• ${a}`).join("<br>")}<br><br>
-
          <strong>🔎 Situations particulières</strong><br>
-        ${data.situations.map(s => `• ${s}`).join("<br>")}<br><br>
+        ${data.situations?.map(s => `• ${s}`).join("<br>") || ""}<br><br>
+        
+        <strong>🔧 Adaptations prescription</strong><br>
+       ${data.adaptations?.map(a => `• ${a}`).join("<br>") || ""}<br><br>
 
- <strong>⚙️ Points de vigilance clinique</strong><br>
-${data.regles.map(r => `• ${r}`).join("<br>")}
+        <strong>⚙️ Points de vigilance</strong><br>
+${data.regles?.map(r => `• ${r}`).join("<br>") || ""}
 
 <br>
 <span style="display:block; margin-top:6px;">
-  🧾 Éléments intégrables au compte rendu
+  🧾 Messages patient.e
 </span>
 
 <div style="display:flex; gap:10px; align-items:center; margin:2px 0; font-size:0.9em; flex-wrap:wrap;">
@@ -2775,7 +2775,7 @@ ${data.regles.map(r => `• ${r}`).join("<br>")}
 </div>
 
 <div class="crc-detail" style="display:none;">
-${data.crc.map(c => `
+${(data.crc || []).map(c => `
 <label style="display:block; margin:1px 0; line-height:1.2;">
 <input type="checkbox" class="crc-item" value="${c}" style="vertical-align:middle;"
 ${data.crc_default && data.crc_default.includes(c) ? "checked" : ""}>
