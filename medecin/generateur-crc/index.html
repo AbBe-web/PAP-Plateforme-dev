@@ -3371,7 +3371,9 @@ alert("Données patient importées.\n\nVérifiez et complétez les champs avant 
 ===================================== */
 // 🔥 AUTO UPDATE HAS
 function updateHAS(){
-
+    
+console.log("UPDATE HAS TRIGGERED");
+    
   const ageInput = document.getElementById("age_input");
   const age = parseInt(ageInput?.value);
 
@@ -3476,6 +3478,9 @@ const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
   const atcdFamilial = document.querySelector('input[name="atcd_familial_cv"]')?.checked;
   const cardiotox = document.querySelector('input[name="cardiotoxicite"]')?.checked;
 const cancer = document.getElementById("cancer_suivi_checkbox")?.checked;
+
+    console.log("CANCER VALUE:", cancer);
+    
   const msk = document.querySelector('input[name="risque_msk"]')?.checked;
 
   const bioOk = document.querySelector('input[name="bio_ok"]')?.checked;
