@@ -847,8 +847,8 @@ Importer fichier JSON
     
   <!-- BPCO -->
   <label>
-    <input type="checkbox" id="bpco_checkbox">
-    Maladie respiratoire chronique
+<input type="checkbox" id="respiratoire_chronique_checkbox">
+Maladie respiratoire chronique
   </label>
 
   <div id="bpco_block" style="display:none; margin-left:15px;">
@@ -3471,7 +3471,7 @@ const imcMatch = imcText.match(/IMC : ([0-9.]+)/);
 const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
 
   const handicap = document.getElementById("handicap_checkbox")?.checked;
-  const bpco = document.getElementById("bpco_checkbox")?.checked;
+const respiratoireChronique = document.getElementById("respiratoire_chronique_checkbox")?.checked;
   const bpcoSevere = document.getElementById("bpco_severe")?.checked;
 
   const atcdCV = document.querySelector('input[name="atcd_cv"]')?.checked;
