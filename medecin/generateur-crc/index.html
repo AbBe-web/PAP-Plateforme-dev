@@ -985,6 +985,7 @@ Importer fichier JSON
 <div>
 <strong style="display:block; margin-bottom:6px;">Spécifiques</strong>
 <label><input type="checkbox" class="patho" value="grossesse"> Grossesse</label>
+<label><input type="checkbox" class="patho" value="post_partum"> Post-partum</label>
 </div>
 
 </div>
@@ -2490,7 +2491,52 @@ grossesse: {
     "Marche, natation, vélo stationnaire sont souvent de bons choix",
     "Chaque mouvement compte, même en petites durées"
   ]
-},  
+}, 
+
+    post_partum: {
+  titre: "Post-partum",
+
+  contraintes: [
+    "Pas de CI spécifique hors complications obstétricales",
+    "Vigilance selon état périnéal, cicatrisation, fatigue"
+  ],
+
+  adaptations: [
+    "Reprise précoce possible : AP légère à modérée (marche, escaliers, natation) même avant consultation postnatale",
+    "Associer AP + apport calorique adapté pour perte et maintien pondéral",
+    "Allaitement : AP possible si apports énergétiques suffisants et brassière adaptée",
+    "Rassurer : AP n’altère ni la quantité ni la qualité du lait",
+    "Bénéfices : ↓ risque de dépression du post-partum"
+  ],
+
+  situations: [
+    "Consultation postnatale : prescription rééducation périnéale + conseils reprise AP ± sport",
+    
+    "Rééducation périnéale systématique avant reprise AP avec impact <button type='button' class='info-trigger info-hitbox' data-info='Course à pied, trampoline, tennis, activités avec sauts'><span class='info-icon'>i</span></button>",
+
+    "Reprise AP avec impact si fonction périnéale normale (4–6 sem si RAS, 8–10 sem si césarienne/épisiotomie, parfois moins)",
+
+    "Femme sportive : reprise progressive endurance (privilégier faible impact initial), reprise renforcement progressive avec travail du plancher pelvien"
+  ],
+
+  regles: [
+    "SI symptômes périnéaux (fuites, pesanteur, douleur) → différer AP avec impact et réévaluer",
+    "SI bonne tolérance → progression graduelle"
+  ],
+
+  crc: [
+    "Bouger après l’accouchement aide à récupérer et réduit le risque de dépression",
+    "L’activité physique est compatible avec l’allaitement",
+    "Reprendre progressivement en fonction de son ressenti",
+    "Le travail du périnée est essentiel avant les activités à impact"
+  ],
+
+  crc_default: [
+    "Bouger après l’accouchement aide à récupérer",
+    "L’activité physique est compatible avec l’allaitement",
+    "Reprendre progressivement"
+  ]
+},
 };
 
     
