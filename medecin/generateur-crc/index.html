@@ -841,7 +841,7 @@ Importer fichier JSON
 </label>
 
     <label>
-  <input type="checkbox" id="_suivi_checkbox">
+  <input type="checkbox" id="cancer_suivi_checkbox">
   Suivi actuel pour un cancer
 </label>
     
@@ -3477,9 +3477,10 @@ const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
   const atcdCV = document.querySelector('input[name="atcd_cv"]')?.checked;
   const atcdFamilial = document.querySelector('input[name="atcd_familial_cv"]')?.checked;
   const cardiotox = document.querySelector('input[name="cardiotoxicite"]')?.checked;
-const cancer = document.getElementById("cancer_suivi_checkbox")?.checked;
+const cancerCheckbox = document.getElementById("cancer_suivi_checkbox");
+const cancer = cancerCheckbox ? cancerCheckbox.checked : false;
 
-    console.log("CANCER VALUE:", cancer);
+console.log("CANCER VALUE:", cancer);
     
   const msk = document.querySelector('input[name="risque_msk"]')?.checked;
 
