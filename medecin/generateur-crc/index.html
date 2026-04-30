@@ -3372,9 +3372,6 @@ alert("Données patient importées.\n\nVérifiez et complétez les champs avant 
 // 🔥 AUTO UPDATE HAS
 function updateHAS(){
 
-  if (window._hasUpdating) return;
-  window._hasUpdating = true;
-
   console.trace("UPDATE HAS TRIGGERED");
 
   const ageInput = document.getElementById("age_input");
@@ -3448,10 +3445,6 @@ if (missingFields.length > 0) {
   const model = buildClinicalModel();
   const reco = runHAS(model);
 displayHASRecommendations(reco);
-
-setTimeout(() => {
-  window._hasUpdating = false;
-}, 50);
 
 }
 function runHAS(model){
