@@ -3016,7 +3016,9 @@ initIMC();
 initAge();
 initGrossesse();
 initSymptomes();
-initBPCO();
+function initBPCO() {
+  initRespiratoire();
+}
 initHandicap();
 initActivitePhysique();
 initCRCModeToggle();
@@ -5376,26 +5378,40 @@ if (respiratoire) {
 
 // 🔥 INIT
 document.addEventListener("DOMContentLoaded", function () {
-  // Initialisation UI
+
+  // =====================================
+  // 1️⃣ UI DE BASE
+  // =====================================
   initUI();
 
-  // Initialisation UI  
-  initImportExport();
-  
-  // Import / export / QR  
-  initIOSWarning();
-  
-  // Listeners moteur HAS 
+  // =====================================
+  // 2️⃣ UI CONDITIONNELLE (CRITIQUE)
+  // =====================================
+  initHandicap();
+  initRespiratoire();
+
+  // =====================================
+  // 3️⃣ SYNCHRONISATION UI (APRÈS UI)
+  // =====================================
+  setupPathologySync();
+
+  // =====================================
+  // 4️⃣ MOTEUR / LOGIQUE
+  // =====================================
   initHASListeners();
-  
-  // Boutons / modales / impression 
+
+  // =====================================
+  // 5️⃣ AUTRES MODULES
+  // =====================================
+  initImportExport();
+  initIOSWarning();
   initActionButtons();
 
+  // =====================================
+  // 6️⃣ META
+  // =====================================
   document.getElementById("appVersionLabel").textContent = APP_VERSION;
 
-  // 🔄 Synchronisation pathologies (AJOUT)
-  setTimeout(setupPathologySync, 0);
-    
 });
             
 
