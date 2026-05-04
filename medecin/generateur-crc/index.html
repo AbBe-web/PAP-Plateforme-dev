@@ -4880,19 +4880,31 @@ function initRespiratoire() {
   const respiratoireCheckbox = document.getElementById("respiratoire_chronique_checkbox");
   const bpcoBlock = document.getElementById("bpco_block");
 
+  const efr = document.querySelector('input[name="efr_ok"]');
   const bpcoSevere = document.getElementById("bpco_severe");
-  const bpcoSevereBlock = document.getElementById("bpco_severe_block");
+  const severeBlock = document.getElementById("bpco_severe_block");
+  const testMarche = document.querySelector('input[name="test_marche_ok"]');
 
   if (!respiratoireCheckbox || !bpcoBlock) return;
 
   function updateDisplay() {
 
-    // 🔹 bloc principal piloté par MRC
+    // 🔹 affichage bloc principal
     bpcoBlock.style.display = respiratoireCheckbox.checked ? "block" : "none";
 
-    // 🔹 bloc sévère
-    if (bpcoSevere && bpcoSevereBlock) {
-      bpcoSevereBlock.style.display = bpcoSevere.checked ? "block" : "none";
+    // 🔹 affichage bloc sévère
+    if (bpcoSevere && severeBlock) {
+      severeBlock.style.display = bpcoSevere.checked ? "block" : "none";
+    }
+
+    // 🔥 🔴 RESET SI MRC DECOCHEE
+    if (!respiratoireCheckbox.checked) {
+
+      if (efr) efr.checked = false;
+      if (bpcoSevere) bpcoSevere.checked = false;
+      if (testMarche) testMarche.checked = false;
+
+      if (severeBlock) severeBlock.style.display = "none";
     }
   }
 
