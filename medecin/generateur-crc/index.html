@@ -5338,6 +5338,18 @@ function setupPathologySync() {
 
   // 🔄 synchronisation initiale
   updateRespiratoireFromPatho();
+    
+// 🔵 SYNCHRO INVERSE : MRC → BPCO / ASTHME
+if (respiratoire) {
+  respiratoire.addEventListener("change", () => {
+
+    if (!respiratoire.checked) {
+      if (bpco) bpco.checked = false;
+      if (asthme) asthme.checked = false;
+    }
+
+  });
+}
 }
 
 // 🔥 INIT
