@@ -5281,6 +5281,15 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
 // 🔄 SYNCHRONISATION UI PATHOLOGIES
 // =====================================
 
+// ⚠️ IMPORTANT :
+// Cette fonction garantit la cohérence entre les inputs UI (pathologies / situations spécifiques).
+// Le moteur HAS repose sur cette cohérence (pas de double état contradictoire).
+// Toute modification ici doit préserver :
+// - synchronisation bidirectionnelle (cancer, grossesse)
+// - synchronisation conditionnelle (respiratoire)
+// - absence d'état incohérent (ex : MRC cochée sans BPCO/asthme)
+// ⚠️ Ne pas modifier sans vérifier impact sur runHAS()
+
 function setupPathologySync() {
 
   const cancerSuivi = document.getElementById("cancer_suivi_checkbox");
