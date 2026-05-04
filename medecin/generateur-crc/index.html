@@ -3548,6 +3548,11 @@ const contreIndications =
 
 const avisSpecialiseOk = document.querySelector('input[name="avis_specialise_ok"]')?.checked;
 
+// 🔹 MRC (HAS)
+const mrcConcernee =
+  respiratoire &&
+  (niveauVise === "modere" || niveauVise === "eleve");
+    
 // =========================
 // 🔥 1️⃣ PRIORITÉ ABSOLUE — GROSSESSE À RISQUE
 // =========================
@@ -3581,7 +3586,16 @@ else if (handicap) {
   }
 
 }
+// =========================
+// 🔥 4️⃣ MRC (HAS)
+// =========================
+    
+// 🔥 4️⃣ MRC (HAS)
+else if (mrcConcernee) {
 
+  finalCmap = "Une consultation médicale d’activité physique est recommandée.";
+
+}
 // =========================
 // 🔥 4️⃣ PRÉCONISÉE
 // =========================
@@ -3643,9 +3657,10 @@ else {
 // =========================
 // 🔹 AJOUT NUANCE HAS
 // =========================
+const isRecommandee = finalCmap.startsWith("Une consultation médicale d’activité physique est recommandée");
 
 if (
-  finalCmap.includes("est recommandée") &&
+  isRecommandee &&
   (cancer || respiratoire) &&
   niveauVise === "modere" &&
   niveauActuel === "actif"
