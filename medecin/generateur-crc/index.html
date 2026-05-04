@@ -522,7 +522,16 @@ label:has(input[type="radio"]) .info-icon{
     gap:18px;
   }
 }
-  
+
+/* 🔹 Radios sur une ligne (RCV + niveau visé) */
+.inline-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -1013,8 +1022,7 @@ Maladie respiratoire chronique
   </span>
 </h2>
 
-<div id="rcv-container"
-style="display:flex; align-items:center; gap:25px; flex-wrap:wrap; margin-bottom:10px;">
+<div id="rcv-container" class="inline-radio-group">
 
   <label>
     <input type="radio" name="rcv" value="faible"> Faible
@@ -1143,13 +1151,12 @@ Pas d’AP envisagée dans les 6 mois
 >
   i
 </span>
- </h3>                   
-                    <label><input type="radio" name="niveau_vise" value="faible"> Faible</label>
-                    <label><input type="radio" name="niveau_vise" value="modere"> Modéré</label>
-                    <label><input type="radio" name="niveau_vise" value="eleve"> Élevé</label>
-                </div>
-    
- </div>
+</h3>                   
+<div id="niveau-vise-container" class="inline-radio-group">
+  <label><input type="radio" name="niveau_vise" value="faible"> Faible</label>
+  <label><input type="radio" name="niveau_vise" value="modere"> Modéré</label>
+  <label><input type="radio" name="niveau_vise" value="eleve"> Élevé</label>
+</div>
         
 <div class="form-group">
     <h2>5/ Évaluation motivationnelle (complément) :</h2>
