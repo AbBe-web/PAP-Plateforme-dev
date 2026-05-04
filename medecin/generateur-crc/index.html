@@ -5359,15 +5359,18 @@ function setupPathologySync() {
   const bpco = getPatho("bpco");
   const asthme = getPatho("asthme");
 
-  function updateRespiratoireFromPatho() {
-    if (!respiratoire) return;
+function updateRespiratoireFromPatho() {
+  if (!respiratoire) return;
 
-    if (bpco?.checked || asthme?.checked) {
-      respiratoire.checked = true;
-    } else {
-      respiratoire.checked = false;
-    }
+  if (bpco?.checked || asthme?.checked) {
+    respiratoire.checked = true;
+  } else {
+    respiratoire.checked = false;
   }
+
+  // 🔥 AJOUT CRITIQUE
+  respiratoire.dispatchEvent(new Event("change"));
+}
 
   bpco?.addEventListener("change", updateRespiratoireFromPatho);
   asthme?.addEventListener("change", updateRespiratoireFromPatho);
