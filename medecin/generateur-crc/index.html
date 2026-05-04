@@ -3517,53 +3517,91 @@ function runHAS(model){
   const efrOk = document.querySelector('input[name="efr_ok"]')?.checked;
   const testMarcheOk = document.querySelector('input[name="test_marche_ok"]')?.checked;
 
-  // =====================================
-  // 1️⃣ CMAP
-  // =====================================
+ // =========================
+// 1️⃣ CMAP — VERSION HAS STRICTE
+// =========================
 
-  let cmapReco = [];
+let finalCmap = "";
 
-  // 🔹 PRIORITAIRES
+// 🔴 VARIABLES MÉTIER MANQUANTES
 
-  if (handicap) {
-    cmapReco.push("handicap");
+const contreIndications =
+  document.getElementById("contre_indications_checkbox")?.checked ||
+  document.getElementById("contre_indications_msk_checkbox")?.checked;
+
+const grossesse = pathologies.includes("grossesse") || document.getElementById("grossesse_checkbox")?.checked;
+const grossesseRisque =
+  document.getElementById("grossesse_risque_checkbox")?.checked || false;
+
+const avisSpecialiseOk = document.querySelector('input[name="avis_specialise_ok"]')?.checked;
+
+// =========================
+// 🔥 1️⃣ PRIORITÉ ABSOLUE — GROSSESSE À RISQUE
+// =========================
+
+if (grossesse && grossesseRisque) {
+
+  finalCmap = "Une consultation médicale d’activité physique et une consultation obstétricale sont recommandées.";
+
+}
+
+// =========================
+// 🔥 2️⃣ CONTRE-INDICATIONS
+// =========================
+
+else if (contreIndications) {
+
+  finalCmap = "Une prise en charge classique et/ou une consultation médicale d’activité physique sont recommandées.";
+
+}
+
+// =========================
+// 🔥 3️⃣ HANDICAP
+// =========================
+
+else if (handicap) {
+
+  finalCmap = "Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.";
+
+  if (avisSpecialiseOk === false) {
+    finalCmap += " Le rythme de la consultation médicale d’activité physique et/ou des avis médicaux spécialisés et/ou médicotechniques est variable selon les personnes en situation de handicap. La consultation médicale d’activité physique est l’occasion de vérifier le bon suivi spécialisé du handicap et de la pathologie sous-jacente, au moins une fois par an.";
   }
 
-  if (cancer) {
-    cmapReco.push("preconisee");
-  }
+}
 
-  if (msk) {
-    cmapReco.push("preconisee");
-  }
+// =========================
+// 🔥 4️⃣ PRÉCONISÉE
+// =========================
 
-  // 🔹 RESPIRATOIRE (ajout manquant corrigé)
-  if (
-    respiratoire &&
-    (niveauVise === "modere" || niveauVise === "eleve")
-  ) {
-    cmapReco.push("preconisee");
-  }
+else if (
 
-  // 🔹 AP INTENSE
-  if (
+  cancer ||
+  msk ||
+
+  (
     niveauVise === "eleve" &&
     (
       rcv !== "faible" ||
       cardiotox ||
       (age && age >= 65)
     )
-  ) {
-    cmapReco.push("preconisee");
-  }
+  )
 
-  // 🔹 IMC ≥ 35
-  if (niveauVise === "eleve" && imc >= 35) {
-    cmapReco.push("proposable");
-  }
+) {
 
-  // 🔹 AP modérée + inactif + haut risque
-  if (
+  finalCmap = "Une consultation médicale d’activité physique est préconisée.";
+
+}
+
+// =========================
+// 🔥 5️⃣ PROPOSABLE
+// =========================
+
+else if (
+
+  (niveauVise === "eleve" && imc >= 35) ||
+
+  (
     niveauVise === "modere" &&
     niveauActuel === "inactif" &&
     (
@@ -3571,52 +3609,44 @@ function runHAS(model){
       cardiotox ||
       (age && age >= 70)
     )
-  ) {
-    cmapReco.push("proposable");
-  }
+  )
 
-  // =====================================
-  // 🔥 PRIORISATION CMAP
-  // =====================================
+) {
 
-  let finalCmap = "";
+  finalCmap = "Une consultation médicale d’activité physique peut être proposée.";
 
-  if (cmapReco.includes("handicap")) {
-
- const avisRecent = document.querySelector('input[name="avis_specialise_ok"]')?.checked;
-
-finalCmap = "Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.";
-
-if (avisRecent === false) {
-  finalCmap += " Le rythme de la consultation médicale d’activité physique et/ou des avis médicaux spécialisés et/ou médicotechniques est variable selon les personnes en situation de handicap. La consultation médicale d’activité physique est l’occasion de vérifier le bon suivi spécialisé du handicap et de la pathologie sous-jacente, au moins une fois par an.";
 }
 
-  } else if (cmapReco.includes("preconisee")) {
+// =========================
+// 🔥 6️⃣ NON RECOMMANDÉE
+// =========================
 
-    finalCmap = "Une consultation médicale d’activité physique est préconisée.";
+else {
 
-  } else if (cmapReco.includes("proposable")) {
+  finalCmap = "Une consultation médicale d’activité physique n’est pas recommandée.";
 
-    finalCmap = "Une consultation médicale d’activité physique peut être proposée.";
+}
 
-  } else {
+// =========================
+// 🔹 AJOUT NUANCE HAS
+// =========================
 
-    finalCmap = "Une consultation médicale d’activité physique n’est pas recommandée.";
+if (
+  finalCmap.includes("est recommandée") &&
+  (cancer || respiratoire) &&
+  niveauVise === "modere" &&
+  niveauActuel === "actif"
+) {
 
-  }
+  finalCmap += " Cependant, chez une personne déjà active, avec une bonne tolérance et sans projet d’augmentation, sa nécessité peut être discutée ; elle reste à privilégier en cas d’augmentation prévue ou de doute clinique.";
 
-  // 🔹 NUANCE HAS
-  if (
-    finalCmap.includes("est recommandée") &&
-    (cancer || respiratoire) &&
-    niveauVise === "modere" &&
-    niveauActuel === "actif"
-  ) {
-    finalCmap += " Cependant, chez une personne déjà active, avec une bonne tolérance et sans projet d’augmentation, sa nécessité peut être discutée ; elle reste à privilégier en cas d’augmentation prévue ou de doute clinique.";
-  }
+}
 
-  reco.cmap.push(finalCmap);
+// =========================
+// 🔹 PUSH FINAL
+// =========================
 
+reco.cmap = [finalCmap];
   // =====================================
   // 2️⃣ CARDIO
   // =====================================
