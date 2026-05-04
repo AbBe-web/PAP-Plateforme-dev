@@ -3746,18 +3746,32 @@ reco.cmap = [finalCmap];
   if (!bioOk && niveauVise !== "faible") {
     reco.bio.push("Un bilan biologique (glycémie, bilan lipidique, créatininémie) peut se justifier.");
   }
+// =========================
+// 5️⃣ PNEUMO — LOGIQUE HAS PROPRE
+// =========================
 
-  // =====================================
-  // 5️⃣ PNEUMO
-  // =====================================
+// 🔹 Avis pneumo + EFR
+if (
+  respiratoire &&
+  !efrOk &&
+  niveauVise !== "faible"
+) {
+  reco.pneumo.push(
+    "Un avis pneumologique et refaire des EFR peut se justifier dans le cadre des bonnes pratiques car les dernières EFR ont été réalisées depuis plus d’un an."
+  );
+}
 
-  if (respiratoire && !efrOk && niveauVise !== "faible") {
-    reco.pneumo.push("Un avis pneumologique et un contrôle des EFR peuvent se justifier.");
-  }
-
-  if (respiratoire && bpcoSevere && !testMarcheOk && niveauVise !== "faible") {
-    reco.pneumo.push("Un test de marche avec SpO₂ peut être indiqué (stade sévère).");
-  }
+// 🔹 Test de marche (stade sévère)
+if (
+  respiratoire &&
+  bpcoSevere &&
+  !testMarcheOk &&
+  niveauVise !== "faible"
+) {
+  reco.pneumo.push(
+    "Un test de marche avec mesure continue de la saturation peut se justifier dans le cadre des bonnes pratiques car il s’agit d’un stade sévère."
+  );
+}
 
   return reco;
 }
