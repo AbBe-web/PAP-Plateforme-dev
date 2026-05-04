@@ -750,16 +750,23 @@ Importer fichier JSON
 
     <div id="grossesse_block" style="display:none; margin-left:15px;">
 
-      <label>
-        <input type="checkbox" name="grossesse_comorbidite">
-        Comorbidité associée
-      </label>
+     <label>
+  <input 
+    type="checkbox" 
+    id="grossesse_comorbidite_checkbox"
+    name="grossesse_comorbidite"
+  >
+  Comorbidité associée
+</label>
 
-      <label>
-        <input type="checkbox" name="grossesse_complication">
-        Complication obstétricale
-      </label>
-
+<label>
+  <input 
+    type="checkbox" 
+    id="grossesse_complication_checkbox"
+    name="grossesse_complication"
+  >
+  Complication obstétricale
+</label>
     </div>
 
   </div>
@@ -3494,6 +3501,16 @@ function runHAS(model){
 
   const pathologies = getPathoValues();
 
+    // 🔹 GROSSESSE (HAS)
+
+const grossesse =
+  document.getElementById("grossesse_checkbox")?.checked ||
+  pathologies.includes("grossesse");
+
+const grossesseRisque =
+  document.getElementById("grossesse_comorbidite_checkbox")?.checked ||
+  document.getElementById("grossesse_complication_checkbox")?.checked;
+    
   const handicap = document.getElementById("handicap_checkbox")?.checked || false;
 
   const respiratoire =
