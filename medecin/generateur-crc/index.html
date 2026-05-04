@@ -3581,7 +3581,13 @@ function runHAS(model){
 
   if (cmapReco.includes("handicap")) {
 
-    finalCmap = "Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.";
+ const avisRecent = document.querySelector('input[name="avis_specialise_ok"]')?.checked;
+
+finalCmap = "Une consultation médicale d’activité physique est préconisée et un avis médical spécialisé et/ou médicotechnique peut se justifier.";
+
+if (avisRecent === false) {
+  finalCmap += " Le rythme de la consultation médicale d’activité physique et/ou des avis médicaux spécialisés et/ou médicotechniques est variable selon les personnes en situation de handicap. La consultation médicale d’activité physique est l’occasion de vérifier le bon suivi spécialisé du handicap et de la pathologie sous-jacente, au moins une fois par an.";
+}
 
   } else if (cmapReco.includes("preconisee")) {
 
@@ -4867,26 +4873,31 @@ function initSymptomes() {
 
 }
 
-function initBPCO() {
+function initRespiratoire() {
 
-  const bpcoCheckbox = document.getElementById("bpco_checkbox");
+  const respiratoireCheckbox = document.getElementById("respiratoire_chronique_checkbox");
   const bpcoBlock = document.getElementById("bpco_block");
 
   const bpcoSevere = document.getElementById("bpco_severe");
   const bpcoSevereBlock = document.getElementById("bpco_severe_block");
 
-  if (bpcoCheckbox) {
-    bpcoCheckbox.addEventListener("change", function(){
-      bpcoBlock.style.display = this.checked ? "block" : "none";
-    });
+  if (!respiratoireCheckbox || !bpcoBlock) return;
+
+  function updateDisplay() {
+
+    // 🔹 bloc principal piloté par MRC
+    bpcoBlock.style.display = respiratoireCheckbox.checked ? "block" : "none";
+
+    // 🔹 bloc sévère
+    if (bpcoSevere && bpcoSevereBlock) {
+      bpcoSevereBlock.style.display = bpcoSevere.checked ? "block" : "none";
+    }
   }
 
-  if (bpcoSevere) {
-    bpcoSevere.addEventListener("change", function(){
-      bpcoSevereBlock.style.display = this.checked ? "block" : "none";
-    });
-  }
+  respiratoireCheckbox.addEventListener("change", updateDisplay);
+  bpcoSevere?.addEventListener("change", updateDisplay);
 
+  updateDisplay();
 }
             
 function initHandicap() {
