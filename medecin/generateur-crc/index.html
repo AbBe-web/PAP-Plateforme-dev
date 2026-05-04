@@ -5347,6 +5347,17 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
     });
   }
 }
+    
+// =====================================
+// 🔧 UTILITAIRE SYNCHRO UI
+// =====================================
+
+function setChecked(el, value) {
+  if (!el) return;
+  el.checked = value;
+  el.dispatchEvent(new Event("change"));
+}
+
 // =====================================
 // 🔄 SYNCHRONISATION UI PATHOLOGIES
 // =====================================
@@ -5369,34 +5380,54 @@ function setupPathologySync() {
     return document.querySelector(`.patho[value="${value}"]`);
   }
 
-  // 🔴 CANCER (bidirectionnel propre)
-  const cancerPatho = getPatho("cancer");
+// 🔴 CANCER (bidirectionnel sécurisé + UI sync)
 
-  if (cancerSuivi && cancerPatho) {
+const cancerPatho = getPatho("cancer");
 
-    cancerSuivi.addEventListener("change", () => {
-      cancerPatho.checked = cancerSuivi.checked;
-    });
+if (cancerSuivi && cancerPatho) {
 
-    cancerPatho.addEventListener("change", () => {
-      cancerSuivi.checked = cancerPatho.checked;
-    });
-  }
+  cancerSuivi.addEventListener("change", () => {
 
-  // 🔴 GROSSESSE (bidirectionnel propre)
-  const grossessePatho = getPatho("grossesse");
-  const grossesseSpecifique = document.getElementById("grossesse_checkbox");
+    if (cancerPatho.checked !== cancerSuivi.checked) {
+      setChecked(cancerPatho, cancerSuivi.checked);
+    }
 
-  if (grossessePatho && grossesseSpecifique) {
+  });
 
-    grossessePatho.addEventListener("change", () => {
-      grossesseSpecifique.checked = grossessePatho.checked;
-    });
+  cancerPatho.addEventListener("change", () => {
 
-    grossesseSpecifique.addEventListener("change", () => {
-      grossessePatho.checked = grossesseSpecifique.checked;
-    });
-  }
+    if (cancerSuivi.checked !== cancerPatho.checked) {
+      setChecked(cancerSuivi, cancerPatho.checked);
+    }
+
+  });
+
+}
+
+// 🔴 GROSSESSE (bidirectionnel + synchro UI)
+
+const grossessePatho = getPatho("grossesse");
+const grossesseSpecifique = document.getElementById("grossesse_checkbox");
+
+if (grossessePatho && grossesseSpecifique) {
+
+  grossessePatho.addEventListener("change", () => {
+
+    if (grossesseSpecifique.checked !== grossessePatho.checked) {
+      setChecked(grossesseSpecifique, grossessePatho.checked);
+    }
+
+  });
+
+  grossesseSpecifique.addEventListener("change", () => {
+
+    if (grossessePatho.checked !== grossesseSpecifique.checked) {
+      setChecked(grossessePatho, grossesseSpecifique.checked);
+    }
+
+  });
+
+}
 
   // 🔵 RESPIRATOIRE (logique conditionnelle correcte)
   const bpco = getPatho("bpco");
