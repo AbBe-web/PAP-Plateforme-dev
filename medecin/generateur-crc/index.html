@@ -5294,7 +5294,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Boutons / modales / impression 
   initActionButtons();
 
-    document.getElementById("appVersionLabel").textContent = APP_VERSION;
+  document.getElementById("appVersionLabel").textContent = APP_VERSION;
+
+  // 🔄 Synchronisation pathologies (AJOUT)
+  setupPathologySync();
     
 });
             
