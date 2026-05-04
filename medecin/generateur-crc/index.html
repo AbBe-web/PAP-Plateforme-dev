@@ -3753,7 +3753,7 @@ function formatHASRecommendation(text) {
 
     .replace(/n’est pas recommandée/gi, "<strong>n’est pas recommandée</strong>")
     .replace(/n’est pas préconisée/gi, "<strong>n’est pas préconisée</strong>")
-    .replace(/est recommandée/gi, "<strong>est recommandée</strong>")
+    .replace(/(est|sont) recommandée?s?/gi, "<strong>$&</strong>")
     .replace(/est préconisée/gi, "<strong>est préconisée</strong>")
     .replace(/est indiquée/gi, "<strong>est indiquée</strong>")
     .replace(/peut être proposée/gi, "<strong>peut être proposée</strong>")
