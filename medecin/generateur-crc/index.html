@@ -3803,11 +3803,11 @@ function displayHASRecommendations(reco){
 
   const all = [
     ...reco.cmap,
+    ...reco.pneumo
     ...reco.cardio,
     ...reco.effort,
     ...reco.bio,
-    ...reco.pneumo
-  ];
+   ];
 
   if (all.length === 0) {
     html += "Aucune recommandation spécifique.<br>";
@@ -5532,7 +5532,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
             
+// =========================
+// 🧪 TESTS RAPIDES (TEMPORAIRE)
+// =========================
 
+function testCMAP() {
+
+  const tests = [
+    {
+      name: "MRC actif modéré",
+      expected: "recommandée"
+    },
+    {
+      name: "AP faible",
+      expected: "n’est pas recommandée"
+    }
+  ];
+
+  console.log("=== TESTS CMAP ===");
+
+  tests.forEach(t => {
+    console.log(t.name + " → attendu:", t.expected);
+  });
+
+}
           
 const form = document.getElementById('consultationForm');
 if (form) {
