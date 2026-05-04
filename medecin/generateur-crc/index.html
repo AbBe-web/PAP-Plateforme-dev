@@ -5277,7 +5277,73 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
     });
   }
 }
-    
+// =====================================
+// 🔄 SYNCHRONISATION UI PATHOLOGIES
+// =====================================
+
+function setupPathologySync() {
+
+  const cancerSuivi = document.getElementById("cancer_suivi_checkbox");
+  const respiratoire = document.getElementById("respiratoire_chronique_checkbox");
+
+  const pathoCheckboxes = document.querySelectorAll(".patho");
+
+  function getPatho(value) {
+    return document.querySelector(`.patho[value="${value}"]`);
+  }
+
+  // 🔴 CANCER (bidirectionnel)
+  const cancerPatho = getPatho("cancer");
+
+  if (cancerSuivi && cancerPatho) {
+
+    cancerSuivi.addEventListener("change", () => {
+      if (cancerSuivi.checked && !cancerPatho.checked) {
+        cancerPatho.checked = true;
+      }
+    });
+
+    cancerPatho.addEventListener("change", () => {
+      if (cancerPatho.checked && !cancerSuivi.checked) {
+        cancerSuivi.checked = true;
+      }
+    });
+  }
+
+  // 🔴 GROSSESSE (bidirectionnel)
+  const grossessePatho = getPatho("grossesse");
+  const grossesseSpecifique = document.getElementById("grossesse_checkbox");
+
+  if (grossessePatho && grossesseSpecifique) {
+
+    grossessePatho.addEventListener("change", () => {
+      if (grossessePatho.checked && !grossesseSpecifique.checked) {
+        grossesseSpecifique.checked = true;
+      }
+    });
+
+    grossesseSpecifique.addEventListener("change", () => {
+      if (grossesseSpecifique.checked && !grossessePatho.checked) {
+        grossessePatho.checked = true;
+      }
+    });
+  }
+
+  // 🔵 RESPIRATOIRE (unidirectionnel)
+  const bpco = getPatho("bpco");
+  const asthme = getPatho("asthme");
+
+  function updateRespiratoireFromPatho() {
+    if ((bpco?.checked || asthme?.checked) && !respiratoire.checked) {
+      respiratoire.checked = true;
+    }
+  }
+
+  bpco?.addEventListener("change", updateRespiratoireFromPatho);
+  asthme?.addEventListener("change", updateRespiratoireFromPatho);
+}
+
+// 🔥 INIT
 document.addEventListener("DOMContentLoaded", function () {
   // Initialisation UI
   initUI();
@@ -5297,7 +5363,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("appVersionLabel").textContent = APP_VERSION;
 
   // 🔄 Synchronisation pathologies (AJOUT)
-  setupPathologySync();
+  setTimeout(setupPathologySync, 0);
     
 });
             
