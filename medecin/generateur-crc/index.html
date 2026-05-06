@@ -2990,19 +2990,35 @@ function openInfoModal(title, content, link = null) {
 const PRECAUTION_SEARCH_INDEX = [
 
   {
-    keywords: [
-      "drepanocytose",
-      "drépanocytose",
-      "hta pulmonaire",
-      "hypertension pulmonaire",
-      "retinopathie",
-      "rétinopathie",
-      "laser",
-      "desaturation",
-      "désaturation",
-      "anemie",
-      "anémie"
-    ],
+keywords: [
+  "drepanocytose",
+  "drépanocytose",
+  "drepa",
+  "drépa",
+  "hta pulmonaire",
+  "hypertension pulmonaire",
+  "htap",
+  "retinopathie",
+  "rétinopathie",
+  "laser",
+  "desaturation",
+  "désaturation",
+  "anemie",
+  "anémie",
+  "denutrition",
+  "dénutrition",
+  "fatigue extreme",
+  "fatigue extrême",
+  "myocardite",
+  "pericardite",
+  "péricardite",
+  "epanchement",
+  "épanchement",
+  "insuffisance cardiaque",
+  "stenose aortique",
+  "sténose aortique",
+  "dysautonomie"
+],
 
     title:
       "Contre-indications / limitations à l’activité physique",
@@ -3017,16 +3033,26 @@ selector: "#highlight_ci_ap",
   },
 
   {
-    keywords: [
-      "escarre",
-      "plaie",
-      "mal perforant",
-      "arthrose",
-      "arthrite",
-      "cutanee",
-      "cutanée"
-    ],
-
+  keywords: [
+  "escarre",
+  "plaie",
+  "plaie chronique",
+  "mal perforant",
+  "ulcere",
+  "ulcère",
+  "arthrose",
+  "arthrite",
+  "cutanee",
+  "cutanée",
+  "frottement",
+  "amputation",
+  "orthese",
+  "orthèse",
+  "prothese",
+  "prothèse",
+  "stomie",
+  "fauteuil roulant"
+],
     title:
       "Contre-indications et limitations musculosquelettiques et cutanées à l’activité physique",
 
@@ -3040,15 +3066,32 @@ selector: "#highlight_ci_ap",
   },
 
   {
-    keywords: [
-      "douleur thoracique",
-      "palpitations",
-      "syncope",
-      "vertige",
-      "dyspnee",
-      "dyspnée",
-      "claudication"
-    ],
+keywords: [
+  "douleur thoracique",
+  "angor",
+  "ischémie",
+  "ischemie",
+  "palpitations",
+  "tachycardie",
+  "arythmie",
+  "rythme irrégulier",
+  "rythme irregulier",
+  "syncope",
+  "syncopes",
+  "vertige",
+  "vertiges",
+  "dyspnee",
+  "dyspnée",
+  "essoufflement",
+  "orthopnee",
+  "orthopnée",
+  "oedeme",
+  "œdème",
+  "oedemes",
+  "œdèmes",
+  "claudication",
+  "fatigue inhabituelle"
+],
 
     title:
       "Symptômes évocateurs de pathologie décompensée",
@@ -3062,6 +3105,47 @@ selector: "#highlight_ci_ap",
       "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=19"
   }
 
+ ,
+
+{
+  keywords: [
+    "scoliose",
+    "osteoporose",
+    "ostéoporose",
+    "fragilite",
+    "fragilité",
+    "chute",
+    "chutes",
+    "neuropathie",
+    "lesion medullaire",
+    "lésion médullaire",
+    "equilibre",
+    "équilibre",
+    "psychotrope",
+    "psychotropes",
+    "amputation",
+    "troubles neuro-orthopediques",
+    "troubles neuro-orthopédiques",
+    "stomie",
+    "prothese",
+    "prothèse",
+    "orthese",
+    "orthèse",
+    "fauteuil roulant",
+    "canne"
+  ],
+
+  title:
+    "Situations à risque de blessure musculosquelettique ou cutanée",
+
+  selector: "#highlight_blessure",
+
+  content:
+    "• Pathologie osseuse ou articulaire, malformation (agénésie, scoliose…)<br>• Ostéopathie fragilisante et/ou avec antécédents de chutes<br>• Antécédents de blessures graves liées à l’activité physique<br>• Personnes âgées fragiles ou à risque de chute<br>• Neuropathie des membres inférieurs avec risque de plaie cutanée (diabète…)<br>• Certaines personnes en situation de handicap :<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Physique<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Amputation, troubles neuro-orthopédiques<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Atteinte musculaire d’origine neurologique, dégénérative ou traumatique<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▪ Lésion médullaire<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Sensoriel, visuel, auditif ou troubles de l’équilibre avec risque accru de chute<br>&nbsp;&nbsp;&nbsp;&nbsp;○ Troubles psychiques / cognitifs / psychotiques / de l’humeur avec comportements à risque ou psychotropes<br>• Personnes avec dispositif médical / aide technique : fauteuil roulant, canne, prothèse, orthèse, stomie…",
+
+  link:
+    "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=23"
+}   
 ];
 
 function normalizePrecautionSearch(text) {
