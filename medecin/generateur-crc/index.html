@@ -542,7 +542,14 @@ label:has(input[type="radio"]) .info-icon{
   font-size: 14.5px;
   font-weight: 600;
 }
-
+        
+.precaution-highlight-wrapper{
+  display:inline-block;
+  border-radius:6px;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
@@ -857,6 +864,11 @@ Importer fichier JSON
   <!-- ========================= -->
 
   <!-- Symptômes -->
+<div
+  id="highlight_symptomes"
+  class="precaution-highlight-wrapper"
+>
+
 <label id="label_symptomes">
   <input type="checkbox" id="symptomes_checkbox">
 
@@ -871,6 +883,8 @@ Importer fichier JSON
 
 </label>
 
+</div>
+
   <div id="symptomes_alert" style="
     display:none;
     margin-top:6px;
@@ -883,6 +897,11 @@ Importer fichier JSON
     ⚠️ Situation nécessitant une prise en charge médicale préalable.
   </div>
     
+<div
+  id="highlight_ci_ap"
+  class="precaution-highlight-wrapper"
+>
+
 <label id="label_contre_indications">
   <input type="checkbox" id="contre_indications_checkbox">
 
@@ -896,6 +915,13 @@ Importer fichier JSON
   </span>
 </label>
 
+</div>
+
+<div
+  id="highlight_ci_msk"
+  class="precaution-highlight-wrapper"
+>
+
 <label id="label_contre_indications_msk">
   <input type="checkbox" id="contre_indications_msk_checkbox">
 
@@ -908,6 +934,8 @@ Importer fichier JSON
     i
   </span>
 </label>
+
+</div>
     
   <!-- ATCD CV -->
 <label>
@@ -974,6 +1002,11 @@ Maladie respiratoire chronique
   </div>
 
   <!-- Risque MSK -->
+<div
+  id="highlight_blessure"
+  class="precaution-highlight-wrapper"
+>
+
 <label id="label_blessure">
   <input type="checkbox" id="blessure_checkbox">
 
@@ -987,6 +1020,8 @@ Maladie respiratoire chronique
 </span>
 
 </label>
+
+</div>
 
   <!-- Biologie -->
 <div style="margin:10px 0 6px 0; font-weight:600;">
@@ -2971,8 +3006,7 @@ const PRECAUTION_SEARCH_INDEX = [
     title:
       "Contre-indications / limitations à l’activité physique",
 
-selector:
-  "#contre_indications_checkbox",
+selector: "#highlight_ci_ap",
 
     content:
       "<strong>Contre-indications absolues à l’AP</strong><br>• Insuffisance cardiaque décompensée<br>• Troubles rythmiques ventriculaires complexes<br>• Hypertension artérielle sévère non contrôlée<br>• Hypertension artérielle pulmonaire (> 60 mmHg)<br>• Myocardite ou épanchement péricardique aigu<br>• Myocardiopathie obstructive sévère<br>• Rétrécissement aortique serré et/ou symptomatique<br><br><strong>Contre-indications absolues et temporaires AP ≥ Modérée</strong><br>• Toutes les pathologies aiguës<br>• Toutes pathologies chroniques décompensées / non stabilisées<br>• Dénutrition importante<br>• Fatigue extrême et/ou incapacité physique manifeste à l’AP<br>• Anémie marquée (Hb < 8 g/dL)<br><br><strong>Contre-indications relatives pour AP élevée</strong><br>• Insuffisance respiratoire chronique sous O2 de longue durée<br>• Patho. respiratoire chronique sévère (risque désat. à l’effort)<br>• Diabète avec rétinopathie sévère, traitement récent au laser chirurgical de l’œil ou dysautonomie sévère<br>• Porteurs de drépanocytose",
@@ -2995,8 +3029,7 @@ selector:
     title:
       "Contre-indications et limitations musculosquelettiques et cutanées à l’activité physique",
 
-      selector:
-  "#contre_indications_msk_checkbox",
+ selector: "#highlight_ci_msk",
 
     content:
       "<strong>CI absolues et temporaires pour les AP pour la zone concernée</strong><br>• Pathologies traumatiques non consolidées<br>• Path ostéo-articulaires en poussée congestive (arthrose, arthrite)<br><br><strong>CI absolues / temporaires pour AP ≥ modérée pour la zone concernée</strong><br>• Diabète + mal perforant plantaire pour AP avec 2 MI (même si unilat)<br>• Escarre / plaie évolutive ou chronique selon gravité, localisation<br>• Risque contact, frottement physique ou liée à AP (piscine, sable, terre, etc)",
@@ -3019,8 +3052,7 @@ selector:
     title:
       "Symptômes évocateurs de pathologie décompensée",
 
-      selector:
-  "#symptomes_checkbox",
+ selector: "#highlight_symptomes",
 
     content:
       "Principaux signes d’alerte HAS :<br><br>• Douleur thoracique / gêne évocatrice d’ischémie<br>• Essoufflement au repos ou pour effort faible<br>• Fatigue inhabituelle / dyspnée anormale<br>• Orthopnée<br>• Œdèmes des chevilles<br>• Vertiges / syncopes<br>• Palpitations / tachycardie / rythme irrégulier<br>• Claudication intermittente<br>• Bruits anormaux à l’auscultation antérieure",
@@ -3053,16 +3085,8 @@ function temporaryHighlight(selector) {
 
   target.style.transition =
     "background-color 0.2s ease, box-shadow 0.2s ease";
-target.style.display = "flex";
-target.style.alignItems = "center";
-target.style.gap = "6px";
-target.style.width = "fit-content";
-
 target.style.backgroundColor = "#fff7ed";
 target.style.boxShadow = "0 0 0 2px #f59e0b";
-target.style.borderRadius = "6px";
-target.style.padding = "4px 8px";
-target.style.marginBottom = "2px";
 
 }
 
@@ -3074,15 +3098,7 @@ function clearAllPrecautionHighlights() {
 
       el.style.backgroundColor = "";
       el.style.boxShadow = "";
-      el.style.borderRadius = "";
-      el.style.padding = "";
-el.style.display = "";
-el.style.alignItems = "";
-el.style.gap = "";
 
-        el.style.width = "";
-el.style.marginBottom = "";
-        
       delete el.dataset.precautionHighlight;
 
     });
