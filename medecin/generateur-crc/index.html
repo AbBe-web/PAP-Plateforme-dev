@@ -544,19 +544,7 @@ label:has(input[type="radio"]) .info-icon{
 }
         
 .precaution-highlight-wrapper{
-
-  display:block;
-
-  border-radius:6px;
-
-  padding:4px 6px;
-
-  margin:2px 0;
-
-  transition:
-    background-color 0.2s ease,
-    box-shadow 0.2s ease;
-
+  display:contents;
 }
         
 </style>
@@ -873,10 +861,12 @@ Importer fichier JSON
   <!-- ========================= -->
 
   <!-- Symptômes -->
-<label
+<div
   id="highlight_symptomes"
   class="precaution-highlight-wrapper"
 >
+
+<label id="label_symptomes">
 
   <input type="checkbox" id="symptomes_checkbox">
 
@@ -891,6 +881,7 @@ Importer fichier JSON
 
 </label>
 
+</div>
   <div id="symptomes_alert" style="
     display:none;
     margin-top:6px;
@@ -903,10 +894,12 @@ Importer fichier JSON
     ⚠️ Situation nécessitant une prise en charge médicale préalable.
   </div>
     
-<label
+<div
   id="highlight_ci_ap"
   class="precaution-highlight-wrapper"
 >
+
+<label id="label_contre_indications">
 
   <input type="checkbox" id="contre_indications_checkbox">
 
@@ -921,10 +914,14 @@ Importer fichier JSON
 
 </label>
 
-<label
+</div>
+
+<div
   id="highlight_ci_msk"
   class="precaution-highlight-wrapper"
 >
+
+<label id="label_contre_indications_msk">
 
   <input type="checkbox" id="contre_indications_msk_checkbox">
 
@@ -938,6 +935,8 @@ Importer fichier JSON
   </span>
 
 </label>
+
+</div>
     
   <!-- ATCD CV -->
 <label>
@@ -1004,10 +1003,12 @@ Maladie respiratoire chronique
   </div>
 
   <!-- Risque MSK -->
-<label
+<div
   id="highlight_blessure"
   class="precaution-highlight-wrapper"
 >
+
+<label id="label_blessure">
 
   <input type="checkbox" id="blessure_checkbox">
 
@@ -1022,6 +1023,7 @@ Maladie respiratoire chronique
 
 </label>
 
+</div>
   <!-- Biologie -->
 <div style="margin:10px 0 6px 0; font-weight:600;">
   <strong>Biologie récente</strong>
@@ -3071,10 +3073,16 @@ function normalizePrecautionSearch(text) {
     .trim();
 
 }
-
 function temporaryHighlight(selector) {
 
-  const target = document.querySelector(selector);
+  const wrapper = document.querySelector(selector);
+
+  if (!wrapper) {
+    return;
+  }
+
+  const target =
+    wrapper.querySelector("label");
 
   if (!target) {
     return;
@@ -3084,11 +3092,13 @@ function temporaryHighlight(selector) {
 
   target.style.transition =
     "background-color 0.2s ease, box-shadow 0.2s ease";
-target.style.backgroundColor = "#fff7ed";
-target.style.boxShadow = "0 0 0 2px #f59e0b";
+
+  target.style.backgroundColor = "#fff7ed";
+  target.style.boxShadow = "0 0 0 2px #f59e0b";
+  target.style.borderRadius = "6px";
+  target.style.padding = "2px 6px";
 
 }
-
 function clearAllPrecautionHighlights() {
 
   document
@@ -3097,6 +3107,8 @@ function clearAllPrecautionHighlights() {
 
       el.style.backgroundColor = "";
       el.style.boxShadow = "";
+      el.style.borderRadius = "";
+      el.style.padding = "";
 
       delete el.dataset.precautionHighlight;
 
