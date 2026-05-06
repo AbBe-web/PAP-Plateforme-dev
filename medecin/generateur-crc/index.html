@@ -3040,16 +3040,18 @@ function normalizePrecautionSearch(text) {
     .trim();
 
 }
+
 function temporaryHighlight(selector) {
 
-  const input = document.querySelector(selector);
+  clearAllPrecautionHighlights();
 
-  if (!input) {
+  const target = document.querySelector(selector);
+
+  if (!target) {
     return;
   }
 
-  const target =
-    input.closest("label") || input;
+  target.dataset.precautionHighlight = "true";
 
   target.style.transition =
     "background-color 0.25s ease, box-shadow 0.25s ease";
@@ -3064,14 +3066,84 @@ function temporaryHighlight(selector) {
     block: "center"
   });
 
-  setTimeout(() => {
+}
 
-    target.style.backgroundColor = "";
-    target.style.boxShadow = "";
-    target.style.borderRadius = "";
-    target.style.padding = "";
+function clearAllPrecautionHighlights() {
 
-  }, 5000);
+  document
+    .querySelectorAll('[data-precaution-highlight="true"]')
+    .forEach(el => {
+
+      el.style.backgroundColor = "";
+      el.style.boxShadow = "";
+      el.style.borderRadius = "";
+      el.style.padding = "";
+
+      delete el.dataset.precautionHighlight;
+
+    });
+
+}
+
+function scrollModalToSearchTerm(searchTerm) {
+
+  const body =
+    document.getElementById("infoModalBody");
+
+  if (!body) {
+    return;
+  }
+
+  const normalizedSearch =
+    normalizePrecautionSearch(searchTerm);
+
+  if (!normalizedSearch || normalizedSearch.length < 3) {
+    return;
+  }
+
+  const textNodes = [];
+
+  function collectTextNodes(node) {
+
+    if (node.nodeType === Node.TEXT_NODE) {
+
+      if (node.textContent.trim() !== "") {
+        textNodes.push(node);
+      }
+
+      return;
+    }
+
+    node.childNodes.forEach(child => {
+      collectTextNodes(child);
+    });
+
+  }
+
+  collectTextNodes(body);
+
+  for (const node of textNodes) {
+
+    const normalizedText =
+      normalizePrecautionSearch(node.textContent);
+
+    if (
+      normalizedText.includes(normalizedSearch)
+    ) {
+
+      const parent =
+        node.parentElement || body;
+
+      parent.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+      return;
+
+    }
+
+  }
 
 }
     
@@ -3096,9 +3168,12 @@ function initPrecautionSearch() {
 
     results.innerHTML = "";
 
-    if (value.length < 3) {
+   if (value.length < 3) {
 
       results.style.display = "none";
+
+      clearAllPrecautionHighlights();
+
       return;
 
     }
@@ -3169,11 +3244,17 @@ function initPrecautionSearch() {
 
      btn.addEventListener("click", function(){
 
-        openInfoModal(
-          item.title,
-          item.content,
-          item.link
-        );
+     openInfoModal(
+  item.title,
+  item.content,
+  item.link
+);
+
+setTimeout(() => {
+
+  scrollModalToSearchTerm(input.value);
+
+}, 150);
          
 if (item.selector) {
 
