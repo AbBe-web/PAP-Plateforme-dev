@@ -3043,8 +3043,6 @@ function normalizePrecautionSearch(text) {
 
 function temporaryHighlight(selector) {
 
-  clearAllPrecautionHighlights();
-
   const target = document.querySelector(selector);
 
   if (!target) {
@@ -3054,17 +3052,12 @@ function temporaryHighlight(selector) {
   target.dataset.precautionHighlight = "true";
 
   target.style.transition =
-    "background-color 0.25s ease, box-shadow 0.25s ease";
+    "background-color 0.2s ease, box-shadow 0.2s ease";
 
   target.style.backgroundColor = "#fff7ed";
   target.style.boxShadow = "0 0 0 2px #f59e0b";
   target.style.borderRadius = "6px";
   target.style.padding = "4px";
-
-  target.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
 
 }
 
@@ -3087,10 +3080,10 @@ function clearAllPrecautionHighlights() {
 
 function scrollModalToSearchTerm(searchTerm) {
 
-  const body =
+  const modalBody =
     document.getElementById("infoModalBody");
 
-  if (!body) {
+  if (!modalBody) {
     return;
   }
 
@@ -3101,49 +3094,29 @@ function scrollModalToSearchTerm(searchTerm) {
     return;
   }
 
-  const textNodes = [];
+  const text =
+    normalizePrecautionSearch(
+      modalBody.innerText || ""
+    );
 
-  function collectTextNodes(node) {
+  const index =
+    text.indexOf(normalizedSearch);
 
-    if (node.nodeType === Node.TEXT_NODE) {
-
-      if (node.textContent.trim() !== "") {
-        textNodes.push(node);
-      }
-
-      return;
-    }
-
-    node.childNodes.forEach(child => {
-      collectTextNodes(child);
-    });
-
+  if (index < 0) {
+    return;
   }
 
-  collectTextNodes(body);
+  const ratio =
+    index / text.length;
 
-  for (const node of textNodes) {
+  const maxScroll =
+    modalBody.scrollHeight -
+    modalBody.clientHeight;
 
-    const normalizedText =
-      normalizePrecautionSearch(node.textContent);
-
-    if (
-      normalizedText.includes(normalizedSearch)
-    ) {
-
-      const parent =
-        node.parentElement || body;
-
-      parent.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-      });
-
-      return;
-
-    }
-
-  }
+  modalBody.scrollTo({
+    top: maxScroll * ratio,
+    behavior: "smooth"
+  });
 
 }
     
@@ -3167,7 +3140,8 @@ function initPrecautionSearch() {
       normalizePrecautionSearch(rawValue);
 
     results.innerHTML = "";
-
+    clearAllPrecautionHighlights();
+      
    if (value.length < 3) {
 
       results.style.display = "none";
@@ -3268,7 +3242,11 @@ if (item.selector) {
 
       });
 
-      results.appendChild(row);
+if (item.selector) {
+  temporaryHighlight(item.selector);
+}
+
+results.appendChild(row);
 
     });
 
