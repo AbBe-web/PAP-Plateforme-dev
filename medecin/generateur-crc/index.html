@@ -2971,8 +2971,8 @@ const PRECAUTION_SEARCH_INDEX = [
     title:
       "Contre-indications / limitations à l’activité physique",
 
-    targetId:
-      "highlight_ci_ap",
+selector:
+  "#contre_indications_checkbox",
 
     content:
       "<strong>Contre-indications absolues à l’AP</strong><br>• Insuffisance cardiaque décompensée<br>• Troubles rythmiques ventriculaires complexes<br>• Hypertension artérielle sévère non contrôlée<br>• Hypertension artérielle pulmonaire (> 60 mmHg)<br>• Myocardite ou épanchement péricardique aigu<br>• Myocardiopathie obstructive sévère<br>• Rétrécissement aortique serré et/ou symptomatique<br><br><strong>Contre-indications absolues et temporaires AP ≥ Modérée</strong><br>• Toutes les pathologies aiguës<br>• Toutes pathologies chroniques décompensées / non stabilisées<br>• Dénutrition importante<br>• Fatigue extrême et/ou incapacité physique manifeste à l’AP<br>• Anémie marquée (Hb < 8 g/dL)<br><br><strong>Contre-indications relatives pour AP élevée</strong><br>• Insuffisance respiratoire chronique sous O2 de longue durée<br>• Patho. respiratoire chronique sévère (risque désat. à l’effort)<br>• Diabète avec rétinopathie sévère, traitement récent au laser chirurgical de l’œil ou dysautonomie sévère<br>• Porteurs de drépanocytose",
@@ -2995,8 +2995,8 @@ const PRECAUTION_SEARCH_INDEX = [
     title:
       "Contre-indications et limitations musculosquelettiques et cutanées à l’activité physique",
 
-    targetId:
-      "highlight_ci_msk",
+      selector:
+  "#contre_indications_msk_checkbox",
 
     content:
       "<strong>CI absolues et temporaires pour les AP pour la zone concernée</strong><br>• Pathologies traumatiques non consolidées<br>• Path ostéo-articulaires en poussée congestive (arthrose, arthrite)<br><br><strong>CI absolues / temporaires pour AP ≥ modérée pour la zone concernée</strong><br>• Diabète + mal perforant plantaire pour AP avec 2 MI (même si unilat)<br>• Escarre / plaie évolutive ou chronique selon gravité, localisation<br>• Risque contact, frottement physique ou liée à AP (piscine, sable, terre, etc)",
@@ -3019,8 +3019,8 @@ const PRECAUTION_SEARCH_INDEX = [
     title:
       "Symptômes évocateurs de pathologie décompensée",
 
-    targetId:
-      "highlight_symptomes",
+      selector:
+  "#symptomes_checkbox",
 
     content:
       "Principaux signes d’alerte HAS :<br><br>• Douleur thoracique / gêne évocatrice d’ischémie<br>• Essoufflement au repos ou pour effort faible<br>• Fatigue inhabituelle / dyspnée anormale<br>• Orthopnée<br>• Œdèmes des chevilles<br>• Vertiges / syncopes<br>• Palpitations / tachycardie / rythme irrégulier<br>• Claudication intermittente<br>• Bruits anormaux à l’auscultation antérieure",
@@ -3040,34 +3040,36 @@ function normalizePrecautionSearch(text) {
     .trim();
 
 }
+function temporaryHighlight(selector) {
 
-function temporaryHighlight(elementId) {
+  const input = document.querySelector(selector);
 
-  const el = document.getElementById(elementId);
-
-  if (!el) {
+  if (!input) {
     return;
   }
 
-  el.style.transition =
+  const target =
+    input.closest("label") || input;
+
+  target.style.transition =
     "background-color 0.25s ease, box-shadow 0.25s ease";
 
-  el.style.backgroundColor = "#fff7ed";
-  el.style.boxShadow = "0 0 0 2px #f59e0b";
-  el.style.borderRadius = "6px";
-  el.style.padding = "4px";
+  target.style.backgroundColor = "#fff7ed";
+  target.style.boxShadow = "0 0 0 2px #f59e0b";
+  target.style.borderRadius = "6px";
+  target.style.padding = "4px";
 
-  el.scrollIntoView({
+  target.scrollIntoView({
     behavior: "smooth",
     block: "center"
   });
 
   setTimeout(() => {
 
-    el.style.backgroundColor = "";
-    el.style.boxShadow = "";
-    el.style.borderRadius = "";
-    el.style.padding = "";
+    target.style.backgroundColor = "";
+    target.style.boxShadow = "";
+    target.style.borderRadius = "";
+    target.style.padding = "";
 
   }, 5000);
 
@@ -3172,16 +3174,16 @@ function initPrecautionSearch() {
           item.content,
           item.link
         );
+         
+if (item.selector) {
 
-        if (item.targetId) {
+  setTimeout(() => {
 
-          setTimeout(() => {
+    temporaryHighlight(item.selector);
 
-            temporaryHighlight(item.targetId);
+  }, 150);
 
-          }, 150);
-
-        }
+}
 
       });
 
