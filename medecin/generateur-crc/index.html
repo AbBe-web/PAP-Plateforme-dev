@@ -774,6 +774,53 @@ Importer fichier JSON
     <strong>Situations spécifiques</strong>
   </div>
 
+  <div
+  id="precautionSearchBlock"
+  style="
+    margin:8px 0 14px 0;
+    padding:10px;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
+    background:#f8fafc;
+  "
+>
+
+  <div
+    style="
+      font-size:0.9rem;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#1e3a8a;
+    "
+  >
+    🔎 Recherche rapide précautions AP
+  </div>
+
+  <input
+    type="text"
+    id="precautionSearchInput"
+    placeholder="Ex : escarre, drépanocytose, rétinopathie..."
+    autocomplete="off"
+    style="
+      width:100%;
+      padding:10px;
+      border:1px solid #cbd5e1;
+      border-radius:8px;
+      font-size:0.95rem;
+      box-sizing:border-box;
+    "
+  >
+
+  <div
+    id="precautionSearchResults"
+    style="
+      margin-top:10px;
+      display:none;
+    "
+  ></div>
+
+</div>
+    
   <!-- Grossesse (conditionnelle) -->
   <div id="grossesse_container" style="display:none; margin-bottom:10px;">
 
@@ -2901,6 +2948,209 @@ function openInfoModal(title, content, link = null) {
   document.getElementById("infoModal").classList.remove("hidden");
 }
 
+// =========================
+// RECHERCHE RAPIDE PRECAUTIONS AP
+// =========================
+
+const PRECAUTION_SEARCH_INDEX = [
+
+  {
+    keywords: [
+      "drepanocytose",
+      "drépanocytose",
+      "hta pulmonaire",
+      "hypertension pulmonaire",
+      "retinopathie",
+      "rétinopathie",
+      "laser",
+      "desaturation",
+      "désaturation",
+      "anemie",
+      "anémie"
+    ],
+
+    title:
+      "Contre-indications / limitations à l’activité physique",
+
+    content:
+      "<strong>Contre-indications absolues à l’AP</strong><br>• Insuffisance cardiaque décompensée<br>• Troubles rythmiques ventriculaires complexes<br>• Hypertension artérielle sévère non contrôlée<br>• Hypertension artérielle pulmonaire (> 60 mmHg)<br>• Myocardite ou épanchement péricardique aigu<br>• Myocardiopathie obstructive sévère<br>• Rétrécissement aortique serré et/ou symptomatique<br><br><strong>Contre-indications absolues et temporaires AP ≥ Modérée</strong><br>• Toutes les pathologies aiguës<br>• Toutes pathologies chroniques décompensées / non stabilisées<br>• Dénutrition importante<br>• Fatigue extrême et/ou incapacité physique manifeste à l’AP<br>• Anémie marquée (Hb < 8 g/dL)<br><br><strong>Contre-indications relatives pour AP élevée</strong><br>• Insuffisance respiratoire chronique sous O2 de longue durée<br>• Patho. respiratoire chronique sévère (risque désat. à l’effort)<br>• Diabète avec rétinopathie sévère, traitement récent au laser chirurgical de l’œil ou dysautonomie sévère<br>• Porteurs de drépanocytose",
+
+    link:
+      "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=27"
+  },
+
+  {
+    keywords: [
+      "escarre",
+      "plaie",
+      "mal perforant",
+      "arthrose",
+      "arthrite",
+      "cutanee",
+      "cutanée"
+    ],
+
+    title:
+      "Contre-indications et limitations musculosquelettiques et cutanées à l’activité physique",
+
+    content:
+      "<strong>CI absolues et temporaires pour les AP pour la zone concernée</strong><br>• Pathologies traumatiques non consolidées<br>• Path ostéo-articulaires en poussée congestive (arthrose, arthrite)<br><br><strong>CI absolues / temporaires pour AP ≥ modérée pour la zone concernée</strong><br>• Diabète + mal perforant plantaire pour AP avec 2 MI (même si unilat)<br>• Escarre / plaie évolutive ou chronique selon gravité, localisation<br>• Risque contact, frottement physique ou liée à AP (piscine, sable, terre, etc)",
+
+    link:
+      "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=28"
+  },
+
+  {
+    keywords: [
+      "douleur thoracique",
+      "palpitations",
+      "syncope",
+      "vertige",
+      "dyspnee",
+      "dyspnée",
+      "claudication"
+    ],
+
+    title:
+      "Symptômes évocateurs de pathologie décompensée",
+
+    content:
+      "Principaux signes d’alerte HAS :<br><br>• Douleur thoracique / gêne évocatrice d’ischémie<br>• Essoufflement au repos ou pour effort faible<br>• Fatigue inhabituelle / dyspnée anormale<br>• Orthopnée<br>• Œdèmes des chevilles<br>• Vertiges / syncopes<br>• Palpitations / tachycardie / rythme irrégulier<br>• Claudication intermittente<br>• Bruits anormaux à l’auscultation antérieure",
+
+    link:
+      "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=19"
+  }
+
+];
+
+function normalizePrecautionSearch(text) {
+
+  return String(text || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+
+}
+
+function initPrecautionSearch() {
+
+  const input =
+    document.getElementById("precautionSearchInput");
+
+  const results =
+    document.getElementById("precautionSearchResults");
+
+  if (!input || !results) {
+    return;
+  }
+
+  input.addEventListener("input", function(){
+
+    const rawValue = input.value || "";
+
+    const value =
+      normalizePrecautionSearch(rawValue);
+
+    results.innerHTML = "";
+
+    if (value.length < 3) {
+
+      results.style.display = "none";
+      return;
+
+    }
+
+    const matches = [];
+
+    PRECAUTION_SEARCH_INDEX.forEach(item => {
+
+      const found = item.keywords.some(keyword => {
+
+        return normalizePrecautionSearch(keyword)
+          .includes(value);
+
+      });
+
+      if (found) {
+        matches.push(item);
+      }
+
+    });
+
+    if (matches.length === 0) {
+
+      results.style.display = "block";
+
+      results.innerHTML = `
+        <div style="
+          font-size:0.9rem;
+          color:#64748b;
+          padding:4px 2px;
+        ">
+          Aucun résultat trouvé.
+        </div>
+      `;
+
+      return;
+
+    }
+
+    const limitedMatches = matches.slice(0, 3);
+
+    limitedMatches.forEach(item => {
+
+      const row = document.createElement("div");
+
+      row.style.marginBottom = "8px";
+
+      row.innerHTML = `
+        <button
+          type="button"
+          style="
+            width:100%;
+            text-align:left;
+            padding:10px;
+            border:1px solid #dbeafe;
+            background:#eff6ff;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:0.92rem;
+            color:#1e3a8a;
+          "
+        >
+          🛈 ${item.title}
+        </button>
+      `;
+
+      const btn = row.querySelector("button");
+
+      btn.addEventListener("click", function(){
+
+        openInfoModal(
+          item.title,
+          item.content,
+          item.link
+        );
+
+      });
+
+      results.appendChild(row);
+
+    });
+
+    results.style.display = "block";
+
+  });
+
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  initPrecautionSearch();
+
+});
+    
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
 }
