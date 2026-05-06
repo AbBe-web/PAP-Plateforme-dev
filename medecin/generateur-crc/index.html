@@ -3053,14 +3053,16 @@ function temporaryHighlight(selector) {
 
   target.style.transition =
     "background-color 0.2s ease, box-shadow 0.2s ease";
-target.style.display = "inline-flex";
+target.style.display = "flex";
 target.style.alignItems = "center";
 target.style.gap = "6px";
+target.style.width = "fit-content";
 
 target.style.backgroundColor = "#fff7ed";
 target.style.boxShadow = "0 0 0 2px #f59e0b";
 target.style.borderRadius = "6px";
 target.style.padding = "4px 8px";
+target.style.marginBottom = "2px";
 
 }
 
@@ -3077,6 +3079,10 @@ function clearAllPrecautionHighlights() {
 el.style.display = "";
 el.style.alignItems = "";
 el.style.gap = "";
+
+        el.style.width = "";
+el.style.marginBottom = "";
+        
       delete el.dataset.precautionHighlight;
 
     });
