@@ -3053,11 +3053,14 @@ function temporaryHighlight(selector) {
 
   target.style.transition =
     "background-color 0.2s ease, box-shadow 0.2s ease";
+target.style.display = "inline-flex";
+target.style.alignItems = "center";
+target.style.gap = "6px";
 
-  target.style.backgroundColor = "#fff7ed";
-  target.style.boxShadow = "0 0 0 2px #f59e0b";
-  target.style.borderRadius = "6px";
-  target.style.padding = "4px";
+target.style.backgroundColor = "#fff7ed";
+target.style.boxShadow = "0 0 0 2px #f59e0b";
+target.style.borderRadius = "6px";
+target.style.padding = "4px 8px";
 
 }
 
@@ -3071,7 +3074,9 @@ function clearAllPrecautionHighlights() {
       el.style.boxShadow = "";
       el.style.borderRadius = "";
       el.style.padding = "";
-
+el.style.display = "";
+el.style.alignItems = "";
+el.style.gap = "";
       delete el.dataset.precautionHighlight;
 
     });
