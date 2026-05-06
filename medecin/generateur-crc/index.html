@@ -544,21 +544,15 @@ label:has(input[type="radio"]) .info-icon{
 }
         
 .precaution-highlight-wrapper{
-  display:inline-flex;
-  align-items:center;
+
   border-radius:6px;
-  padding-left:6px;
-  padding-right:6px;
+
+  padding:4px 6px;
+
   transition:
     background-color 0.2s ease,
     box-shadow 0.2s ease;
-}
 
-.precaution-highlight-wrapper label{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
 }
         
 </style>
@@ -875,26 +869,23 @@ Importer fichier JSON
   <!-- ========================= -->
 
   <!-- Symptômes -->
-<div
+<label
   id="highlight_symptomes"
   class="precaution-highlight-wrapper"
 >
 
-<label id="label_symptomes">
   <input type="checkbox" id="symptomes_checkbox">
 
   Symptômes de maladie CV, respiratoire, métabolique ou rénale décompensée
 
-<span
-  class="info-icon"
-  onclick="event.preventDefault(); event.stopPropagation(); showSymptomesInfo();"
->
-  i
-</span>
+  <span
+    class="info-icon"
+    onclick="event.preventDefault(); event.stopPropagation(); showSymptomesInfo();"
+  >
+    i
+  </span>
 
 </label>
-
-</div>
 
   <div id="symptomes_alert" style="
     display:none;
@@ -908,12 +899,11 @@ Importer fichier JSON
     ⚠️ Situation nécessitant une prise en charge médicale préalable.
   </div>
     
-<div
+<label
   id="highlight_ci_ap"
   class="precaution-highlight-wrapper"
 >
 
-<label id="label_contre_indications">
   <input type="checkbox" id="contre_indications_checkbox">
 
   Contre-indications / limitations à l'activité physique
@@ -924,16 +914,14 @@ Importer fichier JSON
   >
     i
   </span>
+
 </label>
 
-</div>
-
-<div
+<label
   id="highlight_ci_msk"
   class="precaution-highlight-wrapper"
 >
 
-<label id="label_contre_indications_msk">
   <input type="checkbox" id="contre_indications_msk_checkbox">
 
   Contre-indications et limitations musculosquelettiques et cutanées à l'activité physique
@@ -944,9 +932,8 @@ Importer fichier JSON
   >
     i
   </span>
-</label>
 
-</div>
+</label>
     
   <!-- ATCD CV -->
 <label>
@@ -1013,26 +1000,23 @@ Maladie respiratoire chronique
   </div>
 
   <!-- Risque MSK -->
-<div
+<label
   id="highlight_blessure"
   class="precaution-highlight-wrapper"
 >
 
-<label id="label_blessure">
   <input type="checkbox" id="blessure_checkbox">
 
   Risque de blessure musculosquelettique ou cutanée
 
- <span
-  class="info-icon"
-  onclick="event.preventDefault(); event.stopPropagation(); showBlessureInfo();"
->
-  i
-</span>
+  <span
+    class="info-icon"
+    onclick="event.preventDefault(); event.stopPropagation(); showBlessureInfo();"
+  >
+    i
+  </span>
 
 </label>
-
-</div>
 
   <!-- Biologie -->
 <div style="margin:10px 0 6px 0; font-weight:600;">
