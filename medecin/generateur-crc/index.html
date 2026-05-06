@@ -544,12 +544,21 @@ label:has(input[type="radio"]) .info-icon{
 }
         
 .precaution-highlight-wrapper{
-  display:inline-block;
+  display:inline-flex;
+  align-items:center;
   border-radius:6px;
   transition:
     background-color 0.2s ease,
     box-shadow 0.2s ease;
 }
+
+.precaution-highlight-wrapper label{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+}
+        
 </style>
     
     <script src="https://unpkg.com/html5-qrcode"></script>
