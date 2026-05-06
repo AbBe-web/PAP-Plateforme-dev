@@ -670,6 +670,20 @@ Vous pouvez importer les données issues du questionnaire d’auto-évaluation
 rempli par le patient afin de préremplir certains champs du formulaire.
 </p>
 
+<div style="margin-bottom:12px;">
+
+<button
+  type="button"
+  id="resetConsultationBtnTop"
+  class="btn secondary-btn"
+  style="width:100%;">
+
+  Nouvelle consultation
+
+</button>
+
+</div>
+    
 <button type="button" id="scanQRBtn" class="btn">
 Scanner QR patient
 </button>
@@ -4530,13 +4544,198 @@ function resetFormulaireComplet() {
     .forEach(el => el.style.display = "none");
 
 }
-            
+const resetConsultationBtnTop =
+  document.getElementById("resetConsultationBtnTop");
+
+if (resetConsultationBtnTop) {
+
+  resetConsultationBtnTop.addEventListener("click", function(){
+
+    const confirmationReset = confirm(
+      "Effacer toutes les données de la consultation en cours ?"
+    );
+
+    if (!confirmationReset) {
+      return;
+    }
+
+    resetFormulaireComplet();
+
+    // 🔹 reset blocs commentaires patient
+    const importanceBlock =
+      document.getElementById("importance_patient_block");
+
+    const confianceBlock =
+      document.getElementById("confiance_patient_block");
+
+    if (importanceBlock) {
+      importanceBlock.style.display = "none";
+    }
+
+    if (confianceBlock) {
+      confianceBlock.style.display = "none";
+    }
+
+    // 🔹 reset analyse HAS
+    const hasContent =
+      document.getElementById("hasContent");
+
+    if (hasContent) {
+
+      hasContent.innerHTML =
+        "Remplissez les informations pour afficher les recommandations.";
+
+    }
+
+    // 🔹 retour haut formulaire
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  });
+
+}
+function resetBlocAutoEvaluationPatient() {
+
+  // =========================
+  // QUESTIONNAIRE
+  // =========================
+
+  document
+    .querySelectorAll('input[name="questionnaire"]')
+    .forEach(el => {
+      el.checked = false;
+    });
+
+  // =========================
+  // NIVEAU ACTIVITE
+  // =========================
+
+  document
+    .querySelectorAll('input[name="niveau_actuel"]')
+    .forEach(el => {
+      el.checked = false;
+    });
+
+  // =========================
+  // MOTIVATION
+  // =========================
+
+  document
+    .querySelectorAll('input[name="actif_depuis"]')
+    .forEach(el => {
+      el.checked = false;
+    });
+
+  document
+    .querySelectorAll('input[name="ap_envisagee"]')
+    .forEach(el => {
+      el.checked = false;
+    });
+
+  document
+    .querySelectorAll('input[name="ap_6_mois"]')
+    .forEach(el => {
+      el.checked = false;
+    });
+
+  // =========================
+  // PAS / SEDENTARITE
+  // =========================
+
+  const pasInput =
+    document.querySelector('input[name="nombre_pas"]');
+
+  if (pasInput) {
+    pasInput.value = "";
+  }
+
+  document
+    .querySelectorAll('input[name="sedentaire"]')
+    .forEach(el => {
+      el.checked = false;
+    });
+
+  const heuresInput =
+    document.querySelector('input[name="heures_assises"]');
+
+  if (heuresInput) {
+    heuresInput.value = "";
+  }
+
+  // =========================
+  // EVA IMPORTANCE
+  // =========================
+
+  const importanceInput =
+    document.querySelector('input[name="importance_ap"]');
+
+  if (importanceInput) {
+    importanceInput.value = "";
+  }
+
+  const importanceBlock =
+    document.getElementById("importance_patient_block");
+
+  const importanceField =
+    document.getElementById("importance_patient_comment");
+
+  if (importanceField) {
+    importanceField.value = "";
+  }
+
+  if (importanceBlock) {
+    importanceBlock.style.display = "none";
+  }
+
+  // =========================
+  // EVA CONFIANCE
+  // =========================
+
+  const confianceInput =
+    document.querySelector('input[name="confiance_ap"]');
+
+  if (confianceInput) {
+    confianceInput.value = "";
+  }
+
+  const confianceBlock =
+    document.getElementById("confiance_patient_block");
+
+  const confianceField =
+    document.getElementById("confiance_patient_comment");
+
+  if (confianceField) {
+    confianceField.value = "";
+  }
+
+  if (confianceBlock) {
+    confianceBlock.style.display = "none";
+  }
+
+  // =========================
+  // RESET UI MOTIVATION
+  // =========================
+
+  document
+    .querySelectorAll(
+      '#actif-subgroup, #inactif-subgroup, #sixmois-subgroup'
+    )
+    .forEach(el => {
+
+      el.classList.add("hidden");
+      el.style.display = "none";
+
+    });
+
+}    
 function importPatientJSON(jsonText) {
 console.count("IMPORT JSON EXECUTE");
   isImporting = true;
 
   // 🔥 AJOUT CRITIQUE
-  resetFormulaireComplet();
+resetBlocAutoEvaluationPatient();
 
   console.log("IMPORT JSON APPELE");
       console.log("IMPORT JSON APPELE");
