@@ -5994,11 +5994,16 @@ function buildClinicalModel() {
   fiches_promotion: document.querySelector('input[name="fiches_promotion"]:checked')?.value || null
 },
 
-    decision: {
-      specialite: "aucune", // on structurera l’interface ensuite
-      autre_specialite: null,
-      epreuve_effort: document.querySelector('input[name="epreuve_effort"]:checked')?.value || null
-    }
+decision: {
+  specialite: "aucune", // on structurera l’interface ensuite
+  autre_specialite: null,
+
+  consultation_ap:
+    document.querySelector('input[name="consultation_ap"]:checked')?.value || null,
+
+  epreuve_effort:
+    document.querySelector('input[name="epreuve_effort"]:checked')?.value || null
+}
 
   };
 }
