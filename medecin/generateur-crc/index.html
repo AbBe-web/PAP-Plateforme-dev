@@ -6640,33 +6640,81 @@ const isPatient = model.context === "patient";
                 const pr = model.prescription;
 
   let phrases = [];
+  let documentsRemis = [];
 
+  // --- Ordonnance aérobie ---
   if (pr.aerobie.frequence) {
-    let phrase = `Une activité physique d’endurance est recommandée à raison de ${pr.aerobie.frequence} fois par semaine`;
+
+    let details = [];
 
     if (pr.aerobie.intensite === "moderee") {
-      phrase += ", d’intensité modérée";
+      details.push("d’intensité modérée");
     }
 
     if (pr.aerobie.intensite === "elevee") {
-      phrase += ", d’intensité élevée";
+      details.push("d’intensité élevée");
     }
 
-    phrase += ".";
-    phrases.push(phrase);
+    details.push(`${pr.aerobie.frequence} fois par semaine`);
+
+    documentsRemis.push(
+      `d'activité aérobie (${details.join(", ")})`
+    );
   }
 
+  // --- Renforcement ---
   if (pr.renforcement.frequence) {
-    phrases.push(`Un travail de renforcement musculaire est conseillé ${pr.renforcement.frequence} fois par semaine.`);
+
+    documentsRemis.push(
+      `de renforcement musculaire (${pr.renforcement.frequence} fois par semaine)`
+    );
   }
 
+  // --- Souplesse / mobilité ---
   if (pr.souplesse.frequence) {
-    phrases.push(`Un travail de souplesse et de mobilité est proposé ${pr.souplesse.frequence} fois par semaine.`);
+
+    documentsRemis.push(
+      `de travail de souplesse et mobilité (${pr.souplesse.frequence} fois par semaine)`
+    );
   }
-                
-if (pr.fiches_promotion === "oui") {
-  phrases.push("Des fiches de promotion d’activité physique ont été remises.");
-}
+
+  // --- Fiches promotion ---
+  if (pr.fiches_promotion === "oui") {
+
+    documentsRemis.push(
+      "des fiches de promotion d’activité physique"
+    );
+  }
+
+  // --- Construction phrase finale ---
+  if (documentsRemis.length > 0) {
+
+    let liste = "";
+
+    if (documentsRemis.length === 1) {
+
+      liste = documentsRemis[0];
+
+    } else if (documentsRemis.length === 2) {
+
+      liste = documentsRemis.join(" et ");
+
+    } else {
+
+      liste =
+        documentsRemis.slice(0, -1).join(", ")
+        + " et "
+        + documentsRemis[documentsRemis.length - 1];
+    }
+
+    const pluriel = documentsRemis.length > 1;
+
+    phrases.push(
+      pluriel
+        ? `Des ordonnances ${liste} lui ont été remises.`
+        : `Une ordonnance ${liste} lui a été remise.`
+    );
+  }
 const crcElements = getSelectedCRC();
 const crcMode = document.querySelector('input[name="crc_mode"]:checked')?.value;
 const outputType = document.querySelector('input[name="output_type"]:checked')?.value || "medecin";                
