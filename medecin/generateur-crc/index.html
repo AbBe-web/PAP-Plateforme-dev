@@ -6639,7 +6639,89 @@ phrase += ".";
   }
 
 }
-            function buildPrescription(model) {
+           
+function buildDecisionBloc(model) {
+
+  let elementsPreconises = [];
+  let elementsPossibles = [];
+
+  // Consultation AP
+  if (model.decision.consultation_ap === "oui") {
+    elementsPreconises.push(
+      "une consultation médicale d’activité physique"
+    );
+  }
+
+  if (model.decision.consultation_ap === "peut_etre") {
+    elementsPossibles.push(
+      "une consultation médicale d’activité physique"
+    );
+  }
+
+  // Épreuve d’effort
+  if (model.decision.epreuve_effort === "oui") {
+    elementsPreconises.push(
+      "une épreuve d’effort"
+    );
+  }
+
+  if (model.decision.epreuve_effort === "peut_etre") {
+    elementsPossibles.push(
+      "une épreuve d’effort"
+    );
+  }
+
+  function buildFrenchList(arr) {
+
+    if (arr.length === 1) {
+      return arr[0];
+    }
+
+    if (arr.length === 2) {
+      return arr.join(" et ");
+    }
+
+    return (
+      arr.slice(0, -1).join(", ")
+      + " et "
+      + arr[arr.length - 1]
+    );
+  }
+
+  let phrases = [];
+
+  // Préconisées
+  if (elementsPreconises.length > 0) {
+
+    let liste = buildFrenchList(elementsPreconises);
+
+    liste = liste.charAt(0).toUpperCase() + liste.slice(1);
+
+    phrases.push(
+      elementsPreconises.length > 1
+        ? `${liste} sont préconisées.`
+        : `${liste} est préconisée.`
+    );
+  }
+
+  // Possibles
+  if (elementsPossibles.length > 0) {
+
+    let liste = buildFrenchList(elementsPossibles);
+
+    liste = liste.charAt(0).toUpperCase() + liste.slice(1);
+
+    phrases.push(
+      elementsPossibles.length > 1
+        ? `${liste} peuvent être proposées.`
+        : `${liste} peut être proposée.`
+    );
+  }
+
+  return phrases.join(" ");
+}    
+    
+    function buildPrescription(model) {
 
 const isPatient = model.context === "patient";
                 const pr = model.prescription;
