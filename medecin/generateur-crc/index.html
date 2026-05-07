@@ -6118,6 +6118,19 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
     generateBtn.addEventListener("click", handleGenerate);
   }
 
+const refreshBtn = document.getElementById('refreshCRCBtn');
+
+if (refreshBtn) {
+
+  refreshBtn.addEventListener("click", function(e){
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    handleGenerate(e);
+  });
+}    
+    
   const printBtn = document.getElementById('printReport');
 
   if (printBtn) {
