@@ -4715,6 +4715,12 @@ ${crcPathoBloc}
     .replace("Le risque cardiovasculaire global est évalué comme", "Votre risque cardiovasculaire est considéré comme")
     .replace(".", "");
 
+const decisionBloc = buildDecisionBloc(model)
+  .replace("est préconisée", "vous est recommandée")
+  .replace("sont préconisées", "vous sont recommandées")
+  .replace("peut être proposée", "peut vous être proposée")
+  .replace("peuvent être proposées", "peuvent vous être proposées");
+             
 const prescriptionBloc = buildPrescription({ ...model, context: "patient" })
   .replace("Une activité physique d’endurance est recommandée", "Votre médecin vous a prescrit une ordonnance d’activité physique d’endurance")
   .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
@@ -4757,6 +4763,12 @@ ${motivationBloc}
 <p>
 ${rcvBloc}.
 </p>
+
+${decisionBloc ? `
+<p>
+${decisionBloc}
+</p>
+` : ""}
 
 <p>
 Lors de l’échange que vous avez eu avec votre médecin, l’objectif principal retenu en termes d’activité physique est :
