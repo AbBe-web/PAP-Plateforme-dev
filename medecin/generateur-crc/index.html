@@ -6812,25 +6812,29 @@ if (isPatient) {
   // Préconisé
   if (elementsPreconises.length > 0) {
 
-    const liste = buildFrenchList(elementsPreconises);
+let liste = buildFrenchList(elementsPreconises);
 
-    phrases.push(
-      elementsPreconises.length > 1
-        ? `${liste} sont préconisées.`
-        : `${liste} est préconisée.`
-    );
+liste = liste.charAt(0).toUpperCase() + liste.slice(1);
+
+phrases.push(
+  elementsPreconises.length > 1
+    ? `${liste} sont préconisées.`
+    : `${liste} est préconisée.`
+);
   }
 
   // Peut être proposé
   if (elementsPossibles.length > 0) {
 
-    const liste = buildFrenchList(elementsPossibles);
+ let liste = buildFrenchList(elementsPossibles);
 
-    phrases.push(
-      elementsPossibles.length > 1
-        ? `${liste} peuvent être proposées.`
-        : `${liste} peut être proposée.`
-    );
+liste = liste.charAt(0).toUpperCase() + liste.slice(1);
+
+phrases.push(
+  elementsPossibles.length > 1
+    ? `${liste} peuvent être proposées.`
+    : `${liste} peut être proposée.`
+);
   }
                 
 if (phrases.length === 0) {
