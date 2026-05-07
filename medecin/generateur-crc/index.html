@@ -4583,8 +4583,9 @@ function buildCRCPathoBloc(mode = "long") {
 
   const evaluationBloc = buildEvaluationAP(model);
   const motivationBloc = buildMotivation(model);
-  const rcvBloc = buildRCV(model);
-  const prescriptionBloc = buildPrescription(model);
+const rcvBloc = buildRCV(model);
+const decisionBloc = buildDecisionBloc(model);
+const prescriptionBloc = buildPrescription(model);
 const crcPathoBloc = buildCRCPathoBloc("long");
           
   return `
@@ -4607,6 +4608,12 @@ ${motivationBloc}
 <p>
 ${rcvBloc}
 </p>
+
+${decisionBloc ? `
+<p>
+${decisionBloc}
+</p>
+` : ""}
 
 <p>
 Les objectifs de cette prescription d’activité physique sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
