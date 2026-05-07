@@ -2791,6 +2791,23 @@ let identityAction = null;
 let qrScanner = null;
 let qrAlreadyRead = false;    
 
+function handleFormModification() {
+
+  // Aucun CRC généré
+  if (!consultationState.reportGenerated) {
+    return;
+  }
+
+  // Déjà dirty
+  if (consultationState.reportDirty) {
+    return;
+  }
+
+  consultationState.reportDirty = true;
+
+  console.log("CRC désynchronisé : modification détectée");
+}
+    
 /* =====================================
 2.   ===== FONCTIONS UTILITAIRES =========
 ===================================== */
@@ -3533,6 +3550,9 @@ function copyAllCRC(){
   });
   navigator.clipboard.writeText(text);
 }    
+
+document.addEventListener("input", handleFormModification);
+document.addEventListener("change", handleFormModification);
     
 /* =====================================
 3. INITIALISATION UI ===================
