@@ -4690,6 +4690,12 @@ ${motivationBloc}</p>
 <p><strong>Risque cardiovasculaire global :</strong><br>
 ${rcvBloc.replace("Le risque cardiovasculaire global est évalué comme ", "").replace(".", "")}</p>
 
+${decisionBloc ? `
+<p><strong>Décisions complémentaires :</strong><br>
+${decisionBloc}
+</p>
+` : ""}
+
 <p><strong>Objectifs :</strong><br>
 ${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
 
