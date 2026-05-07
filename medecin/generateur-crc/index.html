@@ -6760,6 +6760,36 @@ if (isPatient) {
 
   phrases.push(`${intro} : ${details}.`);
 }
+
+  // --- Consultation médicale AP ---
+  if (model.decision.consultation_ap === "oui") {
+
+    phrases.push(
+      "Une consultation médicale d’activité physique est préconisée."
+    );
+  }
+
+  if (model.decision.consultation_ap === "peut_etre") {
+
+    phrases.push(
+      "Une consultation médicale d’activité physique peut être proposée."
+    );
+  }
+
+  // --- Épreuve d’effort ---
+  if (model.decision.epreuve_effort === "oui") {
+
+    phrases.push(
+      "Une épreuve d’effort est préconisée."
+    );
+  }
+
+  if (model.decision.epreuve_effort === "peut_etre") {
+
+    phrases.push(
+      "Une épreuve d’effort peut être proposée."
+    );
+  }
                 
 if (phrases.length === 0) {
   return "Aucune prescription spécifique n’a été formalisée lors de cette consultation.";
