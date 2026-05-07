@@ -4387,7 +4387,10 @@ function getSelectedCRC(){
 
   requestAnimationFrame(() => {
 clinicalModel = buildClinicalModel();
-
+      
+consultationState.reportGenerated = true;
+consultationState.reportDirty = false;
+      
     activeMode = "long";
 
 document.getElementById("formatTabs").classList.remove("hidden");
