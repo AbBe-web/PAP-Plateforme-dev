@@ -4645,8 +4645,9 @@ Je me tiens à votre disposition pour toute précision complémentaire.
                 
   const evaluationBloc = buildEvaluationAP(model);
   const motivationBloc = buildMotivation(model);
-  const rcvBloc = buildRCV(model);
-  const prescriptionBloc = buildPrescription(model);
+const rcvBloc = buildRCV(model);
+const decisionBloc = buildDecisionBloc(model);
+const prescriptionBloc = buildPrescription(model);
   const crcPathoBloc = buildCRCPathoBloc("paragraph");    
                 
   return `
@@ -4655,7 +4656,10 @@ ${titre} _____ a été ${participe} en consultation d’activité physique.
 ${evaluationBloc}
 ${motivationBloc}
 ${rcvBloc}
-Les objectifs principaux sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
+
+${decisionBloc}
+
+Les objectifs principaux sont :
 ${prescriptionBloc}
 
 ${crcPathoBloc}
