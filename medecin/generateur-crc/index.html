@@ -2804,7 +2804,9 @@ function handleFormModification() {
   }
 
   consultationState.reportDirty = true;
-
+    
+console.log("État après modification", JSON.stringify(consultationState));
+    
   console.log("CRC désynchronisé : modification détectée");
 }
     
@@ -4410,6 +4412,8 @@ clinicalModel = buildClinicalModel();
       
 consultationState.reportGenerated = true;
 consultationState.reportDirty = false;
+      
+console.log("CRC généré", JSON.stringify(consultationState));
       
     activeMode = "long";
 
