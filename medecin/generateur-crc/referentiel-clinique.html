@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PAP — Référentiel clinique</title>
 
   <style>
+
     body {
       font-family: Arial, sans-serif;
       line-height: 1.6;
@@ -64,17 +66,6 @@
       background: #1d4ed8;
     }
 
-    .btn-secondary {
-      display: inline-block;
-      background: #e5e7eb;
-      color: #222;
-      padding: 14px 22px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: 12px;
-    }
-
     .back-link {
       display: inline-block;
       margin-bottom: 20px;
@@ -85,6 +76,14 @@
 
     .back-link:hover {
       text-decoration: underline;
+    }
+
+    .info-box {
+      background: #eef5ff;
+      border-left: 4px solid #2563eb;
+      padding: 14px;
+      border-radius: 8px;
+      margin-top: 20px;
     }
 
     @media (max-width: 600px) {
@@ -101,8 +100,7 @@
         font-size: 1.6rem;
       }
 
-      .btn,
-      .btn-secondary {
+      .btn {
         display: block;
         width: 100%;
         text-align: center;
@@ -110,6 +108,7 @@
       }
 
     }
+
   </style>
 </head>
 
@@ -117,7 +116,7 @@
 
 <div class="container">
 
-  <a href="generateur-crc/index.html" class="back-link">
+  <a href="index.html" class="back-link">
     ← Retour à l’accueil
   </a>
 
@@ -126,38 +125,31 @@
     <h1>📚 Référentiel clinique PAP</h1>
 
     <p>
-      Ce document PDF regroupe les principaux repères cliniques
-      utilisés dans PAP :
+      Ce document PDF regroupe les principaux repères cliniques utilisés dans PAP :
     </p>
 
     <ul>
       <li>Rappels HAS et OMS</li>
       <li>Évaluation du risque cardiovasculaire</li>
-      <li>Indications de consultation d’activité physique</li>
-      <li>Repères de prescription</li>
+      <li>Repères de prescription d’activité physique</li>
       <li>Situations particulières et contre-indications</li>
-      <li>Conseils de pratique et ressources utiles</li>
+      <li>Conseils pratiques et ressources utiles</li>
     </ul>
 
-    <p>
-      Le référentiel peut être consulté, téléchargé ou imprimé.
-    </p>
+    <div class="info-box">
 
-    <a href="referentiel-clinique-pap.pdf"
-       target="_blank"
-       class="btn">
+      <strong>Information :</strong><br>
 
-      📖 Ouvrir le PDF
+      Sur iPhone/iPad en mode application,
+      le PDF peut s’ouvrir dans le lecteur PDF natif de l’appareil.
 
-    </a>
-
-    <br>
+    </div>
 
     <a href="referentiel-clinique-pap.pdf"
        download
-       class="btn-secondary">
+       class="btn">
 
-      ⬇ Télécharger le PDF
+      ⬇ Télécharger / ouvrir le PDF
 
     </a>
 
@@ -165,7 +157,7 @@
 
   <div style="margin-top:30px; text-align:center;">
 
-    <a href="generateur-crc/index.html" class="back-link">
+    <a href="index.html" class="back-link">
       ← Retour à l’accueil
     </a>
 
@@ -174,4 +166,5 @@
 </div>
 
 </body>
+
 </html>
