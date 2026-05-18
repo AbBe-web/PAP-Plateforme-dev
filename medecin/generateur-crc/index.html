@@ -15,7 +15,10 @@ const BASE_PATH =
 
 const manifestLink = document.createElement('link');
 manifestLink.rel = 'manifest';
-manifestLink.href = `${BASE_PATH}/manifest.json`;
+manifestLink.href =
+  BASE_PATH === ''
+    ? '/manifest.json'
+    : '/PAP-Plateforme-dev/manifest-dev.json';
 document.head.appendChild(manifestLink);
 </script>
 
