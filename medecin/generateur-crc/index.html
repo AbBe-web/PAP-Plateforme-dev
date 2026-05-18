@@ -7131,7 +7131,15 @@ document.addEventListener("click", () => {
         
 <script>
 if ('serviceWorker' in navigator) {
- navigator.serviceWorker.register('/sw.js');
+const BASE_PATH =
+  location.hostname === '127.0.0.1' ||
+  location.hostname === 'localhost'
+    ? ''
+    : '/PAP-Plateforme-dev';
+
+navigator.serviceWorker.register(
+  `${BASE_PATH}/sw.js`
+);
 }
 </script>
         
