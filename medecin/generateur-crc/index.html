@@ -1174,7 +1174,25 @@ Maladie respiratoire chronique
 
 <div id="pathoHelpContainer" style="margin-top:10px;"></div>
 <div id="pathoCRContainer" style="margin-top:10px;"></div>
-        
+  
+<div style="margin:10px 0 6px 0; font-weight:600;">
+  <strong>Traitements actuels</strong>
+</div>
+
+<p style="margin-bottom:10px; color:#555;">
+Copier/coller possible depuis ordonnance ou logiciel métier.
+</p>
+
+<textarea
+  id="traitementsActuels"
+  rows="6"
+  style="width:100%; resize:vertical;"
+  placeholder="Ex :
+Metformine 850 mg x2/j
+Bisoprolol 2,5 mg/j
+Apixaban 5 mg x2/j">
+</textarea>
+
 <h2>
   3/ Évaluation du RCV (tableau 3) :
 
@@ -4520,7 +4538,19 @@ document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
 
   }, 40);
 }
-    
+ 
+function buildTraitementsBloc() {
+
+  const traitements =
+    document.getElementById("traitementsActuels")?.value?.trim();
+
+  if (!traitements) {
+    return "";
+  }
+
+return `Le traitement actuel comprend : ${traitements.replace(/\n/g, ", ")}.`;
+}
+
 function buildCRCPathoBloc(mode = "long") {
 
   const selectedPathos = Array.from(document.querySelectorAll(".patho:checked"));
@@ -4643,6 +4673,7 @@ const rcvBloc = buildRCV(model);
 const decisionBloc = buildDecisionBloc(model);
 const prescriptionBloc = buildPrescription(model);
 const crcPathoBloc = buildCRCPathoBloc("long");
+const traitementsBloc = buildTraitementsBloc();
           
   return `
 <p style="text-align:right;">Le ${today}</p>
@@ -4652,6 +4683,12 @@ const crcPathoBloc = buildCRCPathoBloc("long");
 <p>
 Merci de m’avoir adressé ${titre} _____ en consultation d’activité physique.
 </p>
+
+${traitementsBloc ? `
+<p>
+${traitementsBloc}
+</p>
+` : ""}
 
 <p>
 ${evaluationBloc}
@@ -4705,10 +4742,12 @@ const rcvBloc = buildRCV(model);
 const decisionBloc = buildDecisionBloc(model);
 const prescriptionBloc = buildPrescription(model);
   const crcPathoBloc = buildCRCPathoBloc("paragraph");    
-                
+   const traitementsBloc = buildTraitementsBloc();
+
   return `
 <p>
 ${titre} _____ a été ${participe} en consultation d’activité physique.
+${traitementsBloc}
 ${evaluationBloc}
 ${motivationBloc}
 ${rcvBloc}
@@ -4729,6 +4768,7 @@ ${crcPathoBloc}
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
   const crcPathoBloc = buildCRCPathoBloc("medical");
+  const traitementsBloc = buildTraitementsBloc();
   const decisionBloc = buildDecisionBloc(model);
                 
   return `
@@ -4737,6 +4777,12 @@ ${crcPathoBloc}
 
 <p><strong>Motif :</strong><br>
 Consultation d’activité physique sur adressage.</p>
+
+${traitementsBloc ? `
+<p><strong>Traitement actuel :</strong><br>
+${traitementsBloc.replace("Il comprend :<br>", "")}
+</p>
+` : ""}
 
 <p><strong>Évaluation de l’activité physique :</strong><br>
 ${evaluationBloc}</p>
@@ -6395,7 +6441,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // 6️⃣ META
   // =====================================
   document.getElementById("appVersionLabel").textContent = APP_VERSION;
+const traitementsField =
+  document.getElementById("traitementsActuels");
 
+if (traitementsField) {
+
+  traitementsField.addEventListener("input", function () {
+
+    handleFormModification();
+
+  });
+
+}
 });
             
 // =========================
