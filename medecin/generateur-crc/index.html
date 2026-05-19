@@ -1168,15 +1168,44 @@ Maladie respiratoire chronique
 <label><input type="checkbox" class="patho" value="post_partum"> Post-partum</label>
 </div>
 
-</div>
+
 
 </div>
 
 <div id="pathoHelpContainer" style="margin-top:10px;"></div>
 <div id="pathoCRContainer" style="margin-top:10px;"></div>
-  
+
+<div style="margin-top:16px;">
+
+<strong style="display:block; margin-bottom:6px;">
+Autres antécédents
+</strong>
+
+<label>
+  <input type="checkbox" id="autres_atcd_checkbox">
+  Ajouter
+</label>
+
+<div
+  id="autres_atcd_block"
+  style="display:none; margin-top:8px;"
+>
+
+<textarea
+  id="autresAtcd"
+  rows="3"
+  style="width:100%; resize:vertical;"
+  placeholder="Ex :
+Allergie pénicilline (œdème de Quincke)
+Ictus amnésique 2018s">
+</textarea>
+
+</div>
+
+</div>
+
 <div style="margin:10px 0 6px 0; font-weight:600;">
-  <strong>Traitements actuels</strong>
+  <strong>Traitement actuel</strong>
 </div>
 
 <p style="margin-bottom:10px; color:#555;">
@@ -4539,6 +4568,154 @@ document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
   }, 40);
 }
 
+function formatFrenchList(items = []) {
+
+  const cleaned = items
+    .map(i => i?.trim())
+    .filter(Boolean);
+
+  if (cleaned.length === 0) {
+    return "";
+  }
+
+  if (cleaned.length === 1) {
+    return cleaned[0];
+  }
+
+  if (cleaned.length === 2) {
+    return `${cleaned[0]} et ${cleaned[1]}`;
+  }
+
+  return (
+    cleaned.slice(0, -1).join(", ") +
+    " et " +
+    cleaned[cleaned.length - 1]
+  );
+}
+
+function buildAntecedentsBloc() {
+
+  // 🔹 pathologies cochées
+  const selectedPathos = Array.from(
+    document.querySelectorAll(".patho:checked")
+  );
+
+ const EXCLUDED_ANTECEDENTS = [
+  "pa_maintien",
+  "pa_chute",
+  "grossesse",
+  "post_partum",
+  "obesite"
+];
+
+const pathoLabels = selectedPathos
+
+  // exclusion éléments non-ATCD
+  .filter(p =>
+    !EXCLUDED_ANTECEDENTS.includes(p.value)
+  )
+
+  .map(p => {
+
+    let label = PATHO_DATA[p.value]?.titre;
+
+    if (!label) return null;
+
+    // 🔹 cancer : nettoyage texte CRC
+    if (p.value === "cancer") {
+      label = "cancer";
+    }
+
+    return label.charAt(0).toLowerCase() + label.slice(1);
+
+  })
+
+  .filter(Boolean);
+ 
+  // 🔹 ATCD libres
+  const rawAutres =
+    document.getElementById("autresAtcd")?.value || "";
+
+  const autres = rawAutres
+  .split("\n")
+
+  .map(line => line.trim())
+
+  // retire lignes vides
+  .filter(line => line.length > 0)
+
+  // retire virgules terminales
+  .map(line => line.replace(/,+$/, "").trim())
+
+  // minuscule première lettre
+  .map(line =>
+    line.charAt(0).toLowerCase() + line.slice(1)
+  );
+
+  // 🔹 IMC → surpoids / obésité
+
+  const taille =
+    parseFloat(
+      document.getElementById("taille_input")?.value
+    );
+
+  const poids =
+    parseFloat(
+      document.getElementById("poids_input")?.value
+    );
+
+  if (taille && poids) {
+
+    const imc =
+      poids / ((taille / 100) ** 2);
+
+    if (imc >= 40) {
+
+      pathoLabels.push(
+        "obésité morbide (classe III)"
+      );
+
+    } else if (imc >= 35) {
+
+      pathoLabels.push(
+        "obésité sévère (classe II)"
+      );
+
+    } else if (imc >= 30) {
+
+      pathoLabels.push(
+        "obésité modérée (classe I)"
+      );
+
+    } else if (imc >= 25) {
+
+      pathoLabels.push("surpoids");
+
+    }
+
+  }
+
+  // 🔹 fusion
+  const antecedents = [
+    ...pathoLabels,
+    ...autres
+  ];
+
+  if (antecedents.length === 0) {
+    return "";
+  }
+
+  const antecedentsText =
+    formatFrenchList(antecedents);
+
+  const label =
+    antecedents.length > 1
+      ? "Comme antécédents, on note :"
+      : "Comme antécédent, on note :";
+
+  return `${label} ${antecedentsText}.`;
+}
+
 function cleanTraitementsText(raw) {
 
   if (!raw) {
@@ -4558,11 +4735,38 @@ return raw
   .map(line => line.replace(/^-\s*/, ""))
 
   // retire mentions administratives simples
+    // retire mentions administratives simples
   .map(line =>
     line
-      .replace(/Traitement pour\s+\d+\s*mois?,?/gi, "")
+
+      // dates type "Le 01/09/2025"
+      .replace(/\bLe\s+\d{1,2}\/\d{1,2}\/\d{2,4}\b/gi, "")
+
+      // TRAITEMENT POUR X JOURS/MOIS
+      .replace(/traitement\s+pour\s+\d+\s*(jours?|mois?)\s*:?/gi, "")
+
+      // renouvellement
       .replace(/renouvelable\s+QSP\s+\d+\s*mois?/gi, "")
+
+      // QSP
       .replace(/QSP\s+\d+\s*mois?/gi, "")
+
+      // ; inutiles
+      .replace(/;/g, ",")
+
+      // espaces multiples
+      .replace(/\s+/g, " ")
+
+      // virgules multiples
+      .replace(/,+/g, ",")
+
+      // virgule début
+      .replace(/^,\s*/, "")
+      
+      // minuscule après virgule
+      .replace(/,\s+([A-ZÉÈÀ])/g, (match, p1) =>
+        ", " + p1.toLowerCase()
+      )
       .trim()
   )
 
@@ -4715,6 +4919,8 @@ const rcvBloc = buildRCV(model);
 const decisionBloc = buildDecisionBloc(model);
 const prescriptionBloc = buildPrescription(model);
 const crcPathoBloc = buildCRCPathoBloc("long");
+const antecedentsBloc =
+  buildAntecedentsBloc();
 const traitementsBloc = buildTraitementsBloc();
           
   return `
@@ -4725,6 +4931,12 @@ const traitementsBloc = buildTraitementsBloc();
 <p>
 Merci de m’avoir adressé ${titre} _____ en consultation d’activité physique.
 </p>
+
+${antecedentsBloc ? `
+<p>
+${antecedentsBloc}
+</p>
+` : ""}
 
 ${traitementsBloc ? `
 <p>
@@ -4810,6 +5022,7 @@ ${crcPathoBloc}
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
   const crcPathoBloc = buildCRCPathoBloc("medical");
+  const antecedentsBloc = buildAntecedentsBloc();
   const traitementsBloc = buildTraitementsBloc();
   const decisionBloc = buildDecisionBloc(model);
                 
@@ -4819,6 +5032,12 @@ ${crcPathoBloc}
 
 <p><strong>Motif :</strong><br>
 Consultation d’activité physique sur adressage.</p>
+
+${antecedentsBloc ? `
+<p><strong>Antécédents :</strong><br>
+${antecedentsBloc.replace(/^Comme antécédent[s]?, on note :\s*/, "")}
+</p>
+` : ""}
 
 ${traitementsBloc ? `
 <p><strong>Traitement actuel :</strong><br>
@@ -5934,6 +6153,43 @@ function initHandicap() {
   });
 
 }
+
+function initAutresAtcd() {
+
+  const autresAtcdCheckbox =
+    document.getElementById("autres_atcd_checkbox");
+
+  const autresAtcdBlock =
+    document.getElementById("autres_atcd_block");
+
+  if (!autresAtcdCheckbox || !autresAtcdBlock) return;
+
+  function updateDisplay() {
+
+    autresAtcdBlock.style.display =
+      autresAtcdCheckbox.checked
+        ? "block"
+        : "none";
+
+    // 🔹 reset textarea si décoché
+    if (!autresAtcdCheckbox.checked) {
+
+      const textarea =
+        document.getElementById("autresAtcd");
+
+      if (textarea) {
+        textarea.value = "";
+      }
+    }
+  }
+
+  autresAtcdCheckbox.addEventListener(
+    "change",
+    updateDisplay
+  );
+
+  updateDisplay();
+}
  
         function initActivitePhysique() {
 
@@ -6461,6 +6717,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // =====================================
   initHandicap();
   initRespiratoire();
+  initAutresAtcd();
 
   // =====================================
   // 3️⃣ SYNCHRONISATION UI (APRÈS UI)
