@@ -4538,17 +4538,59 @@ document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
 
   }, 40);
 }
- 
+
+function cleanTraitementsText(raw) {
+
+  if (!raw) {
+    return "";
+  }
+
+return raw
+  .split("\n")
+
+  // trim lignes
+  .map(line => line.trim())
+
+  // retire lignes vides
+  .filter(line => line.length > 0)
+
+  // retire tirets début ligne
+  .map(line => line.replace(/^-\s*/, ""))
+
+  // retire mentions administratives simples
+  .map(line =>
+    line
+      .replace(/Traitement pour\s+\d+\s*mois?,?/gi, "")
+      .replace(/renouvelable\s+QSP\s+\d+\s*mois?/gi, "")
+      .replace(/QSP\s+\d+\s*mois?/gi, "")
+      .trim()
+  )
+
+  // retire lignes devenues vides
+  .filter(line => line.length > 0)
+
+  // fusion finale
+  .join(", ")
+
+  // espaces multiples
+  .replace(/\s+/g, " ")
+
+  .trim();
+
+}
+
 function buildTraitementsBloc() {
 
-  const traitements =
-    document.getElementById("traitementsActuels")?.value?.trim();
+const rawTraitements =
+  document.getElementById("traitementsActuels")?.value;
 
+const traitements =
+  cleanTraitementsText(rawTraitements);
   if (!traitements) {
     return "";
   }
 
-return `Le traitement actuel comprend : ${traitements.replace(/\n/g, ", ")}.`;
+return `Le traitement actuel comprend : ${traitements}.`;
 }
 
 function buildCRCPathoBloc(mode = "long") {
