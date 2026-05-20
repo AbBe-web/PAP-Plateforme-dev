@@ -1,33 +1,141 @@
 function generatePrescriptionCRC(model) {
+
   if (!validatePrescriptionModel(model)) {
     return "";
   }
 
-  const lignes = [];
+  if (
+    !Array.isArray(model.activites) ||
+    model.activites.length === 0
+  ) {
+    return "";
+  }
 
-  lignes.push("Une activité physique régulière est prescrite.");
+  const activitesTextes = [];
 
   model.activites.forEach((activite) => {
+
     let texte = "";
 
-    if (activite.type) {
-      texte += activite.type;
-    }
+    switch (activite.categorie) {
 
-    if (activite.duree?.valeur) {
-      texte += ` ${activite.duree.valeur} min`;
-    }
+ case "endurance": {
 
-    if (activite.frequence?.valeur) {
-      texte += ` ${activite.frequence.valeur} fois/semaine`;
+  texte += "activité d’endurance";
+
+  if (activite.type) {
+    texte += ` (${activite.type})`;
+  }
+
+  const params = [];
+
+  if (activite.intensite === "moderee") {
+    params.push("d'intensité modérée");
+  }
+
+  if (activite.intensite === "elevee") {
+    params.push("d'intensité élevée");
+  }
+
+  if (activite.duree?.valeur) {
+    params.push(formatDuree(activite.duree.valeur));
+  }
+
+  if (activite.frequence?.valeur) {
+    params.push(formatFrequence(activite.frequence.valeur));
+  }
+
+  if (params.length > 0) {
+    texte += `, ${params.join(", ")}`;
+  }
+
+  break;
+}
+
+    case "renforcement": {
+
+  texte += "renforcement musculaire";
+
+  if (activite.type) {
+    texte += ` (${activite.type})`;
+  }
+
+  const params = [];
+
+  if (activite.duree?.valeur) {
+    params.push(formatDuree(activite.duree.valeur));
+  }
+
+  if (activite.frequence?.valeur) {
+    params.push(formatFrequence(activite.frequence.valeur));
+  }
+
+  if (params.length > 0) {
+    texte += `, ${params.join(", ")}`;
+  }
+
+  break;
+}
+
+     case "souplesse": {
+
+  texte += "travail de souplesse et mobilité";
+
+  if (activite.type) {
+    texte += ` (${activite.type})`;
+  }
+
+  const params = [];
+
+  if (activite.duree?.valeur) {
+    params.push(formatDuree(activite.duree.valeur));
+  }
+
+  if (activite.frequence?.valeur) {
+    params.push(formatFrequence(activite.frequence.valeur));
+  }
+
+  if (params.length > 0) {
+    texte += `, ${params.join(", ")}`;
+  }
+
+  break;
+}
+
+      default:
+
+        texte += activite.type || "activité physique";
     }
 
     if (texte.trim()) {
-      lignes.push(texte.trim() + ".");
+      activitesTextes.push(texte.trim());
     }
+
   });
 
-  return lignes.join(" ");
+  if (activitesTextes.length === 0) {
+    return "";
+  }
+
+  let liste = "";
+
+  if (activitesTextes.length === 1) {
+
+    liste = activitesTextes[0];
+
+  } else if (activitesTextes.length === 2) {
+
+    liste = activitesTextes.join(" et ");
+
+ } else {
+
+  liste =
+    activitesTextes.slice(0, -1).join(" ; ")
+    + " et "
+    + activitesTextes[activitesTextes.length - 1];
+}
+
+  return `Une activité physique régulière est prescrite : ${liste}.`;
 }
 
 function generatePrescriptionText(model) {

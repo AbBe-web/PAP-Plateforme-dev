@@ -37,3 +37,29 @@ function validatePrescriptionModel(model) {
 
   return true;
 }
+
+function formatFrequence(valeur) {
+
+  if (!valeur) return "";
+
+  const n = Number(valeur);
+
+  if (n <= 1) {
+    return "1 fois/semaine";
+  }
+
+  return `${n} fois/semaine`;
+}
+
+function formatDuree(valeur) {
+
+  if (!valeur) return "";
+
+  const n = Number(valeur);
+
+  if (n <= 1) {
+    return "1 min/séance";
+  }
+
+  return `${n} min/séance`;
+}

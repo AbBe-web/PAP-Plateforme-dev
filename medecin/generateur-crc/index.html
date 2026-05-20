@@ -1502,38 +1502,68 @@ Pas d’AP envisagée dans les 6 mois
 
 <!-- ================= AEROBIE ================= -->
 <div class="sub-group">
+
   <h3>Une ordonnance d’AP aérobie :</h3>
 
-  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
+  <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
 
-   <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-  <input type="radio" name="ordonnance_aerobie" id="ordonnance_aerobie" value="oui">
-  Oui
-</label>
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="ordonnance_aerobie" id="ordonnance_aerobie" value="oui">
+      Oui
+    </label>
 
-<label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-  <input type="radio" name="ordonnance_aerobie" value="non">
-  Non
-</label>
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="ordonnance_aerobie" value="non">
+      Non
+    </label>
 
-    <div id="ordonnance_aerobie_subgroup" style="display:none; align-items:center; gap:8px;">
-      <input type="number" name="fois_aerobie" min="0" max="9"
+    <div id="ordonnance_aerobie_subgroup"
+         style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
+
+      <input type="number"
+             name="fois_aerobie"
+             min="0"
+             max="9"
              style="width:55px; font-size:inherit;">
-      <span style="font-size:inherit;">fois par semaine</span>
+
+      <span style="font-size:inherit;">
+        fois/semaine
+      </span>
+
+      <input type="text"
+             name="type_aerobie"
+             placeholder="marche rapide, vélo..."
+             style="width:180px; font-size:inherit;">
+
+      <input type="number"
+             name="duree_aerobie"
+             min="0"
+             max="300"
+             style="width:65px; font-size:inherit;">
+
+      <span style="font-size:inherit;">
+        min/séance
+      </span>
+
     </div>
 
   </div>
 
-  <div id="intensite_aerobie_block" style="display:none; margin-top:8px;">
+  <div id="intensite_aerobie_block"
+       style="display:none; margin-top:8px;">
+
     <label class="inline-option">
       <input type="radio" name="intensite_aerobie" value="moderee">
       Intensité modérée
     </label>
+
     <label class="inline-option">
       <input type="radio" name="intensite_aerobie" value="elevee">
       Intensité élevée
     </label>
+
   </div>
+
 </div>
 
 <!-- ================= RENFORCEMENT ================= -->
@@ -1549,13 +1579,35 @@ Pas d’AP envisagée dans les 6 mois
   <input type="radio" name="renforcement_musculaire" value="non">
   Non
 </label>
+<div id="renforcement_musculaire_subgroup"
+     style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
 
-    <div id="renforcement_musculaire_subgroup"
-         style="display:none; align-items:center; gap:8px;">
-      <input type="number" name="fois_renforcement" min="0" max="9"
-             style="width:55px; font-size:inherit;">
-      <span style="font-size:inherit;">fois par semaine</span>
-    </div>
+  <input type="number"
+         name="fois_renforcement"
+         min="0"
+         max="9"
+         style="width:55px; font-size:inherit;">
+     
+  <span style="font-size:inherit;">
+    fois/semaine
+  </span>
+
+  <input type="text"
+         name="type_renforcement"
+         placeholder="circuit training..."
+         style="width:180px; font-size:inherit;">
+
+         <input type="number"
+       name="duree_renforcement"
+       min="0"
+       max="300"
+       style="width:65px; font-size:inherit;">
+
+<span style="font-size:inherit;">
+  min/séance
+</span>
+
+</div>
   </div>
 </div>
 
@@ -1574,11 +1626,34 @@ Pas d’AP envisagée dans les 6 mois
 </label>
 
     <div id="souplesse_mobilite_subgroup"
-         style="display:none; align-items:center; gap:8px;">
-      <input type="number" name="fois_souplesse" min="0" max="9"
-             style="width:55px; font-size:inherit;">
-      <span style="font-size:inherit;">fois par semaine</span>
-    </div>
+     style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
+
+  <input type="number"
+         name="fois_souplesse"
+         min="0"
+         max="9"
+         style="width:55px; font-size:inherit;">
+
+  <span style="font-size:inherit;">
+    fois/semaine
+  </span>
+
+  <input type="text"
+         name="type_souplesse"
+         placeholder="yoga, étirements..."
+         style="width:180px; font-size:inherit;">
+
+ <input type="number"
+       name="duree_souplesse"
+       min="0"
+       max="300"
+       style="width:65px; font-size:inherit;">
+
+<span style="font-size:inherit;">
+  min/séance
+</span>
+
+</div>
   </div>
 </div>
 
@@ -6396,6 +6471,84 @@ resetMotivation();
 
          
 function buildClinicalModel() {
+
+  const aerobieFrequence =
+    document.querySelector('input[name="fois_aerobie"]')?.value;
+
+  const aerobieIntensite =
+    document.querySelector('input[name="intensite_aerobie"]:checked')?.value;
+
+    const aerobieDuree =
+  document.querySelector('input[name="duree_aerobie"]')?.value;
+
+  const aerobieType =
+  document.querySelector('input[name="type_aerobie"]')?.value;
+
+  prescriptionModel.activites = [];
+
+  if (aerobieFrequence) {
+
+    prescriptionModel.activites.push({
+      categorie: "endurance",
+
+   type: aerobieType || "",
+
+      intensite: aerobieIntensite || "",
+
+     frequence: {
+  valeur: aerobieFrequence
+},
+
+duree: {
+  valeur: aerobieDuree
+}
+    });
+
+    markPrescriptionDirty();
+  }
+
+  const renforcementFrequence =
+  document.querySelector('input[name="fois_renforcement"]')?.value;
+
+  const renforcementType =
+  document.querySelector('input[name="type_renforcement"]')?.value;
+
+if (renforcementFrequence) {
+
+  prescriptionModel.activites.push({
+    categorie: "renforcement",
+
+  type: renforcementType || "",
+
+    frequence: {
+      valeur: renforcementFrequence
+    }
+  });
+
+  markPrescriptionDirty();
+}
+
+const souplesseFrequence =
+  document.querySelector('input[name="fois_souplesse"]')?.value;
+
+  const souplesseType =
+  document.querySelector('input[name="type_souplesse"]')?.value;
+
+if (souplesseFrequence) {
+
+  prescriptionModel.activites.push({
+    categorie: "souplesse",
+
+type: souplesseType || "",
+
+    frequence: {
+      valeur: souplesseFrequence
+    }
+  });
+
+  markPrescriptionDirty();
+}
+
   return {
 
     meta: {
@@ -6444,6 +6597,7 @@ function buildClinicalModel() {
   },
   fiches_promotion: document.querySelector('input[name="fiches_promotion"]:checked')?.value || null
 },
+
 
 decision: {
   specialite: "aucune", // on structurera l’interface ensuite
