@@ -1724,6 +1724,7 @@ Pas d’AP envisagée dans les 6 mois
 <button type="button" class="tab-btn" data-mode="paragraph">Paragraphe</button>
 <button type="button" class="tab-btn" data-mode="medical">Dossier médical</button>
 <button type="button" class="tab-btn" data-mode="patient">Version patient</button>
+<button type="button" class="tab-btn" data-mode="ordonnance">Ordonnance AP</button>
 </div>
 
   <!-- Actions -->
@@ -5286,6 +5287,45 @@ les 10 règles d’or du Club des Cardiologues du Sport
 </div>
 `;
 }
+
+function renderOrdonnanceAP(model) {
+
+  const ordonnanceHTML =
+    generatePrescriptionPatient(prescriptionModel);
+
+  return `
+
+<div style="
+  max-width:800px;
+  margin:auto;
+  padding:24px;
+  background:white;
+  color:black;
+  line-height:1.6;
+">
+
+ <h2 style="
+  margin-bottom:28px;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+">
+  Ordonnance d’activité physique
+</h2>
+
+<div style="
+  border:1px solid #d9d9d9;
+  border-radius:10px;
+  padding:22px;
+  background:#fcfcfc;
+">
+  ${ordonnanceHTML}
+</div>
+
+</div>
+
+`;
+}
+
            function renderActiveMode() {
 
   if (!clinicalModel) return;
@@ -5310,6 +5350,9 @@ const pdfBtn = document.getElementById("downloadPdf");
       break;
     case "patient":
   html = renderPatientVersion(clinicalModel);
+  break;
+  case "ordonnance":
+  html = renderOrdonnanceAP(clinicalModel);
   break;
   }
 
@@ -6513,6 +6556,9 @@ duree: {
   const renforcementType =
   document.querySelector('input[name="type_renforcement"]')?.value;
 
+  const renforcementDuree =
+  document.querySelector('input[name="duree_renforcement"]')?.value;
+  
 if (renforcementFrequence) {
 
   prescriptionModel.activites.push({
@@ -6520,9 +6566,13 @@ if (renforcementFrequence) {
 
   type: renforcementType || "",
 
-    frequence: {
-      valeur: renforcementFrequence
-    }
+   frequence: {
+  valeur: renforcementFrequence
+},
+
+duree: {
+  valeur: renforcementDuree
+}
   });
 
   markPrescriptionDirty();
@@ -6534,6 +6584,9 @@ const souplesseFrequence =
   const souplesseType =
   document.querySelector('input[name="type_souplesse"]')?.value;
 
+  const souplesseDuree =
+  document.querySelector('input[name="duree_souplesse"]')?.value;
+
 if (souplesseFrequence) {
 
   prescriptionModel.activites.push({
@@ -6543,7 +6596,10 @@ type: souplesseType || "",
 
     frequence: {
       valeur: souplesseFrequence
-    }
+    },
+    duree: {
+  valeur: souplesseDuree
+}
   });
 
   markPrescriptionDirty();
