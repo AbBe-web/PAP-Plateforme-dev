@@ -24,7 +24,7 @@ function generatePrescriptionCRC(model) {
   texte += "activité d’endurance";
 
   if (activite.type) {
-    texte += ` (${activite.type})`;
+   texte += ` (${activite.type.charAt(0).toLowerCase() + activite.type.slice(1)})`;
   }
 
   const params = [];
@@ -57,7 +57,7 @@ function generatePrescriptionCRC(model) {
   texte += "renforcement musculaire";
 
   if (activite.type) {
-    texte += ` (${activite.type})`;
+   texte += ` (${activite.type.charAt(0).toLowerCase() + activite.type.slice(1)})`;
   }
 
   const params = [];
@@ -82,7 +82,7 @@ function generatePrescriptionCRC(model) {
   texte += "travail de souplesse et mobilité";
 
   if (activite.type) {
-    texte += ` (${activite.type})`;
+texte += ` (${activite.type.charAt(0).toLowerCase() + activite.type.slice(1)})`;
   }
 
   const params = [];
@@ -157,7 +157,6 @@ function generatePrescriptionPatient(model) {
 
   let html = `
     <div class="prescription-patient">
-      <h3>ACTIVITÉ PHYSIQUE PRESCRITE</h3>
   `;
 
   model.activites.forEach((activite) => {
@@ -183,7 +182,7 @@ function generatePrescriptionPatient(model) {
     }
 
     if (activite.type) {
-      html += ` (${activite.type})`;
+   html += ` (${activite.type.charAt(0).toLowerCase() + activite.type.slice(1)})`;
     }
 
     html += `<div style="
