@@ -215,3 +215,129 @@ function generatePrescriptionPatient(model) {
 
   return html;
 }
+
+function buildPathoPlainText() {
+
+  const selectedPathos =
+    Array.from(document.querySelectorAll(".patho:checked"));
+
+  let blocks = [];
+
+  selectedPathos.forEach(p => {
+
+    const container =
+      document.getElementById(`crcContainer_${p.value}`);
+
+    if (!container) return;
+
+    const detailMode =
+      document.querySelector(
+        `input[name="crc_detail_${p.value}"]:checked`
+      )?.value;
+
+    let items = [];
+
+    if (detailMode === "detail") {
+
+      items =
+        Array.from(
+          container.querySelectorAll(".crc-item:checked")
+        ).map(el => el.value);
+
+    } else {
+
+      items = PATHO_DATA[p.value]?.crc || [];
+    }
+
+    if (!items.length) return;
+
+    const short = p.value.toUpperCase();
+
+   const lines = items.join(", ");
+
+blocks.push(`${short} : ${lines}`);
+  });
+
+if (blocks.length === 0) {
+  return "";
+}
+
+return (
+  "Conseils associés à vos problèmes de santé : "
+  + blocks.join(" | ")
+);
+}
+
+function generatePrescriptionPlainText(model) {
+
+  if (!validatePrescriptionModel(model)) {
+    return "";
+  }
+
+  let lines = [];
+
+  const dureePrescription =
+  document.querySelector('input[name="duree_prescription"]')?.value || "";
+
+    model.activites.forEach((activite) => {
+
+    switch (activite.categorie) {
+
+      case "endurance":
+        lines.push(`• Activité d’endurance${activite.type ? ` (${activite.type})` : ""}`);
+        break;
+
+      case "renforcement":
+        lines.push(`• Renforcement musculaire${activite.type ? ` (${activite.type})` : ""}`);
+        break;
+
+      case "souplesse":
+        lines.push(`• Travail de souplesse et mobilité${activite.type ? ` (${activite.type})` : ""}`);
+        break;
+
+      default:
+        lines.push("• Activité physique");
+    }
+
+    if (activite.intensite === "moderee") {
+      lines.push("  Intensité modérée");
+    }
+
+    if (activite.intensite === "elevee") {
+      lines.push("  Intensité élevée");
+    }
+
+    if (activite.duree?.valeur) {
+      lines.push(`  ${formatDuree(activite.duree.valeur)}`);
+    }
+
+    if (activite.frequence?.valeur) {
+      lines.push(`  ${formatFrequence(activite.frequence.valeur)}`);
+    }
+
+    lines.push("");
+  });
+
+  const conseilsPatho =
+  buildPathoPlainText();
+
+  if (conseilsPatho) {
+
+    const cleanConseils =
+      conseilsPatho
+        .replace(/<[^>]*>/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    lines.push(cleanConseils);
+    lines.push("");
+  }
+
+  if (dureePrescription) {
+
+  lines.push("");
+  lines.push(`Durée prévisionnelle : ${dureePrescription}`);
+}
+
+  return lines.join("\n");
+}

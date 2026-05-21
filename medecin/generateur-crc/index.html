@@ -1500,6 +1500,21 @@ Pas d’AP envisagée dans les 6 mois
 <div class="form-group">
 <h2>9/ Je lui ai remis :</h2>
 
+<div style="margin-bottom:18px;">
+
+  <label>
+    Durée prévisionnelle de prescription :
+  </label>
+
+  <input
+    type="text"
+    name="duree_prescription"
+    placeholder="Ex : 3 mois"
+    style="width:140px; font-size:inherit; margin-left:8px;"
+  />
+
+</div>
+
 <!-- ================= AEROBIE ================= -->
 <div class="sub-group">
 
@@ -4966,12 +4981,12 @@ function buildCRCPathoBloc(mode = "long") {
 
   let lines = [];
 
-  pathoKeys.forEach(key => {
+    pathoKeys.forEach(key => {
 
     const { items, short } = grouped[key];
     if (!items || items.length === 0) return;
 
-    lines.push(`- ${short} : ${items.join(", ")}`);
+lines.push(`${short} : ${items.join(", ")}`);
   });
 
   if (lines.length === 0) return "";
@@ -5330,6 +5345,11 @@ const prenom =
 
 const nom =
   document.querySelector('input[name="nom"]')?.value || "";
+
+const dureePrescription =
+  document.querySelector('input[name="duree_prescription"]')?.value || "";
+
+console.log("DUREE ORDO =", dureePrescription);
   return `
 
 <div style="
@@ -5376,6 +5396,8 @@ const nom =
     <strong>Prénom :</strong> ${prenom}
   </div>
 
+
+
 </div>
 
 <div style="
@@ -5386,6 +5408,20 @@ const nom =
 ">
   ${ordonnanceHTML}
 </div>
+
+${dureePrescription ? `
+
+<div style="
+  margin-top:14px;
+  margin-left:4px;
+">
+
+  <strong>Durée prévisionnelle :</strong>
+  ${dureePrescription}
+
+</div>
+
+` : ""}
 
 ${conseilsPatho ? `
 
@@ -5721,10 +5757,19 @@ if (identityAction === "copy") {
     link.replaceWith(replacement);
   });
 
-  const text = temp.innerText
+  let text = "";
+
+if (activeMode === "ordonnance") {
+
+  text = generatePrescriptionPlainText(prescriptionModel);
+
+} else {
+
+  text = temp.innerText
     .replace(/\n+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
 
   let copiedMessage = "Compte-rendu copié.";
 
@@ -6668,6 +6713,9 @@ function buildClinicalModel() {
   document.querySelector('input[name="type_aerobie"]')?.value;
 
   prescriptionModel.activites = [];
+
+  prescriptionModel.duree_prescription =
+  document.querySelector('input[name="duree_prescription"]')?.value || "";
 
   if (aerobieFrequence) {
 
