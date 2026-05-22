@@ -1733,6 +1733,30 @@ Pas d’AP envisagée dans les 6 mois
   <!-- Contenu rendu -->
   <div id="outputContainer"></div>
 
+  <div id="finalTextContainer"
+     style="display:none; margin-top:20px;">
+
+  <h3>
+    Texte final modifiable avant copier
+  </h3>
+
+  <textarea
+    id="finalTextOutput"
+    style="
+      width:100%;
+      min-height:260px;
+      padding:12px;
+      font-family:inherit;
+      font-size:14px;
+      line-height:1.5;
+      resize:vertical;
+      border:1px solid #d9d9d9;
+      border-radius:8px;
+    "
+  ></textarea>
+
+</div>
+
 <!-- Onglets de format -->
 <div id="formatTabs" class="format-tabs hidden">
 <button type="button" class="tab-btn active" data-mode="long">Courrier complet</button>
@@ -1773,6 +1797,10 @@ Pas d’AP envisagée dans les 6 mois
 const consultationState = {
   reportGenerated: false,
   reportDirty: false
+};
+
+let renderedOutput = {
+  text: ""
 };
 
 let prescriptionModel = createPrescriptionModel();
@@ -4648,7 +4676,6 @@ console.log("HANDLE GENERATE EXECUTÉ");
 
   requestAnimationFrame(() => {
 clinicalModel = buildClinicalModel();
-const prescriptionCRC = generatePrescriptionCRC(prescriptionModel);      
 consultationState.reportGenerated = true;
 consultationState.reportDirty = false;
 
@@ -5017,7 +5044,7 @@ lines.push(`${short} : ${items.join(", ")}`);
 
     const verbeMed = nbPathos > 1 ? "abordées" : "abordée";
 
-    return `Recommandations spécifiques en lien avec ${pathoTxt} ${verbeMed} en consultation : ${itemsText}.`;
+    return `${itemsText}.`;
   }
 
   return "";
@@ -5202,7 +5229,7 @@ ${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
 ${prescriptionBloc}</p>
 
 ${crcPathoBloc ? `
-<p><strong>Éléments spécifiques par pathologie :</strong><br>
+<p><strong>Conseils spécifiques par pathologie :</strong><br>
 ${crcPathoBloc}
 </p>
 ` : ""}
@@ -5438,6 +5465,37 @@ ${conseilsPatho ? `
 ` : ""}
 
 <div style="
+  margin-top:26px;
+  padding-top:16px;
+  border-top:1px solid #d9d9d9;
+  text-align:center;
+">
+
+  <div style="
+    font-size:14px;
+    margin-bottom:10px;
+  ">
+    Précautions à prendre lors de vos séances d’activité physique (10 règles d’or) :
+  </div>
+
+  <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+     target="_blank"
+     rel="noopener noreferrer">
+
+    <img 
+      src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+      alt="QR code - règles d’or cardiologie du sport"
+      width="120"
+      height="120"
+      loading="lazy"
+      style="cursor:pointer;"
+    >
+
+  </a>
+
+</div>
+
+<div style="
   margin-top:60px;
   text-align:right;
 ">
@@ -5453,50 +5511,6 @@ ${conseilsPatho ? `
 `;
 }
 
-           function renderActiveMode() {
-
-  if (!clinicalModel) return;
-savedScrollPosition = window.scrollY;
-  const container = document.getElementById("outputContainer");
-
-  let html = "";
-               
-const pdfBtn = document.getElementById("downloadPdf");
-               
-  switch (activeMode) {
-    case "long":
-      html = renderLongLetterV2(clinicalModel);
-      break;
-
-    case "paragraph":
-      html = renderParagraphVersion(clinicalModel);
-      break;
-
-    case "medical":
-      html = renderMedicalRecord(clinicalModel);
-      break;
-    case "patient":
-  html = renderPatientVersion(clinicalModel);
-  break;
-  case "ordonnance":
-  html = renderOrdonnanceAP(clinicalModel);
-  break;
-  }
-
-  container.classList.add("fade-out");
-               
-// Affiche bouton PDF uniquement en mode patient
-if (activeMode === "patient") {
-  pdfBtn.classList.remove("hidden");
-} else {
-  pdfBtn.classList.add("hidden");
-}
- container.style.opacity = "0";
-container.innerHTML = html;
-container.style.opacity = "1";
-
-  container.classList.remove("fade-out");
-  container.classList.add("fade-in");
                
 function renderActiveMode(options = {}) {
 
@@ -5528,6 +5542,10 @@ function renderActiveMode(options = {}) {
     case "patient":
       html = renderPatientVersion(clinicalModel);
       break;
+
+     case "ordonnance":
+  html = renderOrdonnanceAP(clinicalModel);
+  break; 
   }
 
   container.classList.add("fade-out");
@@ -5540,6 +5558,26 @@ function renderActiveMode(options = {}) {
 
   container.style.opacity = "0";
   container.innerHTML = html;
+  const finalTextContainer =
+  document.getElementById("finalTextContainer");
+
+const finalTextOutput =
+  document.getElementById("finalTextOutput");
+
+if (activeMode === "ordonnance") {
+
+  renderedOutput.text =
+    generatePrescriptionDPI(prescriptionModel);
+
+  finalTextContainer.style.display = "block";
+
+  finalTextOutput.value =
+    renderedOutput.text;
+
+} else {
+
+  finalTextContainer.style.display = "none";
+}
   container.style.opacity = "1";
 
   container.classList.remove("fade-out");
@@ -5554,8 +5592,6 @@ function renderActiveMode(options = {}) {
   }
 
 }
-
-}   
 
 /* =====================================
 7. MODALES / IMPRESSION / COPIE =======
@@ -5761,7 +5797,8 @@ if (identityAction === "copy") {
 
 if (activeMode === "ordonnance") {
 
-  text = generatePrescriptionPlainText(prescriptionModel);
+  text =
+    document.getElementById("finalTextOutput")?.value || "";
 
 } else {
 

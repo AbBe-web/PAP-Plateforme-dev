@@ -263,7 +263,7 @@ if (blocks.length === 0) {
 }
 
 return (
-  "Conseils associés à vos problèmes de santé : "
+  "CONSEILS ASSOCIÉS à vos problèmes de santé : "
   + blocks.join(" | ")
 );
 }
@@ -338,6 +338,100 @@ function generatePrescriptionPlainText(model) {
   lines.push("");
   lines.push(`Durée prévisionnelle : ${dureePrescription}`);
 }
+
+  return lines.join("\n");
+}
+
+function generatePrescriptionDPI(model) {
+
+  if (!validatePrescriptionModel(model)) {
+    return "";
+  }
+
+  let lines = [];
+
+  model.activites.forEach((activite) => {
+
+    switch (activite.categorie) {
+
+      case "endurance":
+
+        lines.push(
+`ACTIVITÉ D’ENDURANCE${
+  activite.intensite === "moderee"
+    ? " (intensité modérée)"
+    : activite.intensite === "elevee"
+      ? " (intensité élevée)"
+      : ""
+}${activite.type ? ` : ${activite.type}` : ""}`
+        );
+
+        break;
+
+      case "renforcement":
+
+        lines.push(
+         `RENFORCEMENT MUSCULAIRE${activite.type ? ` : ${activite.type}` : ""}`
+        );
+
+        break;
+
+      case "souplesse":
+
+        lines.push(
+`SOUPLESSE ET MOBILITÉ${activite.type ? ` : ${activite.type}` : ""}`
+        );
+
+        break;
+    }
+
+    let details = [];
+
+    if (activite.frequence?.valeur) {
+     details.push(`${activite.frequence.valeur}x/sem`);
+    }
+
+    if (activite.duree?.valeur) {
+      details.push(formatDuree(activite.duree.valeur));
+    }
+
+    if (details.length > 0) {
+      lines.push(details.join(" - "));
+    }
+
+    lines.push("");
+  });
+
+  const conseilsPatho =
+    buildPathoPlainText();
+
+  if (conseilsPatho) {
+
+    const cleanConseils =
+      conseilsPatho
+        .replace(/<[^>]*>/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+
+    lines.push(cleanConseils);
+    lines.push("");
+  }
+
+  const dureePrescription =
+    document.querySelector('input[name="duree_prescription"]')?.value || "";
+
+  if (dureePrescription) {
+
+    lines.push(`Durée prévisionnelle : ${dureePrescription}`);
+  }
+lines.push("");
+lines.push(
+  "Précautions à prendre lors de vos séances d’activité physique (10 règles d’or) :"
+);
+
+lines.push(
+  "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+);
 
   return lines.join("\n");
 }
