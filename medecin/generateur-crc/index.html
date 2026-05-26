@@ -1770,9 +1770,32 @@ Pas d’AP envisagée dans les 6 mois
   <div id="reportActions">
     <button type="button" id="printReport" class="btn">Imprimer</button>
 <button type="button" id="copyReport" class="btn">Copier</button>
+<button type="button" id="editReport" class="btn">
+  Modifier
+</button>
 <button type="button" id="downloadPdf" class="btn hidden">Télécharger PDF</button>
   </div>
-        
+ 
+  <div id="finalTextContainer"
+     class="hidden"
+     style="margin-top:18px;">
+
+  <textarea
+    id="finalTextOutput"
+    style="
+      width:100%;
+      min-height:320px;
+      padding:12px;
+      font-family:inherit;
+      font-size:14px;
+      line-height:1.5;
+      box-sizing:border-box;
+      resize:vertical;
+    "
+  ></textarea>
+
+</div>
+
 <div id="resetSection" class="hidden" style="margin-top:12px; text-align:center;">
 <button 
   type="button" 
@@ -1800,8 +1823,12 @@ const consultationState = {
 };
 
 let renderedOutput = {
-  text: ""
+  html: "",
+  text: "",
+  edited: false
 };
+
+let isEditingOutput = false;
 
 let prescriptionModel = createPrescriptionModel();
 
@@ -3052,6 +3079,8 @@ let qrAlreadyRead = false;
 
 function handleFormModification() {
 
+  console.trace("DIRTY TRIGGER");
+
   // Aucun CRC généré
   if (!consultationState.reportGenerated) {
     return;
@@ -3818,8 +3847,25 @@ function copyAllCRC(){
   navigator.clipboard.writeText(text);
 }    
 
-document.addEventListener("input", handleFormModification);
-document.addEventListener("change", handleFormModification);
+document.addEventListener("input", function(e){
+
+  if (e.target.id === "finalTextOutput") {
+    return;
+  }
+
+  handleFormModification();
+
+});
+
+document.addEventListener("change", function(e){
+
+  if (e.target.id === "finalTextOutput") {
+    return;
+  }
+
+  handleFormModification();
+
+});
     
 /* =====================================
 3. INITIALISATION UI ===================
@@ -5558,30 +5604,47 @@ function renderActiveMode(options = {}) {
 
   container.style.opacity = "0";
   container.innerHTML = html;
-  const finalTextContainer =
-  document.getElementById("finalTextContainer");
 
-const finalTextOutput =
-  document.getElementById("finalTextOutput");
+  renderedOutput.html = html;
+
+renderedOutput.edited = false;
 
 if (activeMode === "ordonnance") {
 
   renderedOutput.text =
     generatePrescriptionDPI(prescriptionModel);
 
-  finalTextContainer.style.display = "block";
-
-  finalTextOutput.value =
-    renderedOutput.text;
-
 } else {
 
-  finalTextContainer.style.display = "none";
+  const temp = document.createElement("div");
+
+  temp.innerHTML = html;
+
+  renderedOutput.text =
+    temp.innerText
+      .replace(/\n+/g, "\n")
+      .trim();
 }
+
+  const finalTextContainer =
+  document.getElementById("finalTextContainer");
+
+const finalTextOutput =
+  document.getElementById("finalTextOutput");
+
+  console.log(finalTextContainer);
+console.log(finalTextOutput);
+
+isEditingOutput = false;
+
+finalTextContainer.style.display = "none";
+
   container.style.opacity = "1";
 
   container.classList.remove("fade-out");
   container.classList.add("fade-in");
+
+  initActionButtons();
 
   // 🔹 SCROLL UNIQUEMENT SI DEMANDÉ
   if (scroll) {
@@ -5795,10 +5858,12 @@ if (identityAction === "copy") {
 
   let text = "";
 
-if (activeMode === "ordonnance") {
+const editedText =
+  document.getElementById("finalTextOutput")?.value?.trim();
 
-  text =
-    document.getElementById("finalTextOutput")?.value || "";
+if (editedText) {
+
+  text = editedText;
 
 } else {
 
@@ -6933,10 +6998,16 @@ function initHASListeners() {
     cb.addEventListener("change", updatePathoRules);
   });
 
-  document.querySelectorAll('input, textarea').forEach(el => {
-    el.addEventListener("change", updateHAS);
-    el.addEventListener("input", updateHAS);
-  });
+document.querySelectorAll('input, textarea').forEach(el => {
+
+  if (el.id === "finalTextOutput") {
+    return;
+  }
+
+  el.addEventListener("change", updateHAS);
+  el.addEventListener("input", updateHAS);
+
+});
 
   document.querySelectorAll('input[type="radio"]').forEach(el => {
     el.addEventListener("click", updateHAS);
@@ -7041,8 +7112,48 @@ if (refreshBtn) {
       openIdentityModal("copy");
     });
   }
+
+const editBtn = document.getElementById('editReport');
+
+if (editBtn) {
+
+  editBtn.onclick = function(e){
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const finalTextContainer =
+      document.getElementById("finalTextContainer");
+
+    const finalTextOutput =
+      document.getElementById("finalTextOutput");
+
+    isEditingOutput = !isEditingOutput;
+
+    if (isEditingOutput) {
+
+      finalTextContainer.style.display = "block";
+
+      finalTextOutput.value =
+        renderedOutput.text;
+
+        finalTextOutput.oninput = function(){
+
+  renderedOutput.text =
+    finalTextOutput.value;
+
+  renderedOutput.edited = true;
+};
+
+    } else {
+
+      finalTextContainer.style.display = "none";
+    }
+
+  };
 }
-    
+    }
+
 // =====================================
 // 🔧 UTILITAIRE SYNCHRO UI
 // =====================================
