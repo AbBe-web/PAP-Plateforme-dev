@@ -7048,6 +7048,13 @@ document.querySelectorAll('input, textarea').forEach(el => {
         e.target.name === "crc_detail" ||
         e.target.name === "crc_mode"
       ) {
+
+        console.log(
+  "updateHAS trigger",
+  e.target,
+  e.target.name,
+  e.target.className
+);
         updateHAS();
       }
 
@@ -7107,14 +7114,16 @@ const refreshBtn = document.getElementById('refreshCRCBtn');
 
 if (refreshBtn) {
 
-  refreshBtn.addEventListener("click", function(e){
+  refreshBtn.onclick = function(e){
 
     e.preventDefault();
     e.stopPropagation();
 
     handleGenerate(e);
-  });
-}    
+
+  };
+
+}
     
   const printBtn = document.getElementById('printReport');
 
