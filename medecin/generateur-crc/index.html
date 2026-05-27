@@ -3847,9 +3847,22 @@ function copyAllCRC(){
   navigator.clipboard.writeText(text);
 }    
 
-document.addEventListener("input", function(e){
+const consultationForm =
+  document.getElementById("consultationForm");
+
+if (consultationForm) {
+
+  consultationForm.addEventListener("input", function(e){
 
   if (e.target.id === "finalTextOutput") {
+    return;
+  }
+
+  if (
+    e.target.type !== "textarea" &&
+    e.target.type !== "text" &&
+    e.target.type !== "number"
+  ) {
     return;
   }
 
@@ -3857,15 +3870,17 @@ document.addEventListener("input", function(e){
 
 });
 
-document.addEventListener("change", function(e){
+  consultationForm.addEventListener("change", function(e){
 
-  if (e.target.id === "finalTextOutput") {
-    return;
-  }
+    if (e.target.id === "finalTextOutput") {
+      return;
+    }
 
-  handleFormModification();
+    handleFormModification();
 
-});
+  });
+
+}
     
 /* =====================================
 3. INITIALISATION UI ===================
@@ -3950,6 +3965,12 @@ if (e.target.value === "simple") {
     if (isRelevantChange) {
 
       if (typeof renderActiveMode === "function") {
+       
+        console.log(
+  "CRC LOCAL CHANGE → renderActiveMode",
+  e.target
+);
+
         renderActiveMode();
       }
 
@@ -5607,7 +5628,7 @@ function renderActiveMode(options = {}) {
 
   renderedOutput.html = html;
 
-renderedOutput.edited = false;
+  renderedOutput.edited = false;
 
 if (activeMode === "ordonnance") {
 
@@ -7077,8 +7098,10 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
   const generateBtn = document.getElementById('generateReport');
 
   if (generateBtn) {
-    generateBtn.addEventListener("click", handleGenerate);
-  }
+
+  generateBtn.onclick = handleGenerate;
+
+}
 
 const refreshBtn = document.getElementById('refreshCRCBtn');
 
@@ -7096,22 +7119,30 @@ if (refreshBtn) {
   const printBtn = document.getElementById('printReport');
 
   if (printBtn) {
-    printBtn.addEventListener("click", function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      openIdentityModal("print");
-    });
-  }
+
+  printBtn.onclick = function(e){
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    openIdentityModal("print");
+
+  };
+}
 
   const copyBtn = document.getElementById('copyReport');
 
   if (copyBtn) {
-    copyBtn.addEventListener("click", function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      openIdentityModal("copy");
-    });
-  }
+
+  copyBtn.onclick = function(e){
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    openIdentityModal("copy");
+
+  };
+}
 
 const editBtn = document.getElementById('editReport');
 
@@ -7274,6 +7305,12 @@ if (respiratoire) {
 // 🔥 INIT
 document.addEventListener("DOMContentLoaded", function () {
 
+  if (window._uiInitialized) {
+  return;
+}
+
+window._uiInitialized = true;
+
   // =====================================
   // 1️⃣ UI DE BASE
   // =====================================
@@ -7307,18 +7344,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 6️⃣ META
   // =====================================
   document.getElementById("appVersionLabel").textContent = APP_VERSION;
-const traitementsField =
-  document.getElementById("traitementsActuels");
 
-if (traitementsField) {
-
-  traitementsField.addEventListener("input", function () {
-
-    handleFormModification();
-
-  });
-
-}
 });
             
 // =========================
