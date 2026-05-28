@@ -3081,8 +3081,6 @@ let qrAlreadyRead = false;
 
 function handleFormModification() {
 
-  console.trace("DIRTY TRIGGER");
-
   // Aucun CRC généré
   if (!consultationState.reportGenerated) {
     return;
@@ -3101,9 +3099,6 @@ if (warning) {
   warning.classList.remove("hidden");
 }
     
-    console.log("État après modification", JSON.stringify(consultationState));
-    
-  console.log("CRC désynchronisé : modification détectée");
 }
     
 /* =====================================
@@ -3856,10 +3851,6 @@ if (consultationForm) {
 
  consultationForm.addEventListener("input", function(e){
 
-  if (isProgrammaticUpdate) {
-    console.log("DIRTY BLOCKED PROGRAMMATIC INPUT");
-    return;
-  }
 
   if (e.target.id === "finalTextOutput") {
     return;
@@ -3878,11 +3869,6 @@ if (consultationForm) {
 });
 
 consultationForm.addEventListener("change", function(e){
-
-  if (isProgrammaticUpdate) {
-    console.log("DIRTY BLOCKED PROGRAMMATIC CHANGE");
-    return;
-  }
 
     if (e.target.id === "finalTextOutput") {
       return;
@@ -3927,15 +3913,8 @@ document.querySelectorAll(".patho").forEach(el => {
     
 function initCRCModeToggle(){
 
-  console.count("INIT CRC MODE TOGGLE");
-
-    if (window._crcModeToggleInitialized) {
-    console.log("CRC MODE TOGGLE ALREADY INITIALIZED");
-    return;
-  }
-
   window._crcModeToggleInitialized = true;
-  
+
   document.addEventListener("change", function(e){
 
     // 🔹 1. Gestion affichage simple/détail
@@ -3985,18 +3964,8 @@ if (e.target.value === "simple") {
 
     if (isRelevantChange) {
 
-      if (!consultationState.reportGenerated) {
-  console.log("CRC RENDER SKIPPED : NO REPORT GENERATED");
-  return;
-}
-      if (typeof renderActiveMode === "function") {
-       
-        console.log(
-  "CRC LOCAL CHANGE → renderActiveMode",
-  e.target
-);
-
-        renderActiveMode();
+           if (typeof renderActiveMode === "function") {
+               renderActiveMode();
       }
 
     }
@@ -4279,13 +4248,6 @@ alert("Données patient importées.\n\nVérifiez et complétez les champs avant 
 ===================================== */
 // 🔥 AUTO UPDATE HAS
 function updateHAS(){
-
-    if (isProgrammaticUpdate) {
-    console.log("UPDATE HAS BLOCKED PROGRAMMATIC");
-    return;
-  }
-
-  console.trace("UPDATE HAS TRIGGERED");
 
   const ageInput = document.getElementById("age_input");
   const age = parseInt(ageInput?.value);
@@ -4765,8 +4727,7 @@ function getSelectedCRC(){
   e.preventDefault();
   e.stopPropagation();
 
-console.log("HANDLE GENERATE EXECUTÉ");
-        
+     
     if (document.activeElement) {
     document.activeElement.blur();
   }
@@ -4781,9 +4742,7 @@ const warning = document.getElementById("crcDirtyWarning");
 if (warning) {
   warning.classList.add("hidden");
 }
-      
-console.log("CRC généré", JSON.stringify(consultationState));
-      
+       
     activeMode = "long";
 
 document.getElementById("formatTabs").classList.remove("hidden");
@@ -5675,16 +5634,22 @@ if (activeMode === "ordonnance") {
     temp.innerText
       .replace(/\n+/g, "\n")
       .trim();
+
+ 
 }
 
   const finalTextContainer =
-  document.getElementById("finalTextContainer");
+    document.getElementById("finalTextContainer");
 
-const finalTextOutput =
-  document.getElementById("finalTextOutput");
+  const finalTextOutput =
+    document.getElementById("finalTextOutput");
 
+  if (finalTextOutput) {
+    finalTextOutput.value = renderedOutput.text;
+  }
+  
   console.log(finalTextContainer);
-console.log(finalTextOutput);
+  console.log(finalTextOutput);
 
 isEditingOutput = false;
 
@@ -5899,30 +5864,13 @@ if (!win) {
 
 if (identityAction === "copy") {
 
-  const temp = document.createElement("div");
-  temp.innerHTML = content;
+  const text =
+    document.getElementById("finalTextOutput")?.value?.trim();
 
-  temp.querySelectorAll("a").forEach(link => {
-    const replacement = link.innerText + " : " + link.href;
-    link.replaceWith(replacement);
-  });
-
-  let text = "";
-
-const editedText =
-  document.getElementById("finalTextOutput")?.value?.trim();
-
-if (editedText) {
-
-  text = editedText;
-
-} else {
-
-  text = temp.innerText
-    .replace(/\n+/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+  if (!text) {
+    alert("Aucun compte-rendu disponible.");
+    return;
+  }
 
   let copiedMessage = "Compte-rendu copié.";
 
@@ -5944,8 +5892,7 @@ if (editedText) {
 function resetFormulaireComplet() {
 
     isProgrammaticUpdate = true;
-  console.log("PROGRAMMATIC RESET START");
-
+ 
   // 🔹 reset radios / checkbox
   document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => {
     el.checked = false;
@@ -5961,7 +5908,12 @@ function resetFormulaireComplet() {
     .forEach(el => el.style.display = "none");
 
     isProgrammaticUpdate = false;
-  console.log("PROGRAMMATIC RESET END");
+
+console.log(
+  "PATHO RESTANTES",
+  document.querySelectorAll(".patho:checked").length
+);
+
 }
 
 const resetConsultationBtnTop =
@@ -5970,6 +5922,22 @@ const resetConsultationBtnTop =
 if (resetConsultationBtnTop) {
 
   resetConsultationBtnTop.addEventListener("click", function(){
+
+    consultationState.reportGenerated = false;
+consultationState.reportDirty = false;
+
+console.log(
+  "RESET STATE",
+  consultationState.reportGenerated,
+  consultationState.reportDirty
+);
+
+const warning =
+  document.getElementById("crcDirtyWarning");
+
+if (warning) {
+  warning.classList.add("hidden");
+}
 
     const confirmationReset = confirm(
       "Effacer toutes les données de la consultation en cours ?"
@@ -5980,6 +5948,16 @@ if (resetConsultationBtnTop) {
     }
 
     resetFormulaireComplet();
+
+    consultationState.reportGenerated = false;
+    consultationState.reportDirty = false;
+
+    const crcWarning =
+      document.getElementById("crcDirtyWarning");
+
+    if (crcWarning) {
+      crcWarning.classList.add("hidden");
+}
 
     // 🔹 reset blocs commentaires patient
     const importanceBlock =
@@ -6151,15 +6129,12 @@ function resetBlocAutoEvaluationPatient() {
 
 }    
 function importPatientJSON(jsonText) {
-console.count("IMPORT JSON EXECUTE");
+
   isImporting = true;
 
   // 🔥 AJOUT CRITIQUE
 resetBlocAutoEvaluationPatient();
 
-  console.log("IMPORT JSON APPELE");
-      console.log("IMPORT JSON APPELE");
-      console.log("JSON reçu :", jsonText);
       let data;
 
  let questionnaire;
@@ -6205,7 +6180,6 @@ try {
   return;
 
 }
-    console.log("JSON importé :", data);
       
     questionnaire = data.q ?? data.questionnaire;
    niveau =
@@ -6237,11 +6211,8 @@ if (actifDepuis === "non") actifDepuis = "moins_6_mois";
     confianceComment = data.cc ?? data.confiance_commentaire;
       const confianceTruncated = data.cc_truncated ?? false;
            
-    console.log("niveau QR importé :", niveau);       
-    console.log("motivation import :", actifDepuis, apEnvisagee, ap6Mois);
-
+    
        isProgrammaticUpdate = true;
-console.log("PROGRAMMATIC UPDATE START");
 
         if (questionnaire) {
 
@@ -6355,18 +6326,19 @@ if (confBlock && confField) {
 
 }
           
-setTimeout(() => {
-  isImporting = false;
-  isProgrammaticUpdate = false;
+requestAnimationFrame(() => {
 
-  console.log("PROGRAMMATIC UPDATE END");
+  requestAnimationFrame(() => {
 
-}, 100);
+    isImporting = false;
+    isProgrammaticUpdate = false;
+
+  });
+
+});
       
 }
 function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
-
-  console.log("Application motivation après affichage UI");
 
     const actifBlock = document.getElementById('actif-subgroup');
     const inactifBlock = document.getElementById('inactif-subgroup');
@@ -6465,14 +6437,7 @@ if(mode === "marshall"){
   inactif.style.setProperty("display", "", "important");
 
 }
-    if (DEBUG) {
-  console.log("DEBUG niveau :", mode, {
-    tres: document.getElementById("niveau_tres_actif").parentElement.style.display,
-    actif: document.getElementById("niveau_actif").parentElement.style.display,
-    moyen: document.getElementById("niveau_moyen").parentElement.style.display,
-    inactif: document.getElementById("niveau_inactif").parentElement.style.display
-  });
-}
+
 }
 
 // ==========================
@@ -6706,8 +6671,6 @@ function resetMotivation() {
 }
 
 function updateNiveauUI(value) {
-
-  console.log("updateNiveauUI appelée avec :", value);
 
   resetMotivation();
 
@@ -7068,7 +7031,7 @@ document.querySelectorAll('input, textarea').forEach(el => {
   }
 
   el.addEventListener("change", updateHAS);
-  el.addEventListener("input", updateHAS);
+// el.addEventListener("input", updateHAS);
 
 });
 
@@ -7216,10 +7179,7 @@ if (editBtn) {
 
       finalTextContainer.style.display = "block";
 
-      finalTextOutput.value =
-        renderedOutput.text;
-
-        finalTextOutput.oninput = function(){
+              finalTextOutput.oninput = function(){
 
   renderedOutput.text =
     finalTextOutput.value;
@@ -7414,12 +7374,6 @@ function testCMAP() {
       expected: "n’est pas recommandée"
     }
   ];
-
-  console.log("=== TESTS CMAP ===");
-
-  tests.forEach(t => {
-    console.log(t.name + " → attendu:", t.expected);
-  });
 
 }
           
@@ -7899,8 +7853,6 @@ const isPatient = model.context === "patient";
 const crcElements = getSelectedCRC();
 const crcMode = document.querySelector('input[name="crc_mode"]:checked')?.value;
 const outputType = document.querySelector('input[name="output_type"]:checked')?.value || "medecin";                
-console.log("outputType =", outputType);
-                console.log("crcMode =", crcMode);
                 
 const selectedPathos = document.querySelectorAll('.patho:checked');
 let pathoNames = [];
@@ -8013,10 +7965,10 @@ function closeDetails(btn) {
 
 // 🔥 TEST GLOBAL CLICK (à ajouter ici)
 document.addEventListener("click", () => {
-  console.log("GLOBAL CLICK");
+
 });
             document.getElementById("confirmPrint")?.addEventListener("click", () => {
-  console.log("CONFIRM CLICK");
+
 });
       
       document.addEventListener("toggle", function(e) {

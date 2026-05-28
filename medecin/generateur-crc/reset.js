@@ -162,6 +162,26 @@ document.addEventListener("DOMContentLoaded", function () {
             behavior: "smooth"
         });
 
+       if (typeof consultationState !== "undefined") {
+
+  consultationState.reportGenerated = false;
+  consultationState.reportDirty = false;
+
+  console.log(
+    "RESET CONSULTATION STATE",
+    consultationState
+  );
+
+}
+
+const crcWarning =
+  document.getElementById("crcDirtyWarning");
+
+if (crcWarning) {
+  crcWarning.classList.add("hidden");
+} 
+console.log("RESET JS EXECUTED");
+
         console.log("Nouvelle consultation prête");
     }
 
