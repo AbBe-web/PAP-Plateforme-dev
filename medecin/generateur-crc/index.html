@@ -3065,6 +3065,8 @@ document.addEventListener("pointerup", function(e) {
 });
     
 let isImporting = false;
+let isProgrammaticUpdate = false;
+
 let clinicalModel = null;
 let activeMode = "long";
 
@@ -3852,7 +3854,12 @@ const consultationForm =
 
 if (consultationForm) {
 
-  consultationForm.addEventListener("input", function(e){
+ consultationForm.addEventListener("input", function(e){
+
+  if (isProgrammaticUpdate) {
+    console.log("DIRTY BLOCKED PROGRAMMATIC INPUT");
+    return;
+  }
 
   if (e.target.id === "finalTextOutput") {
     return;
@@ -3870,7 +3877,12 @@ if (consultationForm) {
 
 });
 
-  consultationForm.addEventListener("change", function(e){
+consultationForm.addEventListener("change", function(e){
+
+  if (isProgrammaticUpdate) {
+    console.log("DIRTY BLOCKED PROGRAMMATIC CHANGE");
+    return;
+  }
 
     if (e.target.id === "finalTextOutput") {
       return;
@@ -3915,6 +3927,15 @@ document.querySelectorAll(".patho").forEach(el => {
     
 function initCRCModeToggle(){
 
+  console.count("INIT CRC MODE TOGGLE");
+
+    if (window._crcModeToggleInitialized) {
+    console.log("CRC MODE TOGGLE ALREADY INITIALIZED");
+    return;
+  }
+
+  window._crcModeToggleInitialized = true;
+  
   document.addEventListener("change", function(e){
 
     // 🔹 1. Gestion affichage simple/détail
@@ -3964,6 +3985,10 @@ if (e.target.value === "simple") {
 
     if (isRelevantChange) {
 
+      if (!consultationState.reportGenerated) {
+  console.log("CRC RENDER SKIPPED : NO REPORT GENERATED");
+  return;
+}
       if (typeof renderActiveMode === "function") {
        
         console.log(
@@ -4254,6 +4279,11 @@ alert("Données patient importées.\n\nVérifiez et complétez les champs avant 
 ===================================== */
 // 🔥 AUTO UPDATE HAS
 function updateHAS(){
+
+    if (isProgrammaticUpdate) {
+    console.log("UPDATE HAS BLOCKED PROGRAMMATIC");
+    return;
+  }
 
   console.trace("UPDATE HAS TRIGGERED");
 
@@ -5913,6 +5943,9 @@ if (editedText) {
 
 function resetFormulaireComplet() {
 
+    isProgrammaticUpdate = true;
+  console.log("PROGRAMMATIC RESET START");
+
   // 🔹 reset radios / checkbox
   document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => {
     el.checked = false;
@@ -5927,7 +5960,10 @@ function resetFormulaireComplet() {
   document.querySelectorAll('#actif-subgroup, #inactif-subgroup, #sixmois-subgroup')
     .forEach(el => el.style.display = "none");
 
+    isProgrammaticUpdate = false;
+  console.log("PROGRAMMATIC RESET END");
 }
+
 const resetConsultationBtnTop =
   document.getElementById("resetConsultationBtnTop");
 
@@ -6203,7 +6239,10 @@ if (actifDepuis === "non") actifDepuis = "moins_6_mois";
            
     console.log("niveau QR importé :", niveau);       
     console.log("motivation import :", actifDepuis, apEnvisagee, ap6Mois);
-          
+
+       isProgrammaticUpdate = true;
+console.log("PROGRAMMATIC UPDATE START");
+
         if (questionnaire) {
 
   const radio = document.querySelector(`input[name="questionnaire"][value="${questionnaire}"]`);
@@ -6315,11 +6354,14 @@ if (confBlock && confField) {
   }
 
 }
-    
-         
+          
 setTimeout(() => {
   isImporting = false;
-}, 100); 
+  isProgrammaticUpdate = false;
+
+  console.log("PROGRAMMATIC UPDATE END");
+
+}, 100);
       
 }
 function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
