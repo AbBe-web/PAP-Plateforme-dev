@@ -75,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
         // 6. Masquer blocs dynamiques
         const dynamicBlocks = [
             "symptomes_alert",
-            "renforcement_musculaire_subgroup",
             "qrScannerContainer",
             "reportOutput",
             "formatTabs",
@@ -180,6 +179,23 @@ const crcWarning =
 if (crcWarning) {
   crcWarning.classList.add("hidden");
 } 
+
+toggleSubgroup(
+  "ordonnance_aerobie",
+  "ordonnance_aerobie_subgroup",
+  "intensite_aerobie_block"
+);
+
+toggleSubgroup(
+  "renforcement_musculaire",
+  "renforcement_musculaire_subgroup"
+);
+
+toggleSubgroup(
+  "souplesse_mobilite",
+  "souplesse_mobilite_subgroup"
+);
+
 console.log("RESET JS EXECUTED");
 
         console.log("Nouvelle consultation prête");

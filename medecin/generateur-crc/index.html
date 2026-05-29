@@ -1776,27 +1776,7 @@ Pas d’AP envisagée dans les 6 mois
 <button type="button" id="downloadPdf" class="btn hidden">Télécharger PDF</button>
   </div>
  
-  <div id="finalTextContainer"
-     class="hidden"
-     style="margin-top:18px;">
-
-  <textarea
-    id="finalTextOutput"
-    style="
-      width:100%;
-      min-height:320px;
-      padding:12px;
-      font-family:inherit;
-      font-size:14px;
-      line-height:1.5;
-      box-sizing:border-box;
-      resize:vertical;
-    "
-  ></textarea>
-
-</div>
-
-<div id="resetSection" class="hidden" style="margin-top:12px; text-align:center;">
+  <div id="resetSection" class="hidden" style="margin-top:12px; text-align:center;">
 <button 
   type="button" 
   id="resetConsultationBtn" 
@@ -5659,8 +5639,6 @@ finalTextContainer.style.display = "none";
 
   container.classList.remove("fade-out");
   container.classList.add("fade-in");
-
-  initActionButtons();
 
   // 🔹 SCROLL UNIQUEMENT SI DEMANDÉ
   if (scroll) {
