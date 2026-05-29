@@ -1672,6 +1672,53 @@ Pas d’AP envisagée dans les 6 mois
   </div>
 </div>
 
+<!-- ================= EQUILIBRE ================= -->
+<div class="sub-group">
+  <h3>Travail de l'équilibre :</h3>
+
+  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="equilibre" id="equilibre" value="oui">
+      Oui
+    </label>
+
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="equilibre" value="non">
+      Non
+    </label>
+
+    <div id="equilibre_subgroup"
+         style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
+
+      <input type="number"
+             name="fois_equilibre"
+             min="0"
+             max="9"
+             style="width:55px; font-size:inherit;">
+
+      <span style="font-size:inherit;">
+        fois/semaine
+      </span>
+
+      <input type="text"
+             name="type_equilibre"
+             placeholder="tai-chi, exercices d'équilibre..."
+             style="width:180px; font-size:inherit;">
+
+      <input type="number"
+             name="duree_equilibre"
+             min="0"
+             max="300"
+             style="width:65px; font-size:inherit;">
+
+      <span style="font-size:inherit;">
+        min/séance
+      </span>
+
+    </div>
+  </div>
+</div>
+
 <!-- ================= FICHES ================= -->
 <div class="sub-group">
   <h3 class="black-text">Des fiches de promotion d'activité physique :</h3>
@@ -3879,7 +3926,8 @@ initCRCModeToggle();
 toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
 toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
 toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
-    
+toggleSubgroup("equilibre", "equilibre_subgroup");
+
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
@@ -6895,6 +6943,34 @@ type: souplesseType || "",
     duree: {
   valeur: souplesseDuree
 }
+  });
+
+  markPrescriptionDirty();
+}
+
+const equilibreFrequence =
+  document.querySelector('input[name="fois_equilibre"]')?.value;
+
+const equilibreType =
+  document.querySelector('input[name="type_equilibre"]')?.value;
+
+const equilibreDuree =
+  document.querySelector('input[name="duree_equilibre"]')?.value;
+
+if (equilibreFrequence) {
+
+  prescriptionModel.activites.push({
+    categorie: "equilibre",
+
+    type: equilibreType || "",
+
+    frequence: {
+      valeur: equilibreFrequence
+    },
+
+    duree: {
+      valeur: equilibreDuree
+    }
   });
 
   markPrescriptionDirty();
