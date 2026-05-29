@@ -3893,6 +3893,10 @@ document.querySelectorAll(".patho").forEach(el => {
     
 function initCRCModeToggle(){
 
+  if (window._crcModeToggleInitialized) {
+  return;
+}
+
   window._crcModeToggleInitialized = true;
 
   document.addEventListener("change", function(e){
@@ -5628,9 +5632,6 @@ if (activeMode === "ordonnance") {
     finalTextOutput.value = renderedOutput.text;
   }
   
-  console.log(finalTextContainer);
-  console.log(finalTextOutput);
-
 isEditingOutput = false;
 
 finalTextContainer.style.display = "none";
@@ -7012,10 +7013,6 @@ document.querySelectorAll('input, textarea').forEach(el => {
 // el.addEventListener("input", updateHAS);
 
 });
-
-  document.querySelectorAll('input[type="radio"]').forEach(el => {
-    el.addEventListener("click", updateHAS);
-  });
 
   const refreshBtn = document.getElementById("refreshHAS");
   if (refreshBtn) {

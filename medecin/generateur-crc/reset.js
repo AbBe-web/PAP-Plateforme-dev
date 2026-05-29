@@ -196,9 +196,9 @@ toggleSubgroup(
   "souplesse_mobilite_subgroup"
 );
 
-console.log("RESET JS EXECUTED");
+updatePathoHelp();
+updatePathoRules();
 
-        console.log("Nouvelle consultation prête");
-    }
+}
 
 });
