@@ -102,6 +102,31 @@ texte += ` (${activite.type.charAt(0).toLowerCase() + activite.type.slice(1)})`;
   break;
 }
 
+case "equilibre": {
+
+  texte += "travail de l'équilibre";
+
+  if (activite.type) {
+    texte += ` (${activite.type.charAt(0).toLowerCase() + activite.type.slice(1)})`;
+  }
+
+  const params = [];
+
+  if (activite.duree?.valeur) {
+    params.push(formatDuree(activite.duree.valeur));
+  }
+
+  if (activite.frequence?.valeur) {
+    params.push(formatFrequence(activite.frequence.valeur));
+  }
+
+  if (params.length > 0) {
+    texte += `, ${params.join(", ")}`;
+  }
+
+  break;
+}
+
       default:
 
         texte += activite.type || "activité physique";
@@ -175,6 +200,10 @@ function generatePrescriptionPatient(model) {
 
       case "souplesse":
         html += `<strong>• Travail de souplesse et mobilité</strong>`;
+        break;
+
+      case "equilibre":
+        html += `<strong>• Travail de l'équilibre</strong>`;
         break;
 
       default:
@@ -378,12 +407,20 @@ function generatePrescriptionDPI(model) {
 
       case "souplesse":
 
-        lines.push(
+  lines.push(
 `SOUPLESSE ET MOBILITÉ${activite.type ? ` : ${activite.type}` : ""}`
-        );
+  );
 
-        break;
-    }
+  break;
+
+case "equilibre":
+
+  lines.push(
+`TRAVAIL DE L'ÉQUILIBRE${activite.type ? ` : ${activite.type}` : ""}`
+  );
+
+  break;
+}
 
     let details = [];
 
