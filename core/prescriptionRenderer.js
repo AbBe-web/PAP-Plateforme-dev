@@ -21,6 +21,19 @@ function generatePrescriptionCRC(model) {
 
  case "endurance": {
 
+  if (activite.mode === "pas") {
+
+  texte += "activité d’endurance avec un objectif de ";
+
+  texte += `${activite.objectif_pas} pas/jour`;
+
+  if (activite.consignes_pas) {
+    texte += ` (${activite.consignes_pas})`;
+  }
+
+  break;
+}
+
   texte += "activité d’endurance";
 
   if (activite.type) {
@@ -220,6 +233,23 @@ function generatePrescriptionPatient(model) {
   line-height:1.45;
 ">`;
 
+if (
+  activite.categorie === "endurance" &&
+  activite.mode === "pas"
+) {
+
+  html += `<div>Objectif : ${activite.objectif_pas} pas/jour</div>`;
+
+  if (activite.consignes_pas) {
+    html += `<div>${activite.consignes_pas}</div>`;
+  }
+
+  html += `</div>`;
+  html += `</div>`;
+
+  return;
+}
+
     if (activite.intensite === "moderee") {
       html += `<div>Intensité modérée</div>`;
     }
@@ -383,9 +413,23 @@ function generatePrescriptionDPI(model) {
 
     switch (activite.categorie) {
 
-      case "endurance":
+case "endurance":
 
-        lines.push(
+  if (activite.mode === "pas") {
+
+    lines.push("ACTIVITÉ D’ENDURANCE");
+
+    lines.push(
+      `Objectif : ${activite.objectif_pas} pas/jour`
+    );
+
+    if (activite.consignes_pas) {
+      lines.push(activite.consignes_pas);
+    }
+
+  } else {
+
+    lines.push(
 `ACTIVITÉ D’ENDURANCE${
   activite.intensite === "moderee"
     ? " (intensité modérée)"
@@ -393,9 +437,11 @@ function generatePrescriptionDPI(model) {
       ? " (intensité élevée)"
       : ""
 }${activite.type ? ` : ${activite.type}` : ""}`
-        );
+    );
 
-        break;
+  }
+
+  break;
 
       case "renforcement":
 

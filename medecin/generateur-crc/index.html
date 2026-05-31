@@ -1523,13 +1523,13 @@ Pas d’AP envisagée dans les 6 mois
   <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
 
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-      <input type="radio" name="ordonnance_aerobie" id="ordonnance_aerobie" value="oui">
-      Oui
+   <input type="radio" name="mode_aerobie" value="fitt">
+    FITT
     </label>
 
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-      <input type="radio" name="ordonnance_aerobie" value="non">
-      Non
+    <input type="radio" name="mode_aerobie" value="pas">
+    Pas/jour
     </label>
 
     <div id="ordonnance_aerobie_subgroup"
@@ -1578,7 +1578,35 @@ Pas d’AP envisagée dans les 6 mois
     </label>
 
   </div>
+<div id="aerobie_pas_subgroup"
+     style="display:none; margin-top:8px;">
 
+  <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+
+    <input type="number"
+           name="objectif_pas"
+           min="0"
+           max="50000"
+           step="100"
+           style="width:100px; font-size:inherit;">
+
+    <span>
+      pas/jour
+    </span>
+
+  </div>
+
+  <div style="margin-top:8px;">
+
+    <textarea
+      name="consignes_pas"
+      placeholder="Ex : augmentation progressive de 500 pas/semaine si tolérance satisfaisante."
+      style="width:100%; min-height:60px;">
+    </textarea>
+
+  </div>
+
+</div>
 </div>
 
 <!-- ================= RENFORCEMENT ================= -->
@@ -3923,7 +3951,8 @@ initHandicap();
 initActivitePhysique();
 initCRCModeToggle();
 
-toggleSubgroup("ordonnance_aerobie", "ordonnance_aerobie_subgroup", "intensite_aerobie_block");
+initAerobieMode();
+
 toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
 toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 toggleSubgroup("equilibre", "equilibre_subgroup");
@@ -6852,7 +6881,55 @@ resetMotivation();
   updateDisplay(); // état initial
 }
 
-         
+function initAerobieMode() {
+
+  const radios =
+    document.querySelectorAll('input[name="mode_aerobie"]');
+
+  const fittBlock =
+    document.getElementById("ordonnance_aerobie_subgroup");
+
+  const intensiteBlock =
+    document.getElementById("intensite_aerobie_block");
+
+  const pasBlock =
+    document.getElementById("aerobie_pas_subgroup");
+
+  function updateDisplay() {
+
+    const selected =
+      document.querySelector('input[name="mode_aerobie"]:checked');
+
+    if (!selected) {
+
+      fittBlock.style.display = "none";
+      intensiteBlock.style.display = "none";
+      pasBlock.style.display = "none";
+
+      return;
+    }
+
+    if (selected.value === "fitt") {
+
+      fittBlock.style.display = "flex";
+      intensiteBlock.style.display = "block";
+      pasBlock.style.display = "none";
+
+    } else if (selected.value === "pas") {
+
+      fittBlock.style.display = "none";
+      intensiteBlock.style.display = "none";
+      pasBlock.style.display = "block";
+    }
+  }
+
+  radios.forEach(radio => {
+    radio.addEventListener("change", updateDisplay);
+  });
+
+  updateDisplay();
+}
+
 function buildClinicalModel() {
 
   const aerobieFrequence =
@@ -6867,31 +6944,65 @@ function buildClinicalModel() {
   const aerobieType =
   document.querySelector('input[name="type_aerobie"]')?.value;
 
+  const modeAerobie =
+  document.querySelector('input[name="mode_aerobie"]:checked')?.value;
+
+const objectifPas =
+  document.querySelector('input[name="objectif_pas"]')?.value;
+
+const consignesPas =
+  document.querySelector('textarea[name="consignes_pas"]')?.value;
+
   prescriptionModel.activites = [];
 
   prescriptionModel.duree_prescription =
   document.querySelector('input[name="duree_prescription"]')?.value || "";
 
-  if (aerobieFrequence) {
+if (
+  modeAerobie === "fitt" &&
+  aerobieFrequence
+) {
 
-    prescriptionModel.activites.push({
-      categorie: "endurance",
+  prescriptionModel.activites.push({
 
-   type: aerobieType || "",
+    categorie: "endurance",
 
-      intensite: aerobieIntensite || "",
+    mode: "fitt",
 
-     frequence: {
-  valeur: aerobieFrequence
-},
+    type: aerobieType || "",
 
-duree: {
-  valeur: aerobieDuree
+    intensite: aerobieIntensite || "",
+
+    frequence: {
+      valeur: aerobieFrequence
+    },
+
+    duree: {
+      valeur: aerobieDuree
+    }
+  });
+
+  markPrescriptionDirty();
 }
-    });
 
-    markPrescriptionDirty();
-  }
+if (
+  modeAerobie === "pas" &&
+  objectifPas
+) {
+
+  prescriptionModel.activites.push({
+
+    categorie: "endurance",
+
+    mode: "pas",
+
+    objectif_pas: objectifPas,
+
+    consignes_pas: consignesPas || ""
+  });
+
+  markPrescriptionDirty();
+}
 
   const renforcementFrequence =
   document.querySelector('input[name="fois_renforcement"]')?.value;
