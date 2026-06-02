@@ -1492,8 +1492,76 @@ Pas d’AP envisagée dans les 6 mois
 
 </div>
     
-    <h2>8/ Les objectifs principaux en termes d’activité physique sont :</h2>
-    <textarea name="objectifs_ap"></textarea>
+<div class="form-group">
+
+<h2>8/ Objectifs thérapeutiques</h2>
+
+<div class="sub-group objectifs-group">
+
+<h3 style="color:#0056b3;">🏥 Santé</h3>
+
+<label><input type="checkbox" name="objectif_ap" value="augmenter_ap">
+Augmenter le niveau global d'activité physique</label>
+
+<label><input type="checkbox" name="objectif_ap" value="reduire_sedentarite">
+Réduire la sédentarité</label>
+
+<label><input type="checkbox" name="objectif_ap" value="controle_maladie">
+Améliorer le contrôle d'une maladie chronique</label>
+
+<h3 style="color:#0056b3;">💪 Condition physique</h3>
+
+<label><input type="checkbox" name="objectif_ap" value="condition_physique">
+Améliorer la condition physique</label>
+
+<label><input type="checkbox" name="objectif_ap" value="capacites_cardio">
+Améliorer les capacités cardiorespiratoires</label>
+
+<label><input type="checkbox" name="objectif_ap" value="force">
+Renforcer la force musculaire</label>
+
+<label><input type="checkbox" name="objectif_ap" value="equilibre">
+Améliorer l’équilibre / prévenir les chutes</label>
+
+<h3 style="color:#0056b3;">🚶 Fonction</h3>
+
+<label><input type="checkbox" name="objectif_ap" value="autonomie">
+Préserver ou restaurer l’autonomie</label>
+
+<label><input type="checkbox" name="objectif_ap" value="limitation">
+Réduire une limitation fonctionnelle</label>
+
+<h3 style="color:#0056b3;">😊 Qualité de vie</h3>
+
+<label><input type="checkbox" name="objectif_ap" value="qualite_vie">
+Améliorer la qualité de vie</label>
+
+<label><input type="checkbox" name="objectif_ap" value="bien_etre">
+Améliorer le bien-être psychologique</label>
+
+<label>
+<input type="checkbox" id="objectif_autre_checkbox">
+Autre
+</label>
+
+<input
+type="text"
+id="objectif_autre"
+style="display:none;"
+placeholder="Préciser..."
+>
+
+</div>
+
+<label style="display:block;margin-top:6px;">
+Commentaires complémentaires (facultatif) :
+</label>
+
+<textarea
+  name="objectifs_ap"
+  style="width:95%;"
+></textarea>
+
 </div>
 
         
@@ -3952,6 +4020,7 @@ initActivitePhysique();
 initCRCModeToggle();
 
 initAerobieMode();
+initObjectifAutre();
 
 toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
 toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
@@ -6930,7 +6999,35 @@ function initAerobieMode() {
   updateDisplay();
 }
 
+function initObjectifAutre() {
+
+  const checkbox =
+    document.getElementById("objectif_autre_checkbox");
+
+  const input =
+    document.getElementById("objectif_autre");
+
+  if (!checkbox || !input) return;
+
+  function updateDisplay() {
+
+    input.style.display =
+      checkbox.checked
+        ? "inline-block"
+        : "none";
+
+    if (!checkbox.checked) {
+      input.value = "";
+    }
+  }
+
+  checkbox.addEventListener("change", updateDisplay);
+
+  updateDisplay();
+}
+
 function buildClinicalModel() {
+console.log("buildClinicalModel appelée");
 
   const aerobieFrequence =
     document.querySelector('input[name="fois_aerobie"]')?.value;
@@ -6954,6 +7051,38 @@ const consignesPas =
   document.querySelector('textarea[name="consignes_pas"]')?.value;
 
   prescriptionModel.activites = [];
+  prescriptionModel.objectifs = [];
+
+  const objectifsSelectionnes =
+  document.querySelectorAll(
+    'input[name="objectif_ap"]:checked'
+  );
+
+objectifsSelectionnes.forEach(obj => {
+
+  prescriptionModel.objectifs.push(
+    obj.value
+  );
+
+});
+
+const objectifAutre =
+  document.getElementById("objectif_autre");
+
+if (
+  objectifAutre &&
+  objectifAutre.value.trim()
+) {
+
+  prescriptionModel.objectifs.push(
+    objectifAutre.value.trim()
+  );
+
+}
+
+console.log(
+  prescriptionModel.objectifs
+);
 
   prescriptionModel.duree_prescription =
   document.querySelector('input[name="duree_prescription"]')?.value || "";
