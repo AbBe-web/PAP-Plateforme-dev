@@ -1564,9 +1564,11 @@ Commentaires complémentaires (facultatif) :
 
 </div>
 
- <div class="sub-group">
+<div class="form-group">
 
 <h2>9/ Précautions / limitations</h2>
+
+<div class="sub-group">
 
 <h3 style="color:#0056b3;">
 🛡️ Précautions générales
@@ -1590,7 +1592,12 @@ Psychiques / cognitives</label>
 <label><input type="checkbox" name="precaution_ap" value="chute">
 Risque de chute</label>
 
-<label><input type="checkbox" name="precaution_ap" value="aucune">
+<label><input
+type="checkbox"
+name="precaution_ap"
+value="aucune"
+id="precaution_aucune"
+>
 Aucune</label>
 
 <h3 style="color:#0056b3;">🚶 Limitations locomotrices</h3>
@@ -4119,6 +4126,7 @@ initCRCModeToggle();
 
 initAerobieMode();
 initObjectifAutre();
+initPrecautionsAucune();
 
 toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
 toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
@@ -7124,6 +7132,44 @@ function initObjectifAutre() {
   updateDisplay();
 }
 
+function initPrecautionsAucune() {
+
+  const aucune =
+    document.getElementById("precaution_aucune");
+
+  const autres =
+    document.querySelectorAll(
+      'input[name="precaution_ap"]:not(#precaution_aucune)'
+    );
+
+  if (!aucune) return;
+
+  aucune.addEventListener("change", function() {
+
+    if (aucune.checked) {
+
+      autres.forEach(el => {
+        el.checked = false;
+      });
+
+    }
+
+  });
+
+  autres.forEach(el => {
+
+    el.addEventListener("change", function() {
+
+      if (el.checked) {
+        aucune.checked = false;
+      }
+
+    });
+
+  });
+
+}
+
 function buildClinicalModel() {
 console.log("buildClinicalModel appelée");
 
@@ -7150,6 +7196,7 @@ const consignesPas =
 
   prescriptionModel.activites = [];
   prescriptionModel.objectifs = [];
+  prescriptionModel.limitations = [];
 
   const objectifsSelectionnes =
   document.querySelectorAll(
@@ -7178,9 +7225,31 @@ if (
 
 }
 
-console.log(
-  prescriptionModel.objectifs
-);
+const limitationsSelectionnees =
+  document.querySelectorAll(
+    'input[name="limitation_ap"]:checked'
+  );
+
+limitationsSelectionnees.forEach(limitation => {
+
+  prescriptionModel.limitations.push(
+    limitation.value
+  );
+
+});
+
+const precautionsSelectionnees =
+  document.querySelectorAll(
+    'input[name="precaution_ap"]:checked'
+  );
+
+precautionsSelectionnees.forEach(precaution => {
+
+  prescriptionModel.limitations.push(
+    precaution.value
+  );
+
+});
 
   prescriptionModel.duree_prescription =
   document.querySelector('input[name="duree_prescription"]')?.value || "";
