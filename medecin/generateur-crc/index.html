@@ -1920,6 +1920,199 @@ placeholder="Préciser..."
   </div>
 </div>
 
+</div>
+
+<hr style="margin:18px 0 14px 0; opacity:0.25;">
+
+<div class="sub-group">
+
+<div
+  style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:8px;
+  "
+>
+
+<input
+  type="checkbox"
+  id="orientation_ap_toggle"
+>
+
+<h3
+  class="black-text"
+  style="
+    margin:0;
+    font-weight:700;
+  "
+>
+Orientation AP spécifique (optionnel)
+</h3>
+
+</div>
+
+<div
+  id="orientation_ap_subgroup"
+  style="display:none; margin-top:12px;"
+>
+
+<p style="margin-bottom:12px;">
+Le patient nécessite-t-il un encadrement spécifique
+pour pratiquer l’activité physique en sécurité ?
+</p>
+
+
+<div
+  id="orientation_help_block"
+  style="
+    margin-bottom:14px;
+    padding:10px;
+    background:#f8fafc;
+    border-left:4px solid #cbd5e1;
+    border-radius:6px;
+    font-size:0.9rem;
+  "
+>
+
+<strong>Repères identifiés :</strong>
+
+<div
+  id="orientation_help_content"
+  style="margin-top:6px;"
+>
+Aucun repère identifié.
+</div>
+
+</div>
+
+<h3 style="color:#0056b3; margin-bottom:10px;">
+🧭 Orientations possibles
+</h3>
+
+<!-- NIVEAU 1 -->
+<div
+  style="
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-bottom:6px;
+    line-height:1.2;
+  "
+>
+
+<strong style="min-width:58px;">
+Niv 1 :
+</strong>
+
+<label style="display:flex; align-items:center; gap:4px;">
+  <input
+    type="checkbox"
+    name="orientation_ap"
+    value="kine"
+  >
+  Kinésithérapeute
+</label>
+
+<label style="display:flex; align-items:center; gap:4px;">
+  <input
+    type="checkbox"
+    name="orientation_ap"
+    value="ergo"
+  >
+  Ergothérapeute
+</label>
+
+<label style="display:flex; align-items:center; gap:4px;">
+  <input
+    type="checkbox"
+    name="orientation_ap"
+    value="psychomot"
+  >
+  Psychomotricien
+</label>
+
+</div>
+
+<!-- NIVEAUX 2 / 3 / 4 -->
+<div
+  style="
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:26px;
+    margin-bottom:10px;
+    line-height:1.2;
+  "
+>
+
+<div style="display:flex; align-items:center; gap:8px;">
+
+<strong>
+Niv 2 :
+</strong>
+
+<label style="display:flex; align-items:center; gap:4px;">
+  <input
+    type="checkbox"
+    name="orientation_ap"
+    value="apa"
+  >
+  Enseignant APA
+</label>
+
+</div>
+
+<div style="display:flex; align-items:center; gap:8px;">
+
+<strong>
+Niv 3 :
+</strong>
+
+<label style="display:flex; align-items:center; gap:4px;">
+  <input
+    type="checkbox"
+    name="orientation_ap"
+    value="educateur"
+  >
+  Éducateur sportif
+</label>
+
+</div>
+
+<div style="display:flex; align-items:center; gap:8px;">
+
+<strong>
+Niv 4 :
+</strong>
+
+<label style="display:flex; align-items:center; gap:4px;">
+  <input
+    type="checkbox"
+    name="orientation_ap"
+    value="autonome"
+  >
+  En autonomie
+</label>
+
+</div>
+
+</div>
+
+<label style="display:block;margin-top:12px;">
+Commentaire complémentaire :
+</label>
+
+<textarea
+  name="orientation_commentaire"
+  style="width:95%;"
+></textarea>
+
+</div>
+
+</div>
+
 <!-- ================= FICHES ================= -->
 <div class="sub-group">
   <h3 class="black-text">Des fiches de promotion d'activité physique :</h3>
@@ -4103,7 +4296,7 @@ consultationForm.addEventListener("change", function(e){
     }
 
     handleFormModification();
-
+    updateOrientationHelp();
   });
 
 }
@@ -4127,10 +4320,36 @@ initCRCModeToggle();
 initAerobieMode();
 initObjectifAutre();
 initPrecautionsAucune();
+updateOrientationHelp();
 
 toggleSubgroup("renforcement_musculaire", "renforcement_musculaire_subgroup");
 toggleSubgroup("souplesse_mobilite", "souplesse_mobilite_subgroup");
 toggleSubgroup("equilibre", "equilibre_subgroup");
+
+
+const orientationToggle =
+  document.getElementById("orientation_ap_toggle");
+
+const orientationSubgroup =
+  document.getElementById("orientation_ap_subgroup");
+
+if (orientationToggle && orientationSubgroup) {
+
+  orientationSubgroup.style.display =
+  orientationToggle.checked
+    ? "block"
+    : "none";
+
+  orientationToggle.addEventListener("change", function() {
+
+    orientationSubgroup.style.display =
+      orientationToggle.checked
+        ? "block"
+        : "none";
+
+  });
+
+}
 
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
@@ -4572,7 +4791,20 @@ function getPathoValues() {
   return Array.from(document.querySelectorAll(".patho:checked"))
     .map(el => el.value);
 }
-    
+  
+function updateOrientationHelp() {
+
+  const helpContent =
+    document.getElementById(
+      "orientation_help_content"
+    );
+
+  if (!helpContent) return;
+
+  helpContent.innerHTML =
+    "Aucun point particulier identifié.";
+}
+
 function runHAS(model){
 
   const reco = {
@@ -5668,7 +5900,7 @@ const nom =
 const dureePrescription =
   document.querySelector('input[name="duree_prescription"]')?.value || "";
 
-console.log("DUREE ORDO =", dureePrescription);
+
   return `
 
 <div style="
@@ -7197,6 +7429,40 @@ const consignesPas =
   prescriptionModel.activites = [];
   prescriptionModel.objectifs = [];
   prescriptionModel.limitations = [];
+  prescriptionModel.recommandations = [];
+  prescriptionModel.orientationAPA = {
+  active: false,
+  orientations: [],
+  commentaire: ""
+};
+
+  const pathologiesSelectionnees =
+  document.querySelectorAll(".patho:checked");
+
+pathologiesSelectionnees.forEach(patho => {
+
+  const data =
+    PATHO_DATA[patho.value];
+
+  if (!data) return;
+
+  if (Array.isArray(data.adaptations)) {
+
+    prescriptionModel.recommandations.push(
+      ...data.adaptations
+    );
+
+  }
+
+  if (Array.isArray(data.regles)) {
+
+    prescriptionModel.recommandations.push(
+      ...data.regles
+    );
+
+  }
+
+});
 
   const objectifsSelectionnes =
   document.querySelectorAll(
@@ -7250,6 +7516,46 @@ precautionsSelectionnees.forEach(precaution => {
   );
 
 });
+
+const orientationToggle =
+  document.getElementById(
+    "orientation_ap_toggle"
+  );
+
+if (
+  orientationToggle &&
+  orientationToggle.checked
+) {
+
+  prescriptionModel.orientationAPA.active = true;
+
+  const orientationsSelectionnees =
+    document.querySelectorAll(
+      'input[name="orientation_ap"]:checked'
+    );
+
+  orientationsSelectionnees.forEach(orientation => {
+
+    prescriptionModel.orientationAPA.orientations.push(
+      orientation.value
+    );
+
+  });
+
+  const orientationCommentaire =
+    document.querySelector(
+      'textarea[name="orientation_commentaire"]'
+    );
+
+  if (
+    orientationCommentaire &&
+    orientationCommentaire.value.trim()
+  ) {
+
+    prescriptionModel.orientationAPA.commentaire =
+      orientationCommentaire.value.trim();
+  }
+}
 
   prescriptionModel.duree_prescription =
   document.querySelector('input[name="duree_prescription"]')?.value || "";
@@ -7512,13 +7818,7 @@ document.querySelectorAll('input, textarea').forEach(el => {
         e.target.name === "crc_mode"
       ) {
 
-        console.log(
-  "updateHAS trigger",
-  e.target,
-  e.target.name,
-  e.target.className
-);
-        updateHAS();
+           updateHAS();
       }
 
     });

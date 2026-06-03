@@ -11,12 +11,17 @@ const DEFAULT_PRESCRIPTION_MODEL = {
 
   limitations: [],
 
-  orientationAPA: {
-    necessaire: false,
-    professionnel: "",
-    encadrement: "",
-    niveauSupervision: ""
-  },
+orientationAPA: {
+
+  necessaire: false,
+
+  criteres: [],
+
+  orientations: [],
+
+  commentaire: ""
+
+},
 
   texteLibreFinal: "",
 
