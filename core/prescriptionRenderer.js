@@ -229,9 +229,39 @@ if (
   }
 }
 
-  return encadrement
+  let textePrescription = encadrement
   ? `Une activité physique régulière est prescrite ${encadrement} : ${liste}.`
   : `Une activité physique régulière est prescrite : ${liste}.`;
+
+if (
+  orientation &&
+  orientation.bilanSouhaite
+) {
+
+  textePrescription +=
+    " Un bilan de condition et de capacités physiques est souhaité.";
+}
+
+if (
+  orientation &&
+  orientation.consentementPartage
+) {
+
+  textePrescription +=
+    " Le patient a été informé du partage des informations nécessaires avec le professionnel encadrant et son accord oral a été recueilli.";
+}
+
+if (
+  orientation &&
+  orientation.commentaire &&
+  orientation.commentaire.trim()
+) {
+
+  textePrescription +=
+    ` ${orientation.commentaire.trim()}`;
+}
+
+return textePrescription;
 }
 
 function generatePrescriptionText(model) {
