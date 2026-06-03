@@ -1688,6 +1688,18 @@ placeholder="Préciser..."
 
 </div>
 
+<div
+  style="
+    margin-top:12px;
+    margin-bottom:12px;
+    font-weight:700;
+    font-size:1rem;
+    color:#1f2937;
+  "
+>
+Prescription d’activité physique
+</div>
+
 <!-- ================= AEROBIE ================= -->
 <div class="sub-group">
 
@@ -1922,7 +1934,20 @@ placeholder="Préciser..."
 
 </div>
 
-<hr style="margin:18px 0 14px 0; opacity:0.25;">
+<!-- ================= ORIENTATION ========= -->
+<div
+  style="
+    margin-top:18px;
+    margin-bottom:12px;
+    padding-top:10px;
+    border-top:1px solid #e5e7eb;
+    font-weight:700;
+    font-size:1rem;
+    color:#1f2937;
+  "
+>
+Orientation / encadrement
+</div>
 
 <div class="sub-group">
 
@@ -1940,15 +1965,14 @@ placeholder="Préciser..."
   id="orientation_ap_toggle"
 >
 
-<h3
-  class="black-text"
+<span
   style="
-    margin:0;
-    font-weight:700;
+    font-weight:600;
+    color:#111827;
   "
 >
 Orientation AP spécifique (optionnel)
-</h3>
+</span>
 
 </div>
 
@@ -2112,10 +2136,22 @@ Commentaire complémentaire :
 </div>
 
 </div>
+</div>
 
 <!-- ================= FICHES ================= -->
-<div class="sub-group">
-  <h3 class="black-text">Des fiches de promotion d'activité physique :</h3>
+<div
+  style="
+    margin-top:18px;
+    margin-bottom:12px;
+    padding-top:10px;
+    border-top:1px solid #e5e7eb;
+    font-weight:700;
+    font-size:1rem;
+    color:#1f2937;
+  "
+>
+Ressources / fiches AP
+</div>
 
   <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
 
@@ -5649,7 +5685,8 @@ ${decisionBloc}
 ` : ""}
 
 <p>
-Les objectifs de cette prescription d’activité physique sont : ${model.therapeutic_plan.objectif_principal || "à préciser"}.
+Les objectifs de cette prescription d’activité physique sont :
+${buildObjectivesBlock(model)}.
 </p>
 
 <p>
@@ -5695,6 +5732,8 @@ ${rcvBloc}
 ${decisionBloc}
 
 Les objectifs principaux sont :
+${buildObjectivesBlock(model)}.
+
 ${prescriptionBloc}
 
 ${crcPathoBloc}
@@ -5747,7 +5786,7 @@ ${decisionBloc}
 ` : ""}
 
 <p><strong>Objectifs :</strong><br>
-${model.therapeutic_plan.objectif_principal || "À préciser."}</p>
+${buildObjectivesBlock(model)}</p>
 
 <p><strong>Prescription :</strong><br>
 ${prescriptionBloc}</p>
@@ -5828,7 +5867,7 @@ ${decisionBloc}
 
 <p>
 Lors de l’échange que vous avez eu avec votre médecin, l’objectif principal retenu en termes d’activité physique est :
-<strong>${model.therapeutic_plan.objectif_principal || "à définir progressivement ensemble"}</strong>.
+<strong>${buildObjectivesBlock(model)}</strong>.
 </p>
 
 <p>
@@ -7719,10 +7758,18 @@ if (equilibreFrequence) {
       leviers: document.querySelector('textarea[name="leviers"]')?.value || null
     },
 
-    therapeutic_plan: {
-      objectif_principal: document.querySelector('textarea[name="objectifs_ap"]')?.value || null,
-      indicateur_cible_libre: null
-    },
+therapeutic_plan: {
+
+  objectifs:
+    prescriptionModel.objectifs,
+
+  objectif_principal:
+    document.querySelector(
+      'textarea[name="objectifs_ap"]'
+    )?.value || null,
+
+  indicateur_cible_libre: null
+},
 
     prescription: {
   aerobie: {
@@ -8654,6 +8701,62 @@ if (phrases.length === 0) {
 return phrases.join(" ");
 }
   
+function buildObjectivesBlock(model) {
+
+const objectifs =
+  model.therapeutic_plan.objectifs || [];
+
+  if (!objectifs.length) {
+    return "Objectifs à préciser.";
+  }
+
+  const mappingObjectifs = {
+
+  augmenter_ap:
+    "augmenter le niveau global d’activité physique",
+
+  reduire_sedentarite:
+    "réduire la sédentarité",
+
+  controle_maladie:
+    "améliorer le contrôle d’une maladie chronique",
+
+  condition_physique:
+    "améliorer la condition physique",
+
+  capacites_cardio:
+    "améliorer les capacités cardiorespiratoires",
+
+  force:
+    "renforcer la force musculaire",
+
+  equilibre:
+    "améliorer l’équilibre et prévenir les chutes",
+
+  autonomie:
+    "préserver ou restaurer l’autonomie",
+
+  limitation:
+    "réduire une limitation fonctionnelle",
+
+  qualite_vie:
+    "améliorer la qualité de vie",
+
+  bien_etre:
+    "améliorer le bien-être psychologique"
+};
+
+  const objectifsFormates =
+    objectifs.map(obj => {
+
+      return mappingObjectifs[obj] || obj;
+
+    });
+
+  return objectifsFormates.join(", ");
+
+}
+
  function copyPatientLink() {
 
   const url = "https://zgqwa4.short.gy/auto-eval-ap";
