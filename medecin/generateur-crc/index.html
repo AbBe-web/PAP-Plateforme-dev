@@ -2124,6 +2124,41 @@ Niv 4 :
 
 </div>
 
+<div
+  id="consentement_partage_block"
+  style="
+    display:none;
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid #e5e7eb;
+  "
+>
+
+<label
+  style="
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    line-height:1.35;
+  "
+>
+
+<input
+  type="checkbox"
+  id="consentement_partage_apa"
+  style="margin-top:3px;"
+>
+
+<span>
+Patient informé du partage des informations
+nécessaires avec le professionnel encadrant
+et accord oral recueilli.
+</span>
+
+</label>
+
+</div>
+
 <label style="display:block;margin-top:12px;">
 Commentaire complémentaire :
 </label>
@@ -4387,6 +4422,52 @@ if (orientationToggle && orientationSubgroup) {
 
 }
 
+document
+  .querySelectorAll(
+    'input[name="orientation_ap"]'
+  )
+  .forEach(el => {
+
+    el.addEventListener(
+      "change",
+      function() {
+
+        const checked =
+          Array.from(
+            document.querySelectorAll(
+              'input[name="orientation_ap"]:checked'
+            )
+          ).map(el => el.value);
+
+        const consentementBlock =
+          document.getElementById(
+            "consentement_partage_block"
+          );
+
+        const afficher =
+          checked.some(o =>
+            [
+              "apa",
+              "educateur",
+              "kine",
+              "ergo",
+              "psychomot"
+            ].includes(o)
+          );
+
+        if (consentementBlock) {
+
+          consentementBlock.style.display =
+            afficher
+              ? "block"
+              : "none";
+        }
+
+      }
+    );
+
+  });
+
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
 document.getElementById("sixmois-subgroup")?.classList.add("hidden");
@@ -5547,7 +5628,11 @@ function buildCRCPathoBloc(mode = "long") {
     parts.push(`${items.join(", ")} (${label})`);
   });
 
-  const itemsText = parts.join(", ");
+  const uniqueParts =
+  [...new Set(parts)];
+
+const itemsText =
+  uniqueParts.join(", ");
 
   const nbPathos = pathoKeys.length;
   const nbItems = parts.length;
@@ -7470,9 +7555,12 @@ const consignesPas =
   prescriptionModel.limitations = [];
   prescriptionModel.recommandations = [];
   prescriptionModel.orientationAPA = {
+
   active: false,
   orientations: [],
-  commentaire: ""
+  commentaire: "",
+  consentementPartage: false
+
 };
 
   const pathologiesSelectionnees =
@@ -7573,6 +7661,35 @@ if (
       'input[name="orientation_ap"]:checked'
     );
 
+  const checkedOrientations =
+  Array.from(
+    orientationsSelectionnees
+  ).map(el => el.value);
+
+const consentementBlock =
+  document.getElementById(
+    "consentement_partage_block"
+  );
+
+const afficherConsentement =
+  checkedOrientations.some(o =>
+    [
+      "apa",
+      "educateur",
+      "kine",
+      "ergo",
+      "psychomot"
+    ].includes(o)
+  );
+
+if (consentementBlock) {
+
+  consentementBlock.style.display =
+    afficherConsentement
+      ? "block"
+      : "none";
+}
+
   orientationsSelectionnees.forEach(orientation => {
 
     prescriptionModel.orientationAPA.orientations.push(
@@ -7580,6 +7697,11 @@ if (
     );
 
   });
+
+  prescriptionModel.orientationAPA.consentementPartage =
+  document.getElementById(
+    "consentement_partage_apa"
+  )?.checked || false;
 
   const orientationCommentaire =
     document.querySelector(
@@ -8754,6 +8876,22 @@ const objectifs =
     });
 
   return objectifsFormates.join(", ");
+
+}
+
+function buildRecommendationsBlock() {
+
+  const recommandations =
+    prescriptionModel.recommandations || [];
+
+  if (!recommandations.length) {
+    return "";
+  }
+
+  const recommandationsUniques =
+    [...new Set(recommandations)];
+
+  return recommandationsUniques.join(" ; ");
 
 }
 

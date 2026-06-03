@@ -173,7 +173,65 @@ case "equilibre": {
     + activitesTextes[activitesTextes.length - 1];
 }
 
-  return `Une activité physique régulière est prescrite : ${liste}.`;
+let encadrement = "";
+
+const orientation =
+  prescriptionModel.orientationAPA;
+
+if (
+  orientation &&
+  orientation.active &&
+  Array.isArray(orientation.orientations) &&
+  orientation.orientations.length > 0
+) {
+
+  const mapping = {
+
+    autonome:
+      "en autonomie",
+
+    educateur:
+      "avec encadrement par un éducateur sportif",
+
+    apa:
+      "dans le cadre d’un programme d’activité physique adaptée",
+
+    kine:
+      "avec supervision par un kinésithérapeute",
+
+    ergo:
+      "avec accompagnement ergothérapeutique",
+
+    psychomot:
+      "avec accompagnement psychomoteur"
+  };
+
+  const orientations =
+    orientation.orientations
+      .map(o => mapping[o] || o);
+
+  if (orientations.length === 1) {
+
+    encadrement =
+      orientations[0];
+
+  } else if (orientations.length === 2) {
+
+    encadrement =
+      orientations.join(" ou ");
+
+  } else {
+
+    encadrement =
+      orientations.slice(0, -1).join(", ")
+      + " ou "
+      + orientations[orientations.length - 1];
+  }
+}
+
+  return encadrement
+  ? `Une activité physique régulière est prescrite ${encadrement} : ${liste}.`
+  : `Une activité physique régulière est prescrite : ${liste}.`;
 }
 
 function generatePrescriptionText(model) {
