@@ -2403,6 +2403,10 @@ Ressources / fiches AP
 <script src="../../core/prescriptionSync.js"></script>
 <script src="../../core/prescriptionRenderer.js"></script>
 
+<script src="../../core/clinical-context/context-schema.js"></script>
+<script src="../../core/clinical-context/resource-registry.js"></script>
+<script src="../../core/clinical-context/computeClinicalContext.js"></script>
+
 <script>
     
 /* =====================================
@@ -5438,7 +5442,14 @@ function getSelectedCRC(){
   }
 
   requestAnimationFrame(() => {
+
 clinicalModel = buildClinicalModel();
+
+const clinicalContext =
+  computeClinicalContext(
+    clinicalModel
+  );
+
 consultationState.reportGenerated = true;
 consultationState.reportDirty = false;
 
@@ -5463,7 +5474,11 @@ if (resetSection) {
 document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
 document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
 
-   renderActiveMode({ scroll: true });
+   renderActiveMode({
+  clinicalModel,
+  clinicalContext,
+  scroll: true
+});
 
   }, 40);
 }
@@ -6282,9 +6297,19 @@ ${conseilsPatho ? `
                
 function renderActiveMode(options = {}) {
 
-  const { scroll = false } = options;
+  const {
+    clinicalModel: explicitClinicalModel,
+    clinicalContext,
+    scroll = false
+  } = options;
 
-  if (!clinicalModel) return;
+  const model =
+    explicitClinicalModel || clinicalModel;
+
+  const context =
+    clinicalContext || null;
+
+  if (!model) return;
 
   savedScrollPosition = window.scrollY;
 
@@ -6296,23 +6321,23 @@ function renderActiveMode(options = {}) {
 
   switch (activeMode) {
     case "long":
-      html = renderLongLetterV2(clinicalModel);
+  html = renderLongLetterV2(model);
       break;
 
     case "paragraph":
-      html = renderParagraphVersion(clinicalModel);
+      html = renderParagraphVersion(model);
       break;
 
     case "medical":
-      html = renderMedicalRecord(clinicalModel);
+      html = renderMedicalRecord(model);
       break;
 
     case "patient":
-      html = renderPatientVersion(clinicalModel);
+      html = renderPatientVersion(model);
       break;
 
      case "ordonnance":
-  html = renderOrdonnanceAP(clinicalModel);
+  html = renderOrdonnanceAP(model);
   break; 
   }
 
