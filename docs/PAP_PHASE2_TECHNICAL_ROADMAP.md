@@ -1059,4 +1059,182 @@ et
 structurellement supervisée par l’humain.
 
 
-NB : ajout : 
+# PHASE 2B — CONTEXT ORCHESTRATION STRATEGY
+
+## 1. Réévaluation architecture PHASE 2
+
+L’analyse approfondie des pipelines réels PAP modifie la compréhension de la PHASE 2.
+
+Découverte majeure :
+
+PAP possède déjà implicitement :
+
+* un knowledge layer ;
+* un state layer ;
+* des renderers spécialisés ;
+* une architecture multi-sorties ;
+* une orchestration documentaire centrale.
+
+La priorité PHASE 2 n’est donc PAS :
+
+* la frameworkisation ;
+* la réécriture renderer ;
+* la modularisation UI ;
+* la refonte massive.
+
+La priorité réelle devient :
+
+centralisation progressive de la contextualisation clinique/documentaire.
+
+## 2. Dette architecture principale identifiée
+
+La dette architecture principale PAP est désormais identifiée comme :
+
+contextualisation clinique/documentaire dispersée.
+
+Cette dispersion concerne principalement :
+
+* vigilance ;
+* précautions ;
+* adaptations ;
+* supervision ;
+* recommandations ;
+* ressources ;
+* documents patient ;
+* QR resources ;
+* contextualisation patient/médecin.
+
+Les principaux moteurs hybrides identifiés sont :
+
+* buildPrescription()
+* buildCRCPathoBloc()
+* buildDecisionBloc()
+
+## 3. computeClinicalContext()
+
+La PHASE 2 introduit progressivement un nouveau composant central :
+
+computeClinicalContext()
+
+Positionnement cible :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+computeClinicalContext()
+↓
+renderers spécialisés
+↓
+documents multi-sorties
+
+computeClinicalContext() doit progressivement centraliser :
+
+* vigilance ;
+* supervision ;
+* adaptations ;
+* recommandations ;
+* ressources ;
+* documents patients ;
+* QR resources ;
+* outils médecin ;
+* modules formation.
+
+Contraintes obligatoires :
+
+* déterminisme ;
+* explicabilité ;
+* absence automatisation décisionnelle ;
+* human-in-the-loop by design ;
+* recommendation layer ≠ decision layer.
+
+## 4. Stratégie de migration validée
+
+La migration PHASE 2 doit être réalisée sous forme de surcouche progressive.
+
+Règles impératives :
+
+* absence de big rewrite ;
+* absence de rupture pipeline clinique ;
+* absence de rupture renderer ;
+* absence de rupture DSR ;
+* absence de rupture prescriptionModel ;
+* absence de rupture buildClinicalModel() ;
+* absence de frameworkisation prématurée.
+
+Stratégie validée :
+
+1. création computeClinicalContext() minimal ;
+2. injection contexte optionnelle dans renderers ;
+3. migration progressive vigilance ;
+4. migration progressive supervision ;
+5. migration progressive adaptations ;
+6. migration progressive ressources ;
+7. suppression progressive duplications anciennes.
+
+## 5. Resource governance
+
+Les ressources PAP sont désormais considérées comme composant architecture stratégique.
+
+Objectifs :
+
+* éviter duplication documentaire ;
+* éviter chaos QR ;
+* éviter divergence patient/médecin ;
+* préparer architecture formation ;
+* préparer architecture consultation ;
+* préparer architecture longitudinal ;
+* préparer architecture multi-sorties.
+
+Les ressources doivent rester :
+
+* déterministes ;
+* contextualisables ;
+* auditables ;
+* gouvernées ;
+* compatibles supervision humaine.
+
+## 6. Renderers spécialisés
+
+Les renderers PAP doivent progressivement évoluer vers un rôle de consommateurs de contexte clinique/documentaire.
+
+Responsabilités conservées :
+
+* génération HTML ;
+* adaptation linguistique ;
+* adaptation patient/médecin ;
+* structuration documentaire ;
+* export documentaire.
+
+Responsabilités progressivement externalisées :
+
+* vigilance ;
+* recommandations ;
+* ressources ;
+* supervision ;
+* adaptations ;
+* contextualisation clinique.
+
+## 7. Sprint technique initial recommandé
+
+Sprint technique recommandé :
+
+### Objectifs
+
+* créer /core/clinical-context/ ;
+* introduire computeClinicalContext() minimal ;
+* préparer structure vigilance/resources/adaptations ;
+* préserver pipeline actuel ;
+* préserver renderers actuels.
+
+### Hors périmètre
+
+* refonte renderer ;
+* migration complète ;
+* framework state ;
+* optimisation globale ;
+* réécriture PATHO_DATA ;
+* moteur décisionnel.
+
