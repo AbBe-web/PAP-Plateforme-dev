@@ -414,6 +414,47 @@ Sprint 3 :
 - enrichissements CMAP ;
 - enrichissements ordonnance APA.
 
-====================================================================
+=====================================================
+# PHASE 2 — MULTI-OUTPUT CONTEXTUALIZED PLATFORM
+
+Le projet PAP doit désormais être considéré comme :
+
+une plateforme clinique documentaire contextualisée orientée aide cognitive structurée.
+
+Le système possède désormais :
+
+* une architecture multi-sorties ;
+* une orchestration documentaire centrale ;
+* des renderers spécialisés ;
+* une contextualisation clinique progressive ;
+* une gouvernance ressources/documentation.
+
+Sorties actuellement identifiées :
+
+* courrier médecin ;
+* paragraphe synthétique ;
+* dossier médical ;
+* document patient ;
+* ordonnance d’activité physique.
+
+Sorties futures préparées :
+
+* QR resources ;
+* consultation augmentée ;
+* modules formation ;
+* exports contextualisés ;
+* longitudinal clinique ;
+* ressources patient contextualisées ;
+* ressources médecin contextualisées.
+
+La PHASE 2 introduit progressivement une orchestration clinique/documentaire centralisée via :
+
+computeClinicalContext()
+
+Objectif stratégique :
+
+faire émerger une source commune de contextualisation clinique/documentaire multi-sorties.
+
+===============
 FIN DOCUMENT
 ====================================================================
