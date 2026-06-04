@@ -81,6 +81,10 @@ Objectifs fonctionnels réels :
 * vigilance contextuelle
 * supervision humaine implicite
 
+- contextualisation documentaire clinique ;
+- orchestration ressources contextualisées ;
+- architecture multi-sorties contextualisées.
+
 ====================================================================
 3. ARCHITECTURE GLOBALE OBSERVÉE
 ================================
@@ -311,6 +315,13 @@ PATHO_DATA ne doit jamais :
 * gérer workflow UI
 * contenir logique renderer
 
+NB : Le système évolue également vers un Resource Knowledge Layer destiné à contextualiser :
+- documents patient ;
+- QR ressources ;
+- aides consultation ;
+- contenus formation ;
+- ressources médecin ;
+- ressources pédagogiques.
 ====================================================================
 10. CLINICAL REASONING LAYER
 ============================
@@ -487,6 +498,8 @@ State Layer
 ≠
 Manipulation DOM
 
+NB : Resource Layer :
+fournit ressources contextualisées multi-sorties.
 ====================================================================
 14. STATE MUTATION MAP
 ======================

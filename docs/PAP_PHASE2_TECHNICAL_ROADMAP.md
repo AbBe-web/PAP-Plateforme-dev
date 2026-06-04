@@ -384,6 +384,186 @@ Possibilités futures :
 * clinical review workflow
 
 ====================================================================
+10B. RESOURCE GOVERNANCE
+========================
+
+La bibliothèque de ressources constitue désormais :
+un composant architecture stratégique du système PAP.
+
+Le système évolue progressivement vers :
+une plateforme de contextualisation clinique et documentaire déterministe.
+
+====================================================================
+10B.1 OBJECTIFS
+===============
+
+Les ressources doivent pouvoir alimenter de manière cohérente :
+
+* ordonnance APA ;
+* ordonnance simple ;
+* CRC ;
+* documents patient ;
+* QR codes ;
+* aides cognitives consultation ;
+* outils médecin ;
+* module formation ;
+* exports ;
+* longitudinal futur.
+
+====================================================================
+10B.2 RISQUES MAJEURS
+=====================
+
+Risques principaux :
+
+* chaos documentaire ;
+* duplication ressources ;
+* contextualisation incohérente ;
+* pipelines documentaires parallèles ;
+* dette documentaire invisible ;
+* divergence contenu patient/médecin ;
+* ressources non gouvernées ;
+* perte traçabilité ;
+* duplication vigilance/adaptations.
+
+====================================================================
+10B.3 OBJECTIF STRUCTUREL
+=========================
+
+Éviter que chaque renderer :
+
+* ordonnance ;
+* patient ;
+* QR ;
+* consultation ;
+* formation ;
+* export ;
+
+développe sa propre logique documentaire indépendante.
+
+Objectif :
+centraliser progressivement la contextualisation documentaire via :
+computeClinicalContext().
+
+====================================================================
+10B.4 CIBLE FUTURE
+==================
+
+Le contexte clinique/documentaire central doit progressivement produire :
+
+```js id="7qv9hu"
+{
+  vigilance: [],
+  precautions: [],
+  adaptations: [],
+  supervision: [],
+  recommandations: [],
+  education: [],
+
+  resources: [],
+  patientDocuments: [],
+  clinicianTools: [],
+  trainingModules: [],
+  qrResources: []
+}
+```
+
+====================================================================
+10B.5 RESOURCE MODEL MINIMAL
+============================
+
+Le système devra progressivement converger vers un modèle ressource gouverné.
+
+Exemple minimal cible :
+
+```js id="ny08m7"
+{
+  id,
+  type,
+  audience,
+  pathologies,
+  objectifs,
+  tags,
+  format,
+  source,
+  version,
+  relatedResources
+}
+```
+
+====================================================================
+10B.6 CONDITIONS
+================
+
+Toute ressource devra rester :
+
+* déterministe ;
+* contextualisable ;
+* traçable ;
+* audit-able ;
+* compatible supervision humaine ;
+* non décisionnelle ;
+* compatible multi-sorties.
+
+====================================================================
+10B.7 MULTI-OUTPUT ARCHITECTURE
+===============================
+
+Les ressources doivent progressivement pouvoir être consommées par :
+
+* ordonnance ;
+* patient ;
+* consultation ;
+* QR ;
+* formation ;
+* longitudinal ;
+* exports.
+
+Le contexte clinique/documentaire central doit devenir :
+la source commune de contextualisation.
+
+====================================================================
+10B.8 CONDITIONS ARCHITECTURE
+=============================
+
+Les renderers ne doivent pas :
+
+* embarquer leur propre logique documentaire complexe ;
+* dupliquer les règles de contextualisation ;
+* devenir des sources documentaires indépendantes.
+
+La contextualisation documentaire doit progressivement être :
+centralisée ;
+gouvernée ;
+mutualisée.
+
+====================================================================
+10B.9 COMPATIBILITÉ FUTURE
+==========================
+
+La gouvernance ressources doit préserver la compatibilité future avec :
+
+* supervision clinique ;
+* moteur médicaments ;
+* vigilance avancée ;
+* longitudinal ;
+* analytics descriptifs ;
+* architecture modulaire ;
+* formation contextualisée ;
+* QR dynamiques ;
+* exports structurés.
+
+====================================================================
+10B.10 PRIORITÉ PHASE 2
+=======================
+
+La resource governance constitue désormais :
+une priorité structurelle phase 2.
+
+Objectif :
+préparer une architecture clinique/documentaire cohérente avant expansion fonctionnelle massive.
+
+====================================================================
 11. CLINICAL RULE GOVERNANCE
 ============================
 
@@ -877,3 +1057,6 @@ audit-able,
 explicable,
 et
 structurellement supervisée par l’humain.
+
+
+NB : ajout : 

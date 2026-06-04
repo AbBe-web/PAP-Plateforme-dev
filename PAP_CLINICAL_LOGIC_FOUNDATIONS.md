@@ -1,3 +1,10 @@
+Ce document constitue une synthèse simplifiée des principes cliniques fondamentaux PAP.
+
+Les références architecture officielles du système sont désormais :
+- PAP_ARCHITECTURE_MAP_V1.md
+- PAP_PHASE2_TECHNICAL_ROADMAP.md
+- ARCHITECTURE_AUDIT_2026.md
+
 # ARCHITECTURE CLINIQUE PAP
 
 ## 1. Objectif
