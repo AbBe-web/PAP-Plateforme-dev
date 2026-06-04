@@ -890,3 +890,171 @@ stabiliser
 et
 faire évoluer
 une architecture clinique déjà mature.
+
+
+# PHASE 2 — CONTEXT ORCHESTRATION ARCHITECTURE
+
+## 1. Architecture réelle consolidée
+
+L’analyse des pipelines réels PAP confirme l’architecture logique suivante :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+renderers spécialisés
+↓
+documents multi-sorties
+
+Renderers actuellement identifiés :
+
+* renderLongLetterV2()
+* renderParagraphVersion()
+* renderMedicalRecord()
+* renderPatientVersion()
+* renderOrdonnanceAP()
+
+Le système doit désormais être considéré comme :
+
+* knowledge-driven ;
+* state-based ;
+* orchestration-based ;
+* renderer-oriented ;
+* multi-output ;
+* déterministe ;
+* explicable ;
+* audit-able ;
+* compatible supervision humaine.
+
+## 2. Knowledge layer identifié
+
+PATHO_DATA est désormais reconnu comme knowledge layer clinique/documentaire implicite.
+
+Ce composant contient déjà :
+
+* recommandations contextualisées ;
+* ressources CRC ;
+* éléments pathologies ;
+* contextualisation documentaire.
+
+Conséquence :
+
+La PHASE 2 ne nécessite PAS la création d’un nouveau moteur de connaissance clinique.
+
+La priorité architecture devient :
+
+centralisation de la contextualisation clinique/documentaire.
+
+## 3. Context orchestration layer cible
+
+La PHASE 2 introduit progressivement un nouveau composant central :
+
+computeClinicalContext()
+
+Positionnement cible :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+computeClinicalContext()
+↓
+renderers spécialisés
+↓
+documents multi-sorties
+
+Responsabilités cibles :
+
+* vigilance ;
+* précautions ;
+* adaptations ;
+* supervision ;
+* recommandations ;
+* ressources ;
+* documents patient ;
+* QR resources ;
+* outils médecin ;
+* modules formation.
+
+Règles architecture :
+
+* aucune automatisation décisionnelle ;
+* recommendation layer ≠ decision layer ;
+* supervision humaine obligatoire ;
+* human-in-the-loop by design ;
+* déterminisme obligatoire ;
+* explicabilité obligatoire.
+
+## 4. Renderers spécialisés
+
+Les renderers PAP doivent progressivement devenir des consommateurs de contexte clinique/documentaire centralisé.
+
+Responsabilités des renderers :
+
+* contextualisation linguistique ;
+* adaptation patient/médecin ;
+* rendu documentaire ;
+* génération HTML ;
+* structuration documentaire ;
+* export documentaire.
+
+Les renderers ne doivent PAS devenir :
+
+* moteurs décisionnels ;
+* moteurs de recommandations ;
+* moteurs de vigilance ;
+* moteurs de supervision ;
+* moteurs de ressources.
+
+## 5. Moteurs hybrides identifiés
+
+Les composants suivants sont identifiés comme moteurs hybrides critiques :
+
+* buildPrescription()
+* buildCRCPathoBloc()
+* buildDecisionBloc()
+
+Ces composants mélangent actuellement :
+
+* logique clinique ;
+* accès knowledge layer ;
+* contextualisation documentaire ;
+* logique ressources ;
+* logique patient/médecin ;
+* rendu documentaire.
+
+Ces composants constituent les cibles prioritaires de migration progressive vers computeClinicalContext().
+
+## 6. Stratégie de migration validée
+
+La stratégie PHASE 2 validée est :
+
+surcouche progressive
+et NON
+refonte massive.
+
+Règles de migration :
+
+* préserver buildClinicalModel() ;
+* préserver prescriptionModel ;
+* préserver renderers existants ;
+* préserver pipeline documentaire ;
+* préserver DSR ;
+* préserver stabilité clinique ;
+* éviter toute rupture fonctionnelle.
+
+Ordre de migration cible :
+
+1. introduction computeClinicalContext() minimal ;
+2. migration vigilance ;
+3. migration supervision ;
+4. migration adaptations ;
+5. migration ressources ;
+6. migration QR/document ;
+7. migration formation ;
+8. optimisation renderer progressive.
+
