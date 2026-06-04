@@ -6243,3 +6243,186 @@ AUDIT MAJEUR TERMINÉ
 
 ```
 ```
+# POST-AUDIT ARCHITECTURE FINDINGS — PHASE 2
+
+## 1. Découverte architecture majeure
+
+L’analyse approfondie des pipelines réels PAP confirme que le système possède déjà implicitement une architecture clinique multi-couches structurée.
+
+Architecture observée :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+renderers spécialisés
+↓
+documents multi-sorties
+
+Les renderers identifiés :
+
+* renderLongLetterV2()
+* renderParagraphVersion()
+* renderMedicalRecord()
+* renderPatientVersion()
+* renderOrdonnanceAP()
+
+Le système doit désormais être considéré comme :
+
+* knowledge-driven ;
+* state-based ;
+* renderer-oriented ;
+* multi-output ;
+* déterministe ;
+* explicable ;
+* compatible supervision humaine ;
+* compatible aide cognitive structurée.
+
+La PHASE 2 ne correspond donc PAS à une reconstruction architecture mais à une orchestration explicite d’une architecture déjà partiellement émergente.
+
+## 2. Orchestrateur documentaire identifié
+
+renderActiveMode() est désormais identifié comme orchestrateur documentaire central.
+
+Responsabilités observées :
+
+* sélection du renderer actif ;
+* orchestration multi-sorties ;
+* gestion preview ;
+* gestion conversion texte ;
+* gestion export ;
+* gestion mode actif.
+
+Pipeline observé :
+
+renderActiveMode()
+↓
+renderer spécialisé
+↓
+sous-blocs cliniques
+↓
+HTML / texte
+
+Conséquence architecture :
+
+Les renderers PAP sont déjà spécialisés et relativement découplés.
+Le principal problème architecture ne réside pas dans les renderers eux-mêmes mais dans les sous-moteurs hybrides cliniques/documentaires.
+
+## 3. Moteurs hybrides critiques identifiés
+
+Les composants suivants sont désormais identifiés comme moteurs hybrides critiques :
+
+* buildPrescription()
+* buildCRCPathoBloc()
+* buildDecisionBloc()
+
+Ces composants mélangent actuellement :
+
+* logique clinique ;
+* contextualisation ;
+* accès knowledge layer ;
+* accès DOM ;
+* logique ressources ;
+* logique patient/médecin ;
+* génération documentaire ;
+* rendu HTML/texte.
+
+Conséquence :
+
+La dette architecture principale PAP est désormais identifiée comme :
+
+contextualisation clinique/documentaire dispersée.
+
+Et NON :
+
+* monolithe HTML ;
+* absence de modularité renderer ;
+* absence de framework ;
+* absence de composants UI.
+
+## 4. PATHO_DATA reconnu comme knowledge layer implicite
+
+L’analyse de buildCRCPathoBloc() confirme que PATHO_DATA constitue déjà un knowledge layer clinique implicite.
+
+PATHO_DATA contient déjà :
+
+* recommandations contextualisées ;
+* ressources CRC ;
+* éléments pathologies ;
+* contextualisation documentaire.
+
+Conséquence architecture :
+
+La PHASE 2 ne doit PAS recréer un moteur de connaissance clinique.
+
+Le besoin principal est désormais :
+
+computeClinicalContext()
+
+comme couche d’orchestration et de contextualisation centralisée entre :
+
+knowledge layer
+↓
+renderers
+
+## 5. Positionnement validé de computeClinicalContext()
+
+Positionnement cible validé :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+computeClinicalContext()
+↓
+renderers spécialisés
+↓
+documents
+
+computeClinicalContext() doit progressivement centraliser :
+
+* vigilance ;
+* adaptations ;
+* supervision ;
+* recommandations ;
+* ressources ;
+* documents patients ;
+* QR resources ;
+* outils médecin ;
+* modules formation.
+
+Règle architecture validée :
+
+computeClinicalContext() = orchestration contextuelle.
+
+computeClinicalContext() ≠ moteur décisionnel.
+
+computeClinicalContext() ≠ renderer.
+
+computeClinicalContext() ≠ automatisation clinique.
+
+## 6. Stratégie PHASE 2 validée
+
+La stratégie PHASE 2 validée est :
+
+orchestration progressive
+et NON
+refonte massive.
+
+Principes validés :
+
+* absence de big rewrite ;
+* absence de frameworkisation prématurée ;
+* migration incrémentale ;
+* préservation pipeline clinique existant ;
+* préservation renderers existants ;
+* préservation DSR ;
+* préservation déterminisme ;
+* human-in-the-loop by design.
+
+La migration doit être réalisée sous forme de surcouche progressive et non de remplacement des pipelines existants.
+
