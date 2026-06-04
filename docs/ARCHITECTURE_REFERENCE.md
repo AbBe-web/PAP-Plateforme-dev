@@ -423,3 +423,44 @@ Avant toute modification structurelle :
 * médecin décisionnaire final ;
 * architecture modulaire évolutive ;
 * stabilité clinique prioritaire.
+
+## Context orchestration layer (PHASE 2)
+
+La PHASE 2 introduit progressivement un composant central :
+
+computeClinicalContext()
+
+Positionnement cible :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+computeClinicalContext()
+↓
+renderers spécialisés
+↓
+documents multi-sorties
+
+Responsabilités cibles :
+
+* vigilance ;
+* précautions ;
+* adaptations ;
+* supervision ;
+* recommandations ;
+* ressources ;
+* documents patient ;
+* QR resources ;
+* clinician tools ;
+* training modules.
+
+Contraintes obligatoires :
+
+* déterminisme ;
+* explicabilité ;
+* supervision humaine ;
+* recommendation layer ≠ decision layer ;
+* absence automatisation décisionnelle.
