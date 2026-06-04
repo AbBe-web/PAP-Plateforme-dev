@@ -447,3 +447,30 @@ Renderer
 Documents
 
 Risque architecture Sprint 1 : FAIBLE.
+
+# IMPACT PHASE 2 IDENTIFIÉ
+
+L’analyse architecture post-audit confirme que Sprint 1 reste compatible avec la future PHASE 2 architecture.
+
+Découvertes majeures :
+
+* renderActiveMode() identifié comme orchestrateur documentaire ;
+* renderers spécialisés déjà présents ;
+* architecture multi-sorties déjà émergente ;
+* PATHO_DATA identifié comme knowledge layer implicite ;
+* buildPrescription() identifié comme moteur hybride ;
+* buildCRCPathoBloc() identifié comme moteur hybride.
+
+Conséquence :
+
+La PHASE 2 ne nécessitera PAS une réécriture Sprint 1 mais une orchestration contextuelle progressive.
+
+Aucun refactoring renderer massif n’est requis pour Sprint 1.
+
+Aucune rupture pipeline clinique n’est requise.
+
+computeClinicalContext() est désormais prévu comme future couche d’orchestration contextuelle située entre :
+
+buildClinicalModel()
+↓
+renderers spécialisés
