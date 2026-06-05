@@ -5833,7 +5833,10 @@ lines.push(`${short} : ${items.join(", ")}`);
   return "";
 }
     
-      function renderLongLetterV2(model) {
+function renderLongLetterV2(
+  model,
+  clinicalContext = null
+) {
 
   const p = model.patient;
           
@@ -6309,8 +6312,8 @@ function renderActiveMode(options = {}) {
   const model =
     explicitClinicalModel || clinicalModel;
 
-  const context =
-    clinicalContext || null;
+const context =
+  clinicalContext || computeClinicalContext(model);
 
   if (!model) return;
 
@@ -6324,7 +6327,11 @@ function renderActiveMode(options = {}) {
 
   switch (activeMode) {
     case "long":
-  html = renderLongLetterV2(model);
+   html = renderLongLetterV2(
+  model,
+  context
+);
+
       break;
 
     case "paragraph":
