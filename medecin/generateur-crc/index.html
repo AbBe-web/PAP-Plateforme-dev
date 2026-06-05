@@ -5733,41 +5733,75 @@ function buildContextRecommendationsBloc(
     return "";
   }
 
- const recommendations =
-  clinicalContext?.recommandations || [];
+  const recommendations =
+    clinicalContext?.recommandations || [];
 
-const precautions =
-  clinicalContext?.precautions || [];
+  const precautions =
+    clinicalContext?.precautions || [];
 
-const adaptations =
-  clinicalContext?.adaptations || [];
+  const adaptations =
+    clinicalContext?.adaptations || [];
 
-const merged =
-  [
-    ...recommendations,
-    ...precautions,
-    ...adaptations
-  ];
+  const precautionsMessages =
+    precautions
+      .map(item => item.message)
+      .filter((message, index, array) =>
+        array.indexOf(message) === index
+      );
 
-  if (!merged.length) {
-    return "";
+  const adaptationsMessages =
+    adaptations
+      .map(item => item.message)
+      .filter((message, index, array) =>
+        array.indexOf(message) === index
+      );
+
+  const recommendationsMessages =
+    recommendations
+      .map(item => item.message)
+      .filter((message, index, array) =>
+        array.indexOf(message) === index
+      );
+
+  let parts = [];
+
+  if (precautionsMessages.length === 1) {
+    parts.push(
+      `Point de vigilance : ${precautionsMessages[0]}`
+    );
   }
 
-const messages =
-  merged
-    .map(item => item.message)
-    .filter((message, index, array) =>
-      array.indexOf(message) === index
+  if (precautionsMessages.length > 1) {
+    parts.push(
+      `Points de vigilance : ${precautionsMessages.join(" ")}`
     );
+  }
 
-if (messages.length === 1) {
-  return `Point de vigilance : ${messages[0]}`;
-}
+  if (adaptationsMessages.length === 1) {
+    parts.push(
+      `Adaptation proposée : ${adaptationsMessages[0]}`
+    );
+  }
 
-return (
-  "Points de vigilance : "
-  + messages.join(" ")
-);
+  if (adaptationsMessages.length > 1) {
+    parts.push(
+      `Adaptations proposées : ${adaptationsMessages.join(" ")}`
+    );
+  }
+
+  if (recommendationsMessages.length === 1) {
+    parts.push(
+      `Recommandation contextuelle : ${recommendationsMessages[0]}`
+    );
+  }
+
+  if (recommendationsMessages.length > 1) {
+    parts.push(
+      `Recommandations contextuelles : ${recommendationsMessages.join(" ")}`
+    );
+  }
+
+  return parts.join(" ");
 }
 
 function buildCRCPathoBloc(
