@@ -5866,7 +5866,11 @@ function renderLongLetterV2(
 const rcvBloc = buildRCV(model);
 const decisionBloc = buildDecisionBloc(model);
 const prescriptionBloc = buildPrescription(model);
-const crcPathoBloc = buildCRCPathoBloc("long");
+const crcPathoBloc =
+  buildCRCPathoBloc(
+    "long",
+    clinicalContext
+  );
 const antecedentsBloc =
   buildAntecedentsBloc();
 const traitementsBloc = buildTraitementsBloc();
