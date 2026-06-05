@@ -5948,6 +5948,12 @@ const crcPathoBloc =
     "long",
     clinicalContext
   );
+
+  const contextRecommendationsBloc =
+  buildContextRecommendationsBloc(
+    clinicalContext
+  );
+
 const antecedentsBloc =
   buildAntecedentsBloc();
 const traitementsBloc = buildTraitementsBloc();
@@ -6005,6 +6011,13 @@ ${crcPathoBloc ? `
 ${crcPathoBloc}
 </p>
 ` : ""}
+
+${contextRecommendationsBloc ? `
+<p>
+${contextRecommendationsBloc}
+</p>
+` : ""}
+
 
 <p>
 J’espère que cette consultation l’aidera à augmenter son niveau d’activité physique en toute sécurité et à en tirer des bénéfices perceptibles à court et moyen terme.
