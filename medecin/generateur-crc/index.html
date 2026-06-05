@@ -5761,6 +5761,24 @@ function buildCRCPathoBloc(
 
     const hasCRCResources =
   crcResources.length > 0;
+
+  function renderCRCResources(
+  resources
+) {
+
+  if (!resources || resources.length === 0) {
+    return "";
+  }
+
+  return resources
+    .map(resource => resource.id)
+    .join(", ");
+}
+
+const crcResourcesText =
+  renderCRCResources(
+    crcResources
+  );
   
   // 🔹 construire texte : groupé par pathologie
   let parts = [];
