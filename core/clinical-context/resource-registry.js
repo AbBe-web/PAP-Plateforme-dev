@@ -3,6 +3,9 @@
 const RESOURCE_REGISTRY = [
   {
     id: "hta-auto-mesure",
+    label:
+  "fiche d’automesure tensionnelle",
+  
     type: "patient-document",
 
     audience: ["patient"],

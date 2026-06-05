@@ -5771,7 +5771,9 @@ function buildCRCPathoBloc(
   }
 
   return resources
-    .map(resource => resource.id)
+.map(resource =>
+  resource.label || resource.id
+)
     .join(", ");
 }
 
@@ -5779,7 +5781,7 @@ const crcResourcesText =
   renderCRCResources(
     crcResources
   );
-  
+
   // 🔹 construire texte : groupé par pathologie
   let parts = [];
 
@@ -5840,10 +5842,15 @@ lines.push(`${short} : ${items.join(", ")}`);
   `;
 }
   // 🎯 COURRIER COMPLET
-  if (mode === "long") {
+if (mode === "long") {
 
-    return `Les recommandations spécifiques en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.`;
-  }
+  const resourcesSuffix =
+    hasCRCResources && crcResourcesText
+      ? ` Ressource(s) associée(s) disponible(s) : ${crcResourcesText}.`
+      : "";
+
+  return `Les recommandations spécifiques en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.${resourcesSuffix}`;
+}
 
   // 🎯 PARAGRAPHE
   if (mode === "paragraph") {
