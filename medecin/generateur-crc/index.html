@@ -5751,6 +5751,16 @@ function buildCRCPathoBloc(
   const pathoKeys = Object.keys(grouped);
   if (pathoKeys.length === 0) return "";
 
+  const crcResources =
+  clinicalContext
+    ? getContextResourcesByOutput(
+        clinicalContext,
+        "crc"
+      )
+    : [];
+
+    console.log("CRC resources", crcResources);
+    
   // 🔹 construire texte : groupé par pathologie
   let parts = [];
 
