@@ -5750,16 +5750,20 @@ const merged =
   }
 
 const messages =
-  merged.map(
-    item =>
-      item.message
-  );
+  merged
+    .map(item => item.message)
+    .filter((message, index, array) =>
+      array.indexOf(message) === index
+    );
 
 if (messages.length === 1) {
-  return messages[0];
+  return `Point de vigilance : ${messages[0]}`;
 }
 
-return messages.join(" ");
+return (
+  "Points de vigilance : "
+  + messages.join(" ")
+);
 }
 
 function buildCRCPathoBloc(
