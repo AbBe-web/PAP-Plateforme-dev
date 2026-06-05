@@ -73,7 +73,7 @@ if (
   pathologies.includes("dt2")
 ) {
 
-  context.recommandations.push({
+  context.precautions.push({
     type: "surveillance",
     source: "pathologie:diabete",
 
