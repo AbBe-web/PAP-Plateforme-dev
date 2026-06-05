@@ -66,6 +66,15 @@ if (pathologies.includes("hta")) {
     message:
       "Surveillance de la tolérance tensionnelle pendant l’activité physique."
   });
+
+context.adaptations.push({
+  type: "endurance",
+
+  source: "pathologie:hta",
+
+  message:
+    "Privilégier les activités d’endurance régulières."
+});
 }
 
 if (

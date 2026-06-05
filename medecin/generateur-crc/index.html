@@ -5739,10 +5739,14 @@ function buildContextRecommendationsBloc(
 const precautions =
   clinicalContext?.precautions || [];
 
+const adaptations =
+  clinicalContext?.adaptations || [];
+
 const merged =
   [
     ...recommendations,
-    ...precautions
+    ...precautions,
+    ...adaptations
   ];
 
   if (!merged.length) {
