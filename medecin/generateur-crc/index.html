@@ -5724,6 +5724,34 @@ function buildCRCResourcesSentence(
   return ` Une ressource patient associée peut être remise ou proposée : ${resourcesText}.`;
 }
 
+function buildContextRecommendationsBloc(
+  clinicalContext,
+  type = "surveillance"
+) {
+
+  if (!clinicalContext) {
+    return "";
+  }
+
+  const recommendations =
+    getContextRecommendationsByType(
+      clinicalContext,
+      type
+    );
+
+  if (!recommendations.length) {
+    return "";
+  }
+
+  const messages =
+    recommendations.map(
+      recommendation =>
+        recommendation.message
+    );
+
+  return messages.join(" ");
+}
+
 function buildCRCPathoBloc(
   mode = "long",
   clinicalContext = null
