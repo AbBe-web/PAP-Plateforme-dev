@@ -104,6 +104,24 @@ function getContextResourcesByOutput(
   );
 }
 
+function getContextRecommendationsByType(
+  clinicalContext,
+  type
+) {
+
+  if (!clinicalContext?.recommandations) {
+    return [];
+  }
+
+  return clinicalContext.recommandations.filter(
+    recommendation =>
+      recommendation.type === type
+  );
+}
+
+window.getContextRecommendationsByType =
+  getContextRecommendationsByType;
+  
 window.getContextResourcesByOutput =
   getContextResourcesByOutput;
 
