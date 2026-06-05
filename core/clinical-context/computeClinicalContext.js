@@ -42,6 +42,35 @@ function computeClinicalContext(
     });
   }
 
+/*
+ * RECOMMANDATIONS CONTEXTUELLES
+ */
+
+if (pathologies.includes("hta")) {
+
+  context.recommandations.push({
+    type: "surveillance",
+    source: "pathologie:hta",
+
+    message:
+      "Surveillance de la tolérance tensionnelle pendant l’activité physique."
+  });
+}
+
+if (
+  pathologies.includes("diabete") ||
+  pathologies.includes("dt2")
+) {
+
+  context.recommandations.push({
+    type: "surveillance",
+    source: "pathologie:diabete",
+
+    message:
+      "Surveillance des symptômes évocateurs d’hypoglycémie pendant l’activité physique."
+  });
+}
+
   /*
    * RESOURCES
    */
@@ -77,6 +106,6 @@ function getContextResourcesByOutput(
 
 window.getContextResourcesByOutput =
   getContextResourcesByOutput;
-  
+
 window.computeClinicalContext =
   computeClinicalContext;
