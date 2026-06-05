@@ -9002,30 +9002,7 @@ function buildDecisionBloc(
     );
   }
 
-const decisionText =
-  phrases.join(" ");
-
-if (!clinicalContext) {
-  return decisionText;
-}
-
-const precautions =
-  clinicalContext.precautions || [];
-
-if (!precautions.length) {
-  return decisionText;
-}
-
-const contextualMessages =
-  precautions.map(
-    item => item.message
-  );
-
-return (
-  decisionText
-  + " "
-  + contextualMessages.join(" ")
-);
+return phrases.join(" ");
 }    
     
     function buildPrescription(model) {
