@@ -61,5 +61,22 @@ function computeClinicalContext(
   return context;
 }
 
+function getContextResourcesByOutput(
+  clinicalContext,
+  output
+) {
+
+  if (!clinicalContext?.resources) {
+    return [];
+  }
+
+  return clinicalContext.resources.filter(resource =>
+    resource.outputs?.includes(output)
+  );
+}
+
+window.getContextResourcesByOutput =
+  getContextResourcesByOutput;
+  
 window.computeClinicalContext =
   computeClinicalContext;
