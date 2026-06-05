@@ -8006,6 +8006,10 @@ if (equilibreFrequence) {
   markPrescriptionDirty();
 }
 
+const pathologies =
+  Array.from(pathologiesSelectionnees)
+    .map(patho => patho.value);
+
   return {
 
     meta: {
@@ -8014,11 +8018,12 @@ if (equilibreFrequence) {
 
     situation: document.querySelector('input[name="situation"]:checked')?.value || null,
 
-    patient: {
+   patient: {
   sexe: document.querySelector('input[name="sexe"]:checked')?.value || "homme",
   questionnaire: document.querySelector('input[name="questionnaire"]:checked')?.value || null,
   pas_moyens: document.querySelector('input[name="nombre_pas"]')?.value || null,
-  heures_assises: document.querySelector('input[name="heures_assises"]')?.value || null
+  heures_assises: document.querySelector('input[name="heures_assises"]')?.value || null,
+  pathologies
 },
 
    evaluation: {

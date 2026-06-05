@@ -1,0 +1,594 @@
+# CODEBASE_MAP
+
+Statut : DOCUMENT DE NAVIGATION CODEBASE
+Objectif : fournir une cartographie pragmatique du code réel PAP afin de réduire la charge cognitive, accélérer les futurs développements et préserver les boundaries architecture.
+
+Références :
+
+* ARCHITECTURE_REFERENCE.md
+* ARCHITECTURE_AUDIT_2026.md
+* PAP_ARCHITECTURE_MAP_V1.md
+* PAP_PHASE2_TECHNICAL_ROADMAP.md
+* PHASE2_CONTEXT_ORCHESTRATION_STRATEGY.md
+
+---
+
+# 1. OBJECTIF DU DOCUMENT
+
+Ce document ne vise PAS :
+
+* l’exhaustivité ;
+* la documentation développeur complète ;
+* la documentation framework ;
+* la description détaillée de chaque fonction.
+
+Ce document vise :
+
+* navigation rapide ;
+* compréhension architecture réelle ;
+* localisation logique clinique ;
+* réduction perte de contexte ;
+* réduction charge cognitive ;
+* aide aux futurs chantiers Phase 2.
+
+---
+
+# 2. PIPELINE GLOBAL ACTUEL
+
+Architecture observée :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+renderActiveMode()
+↓
+renderer spécialisé
+↓
+sous-blocs cliniques/documentaires
+↓
+HTML / texte
+↓
+exports / documents
+
+---
+
+# 3. COMPOSANTS CENTRAUX IDENTIFIÉS
+
+| Composant            | Rôle principal                      | Type                      |
+| -------------------- | ----------------------------------- | ------------------------- |
+| buildClinicalModel() | construit l’état clinique central   | state builder             |
+| renderActiveMode()   | orchestration documentaire centrale | orchestrateur             |
+| clinicalModel        | état clinique principal             | state                     |
+| prescriptionModel    | état prescription structuré         | state                     |
+| PATHO_DATA           | connaissances pathologies / CRC     | knowledge layer implicite |
+| renderedOutput       | sortie documentaire active          | render state              |
+
+---
+
+# 4. ORCHESTRATEUR DOCUMENTAIRE CENTRAL
+
+## renderActiveMode()
+
+Responsabilités :
+
+* sélection du renderer actif ;
+* orchestration multi-sorties ;
+* injection HTML ;
+* conversion texte ;
+* gestion preview ;
+* gestion export ;
+* gestion mode actif.
+
+Pipeline observé :
+
+renderActiveMode()
+↓
+renderer spécialisé
+↓
+HTML
+↓
+renderedOutput
+
+Modes actuellement identifiés :
+
+| Mode       | Renderer                 |
+| ---------- | ------------------------ |
+| long       | renderLongLetterV2()     |
+| paragraph  | renderParagraphVersion() |
+| medical    | renderMedicalRecord()    |
+| patient    | renderPatientVersion()   |
+| ordonnance | renderOrdonnanceAP()     |
+
+---
+
+# 5. RENDERERS SPÉCIALISÉS
+
+## renderLongLetterV2(model)
+
+Type :
+courrier médecin détaillé.
+
+Responsabilités :
+
+* structuration courrier long ;
+* contextualisation médecin ;
+* assemblage blocs cliniques ;
+* rendu HTML.
+
+Consomme :
+
+* buildEvaluationAP()
+* buildMotivation()
+* buildRCV()
+* buildDecisionBloc()
+* buildPrescription()
+* buildCRCPathoBloc()
+* buildAntecedentsBloc()
+* buildTraitementsBloc()
+* buildObjectivesBlock()
+
+---
+
+## renderParagraphVersion(model)
+
+Type :
+paragraphe synthétique médecin.
+
+Responsabilités :
+
+* synthèse courte ;
+* contextualisation médecin ;
+* assemblage rapide blocs cliniques.
+
+---
+
+## renderMedicalRecord(model)
+
+Type :
+synthèse dossier médical / DPI.
+
+Responsabilités :
+
+* structuration dossier médical ;
+* formulation dossier ;
+* synthèse clinique structurée.
+
+---
+
+## renderPatientVersion(model)
+
+Type :
+document patient contextualisé.
+
+Responsabilités :
+
+* adaptation langage patient ;
+* recommandations patient ;
+* QR/document patient ;
+* contextualisation motivationnelle ;
+* pédagogie consultation.
+
+Particularités :
+
+* forte adaptation linguistique ;
+* logique progressivité ;
+* ressources patient ;
+* QR codes.
+
+---
+
+## renderOrdonnanceAP(model)
+
+Type :
+ordonnance activité physique.
+
+Responsabilités :
+
+* structuration ordonnance ;
+* affichage prescription ;
+* intégration conseils pathologies ;
+* intégration QR ressources ;
+* rendu ordonnance imprimable.
+
+---
+
+# 6. SOUS-BLOCS CLINIQUES MAJEURS
+
+## buildEvaluationAP()
+
+Rôle :
+
+* évaluation activité physique ;
+* classification activité ;
+* synthèse consultation AP.
+
+Type :
+moteur clinique/documentaire.
+
+---
+
+## buildMotivation()
+
+Rôle :
+
+* synthèse motivationnelle ;
+* stade motivationnel ;
+* contextualisation comportementale.
+
+---
+
+## buildRCV()
+
+Rôle :
+
+* synthèse risque cardiovasculaire ;
+* contextualisation RCV.
+
+---
+
+## buildObjectivesBlock()
+
+Rôle :
+
+* formulation objectifs activité physique ;
+* contextualisation objectifs consultation.
+
+---
+
+## buildAntecedentsBloc()
+
+Rôle :
+
+* synthèse antécédents ;
+* contextualisation médicale.
+
+---
+
+## buildTraitementsBloc()
+
+Rôle :
+
+* synthèse traitements ;
+* contextualisation thérapeutique.
+
+---
+
+# 7. MOTEURS HYBRIDES CRITIQUES IDENTIFIÉS
+
+## buildPrescription()
+
+Type :
+moteur hybride critique.
+
+Mélange actuellement :
+
+* logique prescription ;
+* logique patient/médecin ;
+* contextualisation documentaire ;
+* accès DOM ;
+* accès PATHO_DATA ;
+* logique CRC ;
+* logique ressources ;
+* génération documentaire.
+
+Dette architecture identifiée :
+
+contextualisation clinique/documentaire dispersée.
+
+Candidat majeur migration Phase 2.
+
+---
+
+## buildCRCPathoBloc()
+
+Type :
+moteur hybride critique.
+
+Responsabilités actuelles :
+
+* lecture pathologies sélectionnées ;
+* accès PATHO_DATA ;
+* sélection CRC ;
+* contextualisation patient/médecin ;
+* contextualisation ordonnance ;
+* structuration recommandations pathologies ;
+* rendu HTML/texte.
+
+Mélanges identifiés :
+
+* knowledge ;
+* state ;
+* DOM ;
+* render ;
+* ressources.
+
+Candidat majeur :
+
+future orchestration ressources/contextualisation.
+
+---
+
+## buildDecisionBloc()
+
+Type :
+moteur hybride critique probable.
+
+Responsabilités suspectées :
+
+* vigilance ;
+* supervision ;
+* recommandations complémentaires ;
+* contextualisation sécurité ;
+* orientation consultation.
+
+Candidat probable :
+
+future couche supervision/adaptations/vigilance.
+
+---
+
+# 8. KNOWLEDGE LAYER
+
+## PATHO_DATA
+
+Type :
+knowledge layer implicite.
+
+Contient déjà :
+
+* recommandations contextualisées ;
+* ressources CRC ;
+* titres pathologies ;
+* contextualisation documentaire ;
+* connaissances pathologies.
+
+Important :
+
+La PHASE 2 ne doit PAS recréer un moteur de connaissance clinique.
+
+---
+
+# 9. STATE PRINCIPAL
+
+## clinicalModel
+
+Rôle :
+
+source principale de données cliniques structurées.
+
+Contient notamment :
+
+* patient ;
+* motivation ;
+* évaluation ;
+* prescription ;
+* métadonnées consultation.
+
+Pipeline :
+
+DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+
+---
+
+## prescriptionModel
+
+Rôle :
+
+structure dédiée prescription activité physique.
+
+Utilisé notamment par :
+
+* generatePrescriptionCRC()
+* generatePrescriptionPatient()
+* renderOrdonnanceAP()
+
+Important :
+
+composant critique à préserver durant PHASE 2.
+
+---
+
+# 10. DETTE ARCHITECTURE PRINCIPALE IDENTIFIÉE
+
+Dette principale :
+
+contextualisation clinique/documentaire dispersée.
+
+La dette ne concerne PAS principalement :
+
+* absence framework ;
+* absence composants UI ;
+* absence modularité renderer.
+
+La dette concerne principalement :
+
+* IF/THEN dispersés ;
+* logique clinique renderer ;
+* accès DOM dans moteurs cliniques ;
+* contextualisation dupliquée ;
+* ressources dispersées ;
+* vigilance dispersée ;
+* supervision dispersée.
+
+---
+
+# 11. PHASE 2 — CIBLE VALIDÉE
+
+Objectif principal :
+
+faire émerger progressivement :
+
+computeClinicalContext()
+
+Positionnement cible :
+
+UI / DOM
+↓
+buildClinicalModel()
+↓
+clinicalModel
+↓
+computeClinicalContext()
+↓
+renderers spécialisés
+↓
+documents multi-sorties
+
+---
+
+# 12. RESPONSABILITÉS FUTURES computeClinicalContext()
+
+Responsabilités cibles :
+
+* vigilance ;
+* précautions ;
+* adaptations ;
+* supervision ;
+* recommandations ;
+* ressources ;
+* documents patient ;
+* clinician tools ;
+* training modules ;
+* QR resources.
+
+Exemple cible :
+
+```js id="cbm1"
+{
+  vigilance: [],
+  precautions: [],
+  adaptations: [],
+  supervision: [],
+  recommandations: [],
+
+  resources: [],
+  patientDocuments: [],
+  clinicianTools: [],
+  trainingModules: [],
+  qrResources: []
+}
+```
+
+---
+
+# 13. BOUNDARIES ARCHITECTURE VALIDÉS
+
+## Renderers
+
+Responsabilités :
+
+* rendu HTML ;
+* adaptation linguistique ;
+* structuration documentaire ;
+* contextualisation patient/médecin.
+
+Ne doivent PAS devenir :
+
+* moteurs décisionnels ;
+* moteurs vigilance ;
+* moteurs supervision ;
+* moteurs ressources.
+
+---
+
+## computeClinicalContext()
+
+Responsabilités :
+
+* orchestration contextuelle ;
+* contextualisation clinique ;
+* agrégation ressources ;
+* vigilance ;
+* supervision.
+
+Ne doit PAS devenir :
+
+* moteur décisionnel autonome ;
+* validation automatique ;
+* prescription automatique.
+
+---
+
+## PATHO_DATA
+
+Responsabilités :
+
+* connaissances ;
+* ressources ;
+* recommandations contextualisées.
+
+Ne doit PAS :
+
+* contenir logique DOM ;
+* contenir logique renderer.
+
+---
+
+# 14. STRATÉGIE PHASE 2 VALIDÉE
+
+Stratégie validée :
+
+surcouche progressive
+et NON
+refonte massive.
+
+Contraintes impératives :
+
+* absence big rewrite ;
+* absence rupture renderer ;
+* absence rupture DSR ;
+* absence rupture pipeline clinique ;
+* déterminisme obligatoire ;
+* supervision humaine obligatoire.
+
+---
+
+# 15. FUTURS CHANTIERS IDENTIFIÉS
+
+## Court terme
+
+* computeClinicalContext() minimal ;
+* resource registry minimal ;
+* séparation progressive knowledge/context/render ;
+* réduction accès DOM moteurs hybrides.
+
+---
+
+## Moyen terme
+
+* architecture vigilance ;
+* architecture supervision ;
+* architecture QR/resources ;
+* architecture consultation ;
+* architecture formation.
+
+---
+
+## Long terme
+
+* longitudinal ;
+* consultation contextualisée ;
+* ressources dynamiques ;
+* supervision clinique enrichie ;
+* multi-sorties étendues.
+
+---
+
+# 16. RÈGLE PRATIQUE FUTURE
+
+Avant toute évolution importante :
+
+1. identifier couche concernée ;
+2. vérifier boundaries ;
+3. vérifier impact renderer ;
+4. vérifier impact DSR ;
+5. vérifier impact déterminisme ;
+6. privilégier migration incrémentale ;
+7. éviter refactor massif.

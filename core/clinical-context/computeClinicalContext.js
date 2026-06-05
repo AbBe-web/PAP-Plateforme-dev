@@ -1,4 +1,15 @@
 // core/clinical-context/computeClinicalContext.js
+
+function addVigilance(context, item) {
+
+  context.vigilance.push({
+    type: item.type,
+    level: item.level || "information",
+    source: item.source || "clinical-context",
+    message: item.message
+  });
+}
+
 function computeClinicalContext(
   clinicalModel
 ) {
@@ -17,11 +28,15 @@ function computeClinicalContext(
    * VIGILANCE MINIMALE
    */
 
-  if (pathologies.includes("diabete")) {
+ if (
+  pathologies.includes("diabete") ||
+  pathologies.includes("dt2")
+) {
 
-    context.vigilance.push({
+    addVigilance(context, {
       type: "hypoglycemie",
       level: "information",
+      source: "pathologie:diabete",
       message:
         "Surveillance des symptômes évocateurs d’hypoglycémie pendant l’activité physique."
     });
