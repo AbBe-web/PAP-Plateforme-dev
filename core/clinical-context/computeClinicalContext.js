@@ -41,6 +41,17 @@ function computeClinicalContext(
         "Surveillance des symptômes évocateurs d’hypoglycémie pendant l’activité physique."
     });
   }
+/*
+ * FUTURE CONTEXT CATEGORIES
+ */
+
+// TODO Phase 2:
+// migrer progressivement vers :
+// - context.precautions
+// - context.adaptations
+// - context.supervision
+// selon le type clinique réel
+
 
 /*
  * RECOMMANDATIONS CONTEXTUELLES
@@ -48,7 +59,7 @@ function computeClinicalContext(
 
 if (pathologies.includes("hta")) {
 
-  context.recommandations.push({
+  context.precautions.push({
     type: "surveillance",
     source: "pathologie:hta",
 
@@ -121,7 +132,7 @@ function getContextRecommendationsByType(
 
 window.getContextRecommendationsByType =
   getContextRecommendationsByType;
-  
+
 window.getContextResourcesByOutput =
   getContextResourcesByOutput;
 

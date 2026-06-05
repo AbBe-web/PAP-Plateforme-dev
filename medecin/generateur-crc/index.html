@@ -5733,23 +5733,33 @@ function buildContextRecommendationsBloc(
     return "";
   }
 
-  const recommendations =
-    getContextRecommendationsByType(
-      clinicalContext,
-      type
-    );
+ const recommendations =
+  clinicalContext?.recommandations || [];
 
-  if (!recommendations.length) {
+const precautions =
+  clinicalContext?.precautions || [];
+
+const merged =
+  [
+    ...recommendations,
+    ...precautions
+  ];
+
+  if (!merged.length) {
     return "";
   }
 
-  const messages =
-    recommendations.map(
-      recommendation =>
-        recommendation.message
-    );
+const messages =
+  merged.map(
+    item =>
+      item.message
+  );
 
-  return messages.join(" ");
+if (messages.length === 1) {
+  return messages[0];
+}
+
+return messages.join(" ");
 }
 
 function buildCRCPathoBloc(
