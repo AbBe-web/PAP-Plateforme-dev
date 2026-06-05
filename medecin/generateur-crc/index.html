@@ -5712,6 +5712,18 @@ const traitements =
 return `Le traitement actuel comprend : ${traitements}.`;
 }
 
+function buildCRCResourcesSentence(
+  hasResources,
+  resourcesText
+) {
+
+  if (!hasResources || !resourcesText) {
+    return "";
+  }
+
+  return ` Une ressource patient associée peut être remise ou proposée : ${resourcesText}.`;
+}
+
 function buildCRCPathoBloc(
   mode = "long",
   clinicalContext = null
@@ -5845,9 +5857,10 @@ lines.push(`${short} : ${items.join(", ")}`);
 if (mode === "long") {
 
   const resourcesSuffix =
-    hasCRCResources && crcResourcesText
-      ? ` Ressource(s) associée(s) disponible(s) : ${crcResourcesText}.`
-      : "";
+  buildCRCResourcesSentence(
+    hasCRCResources,
+    crcResourcesText
+  );
 
   return `Les recommandations spécifiques en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.${resourcesSuffix}`;
 }
