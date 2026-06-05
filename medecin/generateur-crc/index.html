@@ -6019,13 +6019,20 @@ ${crcPathoBloc}
 </p>
 `;
 }
-            function renderMedicalRecord(model) {
+function renderMedicalRecord(
+  model,
+  clinicalContext = null
+) {
 
   const evaluationBloc = buildEvaluationAP(model);
   const motivationBloc = buildMotivation(model);
   const rcvBloc = buildRCV(model);
   const prescriptionBloc = buildPrescription(model);
-  const crcPathoBloc = buildCRCPathoBloc("medical");
+const crcPathoBloc =
+  buildCRCPathoBloc(
+    "medical",
+    clinicalContext
+  );
   const antecedentsBloc = buildAntecedentsBloc();
   const traitementsBloc = buildTraitementsBloc();
   const decisionBloc = buildDecisionBloc(model);
@@ -6077,7 +6084,10 @@ ${crcPathoBloc}
 ` : ""}
 `;
 }
-         function renderPatientVersion(model) {
+function renderPatientVersion(
+  model,
+  clinicalContext = null
+) {
 
   const evaluationBloc = buildEvaluationAP(model)
     .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
@@ -6100,7 +6110,12 @@ const prescriptionBloc = buildPrescription({ ...model, context: "patient" })
   .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
   .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
 
-const crcPathoBloc = buildCRCPathoBloc("patient");
+const crcPathoBloc =
+  buildCRCPathoBloc(
+    "patient",
+    clinicalContext
+  );
+
   // 🔹 Message progressivité seulement si insuffisamment actif ou actif depuis moins de 6 mois
 const progressiviteMessage = (() => {
 
@@ -6392,11 +6407,17 @@ const context =
       break;
 
     case "medical":
-      html = renderMedicalRecord(model);
+html = renderMedicalRecord(
+  model,
+  context
+);
       break;
 
     case "patient":
-      html = renderPatientVersion(model);
+  html = renderPatientVersion(
+  model,
+  context
+);
       break;
 
      case "ordonnance":
