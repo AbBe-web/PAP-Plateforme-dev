@@ -5712,7 +5712,10 @@ const traitements =
 return `Le traitement actuel comprend : ${traitements}.`;
 }
 
-function buildCRCPathoBloc(mode = "long") {
+function buildCRCPathoBloc(
+  mode = "long",
+  clinicalContext = null
+) {
 
   const selectedPathos = Array.from(document.querySelectorAll(".patho:checked"));
 
