@@ -5955,7 +5955,11 @@ function renderLongLetterV2(
   const evaluationBloc = buildEvaluationAP(model);
   const motivationBloc = buildMotivation(model);
 const rcvBloc = buildRCV(model);
-const decisionBloc = buildDecisionBloc(model);
+const decisionBloc =
+  buildDecisionBloc(
+    model,
+    clinicalContext
+  );
 const prescriptionBloc = buildPrescription(model);
 const crcPathoBloc =
   buildCRCPathoBloc(
@@ -8917,7 +8921,10 @@ phrase += ".";
 
 }
            
-function buildDecisionBloc(model) {
+function buildDecisionBloc(
+  model,
+  clinicalContext = null
+) {
 
   let elementsPreconises = [];
   let elementsPossibles = [];
@@ -8995,7 +9002,30 @@ function buildDecisionBloc(model) {
     );
   }
 
-  return phrases.join(" ");
+const decisionText =
+  phrases.join(" ");
+
+if (!clinicalContext) {
+  return decisionText;
+}
+
+const precautions =
+  clinicalContext.precautions || [];
+
+if (!precautions.length) {
+  return decisionText;
+}
+
+const contextualMessages =
+  precautions.map(
+    item => item.message
+  );
+
+return (
+  decisionText
+  + " "
+  + contextualMessages.join(" ")
+);
 }    
     
     function buildPrescription(model) {
