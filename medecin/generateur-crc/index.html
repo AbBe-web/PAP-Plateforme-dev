@@ -5785,24 +5785,49 @@ return item.message.replace(
 
   let parts = [];
 
- if (precautionsMessages.length > 0) {
+ if (precautions.length > 0) {
 
-  const formattedPrecautions =
-    precautionsMessages.map(message =>
-      message.replace(/\.$/, "")
+  const groupedPrecautions = {};
+
+  precautions.forEach(item => {
+
+    const label =
+      item.sourceLabel || "Général";
+
+    if (!groupedPrecautions[label]) {
+      groupedPrecautions[label] = [];
+    }
+
+    groupedPrecautions[label].push(
+      item.message.replace(/\.$/, "")
+    );
+  });
+
+  const precautionParts =
+    Object.entries(groupedPrecautions).map(
+      ([label, messages]) => {
+
+        const formattedMessages =
+          messages.map(message =>
+            message.charAt(0).toLowerCase()
+            + message.slice(1)
+          );
+
+        const sentence =
+          formattedMessages.length === 1
+            ? formattedMessages[0]
+            : formattedMessages.slice(0, -1).join(", ")
+              + " et "
+              + formattedMessages.at(-1);
+
+        return `${sentence} (${label})`;
+      }
     );
 
-  const precautionsSentence =
-    formattedPrecautions.length === 1
-      ? formattedPrecautions[0]
-      : formattedPrecautions.slice(0, -1).join(", ")
-        + " et "
-        + formattedPrecautions.at(-1);
-
   parts.push(
-    formattedPrecautions.length === 1
-      ? `Point de vigilance : ${precautionsSentence}.`
-      : `Points de vigilance : ${precautionsSentence}.`
+    precautionParts.length === 1
+      ? `Point de vigilance : ${precautionParts.join(" ; ")}.`
+      : `Points de vigilance : ${precautionParts.join(" ; ")}.`
   );
 }
 
