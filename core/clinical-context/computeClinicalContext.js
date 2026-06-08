@@ -101,6 +101,17 @@ if (
     message:
       "Surveillance des symptômes évocateurs d’hypoglycémie pendant l’activité physique."
   });
+
+  context.adaptations.push({
+  type: "nutrition",
+
+  source: "pathologie:diabete",
+
+  sourceLabel: "DT2",
+
+  message:
+    "adapter les apports alimentaires à l’activité."
+});
 }
 
   /*
