@@ -75,8 +75,17 @@ context.adaptations.push({
   message:
     "Privilégier les activités d’endurance régulières."
 });
-}
 
+  context.adaptations.push({
+    type: "intensity",
+
+    source: "pathologie:hta",
+
+    message:
+      "Adapter progressivement l’intensité selon la tolérance tensionnelle."
+  });
+}
+  
 if (
   pathologies.includes("diabete") ||
   pathologies.includes("dt2")
