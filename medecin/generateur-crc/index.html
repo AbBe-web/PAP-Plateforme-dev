@@ -5744,14 +5744,34 @@ function buildContextRecommendationsBloc(
 
   const precautionsMessages =
     precautions
-      .map(item => item.message)
+      .map(item => {
+        const label =
+          item.sourceLabel
+            ? ` (${item.sourceLabel})`
+            : "";
+
+return item.message.replace(
+  /\.$/,
+  `${label}.`
+);
+      })
       .filter((message, index, array) =>
         array.indexOf(message) === index
       );
 
   const adaptationsMessages =
     adaptations
-      .map(item => item.message)
+      .map(item => {
+        const label =
+          item.sourceLabel
+            ? ` (${item.sourceLabel})`
+            : "";
+
+        return item.message.replace(
+          /\.$/,
+          `${label}.`
+        );
+      })
       .filter((message, index, array) =>
         array.indexOf(message) === index
       );
@@ -5777,17 +5797,32 @@ function buildContextRecommendationsBloc(
     );
   }
 
-  if (adaptationsMessages.length === 1) {
-    parts.push(
-      `Adaptation proposée : ${adaptationsMessages[0]}`
-    );
-  }
+if (adaptationsMessages.length > 0) {
 
-  if (adaptationsMessages.length > 1) {
-    parts.push(
-      `Adaptations proposées : ${adaptationsMessages.join(" ")}`
-    );
-  }
+  const formattedAdaptations =
+    adaptationsMessages.map((message, index) => {
+
+      const withoutFinalPoint =
+        message.replace(/\.$/, "");
+
+      return index === 0
+        ? withoutFinalPoint.charAt(0).toLowerCase()
+          + withoutFinalPoint.slice(1)
+        : withoutFinalPoint.charAt(0).toLowerCase()
+          + withoutFinalPoint.slice(1);
+    });
+
+  const adaptationsSentence =
+    formattedAdaptations.length === 1
+      ? formattedAdaptations[0]
+      : formattedAdaptations.slice(0, -1).join(", ")
+        + " et "
+        + formattedAdaptations.at(-1);
+
+  parts.push(
+    `Adaptations proposées : ${adaptationsSentence}.`
+  );
+}
 
   if (recommendationsMessages.length === 1) {
     parts.push(
@@ -5801,9 +5836,9 @@ function buildContextRecommendationsBloc(
     );
   }
 
-return parts
-  .map(part => `<p>${part}</p>`)
-  .join("");
+  return parts
+    .map(part => `<p>${part}</p>`)
+    .join("");
 }
 
 function buildCRCPathoBloc(
@@ -5921,7 +5956,10 @@ const itemsText =
   const nbItems = parts.length;
 
   const pathoTxt = nbPathos > 1 ? "ses pathologies" : "sa pathologie";
-  const verbe = nbItems > 1 ? "ont été abordées" : "a été abordée";
+  const verbe =
+  nbPathos > 1
+    ? "ont été abordées"
+    : "a été abordée";
 
   // 🎯 PATIENT
   if (mode === "patient") {
@@ -5964,7 +6002,11 @@ if (mode === "long") {
     crcResourcesText
   );
 
-  return `Les recommandations spécifiques en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.${resourcesSuffix}`;
+ if (!itemsText && resourcesSuffix) {
+  return `Des ressources ou points de vigilance spécifiques en rapport avec ${pathoTxt} ont été abordés lors de la consultation.${resourcesSuffix}`;
+}
+
+return `Les recommandations spécifiques en rapport avec ${pathoTxt} ${verbe} lors de la consultation : ${itemsText}.${resourcesSuffix}`;
 }
 
   // 🎯 PARAGRAPHE

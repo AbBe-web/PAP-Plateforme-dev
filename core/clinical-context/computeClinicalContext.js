@@ -62,6 +62,7 @@ if (pathologies.includes("hta")) {
   context.precautions.push({
     type: "surveillance",
     source: "pathologie:hta",
+    sourceLabel: "HTA",
 
     message:
       "Surveillance de la tolérance tensionnelle pendant l’activité physique."
@@ -71,6 +72,7 @@ context.adaptations.push({
   type: "endurance",
 
   source: "pathologie:hta",
+  sourceLabel: "HTA",
 
   message:
     "Privilégier les activités d’endurance régulières."
@@ -80,6 +82,7 @@ context.adaptations.push({
     type: "intensity",
 
     source: "pathologie:hta",
+    sourceLabel: "HTA",
 
     message:
       "Adapter progressivement l’intensité selon la tolérance tensionnelle."
