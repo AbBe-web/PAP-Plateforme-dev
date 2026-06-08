@@ -97,7 +97,7 @@ if (
   context.precautions.push({
     type: "surveillance",
     source: "pathologie:diabete",
-
+    sourceLabel: "DT2",
     message:
       "Surveillance des symptômes évocateurs d’hypoglycémie pendant l’activité physique."
   });

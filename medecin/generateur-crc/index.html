@@ -5785,17 +5785,26 @@ return item.message.replace(
 
   let parts = [];
 
-  if (precautionsMessages.length === 1) {
-    parts.push(
-      `Point de vigilance : ${precautionsMessages[0]}`
-    );
-  }
+ if (precautionsMessages.length > 0) {
 
-  if (precautionsMessages.length > 1) {
-    parts.push(
-      `Points de vigilance : ${precautionsMessages.join(" ")}`
+  const formattedPrecautions =
+    precautionsMessages.map(message =>
+      message.replace(/\.$/, "")
     );
-  }
+
+  const precautionsSentence =
+    formattedPrecautions.length === 1
+      ? formattedPrecautions[0]
+      : formattedPrecautions.slice(0, -1).join(", ")
+        + " et "
+        + formattedPrecautions.at(-1);
+
+  parts.push(
+    formattedPrecautions.length === 1
+      ? `Point de vigilance : ${precautionsSentence}.`
+      : `Points de vigilance : ${precautionsSentence}.`
+  );
+}
 
 if (adaptationsMessages.length > 0) {
 
@@ -5900,9 +5909,15 @@ function buildCRCPathoBloc(
   }
 
   return resources
-.map(resource =>
-  resource.label || resource.id
-)
+.map(resource => {
+
+  const label =
+    resource.sourceLabel
+      ? ` (${resource.sourceLabel})`
+      : "";
+
+  return `${resource.label || resource.id}${label}`;
+})
     .join(", ");
 }
 
