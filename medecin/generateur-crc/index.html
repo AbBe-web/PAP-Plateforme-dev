@@ -5801,7 +5801,9 @@ function buildContextRecommendationsBloc(
     );
   }
 
-  return parts.join(" ");
+return parts
+  .map(part => `<p>${part}</p>`)
+  .join("");
 }
 
 function buildCRCPathoBloc(
