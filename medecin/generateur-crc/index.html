@@ -5806,30 +5806,48 @@ return item.message.replace(
   );
 }
 
-if (adaptationsMessages.length > 0) {
+if (adaptations.length > 0) {
 
-  const formattedAdaptations =
-    adaptationsMessages.map((message, index) => {
+  const groupedAdaptations = {};
 
-      const withoutFinalPoint =
-        message.replace(/\.$/, "");
+  adaptations.forEach(item => {
 
-      return index === 0
-        ? withoutFinalPoint.charAt(0).toLowerCase()
-          + withoutFinalPoint.slice(1)
-        : withoutFinalPoint.charAt(0).toLowerCase()
-          + withoutFinalPoint.slice(1);
-    });
+    const label =
+      item.sourceLabel || "Général";
 
-  const adaptationsSentence =
-    formattedAdaptations.length === 1
-      ? formattedAdaptations[0]
-      : formattedAdaptations.slice(0, -1).join(", ")
-        + " et "
-        + formattedAdaptations.at(-1);
+    if (!groupedAdaptations[label]) {
+      groupedAdaptations[label] = [];
+    }
+
+    groupedAdaptations[label].push(
+      item.message.replace(/\.$/, "")
+    );
+  });
+
+  const adaptationParts =
+    Object.entries(groupedAdaptations).map(
+      ([label, messages]) => {
+
+        const formattedMessages =
+          messages.map((message, index) =>
+            index === 0
+              ? message.charAt(0).toLowerCase() + message.slice(1)
+              : message.charAt(0).toLowerCase() + message.slice(1)
+          );
+
+        const sentence =
+          formattedMessages.length === 1
+            ? formattedMessages[0]
+            : formattedMessages.slice(0, -1).join(", ")
+              + " et "
+              + formattedMessages.at(-1);
+
+        return `${sentence} (${label})`;
+      }
+    );
 
   parts.push(
-    `Adaptations proposées : ${adaptationsSentence}.`
+    `Adaptations proposées : ${adaptationParts.join(" ; ")}.`
   );
 }
 
