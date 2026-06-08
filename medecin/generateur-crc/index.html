@@ -5884,11 +5884,31 @@ const crcResourcesText =
     const { items, full, short } = grouped[key];
     if (!items || items.length === 0) return;
 
+    let filteredItems =
+  [...items];
+
+if (
+  clinicalContext &&
+  key === "hta"
+) {
+  filteredItems =
+    filteredItems.filter(item =>
+      !item.toLowerCase().includes(
+        "tolérance tensionnelle"
+      ) &&
+      !item.toLowerCase().includes(
+        "endurance régulières"
+      )
+    );
+}
+
+if (filteredItems.length === 0) return;
+
     const label = (mode === "long" || mode === "medical" || mode === "paragraph")
       ? short
       : full.toLowerCase();
 
-    parts.push(`${items.join(", ")} (${label})`);
+parts.push(`${filteredItems.join(", ")} (${label})`);
   });
 
   const uniqueParts =
