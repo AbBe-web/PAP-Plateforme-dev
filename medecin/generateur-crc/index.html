@@ -4762,7 +4762,6 @@ qrScanner.start(
       }, 1500);
 
     } catch(e){
-      console.warn("QR invalide");
       setTimeout(() => {
         qrAlreadyRead = false;
       }, 1000);
@@ -4770,10 +4769,7 @@ qrScanner.start(
 
   },
 
-  function(error){
-    // ⚠️ obligatoire pour éviter bug syntaxique + compat iOS
-    console.warn("Scan error", error);
-  }
+function() {}
 
 )
 .then(() => {
@@ -5959,7 +5955,7 @@ return `Des éléments spécifiques en rapport avec ${pathoTxt} ont été abord�
   // 🎯 DOSSIER MÉDICAL
   if (mode === "medical") {
 
-       return `Éléments spécifiques en rapport avec ${pathoTxt} : ${itemsText}.`;
+       return `${itemsText}.`;
   }
 
   return "";
