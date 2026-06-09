@@ -2514,19 +2514,18 @@ coronaropathie: {
 
   crc: [
     "Prise des traitements aux heures habituelles même en cas de séance d’AP",
-    "Respect important des règles habituelles de précaution (échauffement et retour au calme progressif, connaitre les 10 règles du club des cardiologues du sport)",
+   "Connaître et respecter les 10 règles d’or, dont l’importance d’un échauffement et d’un retour au calme progressif",
     "Arrêtez l’effort si douleur thoracique, malaise ou essoufflement inhabituel",
-    "Eviter de faire des exercices de renforcement musculaires intenses bouche fermée",
+   "Éviter les exercices de renforcement musculaire intenses en bloquant la respiration",
     "Bougez régulièrement chaque semaine plutôt qu’efforts intenses occasionnels",
     "Nécessité d’un avis cardiologique si activité physique intense et/ou sportive voire en compétition souhaitée"
   ],
 
-  crc_default: [
-    "Prise des traitements aux heures habituelles même en cas de séance d’AP",
-    "Respect important des règles habituelles de précaution (échauffement et retour au calme progressif, connaitre les 10 règles du club des cardiologues du sport)",
-    "Arrêtez l’effort si douleur thoracique, malaise ou essoufflement inhabituel"
-  ]
-},
+crc_default: [
+   "Connaître et respecter les 10 règles d’or, dont l’importance d’un échauffement et d’un retour au calme progressif",
+  "Arrêtez l’effort si douleur thoracique, malaise ou essoufflement inhabituel",
+  "Bougez régulièrement chaque semaine plutôt qu’efforts intenses occasionnels"
+]},
     
 aomi: {
   titre: "AOMI / Artériopathie oblitérante des membres inférieurs",
@@ -5879,7 +5878,14 @@ if (filteredItems.length === 0) return;
       ? short
       : full.toLowerCase();
 
-parts.push(`${filteredItems.join(", ")} (${label})`);
+parts.push(
+  `${filteredItems
+    .map(item =>
+      item.charAt(0).toLowerCase()
+      + item.slice(1)
+    )
+    .join(", ")} (${label})`
+);
   });
 
   const uniqueParts =
@@ -6824,10 +6830,6 @@ function resetFormulaireComplet() {
 
     isProgrammaticUpdate = false;
 
-
-  "PATHO RESTANTES",
-  document.querySelectorAll(".patho:checked").length
-);
 
 }
 
