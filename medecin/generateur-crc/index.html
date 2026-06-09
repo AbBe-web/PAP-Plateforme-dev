@@ -4778,7 +4778,7 @@ qrScanner.start(
 
 )
 .then(() => {
-  console.log("Scanner QR démarré");
+
 })
 .catch(err => {
   console.error("Erreur caméra :", err);
@@ -6823,7 +6823,7 @@ function resetFormulaireComplet() {
 
     isProgrammaticUpdate = false;
 
-console.log(
+
   "PATHO RESTANTES",
   document.querySelectorAll(".patho:checked").length
 );
@@ -6839,12 +6839,6 @@ if (resetConsultationBtnTop) {
 
     consultationState.reportGenerated = false;
 consultationState.reportDirty = false;
-
-console.log(
-  "RESET STATE",
-  consultationState.reportGenerated,
-  consultationState.reportDirty
-);
 
 const warning =
   document.getElementById("crcDirtyWarning");
@@ -7854,7 +7848,6 @@ function initPrecautionsAucune() {
 }
 
 function buildClinicalModel() {
-console.log("buildClinicalModel appelée");
 
   const aerobieFrequence =
     document.querySelector('input[name="fois_aerobie"]')?.value;
