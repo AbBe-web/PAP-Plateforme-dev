@@ -2,48 +2,63 @@ PROTOCOLE DE STABILITÉ CLINIQUE PAP
 Projet : Plateforme de Pré-consultation Activité Physique (PAP). Version : v2.0 — Architecture modulaire
 1/ Objectif du contrat : Garantir : stabilité clinique, cohérence des données échangées, fiabilité technique de la plateforme ; Tout en permettant : les améliorations UX, les améliorations techniques, l’évolution du modèle de données. Ce contrat s’applique à toute modification du projet PAP.
 2/ Architecture actuelle du projet : Le projet est constitué de modules indépendants. Structure de référence :
-PAP-Plateforme
-├── assets/icons
+PAP-Plateforme/
+├── assets/
+│   └── icons/
 │       ├── .gitkeep
 │       ├── icon-192.png
-│       ├── icon-512.png
-├── core
-│       ├── .prescriptoinModel.js
-│       ├── prescriptionRenderer.js
-│       ├── prescriptionSync.js
-│       ├── prescriptionUtil.js
-├── CSS/
+│       └── icon-512.png
+│
+├── core/
+│   ├── clinical-context/
+│   │   ├── computeClinicalContext.js
+│   │   ├── context-schema.js
+│   │   ├── context-utils.js
+│   │   ├── README.md
+│   │   └── resource-registry.js
+│   │
+│   ├── prescriptionModel.js
+│   ├── prescriptionRenderer.js
+│   ├── prescriptionSync.js
+│   └── prescriptionUtils.js
+│
+├── css/
 │   └── style-global.css
-├── docs
-│       ├──. ARCHITECTURE_AUDIT_2026.md
-│       ├── ARCHITECTURE_REFERENCE.md
-│       ├── PAP_ARCHITECTURE_MAP_V1.md
-│       ├── PAP_PHASE2_TECHNICAL_ROADMAP.md
-│       ├── PAP_PRODUCT_ARCHITECTURE_V2.md
-│       ├── PAP_SPRINT1_IMPLEMENTATION_MAP.md
+│
+├── docs/
+│   ├── ARCHITECTURE_AUDIT_2026.md
+│   ├── ARCHITECTURE_REFERENCE.md
+│   ├── PAP_ARCHITECTURE_MAP_V1.md
+│   ├── PAP_PHASE2_TECHNICAL_ROADMAP.md
+│   ├── PAP_PRODUCT_ARCHITECTURE_V2.md
+│   └── PAP_SPRINT1_IMPLEMENTATION_MAP.md
+│
 ├── medecin/
 │   └── generateur-crc/
-│       └── index.html
-│       └── premiere-utilisation.html
-│       └── referentiel-clinique-pap.pdf
+│       ├── index.html
+│       ├── premiere-utilisation.html
+│       ├── referentiel-clinique-pap.pdf
 │       └── reset.js
+│
 ├── patient/
 │   └── auto-evaluation/
 │       ├── index.html
 │       ├── print.html
 │       └── politique-confidentialite.html
-├── shared
-│   └── pap-data-model.js
+│
+├── shared/
+│   ├── pap-data-model.js
 │   └── pap-json-utils.js
+│
 ├── ARCHITECTURE.md
-├── index.html
-├── LICENCE
-├── PROTOCOLE_DSR_PAP.md
+├── LICENSE
 ├── PAP_CLINICAL_LOGIC_FOUNDATIONS.md
+├── PROTOCOLE_DSR_PAP.md
 ├── README.md
 ├── index.html
 ├── manifest.json
-├── sw.js
+└── sw.js
+
 Modules
 Module patient : Auto-évaluation d’activité physique. patient/auto-evaluation/
 Module médecin : Générateur de compte-rendu de consultation. medecin/generateur-crc/
@@ -56,7 +71,8 @@ Calculs : MET-minutes/semaine pour GPAQ, classification du niveau d’activité 
 4B. Ordre logique des étapes (auto-évaluation) : L’ordre suivant est intangible : 1 Évaluation activité physique, 2 Stade motivationnel, 3 EVA importance, 4 EVA confiance
 4C. Données cliniques fondamentales : Les données suivantes doivent toujours être présentes dans les résultats : niveau d’activité, MET-minutes/semaine (si GPAQ), nombre de pas (si disponible), stade motivationnel, EVA importance, EVA confiance, commentaires éventuels. La manière dont elles sont stockées peut évoluer, mais **leur présence ne peut être supprimée**.
 4D. Intention fonctionnelle : L’outil patient respecte les principes suivants : aucune création de compte, aucune base de données, aucune conservation de données, données conservées uniquement localement pendant la session. Les résultats sont destinés à être : apportés en consultation, transférés volontairement par le patient.
-4E. Statut RGPD de la plateforme : La plateforme PAP est conçue comme un outil sans traitement de données personnelles au sens du RGPD. Aucune donnée n’est : stockée, transmise automatiquement, conservée sur serveur. Les données générées sont sous le contrôle exclusif de l’utilisateur. En cas de transmission à un professionnel de santé, ce dernier devient responsable du traitement au sens du RGPD.
+4E. Statut RGPD de la plateforme : La plateforme PAP est conçue comme un outil sans traitement de données personnelles au sens du RGPD. Aucune donnée n’est : stockée, transmise automatiquement, conservée sur serveur. Les données générées sont sous le contrôle exclusif de l’utilisateur. En cas de transmission à un professionnel de santé, ce dernier devient responsable du traitement au sens du RGPD.Les données patient ne sont pas conservées.
+Les coordonnées médecin peuvent être enregistrées uniquement localement sur l’appareil de l’utilisateur, si celui-ci l’active, afin de préremplir les documents. Aucune donnée n’est transmise à un serveur. Une option de suppression/réinitialisation doit être prévue.
 NB : Interdiction : aucun cookie de tracking, aucun outil d’analyse tiers (Google Analytics, etc.), aucun appel externe collectant des données. Les fonctionnalités de transfert (QR code, export JSON, copie, mail) sont déclenchées uniquement à l’initiative explicite de l’utilisateur. La plateforme n’effectue aucun envoi automatique. L’installation de la plateforme comme application (PWA) ne modifie pas les principes de non-stockage et de non-transmission des données.
 5/ Éléments NON GELÉS (évolution autorisée) : Les éléments suivants peuvent évoluer librement tant que la logique clinique reste intacte.
 5A. Architecture technique : Peuvent évoluer : structure des fichiers, organisation du code, modularisation, factorisation, ajout de scripts, ajout de bibliothèques.

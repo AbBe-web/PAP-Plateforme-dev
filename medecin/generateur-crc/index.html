@@ -2377,6 +2377,79 @@ Ressources / fiches AP
 <button type="button" class="tab-btn" data-mode="ordonnance">Ordonnance AP</button>
 </div>
 
+<details id="physicianIdentityBlock" class="document-settings">
+ <summary class="physician-summary">
+  ⚙️ Coordonnées médecin
+</summary>
+
+  <p class="helper-text">
+    Ces informations sont stockées uniquement sur cet appareil et peuvent être réinitialisées.
+  </p>
+
+  <div class="physician-grid">
+
+  <input
+  type="text"
+  id="physician_lastName"
+  placeholder="Nom"
+>
+
+<input
+  type="text"
+  id="physician_firstName"
+  placeholder="Prénom"
+>
+
+    <input
+      type="text"
+      id="physician_speciality"
+      placeholder="Spécialité"
+    >
+
+    <input
+      type="text"
+      id="physician_rpps"
+      placeholder="RPPS"
+    >
+
+    <input
+      type="text"
+      id="physician_phone"
+      placeholder="Téléphone"
+    >
+
+    <input
+      type="email"
+      id="physician_email"
+      placeholder="Email"
+    >
+
+    <textarea
+      id="physician_address"
+      placeholder="Adresse"
+    ></textarea>
+
+  </div>
+
+  <div class="physician-actions">
+    <button
+      type="button"
+      id="savePhysicianIdentityBtn"
+      class="btn secondary-btn"
+    >
+      Enregistrer les coordonnées
+    </button>
+
+    <button
+      type="button"
+      id="resetPhysicianIdentityBtn"
+      class="btn secondary-btn"
+    >
+      Réinitialiser
+    </button>
+  </div>
+</details>
+
   <!-- Actions -->
   <div id="reportActions">
     <button type="button" id="printReport" class="btn">Imprimer</button>
@@ -3544,6 +3617,113 @@ post_partum: {
     
 const DEBUG = false;
 const APP_VERSION = "v0.2.2";
+
+const DEFAULT_PHYSICIAN_IDENTITY = {
+  lastName: "",
+  firstName: "",
+  speciality: "",
+  rpps: "",
+  address: "",
+  phone: "",
+  email: ""
+};
+
+function getPhysicianIdentity() {
+
+  try {
+    const saved =
+      localStorage.getItem("pap_physician_identity");
+
+    if (!saved) {
+      return structuredClone(DEFAULT_PHYSICIAN_IDENTITY);
+    }
+
+    return {
+      ...structuredClone(DEFAULT_PHYSICIAN_IDENTITY),
+      ...JSON.parse(saved)
+    };
+
+  } catch (error) {
+    return structuredClone(DEFAULT_PHYSICIAN_IDENTITY);
+  }
+}
+
+function savePhysicianIdentity(identity) {
+
+  localStorage.setItem(
+    "pap_physician_identity",
+    JSON.stringify(identity)
+  );
+}
+
+function renderPhysicianSignature() {
+
+  const identity =
+    getPhysicianIdentity();
+
+const fullName =
+  [
+    "Dr",
+    identity.firstName,
+    identity.lastName
+  ]
+      .filter(Boolean)
+      .join(" ");
+
+  const lines = [
+    fullName,
+    identity.speciality,
+    identity.rpps ? `RPPS : ${identity.rpps}` : "",
+    identity.address,
+    identity.phone ? `Tél. : ${identity.phone}` : "",
+    identity.email
+  ].filter(Boolean);
+
+  if (!lines.length) {
+    return "";
+  }
+
+return `
+<div
+  style="
+    margin-top:24px;
+    display:flex;
+    justify-content:flex-end;
+  "
+>
+  <div
+    style="
+      text-align:left;
+      line-height:1.6;
+      min-width:260px;
+    "
+  >
+    ${lines.join("<br>")}
+  </div>
+</div>
+`;
+}
+
+function capitalizeFirstLetter(text) {
+
+  if (!text) {
+    return "";
+  }
+
+  const clean =
+    text.trim();
+
+  return clean.charAt(0).toUpperCase()
+    + clean.slice(1);
+}
+
+function resetPhysicianIdentity() {
+
+  localStorage.removeItem(
+    "pap_physician_identity"
+  );
+}
+
 function showInfo(text, el) {
 
   const popup = document.getElementById("infoPopup");
@@ -6068,6 +6248,8 @@ Je me tiens à votre disposition pour toute précision complémentaire.
 </p>
 
 <p>Bien confraternellement.</p>
+
+${renderPhysicianSignature()}
 `;
 }     
      function renderParagraphVersion(
@@ -8454,6 +8636,86 @@ if (editBtn) {
     }
 
   };
+
+  initPhysicianIdentityButtons();
+
+  function initPhysicianIdentityButtons() {
+
+  const identity =
+    getPhysicianIdentity();
+
+  const fields = {
+    lastName: document.getElementById("physician_lastName"),
+firstName: document.getElementById("physician_firstName"),
+    speciality: document.getElementById("physician_speciality"),
+    rpps: document.getElementById("physician_rpps"),
+    address: document.getElementById("physician_address"),
+    phone: document.getElementById("physician_phone"),
+    email: document.getElementById("physician_email")
+  };
+
+  Object.keys(fields).forEach(key => {
+    if (fields[key]) {
+      fields[key].value = identity[key] || "";
+    }
+  });
+
+  const saveBtn =
+    document.getElementById("savePhysicianIdentityBtn");
+
+  if (saveBtn) {
+    saveBtn.onclick = function() {
+
+      const nextIdentity = {};
+
+      Object.keys(fields).forEach(key => {
+       const rawValue =
+  fields[key]?.value || "";
+
+if (
+  key === "lastName" ||
+  key === "firstName" ||
+  key === "speciality"
+) {
+
+  nextIdentity[key] =
+    capitalizeFirstLetter(rawValue);
+
+} else {
+
+  nextIdentity[key] =
+    rawValue.trim();
+}
+      });
+
+      savePhysicianIdentity(nextIdentity);
+
+      renderActiveMode();
+
+      alert("Coordonnées médecin enregistrées sur cet appareil.");
+    };
+  }
+
+  const resetBtn =
+    document.getElementById("resetPhysicianIdentityBtn");
+
+  if (resetBtn) {
+    resetBtn.onclick = function() {
+
+      resetPhysicianIdentity();
+
+      Object.keys(fields).forEach(key => {
+        if (fields[key]) {
+          fields[key].value = "";
+        }
+      });
+
+      renderActiveMode();
+
+      alert("Coordonnées médecin réinitialisées.");
+    };
+  }
+}
 }
     }
 
