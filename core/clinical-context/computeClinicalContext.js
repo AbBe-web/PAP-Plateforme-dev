@@ -87,6 +87,15 @@ context.adaptations.push({
     message:
       "Adapter progressivement l’intensité selon la tolérance tensionnelle."
   });
+
+  context.patientMessages.push({
+  type: "conseil",
+  source: "pathologie:hta",
+  sourceLabel: "HTA",
+
+  message:
+    "Privilégier les activités d’endurance régulières."
+});
 }
   
 if (
@@ -111,6 +120,15 @@ if (
 
   message:
     "adapter les apports alimentaires à l’activité."
+});
+
+context.patientMessages.push({
+  type: "conseil",
+  source: "pathologie:diabete",
+  sourceLabel: "DT2",
+
+  message:
+    "Adapter les apports alimentaires à l’activité."
 });
 }
 

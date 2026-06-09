@@ -9,6 +9,7 @@ function createEmptyClinicalContext() {
     supervision: [],
 
     recommandations: [],
+    patientMessages: [],
 
     resources: [],
     patientDocuments: [],

@@ -5721,47 +5721,28 @@ function buildCRCResourcesSentence(
     return "";
   }
 
-  return ` Une ressource patient associée peut être remise ou proposée : ${resourcesText}.`;
+  return ` Une fiche patient associée peut être remise : ${resourcesText}.`;
 }
 
 function buildContextRecommendationsBloc(
-  clinicalContext,
-  type = "surveillance"
+  clinicalContext
 ) {
 
   if (!clinicalContext) {
     return "";
   }
 
-  const recommendations =
-    clinicalContext?.recommandations || [];
+  const patientMessages =
+    clinicalContext?.patientMessages || [];
 
-  const precautions =
-    clinicalContext?.precautions || [];
+  if (!patientMessages.length) {
+    return "";
+  }
 
-  const adaptations =
-    clinicalContext?.adaptations || [];
-
-  const precautionsMessages =
-    precautions
+  const messages =
+    patientMessages
       .map(item => {
-        const label =
-          item.sourceLabel
-            ? ` (${item.sourceLabel})`
-            : "";
 
-return item.message.replace(
-  /\.$/,
-  `${label}.`
-);
-      })
-      .filter((message, index, array) =>
-        array.indexOf(message) === index
-      );
-
-  const adaptationsMessages =
-    adaptations
-      .map(item => {
         const label =
           item.sourceLabel
             ? ` (${item.sourceLabel})`
@@ -5776,121 +5757,32 @@ return item.message.replace(
         array.indexOf(message) === index
       );
 
-  const recommendationsMessages =
-    recommendations
-      .map(item => item.message)
-      .filter((message, index, array) =>
-        array.indexOf(message) === index
-      );
-
-  let parts = [];
-
- if (precautions.length > 0) {
-
-  const groupedPrecautions = {};
-
-  precautions.forEach(item => {
-
-    const label =
-      item.sourceLabel || "Général";
-
-    if (!groupedPrecautions[label]) {
-      groupedPrecautions[label] = [];
-    }
-
-    groupedPrecautions[label].push(
-      item.message.replace(/\.$/, "")
-    );
-  });
-
-  const precautionParts =
-    Object.entries(groupedPrecautions).map(
-      ([label, messages]) => {
-
-        const formattedMessages =
-          messages.map(message =>
-            message.charAt(0).toLowerCase()
-            + message.slice(1)
-          );
-
-        const sentence =
-          formattedMessages.length === 1
-            ? formattedMessages[0]
-            : formattedMessages.slice(0, -1).join(", ")
-              + " et "
-              + formattedMessages.at(-1);
-
-        return `${sentence} (${label})`;
-      }
-    );
-
-  parts.push(
-    precautionParts.length === 1
-      ? `Point de vigilance : ${precautionParts.join(" ; ")}.`
-      : `Points de vigilance : ${precautionParts.join(" ; ")}.`
-  );
-}
-
-if (adaptations.length > 0) {
-
-  const groupedAdaptations = {};
-
-  adaptations.forEach(item => {
-
-    const label =
-      item.sourceLabel || "Général";
-
-    if (!groupedAdaptations[label]) {
-      groupedAdaptations[label] = [];
-    }
-
-    groupedAdaptations[label].push(
-      item.message.replace(/\.$/, "")
-    );
-  });
-
-  const adaptationParts =
-    Object.entries(groupedAdaptations).map(
-      ([label, messages]) => {
-
-        const formattedMessages =
-          messages.map((message, index) =>
-            index === 0
-              ? message.charAt(0).toLowerCase() + message.slice(1)
-              : message.charAt(0).toLowerCase() + message.slice(1)
-          );
-
-        const sentence =
-          formattedMessages.length === 1
-            ? formattedMessages[0]
-            : formattedMessages.slice(0, -1).join(", ")
-              + " et "
-              + formattedMessages.at(-1);
-
-        return `${sentence} (${label})`;
-      }
-    );
-
-  parts.push(
-    `Adaptations proposées : ${adaptationParts.join(" ; ")}.`
-  );
-}
-
-  if (recommendationsMessages.length === 1) {
-    parts.push(
-      `Recommandation contextuelle : ${recommendationsMessages[0]}`
-    );
+  if (!messages.length) {
+    return "";
   }
 
-  if (recommendationsMessages.length > 1) {
-    parts.push(
-      `Recommandations contextuelles : ${recommendationsMessages.join(" ")}`
-    );
-  }
+  const formattedMessages =
+    messages.map(message => {
 
-  return parts
-    .map(part => `<p>${part}</p>`)
-    .join("");
+      const clean =
+        message.replace(/\.$/, "");
+
+      return clean.charAt(0).toLowerCase()
+        + clean.slice(1);
+    });
+
+  const sentence =
+    formattedMessages.length === 1
+      ? formattedMessages[0]
+      : formattedMessages.slice(0, -1).join(", ")
+        + " et "
+        + formattedMessages.at(-1);
+
+  return `
+<p>
+Conseil(s) transmis au patient : ${sentence}.
+</p>
+`;
 }
 
 function buildCRCPathoBloc(
@@ -5979,21 +5871,6 @@ const crcResourcesText =
 
     let filteredItems =
   [...items];
-
-if (
-  clinicalContext &&
-  key === "hta"
-) {
-  filteredItems =
-    filteredItems.filter(item =>
-      !item.toLowerCase().includes(
-        "tolérance tensionnelle"
-      ) &&
-      !item.toLowerCase().includes(
-        "endurance régulières"
-      )
-    );
-}
 
 if (filteredItems.length === 0) return;
 
@@ -6125,11 +6002,6 @@ const crcPathoBloc =
     clinicalContext
   );
 
-  const contextRecommendationsBloc =
-  buildContextRecommendationsBloc(
-    clinicalContext
-  );
-
 const antecedentsBloc =
   buildAntecedentsBloc();
 const traitementsBloc = buildTraitementsBloc();
@@ -6188,13 +6060,6 @@ ${crcPathoBloc}
 </p>
 ` : ""}
 
-${contextRecommendationsBloc ? `
-<p>
-${contextRecommendationsBloc}
-</p>
-` : ""}
-
-
 <p>
 J’espère que cette consultation l’aidera à augmenter son niveau d’activité physique en toute sécurité et à en tirer des bénéfices perceptibles à court et moyen terme.
 Je me tiens à votre disposition pour toute précision complémentaire.
@@ -6222,10 +6087,7 @@ const crcPathoBloc =
     "paragraph",
     clinicalContext
   );   
-  const contextRecommendationsBloc =
-  buildContextRecommendationsBloc(
-    clinicalContext
-  ); 
+ 
    const traitementsBloc = buildTraitementsBloc();
 
   return `
@@ -6246,8 +6108,6 @@ ${prescriptionBloc}
 ${crcPathoBloc}
 </p>
 
-${contextRecommendationsBloc}
-
 `;
 }
 
@@ -6263,10 +6123,6 @@ function renderMedicalRecord(
 const crcPathoBloc =
   buildCRCPathoBloc(
     "medical",
-    clinicalContext
-  );
-  const contextRecommendationsBloc =
-  buildContextRecommendationsBloc(
     clinicalContext
   );
 
@@ -6319,8 +6175,6 @@ ${crcPathoBloc ? `
 ${crcPathoBloc}
 </p>
 ` : ""}
-
-${contextRecommendationsBloc}
 
 `;
 }
