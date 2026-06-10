@@ -2374,8 +2374,10 @@ Ressources / fiches AP
 <button type="button" class="tab-btn" data-mode="paragraph">Paragraphe</button>
 <button type="button" class="tab-btn" data-mode="medical">Dossier médical</button>
 <button type="button" class="tab-btn" data-mode="patient">Version patient</button>
-<button type="button" class="tab-btn" data-mode="ordonnance">Ordonnance AP</button>
+<button type="button" class="tab-btn" data-mode="ordonnance">Ordonnance AP simple</button>
+<button type="button" class="tab-btn" data-mode="apa">Certificat de NCI / Ordonnance APA</button>
 </div>
+ 
 
 <details id="physicianIdentityBlock" class="document-settings">
  <summary class="physician-summary">
@@ -6525,6 +6527,8 @@ const nom =
 const dureePrescription =
   document.querySelector('input[name="duree_prescription"]')?.value || "";
 
+const includeApaCertificate =
+  document.getElementById("includeApaCertificate")?.checked || false;
 
   return `
 
@@ -6624,7 +6628,7 @@ const dureePrescription =
   text-align:center;
 ">
 
-  Ordonnance d'activité physique
+  Ordonnance d'activité physique${includeApaCertificate ? " complète" : ""}
 
 </h2>
 
@@ -6722,7 +6726,74 @@ ${conseilsPatho ? `
 `;
 }
 
-               
+function renderOrdonnanceAPA(model) {
+
+  const base =
+    renderOrdonnanceAP(model);
+
+  const prenom =
+  document.querySelector('input[name="prenom"]')?.value || "";
+
+const nom =
+  document.querySelector('input[name="nom"]')?.value || "";
+
+const sexe =
+  document.querySelector('input[name="sexe"]:checked')?.value || "";
+
+const civilite =
+  sexe === "femme"
+    ? "Madame"
+    : "Monsieur";
+
+const patientIdentity =
+  prenom || nom
+    ? `${civilite} ${prenom} ${nom}`.trim()
+    : "<span data-patient-certificate-identity>le/la patient(e)</span>";
+
+  const certificateBlock = `
+<div style="
+  margin-top:20px;
+  margin-bottom:20px;
+  padding:16px;
+  border:1px solid #d9d9d9;
+  border-radius:10px;
+  background:#fcfcfc;
+  line-height:1.6;
+">
+  <p>
+    Je soussigné(e), docteur en médecine, certifie avoir examiné ce jour ${patientIdentity}
+    et ne pas avoir constaté de contre-indication à la pratique d’activités physiques adaptées,
+    sous réserve des précautions et adaptations précisées dans la présente prescription.
+  </p>
+</div>
+`;
+
+  return base
+    .replace(
+      "Ordonnance d'activité physique",
+      "Certificat de NCI / Ordonnance APA"
+    )
+    .replace(
+      "ORDONNANCE D'ACTIVITÉ PHYSIQUE",
+      "CERTIFICAT DE NCI / ORDONNANCE APA"
+    )
+    .replace(
+      `<div style="
+  border:1px solid #d9d9d9;
+  border-radius:10px;
+  padding:16px;
+  background:#fcfcfc;
+">`,
+      `${certificateBlock}
+<div style="
+  border:1px solid #d9d9d9;
+  border-radius:10px;
+  padding:16px;
+  background:#fcfcfc;
+">`
+    );
+}
+
 function renderActiveMode(options = {}) {
 
   const {
@@ -6777,9 +6848,13 @@ html = renderMedicalRecord(
 );
       break;
 
-     case "ordonnance":
+          case "ordonnance":
   html = renderOrdonnanceAP(model);
-  break; 
+  break;
+
+     case "apa":
+  html = renderOrdonnanceAPA(model);
+  break;
   }
 
   container.classList.add("fade-out");
@@ -6797,7 +6872,10 @@ html = renderMedicalRecord(
 
   renderedOutput.edited = false;
 
-if (activeMode === "ordonnance") {
+if (
+  activeMode === "ordonnance" ||
+  activeMode === "apa"
+) {
 
   renderedOutput.text =
     generatePrescriptionDPI(prescriptionModel);
@@ -6957,6 +7035,30 @@ function injectIdentityIntoHTML(
       prenom || "____________";
   }
 
+const certificateIdentityEl =
+  wrapper.querySelector("[data-patient-certificate-identity]");
+
+if (certificateIdentityEl) {
+
+  const sexe =
+    document.querySelector('input[name="sexe"]:checked')?.value || "";
+
+  const civilite =
+    sexe === "femme"
+      ? "Madame"
+      : sexe === "homme"
+        ? "Monsieur"
+        : "";
+
+  const identity =
+    `${prenom || ""} ${nom || ""}`.trim();
+
+  certificateIdentityEl.textContent =
+    identity
+      ? `${civilite ? civilite + " " : ""}${identity}`
+      : "le/la patient(e)";
+}
+
   const identity =
     `${prenom || ""} ${nom || ""}`.trim();
 
@@ -6987,7 +7089,8 @@ function proceedWithAction(prenom, nom, existingWin = null) {
   // injection conditionnelle selon mode
 if (
   activeMode === "long" ||
-  activeMode === "ordonnance"
+  activeMode === "ordonnance" ||
+    activeMode === "apa"
 ) {
   content = injectIdentityIntoHTML(content, prenom, nom);
 }
