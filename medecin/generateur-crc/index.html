@@ -3656,7 +3656,9 @@ function savePhysicianIdentity(identity) {
   );
 }
 
-function renderPhysicianSignature() {
+function renderPhysicianSignature(
+  align = "left"
+) {
 
   const identity =
     getPhysicianIdentity();
@@ -3688,7 +3690,12 @@ return `
   style="
     margin-top:24px;
     display:flex;
-    justify-content:flex-end;
+    const justifyContent =
+  align === "left"
+    ? "flex-start"
+    : align === "center"
+      ? "center"
+      : "flex-end";
   "
 >
   <div
@@ -6492,7 +6499,13 @@ les 10 règles d’or du Club des Cardiologues du Sport
 function renderOrdonnanceAP(model) {
 
   const ordonnanceHTML =
-    generatePrescriptionPatient(prescriptionModel);
+  generatePrescriptionPatient(prescriptionModel);
+
+  const physicianHeader =
+  renderPhysicianSignature("left");
+
+  const identity =
+  getPhysicianIdentity();
 
     const conseilsPatho =
   buildCRCPathoBloc("ordonnance");
@@ -6524,6 +6537,86 @@ const dureePrescription =
   line-height:1.6;
 ">
 
+<div style="
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin-bottom:26px;
+">
+
+  <!-- Bloc médecin -->
+  <div style="
+    border:1px solid #d9d9d9;
+    border-radius:8px;
+    padding:14px;
+    min-height:120px;
+    box-sizing:border-box;
+    line-height:1.8;
+  ">
+
+    <div style="
+      font-weight:700;
+      margin-bottom:24px;
+    ">
+      Dr ${identity.firstName || ""} ${identity.lastName || ""}
+    </div>
+
+    ${identity.speciality || ""}<br>
+
+    ${identity.rpps
+      ? `RPPS : ${identity.rpps}<br>`
+      : ""}
+
+    ${identity.address || ""}<br>
+
+    ${identity.phone
+      ? `Tél. : ${identity.phone}<br>`
+      : ""}
+
+    ${identity.email || ""}
+
+  </div>
+
+  <!-- Bloc patient -->
+  <div style="
+    border:1px solid #d9d9d9;
+    border-radius:8px;
+    padding:14px;
+    min-height:120px;
+    box-sizing:border-box;
+    line-height:1.9;
+  ">
+
+   <div style="margin-bottom:24px;">
+  <strong>Nom :</strong>
+  <span data-patient-lastname>
+    ${nom || "____________"}
+  </span>
+</div>
+
+<div>
+  <strong>Prénom :</strong>
+  <span data-patient-firstname>
+    ${prenom || "____________"}
+  </span>
+</div>
+
+<div
+  class="identity-help-message"
+  style="
+    margin-top:18px;
+    font-size:12px;
+    color:#666;
+    line-height:1.4;
+  "
+>
+  Nom et prénom sont ajoutés au moment de l’impression ou de la copie, sans être enregistrés.
+</div>
+
+  </div>
+
+</div>
+
  <h2 style="
   margin-bottom:40px;
   text-transform:uppercase;
@@ -6531,37 +6624,9 @@ const dureePrescription =
   text-align:center;
 ">
 
-  Ordonnance d’activité physique
+  Ordonnance d'activité physique
+
 </h2>
-<div style="
-  margin-bottom:28px;
-  line-height:1.7;
-">
-
-  <div style="
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    width:100%;
-  ">
-
-    <div>
-      <strong>Nom :</strong> ${nom}
-    </div>
-
-    <div>
-      <strong>Date :</strong> ${today}
-    </div>
-
-  </div>
-
-  <div>
-    <strong>Prénom :</strong> ${prenom}
-  </div>
-
-
-
-</div>
 
 <div style="
   border:1px solid #d9d9d9;
@@ -6633,11 +6698,21 @@ ${conseilsPatho ? `
 
 <div style="
   margin-top:60px;
-  text-align:right;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
 ">
 
-  <div style="margin-bottom:70px;">
-    Signature et cachet du médecin
+  <div>
+    <strong>Date :</strong> ${today}
+  </div>
+
+  <div style="
+    text-align:right;
+  ">
+    <div>
+  Signature et cachet du médecin
+</div>
   </div>
 
 </div>
@@ -6851,20 +6926,69 @@ function closeIdentityModal() {
   document.getElementById("identityModal").classList.add("hidden");
 }
 
-function injectIdentityIntoHTML(html, prenom, nom) {
+function injectIdentityIntoHTML(
+  html,
+  prenom,
+  nom
+) {
 
-  if (!prenom && !nom) return html;
+  if (!prenom && !nom) {
+    return html;
+  }
 
-  const identity = `${prenom || ""} ${nom || ""}`.trim();
+  const wrapper =
+    document.createElement("div");
 
-  return html.replace("_____", identity);
-} 
+  wrapper.innerHTML = html;
+
+  const lastNameEl =
+    wrapper.querySelector("[data-patient-lastname]");
+
+  if (lastNameEl) {
+    lastNameEl.textContent =
+      nom || "____________";
+  }
+
+  const firstNameEl =
+    wrapper.querySelector("[data-patient-firstname]");
+
+  if (firstNameEl) {
+    firstNameEl.textContent =
+      prenom || "____________";
+  }
+
+  const identity =
+    `${prenom || ""} ${nom || ""}`.trim();
+
+  let nextHTML =
+    wrapper.innerHTML;
+
+  if (identity) {
+    nextHTML = nextHTML
+      .replace(/Monsieur\s+_+/, `Monsieur ${identity}`)
+      .replace(/Madame\s+_+/, `Madame ${identity}`);
+  }
+
+  return nextHTML;
+}
     
 function proceedWithAction(prenom, nom, existingWin = null) {
 
   let content = document.getElementById("outputContainer").innerHTML;
-// injection conditionnelle selon mode
-if (activeMode === "long") {
+
+ console.log("IDENTITY DEBUG", {
+  activeMode,
+  prenom,
+  nom,
+  hasLastNameSpan: content.includes("data-patient-lastname"),
+  hasFirstNameSpan: content.includes("data-patient-firstname")
+});
+
+  // injection conditionnelle selon mode
+if (
+  activeMode === "long" ||
+  activeMode === "ordonnance"
+) {
   content = injectIdentityIntoHTML(content, prenom, nom);
 }
 
@@ -6906,6 +7030,10 @@ if (!win) {
   }
 
  @media print {
+
+ .identity-help-message {
+  display:none !important;
+}
 
   body {
     margin: 8mm;
@@ -9586,7 +9714,19 @@ document.addEventListener("click", () => {
     
     <div id="identityModal" class="modal hidden">
   <div class="modal-content">
-    <h3>Identification (facultatif)</h3>
+<h3>
+  Identité patient pour le document
+</h3>
+
+<p style="
+  font-size:13px;
+  color:#666;
+  margin-top:6px;
+  margin-bottom:18px;
+  line-height:1.5;
+">
+  Ces informations sont utilisées uniquement pour le document généré et ne sont pas enregistrées.
+</p>
 
    <label>Prénom :
   <input type="text" id="modalPrenom"
