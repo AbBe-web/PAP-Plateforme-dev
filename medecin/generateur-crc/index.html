@@ -1611,28 +1611,29 @@ Aucune</label>
 
       <div class="body-silhouette front-silhouette"></div>
 
-      <button type="button" class="body-dot shoulder-left" data-target="epaule_g" aria-label="Épaule gauche"></button>
-      <button type="button" class="body-dot shoulder-right" data-target="epaule_d" aria-label="Épaule droite"></button>
+      <button type="button" class="body-dot shoulder-left" data-target="epaule_d" aria-label="Épaule droite"></button>
+      <button type="button" class="body-dot shoulder-right" data-target="epaule_g" aria-label="Épaule gauche"></button>
 
-      <button type="button" class="body-dot elbow-left" data-target="coude_g" aria-label="Coude gauche"></button>
-      <button type="button" class="body-dot elbow-right" data-target="coude_d" aria-label="Coude droit"></button>
+      <button type="button" class="body-dot elbow-left" data-target="coude_d" aria-label="Coude droit"></button>
+      <button type="button" class="body-dot elbow-right" data-target="coude_g" aria-label="Coude gauche"></button>
 
-      <button type="button" class="body-dot wrist-left" data-target="poignet_g" aria-label="Main-poignet gauche"></button>
-      <button type="button" class="body-dot wrist-right" data-target="poignet_d" aria-label="Main-poignet droit"></button>
+      <button type="button" class="body-dot wrist-left" data-target="poignet_d" aria-label="Main-poignet droit"></button>
+      <button type="button" class="body-dot wrist-right" data-target="poignet_g" aria-label="Main-poignet gauche"></button>
 
       <button type="button" class="body-dot pelvis-front" data-target="bassin" aria-label="Bassin"></button>
 
-      <button type="button" class="body-dot hip-left" data-target="hanche_g" aria-label="Hanche gauche"></button>
-      <button type="button" class="body-dot hip-right" data-target="hanche_d" aria-label="Hanche droite"></button>
+      <button type="button" class="body-dot hip-left" data-target="hanche_d" aria-label="Hanche droite"></button>
+      <button type="button" class="body-dot hip-right" data-target="hanche_g" aria-label="Hanche gauche"></button>
 
-      <button type="button" class="body-dot knee-left" data-target="genou_g" aria-label="Genou gauche"></button>
-      <button type="button" class="body-dot knee-right" data-target="genou_d" aria-label="Genou droit"></button>
+      <button type="button" class="body-dot knee-left" data-target="genou_d" aria-label="Genou droit"></button>
+      <button type="button" class="body-dot knee-right" data-target="genou_g" aria-label="Genou gauche"></button>
 
-      <button type="button" class="body-dot ankle-left" data-target="cheville_g" aria-label="Cheville gauche"></button>
-      <button type="button" class="body-dot ankle-right" data-target="cheville_d" aria-label="Cheville droite"></button>
+      <button type="button" class="body-dot ankle-left" data-target="cheville_d" aria-label="Cheville droite"></button>
+      <button type="button" class="body-dot ankle-right" data-target="cheville_g" aria-label="Cheville gauche"></button>
 
-      <button type="button" class="body-dot foot-left" data-target="pied_g" aria-label="Pied gauche"></button>
-      <button type="button" class="body-dot foot-right" data-target="pied_d" aria-label="Pied droit"></button>
+      <button type="button" class="body-dot foot-left" data-target="pied_d" aria-label="Pied droit"></button>
+      <button type="button" class="body-dot foot-right" data-target="pied_g" aria-label="Pied gauche"></button>
+
 
     </div>
   </div>
@@ -6817,6 +6818,9 @@ const patientIdentity =
     ? `${civilite} ${prenom} ${nom}`.trim()
     : "<span data-patient-certificate-identity>le/la patient(e)</span>";
 
+const apaLimitationsBlock =
+  buildAPALimitationsBlock();
+
   const certificateBlock = `
 <div style="
   margin-top:20px;
@@ -6852,6 +6856,7 @@ const patientIdentity =
   background:#fcfcfc;
 ">`,
       `${certificateBlock}
+${apaLimitationsBlock}
 <div style="
   border:1px solid #d9d9d9;
   border-radius:10px;
@@ -9189,6 +9194,94 @@ function updateBodyMapSelectedZones() {
 
     output.appendChild(chip);
   });
+}
+
+function buildAPALimitationsBlock() {
+
+  const precautionLabels = {
+    cardio: "cardio-vasculaires",
+    respiratoire: "respiratoires",
+    metabolique: "métaboliques",
+    neurologique: "neurologiques",
+    psychique: "psychiques / cognitives",
+    chute: "risque de chute"
+  };
+
+  const limitationLabels = {
+    cervical: "cervical",
+    dorsal: "dorsal",
+    lombaire: "lombaire",
+    epaule_d: "épaule droite",
+    epaule_g: "épaule gauche",
+    coude_d: "coude droit",
+    coude_g: "coude gauche",
+    poignet_d: "main-poignet droit",
+    poignet_g: "main-poignet gauche",
+    bassin: "bassin",
+    hanche_d: "hanche droite",
+    hanche_g: "hanche gauche",
+    genou_d: "genou droit",
+    genou_g: "genou gauche",
+    cheville_d: "cheville droite",
+    cheville_g: "cheville gauche",
+    pied_d: "pied droit",
+    pied_g: "pied gauche"
+  };
+
+  const precautions = Array.from(
+    document.querySelectorAll('input[name="precaution_ap"]:checked')
+  )
+    .map(input => precautionLabels[input.value])
+    .filter(Boolean);
+
+  const limitations = Array.from(
+    document.querySelectorAll('input[name="limitation_ap"]:checked')
+  )
+    .map(input => limitationLabels[input.value])
+    .filter(Boolean);
+
+  const autreChecked =
+    document.getElementById("limitation_autre_checkbox")?.checked || false;
+
+  const autreText =
+    document.getElementById("limitation_autre")?.value?.trim() || "";
+
+  if (autreChecked && autreText) {
+    limitations.push(autreText);
+  }
+
+  if (!precautions.length && !limitations.length) {
+    return "";
+  }
+
+  return `
+<div style="
+  margin-top:20px;
+  margin-bottom:20px;
+  padding:16px;
+  border:1px solid #d9d9d9;
+  border-radius:10px;
+  background:#fcfcfc;
+  line-height:1.6;
+">
+  <strong>Précautions / limitations particulières :</strong>
+
+  ${precautions.length ? `
+    <p>
+      <strong>Précautions générales :</strong>
+      ${precautions.join(", ")}.
+    </p>
+  ` : ""}
+
+  ${limitations.length ? `
+    <p>
+      <strong>Limitations locomotrices :</strong>
+      ${limitations.join(", ")}.
+    </p>
+  ` : ""}
+
+</div>
+`;
 }
 
 // =====================================
