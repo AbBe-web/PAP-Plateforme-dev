@@ -884,3 +884,54 @@ details summary::-webkit-details-marker {
 .body-zone-chip span {
   font-weight: 700;
 }
+
+.apa-limitations-compact {
+  position: sticky;
+  top: 8px;
+  z-index: 20;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin: 12px 0 14px 0;
+  padding: 12px 14px;
+
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #f8fafc;
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.apa-limitations-compact div {
+  line-height: 1.4;
+}
+
+#apaLimitationsCompactText {
+  color: #333;
+}
+
+#toggleApaLimitationsPanel {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #0056b3;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+#toggleApaLimitationsPanel:hover {
+  background: #004494;
+}
+
+.apa-limitations-panel[hidden] {
+  display: none !important;
+}
+
+.apa-limitations-panel {
+  margin-top: 12px;
+}

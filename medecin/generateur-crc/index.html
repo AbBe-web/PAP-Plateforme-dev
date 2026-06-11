@@ -1602,6 +1602,19 @@ Aucune</label>
 
 <h3 style="color:#0056b3;">🚶 Limitations locomotrices</h3>
 
+<div class="apa-limitations-compact" id="apaLimitationsCompact">
+  <div>
+    <strong>Limitations / adaptations APA :</strong>
+    <span id="apaLimitationsCompactText">Aucune sélectionnée</span>
+  </div>
+
+  <button type="button" id="toggleApaLimitationsPanel">
+    Configurer
+  </button>
+</div>
+
+<div id="apaLimitationsPanel" class="apa-limitations-panel" hidden>
+
 <div class="body-map-wrapper">
 
   <div class="body-map-panel">
@@ -1735,6 +1748,30 @@ placeholder="Préciser..."
 
   </div>
 </details>
+
+<div class="form-group">
+  <label for="apa_exercise_adaptations">
+    <strong>Consignes / adaptations spécifiques des exercices :</strong>
+  </label>
+
+  <textarea
+    id="apa_exercise_adaptations"
+    rows="3"
+    placeholder="Ex. éviter les impacts, adapter les amplitudes, privilégier vélo / marche / renforcement assis, progression selon douleur et fatigue..."
+    style="
+      width:100%;
+      margin-top:8px;
+      padding:10px;
+      border:1px solid #d9d9d9;
+      border-radius:8px;
+      font-family:inherit;
+      font-size:14px;
+      line-height:1.5;
+      resize:vertical;
+    "
+  ></textarea>
+</div>
+</div>
 
 </div>
 
@@ -9091,7 +9128,7 @@ function initBodyMapButtons() {
     };
     });
 
-  document
+    document
     .querySelectorAll('input[name="limitation_ap"]')
     .forEach(checkbox => {
 
@@ -9102,6 +9139,46 @@ function initBodyMapButtons() {
       };
 
     });
+
+  const toggleApaPanelBtn =
+    document.getElementById("toggleApaLimitationsPanel");
+
+  const apaPanel =
+    document.getElementById("apaLimitationsPanel");
+
+  if (toggleApaPanelBtn && apaPanel) {
+
+    toggleApaPanelBtn.onclick = function() {
+
+      const willOpen = apaPanel.hidden;
+
+      apaPanel.hidden = !willOpen;
+
+      toggleApaPanelBtn.textContent =
+        willOpen ? "Masquer" : "Configurer";
+
+if (willOpen) {
+  document
+    .getElementById("apaLimitationsCompact")
+    ?.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+}
+
+    };
+
+  }
+
+  const exerciseAdaptationsTextarea =
+    document.getElementById("apa_exercise_adaptations");
+
+  if (exerciseAdaptationsTextarea) {
+
+    exerciseAdaptationsTextarea.oninput =
+      updateAPALimitationsCompactText;
+
+  }
 
   updateBodyMapFromCheckboxes();
 }
@@ -9159,10 +9236,11 @@ function updateBodyMapSelectedZones() {
     document.querySelectorAll('input[name="limitation_ap"]:checked')
   );
 
-  if (!checkedInputs.length) {
-    output.innerHTML = "Aucune";
-    return;
-  }
+if (!checkedInputs.length) {
+  output.innerHTML = "Aucune";
+  updateAPALimitationsCompactText();
+  return;
+}
 
   output.innerHTML = "";
 
@@ -9194,6 +9272,54 @@ function updateBodyMapSelectedZones() {
 
     output.appendChild(chip);
   });
+
+  updateAPALimitationsCompactText();
+
+}
+
+function updateAPALimitationsCompactText() {
+  const output =
+    document.getElementById("apaLimitationsCompactText");
+
+  if (!output) return;
+
+  const precautionCount = Array.from(
+    document.querySelectorAll('input[name="precaution_ap"]:checked')
+  )
+    .filter(input => input.value !== "aucune")
+    .length;
+
+  const limitationCount = Array.from(
+    document.querySelectorAll('input[name="limitation_ap"]:checked')
+  ).length;
+
+  const exerciseAdaptations =
+    document.getElementById("apa_exercise_adaptations")?.value?.trim() || "";
+
+  const parts = [];
+
+  if (limitationCount) {
+    parts.push(
+      limitationCount === 1
+        ? "1 zone locomotrice"
+        : `${limitationCount} zones locomotrices`
+    );
+  }
+
+  if (precautionCount) {
+    parts.push(
+      precautionCount === 1
+        ? "1 précaution générale"
+        : `${precautionCount} précautions générales`
+    );
+  }
+
+  if (exerciseAdaptations) {
+    parts.push("consignes renseignées");
+  }
+
+  output.textContent =
+    parts.length ? parts.join(" · ") : "Aucune sélectionnée";
 }
 
 function buildAPALimitationsBlock() {
@@ -9246,13 +9372,20 @@ function buildAPALimitationsBlock() {
   const autreText =
     document.getElementById("limitation_autre")?.value?.trim() || "";
 
-  if (autreChecked && autreText) {
-    limitations.push(autreText);
-  }
+if (autreChecked && autreText) {
+  limitations.push(autreText);
+}
 
-  if (!precautions.length && !limitations.length) {
-    return "";
-  }
+const exerciseAdaptations =
+  document.getElementById("apa_exercise_adaptations")?.value?.trim() || "";
+
+if (
+  !precautions.length &&
+  !limitations.length &&
+  !exerciseAdaptations
+) {
+  return "";
+}
 
   return `
 <div style="
@@ -9264,19 +9397,26 @@ function buildAPALimitationsBlock() {
   background:#fcfcfc;
   line-height:1.6;
 ">
-  <strong>Précautions / limitations particulières :</strong>
+<strong>Précautions / limitations particulières à prendre en compte pour l’adaptation des exercices :</strong>
 
   ${precautions.length ? `
     <p>
-      <strong>Précautions générales :</strong>
-      ${precautions.join(", ")}.
+<strong>Précautions générales signalées :</strong>
+${precautions.join(", ")}.
     </p>
   ` : ""}
 
   ${limitations.length ? `
     <p>
-      <strong>Limitations locomotrices :</strong>
+      <strong>Limitations locomotrices signalées :</strong>
       ${limitations.join(", ")}.
+    </p>
+  ` : ""}
+
+  ${exerciseAdaptations ? `
+    <p>
+      <strong>Consignes / adaptations spécifiques des exercices :</strong>
+      ${exerciseAdaptations}
     </p>
   ` : ""}
 
