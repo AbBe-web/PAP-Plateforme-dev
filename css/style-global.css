@@ -806,3 +806,47 @@ details summary::-webkit-details-marker {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================
+   BODY MAP FALLBACK CHECKBOXES
+========================= */
+
+.body-map-fallback {
+  margin-top: 12px;
+  margin-bottom: 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+.body-map-fallback summary {
+  cursor: pointer;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: #0056b3;
+  list-style: none;
+}
+
+.body-map-fallback summary::-webkit-details-marker {
+  display: none;
+}
+
+.body-map-fallback summary::before {
+  content: "▸";
+  margin-right: 8px;
+}
+
+.body-map-fallback[open] summary::before {
+  content: "▾";
+}
+
+.body-map-fallback-content {
+  padding: 10px 12px 12px 12px;
+  border-top: 1px solid #e4e7ef;
+}
+
+.body-map-fallback-content label {
+  display: block;
+  margin-bottom: 7px;
+}
