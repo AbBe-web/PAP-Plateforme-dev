@@ -850,3 +850,37 @@ details summary::-webkit-details-marker {
   display: block;
   margin-bottom: 7px;
 }
+
+/* =========================
+   BODY MAP SELECTED CHIPS
+========================= */
+
+#bodyMapSelectedZones {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.body-zone-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #2457e6;
+  border-radius: 999px;
+  background: #2457e6;
+  color: white;
+  padding: 4px 9px;
+  font-size: 12px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.body-zone-chip:hover {
+  filter: brightness(0.92);
+}
+
+.body-zone-chip span {
+  font-weight: 700;
+}

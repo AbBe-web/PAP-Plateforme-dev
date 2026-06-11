@@ -9129,18 +9129,66 @@ function updateBodyMapSelectedZones() {
 
   if (!output) return;
 
-  const labels = Array.from(
-    document.querySelectorAll('input[name="limitation_ap"]:checked')
-  )
-    .map(input =>
-      input.closest("label")?.innerText?.trim()
-    )
-    .filter(Boolean);
+  const limitationLabels = {
+    cervical: "Cervical",
+    dorsal: "Dorsal",
+    lombaire: "Lombaire",
+    epaule_d: "Épaule droite",
+    epaule_g: "Épaule gauche",
+    coude_d: "Coude droit",
+    coude_g: "Coude gauche",
+    poignet_d: "Main-poignet droit",
+    poignet_g: "Main-poignet gauche",
+    bassin: "Bassin",
+    hanche_d: "Hanche droite",
+    hanche_g: "Hanche gauche",
+    genou_d: "Genou droit",
+    genou_g: "Genou gauche",
+    cheville_d: "Cheville droite",
+    cheville_g: "Cheville gauche",
+    pied_d: "Pied droit",
+    pied_g: "Pied gauche"
+  };
 
-  output.textContent =
-    labels.length
-      ? labels.join(", ")
-      : "Aucune";
+  const checkedInputs = Array.from(
+    document.querySelectorAll('input[name="limitation_ap"]:checked')
+  );
+
+  if (!checkedInputs.length) {
+    output.innerHTML = "Aucune";
+    return;
+  }
+
+  output.innerHTML = "";
+
+  checkedInputs.forEach(input => {
+
+    const labelText =
+      limitationLabels[input.value] || input.value;
+
+    const chip =
+      document.createElement("button");
+
+    chip.type = "button";
+    chip.className = "body-zone-chip";
+    chip.dataset.target = input.value;
+
+    chip.innerHTML =
+      `${labelText} <span aria-hidden="true">×</span>`;
+
+    chip.onclick = function() {
+
+      input.checked = false;
+
+      input.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+
+      updateBodyMapFromCheckboxes();
+    };
+
+    output.appendChild(chip);
+  });
 }
 
 // =====================================
