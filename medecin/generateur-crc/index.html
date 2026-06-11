@@ -2439,7 +2439,7 @@ Ressources / fiches AP
     id="refreshCRCBtn"
     class="btn secondary"
   >
-    Mettre à jour le CRC
+    Mettre à jour le CRC et l'ordonnance
   </button>
 
 </div>
@@ -6639,11 +6639,11 @@ const includeApaCertificate =
 
 <div style="
   max-width:800px;
-  margin:auto;
-  padding:18px;
+  margin:0 auto;
+  padding:10px 18px 14px 18px;
   background:white;
   color:black;
-  line-height:1.6;
+  line-height:1.55;
 ">
 
 <div style="
@@ -6727,7 +6727,7 @@ const includeApaCertificate =
 </div>
 
  <h2 style="
-  margin-bottom:40px;
+  margin:18px 0 24px 0;
   text-transform:uppercase;
   letter-spacing:0.5px;
   text-align:center;
@@ -6775,17 +6775,17 @@ ${conseilsPatho ? `
 ` : ""}
 
 <div style="
-  margin-top:26px;
-  padding-top:16px;
+  margin-top:18px;
+  padding-top:10px;
   border-top:1px solid #d9d9d9;
   text-align:center;
 ">
 
   <div style="
-    font-size:14px;
-    margin-bottom:10px;
+    font-size:12px;
+    margin-bottom:6px;
   ">
-    Précautions à prendre lors de vos séances d’activité physique (10 règles d’or) :
+    10 règles d’or lors des séances d’activité physique :
   </div>
 
   <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
@@ -6793,10 +6793,10 @@ ${conseilsPatho ? `
      rel="noopener noreferrer">
 
     <img 
-      src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+      src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
       alt="QR code - règles d’or cardiologie du sport"
-      width="120"
-      height="120"
+      width="90"
+      height="90"
       loading="lazy"
       style="cursor:pointer;"
     >
@@ -6858,17 +6858,20 @@ const patientIdentity =
 const apaLimitationsBlock =
   buildAPALimitationsBlock();
 
+const apaDestinationBlock =
+  buildAPADestinationBlock();
+
   const certificateBlock = `
 <div style="
-  margin-top:20px;
-  margin-bottom:20px;
-  padding:16px;
+  margin-top:14px;
+  margin-bottom:16px;
+  padding:14px;
   border:1px solid #d9d9d9;
   border-radius:10px;
   background:#fcfcfc;
   line-height:1.6;
 ">
-  <p>
+<p style="margin:0;">
     Je soussigné(e), docteur en médecine, certifie avoir examiné ce jour ${patientIdentity}
     et ne pas avoir constaté de contre-indication à la pratique d’activités physiques adaptées,
     sous réserve des précautions et adaptations précisées dans la présente prescription.
@@ -6892,7 +6895,8 @@ const apaLimitationsBlock =
   padding:16px;
   background:#fcfcfc;
 ">`,
-      `${certificateBlock}
+      `${apaDestinationBlock}
+${certificateBlock}
 ${apaLimitationsBlock}
 <div style="
   border:1px solid #d9d9d9;
@@ -9389,15 +9393,15 @@ if (
 
   return `
 <div style="
-  margin-top:20px;
-  margin-bottom:20px;
-  padding:16px;
+  margin-top:14px;
+  margin-bottom:16px;
+  padding:14px;
   border:1px solid #d9d9d9;
   border-radius:10px;
   background:#fcfcfc;
   line-height:1.6;
 ">
-<strong>Précautions / limitations particulières à prendre en compte pour l’adaptation des exercices :</strong>
+<strong>Précautions / limitations à prendre en compte pour l’adaptation des exercices :</strong>
 
   ${precautions.length ? `
     <p>
@@ -9408,19 +9412,50 @@ ${precautions.join(", ")}.
 
   ${limitations.length ? `
     <p>
-      <strong>Limitations locomotrices signalées :</strong>
-      ${limitations.join(", ")}.
+- Limitations locomotrices constatées : ${limitations.join(", ")}.
     </p>
   ` : ""}
 
   ${exerciseAdaptations ? `
     <p>
-      <strong>Consignes / adaptations spécifiques des exercices :</strong>
-      ${exerciseAdaptations}
+- Consignes / adaptations des exercices : ${exerciseAdaptations}
     </p>
   ` : ""}
 
 </div>
+`;
+}
+
+function buildAPADestinationBlock() {
+
+  const orientationLabels = {
+    kine: "masseur-kinésithérapeute",
+    ergo: "ergothérapeute",
+    psychomot: "psychomotricien",
+    apa: "enseignant APA",
+    educateur: "éducateur sportif",
+    autonome: "patient en autonomie"
+  };
+
+  const selectedOrientations = Array.from(
+    document.querySelectorAll('input[name="orientation_ap"]:checked')
+  )
+    .map(input => orientationLabels[input.value])
+    .filter(Boolean);
+
+  if (!selectedOrientations.length) {
+    return "";
+  }
+
+  return `
+<p style="
+  margin: -4px 0 16px 0;
+  text-align: center;
+  font-size: 0.95rem;
+">
+  <strong>À destination de :</strong>
+  ${selectedOrientations.join(", ")}.
+</p>
 `;
 }
 
