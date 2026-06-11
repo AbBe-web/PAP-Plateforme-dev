@@ -1602,6 +1602,63 @@ Aucune</label>
 
 <h3 style="color:#0056b3;">🚶 Limitations locomotrices</h3>
 
+<div class="body-map-wrapper">
+
+  <div class="body-map-panel">
+    <div class="body-map-title">Vue de face</div>
+
+    <div class="body-map-figure body-map-front">
+
+      <div class="body-silhouette front-silhouette"></div>
+
+      <button type="button" class="body-dot shoulder-left" data-target="epaule_g" aria-label="Épaule gauche"></button>
+      <button type="button" class="body-dot shoulder-right" data-target="epaule_d" aria-label="Épaule droite"></button>
+
+      <button type="button" class="body-dot elbow-left" data-target="coude_g" aria-label="Coude gauche"></button>
+      <button type="button" class="body-dot elbow-right" data-target="coude_d" aria-label="Coude droit"></button>
+
+      <button type="button" class="body-dot wrist-left" data-target="poignet_g" aria-label="Main-poignet gauche"></button>
+      <button type="button" class="body-dot wrist-right" data-target="poignet_d" aria-label="Main-poignet droit"></button>
+
+      <button type="button" class="body-dot pelvis-front" data-target="bassin" aria-label="Bassin"></button>
+
+      <button type="button" class="body-dot hip-left" data-target="hanche_g" aria-label="Hanche gauche"></button>
+      <button type="button" class="body-dot hip-right" data-target="hanche_d" aria-label="Hanche droite"></button>
+
+      <button type="button" class="body-dot knee-left" data-target="genou_g" aria-label="Genou gauche"></button>
+      <button type="button" class="body-dot knee-right" data-target="genou_d" aria-label="Genou droit"></button>
+
+      <button type="button" class="body-dot ankle-left" data-target="cheville_g" aria-label="Cheville gauche"></button>
+      <button type="button" class="body-dot ankle-right" data-target="cheville_d" aria-label="Cheville droite"></button>
+
+      <button type="button" class="body-dot foot-left" data-target="pied_g" aria-label="Pied gauche"></button>
+      <button type="button" class="body-dot foot-right" data-target="pied_d" aria-label="Pied droit"></button>
+
+    </div>
+  </div>
+
+  <div class="body-map-panel">
+    <div class="body-map-title">Vue de dos</div>
+
+    <div class="body-map-figure body-map-back">
+
+      <div class="body-silhouette back-silhouette"></div>
+
+      <button type="button" class="body-dot spine-cervical" data-target="cervical" aria-label="Cervical"></button>
+      <button type="button" class="body-dot spine-dorsal" data-target="dorsal" aria-label="Dorsal"></button>
+      <button type="button" class="body-dot spine-lumbar" data-target="lombaire" aria-label="Lombaire"></button>
+      <button type="button" class="body-dot pelvis-back" data-target="bassin" aria-label="Bassin"></button>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="body-map-selection">
+  <strong>Zones sélectionnées :</strong>
+  <span id="bodyMapSelectedZones">Aucune</span>
+</div>
+
 <label><input type="checkbox" name="limitation_ap" value="cervical">
 Cervical</label>
 
@@ -8866,89 +8923,215 @@ if (editBtn) {
       finalTextContainer.style.display = "none";
     }
 
-  };
+   };
 
-  initPhysicianIdentityButtons();
+}
 
-  function initPhysicianIdentityButtons() {
+initPhysicianIdentityButtons();
+
+initBodyMapButtons();
+
+}
+
+function initPhysicianIdentityButtons() {
 
   const identity =
     getPhysicianIdentity();
 
   const fields = {
-    lastName: document.getElementById("physician_lastName"),
-firstName: document.getElementById("physician_firstName"),
-    speciality: document.getElementById("physician_speciality"),
-    rpps: document.getElementById("physician_rpps"),
-    address: document.getElementById("physician_address"),
-    phone: document.getElementById("physician_phone"),
-    email: document.getElementById("physician_email")
+
+    lastName:
+      document.getElementById("physician_lastName"),
+
+    firstName:
+      document.getElementById("physician_firstName"),
+
+    speciality:
+      document.getElementById("physician_speciality"),
+
+    rpps:
+      document.getElementById("physician_rpps"),
+
+    address:
+      document.getElementById("physician_address"),
+
+    phone:
+      document.getElementById("physician_phone"),
+
+    email:
+      document.getElementById("physician_email")
   };
 
   Object.keys(fields).forEach(key => {
+
     if (fields[key]) {
-      fields[key].value = identity[key] || "";
+
+      fields[key].value =
+        identity[key] || "";
     }
   });
 
   const saveBtn =
-    document.getElementById("savePhysicianIdentityBtn");
+    document.getElementById(
+      "savePhysicianIdentityBtn"
+    );
 
   if (saveBtn) {
+
     saveBtn.onclick = function() {
 
       const nextIdentity = {};
 
       Object.keys(fields).forEach(key => {
-       const rawValue =
-  fields[key]?.value || "";
 
-if (
-  key === "lastName" ||
-  key === "firstName" ||
-  key === "speciality"
-) {
+        const rawValue =
+          fields[key]?.value || "";
 
-  nextIdentity[key] =
-    capitalizeFirstLetter(rawValue);
+        if (
+          key === "lastName" ||
+          key === "firstName" ||
+          key === "speciality"
+        ) {
 
-} else {
+          nextIdentity[key] =
+            capitalizeFirstLetter(rawValue);
 
-  nextIdentity[key] =
-    rawValue.trim();
-}
+        } else {
+
+          nextIdentity[key] =
+            rawValue.trim();
+        }
+
       });
 
-      savePhysicianIdentity(nextIdentity);
+      savePhysicianIdentity(
+        nextIdentity
+      );
 
       renderActiveMode();
 
-      alert("Coordonnées médecin enregistrées sur cet appareil.");
+      alert(
+        "Coordonnées médecin enregistrées sur cet appareil."
+      );
     };
   }
 
   const resetBtn =
-    document.getElementById("resetPhysicianIdentityBtn");
+    document.getElementById(
+      "resetPhysicianIdentityBtn"
+    );
 
   if (resetBtn) {
+
     resetBtn.onclick = function() {
 
       resetPhysicianIdentity();
 
       Object.keys(fields).forEach(key => {
+
         if (fields[key]) {
+
           fields[key].value = "";
         }
       });
 
       renderActiveMode();
 
-      alert("Coordonnées médecin réinitialisées.");
+      alert(
+        "Coordonnées médecin réinitialisées."
+      );
     };
   }
 }
+
+function initBodyMapButtons() {
+
+  document.querySelectorAll(".body-dot").forEach(dot => {
+
+    dot.onclick = function() {
+
+      const target =
+        dot.dataset.target;
+
+      const checkbox =
+        document.querySelector(
+          `input[name="limitation_ap"][value="${target}"]`
+        );
+
+      if (!checkbox) return;
+
+      checkbox.checked =
+        !checkbox.checked;
+
+      dot.classList.toggle(
+        "active",
+        checkbox.checked
+      );
+
+      updateBodyMapSelectedZones();
+
+      checkbox.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
+    };
+    });
+
+  document
+    .querySelectorAll('input[name="limitation_ap"]')
+    .forEach(checkbox => {
+
+      checkbox.onchange = function() {
+
+        updateBodyMapFromCheckboxes();
+
+      };
+
+    });
+
+  updateBodyMapFromCheckboxes();
 }
-    }
+
+function updateBodyMapFromCheckboxes() {
+
+  document.querySelectorAll(".body-dot").forEach(dot => {
+
+    const target =
+      dot.dataset.target;
+
+    const checkbox =
+      document.querySelector(
+        `input[name="limitation_ap"][value="${target}"]`
+      );
+
+    dot.classList.toggle(
+      "active",
+      checkbox?.checked || false
+    );
+  });
+
+  updateBodyMapSelectedZones();
+}
+
+function updateBodyMapSelectedZones() {
+
+  const output =
+    document.getElementById("bodyMapSelectedZones");
+
+  if (!output) return;
+
+  const labels = Array.from(
+    document.querySelectorAll('input[name="limitation_ap"]:checked')
+  )
+    .map(input =>
+      input.closest("label")?.innerText?.trim()
+    )
+    .filter(Boolean);
+
+  output.textContent =
+    labels.length
+      ? labels.join(", ")
+      : "Aucune";
+}
 
 // =====================================
 // 🔧 UTILITAIRE SYNCHRO UI
