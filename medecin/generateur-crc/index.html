@@ -2364,12 +2364,13 @@ Bilan de condition et de capacités physiques souhaité.
 </div>
 
 <label style="display:block;margin-top:12px;">
-Commentaire complémentaire :
+Commentaire complémentaire pour le professionnel encadrant — APA, kinésithérapeute, éducateur sportif... :
 </label>
 
 <textarea
   name="orientation_commentaire"
   style="width:95%;"
+  placeholder="Ex. points de vigilance, adaptations souhaitées, éléments utiles pour l’encadrement de la pratique..."
 ></textarea>
 
 </div>
@@ -9549,7 +9550,14 @@ function buildAPAOrientationOptionsBlock() {
   const bilanCondition =
     document.getElementById("bilan_condition_apa")?.checked || false;
 
-  if (!consentementPartage && !bilanCondition) {
+  const orientationComment =
+    document.querySelector('textarea[name="orientation_commentaire"]')?.value?.trim() || "";
+
+  if (
+    !consentementPartage &&
+    !bilanCondition &&
+    !orientationComment
+  ) {
     return "";
   }
 
@@ -9566,6 +9574,12 @@ function buildAPAOrientationOptionsBlock() {
       "Bilan de condition et de capacités physiques souhaité."
     );
   }
+
+  if (orientationComment) {
+  lines.push(
+    `Commentaire pour le professionnel encadrant : ${orientationComment}`
+  );
+}
 
   return `
 <div style="
