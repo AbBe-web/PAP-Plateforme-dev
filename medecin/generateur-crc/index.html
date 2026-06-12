@@ -5784,10 +5784,18 @@ function getSelectedCRC(){
   return values;
 }
     
-    function handleGenerate(e) {
+    function handleGenerate(e, options = {}) {
 
   e.preventDefault();
   e.stopPropagation();
+
+  const modeBeforeGenerate =
+    activeMode || "long";
+
+  const targetMode =
+    options.preserveMode
+      ? modeBeforeGenerate
+      : "long";
 
      
     if (document.activeElement) {
@@ -5812,7 +5820,7 @@ if (warning) {
   warning.classList.add("hidden");
 }
        
-    activeMode = "long";
+activeMode = targetMode;
 
 document.getElementById("formatTabs").classList.remove("hidden");
 document.getElementById("reportOutput").classList.remove("hidden");
@@ -5824,8 +5832,16 @@ if (resetSection) {
     resetSection.style.display = "block";
 }
 
-document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-document.querySelector('.tab-btn[data-mode="long"]').classList.add("active");
+document
+  .querySelectorAll(".tab-btn")
+  .forEach(b => b.classList.remove("active"));
+
+const targetTab =
+  document.querySelector(`.tab-btn[data-mode="${targetMode}"]`);
+
+if (targetTab) {
+  targetTab.classList.add("active");
+}
 
    renderActiveMode({
   clinicalModel,
@@ -8974,14 +8990,16 @@ const refreshBtn = document.getElementById('refreshCRCBtn');
 
 if (refreshBtn) {
 
-  refreshBtn.onclick = function(e){
+refreshBtn.onclick = function(e){
 
-    e.preventDefault();
-    e.stopPropagation();
+  e.preventDefault();
+  e.stopPropagation();
 
-    handleGenerate(e);
+  handleGenerate(e, {
+    preserveMode: true
+  });
 
-  };
+};
 
 }
     
