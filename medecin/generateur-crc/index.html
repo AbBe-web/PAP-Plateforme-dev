@@ -1570,6 +1570,19 @@ Commentaires complémentaires (facultatif) :
 
 <div class="sub-group">
 
+<div class="apa-limitations-compact" id="apaLimitationsCompact">
+  <div>
+    <strong>Limitations / adaptations APA :</strong>
+    <span id="apaLimitationsCompactText">Aucune sélectionnée</span>
+  </div>
+
+  <button type="button" id="toggleApaLimitationsPanel">
+    Configurer
+  </button>
+</div>
+
+<div id="apaLimitationsPanel" class="apa-limitations-panel" hidden>
+
 <h3 style="color:#0056b3;">
 🛡️ Précautions générales
 </h3>
@@ -1601,19 +1614,6 @@ id="precaution_aucune"
 Aucune</label>
 
 <h3 style="color:#0056b3;">🚶 Limitations locomotrices</h3>
-
-<div class="apa-limitations-compact" id="apaLimitationsCompact">
-  <div>
-    <strong>Limitations / adaptations APA :</strong>
-    <span id="apaLimitationsCompactText">Aucune sélectionnée</span>
-  </div>
-
-  <button type="button" id="toggleApaLimitationsPanel">
-    Configurer
-  </button>
-</div>
-
-<div id="apaLimitationsPanel" class="apa-limitations-panel" hidden>
 
 <div class="body-map-wrapper">
 
@@ -4771,6 +4771,55 @@ consultationForm.addEventListener("change", function(e){
 /* =====================================
 3. INITIALISATION UI ===================
 ===================================== */
+function hasClinicalCueForOrientationAP() {
+
+  const hasGeneralPrecaution =
+    Array.from(
+      document.querySelectorAll('input[name="precaution_ap"]:checked')
+    ).some(input => input.value !== "aucune");
+
+  const hasLocomotorLimitation =
+    Array.from(
+      document.querySelectorAll('input[name="limitation_ap"]:checked')
+    ).length > 0;
+
+  const hasOtherLocomotorLimitation =
+    document.getElementById("limitation_autre_checkbox")?.checked || false;
+
+  return (
+    hasGeneralPrecaution ||
+    hasLocomotorLimitation ||
+    hasOtherLocomotorLimitation
+  );
+}
+
+
+function openOrientationAPIfClinicalCue() {
+
+  if (!hasClinicalCueForOrientationAP()) return;
+
+  const orientationToggle =
+    document.getElementById("orientation_ap_toggle");
+
+  const orientationSubgroup =
+    document.getElementById("orientation_ap_subgroup");
+
+  if (!orientationToggle || !orientationSubgroup) return;
+
+  if (!orientationToggle.checked) {
+
+    orientationToggle.checked = true;
+
+    orientationToggle.dispatchEvent(
+      new Event("change", { bubbles: true })
+    );
+
+    return;
+  }
+
+  orientationSubgroup.style.display = "block";
+}
+
 function initUI() {
 
 initIMC();
@@ -4817,6 +4866,20 @@ if (orientationToggle && orientationSubgroup) {
   });
 
 }
+
+document
+  .querySelectorAll('input[name="precaution_ap"]')
+  .forEach(input => {
+
+    input.addEventListener("change", function() {
+
+      openOrientationAPIfClinicalCue();
+
+      updateAPALimitationsCompactText();
+
+    });
+
+  });
 
 document
   .querySelectorAll(
@@ -6861,6 +6924,9 @@ const apaLimitationsBlock =
 const apaDestinationBlock =
   buildAPADestinationBlock();
 
+const apaOrientationOptionsBlock =
+  buildAPAOrientationOptionsBlock();
+
   const certificateBlock = `
 <div style="
   margin-top:14px;
@@ -6896,6 +6962,7 @@ const apaDestinationBlock =
   background:#fcfcfc;
 ">`,
       `${apaDestinationBlock}
+${apaOrientationOptionsBlock}
 ${certificateBlock}
 ${apaLimitationsBlock}
 <div style="
@@ -9138,11 +9205,26 @@ function initBodyMapButtons() {
 
       checkbox.onchange = function() {
 
-        updateBodyMapFromCheckboxes();
+  updateBodyMapFromCheckboxes();
 
-      };
+  openOrientationAPIfClinicalCue();
+
+};
 
     });
+
+    const limitationAutreCheckbox =
+  document.getElementById("limitation_autre_checkbox");
+
+if (limitationAutreCheckbox) {
+
+  limitationAutreCheckbox.addEventListener("change", function() {
+
+    openOrientationAPIfClinicalCue();
+
+  });
+
+}
 
   const toggleApaPanelBtn =
     document.getElementById("toggleApaLimitationsPanel");
@@ -9459,6 +9541,52 @@ function buildAPADestinationBlock() {
 `;
 }
 
+function buildAPAOrientationOptionsBlock() {
+
+  const consentementPartage =
+    document.getElementById("consentement_partage_apa")?.checked || false;
+
+  const bilanCondition =
+    document.getElementById("bilan_condition_apa")?.checked || false;
+
+  if (!consentementPartage && !bilanCondition) {
+    return "";
+  }
+
+  const lines = [];
+
+  if (consentementPartage) {
+  lines.push(
+    "Patient informé du partage des informations médicales nécessaires avec le professionnel encadrant et ayant donné son accord oral à ce partage sur l’ordonnance."
+  );
+}
+
+  if (bilanCondition) {
+    lines.push(
+      "Bilan de condition et de capacités physiques souhaité."
+    );
+  }
+
+  return `
+<div style="
+  margin: -6px 0 16px 0;
+  padding: 10px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fcfcfc;
+  font-size: 0.92rem;
+  line-height: 1.45;
+">
+  <strong>Informations d’orientation / encadrement :</strong>
+  <ul style="
+    margin: 6px 0 0 18px;
+    padding: 0;
+  ">
+    ${lines.map(line => `<li>${line}</li>`).join("")}
+  </ul>
+</div>
+`;
+}
 // =====================================
 // 🔧 UTILITAIRE SYNCHRO UI
 // =====================================
