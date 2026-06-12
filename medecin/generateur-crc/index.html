@@ -6944,6 +6944,9 @@ const apaDestinationBlock =
 const apaOrientationOptionsBlock =
   buildAPAOrientationOptionsBlock();
 
+const apaObjectivesBlock =
+  buildAPAObjectivesBlock();
+
   const certificateBlock = `
 <div style="
   margin-top:14px;
@@ -6979,6 +6982,7 @@ const apaOrientationOptionsBlock =
   background:#fcfcfc;
 ">`,
       `${apaDestinationBlock}
+      ${apaObjectivesBlock}
 ${apaOrientationOptionsBlock}
 ${certificateBlock}
 ${apaLimitationsBlock}
@@ -9619,6 +9623,32 @@ function buildAPAOrientationOptionsBlock() {
 </div>
 `;
 }
+
+function buildAPAObjectivesBlock() {
+
+  const objectifs =
+    document.querySelector('textarea[name="objectifs_ap"]')?.value?.trim() || "";
+
+  if (!objectifs) {
+    return "";
+  }
+
+  return `
+<div style="
+  margin: -6px 0 16px 0;
+  padding: 10px 12px;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background: #fcfcfc;
+  font-size: 0.92rem;
+  line-height: 1.45;
+">
+  <strong>Objectifs thérapeutiques principaux :</strong>
+  ${objectifs}
+</div>
+`;
+}
+
 // =====================================
 // 🔧 UTILITAIRE SYNCHRO UI
 // =====================================
