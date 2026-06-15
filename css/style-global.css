@@ -727,69 +727,68 @@ details summary::-webkit-details-marker {
    POSITIONS FACE
 ========================= */
 
-.shoulder-left  { top: 120px;  left: 74px; }
-.shoulder-right { top: 120px;  right: 74px; }
+.shoulder-left  { top: 145px; left: 77px; }
+.shoulder-right { top: 145px; right: 77px; }
 
-.elbow-left  { top: 178px; left: 48px; }
-.elbow-right { top: 178px; right: 48px; }
+.elbow-left  { top: 220px; left: 55px; }
+.elbow-right { top: 220px; right: 55px; }
 
-.wrist-left  { top: 230px; left: 40px; }
-.wrist-right { top: 230px; right: 40px; }
+.wrist-left  { top: 276px; left: 40px; }
+.wrist-right { top: 276px; right: 40px; }
 
 .pelvis-front {
-  top: 225px;
+  top: 238px;
   left: 50%;
   transform: translateX(-50%);
-  width: 34px;
+  width: 32px;
   height: 34px;
 }
 
-.hip-left  { top: 252px; left: 84px; }
-.hip-right { top: 252px; right: 84px; }
+.hip-left  { top: 312px; left: 92px; }
+.hip-right { top: 312px; right: 92px; }
 
-.knee-left  { top: 335px; left: 95px; }
-.knee-right { top: 335px; right: 95px; }
+.knee-left  { top: 415px; left: 95px; }
+.knee-right { top: 415px; right: 95px; }
 
-.ankle-left  { top: 465px; left: 92px; }
-.ankle-right { top: 465px; right: 92px; }
+.ankle-left  { top: 525px; left: 91px; }
+.ankle-right { top: 525px; right: 91px; }
 
-.foot-left  { top: 505px; left: 84px; }
-.foot-right { top: 505px; right: 84px; }
+.foot-left  { top: 555px; left: 84px; }
+.foot-right { top: 555px; right: 84px; }
 
 /* =========================
    POSITIONS DOS
 ========================= */
 
 .spine-cervical {
-  top: 48px;
+  top: 62px;
   left: 50%;
   transform: translateX(-50%);
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 34px;
+  border-radius: 999px;
 }
 
 .spine-dorsal {
-  top: 138px;
+  top: 152px;
   left: 50%;
   transform: translateX(-50%);
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 42px;
+  border-radius: 999px;
 }
 
 .spine-lumbar {
-  top: 238px;
+  top: 266px;
   left: 50%;
   transform: translateX(-50%);
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 42px;
+  border-radius: 999px;
 }
 
 .pelvis-back {
-  top: 322px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 46px;
-  height: 46px;
+  display: none !important;
 }
 
 .body-map-selection {
