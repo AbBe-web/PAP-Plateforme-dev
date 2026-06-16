@@ -727,66 +727,160 @@ details summary::-webkit-details-marker {
    POSITIONS FACE
 ========================= */
 
-.shoulder-left  { top: 145px; left: 77px; }
-.shoulder-right { top: 145px; right: 77px; }
-
-.elbow-left  { top: 220px; left: 55px; }
-.elbow-right { top: 220px; right: 55px; }
-
-.wrist-left  { top: 276px; left: 40px; }
-.wrist-right { top: 276px; right: 40px; }
-
-.pelvis-front {
-  top: 238px;
-  left: 50%;
-  transform: translateX(-50%);
+/* Épaules : légèrement descendues et élargies */
+.shoulder-left {
+  top: 137px;
+  left: 65px;
   width: 32px;
-  height: 34px;
+  height: 32px;
 }
 
-.hip-left  { top: 312px; left: 92px; }
-.hip-right { top: 312px; right: 92px; }
+.shoulder-right {
+  top: 137px;
+  right: 65px;
+  width: 32px;
+  height: 32px;
+}
 
-.knee-left  { top: 415px; left: 95px; }
-.knee-right { top: 415px; right: 95px; }
+/* Coudes : plus hauts et plus externes */
+/* Coudes : alignés sur la même ligne */
+.elbow-left {
+  top: 210px;
+  left: 48px;
+  width: 22px;
+  height: 22px;
+}
 
-.ankle-left  { top: 525px; left: 91px; }
-.ankle-right { top: 525px; right: 91px; }
+.elbow-right {
+  top: 210px;
+  right: 48px;
+  width: 22px;
+  height: 22px;
+}
 
-.foot-left  { top: 555px; left: 84px; }
-.foot-right { top: 555px; right: 84px; }
+/* Poignets : même hauteur, un peu plus internes */
+.wrist-left {
+  top: 284px;
+  left: 24px;
+  width: 22px;
+  height: 22px;
+}
+
+.wrist-right {
+  top: 284px;
+  right: 28px;
+  width: 22px;
+  height: 22px;
+}
+
+
+/* Bassin antérieur : ovale plus large au centre */
+/* Bassin antérieur : un peu plus haut et plus large */
+.pelvis-front {
+  top: 260px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 62px;
+  height: 38px;
+}
+
+/* Hanches : un peu plus latérales */
+.hip-left {
+  top: 298px;
+  left: 80px;
+  width: 36px;
+  height: 36px;
+}
+
+.hip-right {
+  top: 298px;
+  right: 80px;
+  width: 36px;
+  height: 36px;
+}
+
+/* Genoux : plus hauts et plus latéraux */
+.knee-left {
+  top: 394px;
+  left: 84px;
+  width: 28px;
+  height: 28px;
+}
+
+.knee-right {
+  top: 394px;
+  right: 86px;
+  width: 28px;
+  height: 28px;
+}
+
+/* Chevilles : légèrement plus basses */
+.ankle-left {
+  top: 540px;
+  left: 86px;
+  width: 26px;
+  height: 26px;
+}
+
+.ankle-right {
+  top: 540px;
+  right: 86px;
+  width: 26px;
+  height: 26px;
+}
+
+/* Pieds : ronds */
+.foot-left {
+  top: 568px;
+  left: 78px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+}
+
+.foot-right {
+  top: 568px;
+  right: 78px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+}
 
 /* =========================
    POSITIONS DOS
 ========================= */
 
+/* Cervical : un peu moins large */
 .spine-cervical {
-  top: 62px;
+  top: 84px;
   left: 50%;
   transform: translateX(-50%);
-  width: 24px;
-  height: 34px;
+  width: 26px;
+  height: 44px;
   border-radius: 999px;
 }
 
+/* Dorsal : remonté */
 .spine-dorsal {
-  top: 152px;
+  top: 140px;
   left: 50%;
   transform: translateX(-50%);
-  width: 28px;
-  height: 42px;
+  width: 34px;
+  height: 78px;
   border-radius: 999px;
 }
 
+/* Lombaire : remonté */
 .spine-lumbar {
-  top: 266px;
+  top: 230px;
   left: 50%;
   transform: translateX(-50%);
-  width: 30px;
-  height: 42px;
+  width: 36px;
+  height: 72px;
   border-radius: 999px;
 }
 
+/* Bassin postérieur : conservé masqué pour l’instant */
 .pelvis-back {
   display: none !important;
 }
