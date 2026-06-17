@@ -199,6 +199,28 @@ toggleSubgroup(
 updatePathoHelp();
 updatePathoRules();
 
+// 13. Resynchronisation UI body-map locomotrice
+// Important : reset.js décoche bien les checkboxes,
+// mais la silhouette doit être réalignée visuellement.
+if (typeof updateBodyMapFromCheckboxes === "function") {
+    updateBodyMapFromCheckboxes();
+}
+
+if (typeof updateAPALimitationsCompactText === "function") {
+    updateAPALimitationsCompactText();
+}
+
+const selectedZones =
+    document.getElementById("bodyMapSelectedZones");
+
+if (selectedZones) {
+    selectedZones.textContent = "Aucune";
+}
+
+if (typeof closeAPALimitationsPanelAfterReset === "function") {
+    closeAPALimitationsPanelAfterReset();
+}
+
 }
 
 });

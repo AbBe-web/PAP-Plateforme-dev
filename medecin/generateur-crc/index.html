@@ -4959,107 +4959,106 @@ document.querySelectorAll(".patho").forEach(el => {
 });    
 }
     
-function initCRCModeToggle(){
+function syncCRCModeDisplay() {
 
-  if (window._crcModeToggleInitialized) {
-  return;
+  document
+    .querySelectorAll('[id^="crcContainer_"]')
+    .forEach(container => {
+
+      const patho =
+        container.id.replace(
+          "crcContainer_",
+          ""
+        );
+
+      const selected =
+        document.querySelector(
+          `input[name="crc_detail_${patho}"]:checked`
+        )?.value || "detail";
+
+      const simple =
+        container.querySelector(".crc-simple");
+
+      const detail =
+        container.querySelector(".crc-detail");
+
+      if (!simple || !detail) {
+        return;
+      }
+
+      const modeBlock =
+        container.previousElementSibling;
+
+      if (selected === "simple") {
+
+        if (modeBlock) {
+          modeBlock.style.display = "flex";
+        }
+
+        container.style.display = "block";
+        simple.style.display = "block";
+        detail.style.display = "none";
+
+      } else if (selected === "detail") {
+
+        if (modeBlock) {
+          modeBlock.style.display = "flex";
+        }
+
+        container.style.display = "block";
+        simple.style.display = "none";
+        detail.style.display = "block";
+
+      } else if (selected === "none") {
+
+        if (modeBlock) {
+          modeBlock.style.display = "none";
+        }
+
+        container.style.display = "none";
+      }
+
+    });
 }
+
+function initCRCModeToggle() {
+
+  // Synchronisation visuelle à chaque reconstruction du bloc pathologies
+  syncCRCModeDisplay();
+
+  // Listener global attaché une seule fois
+  if (window._crcModeToggleInitialized) {
+    return;
+  }
 
   window._crcModeToggleInitialized = true;
 
-  document.addEventListener("change", function(e){
+  document.addEventListener("change", function(e) {
 
-    // 🔹 1. Gestion affichage simple/détail
-    if (e.target.name && e.target.name.startsWith("crc_detail_")) {
+    const isDetailModeChange =
+      e.target.name &&
+      e.target.name.startsWith("crc_detail_");
 
-      const patho = e.target.name.replace("crc_detail_", "");
-      const container = document.getElementById(`crcContainer_${patho}`);
-      if (!container) return;
-
-      const simple = container.querySelector(".crc-simple");
-      const detail = container.querySelector(".crc-detail");
-
-      if (!simple || !detail) return;
-
-const modeBlock = container.previousElementSibling;
-
-if (e.target.value === "simple") {
-
-  if (modeBlock) modeBlock.style.display = "flex";
-
-  container.style.display = "block";
-  simple.style.display = "block";
-  detail.style.display = "none";
-
-} else if (e.target.value === "detail") {
-
-  if (modeBlock) modeBlock.style.display = "flex";
-
-  container.style.display = "block";
-  simple.style.display = "none";
-  detail.style.display = "block";
-
-} else if (e.target.value === "none") {
-
-  if (modeBlock) modeBlock.style.display = "none";
-
-  container.style.display = "none";
-}
+    if (isDetailModeChange) {
+      syncCRCModeDisplay();
     }
 
-    // 🔹 2. 🔥 MAJ AUTOMATIQUE DU CRC
     const isRelevantChange =
       e.target.classList.contains("patho") ||
       e.target.classList.contains("crc-item") ||
-      (e.target.name && e.target.name.startsWith("crc_detail_")) ||
-      (e.target.name && e.target.name.startsWith("crc_mode_"));
+      isDetailModeChange ||
+      (
+        e.target.name &&
+        e.target.name.startsWith("crc_mode_")
+      );
 
     if (isRelevantChange) {
 
-           if (typeof renderActiveMode === "function") {
-               renderActiveMode();
+      if (typeof renderActiveMode === "function") {
+        renderActiveMode();
       }
 
     }
-
-  });
-
-  // 🔹 INITIALISATION AU CHARGEMENT (CONSERVÉE)
-  document.querySelectorAll('[id^="crcContainer_"]').forEach(container => {
-
-    const patho = container.id.replace("crcContainer_", "");
-
-    const selected = document.querySelector(`input[name="crc_detail_${patho}"]:checked`)?.value;
-
-    const simple = container.querySelector(".crc-simple");
-    const detail = container.querySelector(".crc-detail");
-
-    if (!simple || !detail) return;
-
-const modeBlock = container.previousElementSibling;
-
-if (selected === "simple") {
-
-  if (modeBlock) modeBlock.style.display = "flex";
-
-  container.style.display = "block";
-  simple.style.display = "block";
-  detail.style.display = "none";
-
-} else if (selected === "detail") {
-
-  if (modeBlock) modeBlock.style.display = "flex";
-
-  container.style.display = "block";
-  simple.style.display = "none";
-  detail.style.display = "block";
-
-} else if (selected === "none") {
-
-  if (modeBlock) modeBlock.style.display = "none";
-
-  container.style.display = "none";
-}
 
   });
 
@@ -6380,6 +6379,8 @@ const crcPathoBloc =
 const antecedentsBloc =
   buildAntecedentsBloc();
 const traitementsBloc = buildTraitementsBloc();
+const objectifsBloc = buildObjectivesBlock(model);
+const objectifsCount = getObjectivesCount(model);
           
   return `
 <p style="text-align:right;">Le ${today}</p>
@@ -6420,10 +6421,14 @@ ${decisionBloc}
 </p>
 ` : ""}
 
+${objectifsBloc ? `
 <p>
-Les objectifs de cette prescription d’activité physique sont :
-${buildObjectivesBlock(model)}.
+${objectifsCount > 1
+  ? "Les objectifs de cette prescription d’activité physique sont :"
+  : "L’objectif de cette prescription d’activité physique est :"}
+${objectifsBloc}.
 </p>
+` : ""}
 
 <p>
 ${prescriptionBloc}
@@ -6465,9 +6470,12 @@ const crcPathoBloc =
     clinicalContext
   );   
  
-   const traitementsBloc = buildTraitementsBloc();
+  const traitementsBloc = buildTraitementsBloc();
+  const objectifsBloc = buildObjectivesBlock(model);
+  const objectifsCount = getObjectivesCount(model);
 
   return `
+
 <p>
 ${titre} _____ a été ${participe} en consultation d’activité physique.
 ${traitementsBloc}
@@ -6477,8 +6485,12 @@ ${rcvBloc}
 
 ${decisionBloc}
 
-Les objectifs principaux sont :
-${buildObjectivesBlock(model)}.
+${objectifsBloc ? `
+${objectifsCount > 1
+  ? "Les objectifs principaux sont :"
+  : "L’objectif principal est :"}
+${objectifsBloc}.
+` : ""}
 
 ${prescriptionBloc}
 
@@ -6506,7 +6518,9 @@ const crcPathoBloc =
   const antecedentsBloc = buildAntecedentsBloc();
   const traitementsBloc = buildTraitementsBloc();
   const decisionBloc = buildDecisionBloc(model);
-                
+  const objectifsBloc = buildObjectivesBlock(model);
+  const objectifsCount = getObjectivesCount(model);
+
   return `
 <p style="margin-bottom:28px;">
 <p><strong>Consultation d’activité physique – Synthèse</strong></p>
@@ -6541,8 +6555,10 @@ ${decisionBloc}
 </p>
 ` : ""}
 
-<p><strong>Objectifs :</strong><br>
-${buildObjectivesBlock(model)}</p>
+${objectifsBloc ? `
+<p><strong>${objectifsCount > 1 ? "Objectifs" : "Objectif"} :</strong><br>
+${objectifsBloc}</p>
+` : ""}
 
 <p><strong>Prescription :</strong><br>
 ${prescriptionBloc}</p>
@@ -6588,6 +6604,9 @@ const crcPathoBloc =
     clinicalContext
   );
 
+const objectifsBloc = buildObjectivesBlock(model);
+const objectifsCount = getObjectivesCount(model);
+
   // 🔹 Message progressivité seulement si insuffisamment actif ou actif depuis moins de 6 mois
 const progressiviteMessage = (() => {
 
@@ -6631,10 +6650,16 @@ ${decisionBloc}
 </p>
 ` : ""}
 
+${objectifsBloc ? `
 <p>
-Lors de l’échange que vous avez eu avec votre médecin, l’objectif principal retenu en termes d’activité physique est :
-<strong>${buildObjectivesBlock(model)}</strong>.
+Lors de l’échange que vous avez eu avec votre médecin, ${
+  objectifsCount > 1
+    ? "les objectifs principaux retenus en termes d’activité physique sont"
+    : "l’objectif principal retenu en termes d’activité physique est"
+} :
+<strong>${objectifsBloc}</strong>.
 </p>
+` : ""}
 
 <p>
 ${prescriptionBloc}
@@ -6656,9 +6681,17 @@ ${progressiviteMessage}
 <p>
 En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.
 Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercice :
-<a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf" target="_blank">
+<a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+   target="_blank"
+   rel="noopener noreferrer">
 les 10 règles d’or du Club des Cardiologues du Sport
 </a>.
+<br>
+Lien direct :
+<br>
+<span style="word-break:break-all;">
+https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf
+</span>
 </p>
 
 <div style="margin-top:20px; text-align:center;">
@@ -7273,10 +7306,80 @@ if (certificateIdentityEl) {
 
   return nextHTML;
 }
+
+function escapeHTMLForPrint(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function textToPrintableHTML(text) {
+
+  return `
+<div style="white-space:pre-wrap; line-height:1.45;">
+${escapeHTMLForPrint(text)}
+</div>
+`;
+}
+
+function getCurrentPrintableHTML() {
+
+  const finalTextOutput =
+    document.getElementById("finalTextOutput");
+
+  const editedText =
+    finalTextOutput?.value?.trim() || "";
+
+  if (
+    renderedOutput.edited === true &&
+    editedText
+  ) {
+    return textToPrintableHTML(editedText);
+  }
+
+  return document.getElementById("outputContainer")?.innerHTML || "";
+}
+
+function injectIdentityIntoPrintableContent(
+  content,
+  prenom,
+  nom
+) {
+
+  const identity =
+    `${prenom || ""} ${nom || ""}`.trim();
+
+  if (!identity) {
+    return content;
+  }
+
+  if (
+    content.includes("data-patient-lastname") ||
+    content.includes("data-patient-firstname") ||
+    content.includes("data-patient-certificate-identity")
+  ) {
+    return injectIdentityIntoHTML(
+      content,
+      prenom,
+      nom
+    );
+  }
+
+  const safeIdentity =
+    escapeHTMLForPrint(identity);
+
+  return String(content || "")
+    .replace(/Monsieur\s+_+/g, `Monsieur ${safeIdentity}`)
+    .replace(/Madame\s+_+/g, `Madame ${safeIdentity}`);
+}
     
 function proceedWithAction(prenom, nom, existingWin = null) {
 
-  let content = document.getElementById("outputContainer").innerHTML;
+  let content = getCurrentPrintableHTML();
 
  console.log("IDENTITY DEBUG", {
   activeMode,
@@ -7292,7 +7395,11 @@ if (
   activeMode === "ordonnance" ||
     activeMode === "apa"
 ) {
-  content = injectIdentityIntoHTML(content, prenom, nom);
+  content = injectIdentityIntoPrintableContent(
+    content,
+    prenom,
+    nom
+  );
 }
 
 if (activeMode === "medical" || activeMode === "patient") {
@@ -7393,12 +7500,22 @@ if (!win) {
 
 if (identityAction === "copy") {
 
-  const text =
+  let text =
     document.getElementById("finalTextOutput")?.value?.trim();
 
   if (!text) {
     alert("Aucun compte-rendu disponible.");
     return;
+  }
+
+  // Nettoyage spécifique copie : le QR code patient crée une ligne texte inutile
+  // "Accès rapide :" dans le presse-papiers, sans intérêt en DPI.
+  if (activeMode === "patient") {
+    text = text
+      .replace(/\n\s*Accès rapide\s*:\s*\.\s*/g, "\n")
+      .replace(/\n\s*Accès rapide\s*:\s*/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
   }
 
   let copiedMessage = "Compte-rendu copié.";
@@ -7418,27 +7535,75 @@ if (identityAction === "copy") {
 }
 }
 
+function closeAPALimitationsPanelAfterReset() {
+
+  const apaPanel =
+    document.getElementById("apaLimitationsPanel");
+
+  if (apaPanel) {
+    apaPanel.hidden = true;
+  }
+
+  const toggleBtn =
+    document.getElementById("toggleApaLimitationsPanel");
+
+  if (toggleBtn) {
+    toggleBtn.textContent = "Configurer";
+  }
+
+  const compactText =
+    document.getElementById("apaLimitationsCompactText");
+
+  if (compactText) {
+    compactText.textContent = "Aucune sélectionnée";
+  }
+
+  document
+    .querySelectorAll(".body-map-fallback")
+    .forEach(details => {
+      details.open = false;
+    });
+}
+
 function resetFormulaireComplet() {
 
-    isProgrammaticUpdate = true;
- 
+  isProgrammaticUpdate = true;
+
   // 🔹 reset radios / checkbox
-  document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(el => {
-    el.checked = false;
-  });
+  document
+    .querySelectorAll('input[type="radio"], input[type="checkbox"]')
+    .forEach(el => {
+      el.checked = false;
+    });
 
   // 🔹 reset inputs texte / number
-  document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => {
-    el.value = "";
-  });
+  document
+    .querySelectorAll('input[type="text"], input[type="number"], textarea')
+    .forEach(el => {
+      el.value = "";
+    });
 
   // 🔹 reset motivation UI (important)
-  document.querySelectorAll('#actif-subgroup, #inactif-subgroup, #sixmois-subgroup')
-    .forEach(el => el.style.display = "none");
+  document
+    .querySelectorAll('#actif-subgroup, #inactif-subgroup, #sixmois-subgroup')
+    .forEach(el => {
+      el.style.display = "none";
+    });
 
-    isProgrammaticUpdate = false;
+  // 🔹 reset visuel body-map locomotrice
+  if (typeof updateBodyMapFromCheckboxes === "function") {
+    updateBodyMapFromCheckboxes();
+  }
 
+  // 🔹 reset texte compact limitations APA
+  if (typeof updateAPALimitationsCompactText === "function") {
+    updateAPALimitationsCompactText();
+  }
 
+  // 🔹 fermeture complète du panneau précautions / limitations
+  closeAPALimitationsPanelAfterReset();
+
+  isProgrammaticUpdate = false;
 }
 
 const resetConsultationBtnTop =
@@ -9856,7 +10021,7 @@ document.getElementById('downloadPdf')?.addEventListener('click', function (e) {
   e.preventDefault();
   e.stopPropagation();
 
-  const content = document.getElementById("outputContainer").innerHTML;
+  const content = getCurrentPrintableHTML();
 
   const win = window.open('', '', 'width=800,height=600');
 
@@ -10357,7 +10522,7 @@ const objectifs =
   model.therapeutic_plan.objectifs || [];
 
   if (!objectifs.length) {
-    return "Objectifs à préciser.";
+    return "";
   }
 
   const mappingObjectifs = {
@@ -10403,8 +10568,27 @@ const objectifs =
 
     });
 
-  return objectifsFormates.join(", ");
+  if (objectifsFormates.length === 1) {
+    return objectifsFormates[0];
+  }
 
+  if (objectifsFormates.length === 2) {
+    return objectifsFormates.join(" et ");
+  }
+
+  return objectifsFormates
+    .slice(0, -1)
+    .join(", ") +
+    " et " +
+    objectifsFormates[objectifsFormates.length - 1];
+
+}
+
+function getObjectivesCount(model) {
+
+  return (
+    model?.therapeutic_plan?.objectifs || []
+  ).length;
 }
 
 function buildRecommendationsBlock() {
