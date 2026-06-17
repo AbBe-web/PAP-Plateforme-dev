@@ -221,6 +221,14 @@ if (typeof closeAPALimitationsPanelAfterReset === "function") {
     closeAPALimitationsPanelAfterReset();
 }
 
+if (typeof updateMedicationApaPanel === "function") {
+    updateMedicationApaPanel();
+}
+
+if (typeof updateMedicationOtherField === "function") {
+    updateMedicationOtherField();
+}
+
 }
 
 });

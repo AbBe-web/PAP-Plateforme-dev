@@ -1790,6 +1790,103 @@ placeholder="Préciser..."
     style="width:140px; font-size:inherit; margin-left:8px;"
   />
 
+<div
+  id="medicationApaBlock"
+  class="hidden"
+  style="
+    margin:14px 0 18px 0;
+    padding:12px;
+    border:1px solid #fde68a;
+    border-left:4px solid #f59e0b;
+    border-radius:10px;
+    background:#fffbeb;
+    font-size:0.92rem;
+    line-height:1.45;
+  "
+>
+
+  <strong>
+    💊 Classes médicamenteuses pouvant interférer avec l’activité physique
+  </strong>
+
+<div
+  id="medicationApaTreatmentDetails"
+  style="
+    margin-top:8px;
+    padding:6px 8px;
+    border-radius:8px;
+    background:#ffffff;
+    border:1px solid #fef3c7;
+    font-size:0.86rem;
+    line-height:1.35;
+  "
+>
+  <strong>Traitements rappelés :</strong>
+  <span
+    id="medicationApaTreatmentMemo"
+    style="
+      color:#374151;
+      overflow-wrap:anywhere;
+    "
+  ></span>
+</div>
+
+  <div style="margin-top:12px;">
+    <strong>
+      Classes à confirmer par le médecin
+    </strong>
+
+    <div
+      id="medicationApaClassContent"
+      style="margin-top:8px;"
+    ></div>
+  </div>
+
+  <label
+    style="
+      display:block;
+      margin-top:10px;
+      padding:8px;
+      border-radius:8px;
+      background:#ffffff;
+      border:1px solid #fef3c7;
+    "
+  >
+    <input
+      type="checkbox"
+      id="medication_vigilance_autre"
+      name="medication_vigilance_class"
+      value="autre"
+    >
+    Autre classe pertinente non listée
+  </label>
+
+  <input
+    type="text"
+    id="medication_vigilance_autre_text"
+    class="hidden"
+    placeholder="Préciser la classe ou le point de vigilance..."
+    style="
+      width:100%;
+      margin-top:6px;
+      padding:8px;
+      border:1px solid #d1d5db;
+      border-radius:8px;
+      font-size:0.9rem;
+      box-sizing:border-box;
+    "
+  >
+
+  <div
+    style="
+      margin-top:10px;
+      color:#92400e;
+      font-size:0.85rem;
+    "
+  >
+    Mémo indicatif : les classes affichées automatiquement sont seulement probables et doivent être vérifiées.
+  </div>
+
 </div>
 
 <div
@@ -2588,6 +2685,7 @@ Ressources / fiches AP
 
 <script src="../../core/clinical-context/context-schema.js"></script>
 <script src="../../core/clinical-context/resource-registry.js"></script>
+<script src="../../core/clinical-context/medication-vigilance-registry.js"></script>
 <script src="../../core/clinical-context/computeClinicalContext.js"></script>
 
 <script>
@@ -4014,6 +4112,394 @@ if (window.matchMedia("(max-width: 768px)").matches) {
 }, 90);
   }
 }
+
+function getConfirmedMedicationClassIds() {
+
+  return Array.from(
+    document.querySelectorAll(
+      ".medication-vigilance-class-checkbox:checked"
+    )
+  ).map(input => input.value);
+}
+
+function getMedicationShortMessage(item) {
+
+  const messages = {
+    "insuline":
+      "hypoglycémie / collation / autosurveillance",
+
+    "sulfamides-glinides":
+      "hypoglycémie / collation / autosurveillance",
+
+    "bradycardisants":
+      "FC moins fiable → Borg / ressenti d’effort",
+
+    "antihypertenseurs-vasodilatateurs":
+      "hypotension / vertiges / chaleur",
+
+    "diuretiques":
+      "hydratation / chaleur / hypotension",
+
+    "anticoagulants-antiagregants":
+      "chutes / chocs / traumatismes",
+
+    "psychotropes-sedatifs":
+      "somnolence / hypotension / chute",
+
+    "antalgiques-palier2-gabapentinoides":
+      "somnolence / vertiges / équilibre",
+
+    "statines":
+      "myalgies ou faiblesse musculaire inhabituelles",
+
+    "corticotherapie-generale":
+      "fragilité tendineuse / musculaire / osseuse"
+  };
+
+  return messages[item.id] || item.message || "";
+}
+
+function renderMedicationClassRow(
+  item,
+  options = {}
+) {
+
+  const checked =
+    options.checked
+      ? "checked"
+      : "";
+
+  const probable =
+    options.probable === true;
+
+  const confirmedOnly =
+    options.confirmedOnly === true;
+
+  const badge = probable
+    ? "probable"
+    : confirmedOnly
+      ? "confirmé"
+      : "manuel";
+
+  const badgeColor = probable
+    ? "#92400e"
+    : confirmedOnly
+      ? "#166534"
+      : "#64748b";
+
+  const background = probable
+    ? "#fff7ed"
+    : checked
+      ? "#f0fdf4"
+      : "#ffffff";
+
+  const border = probable
+    ? "#f59e0b"
+    : checked
+      ? "#86efac"
+      : "#e5e7eb";
+
+  return `
+<label
+  style="
+    display:inline-flex !important;
+    align-items:center;
+    gap:6px;
+    max-width:100%;
+    box-sizing:border-box;
+    margin:4px 6px 4px 0;
+    padding:6px 8px;
+    border-radius:8px;
+    background:${background};
+    border:1px solid ${border};
+    line-height:1.25;
+    white-space:normal;
+    overflow-wrap:anywhere;
+    font-size:0.84rem;
+  "
+>
+  <input
+    type="checkbox"
+    class="medication-vigilance-class-checkbox"
+    name="medication_vigilance_class"
+    value="${item.id}"
+    ${checked}
+    style="
+      margin:0;
+      flex-shrink:0;
+    "
+  >
+
+  <span
+    style="
+      min-width:0;
+      overflow-wrap:anywhere;
+    "
+  >
+    <strong>${item.label}</strong>
+    <span
+      style="
+        margin-left:4px;
+        color:${badgeColor};
+        font-size:0.74rem;
+        font-weight:700;
+      "
+    >
+      ${badge}
+    </span>
+  </span>
+</label>
+`;
+}
+
+function updateMedicationApaPanel() {
+
+  const treatmentInput =
+    document.getElementById("traitementsActuels");
+
+  const block =
+    document.getElementById("medicationApaBlock");
+
+  const memo =
+    document.getElementById("medicationApaTreatmentMemo");
+
+  const content =
+    document.getElementById("medicationApaClassContent");
+
+  if (!treatmentInput || !block || !memo || !content) {
+    return;
+  }
+
+  const rawText =
+    treatmentInput.value || "";
+
+  const selectedBeforeUpdate =
+    getConfirmedMedicationClassIds();
+
+  const registry =
+    Array.isArray(window.MEDICATION_VIGILANCE_REGISTRY)
+      ? window.MEDICATION_VIGILANCE_REGISTRY
+      : [];
+
+  const detected =
+    rawText.trim() &&
+    typeof computeMedicationVigilanceFromText === "function"
+      ? computeMedicationVigilanceFromText(rawText)
+      : [];
+
+  const detectedIds =
+    detected.map(item => item.id);
+
+ if (rawText.trim()) {
+
+  memo.textContent =
+    rawText
+      .split("\n")
+      .map(line => line.trim())
+      .filter(Boolean)
+      .join(", ");
+
+} else {
+
+  memo.textContent =
+    "aucun traitement renseigné.";
+}
+
+  if (!registry.length) {
+
+    content.innerHTML = `
+      <div style="color:#64748b;">
+        Registre de classes médicamenteuses non disponible.
+      </div>
+    `;
+
+    block.classList.remove("hidden");
+    return;
+  }
+
+  const mainItems =
+    registry.filter(item =>
+      detectedIds.includes(item.id) ||
+      selectedBeforeUpdate.includes(item.id)
+    );
+
+  const mainIds =
+    mainItems.map(item => item.id);
+
+  const otherItems =
+    registry.filter(item =>
+      !mainIds.includes(item.id)
+    );
+
+  let html = "";
+
+  if (mainItems.length > 0) {
+
+    html += `
+<div
+  style="
+    margin-bottom:10px;
+    font-weight:600;
+  "
+>
+Classes probables / confirmées :
+</div>
+`;
+
+    html += mainItems
+      .map(item =>
+        renderMedicationClassRow(
+          item,
+          {
+            checked:
+              selectedBeforeUpdate.includes(item.id),
+
+            probable:
+              detectedIds.includes(item.id),
+
+            confirmedOnly:
+              !detectedIds.includes(item.id) &&
+              selectedBeforeUpdate.includes(item.id)
+          }
+        )
+      )
+      .join("");
+
+  } else {
+
+    html += `
+<div
+  style="
+    margin-bottom:10px;
+    color:#64748b;
+    font-size:0.88rem;
+  "
+>
+  Aucune classe médicamenteuse repérée automatiquement.
+  Le médecin peut cocher manuellement une classe pertinente ci-dessous.
+</div>
+`;
+  }
+
+  html += `
+<details
+  style="
+    margin-top:10px;
+    padding:8px;
+    border-radius:8px;
+    background:#ffffff;
+    border:1px solid #e5e7eb;
+  "
+>
+  <summary
+    style="
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2937;
+    "
+  >
+    Afficher / cocher les autres classes médicamenteuses
+  </summary>
+
+  <div style="margin-top:8px;">
+    ${
+      otherItems.length
+        ? otherItems
+            .map(item =>
+              renderMedicationClassRow(
+                item,
+                {
+                  checked:
+                    selectedBeforeUpdate.includes(item.id),
+
+                  probable: false,
+                  confirmedOnly: false
+                }
+              )
+            )
+            .join("")
+        : `
+          <div style="color:#64748b;">
+            Toutes les classes listées sont déjà affichées ci-dessus.
+          </div>
+        `
+    }
+  </div>
+</details>
+`;
+
+  content.innerHTML = html;
+
+  block.classList.remove("hidden");
+
+  updateMedicationOtherField();
+}
+
+function updateMedicationOtherField() {
+
+  const otherCheckbox =
+    document.getElementById("medication_vigilance_autre");
+
+  const otherText =
+    document.getElementById("medication_vigilance_autre_text");
+
+  if (!otherCheckbox || !otherText) {
+    return;
+  }
+
+  if (otherCheckbox.checked) {
+    otherText.classList.remove("hidden");
+  } else {
+    otherText.classList.add("hidden");
+    otherText.value = "";
+  }
+}
+
+function initMedicationApaPanel() {
+
+  const treatmentInput =
+    document.getElementById("traitementsActuels");
+
+  if (!treatmentInput) {
+    return;
+  }
+
+  if (window._medicationApaPanelInitialized) {
+    updateMedicationApaPanel();
+    return;
+  }
+
+  window._medicationApaPanelInitialized = true;
+
+  treatmentInput.addEventListener(
+    "input",
+    updateMedicationApaPanel
+  );
+
+  treatmentInput.addEventListener(
+    "change",
+    updateMedicationApaPanel
+  );
+
+  document.addEventListener("change", function(e) {
+
+    if (
+      e.target.classList.contains(
+        "medication-vigilance-class-checkbox"
+      )
+    ) {
+      updateMedicationApaPanel();
+    }
+
+    if (e.target.id === "medication_vigilance_autre") {
+      updateMedicationOtherField();
+    }
+
+  });
+
+  updateMedicationApaPanel();
+}
+
 function updatePathoRules() {
 
   const container = document.getElementById("pathoRulesContainer");
@@ -4835,6 +5321,7 @@ function initBPCO() {
 initHandicap();
 initActivitePhysique();
 initCRCModeToggle();
+initMedicationApaPanel();
 
 initAerobieMode();
 initObjectifAutre();
@@ -7658,10 +8145,19 @@ function resetFormulaireComplet() {
     updateAPALimitationsCompactText();
   }
 
-  // 🔹 fermeture complète du panneau précautions / limitations
-  closeAPALimitationsPanelAfterReset();
+ // 🔹 fermeture complète du panneau précautions / limitations
+closeAPALimitationsPanelAfterReset();
 
-  isProgrammaticUpdate = false;
+// 🔹 reset mémo classes médicamenteuses / AP
+if (typeof updateMedicationApaPanel === "function") {
+  updateMedicationApaPanel();
+}
+
+if (typeof updateMedicationOtherField === "function") {
+  updateMedicationOtherField();
+}
+
+isProgrammaticUpdate = false;
 }
 
 const resetConsultationBtnTop =
