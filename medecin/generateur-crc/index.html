@@ -2449,6 +2449,9 @@ Ressources / fiches AP
   <!-- Contenu rendu -->
   <div id="outputContainer"></div>
 
+  <!-- Sortie dédiée Ctrl+P navigateur -->
+  <div id="browserPrintOutput" aria-hidden="true"></div>
+
   <div id="finalTextContainer"
      style="display:none; margin-top:20px;">
 
@@ -7376,7 +7379,62 @@ function injectIdentityIntoPrintableContent(
     .replace(/Monsieur\s+_+/g, `Monsieur ${safeIdentity}`)
     .replace(/Madame\s+_+/g, `Madame ${safeIdentity}`);
 }
-    
+
+function prepareBrowserPrintOutput() {
+
+  const printOutput =
+    document.getElementById("browserPrintOutput");
+
+  if (!printOutput) {
+    return;
+  }
+
+  const reportOutput =
+    document.getElementById("reportOutput");
+
+  const hasGeneratedReport =
+    reportOutput &&
+    !reportOutput.classList.contains("hidden");
+
+  if (!hasGeneratedReport) {
+    printOutput.innerHTML = "";
+    document.body.classList.remove("has-browser-print-output");
+    return;
+  }
+
+  const printableHTML =
+    getCurrentPrintableHTML();
+
+  if (!printableHTML) {
+    printOutput.innerHTML = "";
+    document.body.classList.remove("has-browser-print-output");
+    return;
+  }
+
+  printOutput.innerHTML = printableHTML;
+  document.body.classList.add("has-browser-print-output");
+}
+
+function cleanupBrowserPrintOutput() {
+
+  document.body.classList.remove("has-browser-print-output");
+
+  const printOutput =
+    document.getElementById("browserPrintOutput");
+
+  if (printOutput) {
+    printOutput.innerHTML = "";
+  }
+}
+
+window.addEventListener("beforeprint", function() {
+  prepareBrowserPrintOutput();
+});
+
+window.addEventListener("afterprint", function() {
+  cleanupBrowserPrintOutput();
+});
+
 function proceedWithAction(prenom, nom, existingWin = null) {
 
   let content = getCurrentPrintableHTML();
