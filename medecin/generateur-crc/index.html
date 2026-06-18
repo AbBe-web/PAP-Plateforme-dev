@@ -1965,31 +1965,136 @@ Pas d’AP envisagée dans les 6 mois
 
  
 
-      <div
+ <div
+  style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:12px;
+    margin-top:10px;
+    align-items:start;
+  "
+>
+  <label
+    style="
+      display:flex !important;
+      flex-direction:column;
+      gap:4px;
+      margin:0;
+    "
+  >
+    <span>Sit-and-reach / chaîne postérieure</span>
+
+    <span
+      style="
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        white-space:nowrap;
+      "
+    >
+      <input
+        id="physical_flex_sitreach"
+        type="number"
+        step="0.5"
         style="
-          display:grid;
-          grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
-          gap:8px;
-          margin-top:10px;
+          width:110px;
+          height:34px;
+          padding:6px 10px;
+          border:1px solid #d1d5db;
+          border-radius:8px;
+          box-sizing:border-box;
+          font-size:0.95rem;
         "
       >
-        <label>
-          Sit-and-reach
-          <input id="physical_flex_sitreach" type="text" placeholder="cm ou qualitatif">
-        </label>
 
-        <label>
-          Souplesse épaules
-          <input id="physical_flex_shoulders" type="text" placeholder="cm ou qualitatif">
-        </label>
-      </div>
+      <span
+        style="
+          color:#334155;
+          font-size:0.85rem;
+          font-weight:600;
+        "
+      >
+        cm
+      </span>
+    </span>
 
-      <textarea
-        id="physical_flex_commentaire"
-        rows="2"
-        placeholder="Commentaire souplesse"
-        style="width:100%; margin-top:8px;"
-      ></textarea>
+    <span
+      style="
+        color:#64748b;
+        font-size:0.78rem;
+        line-height:1.25;
+      "
+    >
+      + au-delà des orteils / − avant les orteils
+    </span>
+  </label>
+
+  <label
+    style="
+      display:flex !important;
+      flex-direction:column;
+      gap:4px;
+      margin:0;
+    "
+  >
+    <span>Épaules / Back Scratch Test</span>
+
+    <span
+      style="
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        white-space:nowrap;
+      "
+    >
+      <input
+        id="physical_flex_shoulders"
+        type="number"
+        step="0.5"
+        style="
+          width:110px;
+          height:34px;
+          padding:6px 10px;
+          border:1px solid #d1d5db;
+          border-radius:8px;
+          box-sizing:border-box;
+          font-size:0.95rem;
+        "
+      >
+
+      <span
+        style="
+          color:#334155;
+          font-size:0.85rem;
+          font-weight:600;
+        "
+      >
+        cm
+      </span>
+    </span>
+
+    <span
+      style="
+        color:#64748b;
+        font-size:0.78rem;
+        line-height:1.25;
+      "
+    >
+      + chevauchement / − distance entre les doigts
+    </span>
+  </label>
+</div>
+
+<textarea
+  id="physical_flex_commentaire"
+  rows="2"
+  placeholder="Commentaire souplesse : douleur, asymétrie, limitation, observation qualitative, test non standardisé..."
+  style="
+    width:100%;
+    margin-top:8px;
+    box-sizing:border-box;
+  "
+></textarea>
 
       <div
         style="
@@ -7478,7 +7583,458 @@ return `Des éléments spécifiques en rapport avec ${pathoTxt} ont été abord�
 
   return "";
 }
-    
+
+function buildPhysicalTestsCRCBlock(
+  model,
+  mode = "long"
+) {
+
+  const tests =
+    model?.physicalTests;
+
+  if (!tests || !tests.hasData) {
+    return "";
+  }
+
+  const value = raw => {
+    if (raw === null || raw === undefined) return "";
+    return String(raw).trim();
+  };
+
+  const formatDateFr = raw => {
+
+    const text =
+      value(raw);
+
+    if (!text) return "";
+
+    const parts =
+      text.split("-");
+
+    if (parts.length === 3) {
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
+    }
+
+    return text;
+  };
+
+  const joinWithCommasAndEt = items => {
+
+    const cleanItems =
+      items
+        .map(item => value(item))
+        .filter(Boolean);
+
+    if (cleanItems.length === 0) return "";
+
+    if (cleanItems.length === 1) {
+      return cleanItems[0];
+    }
+
+    if (cleanItems.length === 2) {
+      return `${cleanItems[0]} et ${cleanItems[1]}`;
+    }
+
+    return `${cleanItems.slice(0, -1).join(", ")}, et ${cleanItems.at(-1)}`;
+  };
+
+  const status =
+    tests.status || {};
+
+  const contextParts = [];
+
+  if (value(status.date)) {
+    contextParts.push(
+      `le ${formatDateFr(status.date)}`
+    );
+  }
+
+  if (value(status.realise_par)) {
+    contextParts.push(
+      `par ${value(status.realise_par)}`
+    );
+  }
+
+  const contextText =
+    contextParts.length > 0
+      ? ` réalisés ${contextParts.join(" ")}`
+      : "";
+
+  if (status.non_realises && !status.a_confier) {
+    return `Les tests de condition physique n’ont pas été réalisés ce jour.`;
+  }
+
+  const testItems = [];
+
+  const tm6 =
+    tests.tm6 || {};
+
+  const tm6Parts = [];
+
+  const tm6Distance =
+    value(tm6.distance_m ?? tm6.distance);
+
+  if (tm6Distance) {
+    tm6Parts.push(`TM6 ${tm6Distance} m`);
+  }
+
+  if (value(tm6.borg)) {
+    tm6Parts.push(`Borg ${value(tm6.borg)}`);
+  }
+
+  if (tm6.arret_premature || tm6.arret) {
+    tm6Parts.push("arrêt prématuré");
+  }
+
+  const tm6Reference =
+    tm6.reference || {};
+
+  if (tm6Distance && tm6Reference.available) {
+
+    const referenceParts = [];
+
+    if (value(tm6Reference.distance_theorique_m)) {
+      referenceParts.push(
+        `attendu ≈ ${value(tm6Reference.distance_theorique_m)} m`
+      );
+    }
+
+    if (value(tm6Reference.limite_inferieure_normale_m)) {
+      referenceParts.push(
+        `limite basse ≈ ${value(tm6Reference.limite_inferieure_normale_m)} m`
+      );
+    }
+
+    if (value(tm6Reference.pourcentage_theorique)) {
+      referenceParts.push(
+        `${value(tm6Reference.pourcentage_theorique)} % de l’attendu`
+      );
+    }
+
+    if (referenceParts.length > 0) {
+      tm6Parts.push(
+        `repères HAS : ${joinWithCommasAndEt(referenceParts)}`
+      );
+    }
+  }
+
+  const cardio =
+    tm6.cardiorespiratory || {};
+
+  const cardioParts = [];
+
+  if (value(cardio.fc_repos ?? tm6.fc_repos)) {
+    cardioParts.push(
+      `FC repos ${value(cardio.fc_repos ?? tm6.fc_repos)} bpm`
+    );
+  }
+
+  if (value(cardio.fc_fin ?? tm6.fc_fin)) {
+    cardioParts.push(
+      `FC fin ${value(cardio.fc_fin ?? tm6.fc_fin)} bpm`
+    );
+  }
+
+  if (value(cardio.fc_recuperation ?? tm6.fc_recup)) {
+    cardioParts.push(
+      `FC récupération ${value(cardio.fc_recuperation ?? tm6.fc_recup)} bpm`
+    );
+  }
+
+  if (value(cardio.spo2_repos ?? tm6.spo2_repos)) {
+    cardioParts.push(
+      `SpO₂ repos ${value(cardio.spo2_repos ?? tm6.spo2_repos)} %`
+    );
+  }
+
+  if (value(cardio.spo2_fin ?? tm6.spo2_fin)) {
+    cardioParts.push(
+      `SpO₂ fin ${value(cardio.spo2_fin ?? tm6.spo2_fin)} %`
+    );
+  }
+
+  if (value(cardio.spo2_recuperation ?? tm6.spo2_recup)) {
+    cardioParts.push(
+      `SpO₂ récupération ${value(cardio.spo2_recuperation ?? tm6.spo2_recup)} %`
+    );
+  }
+
+  if (cardioParts.length > 0) {
+    tm6Parts.push(joinWithCommasAndEt(cardioParts));
+  }
+
+  if (value(tm6.note ?? tm6.commentaire ?? tm6.symptomes)) {
+    tm6Parts.push(
+      value(tm6.note ?? tm6.commentaire ?? tm6.symptomes)
+    );
+  }
+
+  if (tm6Parts.length > 0) {
+    testItems.push(
+      tm6Parts.join(" avec ")
+    );
+  }
+
+  const chair =
+    tests.chairStand || {};
+
+  const chairResult =
+    value(chair.resultat);
+
+  if (chairResult) {
+
+    const variantLabels = {
+      "30_sec": "30 secondes",
+      "1_min": "1 minute",
+      "5_levers": "5 levers chronométrés"
+    };
+
+    const variantLabel =
+      variantLabels[chair.variante] || "";
+
+    const chairParts = [];
+
+    if (variantLabel) {
+      chairParts.push(`levers de chaise ${variantLabel}`);
+    } else {
+      chairParts.push("levers de chaise");
+    }
+
+    if (chair.unite === "secondes") {
+      chairParts.push(`en ${chairResult} secondes`);
+    } else {
+      chairParts.push(`${chairResult} levers`);
+    }
+
+    if (chair.aide_bras) {
+      chairParts.push("avec aide des bras");
+    }
+
+    if (value(chair.commentaire)) {
+      chairParts.push(value(chair.commentaire));
+    }
+
+    testItems.push(
+      chairParts.join(" ")
+    );
+  }
+
+  const handgrip =
+    tests.handgrip || {};
+
+  const handgripParts = [];
+
+  if (
+    value(
+      handgrip.main_droite_kg ??
+      handgrip.droite_kg ??
+      handgrip.droite
+    )
+  ) {
+    handgripParts.push(
+      `main droite ${
+        value(
+          handgrip.main_droite_kg ??
+          handgrip.droite_kg ??
+          handgrip.droite
+        )
+      } kg`
+    );
+  }
+
+  if (
+    value(
+      handgrip.main_gauche_kg ??
+      handgrip.gauche_kg ??
+      handgrip.gauche
+    )
+  ) {
+    handgripParts.push(
+      `main gauche ${
+        value(
+          handgrip.main_gauche_kg ??
+          handgrip.gauche_kg ??
+          handgrip.gauche
+        )
+      } kg`
+    );
+  }
+
+  if (
+    value(
+      handgrip.meilleure_valeur_kg ??
+      handgrip.meilleure_valeur ??
+      handgrip.best
+    )
+  ) {
+    handgripParts.push(
+      `meilleure valeur ${
+        value(
+          handgrip.meilleure_valeur_kg ??
+          handgrip.meilleure_valeur ??
+          handgrip.best
+        )
+      } kg`
+    );
+  }
+
+  if (value(handgrip.commentaire)) {
+    handgripParts.push(value(handgrip.commentaire));
+  }
+
+  if (handgripParts.length > 0) {
+    testItems.push(
+      `handgrip ${joinWithCommasAndEt(handgripParts)}`
+    );
+  }
+
+  const balance =
+    tests.balance || tests.equilibre || {};
+
+  const balanceParts = [];
+
+  if (
+    value(
+      balance.appui_unipodal_sec ??
+      balance.appui_unipodal_s ??
+      balance.appui_unipodal
+    )
+  ) {
+    balanceParts.push(
+      `appui unipodal ${
+        value(
+          balance.appui_unipodal_sec ??
+          balance.appui_unipodal_s ??
+          balance.appui_unipodal
+        )
+      } s`
+    );
+  }
+
+  if (value(balance.ecarts_nombre ?? balance.ecarts)) {
+    balanceParts.push(
+      `${value(balance.ecarts_nombre ?? balance.ecarts)} écart(s)`
+    );
+  }
+
+  if (value(balance.tandem)) {
+
+    const tandemLabels = {
+      "reussi": "tandem réussi",
+      "non_reussi": "tandem non réussi",
+      "non_realise": "tandem non réalisé"
+    };
+
+    balanceParts.push(
+      tandemLabels[balance.tandem] || value(balance.tandem)
+    );
+  }
+
+  if (balance.aide_technique || balance.aide) {
+    balanceParts.push("aide technique / appui nécessaire");
+  }
+
+  if (value(balance.commentaire)) {
+    balanceParts.push(value(balance.commentaire));
+  }
+
+  if (balanceParts.length > 0) {
+    testItems.push(
+      `équilibre ${joinWithCommasAndEt(balanceParts)}`
+    );
+  }
+
+const flexibility =
+  tests.flexibility || tests.souplesse || {};
+
+const flexibilityMeasures = [];
+const flexibilityComments = [];
+
+if (value(flexibility.sit_and_reach ?? flexibility.sitreach)) {
+  flexibilityMeasures.push(
+    `sit-and-reach à ${value(
+      flexibility.sit_and_reach ??
+      flexibility.sitreach
+    )} cm`
+  );
+}
+
+if (value(flexibility.epaules ?? flexibility.shoulders)) {
+  flexibilityMeasures.push(
+    `test des épaules (Back Scratch Test) à ${value(
+      flexibility.epaules ??
+      flexibility.shoulders
+    )} cm`
+  );
+}
+
+if (value(flexibility.commentaire)) {
+  flexibilityComments.push(
+    value(flexibility.commentaire)
+  );
+}
+
+if (flexibilityMeasures.length > 0) {
+  testItems.push(
+    [
+      `souplesse avec ${joinWithCommasAndEt(flexibilityMeasures)}`,
+      ...flexibilityComments
+    ].join(", ")
+  );
+} else if (flexibilityComments.length > 0) {
+  testItems.push(
+    `souplesse : ${joinWithCommasAndEt(flexibilityComments)}`
+  );
+}
+
+  const other =
+    tests.other || tests.autre || {};
+
+  const otherName =
+    value(other.nom ?? other.name);
+
+  const otherResult =
+    value(other.resultat ?? other.result);
+
+  const otherUnit =
+    value(other.unite ?? other.unit);
+
+  const otherParts = [];
+
+  if (otherName) {
+    otherParts.push(otherName);
+  }
+
+  if (otherResult) {
+    otherParts.push(
+      `${otherResult}${otherUnit ? ` ${otherUnit}` : ""}`
+    );
+  }
+
+  if (value(other.commentaire)) {
+    otherParts.push(value(other.commentaire));
+  }
+
+  if (otherParts.length > 0) {
+    testItems.push(
+      `autre test ${joinWithCommasAndEt(otherParts)}`
+    );
+  }
+
+  if (testItems.length === 0 && status.a_confier) {
+    return "Un bilan de condition et de capacités physiques est à confier à un professionnel APA, kinésithérapeute ou structure adaptée.";
+  }
+
+  if (testItems.length === 0) {
+    return "";
+  }
+
+  const resultText =
+    joinWithCommasAndEt(testItems);
+
+  return `Les résultats des tests de condition physique${contextText} sont les suivants : ${resultText}.`;
+}
+
 function renderLongLetterV2(
   model,
   clinicalContext = null
@@ -7508,6 +8064,11 @@ function renderLongLetterV2(
   const titre = p.sexe === "femme" ? "Madame" : "Monsieur";
 
   const evaluationBloc = buildEvaluationAP(model);
+  const physicalTestsBloc =
+  buildPhysicalTestsCRCBlock(
+    model,
+    "long"
+  );
   const motivationBloc = buildMotivation(model);
 const rcvBloc = buildRCV(model);
 const decisionBloc =
@@ -7552,6 +8113,12 @@ ${traitementsBloc}
 <p>
 ${evaluationBloc}
 </p>
+
+${physicalTestsBloc ? `
+<p>
+${physicalTestsBloc}
+</p>
+` : ""}
 
 <p>
 ${motivationBloc}
@@ -7606,11 +8173,15 @@ ${renderPhysicianSignature()}
   const participe = p.sexe === "femme" ? "vue" : "vu";
                 
   const evaluationBloc = buildEvaluationAP(model);
+  const physicalTestsBloc = buildPhysicalTestsCRCBlock(
+    model,
+    "paragraph"
+  );
   const motivationBloc = buildMotivation(model);
-const rcvBloc = buildRCV(model);
-const decisionBloc = buildDecisionBloc(model);
-const prescriptionBloc = buildPrescription(model);
-const crcPathoBloc =
+  const rcvBloc = buildRCV(model);
+  const decisionBloc = buildDecisionBloc(model);
+  const prescriptionBloc = buildPrescription(model);
+  const crcPathoBloc =
   buildCRCPathoBloc(
     "paragraph",
     clinicalContext
@@ -7626,6 +8197,11 @@ const crcPathoBloc =
 ${titre} _____ a été ${participe} en consultation d’activité physique.
 ${traitementsBloc}
 ${evaluationBloc}
+
+${physicalTestsBloc ? `
+${physicalTestsBloc}
+` : ""}
+
 ${motivationBloc}
 ${rcvBloc}
 
@@ -7650,16 +8226,14 @@ function renderMedicalRecord(
   model,
   clinicalContext = null
 ) {
+const evaluationBloc = buildEvaluationAP(model);
+const physicalTestsBloc =
+buildPhysicalTestsCRCBlock(
+  model,
+  "medical"
+);
 
-  const evaluationBloc = buildEvaluationAP(model);
-  const motivationBloc = buildMotivation(model);
-  const rcvBloc = buildRCV(model);
-  const prescriptionBloc = buildPrescription(model);
-const crcPathoBloc =
-  buildCRCPathoBloc(
-    "medical",
-    clinicalContext
-  );
+const motivationBloc = buildMotivation(model);
 
   const antecedentsBloc = buildAntecedentsBloc();
   const traitementsBloc = buildTraitementsBloc();
@@ -7688,6 +8262,11 @@ ${traitementsBloc.replace("Il comprend :<br>", "")}
 
 <p><strong>Évaluation de l’activité physique :</strong><br>
 ${evaluationBloc}</p>
+
+${physicalTestsBloc ? `
+<p><strong>Tests physiques / condition physique :</strong><br>
+${physicalTestsBloc}</p>
+` : ""}
 
 <p><strong>Évaluation motivationnelle :</strong><br>
 ${motivationBloc}</p>
