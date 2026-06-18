@@ -7781,112 +7781,88 @@ function buildPhysicalTestsCRCBlock(
   const chairResult =
     value(chair.resultat);
 
-  if (chairResult) {
+if (chairResult) {
 
-    const variantLabels = {
-      "30_sec": "30 secondes",
-      "1_min": "1 minute",
-      "5_levers": "5 levers chronométrés"
-    };
+  let chairText = "";
 
-    const variantLabel =
-      variantLabels[chair.variante] || "";
-
-    const chairParts = [];
-
-    if (variantLabel) {
-      chairParts.push(`levers de chaise ${variantLabel}`);
-    } else {
-      chairParts.push("levers de chaise");
-    }
-
-    if (chair.unite === "secondes") {
-      chairParts.push(`en ${chairResult} secondes`);
-    } else {
-      chairParts.push(`${chairResult} levers`);
-    }
-
-    if (chair.aide_bras) {
-      chairParts.push("avec aide des bras");
-    }
-
-    if (value(chair.commentaire)) {
-      chairParts.push(value(chair.commentaire));
-    }
-
-    testItems.push(
-      chairParts.join(" ")
-    );
+  if (chair.variante === "30_sec") {
+    chairText =
+      `${chairResult} levers de chaise en 30 secondes`;
+  } else if (chair.variante === "1_min") {
+    chairText =
+      `${chairResult} levers de chaise en 1 minute`;
+  } else if (chair.variante === "5_levers") {
+    chairText =
+      `5 levers de chaise en ${chairResult} secondes`;
+  } else {
+    chairText =
+      chair.unite === "secondes"
+        ? `levers de chaise en ${chairResult} secondes`
+        : `${chairResult} levers de chaise`;
   }
 
-  const handgrip =
-    tests.handgrip || {};
-
-  const handgripParts = [];
-
-  if (
-    value(
-      handgrip.main_droite_kg ??
-      handgrip.droite_kg ??
-      handgrip.droite
-    )
-  ) {
-    handgripParts.push(
-      `main droite ${
-        value(
-          handgrip.main_droite_kg ??
-          handgrip.droite_kg ??
-          handgrip.droite
-        )
-      } kg`
-    );
+  if (chair.aide_bras) {
+    chairText += " avec aide des bras";
   }
 
-  if (
-    value(
-      handgrip.main_gauche_kg ??
-      handgrip.gauche_kg ??
-      handgrip.gauche
-    )
-  ) {
-    handgripParts.push(
-      `main gauche ${
-        value(
-          handgrip.main_gauche_kg ??
-          handgrip.gauche_kg ??
-          handgrip.gauche
-        )
-      } kg`
-    );
+  if (value(chair.commentaire)) {
+    chairText += `, ${value(chair.commentaire)}`;
   }
 
-  if (
-    value(
-      handgrip.meilleure_valeur_kg ??
-      handgrip.meilleure_valeur ??
-      handgrip.best
-    )
-  ) {
-    handgripParts.push(
-      `meilleure valeur ${
-        value(
-          handgrip.meilleure_valeur_kg ??
-          handgrip.meilleure_valeur ??
-          handgrip.best
-        )
-      } kg`
-    );
-  }
+  testItems.push(chairText);
+}
 
+const handgrip =
+  tests.handgrip || {};
+
+const handgripParts = [];
+
+const rightHandgrip =
+  value(
+    handgrip.main_droite_kg ??
+    handgrip.droite_kg ??
+    handgrip.droite
+  );
+
+const leftHandgrip =
+  value(
+    handgrip.main_gauche_kg ??
+    handgrip.gauche_kg ??
+    handgrip.gauche
+  );
+
+const bestHandgrip =
+  value(
+    handgrip.meilleure_valeur_kg ??
+    handgrip.meilleure_valeur ??
+    handgrip.best
+  );
+
+if (rightHandgrip) {
+  handgripParts.push(
+    `main droite ${rightHandgrip} kg`
+  );
+}
+
+if (leftHandgrip) {
+  handgripParts.push(
+    `main gauche ${leftHandgrip} kg`
+  );
+}
+
+if (handgripParts.length > 0) {
   if (value(handgrip.commentaire)) {
     handgripParts.push(value(handgrip.commentaire));
   }
 
-  if (handgripParts.length > 0) {
-    testItems.push(
-      `handgrip ${joinWithCommasAndEt(handgripParts)}`
-    );
-  }
+  testItems.push(
+    `handgrip ${joinWithCommasAndEt(handgripParts)}`
+  );
+} else if (bestHandgrip) {
+  testItems.push(
+    `handgrip meilleure valeur ${bestHandgrip} kg`
+  );
+}
 
   const balance =
     tests.balance || tests.equilibre || {};
@@ -8440,6 +8416,302 @@ https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf
 `;
 }
 
+function buildPhysicalTestsPrescriptionContextBlock(model) {
+
+  const tests =
+    model?.physicalTests;
+
+  if (!tests || !tests.hasData) {
+    return "";
+  }
+
+  const value = raw => {
+    if (raw === null || raw === undefined) return "";
+    return String(raw).trim();
+  };
+
+  const joinWithCommasAndEt = items => {
+
+    const cleanItems =
+      items
+        .map(item => value(item))
+        .filter(Boolean);
+
+    if (cleanItems.length === 0) return "";
+
+    if (cleanItems.length === 1) {
+      return cleanItems[0];
+    }
+
+    if (cleanItems.length === 2) {
+      return `${cleanItems[0]} et ${cleanItems[1]}`;
+    }
+
+    return `${cleanItems.slice(0, -1).join(", ")}, et ${cleanItems[cleanItems.length - 1]}`;
+  };
+
+  const status =
+    tests.status || {};
+
+  const items = [];
+
+  const tm6 =
+    tests.tm6 || {};
+
+  const tm6Distance =
+    value(tm6.distance_m ?? tm6.distance);
+
+  if (tm6Distance) {
+
+    const tm6Parts = [
+      `TM6 ${tm6Distance} m`
+    ];
+
+    if (value(tm6.borg)) {
+      tm6Parts.push(`Borg ${value(tm6.borg)}`);
+    }
+
+    if (tm6.arret_premature || tm6.arret) {
+      tm6Parts.push("arrêt prématuré");
+    }
+
+    items.push(
+      tm6Parts.join(", ")
+    );
+  }
+
+  const chair =
+    tests.chairStand || {};
+
+  const chairResult =
+    value(chair.resultat);
+
+if (chairResult) {
+
+  let chairText = "";
+
+  if (chair.variante === "30_sec") {
+    chairText =
+      `${chairResult} levers de chaise en 30 secondes`;
+  } else if (chair.variante === "1_min") {
+    chairText =
+      `${chairResult} levers de chaise en 1 minute`;
+  } else if (chair.variante === "5_levers") {
+    chairText =
+      `5 levers de chaise en ${chairResult} secondes`;
+  } else {
+    chairText =
+      chair.unite === "secondes"
+        ? `levers de chaise en ${chairResult} secondes`
+        : `${chairResult} levers de chaise`;
+  }
+
+  if (chair.aide_bras) {
+    chairText += " avec aide des bras";
+  }
+
+  items.push(chairText);
+}
+
+ const handgrip =
+  tests.handgrip || {};
+
+const bestHandgrip =
+  value(
+    handgrip.meilleure_valeur_kg ??
+    handgrip.meilleure_valeur ??
+    handgrip.best
+  );
+
+if (bestHandgrip) {
+  items.push(
+    `handgrip ${bestHandgrip} kg`
+  );
+}
+
+  const balance =
+    tests.balance || tests.equilibre || {};
+
+  const balanceParts = [];
+
+  if (
+    value(
+      balance.appui_unipodal_sec ??
+      balance.appui_unipodal_s ??
+      balance.appui_unipodal
+    )
+  ) {
+    balanceParts.push(
+      `appui unipodal ${
+        value(
+          balance.appui_unipodal_sec ??
+          balance.appui_unipodal_s ??
+          balance.appui_unipodal
+        )
+      } s`
+    );
+  }
+
+  if (value(balance.ecarts_nombre ?? balance.ecarts)) {
+    balanceParts.push(
+      `${value(balance.ecarts_nombre ?? balance.ecarts)} écart(s)`
+    );
+  }
+
+  if (value(balance.tandem)) {
+
+    const tandemLabels = {
+      "reussi": "tandem réussi",
+      "non_reussi": "tandem non réussi",
+      "non_realise": "tandem non réalisé"
+    };
+
+    balanceParts.push(
+      tandemLabels[balance.tandem] || value(balance.tandem)
+    );
+  }
+
+  if (balance.aide_technique || balance.aide) {
+    balanceParts.push("aide technique / appui nécessaire");
+  }
+
+  if (balanceParts.length > 0) {
+    items.push(
+      `équilibre ${joinWithCommasAndEt(balanceParts)}`
+    );
+  }
+
+  const flexibility =
+    tests.flexibility || tests.souplesse || {};
+
+  const flexibilityParts = [];
+
+  if (value(flexibility.sit_and_reach ?? flexibility.sitreach)) {
+    flexibilityParts.push(
+      `sit-and-reach à ${value(
+        flexibility.sit_and_reach ??
+        flexibility.sitreach
+      )} cm`
+    );
+  }
+
+  if (value(flexibility.epaules ?? flexibility.shoulders)) {
+    flexibilityParts.push(
+      `test des épaules (Back Scratch Test) à ${value(
+        flexibility.epaules ??
+        flexibility.shoulders
+      )} cm`
+    );
+  }
+
+  if (flexibilityParts.length > 0) {
+    items.push(
+      `souplesse avec ${joinWithCommasAndEt(flexibilityParts)}`
+    );
+  }
+
+  const other =
+    tests.other || tests.autre || {};
+
+  const otherName =
+    value(other.nom ?? other.name);
+
+  const otherResult =
+    value(other.resultat ?? other.result);
+
+  const otherUnit =
+    value(other.unite ?? other.unit);
+
+  if (otherName || otherResult) {
+    items.push(
+      `autre test ${joinWithCommasAndEt([
+        otherName,
+        otherResult
+          ? `${otherResult}${otherUnit ? ` ${otherUnit}` : ""}`
+          : ""
+      ])}`
+    );
+  }
+
+  if (items.length === 0 && status.a_confier) {
+    return `
+<div style="
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid #d9d9d9;
+  border-radius:8px;
+  background:#fcfcfc;
+  font-size:13px;
+  line-height:1.45;
+">
+  <div style="font-weight:700; margin-bottom:4px;">
+    Éléments fonctionnels à prendre en compte
+  </div>
+  Un bilan de condition et de capacités physiques est à prévoir ou à confier à un professionnel APA, kinésithérapeute ou structure adaptée.
+</div>
+`;
+  }
+
+  if (items.length === 0) {
+    return "";
+  }
+
+  return `
+<div style="
+  margin-top:14px;
+  padding:12px 14px;
+  border:1px solid #d9d9d9;
+  border-radius:8px;
+  background:#fcfcfc;
+  font-size:13px;
+  line-height:1.45;
+">
+  <div style="font-weight:700; margin-bottom:4px;">
+    Éléments fonctionnels à prendre en compte pour l’adaptation de l’activité physique
+  </div>
+  ${joinWithCommasAndEt(items)}.
+</div>
+`;
+}
+
+function buildPhysicalTestsPrescriptionContextText(model) {
+
+  if (
+    typeof buildPhysicalTestsPrescriptionContextBlock !== "function"
+  ) {
+    return "";
+  }
+
+  const html =
+    buildPhysicalTestsPrescriptionContextBlock(model);
+
+  if (!html) {
+    return "";
+  }
+
+  const temp =
+    document.createElement("div");
+
+  temp.innerHTML =
+    html;
+
+const text =
+  temp.innerText
+    .replace(/\s*\n+\s*/g, " ")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+
+return text
+  .replace(
+    /^Éléments fonctionnels à prendre en compte pour l’adaptation de l’activité physique\s+/,
+    "Éléments fonctionnels à prendre en compte pour l’adaptation de l’activité physique : "
+  )
+  .replace(
+    /^Éléments fonctionnels à prendre en compte\s+/,
+    "Éléments fonctionnels à prendre en compte : "
+  );
+}
+
 function renderOrdonnanceAP(model) {
 
   const ordonnanceHTML =
@@ -8451,10 +8723,13 @@ function renderOrdonnanceAP(model) {
   const identity =
   getPhysicianIdentity();
 
-    const conseilsPatho =
+const conseilsPatho =
   buildCRCPathoBloc("ordonnance");
 
-    const today = new Date().toLocaleDateString('fr-FR', {
+const physicalTestsPrescriptionBloc =
+  buildPhysicalTestsPrescriptionContextBlock(model);
+
+const today = new Date().toLocaleDateString('fr-FR', {
   day: 'numeric',
   month: 'long',
   year: 'numeric'
@@ -8582,6 +8857,8 @@ const includeApaCertificate =
 ">
   ${ordonnanceHTML}
 </div>
+
+${physicalTestsPrescriptionBloc}
 
 ${dureePrescription ? `
 
@@ -8835,8 +9112,21 @@ if (
   activeMode === "apa"
 ) {
 
-  renderedOutput.text =
+  const prescriptionDPIText =
     generatePrescriptionDPI(prescriptionModel);
+
+  const physicalTestsDPIText =
+    typeof buildPhysicalTestsPrescriptionContextText === "function"
+      ? buildPhysicalTestsPrescriptionContextText(model)
+      : "";
+
+  renderedOutput.text =
+    [
+      prescriptionDPIText,
+      physicalTestsDPIText
+    ]
+      .filter(Boolean)
+      .join("\n\n");
 
 } else {
 
