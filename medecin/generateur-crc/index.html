@@ -1371,6 +1371,31 @@ Pas d’AP envisagée dans les 6 mois
 </div>
  </div>     
 
+<style>
+  #physicalTestsBlock input[type="text"],
+  #physicalTestsBlock input[type="number"],
+  #physicalTestsBlock input[type="date"],
+  #physicalTestsBlock textarea {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #physicalTestsBlock textarea {
+    width: 100%;
+    resize: vertical;
+    overflow-wrap: anywhere;
+  }
+
+  #physicalTestsBlock details {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  #physicalTestsBlock label {
+    max-width: 100%;
+  }
+</style>
+
  <div
   id="physicalTestsBlock"
   style="
@@ -1466,165 +1491,411 @@ Pas d’AP envisagée dans les 6 mois
   </label>
 </div>
 
-    <details open>
-      <summary style="font-weight:700; cursor:pointer;">
-        TM6 / test de marche de 6 minutes
-      </summary>
+<details open>
+  <summary style="font-weight:700; cursor:pointer;">
+    TM6 / test de marche de 6 minutes
+  </summary>
+
+<div
+  style="
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+    margin-top:8px;
+    align-items:flex-start;
+  "
+>
+  <label
+    style="
+      display:flex !important;
+      flex-direction:column;
+      gap:4px;
+      margin:0;
+      width:170px;
+      max-width:100%;
+      line-height:1.2;
+    "
+  >
+    <span>Distance</span>
+
+    <input
+      id="physical_tm6_distance"
+      type="number"
+      min="0"
+      step="1"
+      placeholder="m"
+      style="
+        width:170px !important;
+        max-width:100% !important;
+        height:34px;
+        min-height:34px;
+        margin:0 !important;
+        padding:6px 10px;
+        border:1px solid #d1d5db;
+        border-radius:8px;
+        box-sizing:border-box;
+        font-size:0.95rem;
+        line-height:1.2;
+      "
+    >
+  </label>
+
+  <label
+    style="
+      display:flex !important;
+      flex-direction:column;
+      gap:4px;
+      margin:0;
+      width:220px;
+      max-width:100%;
+      line-height:1.2;
+    "
+  >
+    <span>Borg (optionnel)</span>
+
+    <input
+      id="physical_tm6_borg"
+      type="text"
+      placeholder="ex : 3/10 ou 12/20"
+      style="
+        width:220px !important;
+        max-width:100% !important;
+        height:34px;
+        min-height:34px;
+        margin:0 !important;
+        padding:6px 10px;
+        border:1px solid #d1d5db;
+        border-radius:8px;
+        box-sizing:border-box;
+        font-size:0.95rem;
+        line-height:1.2;
+      "
+    >
+  </label>
+</div>
+
+  <div
+    id="physical_tm6_reference"
+    style="
+      margin-top:10px;
+      padding:10px 12px;
+      border-radius:8px;
+      background:#ffffff;
+      border:1px solid #dbe4ee;
+      color:#64748b;
+      font-size:0.9rem;
+      line-height:1.45;
+      box-sizing:border-box;
+    "
+  >
+    Repères TM6 : renseigner âge, sexe, taille et poids pour calculer la distance théorique estimée.
+  </div>
+
+  <details
+    id="physical_tm6_cardioresp_details"
+    style="margin-top:10px;"
+  >
+    <summary
+      id="physical_tm6_cardioresp_summary"
+      style="
+        cursor:pointer;
+        font-weight:600;
+        color:#1f2937;
+        background:#ffffff;
+        border:1px solid #dbe4ee;
+        border-radius:8px;
+        padding:10px 12px;
+        list-style:none;
+      "
+    >
+      ▸ Ouvrir les mesures cardio-respiratoires optionnelles
+    </summary>
+
+    <div
+      style="
+        display:grid;
+        grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+        gap:8px;
+        margin-top:8px;
+      "
+    >
+      <label>
+        FC repos
+        <input id="physical_tm6_fc_repos" type="number" min="0" step="1" placeholder="bpm">
+      </label>
+
+      <label>
+        FC fin
+        <input id="physical_tm6_fc_fin" type="number" min="0" step="1" placeholder="bpm">
+      </label>
+
+      <label>
+        FC récupération
+        <input id="physical_tm6_fc_recup" type="number" min="0" step="1" placeholder="bpm">
+      </label>
+
+      <label>
+        SpO₂ repos
+        <input id="physical_tm6_spo2_repos" type="number" min="0" max="100" step="1" placeholder="%">
+      </label>
+
+      <label>
+        SpO₂ fin
+        <input id="physical_tm6_spo2_fin" type="number" min="0" max="100" step="1" placeholder="%">
+      </label>
+
+      <label>
+        SpO₂ récupération
+        <input id="physical_tm6_spo2_recup" type="number" min="0" max="100" step="1" placeholder="%">
+      </label>
+    </div>
+  </details>
+
+  <label
+    style="
+      display:inline-flex !important;
+      align-items:center;
+      gap:6px;
+      margin-top:10px;
+    "
+  >
+    <input type="checkbox" id="physical_tm6_arret">
+    Arrêt prématuré
+  </label>
+
+  <textarea
+    id="physical_tm6_note"
+    rows="3"
+    placeholder="Note TM6 : raison d’arrêt précoce, symptômes, tolérance, commentaire clinique..."
+    style="
+      width:100%;
+      margin-top:10px;
+      padding:10px 12px;
+      border:1px solid #dbe4ee;
+      border-radius:8px;
+      background:#ffffff;
+      color:#374151;
+      line-height:1.45;
+      box-sizing:border-box;
+      resize:vertical;
+      overflow-wrap:anywhere;
+    "
+  ></textarea>
+</details>
+
+ <details style="margin-top:10px;">
+  <summary style="font-weight:700; cursor:pointer;">
+    Levers de chaise / force musculaire
+  </summary>
+
+  <div style="margin-top:8px;">
+    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+      <label style="display:inline-flex !important; align-items:center; gap:6px;">
+        <input type="radio" name="physical_chair_variant" value="30_sec">
+        30 secondes
+      </label>
+
+      <label style="display:inline-flex !important; align-items:center; gap:6px;">
+        <input type="radio" name="physical_chair_variant" value="1_min">
+        1 minute
+      </label>
+
+      <label style="display:inline-flex !important; align-items:center; gap:6px;">
+        <input type="radio" name="physical_chair_variant" value="5_levers">
+        5 levers chronométrés
+      </label>
+    </div>
+
+ <div
+  style="
+    display:flex;
+    flex-wrap:wrap;
+    gap:24px;
+    align-items:flex-end;
+    margin-top:8px;
+  "
+>
+  <label
+    style="
+      display:flex !important;
+      flex-direction:column;
+      gap:4px;
+      margin:0;
+    "
+  >
+    <span>Résultat</span>
+
+    <span
+      style="
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        white-space:nowrap;
+      "
+    >
+      <input
+        id="physical_chair_result"
+        type="number"
+        min="0"
+        step="1"
+        style="
+          width:110px;
+          height:34px;
+          min-height:34px;
+          padding:6px 10px;
+          border:1px solid #d1d5db;
+          border-radius:8px;
+          box-sizing:border-box;
+          font-size:0.95rem;
+        "
+      >
+
+      <span
+        id="physical_chair_unit_label"
+        style="
+          display:inline-flex;
+          align-items:center;
+          min-height:24px;
+          padding:2px 8px;
+          border-radius:999px;
+          background:#eef2ff;
+          color:#334155;
+          font-size:0.82rem;
+          font-weight:600;
+          white-space:nowrap;
+        "
+      >
+        unité
+      </span>
+    </span>
+  </label>
+
+  <label
+    style="
+      display:inline-flex !important;
+      align-items:center;
+      gap:6px;
+      margin:0 0 7px 8px;
+      white-space:nowrap;
+    "
+  >
+    <input type="checkbox" id="physical_chair_arms">
+    Aide des bras
+  </label>
+</div>
+
+<div style="display:none;">
+  <input
+    type="radio"
+    name="physical_chair_unit"
+    value="nombre"
+  >
+
+  <input
+    type="radio"
+    name="physical_chair_unit"
+    value="secondes"
+  >
+</div>
+
+    <textarea
+      id="physical_chair_commentaire"
+      rows="3"
+      placeholder="Note levers de chaise : douleur, symptôme, limitation, aide, commentaire clinique..."
+      style="
+        width:100%;
+        max-width:100%;
+        margin-top:8px;
+        padding:10px 12px;
+        border:1px solid #dbe4ee;
+        border-radius:8px;
+        background:#ffffff;
+        box-sizing:border-box;
+        resize:vertical;
+        overflow-wrap:anywhere;
+      "
+    ></textarea>
+
+    <div
+      style="
+        margin-top:12px;
+        padding-top:10px;
+        border-top:1px solid #e2e8f0;
+      "
+    >
+      <div style="font-weight:700; margin-bottom:8px;">
+        Handgrip optionnel
+      </div>
 
       <div
         style="
           display:grid;
-          grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+          grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
           gap:8px;
-          margin-top:8px;
         "
       >
-        <label>
-          Distance
-          <input id="physical_tm6_distance" type="number" min="0" step="1" placeholder="m">
+        <label style="display:inline-flex !important; align-items:center; gap:6px;">
+          <input type="checkbox" id="physical_handgrip_available">
+          Dynamomètre disponible
         </label>
 
         <label>
-          FC repos
-          <input id="physical_tm6_fc_repos" type="number" min="0" step="1" placeholder="bpm">
+          Main droite
+          <input
+            id="physical_handgrip_right"
+            type="number"
+            min="0"
+            step="0.1"
+            placeholder="kg"
+            style="width:100%; box-sizing:border-box;"
+          >
         </label>
 
         <label>
-          FC fin
-          <input id="physical_tm6_fc_fin" type="number" min="0" step="1" placeholder="bpm">
+          Main gauche
+          <input
+            id="physical_handgrip_left"
+            type="number"
+            min="0"
+            step="0.1"
+            placeholder="kg"
+            style="width:100%; box-sizing:border-box;"
+          >
         </label>
 
         <label>
-          FC récupération
-          <input id="physical_tm6_fc_recup" type="number" min="0" step="1" placeholder="bpm">
-        </label>
-
-        <label>
-          Borg
-          <input id="physical_tm6_borg" type="text" placeholder="ex : 3/10 ou 12/20">
-        </label>
-
-        <label>
-          SpO₂ repos
-          <input id="physical_tm6_spo2_repos" type="number" min="0" max="100" step="1" placeholder="%">
-        </label>
-
-        <label>
-          SpO₂ fin
-          <input id="physical_tm6_spo2_fin" type="number" min="0" max="100" step="1" placeholder="%">
-        </label>
-
-        <label>
-          SpO₂ récupération
-          <input id="physical_tm6_spo2_recup" type="number" min="0" max="100" step="1" placeholder="%">
+          Meilleure valeur
+          <input
+            id="physical_handgrip_best"
+            type="number"
+            min="0"
+            step="0.1"
+            placeholder="kg"
+            style="width:100%; box-sizing:border-box;"
+          >
         </label>
       </div>
 
-      <label
+      <textarea
+        id="physical_handgrip_commentaire"
+        rows="2"
+        placeholder="Commentaire handgrip"
         style="
-          display:inline-flex !important;
-          align-items:center;
-          gap:6px;
+          width:100%;
+          max-width:100%;
           margin-top:8px;
+          padding:10px 12px;
+          border:1px solid #dbe4ee;
+          border-radius:8px;
+          background:#ffffff;
+          box-sizing:border-box;
+          resize:vertical;
+          overflow-wrap:anywhere;
         "
-      >
-        <input type="checkbox" id="physical_tm6_arret">
-        Arrêt prématuré
-      </label>
-
-      <textarea
-        id="physical_tm6_symptomes"
-        rows="2"
-        placeholder="Dyspnée, douleur, malaise, limitation, symptômes..."
-        style="width:100%; margin-top:8px;"
       ></textarea>
-
-      <textarea
-        id="physical_tm6_commentaire"
-        rows="2"
-        placeholder="Commentaire clinique TM6"
-        style="width:100%; margin-top:8px;"
-      ></textarea>
-    </details>
-
-    <details style="margin-top:10px;">
-      <summary style="font-weight:700; cursor:pointer;">
-        Levers de chaise
-      </summary>
-
-      <div style="margin-top:8px;">
-        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
-          <label style="display:inline-flex !important; align-items:center; gap:6px;">
-            <input type="radio" name="physical_chair_variant" value="30_sec">
-            30 secondes
-          </label>
-
-          <label style="display:inline-flex !important; align-items:center; gap:6px;">
-            <input type="radio" name="physical_chair_variant" value="1_min">
-            1 minute
-          </label>
-
-          <label style="display:inline-flex !important; align-items:center; gap:6px;">
-            <input type="radio" name="physical_chair_variant" value="5_levers">
-            5 levers chronométrés
-          </label>
-        </div>
-
-        <div
-          style="
-            display:grid;
-            grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
-            gap:8px;
-          "
-        >
-          <label>
-            Résultat
-            <input id="physical_chair_result" type="number" min="0" step="1">
-          </label>
-
-          <div>
-            Unité
-            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:4px;">
-              <label style="display:inline-flex !important; align-items:center; gap:6px;">
-                <input type="radio" name="physical_chair_unit" value="nombre">
-                nombre
-              </label>
-
-              <label style="display:inline-flex !important; align-items:center; gap:6px;">
-                <input type="radio" name="physical_chair_unit" value="secondes">
-                secondes
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <label
-          style="
-            display:inline-flex !important;
-            align-items:center;
-            gap:6px;
-            margin-top:8px;
-          "
-        >
-          <input type="checkbox" id="physical_chair_arms">
-          Aide des bras
-        </label>
-
-        <textarea
-          id="physical_chair_symptomes"
-          rows="2"
-          placeholder="Douleur, symptôme, limitation..."
-          style="width:100%; margin-top:8px;"
-        ></textarea>
-
-        <textarea
-          id="physical_chair_commentaire"
-          rows="2"
-          placeholder="Commentaire clinique levers de chaise"
-          style="width:100%; margin-top:8px;"
-        ></textarea>
-      </div>
-    </details>
+    </div>
+  </div>
+</details>
 
     <details style="margin-top:10px;">
       <summary style="font-weight:700; cursor:pointer;">
@@ -1689,44 +1960,10 @@ Pas d’AP envisagée dans les 6 mois
 
     <details style="margin-top:10px;">
       <summary style="font-weight:700; cursor:pointer;">
-        Tests optionnels / autre test
+        Souplesse / autre test
       </summary>
 
-      <div
-        style="
-          display:grid;
-          grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
-          gap:8px;
-          margin-top:8px;
-        "
-      >
-        <label style="display:inline-flex !important; align-items:center; gap:6px;">
-          <input type="checkbox" id="physical_handgrip_available">
-          Dynamomètre disponible
-        </label>
-
-        <label>
-          Handgrip droite
-          <input id="physical_handgrip_right" type="number" min="0" step="0.1" placeholder="kg">
-        </label>
-
-        <label>
-          Handgrip gauche
-          <input id="physical_handgrip_left" type="number" min="0" step="0.1" placeholder="kg">
-        </label>
-
-        <label>
-          Meilleure valeur
-          <input id="physical_handgrip_best" type="number" min="0" step="0.1" placeholder="kg">
-        </label>
-      </div>
-
-      <textarea
-        id="physical_handgrip_commentaire"
-        rows="2"
-        placeholder="Commentaire handgrip"
-        style="width:100%; margin-top:8px;"
-      ></textarea>
+ 
 
       <div
         style="
@@ -9747,6 +9984,324 @@ function resetOrientationPanelAfterReset() {
   }
 }
 
+function getTM6ReferenceModel() {
+
+  const age =
+    parseFloat(
+      document.getElementById("age_input")?.value
+    );
+
+  const taille =
+    parseFloat(
+      document.getElementById("taille_input")?.value
+    );
+
+  const poids =
+    parseFloat(
+      document.getElementById("poids_input")?.value
+    );
+
+  const sexe =
+    document.querySelector(
+      'input[name="sexe"]:checked'
+    )?.value || "";
+
+  const distance =
+    parseFloat(
+      document.getElementById("physical_tm6_distance")?.value
+    );
+
+  if (
+    !age ||
+    !taille ||
+    !poids ||
+    !["homme", "femme"].includes(sexe)
+  ) {
+    return {
+      available: false,
+      reason:
+        "âge, sexe, taille ou poids manquant"
+    };
+  }
+
+  let distanceTheorique = null;
+  let limiteInferieure = null;
+
+  if (sexe === "homme") {
+
+    distanceTheorique =
+      (7.57 * taille) -
+      (1.76 * poids) -
+      (5.02 * age) -
+      309;
+
+    limiteInferieure =
+      distanceTheorique - 153;
+  }
+
+  if (sexe === "femme") {
+
+    distanceTheorique =
+      (2.11 * taille) -
+      (2.29 * poids) -
+      (5.78 * age) +
+      667;
+
+    limiteInferieure =
+      distanceTheorique - 139;
+  }
+
+  const distanceTheoriqueRounded =
+    Math.round(distanceTheorique);
+
+  const limiteInferieureRounded =
+    Math.round(limiteInferieure);
+
+  const pourcentageTheorique =
+    distance &&
+    distanceTheoriqueRounded > 0
+      ? Math.round(
+          (distance / distanceTheoriqueRounded) * 100
+        )
+      : null;
+
+  return {
+    available: true,
+    source:
+      "HAS - équations TM6 âge, sexe, taille, poids",
+
+    distance_theorique_m:
+      distanceTheoriqueRounded,
+
+    limite_inferieure_normale_m:
+      limiteInferieureRounded,
+
+    pourcentage_theorique:
+      pourcentageTheorique
+  };
+}
+
+function updateTM6ReferenceDisplay() {
+
+  const output =
+    document.getElementById("physical_tm6_reference");
+
+  if (!output) return;
+
+  const reference =
+    getTM6ReferenceModel();
+
+if (!reference.available) {
+  output.textContent =
+    "Repères TM6 : renseigner âge, sexe, taille et poids pour calculer la distance théorique estimée.";
+
+  output.style.color = "#64748b";
+  output.style.fontWeight = "400";
+  output.style.background = "#ffffff";
+  output.style.border = "1px solid #dbe4ee";
+
+  return;
+}
+
+ const parts = [
+  `attendu ≈ ${reference.distance_theorique_m} m`,
+  `limite basse de référence ≈ ${reference.limite_inferieure_normale_m} m`
+];
+
+if (reference.pourcentage_theorique !== null) {
+  parts.push(
+    `résultat = ${reference.pourcentage_theorique}% de l’attendu`
+  );
+}
+
+output.textContent =
+  `Repères TM6 : ${parts.join(" · ")}. À interpréter selon le contexte clinique, la tolérance et les symptômes.`;
+
+output.style.color = "#1f2937";
+output.style.fontWeight = "500";
+output.style.background = "#f8fafc";
+output.style.border = "1px solid #cbd5e1";
+}
+
+function hasRespiratoryPathologyForPhysicalTests() {
+
+  const selectedPathologies =
+    Array.from(
+      document.querySelectorAll(".patho:checked")
+    ).map(input =>
+      String(input.value || "").toLowerCase()
+    );
+
+  return selectedPathologies.some(value =>
+    value.includes("bpco") ||
+    value.includes("asthme")
+  );
+}
+
+function updateTM6CardiorespiratoryDetails() {
+
+  const details =
+    document.getElementById(
+      "physical_tm6_cardioresp_details"
+    );
+
+  const summary =
+    document.getElementById(
+      "physical_tm6_cardioresp_summary"
+    );
+
+  if (!details || !summary) return;
+
+  const shouldSuggest =
+    hasRespiratoryPathologyForPhysicalTests();
+
+  const wasSuggested =
+    details.dataset.respiratorySuggested === "true";
+
+  if (shouldSuggest) {
+
+    details.open = true;
+
+    summary.textContent =
+      "▾ Mesures cardio-respiratoires proposées si contexte respiratoire";
+
+    summary.style.color = "#0f172a";
+    summary.style.fontWeight = "700";
+    summary.style.background = "#f8fafc";
+    summary.style.border = "1px solid #cbd5e1";
+
+  } else {
+
+    if (wasSuggested) {
+      details.open = false;
+    }
+
+    summary.textContent =
+      details.open
+        ? "▾ Mesures cardio-respiratoires optionnelles"
+        : "▸ Ouvrir les mesures cardio-respiratoires optionnelles";
+
+    summary.style.color = "#1f2937";
+    summary.style.fontWeight = "600";
+    summary.style.background = "#ffffff";
+    summary.style.border = "1px solid #dbe4ee";
+  }
+
+  details.dataset.respiratorySuggested =
+    shouldSuggest
+      ? "true"
+      : "false";
+}
+
+function updateHandgripBestValue() {
+
+  const rightInput =
+    document.getElementById("physical_handgrip_right");
+
+  const leftInput =
+    document.getElementById("physical_handgrip_left");
+
+  const bestInput =
+    document.getElementById("physical_handgrip_best");
+
+  if (!rightInput || !leftInput || !bestInput) return;
+
+  const parseValue = input => {
+
+    const raw =
+      String(input.value || "")
+        .replace(",", ".")
+        .trim();
+
+    const value =
+      parseFloat(raw);
+
+    return Number.isFinite(value)
+      ? value
+      : null;
+  };
+
+  const rightValue =
+    parseValue(rightInput);
+
+  const leftValue =
+    parseValue(leftInput);
+
+  const values =
+    [rightValue, leftValue]
+      .filter(value => value !== null);
+
+  if (!values.length) {
+    bestInput.value = "";
+    return;
+  }
+
+  const bestValue =
+    Math.max(...values);
+
+  bestInput.value =
+    Number.isInteger(bestValue)
+      ? String(bestValue)
+      : String(Math.round(bestValue * 10) / 10);
+}
+
+function updateChairStandUnitFromVariant() {
+
+  const selectedVariant =
+    document.querySelector(
+      'input[name="physical_chair_variant"]:checked'
+    )?.value || "";
+
+  const unitNombre =
+    document.querySelector(
+      'input[name="physical_chair_unit"][value="nombre"]'
+    );
+
+  const unitSecondes =
+    document.querySelector(
+      'input[name="physical_chair_unit"][value="secondes"]'
+    );
+
+  const unitLabel =
+    document.getElementById(
+      "physical_chair_unit_label"
+    );
+
+  if (
+    selectedVariant === "30_sec" ||
+    selectedVariant === "1_min"
+  ) {
+    if (unitNombre) {
+      unitNombre.checked = true;
+    }
+
+    if (unitLabel) {
+      unitLabel.textContent =
+        "levers";
+    }
+
+    return;
+  }
+
+  if (selectedVariant === "5_levers") {
+    if (unitSecondes) {
+      unitSecondes.checked = true;
+    }
+
+    if (unitLabel) {
+      unitLabel.textContent =
+        "secondes";
+    }
+
+    return;
+  }
+
+  if (unitLabel) {
+    unitLabel.textContent =
+      "unité";
+  }
+}
+
 function updatePhysicalTestsPanel() {
 
   const enabled =
@@ -9759,6 +10314,9 @@ function updatePhysicalTestsPanel() {
     document.getElementById("physical_tests_summary");
 
   if (!enabled || !panel || !summary) return;
+
+  updateTM6ReferenceDisplay();
+  updateTM6CardiorespiratoryDetails();
 
 const delegateCheckbox =
   document.getElementById("physical_tests_delegate");
@@ -9817,16 +10375,81 @@ function initPhysicalTestsPanel() {
   if (!block) return;
 
   if (window._physicalTestsPanelInitialized) {
+
+   const tm6CardioDetails =
+  document.getElementById(
+    "physical_tm6_cardioresp_details"
+  );
+
+if (tm6CardioDetails) {
+  tm6CardioDetails.addEventListener(
+    "toggle",
+    updatePhysicalTestsPanel
+  );
+} 
     updatePhysicalTestsPanel();
     return;
   }
 
   window._physicalTestsPanelInitialized = true;
 
-  block.addEventListener("input", updatePhysicalTestsPanel);
-  block.addEventListener("change", updatePhysicalTestsPanel);
+block.addEventListener("input", updatePhysicalTestsPanel);
+block.addEventListener("change", updatePhysicalTestsPanel);
 
-  updatePhysicalTestsPanel();
+[
+  "physical_handgrip_right",
+  "physical_handgrip_left"
+].forEach(id => {
+
+  const input =
+    document.getElementById(id);
+
+  if (input) {
+    input.addEventListener("input", function() {
+      updateHandgripBestValue();
+      updatePhysicalTestsPanel();
+    });
+  }
+});
+
+// Levers de chaise : unité automatique selon variante
+document
+  .querySelectorAll('input[name="physical_chair_variant"]')
+  .forEach(input => {
+    input.addEventListener("change", function() {
+      updateChairStandUnitFromVariant();
+      updatePhysicalTestsPanel();
+    });
+  });
+
+[
+  "age_input",
+  "taille_input",
+  "poids_input"
+].forEach(id => {
+  const input =
+    document.getElementById(id);
+
+  if (input) {
+    input.addEventListener(
+      "input",
+      updatePhysicalTestsPanel
+    );
+  }
+});
+
+document
+  .querySelectorAll(
+    'input[name="sexe"], .patho'
+  )
+  .forEach(input => {
+    input.addEventListener(
+      "change",
+      updatePhysicalTestsPanel
+    );
+  });
+
+updatePhysicalTestsPanel();
 }
 
 function getPhysicalTestsModel() {
@@ -9844,10 +10467,30 @@ function getPhysicalTestsModel() {
       String(value).trim() !== ""
     );
 
-  const tm6 = {
-    distance_m:
-      getValue("physical_tm6_distance"),
+const tm6Reference =
+  typeof getTM6ReferenceModel === "function"
+    ? getTM6ReferenceModel()
+    : {
+        available: false
+      };
 
+const tm6 = {
+  distance_m:
+    getValue("physical_tm6_distance"),
+
+  borg:
+    getValue("physical_tm6_borg"),
+
+  arret_premature:
+    getChecked("physical_tm6_arret"),
+
+  note:
+    getValue("physical_tm6_note"),
+
+  reference:
+    tm6Reference,
+
+  cardiorespiratory: {
     fc_repos_bpm:
       getValue("physical_tm6_fc_repos"),
 
@@ -9857,9 +10500,6 @@ function getPhysicalTestsModel() {
     fc_recup_bpm:
       getValue("physical_tm6_fc_recup"),
 
-    borg:
-      getValue("physical_tm6_borg"),
-
     spo2_repos_pct:
       getValue("physical_tm6_spo2_repos"),
 
@@ -9867,17 +10507,9 @@ function getPhysicalTestsModel() {
       getValue("physical_tm6_spo2_fin"),
 
     spo2_recup_pct:
-      getValue("physical_tm6_spo2_recup"),
-
-    arret_premature:
-      getChecked("physical_tm6_arret"),
-
-    symptomes:
-      getValue("physical_tm6_symptomes"),
-
-    commentaire:
-      getValue("physical_tm6_commentaire")
-  };
+      getValue("physical_tm6_spo2_recup")
+  }
+};
 
   const chairStand = {
     variante:
@@ -9988,16 +10620,15 @@ hasAnyValue([
   status.date,
   status.realise_par,
 
-      tm6.distance_m,
-      tm6.fc_repos_bpm,
-      tm6.fc_fin_bpm,
-      tm6.fc_recup_bpm,
-      tm6.borg,
-      tm6.spo2_repos_pct,
-      tm6.spo2_fin_pct,
-      tm6.spo2_recup_pct,
-      tm6.symptomes,
-      tm6.commentaire,
+tm6.distance_m,
+tm6.borg,
+tm6.note,
+tm6.cardiorespiratory.fc_repos_bpm,
+tm6.cardiorespiratory.fc_fin_bpm,
+tm6.cardiorespiratory.fc_recup_bpm,
+tm6.cardiorespiratory.spo2_repos_pct,
+tm6.cardiorespiratory.spo2_fin_pct,
+tm6.cardiorespiratory.spo2_recup_pct,
 
       chairStand.variante,
       chairStand.resultat,
