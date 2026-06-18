@@ -10302,6 +10302,25 @@ function updateChairStandUnitFromVariant() {
   }
 }
 
+function openPhysicalTestsPanelIfBilanRequested() {
+
+  const bilanCheckbox =
+    document.getElementById("bilan_condition_apa");
+
+  const physicalToggle =
+    document.getElementById("physical_tests_enabled");
+
+  if (!bilanCheckbox || !physicalToggle) return;
+
+  if (bilanCheckbox.checked) {
+    physicalToggle.checked = true;
+  }
+
+  if (typeof updatePhysicalTestsPanel === "function") {
+    updatePhysicalTestsPanel();
+  }
+}
+
 function updatePhysicalTestsPanel() {
 
   const enabled =
@@ -10448,6 +10467,16 @@ document
       updatePhysicalTestsPanel
     );
   });
+
+const bilanConditionCheckbox =
+  document.getElementById("bilan_condition_apa");
+
+if (bilanConditionCheckbox) {
+  bilanConditionCheckbox.addEventListener(
+    "change",
+    openPhysicalTestsPanelIfBilanRequested
+  );
+}
 
 updatePhysicalTestsPanel();
 }
