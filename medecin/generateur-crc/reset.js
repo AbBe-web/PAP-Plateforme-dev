@@ -229,6 +229,20 @@ if (typeof updateMedicationOtherField === "function") {
     updateMedicationOtherField();
 }
 
+// 14. Reset bloc tests physiques / condition physique
+if (typeof resetPhysicalTestsPanelAfterReset === "function") {
+    resetPhysicalTestsPanelAfterReset();
+}
+
+if (typeof updatePhysicalTestsPanel === "function") {
+    updatePhysicalTestsPanel();
+}
+
+// 15. Reset orientation / encadrement APA
+if (typeof resetOrientationPanelAfterReset === "function") {
+    resetOrientationPanelAfterReset();
+}
+
 }
 
 });

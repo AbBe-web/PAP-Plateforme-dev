@@ -1354,6 +1354,7 @@ Pas d’AP envisagée dans les 6 mois
 
 
                 </div>
+
                 <div class="sub-group">
                     <h3>Niveau visé (intensité) :
                     <span
@@ -1369,7 +1370,424 @@ Pas d’AP envisagée dans les 6 mois
   <label><input type="radio" name="niveau_vise" value="eleve"> Élevé</label>
 </div>
  </div>     
-                
+
+ <div
+  id="physicalTestsBlock"
+  style="
+    margin:12px 0;
+    padding:10px;
+    border-radius:10px;
+    background:#f8fafc;
+    border:1px solid #cbd5e1;
+  "
+>
+  <label
+    style="
+      display:flex !important;
+      align-items:center;
+      gap:8px;
+      cursor:pointer;
+      margin:0;
+    "
+  >
+    <input
+      type="checkbox"
+      id="physical_tests_enabled"
+      style="margin:0;"
+    >
+
+    <span style="font-weight:700;">
+      Tests physiques / condition physique
+    </span>
+
+    <span
+      id="physical_tests_summary"
+      style="
+        color:#64748b;
+        font-size:0.86rem;
+        font-weight:400;
+      "
+    >
+      non renseignés · Ajouter / modifier
+    </span>
+  </label>
+
+  <div
+    id="physical_tests_panel"
+    class="hidden"
+    style="
+      margin-top:10px;
+      padding-top:10px;
+      border-top:1px solid #e2e8f0;
+    "
+  >
+<div
+  style="
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
+    gap:8px;
+    margin-bottom:10px;
+  "
+>
+  <label>
+    Date des tests
+    <input
+      type="date"
+      id="physical_tests_date"
+    >
+  </label>
+
+  <label>
+    Tests réalisés par
+    <input
+      type="text"
+      id="physical_tests_examiner"
+      placeholder="médecin, kiné, APA..."
+    >
+  </label>
+</div>
+
+<div
+  style="
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:10px;
+  "
+>
+  <label style="display:inline-flex !important; align-items:center; gap:6px;">
+    <input type="checkbox" id="physical_tests_not_done">
+    Tests non réalisés
+  </label>
+
+  <label style="display:inline-flex !important; align-items:center; gap:6px;">
+    <input type="checkbox" id="physical_tests_delegate">
+    À confier à professionnel APA / kiné / structure adaptée
+  </label>
+</div>
+
+    <details open>
+      <summary style="font-weight:700; cursor:pointer;">
+        TM6 / test de marche de 6 minutes
+      </summary>
+
+      <div
+        style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+          gap:8px;
+          margin-top:8px;
+        "
+      >
+        <label>
+          Distance
+          <input id="physical_tm6_distance" type="number" min="0" step="1" placeholder="m">
+        </label>
+
+        <label>
+          FC repos
+          <input id="physical_tm6_fc_repos" type="number" min="0" step="1" placeholder="bpm">
+        </label>
+
+        <label>
+          FC fin
+          <input id="physical_tm6_fc_fin" type="number" min="0" step="1" placeholder="bpm">
+        </label>
+
+        <label>
+          FC récupération
+          <input id="physical_tm6_fc_recup" type="number" min="0" step="1" placeholder="bpm">
+        </label>
+
+        <label>
+          Borg
+          <input id="physical_tm6_borg" type="text" placeholder="ex : 3/10 ou 12/20">
+        </label>
+
+        <label>
+          SpO₂ repos
+          <input id="physical_tm6_spo2_repos" type="number" min="0" max="100" step="1" placeholder="%">
+        </label>
+
+        <label>
+          SpO₂ fin
+          <input id="physical_tm6_spo2_fin" type="number" min="0" max="100" step="1" placeholder="%">
+        </label>
+
+        <label>
+          SpO₂ récupération
+          <input id="physical_tm6_spo2_recup" type="number" min="0" max="100" step="1" placeholder="%">
+        </label>
+      </div>
+
+      <label
+        style="
+          display:inline-flex !important;
+          align-items:center;
+          gap:6px;
+          margin-top:8px;
+        "
+      >
+        <input type="checkbox" id="physical_tm6_arret">
+        Arrêt prématuré
+      </label>
+
+      <textarea
+        id="physical_tm6_symptomes"
+        rows="2"
+        placeholder="Dyspnée, douleur, malaise, limitation, symptômes..."
+        style="width:100%; margin-top:8px;"
+      ></textarea>
+
+      <textarea
+        id="physical_tm6_commentaire"
+        rows="2"
+        placeholder="Commentaire clinique TM6"
+        style="width:100%; margin-top:8px;"
+      ></textarea>
+    </details>
+
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700; cursor:pointer;">
+        Levers de chaise
+      </summary>
+
+      <div style="margin-top:8px;">
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+          <label style="display:inline-flex !important; align-items:center; gap:6px;">
+            <input type="radio" name="physical_chair_variant" value="30_sec">
+            30 secondes
+          </label>
+
+          <label style="display:inline-flex !important; align-items:center; gap:6px;">
+            <input type="radio" name="physical_chair_variant" value="1_min">
+            1 minute
+          </label>
+
+          <label style="display:inline-flex !important; align-items:center; gap:6px;">
+            <input type="radio" name="physical_chair_variant" value="5_levers">
+            5 levers chronométrés
+          </label>
+        </div>
+
+        <div
+          style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+            gap:8px;
+          "
+        >
+          <label>
+            Résultat
+            <input id="physical_chair_result" type="number" min="0" step="1">
+          </label>
+
+          <div>
+            Unité
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:4px;">
+              <label style="display:inline-flex !important; align-items:center; gap:6px;">
+                <input type="radio" name="physical_chair_unit" value="nombre">
+                nombre
+              </label>
+
+              <label style="display:inline-flex !important; align-items:center; gap:6px;">
+                <input type="radio" name="physical_chair_unit" value="secondes">
+                secondes
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <label
+          style="
+            display:inline-flex !important;
+            align-items:center;
+            gap:6px;
+            margin-top:8px;
+          "
+        >
+          <input type="checkbox" id="physical_chair_arms">
+          Aide des bras
+        </label>
+
+        <textarea
+          id="physical_chair_symptomes"
+          rows="2"
+          placeholder="Douleur, symptôme, limitation..."
+          style="width:100%; margin-top:8px;"
+        ></textarea>
+
+        <textarea
+          id="physical_chair_commentaire"
+          rows="2"
+          placeholder="Commentaire clinique levers de chaise"
+          style="width:100%; margin-top:8px;"
+        ></textarea>
+      </div>
+    </details>
+
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700; cursor:pointer;">
+        Équilibre
+      </summary>
+
+      <div
+        style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+          gap:8px;
+          margin-top:8px;
+        "
+      >
+        <label>
+          Appui unipodal
+          <input id="physical_balance_unipodal" type="number" min="0" step="1" placeholder="secondes">
+        </label>
+
+        <label>
+          Nombre d’écarts
+          <input id="physical_balance_ecarts" type="number" min="0" step="1">
+        </label>
+      </div>
+
+      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;">
+        <label style="display:inline-flex !important; align-items:center; gap:6px;">
+          <input type="radio" name="physical_balance_tandem" value="reussi">
+          Tandem réussi
+        </label>
+
+        <label style="display:inline-flex !important; align-items:center; gap:6px;">
+          <input type="radio" name="physical_balance_tandem" value="non_reussi">
+          Tandem non réussi
+        </label>
+
+        <label style="display:inline-flex !important; align-items:center; gap:6px;">
+          <input type="radio" name="physical_balance_tandem" value="non_realise">
+          Non réalisé
+        </label>
+      </div>
+
+      <label
+        style="
+          display:inline-flex !important;
+          align-items:center;
+          gap:6px;
+          margin-top:8px;
+        "
+      >
+        <input type="checkbox" id="physical_balance_aide">
+        Aide technique / appui nécessaire
+      </label>
+
+      <textarea
+        id="physical_balance_commentaire"
+        rows="2"
+        placeholder="Commentaire clinique équilibre"
+        style="width:100%; margin-top:8px;"
+      ></textarea>
+    </details>
+
+    <details style="margin-top:10px;">
+      <summary style="font-weight:700; cursor:pointer;">
+        Tests optionnels / autre test
+      </summary>
+
+      <div
+        style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+          gap:8px;
+          margin-top:8px;
+        "
+      >
+        <label style="display:inline-flex !important; align-items:center; gap:6px;">
+          <input type="checkbox" id="physical_handgrip_available">
+          Dynamomètre disponible
+        </label>
+
+        <label>
+          Handgrip droite
+          <input id="physical_handgrip_right" type="number" min="0" step="0.1" placeholder="kg">
+        </label>
+
+        <label>
+          Handgrip gauche
+          <input id="physical_handgrip_left" type="number" min="0" step="0.1" placeholder="kg">
+        </label>
+
+        <label>
+          Meilleure valeur
+          <input id="physical_handgrip_best" type="number" min="0" step="0.1" placeholder="kg">
+        </label>
+      </div>
+
+      <textarea
+        id="physical_handgrip_commentaire"
+        rows="2"
+        placeholder="Commentaire handgrip"
+        style="width:100%; margin-top:8px;"
+      ></textarea>
+
+      <div
+        style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+          gap:8px;
+          margin-top:10px;
+        "
+      >
+        <label>
+          Sit-and-reach
+          <input id="physical_flex_sitreach" type="text" placeholder="cm ou qualitatif">
+        </label>
+
+        <label>
+          Souplesse épaules
+          <input id="physical_flex_shoulders" type="text" placeholder="cm ou qualitatif">
+        </label>
+      </div>
+
+      <textarea
+        id="physical_flex_commentaire"
+        rows="2"
+        placeholder="Commentaire souplesse"
+        style="width:100%; margin-top:8px;"
+      ></textarea>
+
+      <div
+        style="
+          display:grid;
+          grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+          gap:8px;
+          margin-top:10px;
+        "
+      >
+        <label>
+          Autre test
+          <input id="physical_other_name" type="text" placeholder="nom">
+        </label>
+
+        <label>
+          Résultat
+          <input id="physical_other_result" type="text">
+        </label>
+
+        <label>
+          Unité
+          <input id="physical_other_unit" type="text">
+        </label>
+      </div>
+
+      <textarea
+        id="physical_other_commentaire"
+        rows="2"
+        placeholder="Commentaire autre test"
+        style="width:100%; margin-top:8px;"
+      ></textarea>
+    </details>
+  </div>
+</div>
+
 <div class="form-group">
     <h2>5/ Évaluation motivationnelle (complément) :</h2>
         <div class="sub-group">
@@ -5322,6 +5740,7 @@ initHandicap();
 initActivitePhysique();
 initCRCModeToggle();
 initMedicationApaPanel();
+initPhysicalTestsPanel();
 
 initAerobieMode();
 initObjectifAutre();
@@ -8122,11 +8541,11 @@ function resetFormulaireComplet() {
     });
 
   // 🔹 reset inputs texte / number
-  document
-    .querySelectorAll('input[type="text"], input[type="number"], textarea')
-    .forEach(el => {
-      el.value = "";
-    });
+document
+  .querySelectorAll('input[type="text"], input[type="number"], input[type="date"], textarea')
+  .forEach(el => {
+    el.value = "";
+  });
 
   // 🔹 reset motivation UI (important)
   document
@@ -8155,6 +8574,20 @@ if (typeof updateMedicationApaPanel === "function") {
 
 if (typeof updateMedicationOtherField === "function") {
   updateMedicationOtherField();
+}
+
+// 🔹 reset bloc tests physiques / condition physique
+if (typeof resetPhysicalTestsPanelAfterReset === "function") {
+  resetPhysicalTestsPanelAfterReset();
+}
+
+if (typeof updatePhysicalTestsPanel === "function") {
+  updatePhysicalTestsPanel();
+}
+
+// 🔹 reset orientation / encadrement
+if (typeof resetOrientationPanelAfterReset === "function") {
+  resetOrientationPanelAfterReset();
 }
 
 isProgrammaticUpdate = false;
@@ -9258,6 +9691,355 @@ function getConfirmedMedicationVigilanceClasses() {
   return confirmedClasses;
 }
 
+function resetPhysicalTestsPanelAfterReset() {
+
+  const enabled =
+    document.getElementById("physical_tests_enabled");
+
+  const panel =
+    document.getElementById("physical_tests_panel");
+
+  const summary =
+    document.getElementById("physical_tests_summary");
+
+  if (enabled) {
+    enabled.checked = false;
+  }
+
+  if (panel) {
+    panel.classList.add("hidden");
+  }
+
+  if (summary) {
+    summary.textContent =
+      "non renseignés · Ajouter / modifier";
+  }
+}
+
+function resetOrientationPanelAfterReset() {
+
+  const orientationToggle =
+    document.getElementById("orientation_ap_toggle");
+
+  const orientationSubgroup =
+    document.getElementById("orientation_ap_subgroup");
+
+  const consentementBlock =
+    document.getElementById("consentement_partage_block");
+
+  const bilanBlock =
+    document.getElementById("bilan_condition_block");
+
+  if (orientationToggle) {
+    orientationToggle.checked = false;
+  }
+
+  if (orientationSubgroup) {
+    orientationSubgroup.style.display = "none";
+  }
+
+  if (consentementBlock) {
+    consentementBlock.style.display = "none";
+  }
+
+  if (bilanBlock) {
+    bilanBlock.style.display = "none";
+  }
+}
+
+function updatePhysicalTestsPanel() {
+
+  const enabled =
+    document.getElementById("physical_tests_enabled");
+
+  const panel =
+    document.getElementById("physical_tests_panel");
+
+  const summary =
+    document.getElementById("physical_tests_summary");
+
+  if (!enabled || !panel || !summary) return;
+
+const delegateCheckbox =
+  document.getElementById("physical_tests_delegate");
+
+const bilanConditionCheckbox =
+  document.getElementById("bilan_condition_apa");
+
+if (
+  delegateCheckbox?.checked &&
+  bilanConditionCheckbox &&
+  !bilanConditionCheckbox.checked
+) {
+  bilanConditionCheckbox.checked = true;
+}
+
+  if (enabled.checked) {
+    panel.classList.remove("hidden");
+  } else {
+    panel.classList.add("hidden");
+  }
+
+  const physicalTests =
+    typeof getPhysicalTestsModel === "function"
+      ? getPhysicalTestsModel()
+      : { hasData: false };
+
+  if (physicalTests.hasData) {
+
+ if (physicalTests.status?.non_realises) {
+  summary.textContent =
+    "tests non réalisés";
+  return;
+}
+
+    if (physicalTests.status?.a_confier) {
+      summary.textContent =
+        "tests à prévoir / à confier";
+      return;
+    }
+
+    summary.textContent =
+      "résultats renseignés";
+
+  } else {
+
+    summary.textContent =
+      "non renseignés · Ajouter / modifier";
+  }
+}
+
+function initPhysicalTestsPanel() {
+
+  const block =
+    document.getElementById("physicalTestsBlock");
+
+  if (!block) return;
+
+  if (window._physicalTestsPanelInitialized) {
+    updatePhysicalTestsPanel();
+    return;
+  }
+
+  window._physicalTestsPanelInitialized = true;
+
+  block.addEventListener("input", updatePhysicalTestsPanel);
+  block.addEventListener("change", updatePhysicalTestsPanel);
+
+  updatePhysicalTestsPanel();
+}
+
+function getPhysicalTestsModel() {
+
+  const getValue = id =>
+    document.getElementById(id)?.value?.trim() || "";
+
+  const getChecked = id =>
+    document.getElementById(id)?.checked || false;
+
+  const hasAnyValue = values =>
+    values.some(value =>
+      value !== null &&
+      value !== undefined &&
+      String(value).trim() !== ""
+    );
+
+  const tm6 = {
+    distance_m:
+      getValue("physical_tm6_distance"),
+
+    fc_repos_bpm:
+      getValue("physical_tm6_fc_repos"),
+
+    fc_fin_bpm:
+      getValue("physical_tm6_fc_fin"),
+
+    fc_recup_bpm:
+      getValue("physical_tm6_fc_recup"),
+
+    borg:
+      getValue("physical_tm6_borg"),
+
+    spo2_repos_pct:
+      getValue("physical_tm6_spo2_repos"),
+
+    spo2_fin_pct:
+      getValue("physical_tm6_spo2_fin"),
+
+    spo2_recup_pct:
+      getValue("physical_tm6_spo2_recup"),
+
+    arret_premature:
+      getChecked("physical_tm6_arret"),
+
+    symptomes:
+      getValue("physical_tm6_symptomes"),
+
+    commentaire:
+      getValue("physical_tm6_commentaire")
+  };
+
+  const chairStand = {
+    variante:
+      document.querySelector(
+        'input[name="physical_chair_variant"]:checked'
+      )?.value || "",
+
+    resultat:
+      getValue("physical_chair_result"),
+
+    unite:
+      document.querySelector(
+        'input[name="physical_chair_unit"]:checked'
+      )?.value || "",
+
+    aide_bras:
+      getChecked("physical_chair_arms"),
+
+    symptomes:
+      getValue("physical_chair_symptomes"),
+
+    commentaire:
+      getValue("physical_chair_commentaire")
+  };
+
+  const balance = {
+    appui_unipodal_sec:
+      getValue("physical_balance_unipodal"),
+
+    tandem:
+      document.querySelector(
+        'input[name="physical_balance_tandem"]:checked'
+      )?.value || "",
+
+    ecarts:
+      getValue("physical_balance_ecarts"),
+
+    aide_technique:
+      getChecked("physical_balance_aide"),
+
+    commentaire:
+      getValue("physical_balance_commentaire")
+  };
+
+  const handgrip = {
+    dynamometre_disponible:
+      getChecked("physical_handgrip_available"),
+
+    main_droite_kg:
+      getValue("physical_handgrip_right"),
+
+    main_gauche_kg:
+      getValue("physical_handgrip_left"),
+
+    meilleure_valeur_kg:
+      getValue("physical_handgrip_best"),
+
+    commentaire:
+      getValue("physical_handgrip_commentaire")
+  };
+
+  const flexibility = {
+    sit_and_reach:
+      getValue("physical_flex_sitreach"),
+
+    epaules:
+      getValue("physical_flex_shoulders"),
+
+    commentaire:
+      getValue("physical_flex_commentaire")
+  };
+
+  const other = {
+    nom:
+      getValue("physical_other_name"),
+
+    resultat:
+      getValue("physical_other_result"),
+
+    unite:
+      getValue("physical_other_unit"),
+
+    commentaire:
+      getValue("physical_other_commentaire")
+  };
+
+ const status = {
+  bloc_ouvert:
+    getChecked("physical_tests_enabled"),
+
+  date:
+    getValue("physical_tests_date"),
+
+  realise_par:
+    getValue("physical_tests_examiner"),
+
+  non_realises:
+    getChecked("physical_tests_not_done"),
+
+  a_confier:
+    getChecked("physical_tests_delegate")
+};
+
+  const hasData =
+ status.non_realises ||
+status.a_confier ||
+hasAnyValue([
+  status.date,
+  status.realise_par,
+
+      tm6.distance_m,
+      tm6.fc_repos_bpm,
+      tm6.fc_fin_bpm,
+      tm6.fc_recup_bpm,
+      tm6.borg,
+      tm6.spo2_repos_pct,
+      tm6.spo2_fin_pct,
+      tm6.spo2_recup_pct,
+      tm6.symptomes,
+      tm6.commentaire,
+
+      chairStand.variante,
+      chairStand.resultat,
+      chairStand.unite,
+      chairStand.symptomes,
+      chairStand.commentaire,
+
+      balance.appui_unipodal_sec,
+      balance.tandem,
+      balance.ecarts,
+      balance.commentaire,
+
+      handgrip.main_droite_kg,
+      handgrip.main_gauche_kg,
+      handgrip.meilleure_valeur_kg,
+      handgrip.commentaire,
+
+      flexibility.sit_and_reach,
+      flexibility.epaules,
+      flexibility.commentaire,
+
+      other.nom,
+      other.resultat,
+      other.unite,
+      other.commentaire
+    ]);
+
+  return {
+    hasData,
+    status,
+    tm6,
+    chairStand,
+    balance,
+    handgrip,
+    flexibility,
+    other,
+
+    interpretation:
+      "Résultats à interpréter selon le contexte clinique, la tolérance, les symptômes et les objectifs du patient."
+  };
+}
+
 function buildClinicalModel() {
 
   const aerobieFrequence =
@@ -9607,6 +10389,13 @@ const medicationVigilanceClasses =
     ? getConfirmedMedicationVigilanceClasses()
     : [];
 
+const physicalTests =
+  typeof getPhysicalTestsModel === "function"
+    ? getPhysicalTestsModel()
+    : {
+        hasData: false
+      };
+
   return {
 
     meta: {
@@ -9630,6 +10419,8 @@ medications: {
   vigilance_classes:
     medicationVigilanceClasses
 },
+
+physicalTests,
 
    evaluation: {
   classification: document.querySelector('input[name="niveau_actuel"]:checked')?.value || null,
