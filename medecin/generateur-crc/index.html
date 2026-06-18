@@ -3824,7 +3824,7 @@ post_partum: {
 
     
 const DEBUG = false;
-const APP_VERSION = "v0.2.2";
+const APP_VERSION = "v0.3";
 
 const DEFAULT_PHYSICIAN_IDENTITY = {
   lastName: "",
@@ -9177,6 +9177,87 @@ function initPrecautionsAucune() {
 
 }
 
+function getConfirmedMedicationVigilanceClasses() {
+
+  const selectedIds =
+    Array.from(
+      document.querySelectorAll(
+        ".medication-vigilance-class-checkbox:checked"
+      )
+    ).map(input => input.value);
+
+  const registry =
+    Array.isArray(window.MEDICATION_VIGILANCE_REGISTRY)
+      ? window.MEDICATION_VIGILANCE_REGISTRY
+      : [];
+
+  const confirmedClasses =
+    selectedIds
+      .map(id => {
+
+        const item =
+          registry.find(entry => entry.id === id);
+
+        if (!item) {
+          return null;
+        }
+
+        return {
+          id: item.id,
+          label: item.label,
+          category: item.category || null,
+
+          shortMessage:
+            typeof getMedicationShortMessage === "function"
+              ? getMedicationShortMessage(item)
+              : item.message || "",
+
+          message:
+            item.message || "",
+
+          source:
+            "confirmed-by-physician"
+        };
+      })
+      .filter(Boolean);
+
+  const otherCheckbox =
+    document.getElementById(
+      "medication_vigilance_autre"
+    );
+
+  const otherText =
+    document.getElementById(
+      "medication_vigilance_autre_text"
+    );
+
+  const otherChecked =
+    otherCheckbox?.checked || false;
+
+  const otherValue =
+    otherText?.value?.trim() || "";
+
+  if (otherChecked || otherValue) {
+
+    confirmedClasses.push({
+      id: "autre",
+      label:
+        otherValue
+          ? `Autre : ${otherValue}`
+          : "Autre classe pertinente",
+      category: "autre",
+      shortMessage:
+        otherValue || "classe médicamenteuse à préciser",
+      message:
+        otherValue || "",
+      source:
+        "confirmed-by-physician"
+    });
+  }
+
+  return confirmedClasses;
+}
+
 function buildClinicalModel() {
 
   const aerobieFrequence =
@@ -9515,6 +9596,17 @@ const pathologies =
   Array.from(pathologiesSelectionnees)
     .map(patho => patho.value);
 
+const traitementsActuels =
+  document
+    .getElementById("traitementsActuels")
+    ?.value
+    ?.trim() || null;
+
+const medicationVigilanceClasses =
+  typeof getConfirmedMedicationVigilanceClasses === "function"
+    ? getConfirmedMedicationVigilanceClasses()
+    : [];
+
   return {
 
     meta: {
@@ -9529,6 +9621,14 @@ const pathologies =
   pas_moyens: document.querySelector('input[name="nombre_pas"]')?.value || null,
   heures_assises: document.querySelector('input[name="heures_assises"]')?.value || null,
   pathologies
+},
+
+medications: {
+  traitements_actuels:
+    traitementsActuels,
+
+  vigilance_classes:
+    medicationVigilanceClasses
 },
 
    evaluation: {
