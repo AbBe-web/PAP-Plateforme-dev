@@ -23,12 +23,18 @@ function generatePrescriptionCRC(model) {
 
   if (activite.mode === "pas") {
 
+  const objectifPas =
+    String(activite.objectif_pas || "").trim();
+
+  const consignesPas =
+    String(activite.consignes_pas || "").trim();
+
   texte += "activité d’endurance avec un objectif de ";
 
-  texte += `${activite.objectif_pas} pas/jour`;
+  texte += `${objectifPas} pas/jour`;
 
-  if (activite.consignes_pas) {
-    texte += ` (${activite.consignes_pas})`;
+  if (consignesPas) {
+    texte += ` (${consignesPas})`;
   }
 
   break;

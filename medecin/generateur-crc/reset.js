@@ -1,16 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const resetBtn = document.getElementById("resetConsultationBtn");
-
-    if (!resetBtn) {
-        console.log("Bouton reset non trouvé");
-        return;
-    }
-
     //----------------------------------
     // OUVERTURE MODAL CONFIRMATION
     //----------------------------------
-    resetBtn.addEventListener("click", function () {
+    function openResetModal() {
 
         const resetModal = document.getElementById("resetConfirmModal");
         const confirmBtn = document.getElementById("confirmResetBtn");
@@ -30,7 +23,27 @@ document.addEventListener("DOMContentLoaded", function () {
             resetModal.classList.add("hidden");
             executeFullReset();
         };
+    }
+
+    //----------------------------------
+    // BOUTONS NOUVELLE CONSULTATION
+    //----------------------------------
+    document.addEventListener("click", function (e) {
+
+        const resetTrigger = e.target.closest(
+            "#resetConsultationBtn, #resetConsultationBtnTop, .reset-consultation-btn, [data-reset-consultation]"
+        );
+
+        if (!resetTrigger) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        openResetModal();
     });
+
+    // Compatibilité éventuelle avec un ancien appel global
+    window.openResetConsultationModal = openResetModal;
 
     //----------------------------------
     // RESET COMPLET
