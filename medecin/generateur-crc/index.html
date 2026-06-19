@@ -8711,21 +8711,32 @@ function buildPhysicalTestsPrescriptionContextText(model) {
   temp.innerHTML =
     html;
 
-const text =
-  temp.innerText
-    .replace(/\s*\n+\s*/g, " ")
-    .replace(/\s{2,}/g, " ")
-    .trim();
+  const rawText =
+    temp.innerText
+      .replace(/\s*\n+\s*/g, " ")
+      .replace(/\s{2,}/g, " ")
+      .trim();
 
-return text
-  .replace(
-    /^Éléments fonctionnels à prendre en compte pour l’adaptation de l’activité physique\s+/,
-    "Éléments fonctionnels à prendre en compte pour l’adaptation de l’activité physique : "
-  )
-  .replace(
-    /^Éléments fonctionnels à prendre en compte\s+/,
-    "Éléments fonctionnels à prendre en compte : "
-  );
+  const fullTitle =
+    "Éléments fonctionnels à prendre en compte pour l’adaptation de l’activité physique";
+
+  const content =
+    rawText
+      .replace(
+        /^Éléments fonctionnels à prendre en compte\s*:?\s*pour\s+l[’']adaptation\s+de\s+l[’']activité\s+physique\s*:?\s*/i,
+        ""
+      )
+      .replace(
+        /^Éléments fonctionnels à prendre en compte\s*:?\s*/i,
+        ""
+      )
+      .trim();
+
+  if (!content) {
+    return "";
+  }
+
+  return `${fullTitle} : ${content}`;
 }
 
 function renderOrdonnanceAP(model) {
@@ -9045,6 +9056,246 @@ ${apaLimitationsBlock}
     );
 }
 
+function stripHTMLToPlainText(html) {
+
+  const temp = document.createElement("div");
+  temp.innerHTML = html || "";
+
+  return temp.innerText
+    .replace(/\n{3,}/g, "\n\n")
+    .replace(/[ \t]+\n/g, "\n")
+    .trim();
+}
+
+function buildAPADestinationText() {
+
+  const orientationLabels = {
+    kine: "masseur-kinésithérapeute",
+    ergo: "ergothérapeute",
+    psychomot: "psychomotricien",
+    apa: "enseignant APA",
+    educateur: "éducateur sportif",
+    autonome: "patient en autonomie"
+  };
+
+  const selectedOrientations =
+    Array.from(
+      document.querySelectorAll('input[name="orientation_ap"]:checked')
+    )
+      .map(input => orientationLabels[input.value])
+      .filter(Boolean);
+
+  if (!selectedOrientations.length) {
+    return "";
+  }
+
+  return `À destination de : ${selectedOrientations.join(", ")}.`;
+}
+
+function buildAPAOrientationOptionsText() {
+
+  const consentementPartage =
+    document.getElementById("consentement_partage_apa")?.checked || false;
+
+  const bilanCondition =
+    document.getElementById("bilan_condition_apa")?.checked || false;
+
+  const orientationComment =
+    document.querySelector('textarea[name="orientation_commentaire"]')?.value?.trim() || "";
+
+  const lines = [];
+
+  if (consentementPartage) {
+    lines.push(
+      "Patient informé du partage des informations médicales nécessaires avec le professionnel encadrant et ayant donné son accord oral à ce partage sur l’ordonnance."
+    );
+  }
+
+  if (bilanCondition) {
+    lines.push(
+      "Bilan de condition et de capacités physiques souhaité."
+    );
+  }
+
+  if (orientationComment) {
+    lines.push(
+      `Commentaire pour le professionnel encadrant : ${orientationComment}`
+    );
+  }
+
+  if (!lines.length) {
+    return "";
+  }
+
+  return [
+    "Informations d’orientation / encadrement :",
+    ...lines.map(line => `- ${line}`)
+  ].join("\n");
+}
+
+function buildAPALimitationsText() {
+
+  const precautionLabels = {
+    cardio: "cardio-vasculaires",
+    respiratoire: "respiratoires",
+    metabolique: "métaboliques",
+    neurologique: "neurologiques",
+    psychique: "psychiques / cognitives",
+    chute: "risque de chute"
+  };
+
+  const limitationLabels = {
+    cervical: "cervical",
+    dorsal: "dorsal",
+    lombaire: "lombaire",
+    epaule_d: "épaule droite",
+    epaule_g: "épaule gauche",
+    coude_d: "coude droit",
+    coude_g: "coude gauche",
+    poignet_d: "main-poignet droit",
+    poignet_g: "main-poignet gauche",
+    bassin: "bassin",
+    hanche_d: "hanche droite",
+    hanche_g: "hanche gauche",
+    genou_d: "genou droit",
+    genou_g: "genou gauche",
+    cheville_d: "cheville droite",
+    cheville_g: "cheville gauche",
+    pied_d: "pied droit",
+    pied_g: "pied gauche"
+  };
+
+  const precautions =
+    Array.from(
+      document.querySelectorAll('input[name="precaution_ap"]:checked')
+    )
+      .map(input => precautionLabels[input.value])
+      .filter(Boolean);
+
+  const limitations =
+    Array.from(
+      document.querySelectorAll('input[name="limitation_ap"]:checked')
+    )
+      .map(input => limitationLabels[input.value])
+      .filter(Boolean);
+
+  const autreChecked =
+    document.getElementById("limitation_autre_checkbox")?.checked || false;
+
+  const autreText =
+    document.getElementById("limitation_autre")?.value?.trim() || "";
+
+  if (autreChecked && autreText) {
+    limitations.push(autreText);
+  }
+
+  const exerciseAdaptations =
+    document.getElementById("apa_exercise_adaptations")?.value?.trim() || "";
+
+  const lines = [];
+
+  if (precautions.length) {
+    lines.push(
+      `- Précautions générales signalées : ${precautions.join(", ")}.`
+    );
+  }
+
+  if (limitations.length) {
+    lines.push(
+      `- Limitations locomotrices constatées : ${limitations.join(", ")}.`
+    );
+  }
+
+  if (exerciseAdaptations) {
+    lines.push(
+      `- Consignes / adaptations des exercices : ${exerciseAdaptations}`
+    );
+  }
+
+  if (!lines.length) {
+    return "";
+  }
+
+  return [
+    "Précautions / limitations à prendre en compte pour l’adaptation des exercices :",
+    ...lines
+  ].join("\n");
+}
+
+function buildAPACertificateText() {
+
+  const prenom =
+    document.querySelector('input[name="prenom"]')?.value || "";
+
+  const nom =
+    document.querySelector('input[name="nom"]')?.value || "";
+
+  const sexe =
+    document.querySelector('input[name="sexe"]:checked')?.value || "";
+
+  const civilite =
+    sexe === "femme"
+      ? "Madame"
+      : "Monsieur";
+
+  const patientIdentity =
+    prenom || nom
+      ? `${civilite} ${prenom} ${nom}`.trim()
+      : "le/la patient(e)";
+
+  return (
+    "Je soussigné(e), docteur en médecine, certifie avoir examiné ce jour " +
+    patientIdentity +
+    " et ne pas avoir constaté de contre-indication à la pratique d’activités physiques adaptées, " +
+    "sous réserve des précautions et adaptations précisées dans la présente prescription."
+  );
+}
+
+function generateOrdonnanceAPAText(model) {
+
+  const destinationText =
+    buildAPADestinationText();
+
+  const orientationText =
+    buildAPAOrientationOptionsText();
+
+  const certificateText =
+    buildAPACertificateText();
+
+  const limitationsText =
+    buildAPALimitationsText();
+
+  const physicalTestsText =
+    typeof buildPhysicalTestsPrescriptionContextText === "function"
+      ? buildPhysicalTestsPrescriptionContextText(model)
+      : "";
+
+  const prescriptionText =
+    generatePrescriptionPlainText(prescriptionModel)
+      .replace(/CONSEILS ASSOCIÉS/g, "Conseils associés");
+
+  const rulesText =
+    [
+      "10 règles d’or lors des séances d’activité physique :",
+      "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+    ].join("\n");
+
+  return [
+    "Certificat de NCI / Ordonnance APA",
+    destinationText,
+    orientationText,
+    certificateText,
+    limitationsText,
+    physicalTestsText,
+    prescriptionText,
+    rulesText
+  ]
+    .filter(Boolean)
+    .join("\n\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function renderActiveMode(options = {}) {
 
   const {
@@ -9123,10 +9374,12 @@ html = renderMedicalRecord(
 
   renderedOutput.edited = false;
 
-if (
-  activeMode === "ordonnance" ||
-  activeMode === "apa"
-) {
+if (activeMode === "apa") {
+
+  renderedOutput.text =
+    generateOrdonnanceAPAText(model);
+
+} else if (activeMode === "ordonnance") {
 
   const prescriptionDPIText =
     generatePrescriptionDPI(prescriptionModel);

@@ -430,15 +430,41 @@ function generatePrescriptionPlainText(model) {
   let lines = [];
 
   const dureePrescription =
-  document.querySelector('input[name="duree_prescription"]')?.value || "";
+    document.querySelector('input[name="duree_prescription"]')?.value || "";
 
-    model.activites.forEach((activite) => {
+  model.activites.forEach((activite) => {
+
+    const isPasEndurance =
+      activite.categorie === "endurance" &&
+      activite.mode === "pas";
 
     switch (activite.categorie) {
 
-      case "endurance":
-        lines.push(`• Activité d’endurance${activite.type ? ` (${activite.type})` : ""}`);
+      case "endurance": {
+
+        lines.push(
+          `• Activité d’endurance${!isPasEndurance && activite.type ? ` (${activite.type})` : ""}`
+        );
+
+        if (isPasEndurance) {
+
+          const objectifPas =
+            String(activite.objectif_pas || "").trim();
+
+          const consignesPas =
+            String(activite.consignes_pas || "").trim();
+
+          if (objectifPas) {
+            lines.push(`  Objectif : ${objectifPas} pas/jour`);
+          }
+
+          if (consignesPas) {
+            lines.push(`  ${consignesPas}`);
+          }
+        }
+
         break;
+      }
 
       case "renforcement":
         lines.push(`• Renforcement musculaire${activite.type ? ` (${activite.type})` : ""}`);
@@ -448,31 +474,38 @@ function generatePrescriptionPlainText(model) {
         lines.push(`• Travail de souplesse et mobilité${activite.type ? ` (${activite.type})` : ""}`);
         break;
 
+      case "equilibre":
+        lines.push(`• Travail de l'équilibre${activite.type ? ` (${activite.type})` : ""}`);
+        break;
+
       default:
         lines.push("• Activité physique");
     }
 
-    if (activite.intensite === "moderee") {
-      lines.push("  Intensité modérée");
-    }
+    if (!isPasEndurance) {
 
-    if (activite.intensite === "elevee") {
-      lines.push("  Intensité élevée");
-    }
+      if (activite.intensite === "moderee") {
+        lines.push("  Intensité modérée");
+      }
 
-    if (activite.duree?.valeur) {
-      lines.push(`  ${formatDuree(activite.duree.valeur)}`);
-    }
+      if (activite.intensite === "elevee") {
+        lines.push("  Intensité élevée");
+      }
 
-    if (activite.frequence?.valeur) {
-      lines.push(`  ${formatFrequence(activite.frequence.valeur)}`);
+      if (activite.duree?.valeur) {
+        lines.push(`  ${formatDuree(activite.duree.valeur)}`);
+      }
+
+      if (activite.frequence?.valeur) {
+        lines.push(`  ${formatFrequence(activite.frequence.valeur)}`);
+      }
     }
 
     lines.push("");
   });
 
   const conseilsPatho =
-  buildPathoPlainText();
+    buildPathoPlainText();
 
   if (conseilsPatho) {
 
@@ -487,10 +520,9 @@ function generatePrescriptionPlainText(model) {
   }
 
   if (dureePrescription) {
-
-  lines.push("");
-  lines.push(`Durée prévisionnelle : ${dureePrescription}`);
-}
+    lines.push("");
+    lines.push(`Durée prévisionnelle : ${dureePrescription}`);
+  }
 
   return lines.join("\n");
 }
