@@ -8977,6 +8977,23 @@ function renderOrdonnanceAPA(model) {
   const base =
     renderOrdonnanceAP(model);
 
+const physicalTestsPrescriptionBlock =
+  buildPhysicalTestsPrescriptionContextBlock(model);
+
+const physicalTestsAPABlock =
+  physicalTestsPrescriptionBlock
+    ? `
+<div class="apa-physical-tests-wrapper">
+  ${physicalTestsPrescriptionBlock}
+</div>
+`
+    : "";
+
+const baseWithoutPhysicalTests =
+  physicalTestsPrescriptionBlock
+    ? base.replace(physicalTestsPrescriptionBlock, "")
+    : base;
+
   const prenom =
   document.querySelector('input[name="prenom"]')?.value || "";
 
@@ -9026,7 +9043,7 @@ const apaObjectivesBlock =
 </div>
 `;
 
-  return base
+  return baseWithoutPhysicalTests
     .replace(
       "Ordonnance d'activité physique",
       "Certificat de NCI / Ordonnance APA"
@@ -9042,11 +9059,12 @@ const apaObjectivesBlock =
   padding:16px;
   background:#fcfcfc;
 ">`,
-      `${apaDestinationBlock}
+            `${apaDestinationBlock}
       ${apaObjectivesBlock}
 ${apaOrientationOptionsBlock}
 ${certificateBlock}
 ${apaLimitationsBlock}
+${physicalTestsAPABlock}
 <div style="
   border:1px solid #d9d9d9;
   border-radius:10px;

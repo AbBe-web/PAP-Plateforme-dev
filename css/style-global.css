@@ -1187,3 +1187,15 @@ details summary::-webkit-details-marker {
   width: 100%;
   box-sizing: border-box;
 }
+
+/* =========================
+   APA – ÉLÉMENTS FONCTIONNELS
+========================= */
+
+.crc-page .apa-physical-tests-wrapper {
+  margin: 14px 0 16px 0;
+}
+
+.crc-page .apa-physical-tests-wrapper > div {
+  margin: 0 !important;
+}
