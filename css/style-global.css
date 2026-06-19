@@ -525,6 +525,19 @@ input[type="checkbox"] {
 }
 
 /* =========================
+   CRC – Q6 / Q7 OPTIONS MÉDICALES INLINE
+========================= */
+
+.crc-page label:has(input[name="consultation_ap"]),
+.crc-page label:has(input[name="epreuve_effort"]) {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 18px 6px 0 !important;
+  white-space: normal;
+}
+
+/* =========================
    CRC – GESTION VERTICALE UNIFIÉE
 ========================= */
 
