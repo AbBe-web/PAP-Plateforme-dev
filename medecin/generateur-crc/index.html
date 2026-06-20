@@ -194,6 +194,12 @@ document.head.appendChild(manifestLink);
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Ligne ordonnance : 2 boutons occupant toute la largeur */
+.format-tabs .tab-btn:nth-child(5),
+.format-tabs .tab-btn:nth-child(6) {
+  flex: 1 1 calc(50% - 10px);
+}
+
 /* état actif */
 .tab-btn.active {
   background: var(--primary-color);
@@ -230,7 +236,16 @@ document.head.appendChild(manifestLink);
   }
 
 }
-    
+
+/* ===== Coordonnées médecin : centrage du summary ===== */
+
+#physicianIdentityBlock > summary.physician-summary {
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
 /* ===== Boutons d'action ===== */
 
 #reportActions {
@@ -8374,7 +8389,7 @@ Lors de l’échange que vous avez eu avec votre médecin, ${
     ? "les objectifs principaux retenus en termes d’activité physique sont"
     : "l’objectif principal retenu en termes d’activité physique est"
 } :
-<strong>${objectifsBloc}</strong>.
+${objectifsBloc}.
 </p>
 ` : ""}
 
