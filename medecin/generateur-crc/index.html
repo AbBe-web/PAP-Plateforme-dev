@@ -8768,9 +8768,6 @@ function renderOrdonnanceAP(model) {
 const conseilsPatho =
   buildCRCPathoBloc("ordonnance");
 
-const physicalTestsPrescriptionBloc =
-  buildPhysicalTestsPrescriptionContextBlock(model);
-
 const today = new Date().toLocaleDateString('fr-FR', {
   day: 'numeric',
   month: 'long',
@@ -8899,8 +8896,6 @@ const includeApaCertificate =
 ">
   ${ordonnanceHTML}
 </div>
-
-${physicalTestsPrescriptionBloc}
 
 ${dureePrescription ? `
 
