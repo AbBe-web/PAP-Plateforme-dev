@@ -1719,17 +1719,17 @@ Pas d’AP envisagée dans les 6 mois
   style="
     display:flex;
     flex-wrap:wrap;
-    gap:24px;
-    align-items:flex-end;
+    gap:12px;
+    align-items:center;
     margin-top:8px;
   "
 >
   <label
     style="
-      display:flex !important;
-      flex-direction:column;
-      gap:4px;
-      margin:0;
+    display:inline-flex !important;
+    align-items:center;
+    gap:8px;
+    margin:0;
     "
   >
     <span>Résultat</span>
@@ -1784,7 +1784,7 @@ Pas d’AP envisagée dans les 6 mois
       display:inline-flex !important;
       align-items:center;
       gap:6px;
-      margin:0 0 7px 8px;
+      margin:0;
       white-space:nowrap;
     "
   >
@@ -1829,14 +1829,10 @@ Pas d’AP envisagée dans les 6 mois
       <div
         style="
           display:grid;
-          grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+          grid-template-columns:repeat(3, minmax(0, 1fr));
           gap:8px;
         "
       >
-        <label style="display:inline-flex !important; align-items:center; gap:6px;">
-          <input type="checkbox" id="physical_handgrip_available">
-          Dynamomètre disponible
-        </label>
 
         <label>
           Main droite
@@ -11708,8 +11704,12 @@ const tm6 = {
   };
 
   const handgrip = {
-    dynamometre_disponible:
-      getChecked("physical_handgrip_available"),
+ dynamometre_disponible:
+  Boolean(
+    getValue("physical_handgrip_right") ||
+    getValue("physical_handgrip_left") ||
+    getValue("physical_handgrip_best")
+  ),
 
     main_droite_kg:
       getValue("physical_handgrip_right"),
