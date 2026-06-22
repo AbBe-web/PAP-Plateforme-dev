@@ -1345,3 +1345,41 @@ details summary::-webkit-details-marker {
     grid-column: auto;
   }
 }
+
+
+/* =========================
+   CRC – PANNEAUX CLINIQUES
+========================= */
+
+.crc-page .clinical-panel {
+  margin: 16px 0;
+  padding: 14px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+
+  line-height: 1.45;
+}
+
+/* Panneau de saisie clinique */
+.crc-page .clinical-panel-input {
+  background: #f8fafc;
+}
+
+/* Panneau d’aide cognitive */
+.crc-page .clinical-panel-help {
+  background: #f5f8fc;
+  border-color: #cbd5e1;
+}
+
+.crc-page #physicalTestsBlock > label {
+  min-height: 28px;
+}
+
+.crc-page #hasBlock > strong {
+  display: block;
+  line-height: 1.35;
+}
+
