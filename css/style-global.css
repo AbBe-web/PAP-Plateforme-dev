@@ -1383,3 +1383,32 @@ details summary::-webkit-details-marker {
   line-height: 1.35;
 }
 
+/* =========================
+   CRC – STRUCTURE TESTS PHYSIQUES
+========================= */
+
+.crc-page .physical-tests-panel {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.crc-page .physical-tests-meta-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.crc-page .physical-tests-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.crc-page .physical-test-summary {
+  font-weight: 700;
+  cursor: pointer;
+}

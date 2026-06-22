@@ -1472,24 +1472,11 @@ Pas d’AP envisagée dans les 6 mois
     </span>
   </label>
 
-  <div
-    id="physical_tests_panel"
+ <div
+  id="physical_tests_panel"
   class="hidden physical-tests-panel"
-    style="
-      margin-top:10px;
-      padding-top:10px;
-      border-top:1px solid #e2e8f0;
-    "
-  >
-<div
-  class="physical-tests-meta-grid"
-  style="
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
-    gap:8px;
-    margin-bottom:10px;
-  "
 >
+<div class="physical-tests-meta-grid">
 
   <label>
     Date des tests
@@ -1509,15 +1496,7 @@ Pas d’AP envisagée dans les 6 mois
   </label>
 </div>
 
-<div
-  class="physical-tests-status-row"
-  style="
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-bottom:10px;
-  "
->
+<div class="physical-tests-status-row">
 
   <label style="display:inline-flex !important; align-items:center; gap:6px;">
     <input type="checkbox" id="physical_tests_not_done">
@@ -1531,7 +1510,7 @@ Pas d’AP envisagée dans les 6 mois
 </div>
 
 <details class="physical-test-section physical-test-tm6" open>
-  <summary style="font-weight:700; cursor:pointer;">
+<summary class="physical-test-summary">
     TM6 / test de marche de 6 minutes
   </summary>
 
@@ -1726,7 +1705,7 @@ Pas d’AP envisagée dans les 6 mois
   class="physical-test-section physical-test-chair"
   style="margin-top:10px;"
 >
-  <summary style="font-weight:700; cursor:pointer;">
+ <summary class="physical-test-summary">
     Levers de chaise / force musculaire
   </summary>
 
@@ -1944,7 +1923,7 @@ Pas d’AP envisagée dans les 6 mois
   class="physical-test-section physical-test-balance"
   style="margin-top:10px;"
 >
-      <summary style="font-weight:700; cursor:pointer;">
+   <summary class="physical-test-summary">
         Équilibre
       </summary>
 
@@ -2008,7 +1987,7 @@ Pas d’AP envisagée dans les 6 mois
   class="physical-test-section physical-test-flexibility"
   style="margin-top:10px;"
 >
-      <summary style="font-weight:700; cursor:pointer;">
+<summary class="physical-test-summary">
         Souplesse / autre test
       </summary>
 
