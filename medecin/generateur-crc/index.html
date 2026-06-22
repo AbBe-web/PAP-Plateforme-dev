@@ -1438,14 +1438,9 @@ Pas d’AP envisagée dans les 6 mois
 
  <div
   id="physicalTestsBlock"
-  style="
-    margin:12px 0;
-    padding:10px;
-    border-radius:10px;
-    background:#f8fafc;
-    border:1px solid #cbd5e1;
-  "
+  class="clinical-panel clinical-panel-input"
 >
+
   <label
     style="
       display:flex !important;
@@ -1479,7 +1474,7 @@ Pas d’AP envisagée dans les 6 mois
 
   <div
     id="physical_tests_panel"
-    class="hidden"
+  class="hidden physical-tests-panel"
     style="
       margin-top:10px;
       padding-top:10px;
@@ -1487,6 +1482,7 @@ Pas d’AP envisagée dans les 6 mois
     "
   >
 <div
+  class="physical-tests-meta-grid"
   style="
     display:grid;
     grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
@@ -1494,6 +1490,7 @@ Pas d’AP envisagée dans les 6 mois
     margin-bottom:10px;
   "
 >
+
   <label>
     Date des tests
     <input
@@ -1513,6 +1510,7 @@ Pas d’AP envisagée dans les 6 mois
 </div>
 
 <div
+  class="physical-tests-status-row"
   style="
     display:flex;
     flex-wrap:wrap;
@@ -1520,6 +1518,7 @@ Pas d’AP envisagée dans les 6 mois
     margin-bottom:10px;
   "
 >
+
   <label style="display:inline-flex !important; align-items:center; gap:6px;">
     <input type="checkbox" id="physical_tests_not_done">
     Tests non réalisés
@@ -1531,7 +1530,7 @@ Pas d’AP envisagée dans les 6 mois
   </label>
 </div>
 
-<details open>
+<details class="physical-test-section physical-test-tm6" open>
   <summary style="font-weight:700; cursor:pointer;">
     TM6 / test de marche de 6 minutes
   </summary>
@@ -1723,7 +1722,10 @@ Pas d’AP envisagée dans les 6 mois
   ></textarea>
 </details>
 
- <details style="margin-top:10px;">
+<details
+  class="physical-test-section physical-test-chair"
+  style="margin-top:10px;"
+>
   <summary style="font-weight:700; cursor:pointer;">
     Levers de chaise / force musculaire
   </summary>
@@ -1856,13 +1858,14 @@ Pas d’AP envisagée dans les 6 mois
       "
     ></textarea>
 
-    <div
-      style="
-        margin-top:12px;
-        padding-top:10px;
-        border-top:1px solid #e2e8f0;
-      "
-    >
+<div
+  class="physical-test-handgrip"
+  style="
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid #e2e8f0;
+  "
+>
       <div style="font-weight:700; margin-bottom:8px;">
         Handgrip optionnel
       </div>
@@ -1937,7 +1940,10 @@ Pas d’AP envisagée dans les 6 mois
   </div>
 </details>
 
-    <details style="margin-top:10px;">
+<details
+  class="physical-test-section physical-test-balance"
+  style="margin-top:10px;"
+>
       <summary style="font-weight:700; cursor:pointer;">
         Équilibre
       </summary>
@@ -1998,7 +2004,10 @@ Pas d’AP envisagée dans les 6 mois
       ></textarea>
     </details>
 
-    <details style="margin-top:10px;">
+<details
+  class="physical-test-section physical-test-flexibility"
+  style="margin-top:10px;"
+>
       <summary style="font-weight:700; cursor:pointer;">
         Souplesse / autre test
       </summary>
@@ -2238,13 +2247,10 @@ Pas d’AP envisagée dans les 6 mois
 
 </div>
 
-<div id="hasBlock" style="
-  margin:20px 0;
-  padding:12px;
-  border:1px solid #e5e7eb;
-  border-radius:10px;
-  background:#f9fafb;
-">
+<div
+  id="hasBlock"
+  class="clinical-panel clinical-panel-help"
+>
 
 <strong>🧠 Aide à la décision (référentiel HAS)</strong>
 
