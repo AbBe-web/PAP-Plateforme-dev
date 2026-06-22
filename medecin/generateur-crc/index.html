@@ -797,52 +797,68 @@ Veuillez vérifier et compléter les informations avant de générer le compte-r
 
 <h2>1/ Données générales</h2>
 
-<div style="display:flex; gap:20px; align-items:flex-end; flex-wrap:wrap;">
+<div class="general-data-grid">
 
   <!-- Sexe -->
-  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span style="font-weight:500;">Sexe</span>
-    <div style="display:flex; gap:10px;">
-      <label><input type="radio" name="sexe" value="femme"> F</label>
-      <label><input type="radio" name="sexe" value="homme"> H</label>
+  <div class="general-data-field general-data-sex">
+    <span class="general-data-label">Sexe</span>
+
+    <div class="general-data-sex-options">
+      <label>
+        <input type="radio" name="sexe" value="femme">
+        F
+      </label>
+
+      <label>
+        <input type="radio" name="sexe" value="homme">
+        H
+      </label>
     </div>
   </div>
 
   <!-- Âge -->
-  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span style="font-weight:500;">Âge</span>
-    <input type="number" id="age_input" style="width:70px;">
+  <div class="general-data-field">
+    <label class="general-data-label" for="age_input">Âge</label>
+    <input type="number" id="age_input">
   </div>
 
   <!-- Taille -->
-  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span style="font-weight:500;">Taille</span>
-    <input type="number" id="taille_input" style="width:90px;">
+  <div class="general-data-field">
+    <label class="general-data-label" for="taille_input">Taille</label>
+    <input type="number" id="taille_input">
   </div>
 
   <!-- Poids -->
-  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span style="font-weight:500;">Poids</span>
-    <input type="number" id="poids_input" style="width:90px;">
+  <div class="general-data-field">
+    <label class="general-data-label" for="poids_input">Poids</label>
+    <input type="number" id="poids_input">
   </div>
 
-  <!-- IMC -->
-  <div style="display:flex; flex-direction:column; font-size:0.8rem;">
-    <span style="font-weight:500;">IMC</span>
-    <div id="imc_result" style="min-width:120px;"></div>
-  </div>
+ <!-- IMC -->
+<div class="general-data-field general-data-imc">
+  <span class="general-data-label">IMC</span>
 
+  <div
+    id="imc_result"
+    class="general-data-imc-result"
+  ></div>
+
+  <div
+    id="imc_fallback"
+    class="general-data-imc-fallback"
+    style="display:none;"
+  >
+    <label>
+      <input type="radio" name="imc_condition" value="<35">
+      &lt; 35
+    </label>
+
+    <label>
+      <input type="radio" name="imc_condition" value=">=35">
+      ≥ 35
+    </label>
+  </div>
 </div>
-
-<!-- 🔻 FALLBACKS EN DESSOUS -->
-
-<div style="margin-top:6px; display:flex; gap:20px; flex-wrap:wrap; font-size:0.8rem;">
-
-  <div id="imc_fallback" style="display:none;">
-    <span>IMC :</span>
-    <label><input type="radio" name="imc_condition" value="<35"> ≤35</label>
-    <label><input type="radio" name="imc_condition" value=">=35"> ≥35</label>
-  </div>
 
 </div>
 
@@ -10482,41 +10498,95 @@ updateAgeUI();
 
 function initIMC() {
 
-  const tailleInput = document.getElementById("taille_input");
-  const poidsInput = document.getElementById("poids_input");
-  const imcResult = document.getElementById("imc_result");
-  const imcFallback = document.getElementById("imc_fallback");
+  const tailleInput =
+    document.getElementById("taille_input");
+
+  const poidsInput =
+    document.getElementById("poids_input");
+
+  const imcResult =
+    document.getElementById("imc_result");
+
+  const imcFallback =
+    document.getElementById("imc_fallback");
+
+  if (
+    !tailleInput ||
+    !poidsInput ||
+    !imcResult ||
+    !imcFallback
+  ) {
+    return;
+  }
+
+  const imcConditionRadios =
+    document.querySelectorAll(
+      'input[name="imc_condition"]'
+    );
 
   function calculIMC() {
 
-    const taille = parseFloat(tailleInput.value);
-    const poids = parseFloat(poidsInput.value);
+    const taille =
+      parseFloat(tailleInput.value);
 
-    if (!taille || !poids) {
-      imcResult.innerHTML = "";
-      imcFallback.style.display = "block";
+    const poids =
+      parseFloat(poidsInput.value);
+
+    const mesuresValides =
+      Number.isFinite(taille) &&
+      taille > 0 &&
+      Number.isFinite(poids) &&
+      poids > 0;
+
+    /*
+      Sans taille et poids valides :
+      afficher uniquement le choix rapide manuel.
+    */
+    if (!mesuresValides) {
+      imcResult.textContent = "";
+      imcFallback.style.display = "flex";
       return;
     }
 
-    const imc = poids / ((taille / 100) ** 2);
-    const imcRounded = imc.toFixed(1);
+    /*
+      Avec taille et poids valides :
+      afficher uniquement l’IMC calculé.
+    */
+    const imc =
+      poids / ((taille / 100) ** 2);
 
-    let interpretation = imc >= 35
-      ? "IMC ≥ 35 kg/m²"
-      : "IMC ≤ 35 kg/m²";
+    const imcRounded =
+      imc.toFixed(1);
 
-    imcResult.innerHTML = `IMC : <strong>${imcRounded}</strong> (${interpretation})`;
+    imcResult.innerHTML =
+      `<strong>${imcRounded}</strong>&nbsp;kg/m²`;
 
     imcFallback.style.display = "none";
 
-    document.querySelectorAll('input[name="imc_condition"]').forEach(r => r.checked = false);
+    /*
+      L’IMC calculé devient prioritaire :
+      aucune ancienne catégorie manuelle ne doit rester active.
+    */
+    imcConditionRadios.forEach(radio => {
+      radio.checked = false;
+    });
   }
 
-  if (tailleInput && poidsInput) {
-    tailleInput.addEventListener("input", calculIMC);
-    poidsInput.addEventListener("input", calculIMC);
-  }
+  tailleInput.addEventListener(
+    "input",
+    calculIMC
+  );
 
+  poidsInput.addEventListener(
+    "input",
+    calculIMC
+  );
+
+  /*
+    Initialise correctement l’affichage dès l’ouverture
+    ou après restauration des valeurs du formulaire.
+  */
+  calculIMC();
 }
             
  function initGrossesse() {
