@@ -1439,3 +1439,21 @@ details summary::-webkit-details-marker {
   color: #374151;
   line-height: 1.45;
 }
+
+/* =========================
+   CRC – HANDGRIP OPTIONNEL
+========================= */
+
+.crc-page .physical-test-handgrip {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.crc-page .physical-test-handgrip > summary {
+  margin-bottom: 0;
+}
+
+.crc-page .physical-test-handgrip[open] > summary {
+  margin-bottom: 8px;
+}
