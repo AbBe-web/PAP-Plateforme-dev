@@ -46,18 +46,27 @@ document.head.appendChild(manifestLink);
     <link rel="stylesheet" href="../../css/style-global.css">
 
     <style>
-        .crc-container label {
-            font-size: 0.95em !important;
-            margin-bottom: 2px;
-        }
-
-.crc-container input {
-  transform: scale(0.95);
-}
+    /* =========================
+   CRC – LISIBILITÉ GÉNÉRALE DU FORMULAIRE
+========================= */
 
 .crc-container {
-  line-height: 1.35;
+  line-height: 1.45;
+  margin-top: 8px;
+}
+
+.crc-container label {
+  font-size: 15px;
   margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+/*
+  Ne pas réduire artificiellement les champs de saisie.
+  Les cases et radios conservent leurs règles dédiées.
+*/
+.crc-container input:not([type="checkbox"]):not([type="radio"]) {
+  transform: none;
 }
     
 .modal {

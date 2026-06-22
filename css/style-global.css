@@ -93,6 +93,16 @@ select {
   margin-top: 8px;
 }
 
+/* Empêche les champs du formulaire CRC de dépasser à droite */
+.crc-page input[type="text"],
+.crc-page input[type="number"],
+.crc-page input[type="date"],
+.crc-page textarea,
+.crc-page select {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
 input:focus,
 textarea:focus {
   outline: none;
