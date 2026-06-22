@@ -1214,3 +1214,134 @@ details summary::-webkit-details-marker {
   margin: 0 !important;
 }
 
+/* =========================
+   CRC – DONNÉES GÉNÉRALES
+========================= */
+
+.crc-page .general-data-grid {
+  display: grid;
+  grid-template-columns:
+    90px
+    90px
+    105px
+    105px
+    minmax(170px, 1fr);
+  gap: 12px 10px;
+  align-items: start;
+
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.crc-page .general-data-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.crc-page .general-data-label {
+  display: block;
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.crc-page .general-data-field input[type="number"] {
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+
+  margin: 0;
+  padding: 9px 10px;
+
+  box-sizing: border-box;
+}
+
+.crc-page .general-data-sex-options {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 42px;
+}
+
+.crc-page .general-data-sex-options label {
+  display: inline-flex !important;
+  align-items: center;
+
+  gap: 5px;
+  margin: 0 !important;
+
+  white-space: nowrap;
+}
+
+.crc-page .general-data-sex-options input[type="radio"] {
+  margin: 0;
+}
+
+.crc-page .general-data-imc-result {
+  display: flex;
+  align-items: center;
+
+  min-height: 42px;
+  padding: 0 4px;
+
+  box-sizing: border-box;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Aucun espace réservé tant que l’IMC calculé est vide */
+.crc-page .general-data-imc-result:empty {
+  display: none;
+}
+
+.crc-page .general-data-imc-fallback {
+  align-items: center;
+  gap: 12px;
+
+  min-height: 42px;
+  padding: 0 4px;
+
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.crc-page .general-data-imc-fallback label {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+
+  margin: 0 !important;
+  white-space: nowrap;
+}
+
+.crc-page .general-data-imc-fallback input[type="radio"] {
+  margin: 0;
+}
+
+/* Tablette et fenêtre étroite */
+@media (max-width: 700px) {
+
+  .crc-page .general-data-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .crc-page .general-data-imc {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Très petit écran */
+@media (max-width: 380px) {
+
+  .crc-page .general-data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crc-page .general-data-imc {
+    grid-column: auto;
+  }
+}
