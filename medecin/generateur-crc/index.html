@@ -1689,10 +1689,8 @@ Pas d’AP envisagée dans les 6 mois
 ></textarea>
 </details>
 
-<details
-  class="physical-test-section physical-test-chair"
-  style="margin-top:10px;"
->
+<details class="physical-test-section physical-test-chair">
+
  <summary class="physical-test-summary">
     Levers de chaise / force musculaire
   </summary>
@@ -1814,61 +1812,61 @@ Pas d’AP envisagée dans les 6 mois
   placeholder="Note levers de chaise : douleur, symptôme, limitation, aide, commentaire clinique..."
 ></textarea>
 
-<div
-  class="physical-test-handgrip"
-  style="
-    margin-top:12px;
-    padding-top:10px;
-    border-top:1px solid #e2e8f0;
-  "
->
+<div class="physical-test-handgrip">
+
       <div style="font-weight:700; margin-bottom:8px;">
         Handgrip optionnel
       </div>
 
-      <div
-        style="
-          display:grid;
-          grid-template-columns:repeat(3, minmax(0, 1fr));
-          gap:8px;
-        "
-      >
+      <div class="physical-measures-row">
 
-        <label>
-          Main droite
-          <input
-            id="physical_handgrip_right"
-            type="number"
-            min="0"
-            step="0.1"
-            placeholder="kg"
-            style="width:100%; box-sizing:border-box;"
-          >
-        </label>
+    <label class="physical-measure">
+  <span>Main droite</span>
 
-        <label>
-          Main gauche
-          <input
-            id="physical_handgrip_left"
-            type="number"
-            min="0"
-            step="0.1"
-            placeholder="kg"
-            style="width:100%; box-sizing:border-box;"
-          >
-        </label>
+  <span class="physical-measure-value">
+    <input
+      id="physical_handgrip_right"
+      class="physical-measure-input"
+      type="number"
+      min="0"
+      step="0.1"
+    >
 
-        <label>
-          Meilleure valeur
-          <input
-            id="physical_handgrip_best"
-            type="number"
-            min="0"
-            step="0.1"
-            placeholder="kg"
-            style="width:100%; box-sizing:border-box;"
-          >
-        </label>
+    <span class="physical-measure-unit">kg</span>
+  </span>
+</label>
+
+    <label class="physical-measure">
+  <span>Main gauche</span>
+
+  <span class="physical-measure-value">
+    <input
+      id="physical_handgrip_left"
+      class="physical-measure-input"
+      type="number"
+      min="0"
+      step="0.1"
+    >
+
+    <span class="physical-measure-unit">kg</span>
+  </span>
+</label>
+
+   <label class="physical-measure">
+  <span>Meilleure valeur</span>
+
+  <span class="physical-measure-value">
+    <input
+      id="physical_handgrip_best"
+      class="physical-measure-input"
+      type="number"
+      min="0"
+      step="0.1"
+    >
+
+    <span class="physical-measure-unit">kg</span>
+  </span>
+</label>
       </div>
 
 <textarea
@@ -1881,31 +1879,43 @@ Pas d’AP envisagée dans les 6 mois
   </div>
 </details>
 
-<details
-  class="physical-test-section physical-test-balance"
-  style="margin-top:10px;"
->
+<details class="physical-test-section physical-test-balance">
+
    <summary class="physical-test-summary">
         Équilibre
       </summary>
 
-      <div
-        style="
-          display:grid;
-          grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
-          gap:8px;
-          margin-top:8px;
-        "
-      >
-        <label>
-          Appui unipodal
-          <input id="physical_balance_unipodal" type="number" min="0" step="1" placeholder="secondes">
-        </label>
+    <div class="physical-measures-row">
 
-        <label>
-          Nombre d’écarts
-          <input id="physical_balance_ecarts" type="number" min="0" step="1">
-        </label>
+  <label class="physical-measure">
+ <span class="physical-measure-label-long">
+  Appui unipodal
+</span>
+
+  <span class="physical-measure-value">
+    <input
+      id="physical_balance_unipodal"
+      class="physical-measure-input"
+      type="number"
+      min="0"
+      step="1"
+    >
+
+    <span class="physical-measure-unit">secondes</span>
+  </span>
+</label>
+
+ <label class="physical-measure">
+  <span>Nombre d’écarts</span>
+
+  <input
+    id="physical_balance_ecarts"
+    class="physical-measure-input"
+    type="number"
+    min="0"
+    step="1"
+  >
+</label>
       </div>
 
       <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;">
@@ -1945,10 +1955,8 @@ Pas d’AP envisagée dans les 6 mois
       ></textarea>
     </details>
 
-<details
-  class="physical-test-section physical-test-flexibility"
-  style="margin-top:10px;"
->
+<details class="physical-test-section physical-test-flexibility">
+
 <summary class="physical-test-summary">
         Souplesse / autre test
       </summary>
@@ -11059,6 +11067,11 @@ function resetPhysicalTestsPanelAfterReset() {
   const summary =
     document.getElementById("physical_tests_summary");
 
+  const chairDetails =
+    document.querySelector(
+      "#physical_tests_panel details.physical-test-chair"
+    );
+
   if (enabled) {
     enabled.checked = false;
   }
@@ -11070,6 +11083,10 @@ function resetPhysicalTestsPanelAfterReset() {
   if (summary) {
     summary.textContent =
       "non renseignés · Ajouter / modifier";
+  }
+
+  if (chairDetails) {
+    chairDetails.open = false;
   }
 }
 
