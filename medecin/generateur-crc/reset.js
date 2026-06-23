@@ -57,6 +57,48 @@ document.addEventListener("DOMContentLoaded", function () {
             form.reset();
         }
 
+// 1 bis. Reset identité temporaire du patient
+// Ces variables sont utilisées par la modale impression / copie.
+if (typeof lastPrenom !== "undefined") {
+    lastPrenom = "";
+}
+
+if (typeof lastNom !== "undefined") {
+    lastNom = "";
+}
+
+if (typeof identityAction !== "undefined") {
+    identityAction = null;
+}
+
+const modalPrenom =
+    document.getElementById("modalPrenom");
+
+const modalNom =
+    document.getElementById("modalNom");
+
+const prenomPreview =
+    document.getElementById("prenomPreview");
+
+const nomPreview =
+    document.getElementById("nomPreview");
+
+if (modalPrenom) {
+    modalPrenom.value = "";
+}
+
+if (modalNom) {
+    modalNom.value = "";
+}
+
+if (prenomPreview) {
+    prenomPreview.textContent = "";
+}
+
+if (nomPreview) {
+    nomPreview.textContent = "";
+}
+
         // 2. Sécurité décocher
         document.querySelectorAll(
             'input[type="checkbox"], input[type="radio"]'
@@ -64,15 +106,22 @@ document.addEventListener("DOMContentLoaded", function () {
             input.checked = false;
         });
 
-        // 3. Vider champs
-        document.querySelectorAll(`
-            input[type="text"],
-            input[type="number"],
-            input[type="date"],
-            textarea
-        `).forEach(field => {
-            field.value = "";
-        });
+// 3. Vider les champs liés à la consultation patient
+// Les coordonnées médecin sont conservées séparément et disposent
+// de leur propre bouton de réinitialisation.
+document.querySelectorAll(`
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    textarea
+`).forEach(field => {
+
+    if (field.closest("#physicianIdentityBlock")) {
+        return;
+    }
+
+    field.value = "";
+});
 
         // 4. Reset selects
         document.querySelectorAll("select").forEach(select => {
@@ -161,6 +210,38 @@ document.addEventListener("DOMContentLoaded", function () {
             crcMode = "long";
         }
 
+// Reset des sorties documentaires temporaires
+if (typeof renderedOutput !== "undefined") {
+    renderedOutput.html = "";
+    renderedOutput.text = "";
+    renderedOutput.edited = false;
+}
+
+if (typeof isEditingOutput !== "undefined") {
+    isEditingOutput = false;
+}
+
+const finalTextContainer =
+    document.getElementById("finalTextContainer");
+
+const finalTextOutput =
+    document.getElementById("finalTextOutput");
+
+const browserPrintOutput =
+    document.getElementById("browserPrintOutput");
+
+if (finalTextContainer) {
+    finalTextContainer.style.display = "none";
+}
+
+if (finalTextOutput) {
+    finalTextOutput.value = "";
+}
+
+if (browserPrintOutput) {
+    browserPrintOutput.innerHTML = "";
+}
+
         // 11. Reset import JSON
         const importFile = document.getElementById("importJSONFile");
 
@@ -193,11 +274,27 @@ if (crcWarning) {
   crcWarning.classList.add("hidden");
 } 
 
-toggleSubgroup(
-  "ordonnance_aerobie",
-  "ordonnance_aerobie_subgroup",
-  "intensite_aerobie_block"
-);
+// Reset complet du mode aérobie : FITT et Pas/jour
+const aerobieFittBlock =
+    document.getElementById("ordonnance_aerobie_subgroup");
+
+const aerobieIntensityBlock =
+    document.getElementById("intensite_aerobie_block");
+
+const aerobieStepsBlock =
+    document.getElementById("aerobie_pas_subgroup");
+
+if (aerobieFittBlock) {
+    aerobieFittBlock.style.display = "none";
+}
+
+if (aerobieIntensityBlock) {
+    aerobieIntensityBlock.style.display = "none";
+}
+
+if (aerobieStepsBlock) {
+    aerobieStepsBlock.style.display = "none";
+}
 
 toggleSubgroup(
   "renforcement_musculaire",
