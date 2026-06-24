@@ -1395,11 +1395,28 @@ details summary::-webkit-details-marker {
 
 .crc-page .physical-tests-meta-grid {
   display: grid;
-  grid-template-columns:
-    repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: max-content max-content;
+  justify-content: start;
+  column-gap: 28px;
   gap: 8px;
   margin-bottom: 10px;
 }
+
+.crc-page .physical-tests-meta-grid > label {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 8px;
+  margin: 0 !important;
+
+  white-space: nowrap;
+}
+
+.crc-page .physical-tests-meta-grid > label > input {
+  margin: 0 !important;
+}
+
 
 .crc-page .physical-tests-status-row {
   display: flex;
@@ -1409,8 +1426,89 @@ details summary::-webkit-details-marker {
 }
 
 .crc-page .physical-test-summary {
+  margin: 5px 0 4px;
+
+  color: #0f5f99;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+/* Titres des domaines de condition physique */
+.crc-page .physical-test-domain-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin: 0;
+  padding: 7px 8px;
+
+  color: #111827;
+  font-size: 0.98rem;
   font-weight: 700;
-  cursor: pointer;
+  line-height: 1.25;
+
+  cursor: pointer !important;
+  user-select: none;
+  list-style: none;
+
+  border-bottom: 1px solid #dbe4ee;
+  border-radius: 6px;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.crc-page .physical-test-domain-title::-webkit-details-marker {
+  display: none;
+}
+
+.crc-page .physical-test-domain-title::before {
+  content: "▸";
+  flex: 0 0 auto;
+
+  color: #334155;
+  font-size: 0.82rem;
+  line-height: 1;
+}
+
+.crc-page .physical-test-domain[open]
+> .physical-test-domain-title::before {
+  content: "▾";
+}
+
+.crc-page .physical-test-domain-title:hover {
+  background: #f1f5f9;
+}
+
+.crc-page .physical-test-domain-title:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.crc-page .physical-test-domain[open]
+> .physical-test-domain-title {
+  background: #f8fafc;
+}
+
+.crc-page .physical-test-domain-title:hover {
+  background: #f1f5f9;
+}
+
+.crc-page .physical-test-domain-title:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.crc-page .physical-test-domain[open]
+> .physical-test-domain-title {
+  background: #f8fafc;
+}
+
+.crc-page .physical-tests-panel
+.physical-test-domain-title:first-of-type {
+  margin-top: 4px;
 }
 
 /* Mesures courtes des tests physiques */
@@ -1536,12 +1634,15 @@ align-items: flex-start !important;
 
 .crc-page .physical-flexibility-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns:
+    minmax(250px, 310px)
+    minmax(250px, 310px);
 
-  gap: 12px 20px;
-  margin-top: 10px;
-
+  justify-content: start;
   align-items: start;
+
+  gap: 8px 24px;
+  margin-top: 8px;
 }
 
 /*
@@ -1575,40 +1676,40 @@ align-items: flex-start !important;
 }
 
 .crc-page .physical-other-test-grid {
-  display: grid;
-  grid-template-columns:
-    minmax(180px, 1.5fr)
-    minmax(130px, 1fr)
-    minmax(110px, 0.8fr);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
 
-  gap: 10px;
-  margin-top: 10px;
-
-  align-items: start;
+  gap: 10px 18px;
+  margin-top: 8px;
 }
 
 /*
   Neutralise également le display:inline-flex hérité
   de certaines règles générales de la page CRC.
 */
-.crc-page .physical-test-flexibility .physical-other-test-field {
-  display: flex !important;
-  flex-direction: column;
-  align-items: stretch;
+.crc-page .physical-other-test-field {
+  display: inline-flex !important;
+  flex-direction: row;
+  align-items: center;
 
   min-width: 0;
-  gap: 5px;
+  gap: 8px;
   margin: 0 !important;
 
-  white-space: normal;
+  white-space: nowrap;
 }
 
 .crc-page .physical-other-test-field > span {
+  width: auto;
+  flex: 0 0 auto;
+
   line-height: 1.25;
+  text-align: left;
 }
 
 .crc-page .physical-other-test-input {
-  width: 100%;
+  width: auto;
   min-width: 0;
   height: 34px;
 
@@ -1624,6 +1725,18 @@ align-items: flex-start !important;
   color: #1f2937;
   font: inherit;
   font-size: 0.95rem;
+}
+
+.crc-page #physical_other_name {
+  width: 120px;
+}
+
+.crc-page #physical_other_result {
+  width: 80px;
+}
+
+.crc-page #physical_other_unit {
+  width: 65px;
 }
 
 .crc-page .physical-other-test-input:focus {
@@ -1679,25 +1792,30 @@ align-items: flex-start !important;
 /* Mobile */
 @media (max-width: 600px) {
 
+  .crc-page .physical-tests-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
   .crc-page .physical-flexibility-grid {
     grid-template-columns: 1fr;
   }
 
-  .crc-page .physical-flexibility-label {
+.crc-page .physical-other-test-grid {
+  align-items: flex-start;
+  gap: 8px 12px;
+}
+
+.crc-page .physical-other-test-field {
+  flex-wrap: nowrap;
+}
+
+  .crc-page .physical-flexibility-title {
     min-height: 0;
   }
 
-  .crc-page .physical-other-test-grid {
-    grid-template-columns: 1fr;
+  .crc-page .physical-flexibility-input {
+    width: 110px !important;
+    min-width: 110px;
+    max-width: 110px !important;
   }
-
- .crc-page .physical-flexibility-title {
-  min-height: 0;
-}
-
-.crc-page .physical-flexibility-input {
-  width: 110px !important;
-  min-width: 110px;
-  max-width: 110px !important;
-}
 }

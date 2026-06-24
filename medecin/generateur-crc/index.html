@@ -1509,10 +1509,16 @@ Pas d’AP envisagée dans les 6 mois
   </label>
 </div>
 
-<details class="physical-test-section physical-test-tm6" open>
-<summary class="physical-test-summary">
-    TM6 / test de marche de 6 minutes
+<details class="physical-test-domain" open>
+  <summary class="physical-test-domain-title">
+    Capacité aérobie / endurance
   </summary>
+
+  <div class="physical-test-section physical-test-tm6">
+
+    <div class="physical-test-summary">
+      TM6 – test de marche de 6 minutes
+    </div>
 
 <div
   style="
@@ -1687,13 +1693,20 @@ Pas d’AP envisagée dans les 6 mois
   rows="2"
   placeholder="Note TM6 : raison d’arrêt précoce, symptômes, tolérance, commentaire clinique..."
 ></textarea>
+
+  </div>
 </details>
 
-<details class="physical-test-section physical-test-chair">
-
- <summary class="physical-test-summary">
-    Levers de chaise / force musculaire
+<details class="physical-test-domain">
+  <summary class="physical-test-domain-title">
+    Renforcement musculaire
   </summary>
+
+<div class="physical-test-section physical-test-chair">
+
+  <div class="physical-test-summary">
+    Levers de chaise
+  </div>
 
   <div style="margin-top:8px;">
     <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
@@ -1814,9 +1827,9 @@ Pas d’AP envisagée dans les 6 mois
 
 <div class="physical-test-handgrip">
 
-      <div style="font-weight:700; margin-bottom:8px;">
-        Handgrip optionnel
-      </div>
+<div class="physical-test-summary">
+  Force de préhension – Handgrip (optionnel)
+</div>
 
       <div class="physical-measures-row">
 
@@ -1877,93 +1890,126 @@ Pas d’AP envisagée dans les 6 mois
 ></textarea>
     </div>
   </div>
+</div>
+
 </details>
 
-<details class="physical-test-section physical-test-balance">
+<details class="physical-test-domain">
+  <summary class="physical-test-domain-title">
+    Équilibre
+  </summary>
 
-   <summary class="physical-test-summary">
-        Équilibre
-      </summary>
+  <div class="physical-test-section physical-test-balance">
+
+    <div class="physical-test-summary">
+      Appui monopodal et tests complémentaires
+    </div>
 
     <div class="physical-measures-row">
 
-  <label class="physical-measure">
- <span class="physical-measure-label-long">
-  Appui unipodal
-</span>
+      <label class="physical-measure">
+        <span class="physical-measure-label-long">
+          Appui unipodal
+        </span>
 
-  <span class="physical-measure-value">
-    <input
-      id="physical_balance_unipodal"
-      class="physical-measure-input"
-      type="number"
-      min="0"
-      step="1"
-    >
+        <span class="physical-measure-value">
+          <input
+            id="physical_balance_unipodal"
+            class="physical-measure-input"
+            type="number"
+            min="0"
+            step="1"
+          >
 
-    <span class="physical-measure-unit">secondes</span>
-  </span>
-</label>
-
- <label class="physical-measure">
-  <span>Nombre d’écarts</span>
-
-  <input
-    id="physical_balance_ecarts"
-    class="physical-measure-input"
-    type="number"
-    min="0"
-    step="1"
-  >
-</label>
-      </div>
-
-      <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:8px;">
-        <label style="display:inline-flex !important; align-items:center; gap:6px;">
-          <input type="radio" name="physical_balance_tandem" value="reussi">
-          Tandem réussi
-        </label>
-
-        <label style="display:inline-flex !important; align-items:center; gap:6px;">
-          <input type="radio" name="physical_balance_tandem" value="non_reussi">
-          Tandem non réussi
-        </label>
-
-        <label style="display:inline-flex !important; align-items:center; gap:6px;">
-          <input type="radio" name="physical_balance_tandem" value="non_realise">
-          Non réalisé
-        </label>
-      </div>
-
-      <label
-        style="
-          display:inline-flex !important;
-          align-items:center;
-          gap:6px;
-          margin-top:8px;
-        "
-      >
-        <input type="checkbox" id="physical_balance_aide">
-        Aide technique / appui nécessaire
+          <span class="physical-measure-unit">secondes</span>
+        </span>
       </label>
 
-      <textarea
-        id="physical_balance_commentaire"
-        rows="2"
-        placeholder="Commentaire clinique équilibre"
-        style="width:100%; margin-top:8px;"
-      ></textarea>
-    </details>
+      <label class="physical-measure">
+        <span>Nombre d’écarts</span>
 
-<details class="physical-test-section physical-test-flexibility">
+        <input
+          id="physical_balance_ecarts"
+          class="physical-measure-input"
+          type="number"
+          min="0"
+          step="1"
+        >
+      </label>
 
-  <summary class="physical-test-summary">
-    Souplesse / autre test
+    </div>
+
+    <div
+      style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:10px;
+        margin-top:8px;
+      "
+    >
+      <label style="display:inline-flex !important; align-items:center; gap:6px;">
+        <input
+          type="radio"
+          name="physical_balance_tandem"
+          value="reussi"
+        >
+        Tandem réussi
+      </label>
+
+      <label style="display:inline-flex !important; align-items:center; gap:6px;">
+        <input
+          type="radio"
+          name="physical_balance_tandem"
+          value="non_reussi"
+        >
+        Tandem non réussi
+      </label>
+
+      <label style="display:inline-flex !important; align-items:center; gap:6px;">
+        <input
+          type="radio"
+          name="physical_balance_tandem"
+          value="non_realise"
+        >
+        Non réalisé
+      </label>
+    </div>
+
+    <label
+      style="
+        display:inline-flex !important;
+        align-items:center;
+        gap:6px;
+        margin-top:8px;
+      "
+    >
+      <input
+        type="checkbox"
+        id="physical_balance_aide"
+      >
+      Aide technique / appui nécessaire
+    </label>
+
+    <textarea
+      id="physical_balance_commentaire"
+      class="physical-test-comment"
+      rows="2"
+      placeholder="Commentaire clinique équilibre"
+    ></textarea>
+
+  </div>
+</details>
+
+<details class="physical-test-domain">
+  <summary class="physical-test-domain-title">
+    Souplesse / mobilité
   </summary>
+
+  <div class="physical-test-section physical-test-flexibility">
 
   <div class="physical-flexibility-grid">
 
-    <label class="physical-flexibility-measure">
+ <label class="physical-measure physical-flexibility-measure">
     <span class="physical-flexibility-title">
   <span>Sit-and-reach / chaîne postérieure</span>
 
@@ -2008,7 +2054,7 @@ Pas d’AP envisagée dans les 6 mois
 </span>
     </label>
 
-    <label class="physical-flexibility-measure">
+ <label class="physical-measure physical-flexibility-measure">
       <span class="physical-flexibility-title">
   <span>Épaules / Back Scratch Test</span>
 
@@ -2061,11 +2107,20 @@ Pas d’AP envisagée dans les 6 mois
     rows="2"
     placeholder="Commentaire souplesse : douleur, asymétrie, limitation, observation qualitative, test non standardisé..."
   ></textarea>
+  </div>
+</details>
 
-  <div class="physical-other-test-grid">
+<details class="physical-test-domain">
+  <summary class="physical-test-domain-title">
+    Autres évaluations
+  </summary>
+
+  <div class="physical-test-section physical-test-other">
+
+    <div class="physical-other-test-grid">
 
     <label class="physical-other-test-field">
-      <span>Autre test</span>
+      <span>Nom du test</span>
 
       <input
         id="physical_other_name"
@@ -2104,7 +2159,9 @@ Pas d’AP envisagée dans les 6 mois
     placeholder="Commentaire autre test"
   ></textarea>
 
+  </div>
 </details>
+
   </div>
 </div>
 
@@ -11096,11 +11153,7 @@ function resetPhysicalTestsPanelAfterReset() {
 
 const optionalTestDetails =
   document.querySelectorAll(
-    [
-      "#physical_tests_panel details.physical-test-chair",
-      "#physical_tests_panel details.physical-test-balance",
-      "#physical_tests_panel details.physical-test-flexibility"
-    ].join(", ")
+    "#physical_tests_panel details.physical-test-domain"
   );
 
   if (enabled) {
