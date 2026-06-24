@@ -1727,15 +1727,24 @@ align-items: flex-start !important;
   font-size: 0.95rem;
 }
 
-.crc-page #physical_other_name {
+/* Nom du test : premier champ de chaque bloc */
+.crc-page .physical-other-test-grid
+.physical-other-test-field:nth-child(1)
+.physical-other-test-input {
   width: 120px;
 }
 
-.crc-page #physical_other_result {
+/* Résultat : deuxième champ de chaque bloc */
+.crc-page .physical-other-test-grid
+.physical-other-test-field:nth-child(2)
+.physical-other-test-input {
   width: 80px;
 }
 
-.crc-page #physical_other_unit {
+/* Unité : troisième champ de chaque bloc */
+.crc-page .physical-other-test-grid
+.physical-other-test-field:nth-child(3)
+.physical-other-test-input {
   width: 65px;
 }
 
