@@ -7788,7 +7788,11 @@ function buildPhysicalTestsCRCBlock(
     return `Les tests de condition physique n’ont pas été réalisés ce jour.`;
   }
 
-  const testItems = [];
+const enduranceItems = [];
+const strengthItems = [];
+const balanceItems = [];
+const flexibilityItems = [];
+const otherItems = [];
 
   const tm6 =
     tests.tm6 || {};
@@ -7893,11 +7897,11 @@ function buildPhysicalTestsCRCBlock(
     );
   }
 
-  if (tm6Parts.length > 0) {
-    testItems.push(
-      tm6Parts.join(" avec ")
-    );
-  }
+if (tm6Parts.length > 0) {
+  enduranceItems.push(
+    tm6Parts.join(" avec ")
+  );
+}
 
   const chair =
     tests.chairStand || {};
@@ -7933,7 +7937,7 @@ if (chairResult) {
     chairText += `, ${value(chair.commentaire)}`;
   }
 
-  testItems.push(chairText);
+strengthItems.push(chairText);
 }
 
 const handgrip =
@@ -7979,11 +7983,11 @@ if (handgripParts.length > 0) {
     handgripParts.push(value(handgrip.commentaire));
   }
 
-  testItems.push(
-    `handgrip ${joinWithCommasAndEt(handgripParts)}`
-  );
+ strengthItems.push(
+  `handgrip ${joinWithCommasAndEt(handgripParts)}`
+);
 } else if (bestHandgrip) {
-  testItems.push(
+  strengthItems.push(
     `handgrip meilleure valeur ${bestHandgrip} kg`
   );
 }
@@ -8038,11 +8042,11 @@ if (handgripParts.length > 0) {
     balanceParts.push(value(balance.commentaire));
   }
 
-  if (balanceParts.length > 0) {
-    testItems.push(
-      `équilibre ${joinWithCommasAndEt(balanceParts)}`
-    );
-  }
+ if (balanceParts.length > 0) {
+  balanceItems.push(
+    joinWithCommasAndEt(balanceParts)
+  );
+}
 
 const flexibility =
   tests.flexibility || tests.souplesse || {};
@@ -8073,17 +8077,17 @@ const flexibilityComment =
 
 if (flexibilityMeasures.length > 0) {
   const flexibilityText =
-    `souplesse avec ${joinWithCommasAndEt(flexibilityMeasures)}`;
+    joinWithCommasAndEt(flexibilityMeasures);
 
-  testItems.push(
+  flexibilityItems.push(
     flexibilityComment
       ? `${flexibilityText} (${flexibilityComment})`
       : flexibilityText
   );
 
 } else if (flexibilityComment) {
-  testItems.push(
-    `souplesse (${flexibilityComment})`
+  flexibilityItems.push(
+    `commentaire : ${flexibilityComment}`
   );
 }
  const other =
@@ -8109,35 +8113,129 @@ const otherResultText =
 let otherText = "";
 
 if (otherName && otherResultText) {
-  otherText = `autre test ${otherName} : ${otherResultText}`;
+  otherText = `${otherName} : ${otherResultText}`;
 } else if (otherName) {
-  otherText = `autre test ${otherName}`;
+  otherText = otherName;
 } else if (otherResultText) {
-  otherText = `autre test : ${otherResultText}`;
+  otherText = `résultat : ${otherResultText}`;
 }
 
 if (otherComment) {
   otherText = otherText
     ? `${otherText} (${otherComment})`
-    : `autre test (${otherComment})`;
+    : `commentaire : ${otherComment}`;
 }
 
 if (otherText) {
-  testItems.push(otherText);
+  otherItems.push(otherText);
 }
 
-  if (testItems.length === 0 && status.a_confier) {
-    return "Un bilan de condition et de capacités physiques est à confier à un professionnel APA, kinésithérapeute ou structure adaptée.";
-  }
+const other2 =
+  tests.other2 || tests.autre2 || {};
 
-  if (testItems.length === 0) {
-    return "";
-  }
+const other2Name =
+  value(other2.nom ?? other2.name);
+
+const other2Result =
+  value(other2.resultat ?? other2.result);
+
+const other2Unit =
+  value(other2.unite ?? other2.unit);
+
+const other2Comment =
+  value(other2.commentaire);
+
+const other2ResultText =
+  other2Result
+    ? `${other2Result}${other2Unit ? ` ${other2Unit}` : ""}`
+    : "";
+
+let other2Text = "";
+
+if (other2Name && other2ResultText) {
+  other2Text = `${other2Name} : ${other2ResultText}`;
+} else if (other2Name) {
+  other2Text = other2Name;
+} else if (other2ResultText) {
+  other2Text = `résultat : ${other2ResultText}`;
+}
+
+if (other2Comment) {
+  other2Text = other2Text
+    ? `${other2Text} (${other2Comment})`
+    : `commentaire : ${other2Comment}`;
+}
+
+if (other2Text) {
+  otherItems.push(other2Text);
+}
+
+ const domainItems = [];
+
+const cleanItems = items =>
+  items
+    .map(item =>
+      String(item || "")
+        .trim()
+        .replace(/[.;]+$/, "")
+    )
+    .filter(Boolean);
+
+const cleanedEnduranceItems =
+  cleanItems(enduranceItems);
+
+const cleanedStrengthItems =
+  cleanItems(strengthItems);
+
+const cleanedBalanceItems =
+  cleanItems(balanceItems);
+
+const cleanedFlexibilityItems =
+  cleanItems(flexibilityItems);
+
+const cleanedOtherItems =
+  cleanItems(otherItems);
+
+if (cleanedEnduranceItems.length > 0) {
+  domainItems.push(
+    `en endurance, ${joinWithCommasAndEt(cleanedEnduranceItems)}`
+  );
+}
+
+if (cleanedStrengthItems.length > 0) {
+  domainItems.push(
+    `en renforcement musculaire, ${joinWithCommasAndEt(cleanedStrengthItems)}`
+  );
+}
+
+if (cleanedBalanceItems.length > 0) {
+  domainItems.push(
+    `en équilibre, ${joinWithCommasAndEt(cleanedBalanceItems)}`
+  );
+}
+
+if (cleanedFlexibilityItems.length > 0) {
+  domainItems.push(
+    `en souplesse et mobilité, ${joinWithCommasAndEt(cleanedFlexibilityItems)}`
+  );
+}
+
+if (cleanedOtherItems.length > 0) {
+  domainItems.push(
+    `pour les autres évaluations, ${joinWithCommasAndEt(cleanedOtherItems)}`
+  );
+}
+
+if (domainItems.length === 0 && status.a_confier) {
+ return "Un bilan de condition et de capacités physiques est à confier à un professionnel APA, kinésithérapeute ou structure adaptée.";
+}
+
+if (domainItems.length === 0) {
+  return "";
+}
 
 const resultText =
-  testItems
-    .filter(Boolean)
-    .join(", ");
+  domainItems.join(" ; ");
 
 return `Les résultats des tests de condition physique${contextText} sont les suivants : ${resultText}.`;
 }
@@ -8598,7 +8696,11 @@ function buildPhysicalTestsPrescriptionContextBlock(model) {
   const status =
     tests.status || {};
 
-  const items = [];
+  const enduranceItems = [];
+const strengthItems = [];
+const balanceItems = [];
+const flexibilityItems = [];
+const otherItems = [];
 
   const tm6 =
     tests.tm6 || {};
@@ -8620,9 +8722,9 @@ function buildPhysicalTestsPrescriptionContextBlock(model) {
       tm6Parts.push("arrêt prématuré");
     }
 
-    items.push(
-      tm6Parts.join(", ")
-    );
+ enduranceItems.push(
+  tm6Parts.join(", ")
+);
   }
 
   const chair =
@@ -8655,7 +8757,7 @@ if (chairResult) {
     chairText += " avec aide des bras";
   }
 
-  items.push(chairText);
+  strengthItems.push(chairText);
 }
 
  const handgrip =
@@ -8669,7 +8771,7 @@ const bestHandgrip =
   );
 
 if (bestHandgrip) {
-  items.push(
+  strengthItems.push(
     `handgrip ${bestHandgrip} kg`
   );
 }
@@ -8720,11 +8822,11 @@ if (bestHandgrip) {
     balanceParts.push("aide technique / appui nécessaire");
   }
 
-  if (balanceParts.length > 0) {
-    items.push(
-      `équilibre ${joinWithCommasAndEt(balanceParts)}`
-    );
-  }
+ if (balanceParts.length > 0) {
+  balanceItems.push(
+    joinWithCommasAndEt(balanceParts)
+  );
+}
 
   const flexibility =
     tests.flexibility || tests.souplesse || {};
@@ -8749,11 +8851,11 @@ if (bestHandgrip) {
     );
   }
 
-  if (flexibilityParts.length > 0) {
-    items.push(
-      `souplesse avec ${joinWithCommasAndEt(flexibilityParts)}`
-    );
-  }
+if (flexibilityParts.length > 0) {
+  flexibilityItems.push(
+    joinWithCommasAndEt(flexibilityParts)
+  );
+}
 
   const other =
     tests.other || tests.autre || {};
@@ -8767,18 +8869,77 @@ if (bestHandgrip) {
   const otherUnit =
     value(other.unite ?? other.unit);
 
-  if (otherName || otherResult) {
-    items.push(
-      `autre test ${joinWithCommasAndEt([
-        otherName,
-        otherResult
-          ? `${otherResult}${otherUnit ? ` ${otherUnit}` : ""}`
-          : ""
-      ])}`
-    );
-  }
+if (otherName || otherResult) {
+  const otherResultText =
+    otherResult
+      ? `${otherResult}${otherUnit ? ` ${otherUnit}` : ""}`
+      : "";
 
-  if (items.length === 0 && status.a_confier) {
+ otherItems.push(
+  otherName && otherResultText
+    ? `${otherName} : ${otherResultText}`
+    : otherName || `résultat : ${otherResultText}`
+);
+}
+
+const other2 =
+  tests.other2 || tests.autre2 || {};
+
+const other2Name =
+  value(other2.nom ?? other2.name);
+
+const other2Result =
+  value(other2.resultat ?? other2.result);
+
+const other2Unit =
+  value(other2.unite ?? other2.unit);
+
+if (other2Name || other2Result) {
+  const other2ResultText =
+    other2Result
+      ? `${other2Result}${other2Unit ? ` ${other2Unit}` : ""}`
+      : "";
+
+ otherItems.push(
+  other2Name && other2ResultText
+    ? `${other2Name} : ${other2ResultText}`
+    : other2Name || `résultat : ${other2ResultText}`
+);
+}
+
+const domainItems = [];
+
+if (enduranceItems.length > 0) {
+  domainItems.push(
+    `en endurance, ${joinWithCommasAndEt(enduranceItems)}`
+  );
+}
+
+if (strengthItems.length > 0) {
+  domainItems.push(
+    `en renforcement musculaire, ${joinWithCommasAndEt(strengthItems)}`
+  );
+}
+
+if (balanceItems.length > 0) {
+  domainItems.push(
+    `en équilibre, ${joinWithCommasAndEt(balanceItems)}`
+  );
+}
+
+if (flexibilityItems.length > 0) {
+  domainItems.push(
+    `en souplesse et mobilité, ${joinWithCommasAndEt(flexibilityItems)}`
+  );
+}
+
+if (otherItems.length > 0) {
+  domainItems.push(
+    `pour les autres évaluations, ${joinWithCommasAndEt(otherItems)}`
+  );
+}
+
+  if (domainItems.length === 0 && status.a_confier) {
     return `
 <div style="
   margin-top:14px;
@@ -8797,7 +8958,7 @@ if (bestHandgrip) {
 `;
   }
 
-  if (items.length === 0) {
+if (domainItems.length === 0) {
     return "";
   }
 
@@ -8814,7 +8975,7 @@ if (bestHandgrip) {
   <div style="font-weight:700; margin-bottom:4px;">
     Éléments fonctionnels à prendre en compte pour l’adaptation de l’activité physique
   </div>
-  ${items.filter(Boolean).join(", ")}.
+${domainItems.join(" ; ")}.
 </div>
 `;
 }
@@ -11888,19 +12049,33 @@ const tm6 = {
       getValue("physical_flex_commentaire")
   };
 
-  const other = {
-    nom:
-      getValue("physical_other_name"),
+ const other = {
+  nom:
+    getValue("physical_other_name"),
 
-    resultat:
-      getValue("physical_other_result"),
+  resultat:
+    getValue("physical_other_result"),
 
-    unite:
-      getValue("physical_other_unit"),
+  unite:
+    getValue("physical_other_unit"),
 
-    commentaire:
-      getValue("physical_other_commentaire")
-  };
+  commentaire:
+    getValue("physical_other_commentaire")
+};
+
+const other2 = {
+  nom:
+    getValue("physical_other_name_2"),
+
+  resultat:
+    getValue("physical_other_result_2"),
+
+  unite:
+    getValue("physical_other_unit_2"),
+
+  commentaire:
+    getValue("physical_other_commentaire_2")
+};
 
  const status = {
   bloc_ouvert:
@@ -11959,7 +12134,12 @@ tm6.cardiorespiratory.spo2_recup_pct,
       other.nom,
       other.resultat,
       other.unite,
-      other.commentaire
+      other.commentaire,
+
+      other2.nom,
+      other2.resultat,
+      other2.unite,
+      other2.commentaire
     ]);
 
   return {
@@ -11971,6 +12151,7 @@ tm6.cardiorespiratory.spo2_recup_pct,
     handgrip,
     flexibility,
     other,
+    other2,
 
     interpretation:
       "Résultats à interpréter selon le contexte clinique, la tolérance, les symptômes et les objectifs du patient."
