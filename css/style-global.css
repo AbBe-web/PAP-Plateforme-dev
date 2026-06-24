@@ -1506,6 +1506,8 @@ align-items: flex-start !important;
   line-height: 1.45;
 }
 
+
+
 /* =========================
    CRC – HANDGRIP OPTIONNEL
 ========================= */
@@ -1522,4 +1524,180 @@ align-items: flex-start !important;
 
 .crc-page .physical-test-handgrip[open] > summary {
   margin-bottom: 8px;
+}
+
+/* =========================
+   CRC – SOUPLESSE / AUTRE TEST
+========================= */
+
+.crc-page .physical-test-flexibility {
+  margin-top: 10px;
+}
+
+.crc-page .physical-flexibility-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 12px 20px;
+  margin-top: 10px;
+
+  align-items: start;
+}
+
+/*
+  Sélecteur volontairement précis :
+  neutralise les règles générales qui rendent certains labels inline-flex.
+*/
+.crc-page .physical-test-flexibility .physical-flexibility-measure {
+  display: flex !important;
+  flex-direction: column;
+  align-items: flex-start;
+
+  min-width: 0;
+  gap: 4px;
+  margin: 0 !important;
+
+  white-space: normal;
+}
+
+.crc-page .physical-flexibility-label {
+  min-height: 36px;
+
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.crc-page .physical-flexibility-helper {
+  color: #64748b;
+
+  font-size: 0.78rem;
+  line-height: 1.3;
+}
+
+.crc-page .physical-other-test-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(180px, 1.5fr)
+    minmax(130px, 1fr)
+    minmax(110px, 0.8fr);
+
+  gap: 10px;
+  margin-top: 10px;
+
+  align-items: start;
+}
+
+/*
+  Neutralise également le display:inline-flex hérité
+  de certaines règles générales de la page CRC.
+*/
+.crc-page .physical-test-flexibility .physical-other-test-field {
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+
+  min-width: 0;
+  gap: 5px;
+  margin: 0 !important;
+
+  white-space: normal;
+}
+
+.crc-page .physical-other-test-field > span {
+  line-height: 1.25;
+}
+
+.crc-page .physical-other-test-input {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+
+  margin: 0;
+  padding: 6px 10px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+
+  color: #1f2937;
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.crc-page .physical-other-test-input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Titres des tests avec icône d’information */
+.crc-page .physical-flexibility-title {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  max-width: 100%;
+  min-height: 36px;
+  gap: 6px;
+
+  line-height: 1.25;
+  text-align: left;
+}
+
+/* Empêche l’icône de se déformer ou de passer en largeur */
+.crc-page .physical-flexibility-title .info-icon {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+/* Champs autorisant une distance signée */
+.crc-page .physical-flexibility-input {
+  width: 100px !important;
+  min-width: 100px;
+  max-width: 100px !important;
+}
+
+/* Aide visible sous le champ */
+.crc-page .physical-flexibility-helper {
+  margin-top: 1px;
+
+  color: #64748b;
+  font-size: 0.78rem;
+  line-height: 1.3;
+
+  white-space: normal;
+}
+
+/* Placeholders discrets */
+.crc-page .physical-flexibility-input::placeholder,
+.crc-page .physical-other-test-input::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+  .crc-page .physical-flexibility-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .crc-page .physical-flexibility-label {
+    min-height: 0;
+  }
+
+  .crc-page .physical-other-test-grid {
+    grid-template-columns: 1fr;
+  }
+
+ .crc-page .physical-flexibility-title {
+  min-height: 0;
+}
+
+.crc-page .physical-flexibility-input {
+  width: 110px !important;
+  min-width: 110px;
+  max-width: 110px !important;
+}
 }

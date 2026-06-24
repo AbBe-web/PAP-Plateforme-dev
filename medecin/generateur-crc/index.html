@@ -1957,174 +1957,154 @@ Pas d’AP envisagée dans les 6 mois
 
 <details class="physical-test-section physical-test-flexibility">
 
-<summary class="physical-test-summary">
-        Souplesse / autre test
-      </summary>
+  <summary class="physical-test-summary">
+    Souplesse / autre test
+  </summary>
 
- 
+  <div class="physical-flexibility-grid">
 
- <div
-  style="
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-    gap:12px;
-    margin-top:10px;
-    align-items:start;
-  "
+    <label class="physical-flexibility-measure">
+    <span class="physical-flexibility-title">
+  <span>Sit-and-reach / chaîne postérieure</span>
+
+  <span
+    class="info-icon"
+    role="button"
+    tabindex="0"
+    aria-label="Informations sur le sit-and-reach"
+    onclick="
+      event.preventDefault();
+      event.stopPropagation();
+      showSitAndReachInfo();
+    "
+    onkeydown="
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopPropagation();
+        showSitAndReachInfo();
+      }
+    "
+  >
+    i
+  </span>
+</span>
+
+      <span class="physical-measure-value">
+        <input
+  id="physical_flex_sitreach"
+  class="physical-measure-input physical-flexibility-input"
+  type="number"
+  step="0.5"
+  inputmode="decimal"
+  placeholder="0"
+  aria-label="Distance par rapport au niveau des orteils en centimètres"
 >
-  <label
-    style="
-      display:flex !important;
-      flex-direction:column;
-      gap:4px;
-      margin:0;
+
+        <span class="physical-measure-unit">cm</span>
+      </span>
+
+     <span class="physical-flexibility-helper">
+  0 = niveau des orteils · + = au-delà · − = avant
+</span>
+    </label>
+
+    <label class="physical-flexibility-measure">
+      <span class="physical-flexibility-title">
+  <span>Épaules / Back Scratch Test</span>
+
+  <span
+    class="info-icon"
+    role="button"
+    tabindex="0"
+    aria-label="Informations sur le Back Scratch Test"
+    onclick="
+      event.preventDefault();
+      event.stopPropagation();
+      showBackScratchInfo();
+    "
+    onkeydown="
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        event.stopPropagation();
+        showBackScratchInfo();
+      }
     "
   >
-    <span>Sit-and-reach / chaîne postérieure</span>
+    i
+  </span>
+</span>
 
-    <span
-      style="
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
-        white-space:nowrap;
-      "
-    >
-      <input
-        id="physical_flex_sitreach"
-        type="number"
-        step="0.5"
-        style="
-          width:110px;
-          height:34px;
-          padding:6px 10px;
-          border:1px solid #d1d5db;
-          border-radius:8px;
-          box-sizing:border-box;
-          font-size:0.95rem;
-        "
-      >
+      <span class="physical-measure-value">
+       <input
+  id="physical_flex_shoulders"
+  class="physical-measure-input physical-flexibility-input"
+  type="number"
+  step="0.5"
+  inputmode="decimal"
+  placeholder="0"
+  aria-label="Distance entre les doigts en centimètres"
+>
 
-      <span
-        style="
-          color:#334155;
-          font-size:0.85rem;
-          font-weight:600;
-        "
-      >
-        cm
+        <span class="physical-measure-unit">cm</span>
       </span>
-    </span>
 
-    <span
-      style="
-        color:#64748b;
-        font-size:0.78rem;
-        line-height:1.25;
-      "
-    >
-      + au-delà des orteils / − avant les orteils
-    </span>
-  </label>
+     <span class="physical-flexibility-helper">
+  0 = contact · + = chevauchement · − = écart
+</span>
+    </label>
 
-  <label
-    style="
-      display:flex !important;
-      flex-direction:column;
-      gap:4px;
-      margin:0;
-    "
-  >
-    <span>Épaules / Back Scratch Test</span>
+  </div>
 
-    <span
-      style="
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
-        white-space:nowrap;
-      "
-    >
+  <textarea
+    id="physical_flex_commentaire"
+    class="physical-test-comment"
+    rows="2"
+    placeholder="Commentaire souplesse : douleur, asymétrie, limitation, observation qualitative, test non standardisé..."
+  ></textarea>
+
+  <div class="physical-other-test-grid">
+
+    <label class="physical-other-test-field">
+      <span>Autre test</span>
+
       <input
-        id="physical_flex_shoulders"
-        type="number"
-        step="0.5"
-        style="
-          width:110px;
-          height:34px;
-          padding:6px 10px;
-          border:1px solid #d1d5db;
-          border-radius:8px;
-          box-sizing:border-box;
-          font-size:0.95rem;
-        "
+        id="physical_other_name"
+        class="physical-other-test-input"
+        type="text"
+        placeholder="Nom du test"
       >
+    </label>
 
-      <span
-        style="
-          color:#334155;
-          font-size:0.85rem;
-          font-weight:600;
-        "
+    <label class="physical-other-test-field">
+      <span>Résultat</span>
+
+      <input
+        id="physical_other_result"
+        class="physical-other-test-input"
+        type="text"
       >
-        cm
-      </span>
-    </span>
+    </label>
 
-    <span
-      style="
-        color:#64748b;
-        font-size:0.78rem;
-        line-height:1.25;
-      "
-    >
-      + chevauchement / − distance entre les doigts
-    </span>
-  </label>
-</div>
+    <label class="physical-other-test-field">
+      <span>Unité</span>
 
-<textarea
-  id="physical_flex_commentaire"
-  rows="2"
-  placeholder="Commentaire souplesse : douleur, asymétrie, limitation, observation qualitative, test non standardisé..."
-  style="
-    width:100%;
-    margin-top:8px;
-    box-sizing:border-box;
-  "
-></textarea>
-
-      <div
-        style="
-          display:grid;
-          grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
-          gap:8px;
-          margin-top:10px;
-        "
+      <input
+        id="physical_other_unit"
+        class="physical-other-test-input"
+        type="text"
       >
-        <label>
-          Autre test
-          <input id="physical_other_name" type="text" placeholder="nom">
-        </label>
+    </label>
 
-        <label>
-          Résultat
-          <input id="physical_other_result" type="text">
-        </label>
+  </div>
 
-        <label>
-          Unité
-          <input id="physical_other_unit" type="text">
-        </label>
-      </div>
+  <textarea
+    id="physical_other_commentaire"
+    class="physical-test-comment"
+    rows="2"
+    placeholder="Commentaire autre test"
+  ></textarea>
 
-      <textarea
-        id="physical_other_commentaire"
-        rows="2"
-        placeholder="Commentaire autre test"
-        style="width:100%; margin-top:8px;"
-      ></textarea>
-    </details>
+</details>
   </div>
 </div>
 
@@ -5893,7 +5873,49 @@ function showIntensiteInfo() {
     "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/guide_aps_vf.pdf#page=60"
   );
 }
-    
+
+function showSitAndReachInfo() {
+  openInfoModal(
+    "Sit-and-reach — réalisation et saisie",
+    `
+      <strong>Objectif</strong><br>
+      Apprécier la souplesse de la chaîne postérieure.<br><br>
+
+      <strong>Saisie dans PAP</strong><br>
+      Mesurer la position des doigts par rapport au niveau des orteils.<br><br>
+
+      • <strong>0 cm</strong> : doigts au niveau des orteils<br>
+      • <strong>Valeur positive</strong> : doigts au-delà des orteils<br>
+      • <strong>Valeur négative</strong> : doigts avant les orteils<br><br>
+
+      <strong>Point de vigilance</strong><br>
+      Cette convention ne correspond pas nécessairement à la valeur brute
+      indiquée par une boîte de sit-and-reach dont le zéro peut être décalé.
+    `
+  );
+}
+
+function showBackScratchInfo() {
+  openInfoModal(
+    "Back Scratch Test — réalisation et saisie",
+    `
+      <strong>Objectif</strong><br>
+      Apprécier la mobilité fonctionnelle des épaules.<br><br>
+
+      <strong>Saisie dans PAP</strong><br>
+      Mesurer la distance entre les extrémités des doigts.<br><br>
+
+      • <strong>0 cm</strong> : les doigts se touchent<br>
+      • <strong>Valeur positive</strong> : les doigts se chevauchent<br>
+      • <strong>Valeur négative</strong> : il persiste un écart entre les doigts<br><br>
+
+      <strong>À préciser dans le commentaire si utile</strong><br>
+      Côté testé, position des bras, asymétrie, douleur, compensation
+      ou limitation du mouvement.
+    `
+  );
+}
+
 function closeInfoModal() {
   document.getElementById("infoModal").classList.add("hidden");
 }  
@@ -7939,58 +7961,63 @@ if (value(flexibility.epaules ?? flexibility.shoulders)) {
   );
 }
 
-if (value(flexibility.commentaire)) {
-  flexibilityComments.push(
-    value(flexibility.commentaire)
-  );
-}
+const flexibilityComment =
+  value(flexibility.commentaire);
 
 if (flexibilityMeasures.length > 0) {
+  const flexibilityText =
+    `souplesse avec ${joinWithCommasAndEt(flexibilityMeasures)}`;
+
   testItems.push(
-    [
-      `souplesse avec ${joinWithCommasAndEt(flexibilityMeasures)}`,
-      ...flexibilityComments
-    ].join(", ")
+    flexibilityComment
+      ? `${flexibilityText} (${flexibilityComment})`
+      : flexibilityText
   );
-} else if (flexibilityComments.length > 0) {
+
+} else if (flexibilityComment) {
   testItems.push(
-    `souplesse : ${joinWithCommasAndEt(flexibilityComments)}`
+    `souplesse (${flexibilityComment})`
   );
 }
+ const other =
+  tests.other || tests.autre || {};
 
-  const other =
-    tests.other || tests.autre || {};
+const otherName =
+  value(other.nom ?? other.name);
 
-  const otherName =
-    value(other.nom ?? other.name);
+const otherResult =
+  value(other.resultat ?? other.result);
 
-  const otherResult =
-    value(other.resultat ?? other.result);
+const otherUnit =
+  value(other.unite ?? other.unit);
 
-  const otherUnit =
-    value(other.unite ?? other.unit);
+const otherComment =
+  value(other.commentaire);
 
-  const otherParts = [];
+const otherResultText =
+  otherResult
+    ? `${otherResult}${otherUnit ? ` ${otherUnit}` : ""}`
+    : "";
 
-  if (otherName) {
-    otherParts.push(otherName);
-  }
+let otherText = "";
 
-  if (otherResult) {
-    otherParts.push(
-      `${otherResult}${otherUnit ? ` ${otherUnit}` : ""}`
-    );
-  }
+if (otherName && otherResultText) {
+  otherText = `autre test ${otherName} : ${otherResultText}`;
+} else if (otherName) {
+  otherText = `autre test ${otherName}`;
+} else if (otherResultText) {
+  otherText = `autre test : ${otherResultText}`;
+}
 
-  if (value(other.commentaire)) {
-    otherParts.push(value(other.commentaire));
-  }
+if (otherComment) {
+  otherText = otherText
+    ? `${otherText} (${otherComment})`
+    : `autre test (${otherComment})`;
+}
 
-  if (otherParts.length > 0) {
-    testItems.push(
-      `autre test ${joinWithCommasAndEt(otherParts)}`
-    );
-  }
+if (otherText) {
+  testItems.push(otherText);
+}
 
   if (testItems.length === 0 && status.a_confier) {
     return "Un bilan de condition et de capacités physiques est à confier à un professionnel APA, kinésithérapeute ou structure adaptée.";
@@ -11067,10 +11094,14 @@ function resetPhysicalTestsPanelAfterReset() {
   const summary =
     document.getElementById("physical_tests_summary");
 
-  const chairDetails =
-    document.querySelector(
-      "#physical_tests_panel details.physical-test-chair"
-    );
+const optionalTestDetails =
+  document.querySelectorAll(
+    [
+      "#physical_tests_panel details.physical-test-chair",
+      "#physical_tests_panel details.physical-test-balance",
+      "#physical_tests_panel details.physical-test-flexibility"
+    ].join(", ")
+  );
 
   if (enabled) {
     enabled.checked = false;
@@ -11085,8 +11116,10 @@ function resetPhysicalTestsPanelAfterReset() {
       "non renseignés · Ajouter / modifier";
   }
 
-  if (chairDetails) {
-    chairDetails.open = false;
+  if (optionalTestDetails) {
+    optionalTestDetails.forEach(detail => {
+      detail.open = false;
+    });
   }
 }
 
