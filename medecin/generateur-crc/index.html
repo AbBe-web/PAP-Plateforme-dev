@@ -8836,6 +8836,75 @@ ${crcPathoBloc}
 `;
 }
 
+function buildPatientResourcesBlock(
+  model,
+  clinicalContext
+) {
+
+  const selectedResourceIds =
+    new Set(
+      model?.resources?.selected_ids || []
+    );
+
+  if (
+    selectedResourceIds.size === 0 ||
+    !clinicalContext
+  ) {
+    return "";
+  }
+
+  const patientResources =
+    getContextResourcesByOutput(
+      clinicalContext,
+      "patient"
+    )
+      .filter(resource =>
+        selectedResourceIds.has(resource.id)
+      )
+      .sort(
+        (resourceA, resourceB) =>
+          (resourceA.displayOrder || 0) -
+          (resourceB.displayOrder || 0)
+      );
+
+  if (patientResources.length === 0) {
+    return "";
+  }
+
+  const resourceLinks =
+    patientResources.map(resource => {
+
+      const label =
+        resource.label ||
+        resource.title ||
+        resource.id;
+
+      if (!resource.url) {
+        return `« ${label} »`;
+      }
+
+      return `<a
+        href="${resource.url}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >« ${label} »</a>`;
+    });
+
+  const formattedLinks =
+    resourceLinks.length === 1
+      ? resourceLinks[0]
+      : resourceLinks.length === 2
+        ? `${resourceLinks[0]} et ${resourceLinks[1]}`
+        : `${resourceLinks.slice(0, -1).join(", ")} et ${resourceLinks.at(-1)}`;
+
+  const resourceWord =
+    patientResources.length === 1
+      ? "la fiche"
+      : "les fiches";
+
+  return `<p>Vous pouvez également consulter ${resourceWord} de la HAS ${formattedLinks}.</p>`;
+}
+
 function renderPatientVersion(
   model,
   clinicalContext = null
@@ -8867,6 +8936,12 @@ const crcPathoBloc =
     "patient",
     clinicalContext,
     model
+  );
+
+const patientResourcesBloc =
+  buildPatientResourcesBlock(
+    model,
+    clinicalContext
   );
 
 const objectifsBloc = buildObjectivesBlock(model);
@@ -8977,6 +9052,8 @@ https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf
 
   </a>
 </div>
+
+${patientResourcesBloc}
 `;
 }
 
