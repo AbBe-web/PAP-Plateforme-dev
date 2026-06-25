@@ -2333,7 +2333,88 @@ Pas d’AP envisagée dans les 6 mois
   </div>
 
 </div>
-    
+
+<details
+  id="resourceSelectionBlock"
+  style="
+    display:none;
+    margin:10px 0 18px;
+    padding:9px 11px;
+    border:1px solid #dbeafe;
+    border-radius:10px;
+    background:#eff6ff;
+  "
+>
+ <summary
+  id="resourceSelectionSummary"
+  style="
+    cursor:pointer;
+    font-weight:700;
+    color:#1e3a5f;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  "
+>
+  <span
+    id="resourceSelectionArrow"
+    aria-hidden="true"
+    style="
+      display:inline-block;
+      width:1em;
+      transition:transform 0.15s ease;
+      transform:rotate(0deg);
+    "
+  >
+    ▶
+  </span>
+
+  <span id="resourceSelectionSummaryText">
+    📎 Ressources patient
+  </span>
+</summary>
+
+  <div
+    id="resourceSelectionContainer"
+    style="
+      margin-top:8px;
+      font-size:0.9rem;
+    "
+  ></div>
+
+  <div
+    style="
+      margin-top:8px;
+      padding-top:7px;
+      border-top:1px solid #dbeafe;
+      color:#475569;
+      font-size:0.84rem;
+      line-height:1.35;
+    "
+  >
+    Les ressources cochées seront ajoutées à la version patient
+    et à l’ordonnance.
+  </div>
+
+  <label
+    style="
+      display:block;
+      margin-top:8px;
+      font-size:0.88rem;
+      line-height:1.3;
+    "
+  >
+    <input
+      type="checkbox"
+      id="mentionPatientResourcesInCRC"
+      checked
+      style="vertical-align:middle;"
+    >
+    Mentionner leur transmission dans le compte rendu
+  </label>
+</details>
+
 <div class="form-group">
 
 <h2>8/ Objectifs thérapeutiques</h2>
@@ -5350,10 +5431,13 @@ function updatePathoRules() {
   const selectedPathos = document.querySelectorAll('.patho:checked');
 
   // 🔒 sécurité
-  if (selectedPathos.length === 0) {
-    container.innerHTML = "Aucune pathologie sélectionnée.";
-    return;
-  }
+if (selectedPathos.length === 0) {
+  container.innerHTML =
+    "Aucune pathologie sélectionnée.";
+
+  updateResourceSelection();
+  return;
+}
 
   let html = "";
 
@@ -5465,8 +5549,209 @@ container.innerHTML += `
 `;
     
 initCRCModeToggle();
+updateResourceSelection();
 }
-    
+
+const resourceSelectionState = new Map();
+
+function getAvailablePatientResources() {
+
+  const selectedPathologies =
+    Array.from(
+      document.querySelectorAll(".patho:checked")
+    ).map(pathology => pathology.value);
+
+  if (
+    selectedPathologies.length === 0 ||
+    !Array.isArray(window.RESOURCE_REGISTRY)
+  ) {
+    return [];
+  }
+
+  return window.RESOURCE_REGISTRY
+    .filter(resource => {
+
+      if (resource.status !== "active") {
+        return false;
+      }
+
+      if (
+        !resource.contextsAllowed?.includes(
+          "patient_output"
+        )
+      ) {
+        return false;
+      }
+
+      const resourcePathologies =
+        resource.contexts?.pathologies || [];
+
+      return resourcePathologies.some(pathology =>
+        selectedPathologies.includes(pathology)
+      );
+    })
+    .sort(
+      (resourceA, resourceB) =>
+        (resourceA.displayOrder || 0) -
+        (resourceB.displayOrder || 0)
+    );
+}
+
+function getSelectedPatientResourceIds() {
+
+  return getAvailablePatientResources()
+    .filter(resource =>
+      resourceSelectionState.get(resource.id) === true
+    )
+    .map(resource => resource.id);
+}
+
+function updateResourceSelection() {
+
+  const block =
+    document.getElementById(
+      "resourceSelectionBlock"
+    );
+
+  const summary =
+    document.getElementById(
+      "resourceSelectionSummary"
+    );
+
+  const summaryText =
+    document.getElementById(
+    "resourceSelectionSummaryText"
+    );
+
+  const container =
+    document.getElementById(
+      "resourceSelectionContainer"
+    );
+
+  if (
+  !block ||
+  !summary ||
+  !summaryText ||
+  !container
+) {
+  return;
+}
+
+  const availableResources =
+    getAvailablePatientResources();
+
+  if (availableResources.length === 0) {
+    block.style.display = "none";
+    container.innerHTML = "";
+    return;
+  }
+
+  availableResources.forEach(resource => {
+
+    if (!resourceSelectionState.has(resource.id)) {
+      resourceSelectionState.set(
+        resource.id,
+        true
+      );
+    }
+  });
+
+  const selectedCount =
+    availableResources.filter(resource =>
+      resourceSelectionState.get(resource.id) === true
+    ).length;
+
+ summaryText.textContent =
+  `📎 Ressources patient — ${selectedCount} sélectionnée${selectedCount > 1 ? "s" : ""}`;
+
+  container.innerHTML =
+    availableResources
+      .map(resource => {
+
+        const checked =
+          resourceSelectionState.get(resource.id)
+            ? "checked"
+            : "";
+
+        return `
+          <label style="
+            display:flex;
+            gap:7px;
+            align-items:flex-start;
+            margin:5px 0;
+            line-height:1.3;
+          ">
+            <input
+              type="checkbox"
+              class="patient-resource-selection"
+              value="${resource.id}"
+              ${checked}
+              style="
+                margin-top:2px;
+                flex:0 0 auto;
+              "
+            >
+            <span>${resource.label}</span>
+          </label>
+        `;
+      })
+      .join("");
+
+  block.style.display = "block";
+
+  container
+    .querySelectorAll(
+      ".patient-resource-selection"
+    )
+    .forEach(checkbox => {
+
+      checkbox.addEventListener(
+        "change",
+        function () {
+
+          resourceSelectionState.set(
+            this.value,
+            this.checked
+          );
+
+          updateResourceSelection();
+        }
+      );
+    });
+}
+
+function initResourceSelectionToggle() {
+
+  const block =
+    document.getElementById(
+      "resourceSelectionBlock"
+    );
+
+  const arrow =
+    document.getElementById(
+      "resourceSelectionArrow"
+    );
+
+  if (!block || !arrow) {
+    return;
+  }
+
+  const updateArrow = () => {
+
+    arrow.style.transform =
+      block.open
+        ? "rotate(90deg)"
+        : "rotate(0deg)";
+  };
+
+  block.addEventListener(
+    "toggle",
+    updateArrow
+  );
+
+  updateArrow();
+}
+
 function cleanMedicalText(text) {
 
   return text
@@ -7455,15 +7740,35 @@ return `Le traitement actuel comprend : ${traitements}.`;
 }
 
 function buildCRCResourcesSentence(
-  hasResources,
-  resourcesText
+  resources,
+  mentionInCRC
 ) {
 
-  if (!hasResources || !resourcesText) {
+  if (
+    mentionInCRC !== true ||
+    !Array.isArray(resources) ||
+    resources.length === 0
+  ) {
     return "";
   }
 
-  return ` Une fiche patient associée peut être remise : ${resourcesText}.`;
+  const labels =
+    resources.map(resource =>
+      `« ${resource.label || resource.title || resource.id} »`
+    );
+
+  const formattedLabels =
+    labels.length === 1
+      ? labels[0]
+      : labels.length === 2
+        ? `${labels[0]} et ${labels[1]}`
+        : `${labels.slice(0, -1).join(", ")} et ${labels.at(-1)}`;
+
+  if (resources.length === 1) {
+    return `Le lien vers la fiche HAS ${formattedLabels} a été transmis au patient.`;
+  }
+
+  return `Les liens vers les fiches HAS ${formattedLabels} ont été transmis au patient.`;
 }
 
 function buildContextRecommendationsBloc(
@@ -7529,7 +7834,8 @@ Conseil(s) transmis au patient : ${sentence}.
 
 function buildCRCPathoBloc(
   mode = "long",
-  clinicalContext = null
+  clinicalContext = null,
+  clinicalModel = null
 ) {
 
   const selectedPathos = Array.from(document.querySelectorAll(".patho:checked"));
@@ -7566,41 +7872,28 @@ function buildCRCPathoBloc(
   const pathoKeys = Object.keys(grouped);
   if (pathoKeys.length === 0) return "";
 
-  const crcResources =
+const selectedResourceIds =
+  new Set(
+    clinicalModel?.resources?.selected_ids || []
+  );
+
+const mentionResourcesInCRC =
+  clinicalModel?.resources?.mention_in_crc === true;
+
+const crcResources =
   clinicalContext
     ? getContextResourcesByOutput(
         clinicalContext,
         "crc"
+      ).filter(resource =>
+        selectedResourceIds.has(resource.id)
       )
     : [];
 
-    const hasCRCResources =
-  crcResources.length > 0;
-
-  function renderCRCResources(
-  resources
-) {
-
-  if (!resources || resources.length === 0) {
-    return "";
-  }
-
-  return resources
-.map(resource => {
-
-  const label =
-    resource.sourceLabel
-      ? ` (${resource.sourceLabel})`
-      : "";
-
-  return `${resource.label || resource.id}${label}`;
-})
-    .join(", ");
-}
-
-const crcResourcesText =
-  renderCRCResources(
-    crcResources
+const resourcesSentence =
+  buildCRCResourcesSentence(
+    crcResources,
+    mentionResourcesInCRC
   );
 
   // 🔹 construire texte : groupé par pathologie
@@ -7680,30 +7973,50 @@ lines.push(`${short} : ${items.join(", ")}`);
   // 🎯 COURRIER COMPLET
 if (mode === "long") {
 
-  const resourcesSuffix =
-  buildCRCResourcesSentence(
-    hasCRCResources,
-    crcResourcesText
-  );
+  const clinicalSentence =
+    itemsText
+      ? `Des éléments spécifiques en rapport avec ${pathoTxt} ont été abordés lors de la consultation : ${itemsText}.`
+      : "";
 
- if (!itemsText && resourcesSuffix) {
-  return `Des ressources ou points de vigilance spécifiques en rapport avec ${pathoTxt} ont été abordés lors de la consultation.${resourcesSuffix}`;
-}
-
-return `Des éléments spécifiques en rapport avec ${pathoTxt} ont été abordés lors de la consultation : ${itemsText}.${resourcesSuffix}`;
+  return [
+    clinicalSentence,
+    resourcesSentence
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
   // 🎯 PARAGRAPHE
  if (mode === "paragraph") {
 
-  return `Des éléments spécifiques en rapport avec ${pathoTxt} ont été abordés lors de la consultation : ${itemsText}.`;
+  const clinicalSentence =
+    itemsText
+      ? `Des éléments spécifiques en rapport avec ${pathoTxt} ont été abordés lors de la consultation : ${itemsText}.`
+      : "";
+
+  return [
+    clinicalSentence,
+    resourcesSentence
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
   // 🎯 DOSSIER MÉDICAL
-  if (mode === "medical") {
+if (mode === "medical") {
 
-       return `${itemsText}.`;
-  }
+  const clinicalSentence =
+    itemsText
+      ? `${itemsText}.`
+      : "";
+
+  return [
+    clinicalSentence,
+    resourcesSentence
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
 
   return "";
 }
@@ -8285,7 +8598,8 @@ const prescriptionBloc = buildPrescription(model);
 const crcPathoBloc =
   buildCRCPathoBloc(
     "long",
-    clinicalContext
+    clinicalContext,
+    model
   );
 
 const antecedentsBloc =
@@ -8389,7 +8703,8 @@ ${renderPhysicianSignature()}
   const crcPathoBloc =
   buildCRCPathoBloc(
     "paragraph",
-    clinicalContext
+    clinicalContext,
+    model
   );   
  
   const traitementsBloc = buildTraitementsBloc();
@@ -8448,7 +8763,12 @@ function renderMedicalRecord(
   const objectifsBloc = buildObjectivesBlock(model);
   const objectifsCount = getObjectivesCount(model);
   const prescriptionBloc = buildPrescription(model, clinicalContext) || "";
-  const crcPathoBloc = buildCRCPathoBloc(model, clinicalContext) || "";
+const crcPathoBloc =
+  buildCRCPathoBloc(
+    "medical",
+    clinicalContext,
+    model
+  ) || "";
 
   const rcvTexte = rcvBloc
     ? rcvBloc
@@ -8545,7 +8865,8 @@ const prescriptionBloc = buildPrescription({ ...model, context: "patient" })
 const crcPathoBloc =
   buildCRCPathoBloc(
     "patient",
-    clinicalContext
+    clinicalContext,
+    model
   );
 
 const objectifsBloc = buildObjectivesBlock(model);
@@ -12530,6 +12851,19 @@ const physicalTests =
   pathologies
 },
 
+resources: {
+  selected_ids:
+    typeof getSelectedPatientResourceIds === "function"
+      ? getSelectedPatientResourceIds()
+      : [],
+
+  mention_in_crc:
+    document.getElementById(
+      "mentionPatientResourcesInCRC"
+    )?.checked ?? true
+},
+
+
 medications: {
   traitements_actuels:
     traitementsActuels,
@@ -13501,6 +13835,8 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 window._uiInitialized = true;
+
+initResourceSelectionToggle();
 
   // =====================================
   // 1️⃣ UI DE BASE
