@@ -9024,6 +9024,8 @@ return `<a
   href="${resource.url}"
   target="_blank"
   rel="noopener noreferrer"
+  data-patient-copy-resource-url="${resource.url}"
+  data-patient-copy-resource-label="${label}"
 >«&#8239;${label}&#8239;»</a>`;
 });
 
@@ -9115,7 +9117,9 @@ function buildPatientQuickAccessBlock(
   }
 
   return `
-    <div style="
+  <div
+    data-patient-copy-ignore="true"
+    style="
       margin-top:18px;
       break-inside:avoid;
       page-break-inside:avoid;
@@ -9265,15 +9269,11 @@ En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec
 Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercice :
 <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
    target="_blank"
-   rel="noopener noreferrer">
+   rel="noopener noreferrer"
+   data-patient-copy-resource-url="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+   data-patient-copy-resource-label="10 règles d’or du Club des Cardiologues du Sport">
 les 10 règles d’or du Club des Cardiologues du Sport
 </a>.
-<br>
-Lien direct :
-<br>
-<span style="word-break:break-all;">
-https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf
-</span>
 </p>
 
 ${patientResourcesBloc}
@@ -9985,12 +9985,19 @@ ${physicalTestsAPABlock}
 
 function stripHTMLToPlainText(html) {
 
-  const temp = document.createElement("div");
-  temp.innerHTML = html || "";
+const temp = document.createElement("div");
 
-  return temp.innerText
-    .replace(/\n{3,}/g, "\n\n")
-    .replace(/[ \t]+\n/g, "\n")
+temp.innerHTML = html;
+
+temp
+  .querySelectorAll(
+    '[data-patient-copy-ignore="true"]'
+  )
+  .forEach(element => element.remove());
+
+renderedOutput.text =
+  temp.innerText
+    .replace(/\n+/g, "\n")
     .trim();
 }
 
@@ -10326,13 +10333,121 @@ if (activeMode === "apa") {
 
 } else {
 
-  const temp = document.createElement("div");
+  const temp =
+    document.createElement("div");
 
-  temp.innerHTML = html;
+  temp.innerHTML =
+    html;
+
+if (activeMode === "patient") {
+
+  temp
+    .querySelectorAll(
+      '[data-patient-copy-ignore="true"]'
+    )
+    .forEach(element =>
+      element.remove()
+    );
+
+  const resourceLinks =
+    Array.from(
+      temp.querySelectorAll(
+        "[data-patient-copy-resource-url]"
+      )
+    );
+
+  const rulesLink =
+    resourceLinks.find(link =>
+      (
+        link.dataset.patientCopyResourceLabel ||
+        ""
+      ).includes("10 règles d’or")
+    );
+
+  const hasLinks =
+    resourceLinks.filter(link =>
+      link !== rulesLink
+    );
+
+  const rulesParagraph =
+    rulesLink?.closest("p");
+
+  const hasParagraph =
+    hasLinks[0]?.closest("p");
+
+  if (
+    rulesLink &&
+    rulesParagraph
+  ) {
+
+    const rulesLabel =
+      rulesLink.dataset.patientCopyResourceLabel ||
+      rulesLink.textContent?.trim() ||
+      "10 règles d’or du Club des Cardiologues du Sport";
+
+    const rulesUrl =
+      rulesLink.dataset.patientCopyResourceUrl ||
+      "";
+
+    const hasResources =
+      hasLinks
+        .map(link => {
+
+          const label =
+            link.dataset.patientCopyResourceLabel ||
+            link.textContent?.trim() ||
+            "";
+
+          const url =
+            link.dataset.patientCopyResourceUrl ||
+            "";
+
+          if (
+            !label ||
+            !url
+          ) {
+            return "";
+          }
+
+          return `«\u202F${label} (${url})\u202F»`;
+        })
+        .filter(Boolean);
+
+    const formattedHasResources =
+      hasResources.length === 1
+        ? hasResources[0]
+        : hasResources.length === 2
+          ? `${hasResources[0]} et ${hasResources[1]}`
+          : hasResources.length > 2
+            ? `${hasResources.slice(0, -1).join(", ")} et ${hasResources.at(-1)}`
+            : "";
+
+    const hasResourcesText =
+      hasResources.length === 1
+        ? ` et la fiche HAS ${formattedHasResources}`
+        : hasResources.length > 1
+          ? ` et les fiches HAS ${formattedHasResources}`
+          : "";
+
+rulesParagraph.textContent =
+  `En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.\n` +
+  `Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercice ` +
+  `(${rulesLabel} : ${rulesUrl})` +
+  `${hasResourcesText}.`;
+
+    if (
+      hasParagraph &&
+      hasParagraph !== rulesParagraph
+    ) {
+      hasParagraph.remove();
+    }
+  }
+}
 
   renderedOutput.text =
     temp.innerText
-      .replace(/\n+/g, "\n")
+      .replace(/\n{3,}/g, "\n\n")
+      .replace(/[ \t]+\n/g, "\n")
       .trim();
 
  
@@ -10776,13 +10891,14 @@ if (identityAction === "copy") {
 
   // Nettoyage spécifique copie : le QR code patient crée une ligne texte inutile
   // "Accès rapide :" dans le presse-papiers, sans intérêt en DPI.
-  if (activeMode === "patient") {
-    text = text
-      .replace(/\n\s*Accès rapide\s*:\s*\.\s*/g, "\n")
-      .replace(/\n\s*Accès rapide\s*:\s*/g, "\n")
-      .replace(/\n{3,}/g, "\n\n")
-      .trim();
-  }
+if (activeMode === "patient") {
+
+  text = text
+    .replace(/\n\s*Accès rapide\s*:\s*\.\s*/g, "\n")
+    .replace(/\n\s*Accès rapide\s*:\s*/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
 
   let copiedMessage = "Compte-rendu copié.";
 
