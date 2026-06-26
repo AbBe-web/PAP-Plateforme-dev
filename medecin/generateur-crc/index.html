@@ -9144,6 +9144,99 @@ function buildPatientQuickAccessBlock(
   `;
 }
 
+function buildOrdonnanceQuickAccessBlock(
+  model,
+  clinicalContext
+) {
+
+  const rulesResource = {
+    id: "cardiology-sport-golden-rules",
+    label:
+      "10 règles d’or du Club des Cardiologues du Sport",
+    url:
+      "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf",
+    qr: {
+      enabled: true
+    }
+  };
+
+  const selectedResourceIds =
+    new Set(
+      model?.resources?.selected_ids || []
+    );
+
+  const ordonnanceResources =
+    clinicalContext
+      ? getContextResourcesByOutput(
+          clinicalContext,
+          "ordonnance"
+        )
+          .filter(resource =>
+            selectedResourceIds.has(resource.id)
+          )
+          .sort(
+            (resourceA, resourceB) =>
+              (resourceA.displayOrder || 0) -
+              (resourceB.displayOrder || 0)
+          )
+      : [];
+
+  const quickAccessItems =
+    [
+      buildResourceQrMarkup(
+        rulesResource,
+        {
+          size: 90
+        }
+      ),
+
+      ...ordonnanceResources.map(resource =>
+        buildResourceQrMarkup(
+          resource,
+          {
+            size: 90
+          }
+        )
+      )
+    ]
+      .filter(Boolean)
+      .join("");
+
+  if (!quickAccessItems) {
+    return "";
+  }
+
+  return `
+<div style="
+  margin-top:18px;
+  padding-top:10px;
+  border-top:1px solid #d9d9d9;
+  break-inside:avoid;
+  page-break-inside:avoid;
+">
+
+  <div style="
+    margin-bottom:6px;
+    font-size:12px;
+    text-align:center;
+  ">
+    Ressources utiles lors des séances d’activité physique :
+  </div>
+
+  <div style="
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+    gap:4px;
+  ">
+    ${quickAccessItems}
+  </div>
+
+</div>
+  `;
+}
+
 function renderPatientVersion(
   model,
   clinicalContext = null
@@ -9674,6 +9767,12 @@ const conseilsPatho =
     model
   );
 
+const ordonnanceQuickAccessBloc =
+  buildOrdonnanceQuickAccessBlock(
+    model,
+    clinicalContext
+  );
+
 const today = new Date().toLocaleDateString('fr-FR', {
   day: 'numeric',
   month: 'long',
@@ -9691,47 +9790,6 @@ const dureePrescription =
 
 const includeApaCertificate =
   document.getElementById("includeApaCertificate")?.checked || false;
-
-const goldenRulesUrl =
-  "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf";
-
-const goldenRulesQrSvg =
-  buildSizedLocalQrSvg(
-    goldenRulesUrl,
-    {
-      size: 90,
-      cellSize: 4,
-      margin: 2,
-      errorCorrectionLevel: "M"
-    }
-  );
-
-const goldenRulesQrMarkup =
-  goldenRulesQrSvg
-    ? `
-<a
-  href="${goldenRulesUrl}"
-  target="_blank"
-  rel="noopener noreferrer"
-  aria-label="Consulter les 10 règles d’or du Club des Cardiologues du Sport"
-  style="
-    display:inline-block;
-    color:inherit;
-    text-decoration:none;
-  "
->
-  ${goldenRulesQrSvg}
-</a>
-`
-    : `
-<a
-  href="${goldenRulesUrl}"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  Consulter les 10 règles d’or
-</a>
-`;
 
   return `
 
@@ -9872,21 +9930,7 @@ ${conseilsPatho ? `
 
 ` : ""}
 
-<div style="
-  margin-top:18px;
-  padding-top:10px;
-  border-top:1px solid #d9d9d9;
-  text-align:center;
-">
-
-  <div style="
-    font-size:12px;
-    margin-bottom:6px;
-  ">
-    10 règles d’or lors des séances d’activité physique :
-  </div>
-
- ${goldenRulesQrMarkup}
+${ordonnanceQuickAccessBloc}
 
 </div>
 
@@ -10226,7 +10270,65 @@ function buildAPACertificateText() {
   );
 }
 
-function generateOrdonnanceAPAText(model) {
+function buildOrdonnanceResourcesText(
+  model,
+  clinicalContext
+) {
+
+  const selectedResourceIds =
+    new Set(
+      model?.resources?.selected_ids || []
+    );
+
+  if (
+    selectedResourceIds.size === 0 ||
+    !clinicalContext
+  ) {
+    return "";
+  }
+
+  const ordonnanceResources =
+    getContextResourcesByOutput(
+      clinicalContext,
+      "ordonnance"
+    )
+      .filter(resource =>
+        selectedResourceIds.has(resource.id) &&
+        resource.url
+      )
+      .sort(
+        (resourceA, resourceB) =>
+          (resourceA.displayOrder || 0) -
+          (resourceB.displayOrder || 0)
+      );
+
+  if (ordonnanceResources.length === 0) {
+    return "";
+  }
+
+const formattedResources =
+  ordonnanceResources.map(resource => {
+    const label =
+      resource.label ||
+      resource.title ||
+      resource.id;
+
+    return `• Fiche HAS « ${label} » : ${resource.url}`;
+  });
+
+return [
+  ordonnanceResources.length === 1
+    ? "Le patient peut également consulter la fiche HAS suivante :"
+    : "Le patient peut également consulter les fiches HAS suivantes :",
+
+  ...formattedResources
+].join("\n");
+}
+
+function generateOrdonnanceAPAText(
+  model,
+  clinicalContext
+) {
 
   const destinationText =
     buildAPADestinationText();
@@ -10256,6 +10358,12 @@ function generateOrdonnanceAPAText(model) {
       "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
     ].join("\n");
 
+    const resourcesText =
+  buildOrdonnanceResourcesText(
+    model,
+    clinicalContext
+  );
+
   return [
     "Certificat de NCI / Ordonnance APA",
     destinationText,
@@ -10264,6 +10372,7 @@ function generateOrdonnanceAPAText(model) {
     limitationsText,
     physicalTestsText,
     prescriptionText,
+    resourcesText,
     rulesText
   ]
     .filter(Boolean)
@@ -10358,26 +10467,36 @@ case "apa":
 
 if (activeMode === "apa") {
 
-  renderedOutput.text =
-    generateOrdonnanceAPAText(model);
+renderedOutput.text =
+  generateOrdonnanceAPAText(
+    model,
+    context
+  );
 
 } else if (activeMode === "ordonnance") {
 
-  const prescriptionDPIText =
-    generatePrescriptionDPI(prescriptionModel);
+const prescriptionDPIText =
+  generatePrescriptionDPI(prescriptionModel);
 
-  const physicalTestsDPIText =
-    typeof buildPhysicalTestsPrescriptionContextText === "function"
-      ? buildPhysicalTestsPrescriptionContextText(model)
-      : "";
+const physicalTestsDPIText =
+  typeof buildPhysicalTestsPrescriptionContextText === "function"
+    ? buildPhysicalTestsPrescriptionContextText(model)
+    : "";
 
-  renderedOutput.text =
-    [
-      prescriptionDPIText,
-      physicalTestsDPIText
-    ]
-      .filter(Boolean)
-      .join("\n\n");
+const ordonnanceResourcesText =
+  buildOrdonnanceResourcesText(
+    model,
+    context
+  );
+
+renderedOutput.text =
+  [
+    prescriptionDPIText,
+    physicalTestsDPIText,
+    ordonnanceResourcesText
+  ]
+    .filter(Boolean)
+    .join("\n\n");
 
 } else {
 
