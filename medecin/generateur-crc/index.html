@@ -9192,7 +9192,21 @@ function buildOrdonnanceQuickAccessBlock(
 
       ...ordonnanceResources.map(resource =>
         buildResourceQrMarkup(
-          resource,
+          {
+            ...resource,
+            label:
+              resource.sourceLabel === "HAS"
+                ? `Fiche HAS « ${
+                    resource.label ||
+                    resource.title ||
+                    resource.id
+                  } »`
+                : (
+                    resource.label ||
+                    resource.title ||
+                    resource.id
+                  )
+          },
           {
             size: 90
           }
