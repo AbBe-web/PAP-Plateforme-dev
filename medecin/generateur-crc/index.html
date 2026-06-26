@@ -2703,7 +2703,7 @@ placeholder="Préciser..."
 <div style="margin-bottom:18px;">
 
   <label>
-    Durée prévisionnelle de prescription :
+    Durée de prescription :
   </label>
 
   <input
@@ -9653,7 +9653,10 @@ function buildPhysicalTestsPrescriptionContextText(model) {
   return `${fullTitle} : ${content}`;
 }
 
-function renderOrdonnanceAP(model) {
+function renderOrdonnanceAP(
+  model,
+  clinicalContext
+) {
 
   const ordonnanceHTML =
   generatePrescriptionPatient(prescriptionModel);
@@ -9665,7 +9668,11 @@ function renderOrdonnanceAP(model) {
   getPhysicianIdentity();
 
 const conseilsPatho =
-  buildCRCPathoBloc("ordonnance");
+  buildCRCPathoBloc(
+    "ordonnance",
+    clinicalContext,
+    model
+  );
 
 const today = new Date().toLocaleDateString('fr-FR', {
   day: 'numeric',
@@ -9803,7 +9810,7 @@ ${dureePrescription ? `
   margin-left:4px;
 ">
 
-  <strong>Durée prévisionnelle :</strong>
+  <strong>Durée :</strong>
   ${dureePrescription}
 
 </div>
@@ -9881,10 +9888,16 @@ ${conseilsPatho ? `
 `;
 }
 
-function renderOrdonnanceAPA(model) {
+function renderOrdonnanceAPA(
+  model,
+  clinicalContext
+) {
 
-  const base =
-    renderOrdonnanceAP(model);
+const base =
+  renderOrdonnanceAP(
+    model,
+    clinicalContext
+  );
 
 const physicalTestsPrescriptionBlock =
   buildPhysicalTestsPrescriptionContextBlock(model);
@@ -10205,8 +10218,9 @@ function generateOrdonnanceAPAText(model) {
       : "";
 
   const prescriptionText =
-    generatePrescriptionPlainText(prescriptionModel)
-      .replace(/CONSEILS ASSOCIÉS/g, "Conseils associés");
+  generatePrescriptionPlainText(
+    prescriptionModel
+  );
 
   const rulesText =
     [
@@ -10285,11 +10299,17 @@ html = renderMedicalRecord(
       break;
 
           case "ordonnance":
-  html = renderOrdonnanceAP(model);
+  html = renderOrdonnanceAP(
+    model,
+    context
+  );
   break;
 
-     case "apa":
-  html = renderOrdonnanceAPA(model);
+case "apa":
+  html = renderOrdonnanceAPA(
+    model,
+    context
+  );
   break;
   }
 

@@ -298,23 +298,23 @@ function generatePrescriptionPatient(model) {
     switch (activite.categorie) {
 
       case "endurance":
-        html += `<strong>• Activité d’endurance</strong>`;
+        html += `<strong>• ACTIVITÉ D’ENDURANCE</strong>`;
         break;
 
       case "renforcement":
-        html += `<strong>• Renforcement musculaire</strong>`;
+        html += `<strong>• RENFORCEMENT MUSCULAIRE</strong>`;
         break;
 
       case "souplesse":
-        html += `<strong>• Travail de souplesse et mobilité</strong>`;
+        html += `<strong>• TRAVAIL DE SOUPLEESSE ET MOBILITÉ</strong>`;
         break;
 
       case "equilibre":
-        html += `<strong>• Travail de l'équilibre</strong>`;
+        html += `<strong>• TRAVAIL DE L'ÉQUILIBRE</strong>`;
         break;
 
       default:
-        html += `<strong>• Activité physique</strong>`;
+        html += `<strong>• ACTIVITÉ PHYSIQUE</strong>`;
     }
 
     if (activite.type) {
@@ -443,7 +443,7 @@ function generatePrescriptionPlainText(model) {
       case "endurance": {
 
         lines.push(
-          `• Activité d’endurance${!isPasEndurance && activite.type ? ` (${activite.type})` : ""}`
+          `• ACTIVITÉ D’ENDURANCE${!isPasEndurance && activite.type ? ` (${activite.type})` : ""}`
         );
 
         if (isPasEndurance) {
@@ -467,19 +467,19 @@ function generatePrescriptionPlainText(model) {
       }
 
       case "renforcement":
-        lines.push(`• Renforcement musculaire${activite.type ? ` (${activite.type})` : ""}`);
+      lines.push(`• RENFORCEMENT MUSCULAIRE${activite.type ? ` (${activite.type})` : ""}`);
         break;
 
       case "souplesse":
-        lines.push(`• Travail de souplesse et mobilité${activite.type ? ` (${activite.type})` : ""}`);
+        lines.push(`• SOUPLESSE ET MOBILITÉ${activite.type ? ` (${activite.type})` : ""}`);
         break;
 
       case "equilibre":
-        lines.push(`• Travail de l'équilibre${activite.type ? ` (${activite.type})` : ""}`);
+        lines.push(`• TRAVAIL DE L'ÉQUILIBRE${activite.type ? ` (${activite.type})` : ""}`);
         break;
 
       default:
-        lines.push("• Activité physique");
+        lines.push("• ACTIVITÉ PHYSIQUE");
     }
 
     if (!isPasEndurance) {
@@ -504,25 +504,25 @@ function generatePrescriptionPlainText(model) {
     lines.push("");
   });
 
-  const conseilsPatho =
-    buildPathoPlainText();
-
-  if (conseilsPatho) {
-
-    const cleanConseils =
-      conseilsPatho
-        .replace(/<[^>]*>/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-
-    lines.push(cleanConseils);
-    lines.push("");
-  }
-
   if (dureePrescription) {
-    lines.push("");
-    lines.push(`Durée prévisionnelle : ${dureePrescription}`);
-  }
+  lines.push(`DURÉE : ${dureePrescription}`);
+  lines.push("");
+}
+
+const conseilsPatho =
+  buildPathoPlainText();
+
+if (conseilsPatho) {
+
+  const cleanConseils =
+    conseilsPatho
+      .replace(/<[^>]*>/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  lines.push(cleanConseils);
+  lines.push("");
+}
 
   return lines.join("\n");
 }
@@ -611,28 +611,30 @@ case "equilibre":
     lines.push("");
   });
 
-  const conseilsPatho =
-    buildPathoPlainText();
-
-  if (conseilsPatho) {
-
-    const cleanConseils =
-      conseilsPatho
-        .replace(/<[^>]*>/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-
-    lines.push(cleanConseils);
-    lines.push("");
-  }
-
   const dureePrescription =
-    document.querySelector('input[name="duree_prescription"]')?.value || "";
+  document.querySelector(
+    'input[name="duree_prescription"]'
+  )?.value || "";
 
-  if (dureePrescription) {
+if (dureePrescription) {
+  lines.push(`DURÉE : ${dureePrescription}`);
+  lines.push("");
+}
 
-    lines.push(`Durée prévisionnelle : ${dureePrescription}`);
-  }
+const conseilsPatho =
+  buildPathoPlainText();
+
+if (conseilsPatho) {
+
+  const cleanConseils =
+    conseilsPatho
+      .replace(/<[^>]*>/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  lines.push(cleanConseils);
+  lines.push("");
+}
 lines.push("");
 lines.push(
   "Précautions à prendre lors de vos séances d’activité physique (10 règles d’or) :"
