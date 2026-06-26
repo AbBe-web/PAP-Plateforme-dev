@@ -654,10 +654,71 @@ try {
         id
     )
 
-  $json =
+  $compactJson =
     $sortedResources |
     ConvertTo-Json `
-      -Depth 12
+      -Depth 12 `
+      -Compress
+
+  $formatterPath =
+    Join-Path `
+      $PSScriptRoot `
+      "format-resource-json.js"
+
+  if (-not (Test-Path -LiteralPath $formatterPath)) {
+    throw "Formateur JSON introuvable : $formatterPath"
+  }
+
+  $temporaryInputPath =
+    [IO.Path]::GetTempFileName()
+
+  $temporaryOutputPath =
+    [IO.Path]::GetTempFileName()
+
+  $utf8WithoutBom =
+    New-Object System.Text.UTF8Encoding(
+      $false
+    )
+
+  try {
+    [IO.File]::WriteAllText(
+      $temporaryInputPath,
+      $compactJson,
+      $utf8WithoutBom
+    )
+
+    & node `
+      $formatterPath `
+      $temporaryInputPath `
+      $temporaryOutputPath
+
+    if ($LASTEXITCODE -ne 0) {
+      throw "Échec du formatage JSON par Node."
+    }
+
+    $json =
+      [IO.File]::ReadAllText(
+        $temporaryOutputPath,
+        $utf8WithoutBom
+      )
+  }
+  finally {
+    foreach (
+      $temporaryPath in @(
+        $temporaryInputPath,
+        $temporaryOutputPath
+      )
+    ) {
+      if (
+        Test-Path `
+          -LiteralPath $temporaryPath
+      ) {
+        Remove-Item `
+          -LiteralPath $temporaryPath `
+          -Force
+      }
+    }
+  }
 
   $outputDirectory =
     Split-Path `
