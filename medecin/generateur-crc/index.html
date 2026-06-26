@@ -3601,6 +3601,8 @@ Ressources / fiches AP
 </div>
 </div>
 
+<script src="../../assets/vendor/qrcode-generator/qrcode.js"></script>
+
 <script src="../../core/prescriptionModel.js"></script>
 <script src="../../core/prescriptionUtils.js"></script>
 <script src="../../core/prescriptionSync.js"></script>
@@ -8836,6 +8838,141 @@ ${crcPathoBloc}
 `;
 }
 
+function buildLocalQrSvg(
+  value,
+  {
+    cellSize = 4,
+    margin = 2,
+    errorCorrectionLevel = "M"
+  } = {}
+) {
+
+  if (
+    !value ||
+    typeof window.qrcode !== "function"
+  ) {
+    return "";
+  }
+
+  try {
+    const qrCode =
+      window.qrcode(
+        0,
+        errorCorrectionLevel
+      );
+
+    qrCode.addData(String(value));
+    qrCode.make();
+
+    return qrCode.createSvgTag({
+      cellSize,
+      margin,
+      scalable: true
+    });
+  } catch (error) {
+    console.warn(
+      "Impossible de générer le QR code local.",
+      error
+    );
+
+    return "";
+  }
+}
+
+function buildSizedLocalQrSvg(
+  value,
+  {
+    size = 120,
+    cellSize = 4,
+    margin = 2,
+    errorCorrectionLevel = "M"
+  } = {}
+) {
+
+  const qrSvg =
+    buildLocalQrSvg(
+      value,
+      {
+        cellSize,
+        margin,
+        errorCorrectionLevel
+      }
+    );
+
+  if (!qrSvg) {
+    return "";
+  }
+
+  return qrSvg.replace(
+    "<svg ",
+    `<svg width="${size}" height="${size}" style="display:block;" `
+  );
+}
+
+function buildResourceQrMarkup(
+  resource,
+  {
+    size = 120
+  } = {}
+) {
+
+  if (
+    !resource?.url ||
+    resource?.qr?.enabled !== true
+  ) {
+    return "";
+  }
+
+  const qrSvg =
+    buildSizedLocalQrSvg(
+      resource.url,
+      {
+        size
+      }
+    );
+
+  if (!qrSvg) {
+    return "";
+  }
+
+  const label =
+    resource.label ||
+    resource.title ||
+    resource.id;
+
+  return `
+    <div style="
+      width:${size + 24}px;
+      margin:8px;
+      text-align:center;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    ">
+      <a
+        href="${resource.url}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Ouvrir la ressource ${label}"
+        style="
+          display:inline-block;
+          color:inherit;
+          text-decoration:none;
+        "
+      >
+        ${qrSvg}
+      </a>
+
+      <div style="
+        margin-top:6px;
+        font-size:11px;
+        line-height:1.25;
+      ">
+        ${label}
+      </div>
+    </div>
+  `;
+}
+
 function buildPatientResourcesBlock(
   model,
   clinicalContext
@@ -8883,12 +9020,12 @@ function buildPatientResourcesBlock(
         return `« ${label} »`;
       }
 
-      return `<a
-        href="${resource.url}"
-        target="_blank"
-        rel="noopener noreferrer"
-      >« ${label} »</a>`;
-    });
+return `<a
+  href="${resource.url}"
+  target="_blank"
+  rel="noopener noreferrer"
+>«&#8239;${label}&#8239;»</a>`;
+});
 
   const formattedLinks =
     resourceLinks.length === 1
@@ -8902,7 +9039,105 @@ function buildPatientResourcesBlock(
       ? "la fiche"
       : "les fiches";
 
-  return `<p>Vous pouvez également consulter ${resourceWord} de la HAS ${formattedLinks}.</p>`;
+  return `
+    <div style="
+      margin-top:12px;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    ">
+      <p>
+        Vous pouvez également consulter ${resourceWord} de la HAS ${formattedLinks}.
+      </p>
+    </div>
+  `;
+}
+
+function buildPatientQuickAccessBlock(
+  model,
+  clinicalContext
+) {
+
+  const rulesResource = {
+    id: "cardiology-sport-golden-rules",
+    label:
+      "10 règles d’or du Club des Cardiologues du Sport",
+    url:
+      "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf",
+    qr: {
+      enabled: true
+    }
+  };
+
+  const selectedResourceIds =
+    new Set(
+      model?.resources?.selected_ids || []
+    );
+
+  const patientResources =
+    clinicalContext
+      ? getContextResourcesByOutput(
+          clinicalContext,
+          "patient"
+        )
+          .filter(resource =>
+            selectedResourceIds.has(resource.id)
+          )
+          .sort(
+            (resourceA, resourceB) =>
+              (resourceA.displayOrder || 0) -
+              (resourceB.displayOrder || 0)
+          )
+      : [];
+
+  const quickAccessItems =
+    [
+      buildResourceQrMarkup(
+        rulesResource,
+        {
+          size: 120
+        }
+      ),
+
+      ...patientResources.map(resource =>
+        buildResourceQrMarkup(
+          resource,
+          {
+            size: 120
+          }
+        )
+      )
+    ]
+      .filter(Boolean)
+      .join("");
+
+  if (!quickAccessItems) {
+    return "";
+  }
+
+  return `
+    <div style="
+      margin-top:18px;
+      break-inside:avoid;
+      page-break-inside:avoid;
+    ">
+      <p style="
+        margin-bottom:8px;
+        text-align:center;
+      ">
+        <strong>Accès rapide :</strong>
+      </p>
+
+      <div style="
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        align-items:flex-start;
+        gap:8px;
+      ">
+        ${quickAccessItems}
+      </div>
+    </div>
+  `;
 }
 
 function renderPatientVersion(
@@ -8940,6 +9175,13 @@ const crcPathoBloc =
 
 const patientResourcesBloc =
   buildPatientResourcesBlock(
+    model,
+    clinicalContext
+  );
+
+
+const patientQuickAccessBloc =
+  buildPatientQuickAccessBlock(
     model,
     clinicalContext
   );
@@ -9034,26 +9276,10 @@ https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf
 </span>
 </p>
 
-<div style="margin-top:20px; text-align:center;">
-  <p><strong>Accès rapide :</strong></p>
-
-  <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
-     target="_blank"
-     rel="noopener noreferrer">
-
-    <img 
-      src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
-      alt="QR code - Règles d’or cardiologie du sport"
-      width="180"
-      height="180"
-      loading="lazy"
-      style="cursor:pointer;"
-    >
-
-  </a>
-</div>
-
 ${patientResourcesBloc}
+
+${patientQuickAccessBloc}
+
 `;
 }
 
