@@ -9692,6 +9692,47 @@ const dureePrescription =
 const includeApaCertificate =
   document.getElementById("includeApaCertificate")?.checked || false;
 
+const goldenRulesUrl =
+  "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf";
+
+const goldenRulesQrSvg =
+  buildSizedLocalQrSvg(
+    goldenRulesUrl,
+    {
+      size: 90,
+      cellSize: 4,
+      margin: 2,
+      errorCorrectionLevel: "M"
+    }
+  );
+
+const goldenRulesQrMarkup =
+  goldenRulesQrSvg
+    ? `
+<a
+  href="${goldenRulesUrl}"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Consulter les 10 règles d’or du Club des Cardiologues du Sport"
+  style="
+    display:inline-block;
+    color:inherit;
+    text-decoration:none;
+  "
+>
+  ${goldenRulesQrSvg}
+</a>
+`
+    : `
+<a
+  href="${goldenRulesUrl}"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Consulter les 10 règles d’or
+</a>
+`;
+
   return `
 
 <div style="
@@ -9845,20 +9886,7 @@ ${conseilsPatho ? `
     10 règles d’or lors des séances d’activité physique :
   </div>
 
-  <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
-     target="_blank"
-     rel="noopener noreferrer">
-
-    <img 
-      src="https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
-      alt="QR code - règles d’or cardiologie du sport"
-      width="90"
-      height="90"
-      loading="lazy"
-      style="cursor:pointer;"
-    >
-
-  </a>
+ ${goldenRulesQrMarkup}
 
 </div>
 
