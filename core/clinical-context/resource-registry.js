@@ -5276,6 +5276,1526 @@ const RESOURCE_REGISTRY = [
       "apa",
       "professionnel"
     ]
+  },
+  {
+    "id": "move50plus-site-principal-001",
+    "status": "active",
+    "title": "Move50+ - site principal",
+    "label": "Move50+ - site principal",
+    "description": "Site Move50+ proposant des programmes d’exercices, un outil d’orientation et des ressources pour rester actif après 50 ans.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "equilibre",
+      "motivation",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/",
+    "patientIntro": "Move50+ propose des programmes d’exercices et des ressources pratiques pour bouger plus, notamment après 50 ans.",
+    "clinicianIntro": "Site ressource Move50+ utilisable comme bibliothèque de programmes et supports patients.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de plateforme externe de programmes d’activité physique pour patients de plus de 50 ans.",
+    "outputs": [
+      "crc",
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 700,
+    "tags": [
+      "move50plus",
+      "seniors",
+      "personne_agee",
+      "programme",
+      "activite_physique",
+      "exercise"
+    ]
+  },
+  {
+    "id": "move50plus-questionnaire-orientation-001",
+    "status": "active",
+    "title": "Move50+ - questionnaire d’orientation vers un programme",
+    "label": "Move50+ - questionnaire",
+    "description": "Questionnaire Move50+ guidant le choix d’un programme d’exercices selon la condition physique.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "self_assessment",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "motivation",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/questionnaire/",
+    "patientIntro": "Ce questionnaire vous aide à identifier un programme d’exercices adapté à votre condition physique.",
+    "clinicianIntro": "Questionnaire d’orientation Move50+ vers un programme d’exercices, utilisable comme support d’échange sans décision automatique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple d’outil d’orientation patient vers un programme d’activité physique.",
+    "outputs": [
+      "crc",
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 710,
+    "tags": [
+      "move50plus",
+      "questionnaire",
+      "orientation",
+      "programme",
+      "personne_agee",
+      "securite",
+      "progressivite"
+    ]
+  },
+  {
+    "id": "move50plus-bougez-catalogue-001",
+    "status": "active",
+    "title": "Move50+ - catalogue Bougez",
+    "label": "Move50+ - Bougez",
+    "description": "Page Move50+ regroupant les programmes d’entraînement, séances vidéo et ressources imprimables.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "equilibre",
+      "motivation"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/bougez/",
+    "patientIntro": "Cette page regroupe les programmes et séances Move50+.",
+    "clinicianIntro": "Catalogue Move50+ des programmes et séances, utile pour repérer des ressources adaptées.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Bibliothèque d’exemples de programmes et séances Move50+.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 720,
+    "tags": [
+      "move50plus",
+      "bougez",
+      "catalogue",
+      "videos",
+      "programmes",
+      "seniors"
+    ]
+  },
+  {
+    "id": "move50plus-programmes-imprimables-001",
+    "status": "active",
+    "title": "Move50+ - programmes imprimables",
+    "label": "Move50+ - programmes imprimables",
+    "description": "Page Move50+ regroupant les programmes imprimables et les guides de fixation et suivi d’objectifs.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "equilibre",
+      "motivation"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/programmes-imprimables-bougez/",
+    "patientIntro": "Cette page regroupe les programmes imprimables Move50+ et les guides de fixation et suivi d’objectifs.",
+    "clinicianIntro": "Page ressource Move50+ centralisant les PDF imprimables et les outils de suivi d’objectifs.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de page structurée pour accéder à des supports imprimables d’activité physique.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 730,
+    "tags": [
+      "move50plus",
+      "programmes_imprimables",
+      "pdf",
+      "objectifs",
+      "suivi",
+      "seniors"
+    ]
+  },
+  {
+    "id": "move50plus-youtube-chaine-001",
+    "status": "active",
+    "title": "Move50+ - chaîne YouTube",
+    "label": "Move50+ - chaîne YouTube",
+    "description": "Chaîne YouTube Move50+ regroupant des vidéos de programmes et séances d’activité physique.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "educational_content",
+    "format": "video",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "equilibre"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://www.youtube.com/@MOVE50PLUS",
+    "patientIntro": "La chaîne YouTube Move50+ propose des séances vidéo d’activité physique.",
+    "clinicianIntro": "Chaîne vidéo Move50+ utilisable comme ressource externe de séances d’exercices.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de ressource vidéo patient pour illustrer des programmes d’activité physique.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 740,
+    "tags": [
+      "move50plus",
+      "youtube",
+      "videos",
+      "seances",
+      "seniors",
+      "exercices"
+    ]
+  },
+  {
+    "id": "move50plus-objectifs-fixation-pdf-001",
+    "status": "active",
+    "title": "Move50+ - guide de fixation d’objectifs",
+    "label": "Move50+ - fixation d’objectifs",
+    "description": "PDF Move50+ d’aide à la fixation d’objectifs pour la pratique d’activité physique.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "pdf",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "motivation",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/wp-content/uploads/2019/12/1-guide-fixation-LR.pdf",
+    "patientIntro": "Ce guide imprimable vous aide à formuler un objectif concret d’activité physique.",
+    "clinicianIntro": "Support patient Move50+ pour aider à structurer un objectif d’activité physique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple d’outil motivationnel de fixation d’objectifs en activité physique.",
+    "outputs": [
+      "crc",
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 750,
+    "tags": [
+      "move50plus",
+      "objectifs",
+      "motivation",
+      "pdf",
+      "activite_physique",
+      "suivi"
+    ]
+  },
+  {
+    "id": "move50plus-objectifs-suivi-pdf-001",
+    "status": "active",
+    "title": "Move50+ - guide de suivi d’objectif",
+    "label": "Move50+ - suivi d’objectif",
+    "description": "PDF Move50+ de suivi de l’atteinte d’un objectif d’activité physique.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "pdf",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "motivation",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/wp-content/uploads/2019/12/2-guide-suivi-LR.pdf",
+    "patientIntro": "Ce guide imprimable vous aide à faire le point sur l’atteinte de votre objectif d’activité physique.",
+    "clinicianIntro": "Support patient Move50+ pour accompagner le suivi d’un objectif d’activité physique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple d’outil motivationnel de suivi des objectifs en activité physique.",
+    "outputs": [
+      "crc",
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 760,
+    "tags": [
+      "move50plus",
+      "suivi",
+      "objectifs",
+      "motivation",
+      "pdf",
+      "activite_physique"
+    ]
+  },
+  {
+    "id": "move50plus-sans-limite-programme-001",
+    "status": "active",
+    "title": "Move50+ - programme Sans limite",
+    "label": "Move50+ - Sans limite",
+    "description": "Programme Move50+ visant les personnes très actives, avec séances dynamiques et exercices de type cardio-renforcement.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/cours-sans-limite/",
+    "patientIntro": "Programme Move50+ dynamique pour personnes déjà très actives.",
+    "clinicianIntro": "Programme Move50+ Sans limite : support externe pour patients déjà très actifs.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de programme Move50+ de niveau soutenu.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 770,
+    "tags": [
+      "move50plus",
+      "sans_limite",
+      "cardio",
+      "renforcement",
+      "endurance",
+      "programme"
+    ]
+  },
+  {
+    "id": "move50plus-sans-limite-pdf-001",
+    "status": "active",
+    "title": "Move50+ - Sans limite - PDF imprimable",
+    "label": "Sans limite - PDF",
+    "description": "PDF imprimable du programme Move50+ Sans limite.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "pdf",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/wp-content/uploads/2019/12/1-sans-limite-LR.pdf",
+    "patientIntro": "PDF imprimable du programme Sans limite.",
+    "clinicianIntro": "Support imprimable Move50+ du programme Sans limite.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de support imprimable de programme d’exercices.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 780,
+    "tags": [
+      "move50plus",
+      "sans_limite",
+      "pdf",
+      "programme",
+      "cardio",
+      "renforcement"
+    ]
+  },
+  {
+    "id": "move50plus-vitalite-programme-001",
+    "status": "active",
+    "title": "Move50+ - programme Vitalité",
+    "label": "Move50+ - Vitalité",
+    "description": "Programme Move50+ combinant période aérobie et exercices de renforcement principalement debout.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/cours-vitalite/",
+    "patientIntro": "Programme Move50+ Vitalité, combinant endurance et renforcement.",
+    "clinicianIntro": "Programme Move50+ Vitalité : support externe d’endurance et renforcement.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de programme mixte endurance-renforcement.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 790,
+    "tags": [
+      "move50plus",
+      "vitalite",
+      "cardio",
+      "renforcement",
+      "endurance",
+      "programme"
+    ]
+  },
+  {
+    "id": "move50plus-vitalite-pdf-001",
+    "status": "active",
+    "title": "Move50+ - Vitalité - PDF imprimable",
+    "label": "Vitalité - PDF",
+    "description": "PDF imprimable du programme Move50+ Vitalité.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "pdf",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/wp-content/uploads/2019/12/2-Vitalite-LR.pdf",
+    "patientIntro": "PDF imprimable du programme Vitalité.",
+    "clinicianIntro": "Support imprimable Move50+ du programme Vitalité.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de support imprimable de programme mixte endurance-renforcement.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 800,
+    "tags": [
+      "move50plus",
+      "vitalite",
+      "pdf",
+      "programme",
+      "endurance",
+      "renforcement"
+    ]
+  },
+  {
+    "id": "move50plus-en-douceur-programme-001",
+    "status": "active",
+    "title": "Move50+ - programme En douceur",
+    "label": "Move50+ - En douceur",
+    "description": "Programme Move50+ associant mobilité articulaire, souplesse, force et endurance musculaire avec exercices assis et debout.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "souplesse",
+      "renforcement",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/cours-en-douceur/",
+    "patientIntro": "Programme Move50+ En douceur, avec exercices fluides et accessibles.",
+    "clinicianIntro": "Programme Move50+ En douceur : support externe pour mobilité, souplesse et renforcement léger.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de programme doux favorisant mobilité et souplesse.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 810,
+    "tags": [
+      "move50plus",
+      "en_douceur",
+      "souplesse",
+      "mobilite",
+      "renforcement",
+      "programme"
+    ]
+  },
+  {
+    "id": "move50plus-en-douceur-pdf-001",
+    "status": "active",
+    "title": "Move50+ - En douceur - PDF imprimable",
+    "label": "En douceur - PDF",
+    "description": "PDF imprimable du programme Move50+ En douceur.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "pdf",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "souplesse",
+      "renforcement",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/wp-content/uploads/2019/12/4-en-douceur-LR.pdf",
+    "patientIntro": "PDF imprimable du programme En douceur.",
+    "clinicianIntro": "Support imprimable Move50+ du programme En douceur.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de support imprimable de programme doux.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 820,
+    "tags": [
+      "move50plus",
+      "en_douceur",
+      "pdf",
+      "programme",
+      "souplesse",
+      "mobilite"
+    ]
+  },
+  {
+    "id": "move50plus-posture-stabilite-programme-001",
+    "status": "active",
+    "title": "Move50+ - programme Posture et stabilité",
+    "label": "Move50+ - Posture et stabilité",
+    "description": "Programme Move50+ ciblant stabilité, équilibre, posture et tonus postural.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "equilibre",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/cours-posture-et-stabilite/",
+    "patientIntro": "Programme Move50+ Posture et stabilité, centré sur l’équilibre et la stabilité.",
+    "clinicianIntro": "Programme Move50+ Posture et stabilité : support externe pour équilibre et prévention des chutes.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de programme d’équilibre et stabilité.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 830,
+    "tags": [
+      "move50plus",
+      "posture",
+      "stabilite",
+      "equilibre",
+      "chute",
+      "programme"
+    ]
+  },
+  {
+    "id": "move50plus-posture-stabilite-pdf-001",
+    "status": "active",
+    "title": "Move50+ - Posture et stabilité - PDF imprimable",
+    "label": "Posture et stabilité - PDF",
+    "description": "PDF imprimable du programme Move50+ Posture et stabilité.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "pdf",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "equilibre",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/wp-content/uploads/2019/12/3-posture-stabilite-LR.pdf",
+    "patientIntro": "PDF imprimable du programme Posture et stabilité.",
+    "clinicianIntro": "Support imprimable Move50+ du programme Posture et stabilité.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de support imprimable de programme équilibre-stabilité.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 840,
+    "tags": [
+      "move50plus",
+      "posture",
+      "stabilite",
+      "pdf",
+      "equilibre",
+      "chute"
+    ]
+  },
+  {
+    "id": "move50plus-sur-chaise-programme-001",
+    "status": "active",
+    "title": "Move50+ - programme Sur chaise",
+    "label": "Move50+ - Sur chaise",
+    "description": "Programme Move50+ d’exercices sur chaise intégrant une période aérobie modérée et des exercices de musculation adaptés.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/cours-sur-chaise/",
+    "patientIntro": "Programme Move50+ Sur chaise, avec exercices réalisables en position assise.",
+    "clinicianIntro": "Programme Move50+ Sur chaise : support externe pour exercices adaptés sur chaise.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de programme d’exercices sur chaise.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 850,
+    "tags": [
+      "move50plus",
+      "sur_chaise",
+      "chaise",
+      "renforcement",
+      "endurance",
+      "programme"
+    ]
+  },
+  {
+    "id": "move50plus-sur-chaise-pdf-001",
+    "status": "active",
+    "title": "Move50+ - Sur chaise - PDF imprimable",
+    "label": "Sur chaise - PDF",
+    "description": "PDF imprimable du programme Move50+ Sur chaise.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "pdf",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/wp-content/uploads/2019/12/5-sur-chaise-LR.pdf",
+    "patientIntro": "PDF imprimable du programme Sur chaise.",
+    "clinicianIntro": "Support imprimable Move50+ du programme Sur chaise.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de support imprimable de programme sur chaise.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 860,
+    "tags": [
+      "move50plus",
+      "sur_chaise",
+      "pdf",
+      "programme",
+      "chaise",
+      "renforcement"
+    ]
+  },
+  {
+    "id": "move50plus-move-equilibre-programme-001",
+    "status": "active",
+    "title": "Move50+ - Move en Équilibre",
+    "label": "Move50+ - Move en Équilibre",
+    "description": "Programme Move50+ orienté équilibre, prévention des chutes, flexibilité et renforcement musculaire, structuré en niveaux.",
+    "publisher": "Move50+ / Sercovie",
+    "sourceLabel": "Move50+ / Sercovie",
+    "type": "practical_guide",
+    "format": "web_page",
+    "audience": [
+      "patient",
+      "clinician",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "patient_library",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "equilibre",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale",
+      "medecine_sport",
+      "apa"
+    ],
+    "hostingType": "external",
+    "url": "https://move50plus.ca/move-en-equilibre/",
+    "patientIntro": "Move en Équilibre propose des séances centrées sur l’équilibre et la prévention des chutes.",
+    "clinicianIntro": "Programme Move50+ Move en Équilibre : support externe pour équilibre, renforcement et prévention des chutes.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Exemple de programme structuré autour de l’équilibre et de la prévention des chutes.",
+    "outputs": [
+      "qr"
+    ],
+    "qr": {
+      "enabled": true,
+      "target": "url"
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Site consulté en juin 2026",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "unknown",
+    "copyrightHolder": "Move50+ / Sercovie",
+    "attribution": "Move50+ / Sercovie",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee",
+        "motivation",
+        "reference"
+      ],
+      "roles": [
+        "patient_material_example",
+        "reference",
+        "additional_reading"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 870,
+    "tags": [
+      "move50plus",
+      "move_en_equilibre",
+      "equilibre",
+      "chute",
+      "renforcement",
+      "seniors"
+    ]
   }
 ];
 
