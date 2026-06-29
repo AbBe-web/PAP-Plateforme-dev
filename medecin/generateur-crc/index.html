@@ -3341,9 +3341,57 @@ En autonomie
 </div>
 
 <div
+  style="
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid #e5e7eb;
+    width:100%;
+    box-sizing:border-box;
+  "
+>
+
+<label
+  style="
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    line-height:1.35;
+    width:100%;
+    box-sizing:border-box;
+  "
+>
+
+<input
+  type="checkbox"
+  id="apaNoContraindicationConfirmed"
+  style="
+    margin-top:2px;
+    flex:0 0 auto;
+  "
+>
+
+<span
+  style="
+    display:block;
+    flex:1 1 auto;
+    min-width:0;
+    white-space:normal;
+    overflow-wrap:break-word;
+    word-break:normal;
+  "
+>
+Après examen médical, le patient <strong>ne présente pas de contre-indication</strong>
+à la pratique d’activités physiques adaptées.
+</span>
+
+</label>
+
+</div>
+
+<div
   id="consentement_partage_block"
   style="
-    display:none;
+    display:block;
     margin-top:12px;
     padding-top:10px;
     border-top:1px solid #e5e7eb;
@@ -3377,7 +3425,7 @@ et accord oral recueilli.
 <div
   id="bilan_condition_block"
   style="
-    display:none;
+    display:block;
     margin-top:10px;
   "
 >
@@ -10043,6 +10091,19 @@ const patientIdentity =
     ? `${civilite} ${prenom} ${nom}`.trim()
     : "<span data-patient-certificate-identity>le/la patient(e)</span>";
 
+const apaNoContraindicationConfirmed =
+  document.getElementById("apaNoContraindicationConfirmed")?.checked || false;
+
+  const apaDocumentTitle =
+  apaNoContraindicationConfirmed
+    ? "Certificat de NCI / Ordonnance APA"
+    : "Ordonnance APA";
+
+const apaDocumentTitleUpper =
+  apaNoContraindicationConfirmed
+    ? "CERTIFICAT DE NCI / ORDONNANCE APA"
+    : "ORDONNANCE APA";
+
 const apaLimitationsBlock =
   buildAPALimitationsBlock();
 
@@ -10055,7 +10116,9 @@ const apaOrientationOptionsBlock =
 const apaObjectivesBlock =
   buildAPAObjectivesBlock();
 
-  const certificateBlock = `
+const certificateBlock =
+  apaNoContraindicationConfirmed
+    ? `
 <div style="
   margin-top:14px;
   margin-bottom:16px;
@@ -10067,21 +10130,23 @@ const apaObjectivesBlock =
 ">
 <p style="margin:0;">
     Je soussigné(e), docteur en médecine, certifie avoir examiné ce jour ${patientIdentity}
-    et ne pas avoir constaté de contre-indication à la pratique d’activités physiques adaptées,
+    et certifie que ${patientIdentity} <strong>ne présente pas de contre-indication</strong>
+    à la pratique d’activités physiques adaptées,
     sous réserve des précautions et adaptations précisées dans la présente prescription.
   </p>
 </div>
-`;
+`
+    : "";
 
   return baseWithoutPhysicalTests
-    .replace(
-      "Ordonnance d'activité physique",
-      "Certificat de NCI / Ordonnance APA"
-    )
-    .replace(
-      "ORDONNANCE D'ACTIVITÉ PHYSIQUE",
-      "CERTIFICAT DE NCI / ORDONNANCE APA"
-    )
+ .replace(
+  "Ordonnance d'activité physique",
+  apaDocumentTitle
+)
+.replace(
+  "ORDONNANCE D'ACTIVITÉ PHYSIQUE",
+  apaDocumentTitleUpper
+)
     .replace(
       `<div style="
   border:1px solid #d9d9d9;
@@ -10298,13 +10363,23 @@ function buildAPACertificateText() {
       ? `${civilite} ${prenom} ${nom}`.trim()
       : "le/la patient(e)";
 
-  return (
-    "Je soussigné(e), docteur en médecine, certifie avoir examiné ce jour " +
-    patientIdentity +
-    " et ne pas avoir constaté de contre-indication à la pratique d’activités physiques adaptées, " +
-    "sous réserve des précautions et adaptations précisées dans la présente prescription."
-  );
+const apaNoContraindicationConfirmed =
+  document.getElementById("apaNoContraindicationConfirmed")?.checked || false;
+
+if (!apaNoContraindicationConfirmed) {
+  return "";
 }
+
+return (
+  "Je soussigné(e), docteur en médecine, certifie avoir examiné ce jour " +
+  patientIdentity +
+  " et certifie que " +
+  patientIdentity +
+  " ne présente pas de contre-indication à la pratique d’activités physiques adaptées, " +
+  "sous réserve des précautions et adaptations précisées dans la présente prescription."
+);
+}
+
 
 function buildOrdonnanceResourcesText(
   model,
@@ -10400,8 +10475,16 @@ function generateOrdonnanceAPAText(
     clinicalContext
   );
 
+  const apaNoContraindicationConfirmed =
+  document.getElementById("apaNoContraindicationConfirmed")?.checked || false;
+
+const apaTextTitle =
+  apaNoContraindicationConfirmed
+    ? "Certificat de NCI / Ordonnance APA"
+    : "Ordonnance APA";
+
   return [
-    "Certificat de NCI / Ordonnance APA",
+    apaTextTitle,
     destinationText,
     orientationText,
     certificateText,
