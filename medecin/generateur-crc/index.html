@@ -10321,13 +10321,13 @@ function buildAPALimitationsText() {
 
   if (precautions.length) {
     lines.push(
-      `- Précautions générales signalées : ${precautions.join(", ")}.`
+      `- Précautions générales : ${precautions.join(", ")}.`
     );
   }
 
   if (limitations.length) {
     lines.push(
-      `- Limitations locomotrices constatées : ${limitations.join(", ")}.`
+      `- Limitations locomotrices : ${limitations.join(", ")}.`
     );
   }
 
@@ -14291,20 +14291,19 @@ if (
 <strong>Précautions / limitations à prendre en compte pour l’adaptation des exercices :</strong>
 
   ${precautions.length ? `
-    <p>
-<strong>Précautions générales signalées :</strong>
-${precautions.join(", ")}.
+    <p style="margin:6px 0 0 0;">
+- Précautions générales : ${precautions.join(", ")}.
     </p>
   ` : ""}
 
   ${limitations.length ? `
-    <p>
-- Limitations locomotrices constatées : ${limitations.join(", ")}.
+    <p style="margin:6px 0 0 0;">
+- Limitations locomotrices : ${limitations.join(", ")}.
     </p>
   ` : ""}
 
   ${exerciseAdaptations ? `
-    <p>
+    <p style="margin:6px 0 0 0;">
 - Consignes / adaptations des exercices : ${exerciseAdaptations}
     </p>
   ` : ""}
