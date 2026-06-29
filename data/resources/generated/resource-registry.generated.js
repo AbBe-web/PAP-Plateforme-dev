@@ -1630,6 +1630,3652 @@ const RESOURCE_REGISTRY = [
       "equilibre",
       "has"
     ]
+  },
+  {
+    "id": "has-avc-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Accidents vasculaires cérébraux",
+    "label": "Référentiel HAS - Accidents vasculaires cérébraux",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Accidents vasculaires cérébraux.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "avc"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "neurologie",
+      "medecine_physique_readaptation"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/c_2876896/fr/referentiel-de-prescription-d-activite-physique-et-sportive-accidents-vasculaires-cerebraux",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Accidents vasculaires cérébraux.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Accidents vasculaires cérébraux.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "avc"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 200,
+    "tags": [
+      "avc",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-avc-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Accident vasculaire cérébral",
+    "label": "Synthèse HAS - Accident vasculaire cérébral",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Accident vasculaire cérébral.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "avc"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "neurologie",
+      "medecine_physique_readaptation"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360242/fr/synthese-prescription-d-activite-physique-accident-vasculaire-cerebral",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Accident vasculaire cérébral.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Accident vasculaire cérébral.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "avc"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 210,
+    "tags": [
+      "avc",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-aomi-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Artériopathie oblitérante des membres inférieurs",
+    "label": "Fiche HAS - Artériopathie oblitérante des membres inférieurs",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Artériopathie oblitérante des membres inférieurs.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "aomi"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie",
+      "medecine_vasculaire"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360239/fr/fiche-prescription-d-activite-physique-arteriopathie-obliterante-des-membres-inferieurs",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Artériopathie oblitérante des membres inférieurs.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Artériopathie oblitérante des membres inférieurs.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "aomi"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 220,
+    "tags": [
+      "aomi",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-aomi-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Artériopathie oblitérante des membres inférieurs",
+    "label": "Synthèse HAS - Artériopathie oblitérante des membres inférieurs",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Artériopathie oblitérante des membres inférieurs.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "aomi"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie",
+      "medecine_vasculaire"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360240/fr/synthese-prescription-d-activite-physique-arteriopathie-obliterante-des-membres-inferieurs",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Artériopathie oblitérante des membres inférieurs.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Artériopathie oblitérante des membres inférieurs.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "aomi"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 230,
+    "tags": [
+      "aomi",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-arthrose-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Arthroses périphériques",
+    "label": "Fiche HAS - Arthroses périphériques",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Arthroses périphériques.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "arthrose"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360249/fr/fiche-prescription-d-activite-physique-arthroses-peripheriques",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Arthroses périphériques.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Arthroses périphériques.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "arthrose"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 240,
+    "tags": [
+      "arthrose",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-arthrose-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Arthroses périphériques",
+    "label": "Synthèse HAS - Arthroses périphériques",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Arthroses périphériques.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "arthrose"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360250/fr/synthese-prescription-d-activite-physique-arthroses-peripheriques",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Arthroses périphériques.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Arthroses périphériques.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "arthrose"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 250,
+    "tags": [
+      "arthrose",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-asthme-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Asthme",
+    "label": "Fiche HAS - Asthme",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Asthme.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "asthme"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "pneumologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360235/fr/fiche-prescription-d-activite-physique-asthme",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Asthme.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Asthme.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "asthme"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 260,
+    "tags": [
+      "asthme",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-asthme-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Asthme",
+    "label": "Synthèse HAS - Asthme",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Asthme.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "asthme"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "pneumologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360236/fr/synthese-prescription-d-activite-physique-asthme",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Asthme.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Asthme.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "asthme"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 270,
+    "tags": [
+      "asthme",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-bpco-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Bronchopneumopathie chronique obstructive",
+    "label": "Référentiel HAS - Bronchopneumopathie chronique obstructive",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Bronchopneumopathie chronique obstructive.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "bpco"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "pneumologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/c_2876897/fr/referentiel-de-prescription-d-activite-physique-et-sportive-bronchopneumopathie-obstructive",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Bronchopneumopathie chronique obstructive.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Bronchopneumopathie chronique obstructive.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "bpco"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 280,
+    "tags": [
+      "bpco",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-bpco-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Bronchopneumopathie chronique obstructive",
+    "label": "Synthèse HAS - Bronchopneumopathie chronique obstructive",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Bronchopneumopathie chronique obstructive.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "bpco"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "pneumologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360229/fr/synthese-prescription-d-activite-physique-bronchopneumopathie-chronique-obstructive",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Bronchopneumopathie chronique obstructive.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Bronchopneumopathie chronique obstructive.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "bpco"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 290,
+    "tags": [
+      "bpco",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-cancer-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Cancers : sein, colorectal, prostate",
+    "label": "Référentiel HAS - Cancers : sein, colorectal, prostate",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Cancers : sein, colorectal, prostate.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "cancer"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "oncologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3084457/fr/referentiel-de-prescription-d-activite-physique-et-sportive-cancers-sein-colorectal-prostate",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Cancers : sein, colorectal, prostate.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Cancers : sein, colorectal, prostate.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "cancer"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 300,
+    "tags": [
+      "cancer",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-cancer-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Cancers : sein, colorectal, prostate",
+    "label": "Synthèse HAS - Cancers : sein, colorectal, prostate",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Cancers : sein, colorectal, prostate.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "cancer"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "oncologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360245/fr/synthese-prescription-d-activite-physique-cancers-sein-colorectal-prostate",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Cancers : sein, colorectal, prostate.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Cancers : sein, colorectal, prostate.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "cancer"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 310,
+    "tags": [
+      "cancer",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-depression-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Dépression",
+    "label": "Référentiel HAS - Dépression",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Dépression.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "depression"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "motivation"
+    ],
+    "specialties": [
+      "psychiatrie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3084459/fr/referentiel-de-prescription-d-activite-physique-et-sportive-depression",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Dépression.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Dépression.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "depression"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 320,
+    "tags": [
+      "depression",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-depression-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Dépression",
+    "label": "Synthèse HAS - Dépression",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Dépression.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "depression"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "motivation"
+    ],
+    "specialties": [
+      "psychiatrie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360246/fr/synthese-prescription-d-activite-physique-depression",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Dépression.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Dépression.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "depression"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 330,
+    "tags": [
+      "depression",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-dt1-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Diabète de type 1",
+    "label": "Fiche HAS - Diabète de type 1",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Diabète de type 1.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "dt1"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "nutrition"
+    ],
+    "specialties": [
+      "diabetologie",
+      "endocrinologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360228/fr/fiche-prescription-d-activite-physique-diabete-de-type-1",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Diabète de type 1.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Diabète de type 1.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "dt1"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 340,
+    "tags": [
+      "dt1",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-dt1-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Diabète de type 1",
+    "label": "Synthèse HAS - Diabète de type 1",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Diabète de type 1.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "dt1"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "nutrition"
+    ],
+    "specialties": [
+      "diabetologie",
+      "endocrinologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360227/fr/synthese-prescription-d-activite-physique-diabete-de-type-1",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Diabète de type 1.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Diabète de type 1.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "dt1"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 350,
+    "tags": [
+      "dt1",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-dt2-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Diabète de type 2",
+    "label": "Référentiel HAS - Diabète de type 2",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Diabète de type 2.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "dt2"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "nutrition"
+    ],
+    "specialties": [
+      "diabetologie",
+      "endocrinologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/c_2876898/fr/referentiel-de-prescription-d-activite-physique-et-sportive-diabete-de-type-2",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Diabète de type 2.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Diabète de type 2.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "dt2"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 360,
+    "tags": [
+      "dt2",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-dt2-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Diabète de type 2",
+    "label": "Synthèse HAS - Diabète de type 2",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Diabète de type 2.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "dt2"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "nutrition"
+    ],
+    "specialties": [
+      "diabetologie",
+      "endocrinologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360221/fr/synthese-prescription-d-activite-physique-diabete-de-type-2",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Diabète de type 2.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Diabète de type 2.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "dt2"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 370,
+    "tags": [
+      "dt2",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-hta-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Hypertension artérielle",
+    "label": "Référentiel HAS - Hypertension artérielle",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Hypertension artérielle.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "hta"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/c_2876900/fr/referentiel-de-prescription-d-activite-physique-et-sportive-hypertension-arterielle",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Hypertension artérielle.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Hypertension artérielle.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "hta"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 380,
+    "tags": [
+      "hta",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-hta-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Hypertension artérielle",
+    "label": "Synthèse HAS - Hypertension artérielle",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Hypertension artérielle.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "hta"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360237/fr/synthese-prescription-d-activite-physique-hypertension-arterielle",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Hypertension artérielle.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Hypertension artérielle.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "hta"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 390,
+    "tags": [
+      "hta",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-icc-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Insuffisance cardiaque chronique",
+    "label": "Référentiel HAS - Insuffisance cardiaque chronique",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Insuffisance cardiaque chronique.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "icc"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3084456/fr/referentiel-de-prescription-d-activite-physique-et-sportive-insuffisance-cardiaque-chronique",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Insuffisance cardiaque chronique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Insuffisance cardiaque chronique.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "icc"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 400,
+    "tags": [
+      "icc",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-icc-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Insuffisance cardiaque chronique",
+    "label": "Synthèse HAS - Insuffisance cardiaque chronique",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Insuffisance cardiaque chronique.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "icc"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360241/fr/synthese-prescription-d-activite-physique-insuffisance-cardiaque-chronique",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Insuffisance cardiaque chronique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Insuffisance cardiaque chronique.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "icc"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 410,
+    "tags": [
+      "icc",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-lombalgie-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Lombalgie commune chronique",
+    "label": "Fiche HAS - Lombalgie commune chronique",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Lombalgie commune chronique.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "lombalgie"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie",
+      "medecine_physique_readaptation"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506163/fr/fiche-aps-lombalgie-commune-chronique",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Lombalgie commune chronique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Lombalgie commune chronique.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "lombalgie"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 420,
+    "tags": [
+      "lombalgie",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-lombalgie-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Lombalgie commune chronique",
+    "label": "Synthèse HAS - Lombalgie commune chronique",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Lombalgie commune chronique.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "lombalgie"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie",
+      "medecine_physique_readaptation"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506164/fr/synthese-aps-lombalgie-commune-chronique",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Lombalgie commune chronique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Lombalgie commune chronique.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "lombalgie"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 430,
+    "tags": [
+      "lombalgie",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-parkinson-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Maladie de Parkinson",
+    "label": "Fiche HAS - Maladie de Parkinson",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Maladie de Parkinson.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "parkinson"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "neurologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360243/fr/fiche-prescription-d-activite-physique-maladie-de-parkinson",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Maladie de Parkinson.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Maladie de Parkinson.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "parkinson"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 440,
+    "tags": [
+      "parkinson",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-parkinson-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Maladie de Parkinson",
+    "label": "Synthèse HAS - Maladie de Parkinson",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Maladie de Parkinson.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "parkinson"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "neurologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360244/fr/synthese-prescription-d-activite-physique-maladie-de-parkinson",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Maladie de Parkinson.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Maladie de Parkinson.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "parkinson"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 450,
+    "tags": [
+      "parkinson",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-polyarthrite-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Polyarthrite rhumatoïde",
+    "label": "Fiche HAS - Polyarthrite rhumatoïde",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Polyarthrite rhumatoïde.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "polyarthrite"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506165/fr/fiche-aps-polyarthrite-rhumatoide",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Polyarthrite rhumatoïde.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Polyarthrite rhumatoïde.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "polyarthrite"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 460,
+    "tags": [
+      "polyarthrite",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-polyarthrite-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Polyarthrite rhumatoïde",
+    "label": "Synthèse HAS - Polyarthrite rhumatoïde",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Polyarthrite rhumatoïde.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "polyarthrite"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506166/fr/synthese-aps-polyarthrite-rhumatoide",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Polyarthrite rhumatoïde.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Polyarthrite rhumatoïde.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "polyarthrite"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 470,
+    "tags": [
+      "polyarthrite",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-schizophrenie-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Troubles schizophréniques",
+    "label": "Fiche HAS - Troubles schizophréniques",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Troubles schizophréniques.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "schizophrenie"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "motivation"
+    ],
+    "specialties": [
+      "psychiatrie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360247/fr/fiche-prescription-d-activite-physique-troubles-schizophreniques",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Troubles schizophréniques.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Troubles schizophréniques.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "schizophrenie"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 480,
+    "tags": [
+      "schizophrenie",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-schizophrenie-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Troubles schizophréniques",
+    "label": "Synthèse HAS - Troubles schizophréniques",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Troubles schizophréniques.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "schizophrenie"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "motivation"
+    ],
+    "specialties": [
+      "psychiatrie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360248/fr/synthese-prescription-d-activite-physique-troubles-schizophreniques",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Troubles schizophréniques.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Troubles schizophréniques.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "schizophrenie"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 490,
+    "tags": [
+      "schizophrenie",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-sep-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Sclérose en plaques",
+    "label": "Fiche HAS - Sclérose en plaques",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Sclérose en plaques.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "sep"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "neurologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506167/fr/fiche-aps-sclerose-en-plaques",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Sclérose en plaques.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Sclérose en plaques.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "sep"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 500,
+    "tags": [
+      "sep",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-sep-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Sclérose en plaques",
+    "label": "Synthèse HAS - Sclérose en plaques",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Sclérose en plaques.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "sep"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "neurologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506168/fr/synthese-aps-sclerose-en-plaques",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Sclérose en plaques.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Sclérose en plaques.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "sep"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 510,
+    "tags": [
+      "sep",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-spondylarthrite-fiche-001",
+    "status": "active",
+    "title": "Fiche HAS - Prescription d’activité physique - Spondylarthrite axiale",
+    "label": "Fiche HAS - Spondylarthrite axiale",
+    "description": "Fiche professionnelle de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Spondylarthrite axiale.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "spondylarthrite"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506169/fr/fiche-aps-spondylarthrite-axiale",
+    "patientIntro": "",
+    "clinicianIntro": "Fiche HAS destinée aux professionnels : prescription d’activité physique - Spondylarthrite axiale.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Spondylarthrite axiale.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "spondylarthrite"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 520,
+    "tags": [
+      "spondylarthrite",
+      "fiche",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-spondylarthrite-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Spondylarthrite axiale",
+    "label": "Synthèse HAS - Spondylarthrite axiale",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Spondylarthrite axiale.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "spondylarthrite"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "souplesse",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "rhumatologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506170/fr/synthese-aps-spondylarthrite-axiale",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Spondylarthrite axiale.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Spondylarthrite axiale.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "spondylarthrite"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 530,
+    "tags": [
+      "spondylarthrite",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-obesite-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Surpoids et obésité de l’adulte",
+    "label": "Référentiel HAS - Surpoids et obésité de l’adulte",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Surpoids et obésité de l’adulte.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "obesite"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "nutrition"
+    ],
+    "specialties": [
+      "diabetologie",
+      "endocrinologie",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/c_2876901/fr/referentiel-de-prescription-d-activite-physique-et-sportive-surpoids-et-obesite-de-l-adulte",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Surpoids et obésité de l’adulte.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Surpoids et obésité de l’adulte.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "obesite"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 540,
+    "tags": [
+      "obesite",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-obesite-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Surpoids et obésité de l’adulte",
+    "label": "Synthèse HAS - Surpoids et obésité de l’adulte",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Surpoids et obésité de l’adulte.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "obesite"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite",
+      "nutrition"
+    ],
+    "specialties": [
+      "diabetologie",
+      "endocrinologie",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360220/fr/synthese-prescription-d-activite-physique-surpoids-obesite-de-l-adulte",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Surpoids et obésité de l’adulte.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Surpoids et obésité de l’adulte.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "obesite"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 550,
+    "tags": [
+      "obesite",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-coronaropathie-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Syndrome coronarien chronique",
+    "label": "Référentiel HAS - Syndrome coronarien chronique",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Syndrome coronarien chronique.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "coronaropathie"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/c_2876911/fr/referentiel-de-prescription-d-activite-physique-et-sportive-maladie-coronarienne-stable",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Syndrome coronarien chronique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Syndrome coronarien chronique.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "coronaropathie"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 560,
+    "tags": [
+      "coronaropathie",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-coronaropathie-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Syndrome coronarien chronique",
+    "label": "Synthèse HAS - Syndrome coronarien chronique",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Syndrome coronarien chronique.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "coronaropathie"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "cardiologie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360238/fr/synthese-prescription-d-activite-physique-syndrome-coronarien-chronique",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Syndrome coronarien chronique.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Syndrome coronarien chronique.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "coronaropathie"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 570,
+    "tags": [
+      "coronaropathie",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-grossesse-postpartum-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Grossesse et post-partum",
+    "label": "Référentiel HAS - Grossesse et post-partum",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Grossesse et post-partum.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "grossesse",
+        "postpartum"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "gynecologie_obstetrique",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3084460/fr/referentiel-de-prescription-d-activite-physique-et-sportive-pendant-la-grossesse-et-en-post-partum",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Grossesse et post-partum.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Grossesse et post-partum.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "grossesse",
+        "postpartum"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 580,
+    "tags": [
+      "grossesse-postpartum",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-grossesse-postpartum-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Grossesse et post-partum",
+    "label": "Synthèse HAS - Grossesse et post-partum",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Grossesse et post-partum.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "grossesse",
+        "postpartum"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "gynecologie_obstetrique",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3360251/fr/synthese-prescription-d-activite-physique-grossesse-et-post-partum",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Grossesse et post-partum.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Grossesse et post-partum.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "grossesse",
+        "postpartum"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 590,
+    "tags": [
+      "grossesse-postpartum",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-personne-agee-referentiel-001",
+    "status": "active",
+    "title": "Référentiel HAS - Prescription d’activité physique - Personnes âgées",
+    "label": "Référentiel HAS - Personnes âgées",
+    "description": "Référentiel complet de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Personnes âgées.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3084458/fr/referentiel-de-prescription-d-activite-physique-et-sportive-les-personnes-agees",
+    "patientIntro": "",
+    "clinicianIntro": "Référentiel HAS destinée aux professionnels : prescription d’activité physique - Personnes âgées.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Personnes âgées.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 600,
+    "tags": [
+      "personne-agee",
+      "referentiel",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-personne-agee-chute-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Personnes âgées à risque de chute",
+    "label": "Synthèse HAS - Personnes âgées à risque de chute",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Personnes âgées à risque de chute.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "equilibre",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506172/fr/synthese-aps-personnes-agees-a-risque-de-chute",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Personnes âgées à risque de chute.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Personnes âgées à risque de chute.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 610,
+    "tags": [
+      "personne-agee-chute",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-personne-agee-capacite-motrice-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Maintien des capacités motrices des personnes âgées",
+    "label": "Synthèse HAS - Maintien des capacités motrices des personnes âgées",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Maintien des capacités motrices des personnes âgées.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": []
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "geriatrie",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506171/fr/synthese-aps-icope",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Maintien des capacités motrices des personnes âgées.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Maintien des capacités motrices des personnes âgées.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "personne_agee"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 620,
+    "tags": [
+      "personne-agee-capacite-motrice",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-handicap-physique-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Handicap nécessitant une aide technique à la mobilité",
+    "label": "Synthèse HAS - Handicap nécessitant une aide technique à la mobilité",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Handicap nécessitant une aide technique à la mobilité.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "handicap_physique"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "equilibre",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "medecine_physique_readaptation",
+      "medecine_generale"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506174/fr/synthese-aps-adulte-et-enfant-en-situation-de-handicap-necessitant-un-dispositif-medical-ou-une-aide-technique-a-la-mobilite",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Handicap nécessitant une aide technique à la mobilité.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Handicap nécessitant une aide technique à la mobilité.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "handicap_physique"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 630,
+    "tags": [
+      "handicap-physique",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
+  },
+  {
+    "id": "has-handicap-intellectuel-synthese-001",
+    "status": "active",
+    "title": "Synthèse HAS - Prescription d’activité physique - Trouble du développement intellectuel",
+    "label": "Synthèse HAS - Trouble du développement intellectuel",
+    "description": "Fiche de synthèse de la Haute Autorité de santé destiné aux professionnels pour accompagner la consultation et la prescription médicale d’activité physique : Trouble du développement intellectuel.",
+    "publisher": "Haute Autorité de santé",
+    "sourceLabel": "HAS",
+    "type": "reference_document",
+    "format": "web_page",
+    "audience": [
+      "clinician",
+      "health_professional",
+      "learner",
+      "apa_professional"
+    ],
+    "contextsAllowed": [
+      "consultation_context",
+      "clinician_library",
+      "training_interface",
+      "reference_use"
+    ],
+    "contexts": {
+      "pathologies": [
+        "handicap_intellectuel"
+      ]
+    },
+    "topics": [
+      "endurance",
+      "renforcement",
+      "securite",
+      "progressivite"
+    ],
+    "specialties": [
+      "medecine_generale",
+      "psychiatrie"
+    ],
+    "hostingType": "external",
+    "url": "https://www.has-sante.fr/jcms/c_2876862/fr/jcms/p_3506173/fr/synthese-aps-adulte-et-enfant-avec-un-trouble-du-developpement-intellectuel",
+    "patientIntro": "",
+    "clinicianIntro": "Synthèse HAS destinée aux professionnels : prescription d’activité physique - Trouble du développement intellectuel.",
+    "prescriptionLabel": "",
+    "trainingIntro": "Support HAS professionnel utilisable en formation ou comme référence : Trouble du développement intellectuel.",
+    "outputs": [
+      "crc"
+    ],
+    "qr": {
+      "enabled": false,
+      "target": ""
+    },
+    "requiresInternet": true,
+    "offlineContent": false,
+    "sourceVersion": "Octobre 2025",
+    "publicationDate": null,
+    "verifiedAt": "2026-06-29",
+    "nextReviewAt": "2027-06-29",
+    "urlStatus": "valid",
+    "rightsStatus": "not_applicable",
+    "copyrightHolder": "Haute Autorité de santé",
+    "attribution": "Haute Autorité de santé, octobre 2025",
+    "training": {
+      "enabled": true,
+      "topicIds": [
+        "handicap_intellectuel"
+      ],
+      "roles": [
+        "reference",
+        "core_content"
+      ]
+    },
+    "language": "fr",
+    "displayOrder": 640,
+    "tags": [
+      "handicap-intellectuel",
+      "synthese",
+      "has",
+      "prescription_activite_physique",
+      "apa",
+      "professionnel"
+    ]
   }
 ];
 
