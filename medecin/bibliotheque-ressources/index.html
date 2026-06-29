@@ -133,6 +133,17 @@
       line-height: 1.5;
     }
 
+    .qr-block {
+      display: flex;
+      justify-content: center;
+      margin: 4px 0 2px;
+    }
+
+    .qr-block svg {
+      max-width: 120px;
+      height: auto;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -210,6 +221,7 @@
     <section class="resource-grid" id="resourceGrid" aria-live="polite"></section>
   </main>
 
+  <script src="../../assets/vendor/qrcode-generator/qrcode.js"></script>
   <script src="../../core/clinical-context/resource-registry.js"></script>
 
   <script>
@@ -295,6 +307,109 @@ function normalizeSearchText(value) {
 
       return tag;
     }
+
+function buildLocalQrSvg(
+  value,
+  {
+    cellSize = 4,
+    margin = 2,
+    errorCorrectionLevel = "M"
+  } = {}
+) {
+
+  if (
+    !value ||
+    typeof window.qrcode !== "function"
+  ) {
+    return "";
+  }
+
+  try {
+    const qrCode =
+      window.qrcode(
+        0,
+        errorCorrectionLevel
+      );
+
+    qrCode.addData(String(value));
+    qrCode.make();
+
+    return qrCode.createSvgTag({
+      cellSize,
+      margin,
+      scalable: true
+    });
+  } catch (error) {
+    console.warn(
+      "Impossible de generer le QR code local.",
+      error
+    );
+
+    return "";
+  }
+}
+
+function buildSizedLocalQrSvg(
+  value,
+  {
+    size = 120,
+    cellSize = 4,
+    margin = 2,
+    errorCorrectionLevel = "M"
+  } = {}
+) {
+
+  const qrSvg =
+    buildLocalQrSvg(
+      value,
+      {
+        cellSize,
+        margin,
+        errorCorrectionLevel
+      }
+    );
+
+  if (!qrSvg) {
+    return "";
+  }
+
+  return qrSvg.replace(
+    "<svg ",
+    `<svg width="${size}" height="${size}" style="display:block;" `
+  );
+}
+
+function createQrBlock(resource) {
+  if (
+    !resource?.url ||
+    resource?.qr?.enabled !== true
+  ) {
+    return null;
+  }
+
+  const qrSvg =
+    buildSizedLocalQrSvg(
+      resource.url,
+      {
+        size: 120
+      }
+    );
+
+  if (!qrSvg) {
+    return null;
+  }
+
+  const qrBlock =
+    document.createElement("div");
+
+  qrBlock.className =
+    "qr-block";
+
+  qrBlock.innerHTML =
+    qrSvg;
+
+  return qrBlock;
+}
 
     function createResourceCard(resource) {
       const card =
@@ -398,12 +513,20 @@ function normalizeSearchText(value) {
         actions.appendChild(copyLink);
       }
 
-      card.appendChild(title);
-      card.appendChild(meta);
-      card.appendChild(description);
-      card.appendChild(actions);
+ const qrBlock =
+  createQrBlock(resource);
 
-      return card;
+card.appendChild(title);
+card.appendChild(meta);
+card.appendChild(description);
+
+if (qrBlock) {
+  card.appendChild(qrBlock);
+}
+
+card.appendChild(actions);
+
+return card;
     }
 
     function renderResources() {
