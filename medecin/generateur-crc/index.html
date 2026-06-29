@@ -1180,7 +1180,7 @@ Maladie respiratoire chronique
 <div>
 <strong style="display:block; margin-bottom:6px;">Locomoteur</strong>
 <label><input type="checkbox" class="patho" value="lombalgie"> Lombalgie chronique</label>
-<label><input type="checkbox" class="patho" value="arthrose"> Arthrose</label>
+<label><input type="checkbox" class="patho" value="arthrose"> Arthrose périphérique</label>
 <label><input type="checkbox" class="patho" value="pr"> Polyarthrite rhumatoïde</label>
 <label><input type="checkbox" class="patho" value="spa"> Spondyloarthrite</label>
 </div>
@@ -10594,27 +10594,24 @@ if (activeMode === "patient") {
         })
         .filter(Boolean);
 
-    const formattedHasResources =
-      hasResources.length === 1
-        ? hasResources[0]
-        : hasResources.length === 2
-          ? `${hasResources[0]} et ${hasResources[1]}`
-          : hasResources.length > 2
-            ? `${hasResources.slice(0, -1).join(", ")} et ${hasResources.at(-1)}`
-            : "";
+const hasResourcesIntro =
+  hasResources.length === 1
+    ? "Vous pouvez également consulter la fiche HAS suivante :"
+    : "Vous pouvez également consulter les fiches HAS suivantes :";
 
-    const hasResourcesText =
-      hasResources.length === 1
-        ? ` et la fiche HAS ${formattedHasResources}`
-        : hasResources.length > 1
-          ? ` et les fiches HAS ${formattedHasResources}`
-          : "";
+const hasResourcesList =
+  hasResources.length > 0
+    ? `\n\n${hasResourcesIntro}\n` +
+      hasResources
+        .map(resource => `• ${resource}`)
+        .join("\n")
+    : "";
 
 rulesParagraph.textContent =
-  `En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.\n` +
-  `Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercice ` +
-  `(${rulesLabel} : ${rulesUrl})` +
-  `${hasResourcesText}.`;
+  `En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.\n\n` +
+  `Précautions à prendre lors de vos séances d’activité physique (${rulesLabel}) :\n` +
+  `${rulesUrl}` +
+  `${hasResourcesList}`;
 
     if (
       hasParagraph &&
