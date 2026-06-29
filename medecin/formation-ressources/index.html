@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formation — Ressources PAP</title>
+
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #d9e0ea;
+      --accent: #2563eb;
+      --soft: #eef4ff;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    header {
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .notice {
+      margin: 18px 0;
+      padding: 12px 14px;
+      background: var(--soft);
+      border: 1px solid #c7d8ff;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      padding: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    select,
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 9px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: #ffffff;
+    }
+
+    .summary {
+      margin: 10px 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .resource-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .resource-card h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 12px;
+    }
+
+    .description {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--accent);
+      color: #ffffff;
+      background: var(--accent);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: var(--accent);
+    }
+
+    .empty {
+      padding: 18px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Formation — Ressources PAP</h1>
+      <p class="subtitle">
+        Ressources utilisables pour préparer ou illustrer une formation sur la prescription d’activité physique.
+      </p>
+    </header>
+
+    <div class="notice">
+      Cette page réutilise le registre central PAP. Elle affiche des supports pédagogiques ou des exemples de ressources.
+      Elle ne produit aucune décision clinique automatique.
+    </div>
+
+    <section class="filters" aria-label="Filtres">
+      <div>
+        <label for="topicFilter">Thème de formation</label>
+        <select id="topicFilter">
+          <option value="">Tous les thèmes</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="roleFilter">Rôle pédagogique</label>
+        <select id="roleFilter">
+          <option value="">Tous les rôles</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="searchFilter">Recherche</label>
+        <input id="searchFilter" type="search" placeholder="Exemple : HAS, diabete, arthrose…">
+      </div>
+    </section>
+
+    <p class="summary" id="summary"></p>
+
+    <section class="resource-grid" id="resourceGrid" aria-live="polite"></section>
+  </main>
+
+  <script src="../../core/clinical-context/resource-registry.js"></script>
+
+  <script>
+    const registry =
+      Array.isArray(window.RESOURCE_REGISTRY)
+        ? window.RESOURCE_REGISTRY
+        : [];
+
+    const resources =
+      registry
+        .filter(resource => resource.status === "active")
+        .filter(resource =>
+          (
+            Array.isArray(resource.contextsAllowed) &&
+            resource.contextsAllowed.includes("training_interface")
+          ) ||
+          resource.training?.enabled === true
+        );
+
+    const topicFilter =
+      document.getElementById("topicFilter");
+
+    const roleFilter =
+      document.getElementById("roleFilter");
+
+    const searchFilter =
+      document.getElementById("searchFilter");
+
+    const resourceGrid =
+      document.getElementById("resourceGrid");
+
+    const summary =
+      document.getElementById("summary");
+
+    function getTrainingTopics(resource) {
+      return resource.training?.topicIds || [];
+    }
+
+    function getTrainingRoles(resource) {
+      return resource.training?.roles || [];
+    }
+
+    function getPathologies(resource) {
+      return resource.contexts?.pathologies || [];
+    }
+
+    function uniqueSorted(values) {
+      return [...new Set(values.filter(Boolean))]
+        .sort((a, b) => a.localeCompare(b, "fr"));
+    }
+
+    function fillSelect(select, values) {
+      values.forEach(value => {
+        const option =
+          document.createElement("option");
+
+        option.value =
+          value;
+
+        option.textContent =
+          value;
+
+        select.appendChild(option);
+      });
+    }
+
+    function formatList(values) {
+      return values && values.length
+        ? values.join(", ")
+        : "non renseigné";
+    }
+
+    function normalizeSearchText(value) {
+      return String(value || "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    }
+
+    function createTag(text) {
+      const tag =
+        document.createElement("span");
+
+      tag.className =
+        "tag";
+
+      tag.textContent =
+        text;
+
+      return tag;
+    }
+
+    function createResourceCard(resource) {
+      const card =
+        document.createElement("article");
+
+      card.className =
+        "resource-card";
+
+      const title =
+        document.createElement("h2");
+
+      title.textContent =
+        resource.label ||
+        resource.title ||
+        resource.id;
+
+      const meta =
+        document.createElement("div");
+
+      meta.className =
+        "meta";
+
+      meta.appendChild(
+        createTag(resource.sourceLabel || resource.publisher || "Source non renseignée")
+      );
+
+      meta.appendChild(
+        createTag(resource.type || "type non renseigné")
+      );
+
+      getTrainingTopics(resource).forEach(topic =>
+        meta.appendChild(createTag(`thème : ${topic}`))
+      );
+
+      getTrainingRoles(resource).forEach(role =>
+        meta.appendChild(createTag(`rôle : ${role}`))
+      );
+
+      getPathologies(resource).forEach(pathology =>
+        meta.appendChild(createTag(`pathologie : ${pathology}`))
+      );
+
+      const description =
+        document.createElement("p");
+
+      description.className =
+        "description";
+
+      description.textContent =
+        resource.trainingIntro ||
+        resource.clinicianIntro ||
+        resource.description ||
+        "Aucune description disponible.";
+
+      const actions =
+        document.createElement("div");
+
+      actions.className =
+        "actions";
+
+      if (resource.url) {
+        const openLink =
+          document.createElement("a");
+
+        openLink.className =
+          "button";
+
+        openLink.href =
+          resource.url;
+
+        openLink.target =
+          "_blank";
+
+        openLink.rel =
+          "noopener noreferrer";
+
+        openLink.textContent =
+          "Ouvrir la ressource";
+
+        actions.appendChild(openLink);
+
+        const copyLink =
+          document.createElement("button");
+
+        copyLink.className =
+          "button secondary";
+
+        copyLink.type =
+          "button";
+
+        copyLink.textContent =
+          "Copier le lien";
+
+        copyLink.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(resource.url);
+            copyLink.textContent = "Lien copié";
+            setTimeout(() => {
+              copyLink.textContent = "Copier le lien";
+            }, 1500);
+          } catch (error) {
+            copyLink.textContent = "Copie impossible";
+          }
+        });
+
+        actions.appendChild(copyLink);
+      }
+
+      card.appendChild(title);
+      card.appendChild(meta);
+      card.appendChild(description);
+      card.appendChild(actions);
+
+      return card;
+    }
+
+    function renderResources() {
+      const selectedTopic =
+        topicFilter.value;
+
+      const selectedRole =
+        roleFilter.value;
+
+      const search =
+        normalizeSearchText(
+          searchFilter.value.trim()
+        );
+
+      const filteredResources =
+        resources.filter(resource => {
+          const topics =
+            getTrainingTopics(resource);
+
+          const roles =
+            getTrainingRoles(resource);
+
+          const pathologies =
+            getPathologies(resource);
+
+          const matchesTopic =
+            !selectedTopic ||
+            topics.includes(selectedTopic);
+
+          const matchesRole =
+            !selectedRole ||
+            roles.includes(selectedRole);
+
+          const searchableText =
+            normalizeSearchText(
+              [
+                resource.id,
+                resource.title,
+                resource.label,
+                resource.description,
+                resource.trainingIntro,
+                resource.clinicianIntro,
+                resource.publisher,
+                resource.sourceLabel,
+                resource.type,
+                formatList(topics),
+                formatList(roles),
+                formatList(pathologies)
+              ]
+                .filter(Boolean)
+                .join(" ")
+            );
+
+          const matchesSearch =
+            !search ||
+            searchableText.includes(search);
+
+          return (
+            matchesTopic &&
+            matchesRole &&
+            matchesSearch
+          );
+        });
+
+      summary.textContent =
+        `${filteredResources.length} ressource(s) affichée(s) sur ${resources.length}.`;
+
+      resourceGrid.innerHTML =
+        "";
+
+      if (!filteredResources.length) {
+        const empty =
+          document.createElement("div");
+
+        empty.className =
+          "empty";
+
+        empty.textContent =
+          "Aucune ressource ne correspond aux filtres sélectionnés.";
+
+        resourceGrid.appendChild(empty);
+        return;
+      }
+
+      filteredResources.forEach(resource => {
+        resourceGrid.appendChild(
+          createResourceCard(resource)
+        );
+      });
+    }
+
+    fillSelect(
+      topicFilter,
+      uniqueSorted(
+        resources.flatMap(resource =>
+          getTrainingTopics(resource)
+        )
+      )
+    );
+
+    fillSelect(
+      roleFilter,
+      uniqueSorted(
+        resources.flatMap(resource =>
+          getTrainingRoles(resource)
+        )
+      )
+    );
+
+    topicFilter.addEventListener(
+      "change",
+      renderResources
+    );
+
+    roleFilter.addEventListener(
+      "change",
+      renderResources
+    );
+
+    searchFilter.addEventListener(
+      "input",
+      renderResources
+    );
+
+    renderResources();
+  </script>
+</body>
+</html>
