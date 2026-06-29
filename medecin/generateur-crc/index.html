@@ -2515,7 +2515,11 @@ Commentaires complémentaires (facultatif) :
 
 <div class="sub-group">
 
-<div class="apa-limitations-compact" id="apaLimitationsCompact">
+<div
+  class="apa-limitations-compact"
+  id="apaLimitationsCompact"
+  style="cursor:pointer;"
+>
   <div>
     <strong>Limitations / adaptations APA :</strong>
     <span id="apaLimitationsCompactText">Aucune sélectionnée</span>
@@ -3097,12 +3101,13 @@ Orientation / encadrement
 
 <div class="sub-group">
 
-<div
+<label
   style="
     display:flex;
     align-items:center;
     gap:10px;
     margin-bottom:8px;
+    cursor:pointer;
   "
 >
 
@@ -3121,7 +3126,7 @@ Orientation / encadrement
 Orientation AP spécifique (optionnel)
 </span>
 
-</div>
+</label>
 
 <div
   id="orientation_ap_subgroup"
@@ -14018,29 +14023,43 @@ if (limitationAutreCheckbox) {
   const apaPanel =
     document.getElementById("apaLimitationsPanel");
 
-  if (toggleApaPanelBtn && apaPanel) {
+ if (toggleApaPanelBtn && apaPanel) {
 
-    toggleApaPanelBtn.onclick = function() {
+  const toggleApaLimitationsPanel = function() {
 
-      const willOpen = apaPanel.hidden;
+    const willOpen = apaPanel.hidden;
 
-      apaPanel.hidden = !willOpen;
+    apaPanel.hidden = !willOpen;
 
-      toggleApaPanelBtn.textContent =
-        willOpen ? "Masquer" : "Configurer";
+    toggleApaPanelBtn.textContent =
+      willOpen ? "Masquer" : "Configurer";
 
-if (willOpen) {
+    if (willOpen) {
+      document
+        .getElementById("apaLimitationsCompact")
+        ?.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+    }
+  };
+
+  toggleApaPanelBtn.onclick = function(event) {
+    event.stopPropagation();
+    toggleApaLimitationsPanel();
+  };
+
   document
     .getElementById("apaLimitationsCompact")
-    ?.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
+    ?.addEventListener("click", function(event) {
+
+      if (event.target.closest("button")) return;
+
+      toggleApaLimitationsPanel();
+
     });
+
 }
-
-    };
-
-  }
 
   const exerciseAdaptationsTextarea =
     document.getElementById("apa_exercise_adaptations");
