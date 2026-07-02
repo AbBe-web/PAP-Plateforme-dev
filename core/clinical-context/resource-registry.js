@@ -1,4 +1,4 @@
-﻿// GENERATED FILE — DO NOT EDIT MANUALLY
+// GENERATED FILE — DO NOT EDIT MANUALLY
 // Source: data/resources/source/PAP_Bibliotheque_Ressources_Tableur_Maitre_v1.xlsx
 // Generator: tools/resources/generate-resource-registry.ps1
 //
@@ -1564,7 +1564,9 @@ const RESOURCE_REGISTRY = [
       "reference_use"
     ],
     "contexts": {
-      "pathologies": []
+      "pathologies": [
+        "personne_agee"
+      ]
     },
     "topics": [
       "endurance",

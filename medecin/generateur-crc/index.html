@@ -5660,15 +5660,42 @@ updateResourceSelection();
 
 const resourceSelectionState = new Map();
 
+const patientResourcePathologyAliases = {
+  pr: "polyarthrite",
+  spa: "spondylarthrite",
+  pa_maintien: "personne_agee",
+  pa_chute: "personne_agee",
+  post_partum: "postpartum"
+};
+
+function normalizePatientResourcePathologyId(pathologyId) {
+  return patientResourcePathologyAliases[pathologyId] || pathologyId;
+}
+
+function expandPatientResourcePathologyIds(pathologyIds) {
+  return new Set(
+    pathologyIds.flatMap(pathologyId => {
+      const normalizedId =
+        normalizePatientResourcePathologyId(pathologyId);
+
+      return normalizedId === pathologyId
+        ? [pathologyId]
+        : [pathologyId, normalizedId];
+    })
+  );
+}
+
 function getAvailablePatientResources() {
 
   const selectedPathologies =
-    Array.from(
-      document.querySelectorAll(".patho:checked")
-    ).map(pathology => pathology.value);
+    expandPatientResourcePathologyIds(
+      Array.from(
+        document.querySelectorAll(".patho:checked")
+      ).map(pathology => pathology.value)
+    );
 
   if (
-    selectedPathologies.length === 0 ||
+    selectedPathologies.size === 0 ||
     !Array.isArray(window.RESOURCE_REGISTRY)
   ) {
     return [];
@@ -5693,7 +5720,10 @@ function getAvailablePatientResources() {
         resource.contexts?.pathologies || [];
 
       return resourcePathologies.some(pathology =>
-        selectedPathologies.includes(pathology)
+        selectedPathologies.has(pathology) ||
+        selectedPathologies.has(
+          normalizePatientResourcePathologyId(pathology)
+        )
       );
     })
     .sort(

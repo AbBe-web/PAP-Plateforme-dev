@@ -136,11 +136,37 @@ context.patientMessages.push({
    * RESOURCES
    */
 
+const resourcePathologyAliases = {
+  pr: "polyarthrite",
+  spa: "spondylarthrite",
+  pa_maintien: "personne_agee",
+  pa_chute: "personne_agee",
+  post_partum: "postpartum"
+};
+
+  const normalizeResourcePathologyId = pathologyId =>
+    resourcePathologyAliases[pathologyId] || pathologyId;
+
+  const normalizedPathologies =
+    new Set(
+      pathologies.flatMap(pathologyId => {
+        const normalizedId =
+          normalizeResourcePathologyId(pathologyId);
+
+        return normalizedId === pathologyId
+          ? [pathologyId]
+          : [pathologyId, normalizedId];
+      })
+    );
+
   RESOURCE_REGISTRY.forEach(resource => {
 
     const matchesPathology =
-      resource.contexts?.pathologies?.some(
-        patho => pathologies.includes(patho)
+      resource.contexts?.pathologies?.some(patho =>
+        normalizedPathologies.has(patho) ||
+        normalizedPathologies.has(
+          normalizeResourcePathologyId(patho)
+        )
       );
 
     if (matchesPathology) {
