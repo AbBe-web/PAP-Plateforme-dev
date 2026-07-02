@@ -7964,6 +7964,36 @@ Conseil(s) transmis au patient : ${sentence}.
 `;
 }
 
+function getPatientPathologyShortLabel(pathologyId) {
+  const patientLabels = {
+    hta: "Hypertension artérielle",
+    coronaropathie: "Coronaropathie",
+    icc: "Insuffisance cardiaque",
+    aomi: "Artériopathie des membres inférieurs",
+    dt1: "Diabète de type 1",
+    dt2: "Diabète de type 2",
+    obesite: "Obésité",
+    bpco: "BPCO",
+    asthme: "Asthme",
+    avc: "AVC",
+    parkinson: "Maladie de Parkinson",
+    sep: "Sclérose en plaques",
+    arthrose: "Arthrose",
+    lombalgie: "Lombalgie",
+    pr: "Polyarthrite rhumatoïde",
+    spa: "Spondylarthrite",
+    depression: "Dépression",
+    schizophrenie: "Schizophrénie",
+    cancer: "Cancer",
+    pa_maintien: "Personnes âgées – maintien des capacités",
+    pa_chute: "Personnes âgées – risque de chute",
+    grossesse: "Grossesse",
+    post_partum: "Post-partum"
+  };
+
+  return patientLabels[pathologyId] || pathologyId.toUpperCase();
+}
+
 function buildCRCPathoBloc(
   mode = "long",
   clinicalContext = null,
@@ -7991,7 +8021,7 @@ function buildCRCPathoBloc(
 
     // 🔹 LABEL
     const full = PATHO_DATA[p.value]?.titre || p.value;
-    const short = p.value.toUpperCase(); // HTA, DT2...
+    const short = getPatientPathologyShortLabel(p.value);
 
     grouped[p.value] = {
       items,
@@ -8088,7 +8118,9 @@ const itemsText =
     const { items, short } = grouped[key];
     if (!items || items.length === 0) return;
 
-lines.push(`${short} : ${items.join(", ")}`);
+    lines.push(
+      `- <span style="font-weight:600;">${short} :</span> ${items.join(", ")}`
+    );
   });
 
   if (lines.length === 0) return "";
