@@ -5708,11 +5708,7 @@ function getAvailablePatientResources() {
         return false;
       }
 
-      if (
-        !resource.contextsAllowed?.includes(
-          "patient_output"
-        )
-      ) {
+      if (resource.patientOutputAllowed !== true) {
         return false;
       }
 
@@ -5787,7 +5783,7 @@ function updateResourceSelection() {
     if (!resourceSelectionState.has(resource.id)) {
       resourceSelectionState.set(
         resource.id,
-        true
+        resource.basketDefaultEligible === true
       );
     }
   });
