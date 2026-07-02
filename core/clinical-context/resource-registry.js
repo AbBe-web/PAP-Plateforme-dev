@@ -53,6 +53,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -139,6 +145,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -232,6 +244,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -331,6 +349,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -420,6 +444,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -510,6 +540,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -597,6 +633,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -685,6 +727,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -777,6 +825,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -868,6 +922,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -960,6 +1020,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1050,6 +1116,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1140,6 +1212,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1232,6 +1310,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1321,6 +1405,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1411,6 +1501,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1500,6 +1596,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1591,6 +1693,12 @@ const RESOURCE_REGISTRY = [
       "ordonnance",
       "qr"
     ],
+    "outputCategory": "pathologie_situation",
+    "basketDefaultEligible": true,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "contextual_suggestion",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -1680,6 +1788,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -1762,6 +1876,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -1843,6 +1963,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -1924,6 +2050,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2005,6 +2137,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2086,6 +2224,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2166,6 +2310,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2246,6 +2396,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2326,6 +2482,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2406,6 +2568,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2486,6 +2654,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2566,6 +2740,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2647,6 +2827,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2728,6 +2914,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2810,6 +3002,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2892,6 +3090,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -2974,6 +3178,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3056,6 +3266,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3136,6 +3352,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3216,6 +3438,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3296,6 +3524,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3376,6 +3610,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3458,6 +3698,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3540,6 +3786,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3621,6 +3873,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3702,6 +3960,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3783,6 +4047,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3864,6 +4134,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -3945,6 +4221,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4026,6 +4308,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4107,6 +4395,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4188,6 +4482,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4269,6 +4569,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4350,6 +4656,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4433,6 +4745,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4516,6 +4834,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4596,6 +4920,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4676,6 +5006,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4758,6 +5094,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4841,6 +5183,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -4922,6 +5270,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -5001,6 +5355,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -5081,6 +5441,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -5163,6 +5529,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -5244,6 +5616,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "crc"
     ],
+    "outputCategory": "reference_professionnelle",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": false,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "clinician_reference",
+    "packIds": [],
     "qr": {
       "enabled": false,
       "target": ""
@@ -5330,6 +5708,12 @@ const RESOURCE_REGISTRY = [
       "crc",
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -5415,6 +5799,12 @@ const RESOURCE_REGISTRY = [
       "crc",
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -5501,6 +5891,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -5586,6 +5982,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -5670,6 +6072,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -5754,6 +6162,12 @@ const RESOURCE_REGISTRY = [
       "crc",
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -5838,6 +6252,12 @@ const RESOURCE_REGISTRY = [
       "crc",
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -5921,6 +6341,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6004,6 +6430,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6087,6 +6519,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6170,6 +6608,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6253,6 +6697,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6336,6 +6786,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6421,6 +6877,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6506,6 +6968,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6591,6 +7059,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6676,6 +7150,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"
@@ -6761,6 +7241,12 @@ const RESOURCE_REGISTRY = [
     "outputs": [
       "qr"
     ],
+    "outputCategory": "programme_pratique",
+    "basketDefaultEligible": false,
+    "patientOutputAllowed": true,
+    "clinicianOutputAllowed": true,
+    "suggestionMode": "optional_resource",
+    "packIds": [],
     "qr": {
       "enabled": true,
       "target": "url"

@@ -529,6 +529,58 @@ try {
             -QrEnabled $qrEnabled
         )
 
+      outputCategory =
+        Get-FieldText `
+          -Worksheet $resourcesSheet `
+          -Headers $headers `
+          -Row $row `
+          -Name "output_category"
+
+      basketDefaultEligible =
+        ConvertTo-PapBoolean (
+          Get-FieldRaw `
+            -Worksheet $resourcesSheet `
+            -Headers $headers `
+            -Row $row `
+            -Name "basket_default_eligible"
+        )
+
+      patientOutputAllowed =
+        ConvertTo-PapBoolean (
+          Get-FieldRaw `
+            -Worksheet $resourcesSheet `
+            -Headers $headers `
+            -Row $row `
+            -Name "patient_output_allowed"
+        )
+
+      clinicianOutputAllowed =
+        ConvertTo-PapBoolean (
+          Get-FieldRaw `
+            -Worksheet $resourcesSheet `
+            -Headers $headers `
+            -Row $row `
+            -Name "clinician_output_allowed"
+        )
+
+      suggestionMode =
+        Get-FieldText `
+          -Worksheet $resourcesSheet `
+          -Headers $headers `
+          -Row $row `
+          -Name "suggestion_mode"
+
+      packIds =
+        @(
+          Split-MultipleValues (
+            Get-FieldText `
+              -Worksheet $resourcesSheet `
+              -Headers $headers `
+              -Row $row `
+              -Name "pack_ids"
+          )
+        )
+
       qr = [ordered]@{
         enabled = $qrEnabled
 
