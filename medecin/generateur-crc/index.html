@@ -9343,6 +9343,14 @@ function buildOrdonnanceQuickAccessBlock(
           )
       : [];
 
+  const quickAccessCount =
+    1 + ordonnanceResources.length;
+
+  const quickAccessTitle =
+    quickAccessCount > 1
+      ? "Ressources utiles proposées :"
+      : "Ressource utile proposée :";
+
   const quickAccessItems =
     [
       buildResourceQrMarkup(
@@ -9396,7 +9404,7 @@ function buildOrdonnanceQuickAccessBlock(
     font-size:12px;
     text-align:center;
   ">
-    Ressources utiles lors des séances d’activité physique :
+    ${quickAccessTitle}
   </div>
 
   <div style="
