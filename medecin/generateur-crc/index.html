@@ -7096,6 +7096,14 @@ function updateHAS(){
   const niveauViseRadios = document.querySelectorAll('input[name="niveau_vise"]');
   const niveauVise = document.querySelector('input[name="niveau_vise"]:checked')?.value;
 
+  const imcConditionRadios =
+    document.querySelectorAll(
+      'input[name="imc_condition"]'
+    );
+
+  const imcCategoryForHAS =
+    getImcCategoryForHAS();
+
   const niveauActuelRadios = document.querySelectorAll('input[name="niveau_actuel"]');
   const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked')?.value;
   const container = document.getElementById("hasContent");
@@ -7104,6 +7112,10 @@ function updateHAS(){
   clearHighlight(ageInput);
   rcvRadios.forEach(r => clearHighlight(r.closest("label")));
   niveauViseRadios.forEach(r => clearHighlight(r.closest("label")));
+
+  imcConditionRadios.forEach(r =>
+    clearHighlight(r.closest("label"))
+  );
   niveauActuelRadios.forEach(r => clearHighlight(r.closest("label")));
  
     // 🔹 ÉTAT 1 : RIEN REMPLI
@@ -7125,6 +7137,20 @@ if (!rcv) {
 if (!niveauVise) {
   niveauViseRadios.forEach(r => highlightMissing(r.closest("label")));
   missingFields.push("le niveau d'activité visé");
+}
+
+if (
+  niveauVise === "eleve" &&
+  rcv === "faible" &&
+  !imcCategoryForHAS
+) {
+  imcConditionRadios.forEach(r =>
+    highlightMissing(r.closest("label"))
+  );
+
+  missingFields.push(
+    "la catégorie d’IMC si une activité physique d’intensité élevée est visée avec un risque cardiovasculaire faible"
+  );
 }
 
 // Vérification niveau actuel
@@ -7189,6 +7215,36 @@ function updateOrientationHelp() {
     "Aucun point particulier identifié.";
 }
 
+function getImcCategoryForHAS() {
+  const taille =
+    parseFloat(
+      document.getElementById("taille_input")?.value
+    );
+
+  const poids =
+    parseFloat(
+      document.getElementById("poids_input")?.value
+    );
+
+  if (
+    Number.isFinite(taille) &&
+    taille > 0 &&
+    Number.isFinite(poids) &&
+    poids > 0
+  ) {
+    const imc =
+      poids / ((taille / 100) ** 2);
+
+    return imc >= 35
+      ? ">=35"
+      : "<35";
+  }
+
+  return document.querySelector(
+    'input[name="imc_condition"]:checked'
+  )?.value || null;
+}
+
 function runHAS(model){
 
   const reco = {
@@ -7209,9 +7265,11 @@ function runHAS(model){
 
   const age = parseInt(document.getElementById("age_input")?.value) || null;
 
-  const imcText = document.getElementById("imc_result")?.innerText || "";
-  const imcMatch = imcText.match(/IMC : ([0-9.]+)/);
-  const imc = imcMatch ? parseFloat(imcMatch[1]) : null;
+  const imcCategoryForHAS =
+    getImcCategoryForHAS();
+
+  const imcGte35 =
+    imcCategoryForHAS === ">=35";
 
   // =====================================
   // 🔹 EXTRACTION FIABLE
@@ -7344,7 +7402,11 @@ else if (
 
 else if (
 
-  (niveauVise === "eleve" && imc >= 35) ||
+  (
+    niveauVise === "eleve" &&
+    rcv === "faible" &&
+    imcGte35
+  ) ||
 
   (
     niveauVise === "modere" &&
