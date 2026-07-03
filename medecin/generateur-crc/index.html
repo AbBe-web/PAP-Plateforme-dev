@@ -678,6 +678,34 @@ Vous pouvez importer les données issues du questionnaire patient
 afin de préremplir certains champs du formulaire.
 </p>
 
+<div class="pap-consultation-mode-panel">
+  <div class="pap-consultation-mode-label">Choisir le mode de consultation</div>
+
+  <div class="pap-consultation-mode-toggle" aria-label="Choix du mode de consultation">
+    <button
+      type="button"
+      id="papFullModeBtn"
+      class="pap-mode-btn pap-mode-btn-active"
+      aria-pressed="true"
+    >
+      Consultation complète
+    </button>
+
+    <button
+      type="button"
+      id="papQuickModeBtn"
+      class="pap-mode-btn"
+      aria-pressed="false"
+    >
+      Consultation rapide
+    </button>
+  </div>
+
+  <div id="papQuickModeNotice" class="pap-quick-mode-notice hidden">
+    Mode rapide : pour une consultation courte en situation simple. En cas de doute, repasser en consultation complète ; le médecin reste décisionnaire final.
+  </div>
+</div>
+
 <div style="margin-bottom:12px;">
 
 <button
@@ -14704,6 +14732,46 @@ if (respiratoire) {
 }
 }
 
+// ===============================
+// MODE CONSULTATION RAPIDE / COMPLÈTE
+// Lot 1 : toggle UX uniquement
+// ===============================
+function initPapConsultationModeToggle() {
+  const fullModeBtn = document.getElementById("papFullModeBtn");
+  const quickModeBtn = document.getElementById("papQuickModeBtn");
+  const quickModeNotice = document.getElementById("papQuickModeNotice");
+
+  if (!fullModeBtn || !quickModeBtn) {
+    return;
+  }
+
+  function setPapConsultationMode(mode) {
+    const isQuickMode = mode === "quick";
+
+    document.body.classList.toggle("pap-quick-mode", isQuickMode);
+
+    fullModeBtn.classList.toggle("pap-mode-btn-active", !isQuickMode);
+    quickModeBtn.classList.toggle("pap-mode-btn-active", isQuickMode);
+
+    fullModeBtn.setAttribute("aria-pressed", String(!isQuickMode));
+    quickModeBtn.setAttribute("aria-pressed", String(isQuickMode));
+
+    if (quickModeNotice) {
+      quickModeNotice.classList.toggle("hidden", !isQuickMode);
+    }
+  }
+
+  fullModeBtn.addEventListener("click", function () {
+    setPapConsultationMode("full");
+  });
+
+  quickModeBtn.addEventListener("click", function () {
+    setPapConsultationMode("quick");
+  });
+
+  setPapConsultationMode("full");
+}
+
 // 🔥 INIT
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -14715,10 +14783,11 @@ window._uiInitialized = true;
 
 initResourceSelectionToggle();
 
-  // =====================================
-  // 1️⃣ UI DE BASE
-  // =====================================
-  initUI();
+// =====================================
+// 1️⃣ UI DE BASE
+// =====================================
+initUI();
+initPapConsultationModeToggle();
 
   // =====================================
   // 2️⃣ UI CONDITIONNELLE (CRITIQUE)
