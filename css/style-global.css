@@ -2079,3 +2079,23 @@ body.pap-quick-mode #sixmois-subgroup {
 .crc-page .form-group > h2 ~ label {
   margin-left: 10px !important;
 }
+
+/* =========================================================
+   PAP — HAS : navigation vers champs manquants
+   ========================================================= */
+
+.has-missing-jump {
+  margin-left: 0.45rem;
+  padding: 0.12rem 0.45rem;
+  border: 1px solid #f59e0b;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #92400e;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.has-missing-jump:hover {
+  background: #fffbeb;
+}

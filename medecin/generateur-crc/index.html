@@ -7150,25 +7150,34 @@ function updateHAS(){
   );
   niveauActuelRadios.forEach(r => clearHighlight(r.closest("label")));
  
-    // 🔹 ÉTAT 1 : RIEN REMPLI
+    // 🔹 ÉTAT 1 : CHAMPS NÉCESSAIRES MANQUANTS
 let missingFields = [];
 
 // Vérification âge
 if (!age) {
   highlightMissing(ageInput);
-  missingFields.push("l'âge");
+  missingFields.push({
+    label: "l'âge",
+    targetId: "age_input"
+  });
 }
 
 // Vérification RCV
 if (!rcv) {
   rcvRadios.forEach(r => highlightMissing(r.closest("label")));
-  missingFields.push("le risque cardiovasculaire");
+  missingFields.push({
+    label: "le risque cardiovasculaire",
+    targetId: "rcv-container"
+  });
 }
 
 // Vérification niveau visé
 if (!niveauVise) {
   niveauViseRadios.forEach(r => highlightMissing(r.closest("label")));
-  missingFields.push("le niveau d'activité visé");
+  missingFields.push({
+    label: "l’intensité visée",
+    targetId: "niveau-vise-container"
+  });
 }
 
 if (
@@ -7180,15 +7189,19 @@ if (
     highlightMissing(r.closest("label"))
   );
 
-  missingFields.push(
-    "la catégorie d’IMC si une activité physique d’intensité élevée est visée avec un risque cardiovasculaire faible"
-  );
+  missingFields.push({
+    label: "la catégorie d’IMC si une activité physique d’intensité élevée est visée avec un risque cardiovasculaire faible",
+    targetId: "imc_fallback"
+  });
 }
 
 // Vérification niveau actuel
 if (!niveauActuel) {
   niveauActuelRadios.forEach(r => highlightMissing(r.closest("label")));
-  missingFields.push("le niveau d'activité actuel");
+  missingFields.push({
+    label: "le niveau d’activité physique actuel",
+    targetId: "niveau-container"
+  });
 }
 
 // Si champs manquants → message global
@@ -7204,7 +7217,7 @@ if (missingFields.length > 0) {
         font-size:0.9rem;
       ">
  ⚠️ Merci de renseigner les éléments suivants pour afficher les recommandations du guide HAS :<br>
-${missingFields.map(f => "• " + f).join("<br>")}
+${missingFields.map(f => `• ${f.label} <button type="button" class="has-missing-jump" onclick="scrollToHASMissingField('${f.targetId}')">Aller au champ</button>`).join("<br>")}
       </div>
     `;
   }
@@ -13857,7 +13870,32 @@ function clearHighlight(el){
   if (!el) return;
   el.classList.remove("has-missing");
 }
-    
+
+function scrollToHASMissingField(targetId) {
+  const target =
+    document.getElementById(targetId);
+
+  if (!target) {
+    return;
+  }
+
+  target.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+  const focusable =
+    target.matches("input, textarea, select, button")
+      ? target
+      : target.querySelector("input, textarea, select, button");
+
+  if (focusable) {
+    setTimeout(() => {
+      focusable.focus({ preventScroll: true });
+    }, 300);
+  }
+}
+
 function initHASListeners() {
 
   document.querySelectorAll('.patho').forEach(cb => {
