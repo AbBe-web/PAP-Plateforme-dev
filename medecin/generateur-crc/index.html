@@ -1343,127 +1343,123 @@ Apixaban 5 mg x2/j">
 
 </div>
         
-            <div class="form-group">
-                <h2>4/ Évaluation de l’Activité Physique (niveau actuel et visé, motivation)</h2>
-                <div class="sub-group">
-<h3 id="niveau-actuel-title">
-  Niveau actuel (mesuré par GPAQ ou Marshall) :
-</h3>
+<div class="form-group">
+  <h2>4/ Évaluation de l’activité physique</h2>
 
-<div style="margin-bottom:10px;">
-  <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>
-  <label><input type="radio" name="questionnaire" value="Marshall"> Marshall</label>
-</div>
+  <div class="sub-group pap-ap-sedentarite-block">
+    <h3>Statut de sédentarité</h3>
 
-<div id="niveau-container" style="display: flex; align-items: center; gap:25px; flex-wrap: wrap;">
-
-<label>
-<input id="niveau_tres_actif" type="radio" name="niveau_actuel" value="tres_actif"> Très actif
-</label>
-
-<label>
-<input id="niveau_actif" type="radio" name="niveau_actuel" value="actif"> Actif
-</label>
-
-<label>
-<input id="niveau_moyen" type="radio" name="niveau_actuel" value="moyennement_actif"> Moyennement actif
-</label>
-
-<label>
-<input id="niveau_inactif" type="radio" name="niveau_actuel" value="inactif"> Insuffisamment actif
-</label>
-
-</div>
-
-
-<div id="actif-subgroup" class="hidden">
-
-<label>
-<input type="radio" name="actif_depuis" value="plus_6_mois">
-Oui, depuis plus de 6 mois
-</label>
-
-<label>
-<input type="radio" name="actif_depuis" value="moins_6_mois">
-Non, depuis moins de 6 mois
-</label>
-
-</div>
-
-
-<div id="inactif-subgroup" class="hidden">
-
-<label>
-<input type="radio" name="ap_envisagee" value="oui">
-AP envisagée dans les 30 jours
-</label>
-
-<label>
-<input type="radio" name="ap_envisagee" value="non">
-Pas d’AP envisagée dans les 30 jours
-</label>
-
-</div>
-
-<div id="sixmois-subgroup" class="hidden">
-
-<label>
-<input type="radio" name="ap_6_mois" value="oui">
-AP envisagée dans les 6 mois
-</label>
-
-<label>
-<input type="radio" name="ap_6_mois" value="non">
-Pas d’AP envisagée dans les 6 mois
-</label>
-
-</div>
-                    
-<label>
-  Nombre de pas par jour sur le dernier mois :
-  <input type="number" name="nombre_pas" placeholder="Ex : 7500">
-</label>
-                    
-<div>
-    <label>
+    <div>
+      <label>
         <input type="radio" name="sedentaire" value="sedentaire">
         Sédentaire
-    </label>
+      </label>
 
-    <label>
+      <label>
         <input type="radio" name="sedentaire" value="non_sedentaire">
         Non sédentaire
-    </label>
+      </label>
 
-    <label>
+      <label>
         <input type="radio" name="sedentaire" value="non_recherche">
-        Statut de sédentarité non recherché
-    </label>
-</div>
-<label>
-  Nombre moyen d’heures assises par jour :
-  <input type="number" name="heures_assises" placeholder="Ex : 8">
-</label>
+        Statut non recherché
+      </label>
+    </div>
 
+      <label class="pap-quick-hide">
+        Nombre moyen d’heures assises par jour :
+        <input type="number" name="heures_assises" placeholder="Ex : 8">
+      </label>
+    </div>
 
+    <div class="sub-group pap-ap-current-block">
+      <h3 id="niveau-actuel-title">
+        Niveau actuel d’activité physique
+      </h3>
 
-                </div>
+      <div class="pap-quick-hide" style="margin-bottom:10px;">
+        <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>
+        <label><input type="radio" name="questionnaire" value="Marshall"> Marshall</label>
+      </div>
 
-                <div class="sub-group">
-                    <h3>Niveau visé (intensité) :
-                    <span
-  class="info-icon"
-  onclick="event.preventDefault(); event.stopPropagation(); showIntensiteInfo();"
->
-  i
-</span>
-</h3>                   
-<div id="niveau-vise-container" class="inline-radio-group">
-  <label><input type="radio" name="niveau_vise" value="faible"> Faible</label>
-  <label><input type="radio" name="niveau_vise" value="modere"> Modéré</label>
-  <label><input type="radio" name="niveau_vise" value="eleve"> Élevé</label>
-</div>
- </div>     
+      <div id="niveau-container" style="display: flex; align-items: center; gap:25px; flex-wrap: wrap;">
+        <label>
+          <input id="niveau_tres_actif" type="radio" name="niveau_actuel" value="tres_actif"> Très actif
+        </label>
+
+        <label>
+          <input id="niveau_actif" type="radio" name="niveau_actuel" value="actif"> Actif
+        </label>
+
+        <label>
+          <input id="niveau_moyen" type="radio" name="niveau_actuel" value="moyennement_actif"> Moyennement actif
+        </label>
+
+        <label>
+          <input id="niveau_inactif" type="radio" name="niveau_actuel" value="inactif"> Insuffisamment actif
+        </label>
+      </div>
+
+      <div id="actif-subgroup" class="hidden">
+        <label>
+          <input type="radio" name="actif_depuis" value="plus_6_mois">
+          Oui, depuis plus de 6 mois
+        </label>
+
+        <label>
+          <input type="radio" name="actif_depuis" value="moins_6_mois">
+          Non, depuis moins de 6 mois
+        </label>
+      </div>
+
+      <div id="inactif-subgroup" class="hidden">
+        <label>
+          <input type="radio" name="ap_envisagee" value="oui">
+          AP envisagée dans les 30 jours
+        </label>
+
+        <label>
+          <input type="radio" name="ap_envisagee" value="non">
+          Pas d’AP envisagée dans les 30 jours
+        </label>
+      </div>
+
+      <div id="sixmois-subgroup" class="hidden">
+        <label>
+          <input type="radio" name="ap_6_mois" value="oui">
+          AP envisagée dans les 6 mois
+        </label>
+
+        <label>
+          <input type="radio" name="ap_6_mois" value="non">
+          Pas d’AP envisagée dans les 6 mois
+        </label>
+      </div>
+
+      <label class="pap-quick-hide">
+        Nombre de pas par jour sur le dernier mois :
+        <input type="number" name="nombre_pas" placeholder="Ex : 7500">
+       </label>
+    </div>
+
+    <div class="sub-group pap-ap-target-block">
+      <h3>
+        Intensité visée
+        <span
+          class="info-icon"
+          onclick="event.preventDefault(); event.stopPropagation(); showIntensiteInfo();"
+        >
+          i
+        </span>
+      </h3>
+
+      <div id="niveau-vise-container" class="inline-radio-group">
+        <label><input type="radio" name="niveau_vise" value="faible"> Faible</label>
+        <label><input type="radio" name="niveau_vise" value="modere"> Modéré</label>
+        <label><input type="radio" name="niveau_vise" value="eleve"> Élevé</label>
+      </div>
+    </div>
+  </div>
 
 <style>
   #physicalTestsBlock input[type="text"],

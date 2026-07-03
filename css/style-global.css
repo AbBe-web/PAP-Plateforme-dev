@@ -1961,3 +1961,104 @@ body.pap-quick-mode .pap-quick-prescription {
 .pap-section {
   border-left: none !important;
 }
+
+/* =========================================================
+   PAP — Section 4 activité physique
+   Version compacte pour limiter le scroll
+   ========================================================= */
+
+.pap-ap-sedentarite-block,
+.pap-ap-current-block,
+.pap-ap-target-block {
+  margin: 0 0 0.2rem 0;
+  padding: 0.32rem 0.55rem;
+  border: none;
+  border-left: 3px solid #d1d5db;
+  border-radius: 0.3rem;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.pap-ap-sedentarite-block h3,
+.pap-ap-current-block h3,
+.pap-ap-target-block h3 {
+  display: inline-block;
+  min-width: 165px;
+  margin: 0 0.6rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1f2937;
+  vertical-align: middle;
+}
+
+.pap-ap-sedentarite-block > div,
+.pap-ap-current-block > div,
+.pap-ap-target-block > div,
+.pap-ap-target-block .inline-radio-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1rem;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.pap-ap-sedentarite-block label,
+.pap-ap-current-block label,
+.pap-ap-target-block label {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.pap-ap-sedentarite-block input[type="number"],
+.pap-ap-current-block input[type="number"] {
+  margin-top: 0.2rem;
+  max-width: 130px;
+}
+
+/* Mode rapide : masquer les champs AP complémentaires même s’ils sont remplis */
+body.pap-quick-mode .form-group label.pap-quick-hide,
+body.pap-quick-mode .pap-ap-sedentarite-block label.pap-quick-hide,
+body.pap-quick-mode .pap-ap-current-block label.pap-quick-hide {
+  display: none !important;
+}
+
+/* Mode rapide : masquer les sous-questions motivationnelles même si le JS les ouvre */
+body.pap-quick-mode #actif-subgroup,
+body.pap-quick-mode #inactif-subgroup,
+body.pap-quick-mode #sixmois-subgroup {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .pap-ap-sedentarite-block h3,
+  .pap-ap-current-block h3,
+  .pap-ap-target-block h3 {
+    display: block;
+    min-width: 0;
+    margin: 0 0 0.35rem 0;
+  }
+
+  .pap-ap-sedentarite-block > div,
+  .pap-ap-current-block > div,
+  .pap-ap-target-block > div,
+  .pap-ap-target-block .inline-radio-group {
+    display: flex;
+  }
+}
+
+/* =========================================================
+   PAP — Mode rapide : masquage prioritaire des champs AP facultatifs
+   ========================================================= */
+
+body.pap-quick-mode .form-group label.pap-quick-hide,
+body.pap-quick-mode .pap-ap-sedentarite-block label.pap-quick-hide,
+body.pap-quick-mode .pap-ap-current-block label.pap-quick-hide {
+  display: none !important;
+}
+
+/* Mode rapide : masquer les sous-questions motivationnelles même si le JS les ouvre */
+body.pap-quick-mode #actif-subgroup,
+body.pap-quick-mode #inactif-subgroup,
+body.pap-quick-mode #sixmois-subgroup {
+  display: none !important;
+}
