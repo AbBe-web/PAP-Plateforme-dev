@@ -7203,10 +7203,8 @@ if (missingFields.length > 0) {
         border-radius:6px;
         font-size:0.9rem;
       ">
-      ⚠️ Merci de renseigner les éléments suivants :<br><br>
-      ${missingFields.map(f => "• " + f).join("<br>")}
-      <br><br>
-      Cela est nécessaire pour afficher les recommandations du guide HAS.
+ ⚠️ Merci de renseigner les éléments suivants pour afficher les recommandations du guide HAS :<br>
+${missingFields.map(f => "• " + f).join("<br>")}
       </div>
     `;
   }
