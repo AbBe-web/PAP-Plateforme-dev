@@ -513,16 +513,16 @@ input[type="checkbox"] {
    RESTAURATION LIGNES DESIGN ORIGINAL
 ========================= */
 
-/* Ligne sous titres de section */
+/* Titres de section sans ligne séparatrice */
 .crc-page .form-group h2 {
-  padding-bottom: 6px;
-  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
-/* Ligne verticale sous-blocs */
+/* Sous-blocs sans rail vertical systématique */
 .crc-page .sub-group {
-  padding-left: 18px;
-  border-left: 3px solid #e5e7eb;
+  padding-left: 0;
+  border-left: none;
 }
 /* =========================
    OPTIONS INLINE (9,10, fiches)
@@ -564,16 +564,21 @@ h1, h2, h3 {
 /* Titres de section */
 .crc-page .form-group h2 {
   margin-bottom: 8px;
-  padding-bottom: 6px;
-  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 /* Sous-blocs */
 .crc-page .sub-group {
   margin-top: 8px;
-  padding-left: 10px;   /* réduit l'écart */
-  margin-left: 0;       /* supprime tout décalage externe */
-  border-left: 3px solid #e5e7eb;
+  padding-left: 10px;
+  margin-left: 0;
+  border-left: none;
+}
+
+/* Sous-titres alignés avec les titres de section malgré le retrait des champs */
+.crc-page .sub-group > h3 {
+  margin-left: -10px;
 }
 
 /* Sous-titres internes */
@@ -2061,4 +2066,16 @@ body.pap-quick-mode #actif-subgroup,
 body.pap-quick-mode #inactif-subgroup,
 body.pap-quick-mode #sixmois-subgroup {
   display: none !important;
+}
+
+/* =========================================================
+   PAP — Retrait léger des champs sous titres de section
+   ========================================================= */
+
+.crc-page .form-group > h2 ~ .inline-radio-group {
+  padding-left: 10px;
+}
+
+.crc-page .form-group > h2 ~ label {
+  margin-left: 10px !important;
 }
