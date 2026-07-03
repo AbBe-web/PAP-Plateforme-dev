@@ -1917,3 +1917,47 @@ align-items: flex-start !important;
     flex: 1 1 auto;
   }
 }
+
+/* =========================================================
+   PAP — Mode consultation rapide : affichage réduit
+   Lot 1B : masquage UX uniquement, sans modification clinique
+   ========================================================= */
+
+/* Mode rapide : masquer les blocs non essentiels */
+body.pap-quick-mode .pap-quick-hide {
+  display: none !important;
+}
+
+/* Mode rapide : rendre les blocs secondaires moins envahissants */
+body.pap-quick-mode .pap-quick-secondary {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #f9fafb;
+}
+
+/* Mode rapide : garder le noyau clinique lisible */
+body.pap-quick-mode .pap-quick-core {
+  margin-bottom: 1rem;
+}
+
+/* Mode rapide : mettre la prescription en évidence sans modifier la logique */
+body.pap-quick-mode .pap-quick-prescription {
+  border: 1px solid #cbd5e1;
+  border-radius: 0.9rem;
+  padding: 1rem;
+  background: #ffffff;
+}
+
+/* Homogénéisation : suppression des lignes grises verticales isolées */
+.section-left-border,
+.left-border,
+.vertical-section-line,
+.section-rail,
+.pap-left-rail,
+.form-section,
+.clinical-section,
+.pap-section {
+  border-left: none !important;
+}
