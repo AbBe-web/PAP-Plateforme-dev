@@ -5382,20 +5382,36 @@ function updateMedicationApaPanel() {
   const detectedIds =
     detected.map(item => item.id);
 
- if (rawText.trim()) {
+ const isQuickMode =
+  document.body.classList.contains("pap-quick-mode");
 
+if (!rawText.trim() && isQuickMode) {
+  memo.textContent = "";
+  content.innerHTML = "";
+  block.classList.add("hidden");
+  return;
+}
+
+block.classList.remove("hidden");
+
+if (!rawText.trim()) {
+  memo.textContent =
+    "aucun traitement renseigné.";
+} else {
   memo.textContent =
     rawText
       .split("\n")
       .map(line => line.trim())
       .filter(Boolean)
       .join(", ");
-
-} else {
-
-  memo.textContent =
-    "aucun traitement renseigné.";
 }
+
+memo.textContent =
+  rawText
+    .split("\n")
+    .map(line => line.trim())
+    .filter(Boolean)
+    .join(", ");
 
   if (!registry.length) {
 
@@ -14954,6 +14970,10 @@ function initPapConsultationModeToggle() {
     document.body.classList.toggle("pap-quick-mode", isQuickMode);
 
     updatePapPathoRulesDisclosure(isQuickMode);
+
+    if (typeof updateMedicationApaPanel === "function") {
+     updateMedicationApaPanel();
+   }
 
     fullModeBtn.classList.toggle("pap-mode-btn-active", !isQuickMode);
     quickModeBtn.classList.toggle("pap-mode-btn-active", isQuickMode);
