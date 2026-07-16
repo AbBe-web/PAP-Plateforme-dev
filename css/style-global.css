@@ -2028,9 +2028,9 @@ body.pap-quick-mode .pap-ap-current-block label.pap-quick-hide {
 }
 
 /* Mode rapide : masquer les sous-questions motivationnelles même si le JS les ouvre */
-body.pap-quick-mode #actif-subgroup,
-body.pap-quick-mode #inactif-subgroup,
-body.pap-quick-mode #sixmois-subgroup {
+body.pap-quick-mode:not(.pap-quick-show-ap-details) #actif-subgroup,
+body.pap-quick-mode:not(.pap-quick-show-ap-details) #inactif-subgroup,
+body.pap-quick-mode:not(.pap-quick-show-ap-details) #sixmois-subgroup {
   display: none !important;
 }
 
@@ -2061,11 +2061,145 @@ body.pap-quick-mode .pap-ap-current-block label.pap-quick-hide {
   display: none !important;
 }
 
-/* Mode rapide : masquer les sous-questions motivationnelles même si le JS les ouvre */
-body.pap-quick-mode #actif-subgroup,
-body.pap-quick-mode #inactif-subgroup,
-body.pap-quick-mode #sixmois-subgroup {
-  display: none !important;
+body.pap-quick-mode
+  .pap-ap-sedentarite-block
+  label.pap-quick-ap-detail.pap-quick-optional-open,
+body.pap-quick-mode
+  .pap-ap-current-block
+  label.pap-quick-ap-detail.pap-quick-optional-open,
+body.pap-quick-mode
+  .pap-ap-current-block
+  .pap-quick-ap-detail.pap-quick-optional-open {
+  display: block !important;
+}
+
+/* =========================================================
+   PAP — Mode rapide : compléments réouvrables
+   ========================================================= */
+
+.pap-quick-optional-toggle {
+  display: none;
+  margin: 0.5rem 0 0.75rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid #dbe4ee;
+  border-radius: 0.55rem;
+  background: #f8fafc;
+  color: #1f2937 !important;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+.pap-quick-optional-toggle:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #111827 !important;
+  text-decoration: none;
+}
+
+body.pap-quick-mode .pap-quick-optional-toggle {
+  display: inline-block;
+}
+
+body.pap-quick-mode
+  .pap-quick-optional-detail.pap-quick-optional-open {
+  display: block !important;
+  margin: 0 0 1rem;
+  padding: 0.8rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.7rem;
+  background: #ffffff;
+}
+
+.pap-quick-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.6rem;
+}
+
+.pap-quick-section-heading h2 {
+  margin: 0;
+}
+
+.pap-quick-inline-toggle {
+  margin: 0;
+  padding: 0.3rem 0.55rem;
+  white-space: nowrap;
+  align-self: center;
+}
+
+/* =========================================================
+   PAP — Tests physiques : bloc optionnel tous modes
+   ========================================================= */
+
+.pap-physical-tests-heading {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.6rem;
+
+  margin: 1rem 0 0;
+  padding: 0.5rem 0.65rem;
+
+  border: 1px solid #dbeafe;
+  border-bottom: 0;
+
+  border-radius: 0.7rem 0.7rem 0 0;
+
+  background: #f8fbff;
+}
+
+.pap-physical-tests-heading h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.pap-physical-tests-toggle {
+  margin: 0;
+  padding: 0.3rem 0.55rem;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 0.55rem;
+
+  background: #ffffff;
+
+  color: #1f2937;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.3;
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.pap-physical-tests-toggle:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.pap-physical-tests-enabled-input {
+  display: none;
+}
+
+.pap-physical-tests-block {
+  margin: 0 0 1.75rem;
+  padding: 0 0.65rem 0.35rem;
+
+  border: 1px solid #dbeafe;
+  border-top: 0;
+
+  border-radius: 0 0 0.7rem 0.7rem;
+
+  background: #f8fbff;
 }
 
 /* =========================================================
@@ -2078,6 +2212,38 @@ body.pap-quick-mode #sixmois-subgroup {
 
 .crc-page .form-group > h2 ~ label {
   margin-left: 10px !important;
+}
+
+.crc-page .form-group > h2 ~ .precaution-highlight-wrapper > label {
+  margin-left: 10px !important;
+}
+
+.crc-page #atcd_familial_block > label {
+  margin-left: 10px !important;
+}
+
+/* =========================================================
+   PAP — Repères pathologies : indicateur ouverture / fermeture
+   ========================================================= */
+
+.pap-patho-rule-summary {
+  list-style: none;
+}
+
+.pap-patho-rule-summary::-webkit-details-marker {
+  display: none;
+}
+
+.pap-patho-rule-summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-size: 0.8em;
+  transition: transform 0.15s ease;
+}
+
+details[open] > .pap-patho-rule-summary::before {
+  transform: rotate(90deg);
 }
 
 /* =========================================================

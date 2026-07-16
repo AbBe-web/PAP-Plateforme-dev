@@ -1294,7 +1294,20 @@ Ictus amnésique 2018s">
 
 </div>
 
-<div class="pap-quick-hide">
+<button
+  type="button"
+  id="papQuickTreatmentsToggle"
+  class="pap-quick-optional-toggle"
+  aria-expanded="false"
+  aria-controls="papQuickTreatmentsDetail"
+>
+  ▸ Compléter les traitements
+</button>
+
+<div
+  id="papQuickTreatmentsDetail"
+  class="pap-quick-hide pap-quick-optional-detail"
+>
 
 <div style="margin:10px 0 6px 0; font-weight:600;">
   <strong>Traitement actuel</strong>
@@ -1344,7 +1357,18 @@ Apixaban 5 mg x2/j">
 </div>
         
 <div class="form-group">
+<div class="pap-quick-section-heading">
   <h2>4/ Évaluation de l’activité physique</h2>
+
+  <button
+    type="button"
+    id="papQuickApDetailsToggle"
+    class="pap-quick-optional-toggle pap-quick-inline-toggle"
+    aria-expanded="false"
+  >
+    ▸ Compléter
+  </button>
+</div>
 
   <div class="sub-group pap-ap-sedentarite-block">
     <h3>Statut de sédentarité</h3>
@@ -1366,7 +1390,7 @@ Apixaban 5 mg x2/j">
       </label>
     </div>
 
-      <label class="pap-quick-hide">
+<label class="pap-quick-hide pap-quick-ap-detail">
         Nombre moyen d’heures assises par jour :
         <input type="number" name="heures_assises" placeholder="Ex : 8">
       </label>
@@ -1377,7 +1401,7 @@ Apixaban 5 mg x2/j">
         Niveau actuel d’activité physique
       </h3>
 
-      <div class="pap-quick-hide" style="margin-bottom:10px;">
+      <div class="pap-quick-hide pap-quick-ap-detail" style="margin-bottom:10px;">
         <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>
         <label><input type="radio" name="questionnaire" value="Marshall"> Marshall</label>
       </div>
@@ -1436,7 +1460,7 @@ Apixaban 5 mg x2/j">
         </label>
       </div>
 
-      <label class="pap-quick-hide">
+<label class="pap-quick-hide pap-quick-ap-detail">
         Nombre de pas par jour sur le dernier mois :
         <input type="number" name="nombre_pas" placeholder="Ex : 7500">
        </label>
@@ -1486,41 +1510,33 @@ Apixaban 5 mg x2/j">
   }
 </style>
 
+<div class="pap-physical-tests-heading">
+
+  <h3>Tests physiques / condition physique</h3>
+
+  <button
+    type="button"
+    id="physicalTestsToggleButton"
+    class="pap-physical-tests-toggle"
+    aria-expanded="false"
+  >
+    ▸ Compléter
+  </button>
+
+</div>
+
 <div
   id="physicalTestsBlock"
-  class="clinical-panel clinical-panel-input pap-quick-hide"
+  class="pap-physical-tests-block"
 >
 
-  <label
-    style="
-      display:flex !important;
-      align-items:center;
-      gap:8px;
-      cursor:pointer;
-      margin:0;
-    "
+  <input
+    type="checkbox"
+    id="physical_tests_enabled"
+    class="pap-physical-tests-enabled-input"
+    tabindex="-1"
+    aria-hidden="true"
   >
-    <input
-      type="checkbox"
-      id="physical_tests_enabled"
-      style="margin:0;"
-    >
-
-    <span style="font-weight:700;">
-      Tests physiques / condition physique
-    </span>
-
-    <span
-      id="physical_tests_summary"
-      style="
-        color:#64748b;
-        font-size:0.86rem;
-        font-weight:400;
-      "
-    >
-      non renseignés · Ajouter / modifier
-    </span>
-  </label>
 
  <div
   id="physical_tests_panel"
@@ -2267,8 +2283,23 @@ Apixaban 5 mg x2/j">
 
 <div class="form-group">
 
-<div class="pap-quick-hide">
-    <h2>5/ Évaluation motivationnelle (complément) :</h2>
+<div class="pap-quick-section-heading">
+  <h2>5/ Évaluation motivationnelle</h2>
+
+  <button
+    type="button"
+    id="papQuickMotivationToggle"
+    class="pap-quick-optional-toggle pap-quick-inline-toggle"
+    aria-expanded="false"
+  >
+    ▸ Compléter
+  </button>
+</div>
+
+<div
+  id="papQuickMotivationDetail"
+  class="pap-quick-hide pap-quick-optional-detail"
+>
         <div class="sub-group">
         <h3 class="black-text">La personne présente les <u>leviers</u> suivants :</h3>
         <textarea name="leviers"></textarea>
@@ -2372,22 +2403,6 @@ Apixaban 5 mg x2/j">
 
 <div class="form-group">
     
-<div id="pathoRulesBlock" class="pap-quick-hide" style="
-  margin:20px 0;
-  padding:12px;
-  border:1px solid #e5e7eb;
-  border-radius:10px;
-  background:#fefce8;
-">
-
-  <strong>⚙️ Pathologies : repères pour l'activité physique</strong>
-
-  <div id="pathoRulesContainer" style="margin-top:10px; font-size:0.9rem;">
-    Aucune pathologie sélectionnée.
-  </div>
-
-</div>
-
 <details
   id="resourceSelectionBlock"
   style="
@@ -2757,6 +2772,22 @@ placeholder="Préciser..."
 
 <div class="form-group">
 <h2>10/ Prescription</h2>
+
+<div id="pathoRulesBlock" style="
+  margin:20px 0;
+  padding:12px;
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  background:#fefce8;
+">
+
+  <strong>⚙️ Repères de prescription selon les pathologies</strong>
+
+  <div id="pathoRulesContainer" style="margin-top:10px; font-size:0.9rem;">
+    Aucune pathologie sélectionnée.
+  </div>
+
+</div>
 
 <div style="margin-bottom:18px;">
 
@@ -5585,16 +5616,20 @@ if (selectedPathos.length === 0) {
     if (!data) return;
 
     html += `
-   <details style="margin-bottom:15px;border-left:4px solid #6366f1;background:#f8fafc;border-radius:8px;padding:10px;" open>
+   <details
+  class="pap-patho-rule-details"
+  style="margin-bottom:15px;border-left:4px solid #6366f1;background:#f8fafc;border-radius:8px;padding:10px;"
+  ${document.body.classList.contains("pap-quick-mode") ? "" : "open"}
+>
 
-<summary style="
+<summary class="pap-patho-rule-summary" style="
   cursor:pointer;
   font-weight:700;
   font-size:1.08em;
   color:#312e81;
   padding:4px 0;
 ">
-  📌 ${data.titre}
+  ${data.titre}
 </summary>
 
 <div style="margin-top:10px;">
@@ -6513,7 +6548,7 @@ function updatePathoHelp(){
 
   <span class="arrow" style="transition:transform 0.2s;">▶</span>
 
-  ${data.titre}
+  Contre-indications / limitations — ${data.titre}
 
 </summary>
 
@@ -11863,48 +11898,64 @@ function appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois){
     return;
   }
 
-  // 🔹 ACTIF
- if (actifDepuis) {
-  const r = document.querySelector(
-    `input[name="actif_depuis"][value="${actifDepuis}"]`
-  );
+  const niveauActuel =
+    document.querySelector(
+      'input[name="niveau_actuel"]:checked'
+    )?.value || null;
 
-  if (r) {
+  // 🔹 NIVEAU ACTIF / TRÈS ACTIF / MOYENNEMENT ACTIF
+  if (
+    niveauActuel === "actif" ||
+    niveauActuel === "tres_actif" ||
+    niveauActuel === "moyennement_actif"
+  ) {
+
     actifBlock.classList.remove("hidden");
     actifBlock.style.display = "flex";
 
-    r.checked = true;
-  }
-}
+    if (actifDepuis) {
+      const r = document.querySelector(
+        `input[name="actif_depuis"][value="${actifDepuis}"]`
+      );
 
-  // 🔹 AP ENVISAGÉE
-if (apEnvisagee) {
-
-  inactifBlock.classList.remove("hidden");
-  inactifBlock.style.display = "flex";
-
-  const r = document.querySelector(
-    `input[name="ap_envisagee"][value="${apEnvisagee}"]`
-  );
-
-  if (r) {
-    r.checked = true;
-
-    if (apEnvisagee === "non") {
-
-      sixMoisBlock.classList.remove("hidden");
-      sixMoisBlock.style.display = "flex";
-
-      if (ap6Mois) {
-        const r6 = document.querySelector(
-          `input[name="ap_6_mois"][value="${ap6Mois}"]`
-        );
-
-        if (r6) r6.checked = true;
+      if (r) {
+        r.checked = true;
       }
     }
   }
-}
+
+  // 🔹 NIVEAU INACTIF
+  if (niveauActuel === "inactif") {
+
+    inactifBlock.classList.remove("hidden");
+    inactifBlock.style.display = "flex";
+
+    if (apEnvisagee) {
+      const r = document.querySelector(
+        `input[name="ap_envisagee"][value="${apEnvisagee}"]`
+      );
+
+      if (r) {
+        r.checked = true;
+      }
+
+      if (apEnvisagee === "non") {
+
+        sixMoisBlock.classList.remove("hidden");
+        sixMoisBlock.style.display = "flex";
+
+        if (ap6Mois) {
+          const r6 = document.querySelector(
+            `input[name="ap_6_mois"][value="${ap6Mois}"]`
+          );
+
+          if (r6) {
+            r6.checked = true;
+          }
+        }
+      }
+    }
+  }
 
 }
 
@@ -12587,9 +12638,6 @@ function resetPhysicalTestsPanelAfterReset() {
   const panel =
     document.getElementById("physical_tests_panel");
 
-  const summary =
-    document.getElementById("physical_tests_summary");
-
 const optionalTestDetails =
   document.querySelectorAll(
     "#physical_tests_panel details.physical-test-domain"
@@ -12601,11 +12649,6 @@ const optionalTestDetails =
 
   if (panel) {
     panel.classList.add("hidden");
-  }
-
-  if (summary) {
-    summary.textContent =
-      "non renseignés · Ajouter / modifier";
   }
 
   if (optionalTestDetails) {
@@ -12985,16 +13028,16 @@ function openPhysicalTestsPanelIfBilanRequested() {
 
 function updatePhysicalTestsPanel() {
 
-  const enabled =
-    document.getElementById("physical_tests_enabled");
+const enabled =
+  document.getElementById("physical_tests_enabled");
 
-  const panel =
-    document.getElementById("physical_tests_panel");
+const panel =
+  document.getElementById("physical_tests_panel");
 
-  const summary =
-    document.getElementById("physical_tests_summary");
+const toggleButton =
+  document.getElementById("physicalTestsToggleButton");
 
-  if (!enabled || !panel || !summary) return;
+if (!enabled || !panel) return;
 
   updateTM6ReferenceDisplay();
   updateTM6CardiorespiratoryDetails();
@@ -13019,33 +13062,20 @@ if (
     panel.classList.add("hidden");
   }
 
-  const physicalTests =
-    typeof getPhysicalTestsModel === "function"
-      ? getPhysicalTestsModel()
-      : { hasData: false };
+if (toggleButton) {
 
-  if (physicalTests.hasData) {
+  toggleButton.setAttribute(
+    "aria-expanded",
+    enabled.checked ? "true" : "false"
+  );
 
- if (physicalTests.status?.non_realises) {
-  summary.textContent =
-    "tests non réalisés";
-  return;
+  toggleButton.textContent =
+    enabled.checked
+      ? "▾ Masquer"
+      : "▸ Compléter";
+
 }
 
-    if (physicalTests.status?.a_confier) {
-      summary.textContent =
-        "tests à prévoir / à confier";
-      return;
-    }
-
-    summary.textContent =
-      "résultats renseignés";
-
-  } else {
-
-    summary.textContent =
-      "non renseignés · Ajouter / modifier";
-  }
 }
 
 function initPhysicalTestsPanel() {
@@ -13073,6 +13103,26 @@ if (tm6CardioDetails) {
   }
 
   window._physicalTestsPanelInitialized = true;
+
+const toggleButton =
+  document.getElementById("physicalTestsToggleButton");
+
+const enabled =
+  document.getElementById("physical_tests_enabled");
+
+if (toggleButton && enabled) {
+
+  toggleButton.addEventListener("click", function() {
+
+    enabled.checked = !enabled.checked;
+
+    enabled.dispatchEvent(
+      new Event("change", { bubbles: true })
+    );
+
+  });
+
+}
 
 block.addEventListener("input", updatePhysicalTestsPanel);
 block.addEventListener("change", updatePhysicalTestsPanel);
@@ -14776,6 +14826,119 @@ if (respiratoire) {
 // MODE CONSULTATION RAPIDE / COMPLÈTE
 // Lot 1 : toggle UX uniquement
 // ===============================
+function updatePapPathoRulesDisclosure(isQuickMode) {
+  document
+    .querySelectorAll("#pathoRulesContainer details.pap-patho-rule-details")
+    .forEach(detail => {
+      detail.open = !isQuickMode;
+    });
+}
+
+function initPapQuickOptionalBlocks() {
+
+  // =========================
+  // TRAITEMENTS
+  // =========================
+
+  const toggle =
+    document.getElementById("papQuickTreatmentsToggle");
+
+  const detail =
+    document.getElementById("papQuickTreatmentsDetail");
+
+  if (toggle && detail) {
+    toggle.addEventListener("click", function() {
+      const isOpen =
+        detail.classList.toggle("pap-quick-optional-open");
+
+      toggle.setAttribute(
+        "aria-expanded",
+        isOpen ? "true" : "false"
+      );
+
+      toggle.textContent =
+        isOpen
+          ? "▾ Masquer les traitements"
+          : "▸ Compléter les traitements";
+    });
+  }
+
+  // =========================
+  // ÉVALUATION AP DÉTAILLÉE
+  // =========================
+
+  const apToggle =
+    document.getElementById("papQuickApDetailsToggle");
+
+  const apDetails =
+    document.querySelectorAll(".pap-quick-ap-detail");
+
+if (apToggle && apDetails.length) {
+  apToggle.addEventListener("click", function() {
+
+    const isOpen =
+      apToggle.getAttribute("aria-expanded") !== "true";
+
+    apDetails.forEach(el => {
+      el.classList.toggle(
+        "pap-quick-optional-open",
+        isOpen
+      );
+    });
+
+    document.body.classList.toggle(
+      "pap-quick-show-ap-details",
+      isOpen
+    );
+
+    apToggle.setAttribute(
+      "aria-expanded",
+      isOpen ? "true" : "false"
+    );
+
+    apToggle.textContent =
+      isOpen
+        ? "▾ Masquer"
+        : "▸ Compléter";
+  });
+}
+
+    // =========================
+  // ÉVALUATION MOTIVATIONNELLE
+  // =========================
+
+  const motivationToggle =
+    document.getElementById("papQuickMotivationToggle");
+
+  const motivationDetail =
+    document.getElementById("papQuickMotivationDetail");
+
+  if (motivationToggle && motivationDetail) {
+    motivationToggle.addEventListener("click", function() {
+
+      const isOpen =
+        motivationDetail.classList.toggle(
+          "pap-quick-optional-open"
+        );
+
+      document.body.classList.toggle(
+        "pap-quick-show-motivation",
+        isOpen
+      );
+
+      motivationToggle.setAttribute(
+        "aria-expanded",
+        isOpen ? "true" : "false"
+      );
+
+      motivationToggle.textContent =
+        isOpen
+          ? "▾ Masquer"
+          : "▸ Compléter";
+    });
+  }
+}
+
 function initPapConsultationModeToggle() {
   const fullModeBtn = document.getElementById("papFullModeBtn");
   const quickModeBtn = document.getElementById("papQuickModeBtn");
@@ -14789,6 +14952,8 @@ function initPapConsultationModeToggle() {
     const isQuickMode = mode === "quick";
 
     document.body.classList.toggle("pap-quick-mode", isQuickMode);
+
+    updatePapPathoRulesDisclosure(isQuickMode);
 
     fullModeBtn.classList.toggle("pap-mode-btn-active", !isQuickMode);
     quickModeBtn.classList.toggle("pap-mode-btn-active", isQuickMode);
@@ -14828,6 +14993,7 @@ initResourceSelectionToggle();
 // =====================================
 initUI();
 initPapConsultationModeToggle();
+initPapQuickOptionalBlocks();
 
   // =====================================
   // 2️⃣ UI CONDITIONNELLE (CRITIQUE)
