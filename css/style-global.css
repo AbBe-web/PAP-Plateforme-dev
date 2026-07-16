@@ -2134,6 +2134,13 @@ body.pap-quick-mode
   align-self: center;
 }
 
+.pap-quick-status-summary {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+}
+
 /* =========================================================
    PAP — Tests physiques : bloc optionnel tous modes
    ========================================================= */
@@ -2200,6 +2207,13 @@ body.pap-quick-mode
   border-radius: 0 0 0.7rem 0.7rem;
 
   background: #f8fbff;
+}
+
+.pap-physical-tests-status-summary {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
 }
 
 /* =========================================================

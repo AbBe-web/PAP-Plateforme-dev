@@ -353,6 +353,11 @@ if (typeof resetOrientationPanelAfterReset === "function") {
     resetOrientationPanelAfterReset();
 }
 
+// 16. Resynchroniser les résumés factuels après reset complet
+if (typeof updatePapQuickOptionalSummaries === "function") {
+    updatePapQuickOptionalSummaries();
+}
+
 }
 
 });

@@ -1304,6 +1304,13 @@ Ictus amnésique 2018s">
   ▸ Compléter les traitements
 </button>
 
+<span
+  id="papQuickTreatmentsSummary"
+  class="pap-quick-status-summary hidden"
+>
+  renseignés
+</span>
+
 <div
   id="papQuickTreatmentsDetail"
   class="pap-quick-hide pap-quick-optional-detail"
@@ -1513,6 +1520,11 @@ Apixaban 5 mg x2/j">
 <div class="pap-physical-tests-heading">
 
   <h3>Tests physiques / condition physique</h3>
+
+  <span
+  id="physicalTestsStatusSummary"
+  class="pap-physical-tests-status-summary hidden"
+></span>
 
   <button
     type="button"
@@ -2285,6 +2297,13 @@ Apixaban 5 mg x2/j">
 
 <div class="pap-quick-section-heading">
   <h2>5/ Évaluation motivationnelle</h2>
+
+   <span
+    id="papQuickMotivationSummary"
+    class="pap-quick-status-summary hidden"
+  >
+    complément renseigné
+  </span>
 
   <button
     type="button"
@@ -11794,7 +11813,19 @@ if (niveau) {
   });
 // 🔥 appliquer motivation APRÈS mise à jour UI
 setTimeout(() => {
-  appliquerMotivation(actifDepuis, apEnvisagee, ap6Mois);
+
+  appliquerMotivation(
+    actifDepuis,
+    apEnvisagee,
+    ap6Mois
+  );
+
+  if (
+    typeof updatePapQuickOptionalSummaries === "function"
+  ) {
+    updatePapQuickOptionalSummaries();
+  }
+
 }, 50);
 }
   
@@ -13053,6 +13084,9 @@ const panel =
 const toggleButton =
   document.getElementById("physicalTestsToggleButton");
 
+const statusSummary =
+  document.getElementById("physicalTestsStatusSummary");
+
 if (!enabled || !panel) return;
 
   updateTM6ReferenceDisplay();
@@ -13090,6 +13124,30 @@ if (toggleButton) {
       ? "▾ Masquer"
       : "▸ Compléter";
 
+}
+
+if (statusSummary) {
+
+  const physicalTests =
+    typeof getPhysicalTestsModel === "function"
+      ? getPhysicalTestsModel()
+      : { hasData: false };
+
+  let statusText = "";
+
+  if (physicalTests.status?.non_realises) {
+    statusText = "tests non réalisés";
+  } else if (physicalTests.status?.a_confier) {
+    statusText = "tests à prévoir / à confier";
+  } else if (physicalTests.hasData) {
+    statusText = "résultats renseignés";
+  }
+
+  statusSummary.textContent = statusText;
+  statusSummary.classList.toggle(
+    "hidden",
+    !statusText
+  );
 }
 
 }
@@ -14850,6 +14908,62 @@ function updatePapPathoRulesDisclosure(isQuickMode) {
     });
 }
 
+function updatePapQuickOptionalSummaries() {
+
+  // =========================
+  // TRAITEMENTS
+  // =========================
+
+  const treatmentInput =
+    document.getElementById("traitementsActuels");
+
+  const treatmentsSummary =
+    document.getElementById("papQuickTreatmentsSummary");
+
+  if (treatmentsSummary) {
+
+    const hasTreatments =
+      Boolean(treatmentInput?.value?.trim());
+
+    treatmentsSummary.classList.toggle(
+      "hidden",
+      !hasTreatments
+    );
+  }
+
+
+  // =========================
+  // MOTIVATION
+  // =========================
+
+  const motivationSummary =
+    document.getElementById("papQuickMotivationSummary");
+
+  const motivationDetail =
+    document.getElementById("papQuickMotivationDetail");
+
+  if (motivationSummary && motivationDetail) {
+
+    const motivationFields =
+      motivationDetail.querySelectorAll(
+        'textarea[name="leviers"], ' +
+        'textarea[name="freins"], ' +
+        'input[name="importance_ap"], ' +
+        'input[name="confiance_ap"]'
+      );
+
+    const hasMotivationDetails =
+      Array.from(motivationFields).some(field =>
+        String(field.value ?? "").trim() !== ""
+      );
+
+    motivationSummary.classList.toggle(
+      "hidden",
+      !hasMotivationDetails
+    );
+  }
+}
+
 function initPapQuickOptionalBlocks() {
 
   // =========================
@@ -14953,6 +15067,52 @@ if (apToggle && apDetails.length) {
           : "▸ Compléter";
     });
   }
+
+ // =========================
+// RÉSUMÉS FACTUELS
+// =========================
+
+const treatmentInput =
+  document.getElementById("traitementsActuels");
+
+if (
+  treatmentInput &&
+  !treatmentInput.dataset.papQuickSummaryBound
+) {
+
+  treatmentInput.dataset.papQuickSummaryBound = "true";
+
+  treatmentInput.addEventListener(
+    "input",
+    updatePapQuickOptionalSummaries
+  );
+}
+
+
+const motivationDetailForSummary =
+  document.getElementById("papQuickMotivationDetail");
+
+if (
+  motivationDetailForSummary &&
+  !motivationDetailForSummary.dataset.papQuickSummaryBound
+) {
+
+  motivationDetailForSummary.dataset.papQuickSummaryBound =
+    "true";
+
+  motivationDetailForSummary.addEventListener(
+    "input",
+    updatePapQuickOptionalSummaries
+  );
+
+  motivationDetailForSummary.addEventListener(
+    "change",
+    updatePapQuickOptionalSummaries
+  );
+}
+
+
+updatePapQuickOptionalSummaries();
 }
 
 function initPapConsultationModeToggle() {
