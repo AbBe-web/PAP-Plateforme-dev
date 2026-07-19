@@ -106,6 +106,13 @@ if (nomPreview) {
             input.checked = false;
         });
 
+const mentionPatientResourcesInCRC =
+    document.getElementById("mentionPatientResourcesInCRC");
+
+if (mentionPatientResourcesInCRC) {
+    mentionPatientResourcesInCRC.checked = true;
+}
+
 // 3. Vider les champs liés à la consultation patient
 // Les coordonnées médecin sont conservées séparément et disposent
 // de leur propre bouton de réinitialisation.
@@ -272,7 +279,7 @@ const crcWarning =
 
 if (crcWarning) {
   crcWarning.classList.add("hidden");
-} 
+}
 
 // Reset complet du mode aérobie : FITT et Pas/jour
 const aerobieFittBlock =

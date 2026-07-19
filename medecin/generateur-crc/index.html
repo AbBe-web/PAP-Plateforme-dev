@@ -1367,14 +1367,14 @@ Apixaban 5 mg x2/j">
 <div class="pap-quick-section-heading">
   <h2>4/ Évaluation de l’activité physique</h2>
 
-  <button
-    type="button"
-    id="papQuickApDetailsToggle"
-    class="pap-quick-optional-toggle pap-quick-inline-toggle"
-    aria-expanded="false"
-  >
-    ▸ Compléter
-  </button>
+<button
+  type="button"
+  id="papQuickApDetailsToggle"
+  class="pap-quick-optional-toggle pap-quick-inline-toggle"
+  aria-expanded="false"
+>
+  ▸ Compléter
+</button>
 </div>
 
   <div class="sub-group pap-ap-sedentarite-block">
@@ -2422,86 +2422,7 @@ Apixaban 5 mg x2/j">
 
 <div class="form-group">
     
-<details
-  id="resourceSelectionBlock"
-  style="
-    display:none;
-    margin:10px 0 18px;
-    padding:9px 11px;
-    border:1px solid #dbeafe;
-    border-radius:10px;
-    background:#eff6ff;
-  "
->
- <summary
-  id="resourceSelectionSummary"
-  style="
-    cursor:pointer;
-    font-weight:700;
-    color:#1e3a5f;
-    list-style:none;
-    display:flex;
-    align-items:center;
-    gap:6px;
-  "
->
-  <span
-    id="resourceSelectionArrow"
-    aria-hidden="true"
-    style="
-      display:inline-block;
-      width:1em;
-      transition:transform 0.15s ease;
-      transform:rotate(0deg);
-    "
-  >
-    ▶
-  </span>
 
-  <span id="resourceSelectionSummaryText">
-    📎 Ressources patient
-  </span>
-</summary>
-
-  <div
-    id="resourceSelectionContainer"
-    style="
-      margin-top:8px;
-      font-size:0.9rem;
-    "
-  ></div>
-
-  <div
-    style="
-      margin-top:8px;
-      padding-top:7px;
-      border-top:1px solid #dbeafe;
-      color:#475569;
-      font-size:0.84rem;
-      line-height:1.35;
-    "
-  >
-    Les ressources cochées seront ajoutées à la version patient
-    et à l’ordonnance.
-  </div>
-
-  <label
-    style="
-      display:block;
-      margin-top:8px;
-      font-size:0.88rem;
-      line-height:1.3;
-    "
-  >
-    <input
-      type="checkbox"
-      id="mentionPatientResourcesInCRC"
-      checked
-      style="vertical-align:middle;"
-    >
-    Mentionner leur transmission dans le compte rendu
-  </label>
-</details>
 
 <div class="form-group">
 
@@ -2577,24 +2498,30 @@ Commentaires complémentaires (facultatif) :
 
 <div class="form-group">
 
-<h2>9/ Précautions / limitations</h2>
+<div
+  class="pap-quick-section-heading"
+  id="apaLimitationsCompact"
+>
+  <h2>9/ Précautions / limitations</h2>
+
+  <span
+    id="apaLimitationsCompactText"
+    class="pap-quick-status-summary"
+  >
+    Aucune sélectionnée
+  </span>
+
+<button
+  type="button"
+  id="toggleApaLimitationsPanel"
+  class="pap-quick-optional-toggle pap-quick-inline-toggle pap-always-visible-toggle"
+  aria-expanded="false"
+>
+  ▸ Compléter
+</button>
+</div>
 
 <div class="sub-group">
-
-<div
-  class="apa-limitations-compact"
-  id="apaLimitationsCompact"
-  style="cursor:pointer;"
->
-  <div>
-    <strong>Limitations / adaptations APA :</strong>
-    <span id="apaLimitationsCompactText">Aucune sélectionnée</span>
-  </div>
-
-  <button type="button" id="toggleApaLimitationsPanel">
-    Configurer
-  </button>
-</div>
 
 <div id="apaLimitationsPanel" class="apa-limitations-panel" hidden>
 
@@ -2790,7 +2717,7 @@ placeholder="Préciser..."
 </div>
 
 <div class="form-group">
-<h2>10/ Prescription</h2>
+<h2>10/ Prescription d’activité physique</h2>
 
 <div id="pathoRulesBlock" style="
   margin:20px 0;
@@ -2911,18 +2838,6 @@ placeholder="Préciser..."
 
 <div
   style="
-    margin-top:12px;
-    margin-bottom:12px;
-    font-weight:700;
-    font-size:1rem;
-    color:#1f2937;
-  "
->
-Prescription d’activité physique
-</div>
-
-<div
-  style="
     margin:4px 0 18px 0;
     padding:8px 10px;
     border:1px solid #e5e7eb;
@@ -2961,10 +2876,14 @@ Prescription d’activité physique
 
 </div>
 
+<div class="pap-prescription-subtitle">
+  Activités prescrites
+</div>
+
 <!-- ================= AEROBIE ================= -->
 <div class="sub-group">
 
-  <h3>Une ordonnance d’AP aérobie :</h3>
+<h3 class="pap-prescription-item-title">AP aérobie :</h3>
 
   <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
 
@@ -3057,7 +2976,7 @@ Prescription d’activité physique
 
 <!-- ================= RENFORCEMENT ================= -->
 <div class="sub-group">
-  <h3>Renforcement musculaire :</h3>
+<h3 class="pap-prescription-item-title">Renforcement musculaire :</h3>
 
   <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
@@ -3102,7 +3021,7 @@ Prescription d’activité physique
 
 <!-- ================= SOUPLESSE ================= -->
 <div class="sub-group">
-  <h3>Travail de souplesse et mobilité :</h3>
+<h3 class="pap-prescription-item-title">Souplesse et mobilité :</h3>
 
   <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
@@ -3148,7 +3067,7 @@ Prescription d’activité physique
 
 <!-- ================= EQUILIBRE ================= -->
 <div class="sub-group">
-  <h3>Travail de l'équilibre :</h3>
+<h3 class="pap-prescription-item-title">Équilibre :</h3>
 
   <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
@@ -3195,49 +3114,39 @@ Prescription d’activité physique
 
 </div>
 
-<!-- ================= ORIENTATION ========= -->
-<div
-  style="
-    margin-top:18px;
-    margin-bottom:12px;
-    padding-top:10px;
-    border-top:1px solid #e5e7eb;
-    font-weight:700;
-    font-size:1rem;
-    color:#1f2937;
-  "
->
-Orientation / encadrement
+<!-- ================= CADRE DE REALISATION ========= -->
+
+<div class="pap-prescription-subtitle pap-orientation-heading">
+
+<span>Orientation / encadrement</span>
+
+  <span
+    id="orientationApaStatusSummary"
+    class="pap-quick-status-summary"
+  >
+    Autonomie
+  </span>
+
+  <button
+    type="button"
+    id="orientationApaToggleButton"
+    class="pap-quick-optional-toggle pap-quick-inline-toggle pap-always-visible-toggle"
+    aria-expanded="false"
+  >
+    ▸ Compléter
+  </button>
+
 </div>
 
 <div class="sub-group">
 
-<label
-  style="
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-bottom:8px;
-    cursor:pointer;
-  "
->
-
 <input
   type="checkbox"
   id="orientation_ap_toggle"
+  class="pap-hidden-state-input"
+  tabindex="-1"
+  aria-hidden="true"
 >
-
-<span
-  style="
-    font-weight:700;
-    font-size:1rem;
-    color:#1f2937;
-  "
->
-Orientation AP spécifique (optionnel)
-</span>
-
-</label>
 
 <div
   id="orientation_ap_subgroup"
@@ -3584,21 +3493,95 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 </div>
 
 <!-- ================= FICHES ================= -->
-<div
-  style="
-    margin-top:18px;
-    margin-bottom:12px;
-    padding-top:10px;
-    border-top:1px solid #e5e7eb;
-    font-weight:700;
-    font-size:1rem;
-    color:#1f2937;
-  "
->
-Ressources / fiches AP
+<div class="pap-prescription-subtitle">
+  Ressources / documents patient
 </div>
 
-  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
+<details
+  id="resourceSelectionBlock"
+  style="
+    display:none;
+    margin:10px 0 18px;
+    padding:9px 11px;
+    border:1px solid #dbeafe;
+    border-radius:10px;
+    background:#eff6ff;
+  "
+>
+ <summary
+  id="resourceSelectionSummary"
+  style="
+    cursor:pointer;
+    font-weight:700;
+    color:#1e3a5f;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  "
+>
+  <span
+    id="resourceSelectionArrow"
+    aria-hidden="true"
+    style="
+      display:inline-block;
+      width:1em;
+      transition:transform 0.15s ease;
+      transform:rotate(0deg);
+    "
+  >
+    ▶
+  </span>
+
+  <span id="resourceSelectionSummaryText">
+    📎 Ressources patient
+  </span>
+</summary>
+
+  <div
+    id="resourceSelectionContainer"
+    style="
+      margin-top:8px;
+      font-size:0.9rem;
+    "
+  ></div>
+
+  <div
+    style="
+      margin-top:8px;
+      padding-top:7px;
+      border-top:1px solid #dbeafe;
+      color:#475569;
+      font-size:0.84rem;
+      line-height:1.35;
+    "
+  >
+    Les ressources cochées seront ajoutées à la version patient
+    et à l’ordonnance.
+  </div>
+
+  <label
+    style="
+      display:block;
+      margin-top:8px;
+      font-size:0.88rem;
+      line-height:1.3;
+    "
+  >
+    <input
+      type="checkbox"
+      id="mentionPatientResourcesInCRC"
+      checked
+      style="vertical-align:middle;"
+    >
+    Mentionner leur transmission dans le compte rendu
+  </label>
+</details>
+
+<div style="margin-left:14px; margin-top:10px; margin-bottom:6px;">
+  Autres fiches d’information sur l’activité physique remises au patient
+</div>
+  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap; margin-left:22px;">
 
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
       <input type="radio" name="fiches_promotion" value="oui">
@@ -6743,6 +6726,12 @@ const orientationToggle =
 const orientationSubgroup =
   document.getElementById("orientation_ap_subgroup");
 
+const orientationApaToggleButton =
+  document.getElementById("orientationApaToggleButton");
+
+const orientationApaStatusSummary =
+  document.getElementById("orientationApaStatusSummary");
+
 if (orientationToggle && orientationSubgroup) {
 
   orientationSubgroup.style.display =
@@ -6750,15 +6739,78 @@ if (orientationToggle && orientationSubgroup) {
     ? "block"
     : "none";
 
-  orientationToggle.addEventListener("change", function() {
+orientationToggle.addEventListener("change", function() {
 
-    orientationSubgroup.style.display =
-      orientationToggle.checked
-        ? "block"
-        : "none";
+  const isOpen = orientationToggle.checked;
 
-  });
+  orientationSubgroup.style.display =
+    isOpen
+      ? "block"
+      : "none";
 
+  if (orientationApaToggleButton) {
+    orientationApaToggleButton.textContent =
+      isOpen ? "▾ Masquer" : "▸ Compléter";
+
+    orientationApaToggleButton.setAttribute(
+      "aria-expanded",
+      String(isOpen)
+    );
+  }
+
+updateOrientationSummary();
+
+});
+
+}
+
+if (orientationApaToggleButton) {
+
+  orientationApaToggleButton.addEventListener(
+    "click",
+    function() {
+
+      const isCurrentlyOpen =
+        orientationSubgroup.style.display === "block";
+
+      if (isCurrentlyOpen) {
+
+        orientationSubgroup.style.display = "none";
+
+        orientationApaToggleButton.textContent =
+          "▸ Compléter";
+
+        orientationApaToggleButton.setAttribute(
+          "aria-expanded",
+          "false"
+        );
+
+        return;
+      }
+
+      if (!orientationToggle.checked) {
+
+        orientationToggle.checked = true;
+
+        orientationToggle.dispatchEvent(
+          new Event("change", { bubbles: true })
+        );
+
+        return;
+      }
+
+      orientationSubgroup.style.display = "block";
+
+      orientationApaToggleButton.textContent =
+        "▾ Masquer";
+
+      orientationApaToggleButton.setAttribute(
+        "aria-expanded",
+        "true"
+      );
+
+    }
+  );
 }
 
 document
@@ -6837,10 +6889,34 @@ if (bilanBlock) {
       : "none";
 }
 
+updateOrientationSummary();
+
       }
     );
 
   });
+
+const consentementPartageApa =
+  document.getElementById("consentement_partage_apa");
+
+if (consentementPartageApa) {
+  consentementPartageApa.addEventListener(
+    "change",
+    updateOrientationSummary
+  );
+}
+
+const orientationCommentaire =
+  document.querySelector(
+    'textarea[name="orientation_commentaire"]'
+  );
+
+if (orientationCommentaire) {
+  orientationCommentaire.addEventListener(
+    "input",
+    updateOrientationSummary
+  );
+}
 
 document.getElementById("actif-subgroup")?.classList.add("hidden");
 document.getElementById("inactif-subgroup")?.classList.add("hidden");
@@ -11483,9 +11559,10 @@ function closeAPALimitationsPanelAfterReset() {
   const toggleBtn =
     document.getElementById("toggleApaLimitationsPanel");
 
-  if (toggleBtn) {
-    toggleBtn.textContent = "Configurer";
-  }
+if (toggleBtn) {
+  toggleBtn.textContent = "▸ Compléter";
+  toggleBtn.setAttribute("aria-expanded", "false");
+}
 
   const compactText =
     document.getElementById("apaLimitationsCompactText");
@@ -12679,6 +12756,35 @@ const optionalTestDetails =
   }
 }
 
+function updateOrientationSummary() {
+
+  const output =
+    document.getElementById("orientationApaStatusSummary");
+
+  if (!output) return;
+
+  const hasOrientationData =
+    Boolean(
+      document.querySelector(
+        'input[name="orientation_ap"]:checked'
+      ) ||
+      document.getElementById(
+        "consentement_partage_apa"
+      )?.checked ||
+      document.getElementById(
+        "bilan_condition_apa"
+      )?.checked ||
+      document.querySelector(
+        'textarea[name="orientation_commentaire"]'
+      )?.value?.trim()
+    );
+
+  output.textContent =
+    hasOrientationData
+      ? "orientation renseignée"
+      : "Autonomie";
+}
+
 function resetOrientationPanelAfterReset() {
 
   const orientationToggle =
@@ -12708,6 +12814,10 @@ function resetOrientationPanelAfterReset() {
   if (bilanBlock) {
     bilanBlock.style.display = "none";
   }
+
+ if (typeof updateOrientationSummary === "function") {
+  updateOrientationSummary();
+}
 }
 
 function getTM6ReferenceModel() {
@@ -13234,7 +13344,10 @@ const bilanConditionCheckbox =
 if (bilanConditionCheckbox) {
   bilanConditionCheckbox.addEventListener(
     "change",
-    openPhysicalTestsPanelIfBilanRequested
+    function() {
+      openPhysicalTestsPanelIfBilanRequested();
+      updateOrientationSummary();
+    }
   );
 }
 
@@ -14354,8 +14467,13 @@ if (limitationAutreCheckbox) {
 
     apaPanel.hidden = !willOpen;
 
-    toggleApaPanelBtn.textContent =
-      willOpen ? "Masquer" : "Configurer";
+toggleApaPanelBtn.textContent =
+  willOpen ? "▾ Masquer" : "▸ Compléter";
+
+toggleApaPanelBtn.setAttribute(
+  "aria-expanded",
+  String(willOpen)
+);
 
     if (willOpen) {
       document
@@ -15596,7 +15714,34 @@ const isPatient = model.context === "patient";
   Array.isArray(prescriptionModel.activites) &&
   prescriptionModel.activites.length > 0
 ) {
-  return generatePrescriptionCRC(prescriptionModel);
+
+  let prescriptionText =
+    generatePrescriptionCRC(prescriptionModel);
+
+  prescriptionText =
+    isPatient
+      ? prescriptionText.replace(
+          "Une activité physique régulière est prescrite",
+          "Une activité physique régulière vous a été prescrite"
+        )
+      : prescriptionText.replace(
+          "Une activité physique régulière est prescrite",
+          "Une ordonnance d’activité physique a été rédigée"
+        );
+
+  const fichesPromotionRemises =
+    pr.fiches_promotion === "oui";
+
+  if (!fichesPromotionRemises) {
+    return prescriptionText;
+  }
+
+  const fichesPromotionText =
+    isPatient
+      ? "Des fiches de promotion d’activité physique vous ont été remises."
+      : "Des fiches de promotion d’activité physique lui ont été remises.";
+
+  return `${prescriptionText} ${fichesPromotionText}`;
 }
 
   // --- Ordonnance aérobie ---
@@ -15635,43 +15780,65 @@ const isPatient = model.context === "patient";
     );
   }
 
-  // --- Fiches promotion ---
-  if (pr.fiches_promotion === "oui") {
+// --- Fiches promotion ---
+const fichesPromotionRemises =
+  pr.fiches_promotion === "oui";
 
-    documentsRemis.push(
-      "des fiches de promotion d’activité physique"
-    );
+// --- Construction phrase finale ---
+const isPatientOutput =
+  document.querySelector(
+    'input[name="output_type"]:checked'
+  )?.value === "patient";
+
+if (
+  documentsRemis.length > 0 &&
+  fichesPromotionRemises
+) {
+
+  phrases.push(
+    isPatientOutput
+      ? "Une ordonnance et des fiches de promotion d’activité physique vous ont été remises."
+      : "Une ordonnance et des fiches de promotion d’activité physique lui ont été remises."
+  );
+
+} else if (documentsRemis.length > 0) {
+
+  let liste = "";
+
+  if (documentsRemis.length === 1) {
+
+    liste = documentsRemis[0];
+
+  } else if (documentsRemis.length === 2) {
+
+    liste = documentsRemis.join(" et ");
+
+  } else {
+
+    liste =
+      documentsRemis.slice(0, -1).join(", ")
+      + " et "
+      + documentsRemis[documentsRemis.length - 1];
   }
 
-  // --- Construction phrase finale ---
-  if (documentsRemis.length > 0) {
+  const pluriel =
+    documentsRemis.length > 1;
 
-    let liste = "";
+  phrases.push(
+    pluriel
+      ? `Des ordonnances ${liste} lui ont été remises.`
+      : `Une ordonnance ${liste} lui a été remise.`
+  );
 
-    if (documentsRemis.length === 1) {
+} else if (fichesPromotionRemises) {
 
-      liste = documentsRemis[0];
+  phrases.push(
+    isPatientOutput
+      ? "Des fiches de promotion d’activité physique vous ont été remises."
+      : "Des fiches de promotion d’activité physique lui ont été remises."
+  );
+}
 
-    } else if (documentsRemis.length === 2) {
-
-      liste = documentsRemis.join(" et ");
-
-    } else {
-
-      liste =
-        documentsRemis.slice(0, -1).join(", ")
-        + " et "
-        + documentsRemis[documentsRemis.length - 1];
-    }
-
-    const pluriel = documentsRemis.length > 1;
-
-    phrases.push(
-      pluriel
-        ? `Des ordonnances ${liste} lui ont été remises.`
-        : `Une ordonnance ${liste} lui a été remise.`
-    );
-  }
 const crcElements = getSelectedCRC();
 const crcMode = document.querySelector('input[name="crc_mode"]:checked')?.value;
 const outputType = document.querySelector('input[name="output_type"]:checked')?.value || "medecin";                

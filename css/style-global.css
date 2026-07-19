@@ -1074,21 +1074,6 @@ details summary::-webkit-details-marker {
   color: #333;
 }
 
-#toggleApaLimitationsPanel {
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  background: #0056b3;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-#toggleApaLimitationsPanel:hover {
-  background: #004494;
-}
-
 .apa-limitations-panel[hidden] {
   display: none !important;
 }
@@ -2095,6 +2080,10 @@ body.pap-quick-mode
   box-shadow: none;
 }
 
+.pap-always-visible-toggle {
+  display: inline-block;
+}
+
 .pap-quick-optional-toggle:hover {
   background: #f1f5f9;
   border-color: #cbd5e1;
@@ -2135,6 +2124,33 @@ body.pap-quick-mode
 }
 
 .pap-quick-status-summary {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+#apaLimitationsCompact {
+  align-items: baseline;
+}
+
+#apaLimitationsCompact #toggleApaLimitationsPanel {
+  align-self: center;
+}
+
+.pap-section-heading-with-action {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem;
+}
+
+.pap-section-heading-with-action h2 {
+  margin: 0;
+}
+
+.pap-section-heading-status {
   font-size: 0.82rem;
   font-weight: 500;
   color: #64748b;
@@ -2216,6 +2232,7 @@ body.pap-quick-mode
   white-space: nowrap;
 }
 
+
 /* =========================================================
    PAP — Retrait léger des champs sous titres de section
    ========================================================= */
@@ -2278,4 +2295,33 @@ details[open] > .pap-patho-rule-summary::before {
 
 .has-missing-jump:hover {
   background: #fffbeb;
+}
+
+/* =========================================================
+   PAP — Section prescription : hiérarchie visuelle des activités
+   ========================================================= */
+
+.pap-prescription-subtitle {
+  margin: 14px 0 8px 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.crc-page .sub-group > h3.pap-prescription-item-title {
+  margin: 0 0 6px 8px;
+}
+
+.crc-page .sub-group > h3.pap-prescription-item-title + div {
+  margin-left: 12px;
+}
+
+.pap-orientation-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pap-hidden-state-input {
+  display: none;
 }
