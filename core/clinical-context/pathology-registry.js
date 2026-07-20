@@ -16,7 +16,16 @@
  * le fonctionnement actuel.
  */
 
-const PATHOLOGY_REGISTRY = {};
+const PATHOLOGY_REGISTRY = {
+
+  hta: {
+    id: "hta",
+    label: "Hypertension artérielle",
+    shortLabel: "HTA",
+    aliases: []
+  }
+
+};
 
 window.PATHOLOGY_REGISTRY =
   PATHOLOGY_REGISTRY;
