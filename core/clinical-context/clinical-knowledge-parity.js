@@ -26,6 +26,39 @@ const CLINICAL_KNOWLEDGE_LEGACY_FIELDS = [
   "crc_default"
 ];
 
+/*
+ * Normalisations legacy -> v2 explicitement autorisées.
+ *
+ * Chaque exception est volontairement définie origine par origine.
+ * Le comparateur vérifie à la fois :
+ * - que le texte legacy actuel est bien celui attendu ;
+ * - que le texte v2 est exactement le texte normalisé attendu.
+ *
+ * Cela évite qu'une normalisation générique masque une perte
+ * ou une modification clinique involontaire.
+ */
+const CLINICAL_KNOWLEDGE_LEGACY_TEXT_OVERRIDES = {
+
+  "dt2::adaptations::1": {
+
+    expectedLegacyText:
+      "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant <button type='button' class='info-trigger info-hitbox' data-info='Insuline, glinides, sulfamides hypoglycémiants'><span class='info-icon'>i</span></button> (auto-surveillance, adaptation posologie, collation possible)",
+
+    expectedV2Text:
+      "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant (insuline, glinides, sulfamides hypoglycémiants) : auto-surveillance, adaptation posologique, collation possible"
+  },
+
+
+  "dt2::regles::0": {
+
+    expectedLegacyText:
+  "SI traitement hypoglycémiant <button type='button' class='info-trigger info-hitbox' data-info='Insuline, glinides, sulfamides hypoglycémiants'><span class='info-icon'>i</span></button> → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
+
+    expectedV2Text:
+      "SI traitement hypoglycémiant (insuline, glinides, sulfamides hypoglycémiants) → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi"
+  }
+
+};
 
 function normalizeParityText(value) {
 
@@ -198,6 +231,58 @@ function compareSimpleLegacyText(
       origin.field
     );
 
+
+  const originKey =
+    getLegacyOriginKey(
+      origin
+    );
+
+
+  const override =
+    CLINICAL_KNOWLEDGE_LEGACY_TEXT_OVERRIDES[
+      originKey
+    ];
+
+
+  /*
+   * Cas explicitement normalisé.
+   *
+   * La parité n'est acceptée que si :
+   * 1. le legacy est toujours exactement celui attendu ;
+   * 2. le v2 correspond exactement à la version
+   *    normalisée approuvée.
+   */
+  if (override) {
+
+    const legacyMatches =
+      normalizeParityText(
+        legacyValue
+      ) ===
+      normalizeParityText(
+        override.expectedLegacyText
+      );
+
+
+    const v2Matches =
+      normalizeParityText(
+        v2Value
+      ) ===
+      normalizeParityText(
+        override.expectedV2Text
+      );
+
+
+    return (
+      legacyMatches &&
+      v2Matches
+    );
+  }
+
+
+  /*
+   * Tous les autres cas restent
+   * en comparaison stricte.
+   */
   return (
     normalizeParityText(legacyValue) ===
     normalizeParityText(v2Value)
