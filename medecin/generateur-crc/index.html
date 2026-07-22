@@ -5653,6 +5653,93 @@ function escapeClinicalCognitiveHtml(value = "") {
     .replace(/'/g, "&#039;");
 }
 
+function getClinicalCognitivePathologyLabel(
+  pathologyId
+) {
+
+  const labels = {
+    hta: "HTA",
+    dt2: "DT2"
+  };
+
+  return (
+    labels[pathologyId] ||
+    String(pathologyId || "")
+      .toUpperCase()
+  );
+}
+
+
+function buildClinicalCognitivePathologyBadges(
+  projection,
+  activePathologies
+) {
+
+  if (
+    !Array.isArray(activePathologies) ||
+    activePathologies.length < 2
+  ) {
+    return "";
+  }
+
+
+  const knowledgeItem =
+    Array.isArray(
+      PATHOLOGY_KNOWLEDGE_REGISTRY
+    )
+      ? PATHOLOGY_KNOWLEDGE_REGISTRY
+          .find(item =>
+            item?.id ===
+            projection?.knowledgeItemId
+          )
+      : null;
+
+
+  const itemPathologies =
+    knowledgeItem
+      ?.context
+      ?.pathologiesAny;
+
+
+  if (
+    !Array.isArray(itemPathologies)
+  ) {
+    return "";
+  }
+
+
+  const relevantPathologies =
+    itemPathologies
+      .filter(pathologyId =>
+        activePathologies.includes(
+          pathologyId
+        )
+      );
+
+
+  if (
+    relevantPathologies.length === 0
+  ) {
+    return "";
+  }
+
+
+  return `
+    <span class="pap-cognitive-origin-badges">
+      ${relevantPathologies
+        .map(pathologyId => `
+          <span class="pap-cognitive-origin-badge">
+            ${escapeClinicalCognitiveHtml(
+              getClinicalCognitivePathologyLabel(
+                pathologyId
+              )
+            )}
+          </span>
+        `)
+        .join("")}
+    </span>
+  `;
+}
 
 function buildPrototypeClinicalModelV2() {
 
@@ -5711,6 +5798,10 @@ function renderClinicalCognitiveAidV2() {
   const prototypeModel =
     buildPrototypeClinicalModelV2();
 
+  const activePathologies =
+    prototypeModel
+      ?.patient
+      ?.pathologies || [];
 
   const clinicalContextV2 =
     computeClinicalContextV2(
@@ -5764,17 +5855,28 @@ safetyContainer.style.display = "none";
         .map(item => {
 
           const message =
-            item?.messages?.clinician;
+  item?.messages?.clinician;
 
-          if (!message) {
-            return "";
-          }
+if (!message) {
+  return "";
+}
 
-          return `
-            <li style="margin:5px 0;">
-              ${escapeClinicalCognitiveHtml(message)}
-            </li>
-          `;
+
+const originBadges =
+  buildClinicalCognitivePathologyBadges(
+    item,
+    activePathologies
+  );
+
+
+return `
+  <li style="margin:5px 0;">
+    <span>
+      ${escapeClinicalCognitiveHtml(message)}
+    </span>
+    ${originBadges}
+  </li>
+`;
         })
         .filter(Boolean)
         .join("");
@@ -5843,6 +5945,12 @@ safetyContainer.style.display = "none";
               ?.selection
               ?.defaultSelected === true;
 
+const originBadges =
+  buildClinicalCognitivePathologyBadges(
+    item,
+    activePathologies
+  );
+
 return `
   <label class="pap-cognitive-patient-item" style="
     display:flex;
@@ -5873,6 +5981,7 @@ return `
       overflow-wrap:anywhere;
     ">
       ${escapeClinicalCognitiveHtml(message)}
+      ${originBadges}
     </span>
 
   </label>

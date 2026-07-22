@@ -89,20 +89,90 @@ const CLINICAL_KNOWLEDGE_LEGACY_TEXT_OVERRIDES = {
   },
 
 
+  "dt2::adaptations::0": {
+
+    expectedLegacyText:
+      "Privilégier une progressivité : AP d’intensité faible et courte durée au début (ne pas décourager)",
+
+    expectedV2Text:
+      "Privilégier une progressivité : débuter si besoin par une AP de faible intensité et/ou de courte durée."
+  },
+
+
   "dt2::adaptations::1": {
 
     expectedLegacyText:
       "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant <button type='button' class='info-trigger info-hitbox' data-info='Insuline, glinides, sulfamides hypoglycémiants'><span class='info-icon'>i</span></button> (auto-surveillance, adaptation posologie, collation possible)",
 
     expectedV2Text:
-      "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant (insuline, glinides, sulfamides hypoglycémiants) : auto-surveillance, adaptation posologique, collation possible"
+      "Si traitement à risque d’hypoglycémie : anticiper le risque d’hypoglycémie ; prévoir une autosurveillance glycémique et une adaptation du traitement et/ou des apports glucidiques selon la situation."
+  },
+
+
+  "dt2::adaptations::2": {
+
+    expectedLegacyText:
+      "Surveiller et protéger les pieds",
+
+    expectedV2Text:
+      "Surveiller et protéger les pieds."
+  },
+
+
+  "dt2::adaptations::3": {
+
+    expectedLegacyText:
+      "Possibilité de conseiller AP en post-prandial pour profiter de l’effet hypoglycémiant de l’AP",
+
+    expectedV2Text:
+      "Possibilité de conseiller une AP en post-prandial pour profiter de son effet sur l’hyperglycémie post-prandiale."
+  },
+
+
+  "dt2::adaptations::4": {
+
+    expectedLegacyText:
+      "Possibilité d’AP séquentielle ou fractionnée si déconditionnement",
+
+    expectedV2Text:
+      "Possibilité d’AP séquentielle ou fractionnée si déconditionnement."
+  },
+
+
+  "dt2::contraintes::0": {
+
+    expectedLegacyText:
+      "Glycémie > 2,5 g/L en début d’exercice → AP déconseillée tant que > 2 g/L (objectif < 2 g/L)",
+
+    expectedV2Text:
+      "Si glycémie > 2,5 g/L au moment de débuter l’exercice : différer l’AP tant que la glycémie reste > 2 g/L."
+  },
+
+
+  "dt2::contraintes::1": {
+
+    expectedLegacyText:
+      "Activité physique d’intensité élevée si glycémie mal contrôlée → à éviter",
+
+    expectedV2Text:
+      "Si glycémie mal contrôlée : éviter les AP d’intensité élevée."
+  },
+
+
+  "dt2::crc::1": {
+
+    expectedLegacyText:
+      "surveillance glycémie avant et après l’effort, avoir une collation avec soi",
+
+    expectedV2Text:
+      "Si la glycémie est supérieure à 2,5 g/L avant la séance, différer l’activité physique et attendre qu’elle soit revenue à 2 g/L ou moins avant de reprendre."
   },
 
 
   "dt2::regles::0": {
 
     expectedLegacyText:
-  "SI traitement hypoglycémiant <button type='button' class='info-trigger info-hitbox' data-info='Insuline, glinides, sulfamides hypoglycémiants'><span class='info-icon'>i</span></button> → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
+      "SI traitement hypoglycémiant <button type='button' class='info-trigger info-hitbox' data-info='Insuline, glinides, sulfamides hypoglycémiants'><span class='info-icon'>i</span></button> → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
 
     expectedV2Text:
       "SI traitement hypoglycémiant (insuline, glinides, sulfamides hypoglycémiants) → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi"

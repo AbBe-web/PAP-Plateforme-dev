@@ -630,6 +630,254 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                      }
     },
     {
+        "id":  "hta-patient-avoid-valsava-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "safety"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Éviter les efforts importants en bloquant la respiration."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "hta",
+                                                                     "field":  "crc",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "hta-patient-malaise-medical-advice-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "safety"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "En cas de malaise pendant ou après l’effort, interrompre l’activité et demander un avis médical si nécessaire."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "hta-guidance-warmup-intense-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "En cas de séance d’activité physique ou sportive, notamment intense, bien s’échauffer et ne pas débuter brutalement une AP intense."
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "description":  "En cas d’activité physique ou sportive, notamment intense",
+                          "machineEvaluable":  false
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "hta",
+                                                                     "field":  "adaptations",
+                                                                     "index":  1
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "dt2-guidance-progressive-start-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "dt2"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Privilégier une progressivité : débuter si besoin par une AP de faible intensité et/ou de courte durée.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "adaptations",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "dt2-guidance-sequential-fractionated-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "dt2"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Possibilité d’AP séquentielle ou fractionnée si déconditionnement.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "machineEvaluable":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "adaptations",
+                                                                     "index":  4
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "dt2-constraint-high-intensity-uncontrolled-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "dt2"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "safety",
+                                 "category":  "precaution"
+                             },
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si glycémie mal contrôlée : éviter les AP d’intensité élevée.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "machineEvaluable":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "contraintes",
+                                                                     "index":  1
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
         "id":  "dt2-constraint-hyperglycemia-250-001",
         "context":  {
                         "pathologiesAny":  [
@@ -640,15 +888,18 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                              {
                                  "function":  "safety",
                                  "category":  "limitation"
+                             },
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
                              }
                          ],
         "messages":  {
-                         "clinician":  "Glycémie \u003e 2,5 g/L en début d’exercice → AP déconseillée tant que \u003e 2 g/L (objectif \u003c 2 g/L)",
+                         "clinician":  "Si glycémie \u003e 2,5 g/L au moment de débuter l’exercice : différer l’AP tant que la glycémie reste \u003e 2 g/L.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Glycémie \u003e 2,5 g/L en début d’exercice",
                           "machineEvaluable":  false
                       },
         "evidenceSourceIds":  [
@@ -672,7 +923,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                      }
     },
     {
-        "id":  "dt2-constraint-high-intensity-uncontrolled-001",
+        "id":  "dt2-guidance-hypoglycemia-treatment-001",
         "context":  {
                         "pathologiesAny":  [
                                                "dt2"
@@ -680,17 +931,16 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                     },
         "clinicalUses":  [
                              {
-                                 "function":  "safety",
-                                 "category":  "precaution"
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
                              }
                          ],
         "messages":  {
-                         "clinician":  "Activité physique d’intensité élevée si glycémie mal contrôlée → à éviter",
+                         "clinician":  "Si traitement à risque d’hypoglycémie : anticiper le risque d’hypoglycémie ; prévoir une autosurveillance glycémique et une adaptation du traitement et/ou des apports glucidiques selon la situation.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Glycémie mal contrôlée avec activité physique d’intensité élevée",
                           "machineEvaluable":  false
                       },
         "evidenceSourceIds":  [
@@ -706,8 +956,119 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                            "legacyOrigins":  [
                                                                  {
                                                                      "pathologyId":  "dt2",
-                                                                     "field":  "contraintes",
+                                                                     "field":  "adaptations",
                                                                      "index":  1
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "dt2-guidance-comorbidities-silent-ischemia-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "dt2"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Tenir compte des comorbidités et complications fréquentes du DT2, notamment du surpoids, du risque cardiovasculaire et de la possibilité d’une ischémie myocardique silencieuse.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "dt2-guidance-foot-protection-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "dt2"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Surveiller et protéger les pieds.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "adaptations",
+                                                                     "index":  2
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "dt2-guidance-postprandial-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "dt2"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Possibilité de conseiller une AP en post-prandial pour profiter de son effet sur l’hyperglycémie post-prandiale.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "adaptations",
+                                                                     "index":  3
                                                                  }
                                                              ]
                                        }
@@ -792,210 +1153,6 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                                                      "pathologyId":  "dt2",
                                                                      "field":  "contraintes",
                                                                      "index":  3
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "dt2-guidance-progressive-start-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "dt2"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "prescriptionGuidance",
-                                 "category":  "practicalAdaptation"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "Privilégier une progressivité : AP d’intensité faible et courte durée au début (ne pas décourager)",
-                         "patient":  ""
-                     },
-        "condition":  {
-                          "type":  "always"
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "adaptations",
-                                                                     "index":  0
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "dt2-guidance-hypoglycemia-treatment-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "dt2"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "prescriptionGuidance",
-                                 "category":  "practicalAdaptation"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "Anticiper le risque d’hypoglycémie en cas de traitement hypoglycémiant (insuline, glinides, sulfamides hypoglycémiants) : auto-surveillance, adaptation posologique, collation possible",
-                         "patient":  ""
-                     },
-        "condition":  {
-                          "type":  "clinicianCheck",
-                          "description":  "Traitement hypoglycémiant : insuline, glinides ou sulfamides hypoglycémiants",
-                          "machineEvaluable":  false
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "adaptations",
-                                                                     "index":  1
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "dt2-guidance-foot-protection-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "dt2"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "prescriptionGuidance",
-                                 "category":  "practicalAdaptation"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "Surveiller et protéger les pieds",
-                         "patient":  ""
-                     },
-        "condition":  {
-                          "type":  "always"
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "adaptations",
-                                                                     "index":  2
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "dt2-guidance-postprandial-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "dt2"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "prescriptionGuidance",
-                                 "category":  "practicalAdaptation"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "Possibilité de conseiller AP en post-prandial pour profiter de l’effet hypoglycémiant de l’AP",
-                         "patient":  ""
-                     },
-        "condition":  {
-                          "type":  "always"
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "adaptations",
-                                                                     "index":  3
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "dt2-guidance-sequential-fractionated-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "dt2"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "prescriptionGuidance",
-                                 "category":  "practicalAdaptation"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "Possibilité d’AP séquentielle ou fractionnée si déconditionnement",
-                         "patient":  ""
-                     },
-        "condition":  {
-                          "type":  "clinicianCheck",
-                          "description":  "Déconditionnement",
-                          "machineEvaluable":  false
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "adaptations",
-                                                                     "index":  4
                                                                  }
                                                              ]
                                        }
@@ -1306,7 +1463,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          ],
         "messages":  {
                          "clinician":  "",
-                         "patient":  "surveillance glycémique recommandée"
+                         "patient":  "L’activité physique est un véritable traitement du diabète de type 2 et contribue à améliorer le contrôle de la glycémie."
                      },
         "condition":  {
                           "type":  "always"
@@ -1334,6 +1491,64 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                                                      "pathologyId":  "dt2",
                                                                      "field":  "crc_default",
                                                                      "index":  0
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "crc",
+                                                                     "index":  3
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "crc_default",
+                                                                     "index":  2
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "dt2-patient-progressivity-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "dt2"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Augmenter progressivement la durée et l’intensité de l’activité physique."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  true
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "crc",
+                                                                     "index":  4
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "dt2",
+                                                                     "field":  "crc_default",
+                                                                     "index":  3
                                                                  }
                                                              ]
                                        }
@@ -1354,11 +1569,10 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          ],
         "messages":  {
                          "clinician":  "",
-                         "patient":  "surveillance glycémie avant et après l’effort, avoir une collation avec soi"
+                         "patient":  "Si la glycémie est supérieure à 2,5 g/L avant la séance, différer l’activité physique et attendre qu’elle soit revenue à 2 g/L ou moins avant de reprendre."
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Traitement ou situation exposant à une hypoglycémie",
                           "machineEvaluable":  false
                       },
         "selection":  {
@@ -1399,7 +1613,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          ],
         "messages":  {
                          "clinician":  "",
-                         "patient":  "vigilance pour les pieds (chaussage adapté, surveillance)"
+                         "patient":  "Prendre soin de ses pieds : utiliser un chaussage adapté et surveiller régulièrement l’état de ses pieds."
                      },
         "condition":  {
                           "type":  "always"
@@ -1433,106 +1647,10 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                      }
     },
     {
-        "id":  "dt2-patient-food-intake-activity-001",
+        "id":  "dt2-patient-dyspnea-palpitations-001",
         "context":  {
                         "pathologiesAny":  [
                                                "dt2"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "patientInformation",
-                                 "category":  "practicalAdvice"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "",
-                         "patient":  "adapter les apports alimentaires à l’activité"
-                     },
-        "condition":  {
-                          "type":  "always"
-                      },
-        "selection":  {
-                          "defaultSelected":  true
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "crc",
-                                                                     "index":  3
-                                                                 },
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "crc_default",
-                                                                     "index":  2
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "dt2-patient-progressivity-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "dt2"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "patientInformation",
-                                 "category":  "practicalAdvice"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "",
-                         "patient":  "progressivité recommandée en début de programme"
-                     },
-        "condition":  {
-                          "type":  "always"
-                      },
-        "selection":  {
-                          "defaultSelected":  true
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "crc",
-                                                                     "index":  4
-                                                                 },
-                                                                 {
-                                                                     "pathologyId":  "dt2",
-                                                                     "field":  "crc_default",
-                                                                     "index":  3
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "hta-patient-avoid-valsava-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "hta"
                                            ]
                     },
         "clinicalUses":  [
@@ -1543,50 +1661,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          ],
         "messages":  {
                          "clinician":  "",
-                         "patient":  "Éviter les efforts importants en bloquant la respiration."
-                     },
-        "condition":  {
-                          "type":  "always"
-                      },
-        "selection":  {
-                          "defaultSelected":  false
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "hta",
-                                                                     "field":  "crc",
-                                                                     "index":  0
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "hta-patient-malaise-medical-advice-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "hta"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "patientInformation",
-                                 "category":  "safety"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "",
-                         "patient":  "En cas de malaise pendant ou après l’effort, interrompre l’activité et demander un avis médical si nécessaire."
+                         "patient":  "En cas d’essoufflement inhabituel ou de palpitations lors d’une activité physique de faible intensité, arrêter l’effort et consulter rapidement."
                      },
         "condition":  {
                           "type":  "always"
@@ -1603,51 +1678,6 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "metadata":  {
                          "status":  "active",
                          "version":  "1"
-                     }
-    },
-    {
-        "id":  "hta-guidance-warmup-intense-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "hta"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "patientInformation",
-                                 "category":  "practicalAdvice"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "",
-                         "patient":  "En cas de séance d’activité physique ou sportive, notamment intense, bien s’échauffer et ne pas débuter brutalement une AP intense."
-                     },
-        "condition":  {
-                          "type":  "clinicianCheck",
-                          "description":  "En cas d’activité physique ou sportive, notamment intense",
-                          "machineEvaluable":  false
-                      },
-        "selection":  {
-                          "defaultSelected":  false
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "hta",
-                                                                     "field":  "adaptations",
-                                                                     "index":  1
-                                                                 }
-                                                             ]
-                                       }
                      }
     }
 ];

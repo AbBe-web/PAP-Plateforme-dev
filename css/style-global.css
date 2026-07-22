@@ -2347,10 +2347,37 @@ details[open] > .pap-patho-rule-summary::before {
   margin: 3px 0 0 0 !important;
 }
 
-.crc-page label.pap-cognitive-patient-item span {
+.crc-page label.pap-cognitive-patient-item > span {
   flex: 1 1 auto;
   min-width: 0;
   display: block;
   white-space: normal;
   overflow-wrap: anywhere;
+}
+
+/* =========================================
+   PAP — AIDE COGNITIVE : ORIGINE PATHOLOGIE
+========================================= */
+
+.pap-cognitive-origin-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-left: 5px;
+  vertical-align: baseline;
+  position: relative;
+  top: -1px;
+}
+
+.pap-cognitive-origin-badge {
+  display: inline-block;
+  padding: 1px 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
 }
