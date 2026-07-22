@@ -176,6 +176,136 @@ const CLINICAL_KNOWLEDGE_LEGACY_TEXT_OVERRIDES = {
 
     expectedV2Text:
       "SI traitement hypoglycémiant (insuline, glinides, sulfamides hypoglycémiants) → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi"
+  },
+
+
+  "bpco::contraintes::0": {
+
+    expectedLegacyText:
+      "BPCO sévère avec désaturation à l’effort ou insuffisance respiratoire chronique sous OLD → CI relative des AP d’intensité élevée",
+
+    expectedV2Text:
+      "BPCO sévère avec désaturation à l'effort ou insuffisance respiratoire chronique sous OLD : contre-indication relative aux AP d'intensité élevée."
+  },
+
+
+  "bpco::contraintes::1": {
+
+    expectedLegacyText:
+      "Insuffisance respiratoire non contrôlée ou comorbidité décompensée → CI temporaire",
+
+    expectedV2Text:
+      "Insuffisance respiratoire non contrôlée ou comorbidité décompensée : contre-indication temporaire."
+  },
+
+
+  "bpco::adaptations::0": {
+
+    expectedLegacyText:
+      "Toujours : limiter la sédentarité, augmenter l’AP d’intensité faible, être très progressif (déconditionnement fréquent)",
+
+    expectedV2Text:
+      "Toujours : limiter la sédentarité, augmenter l'AP d'intensité faible, être très progressif (déconditionnement fréquent)."
+  },
+
+
+  "bpco::adaptations::1": {
+
+    expectedLegacyText:
+      "Privilégier les activités d’endurance (marche, vélo)",
+
+    expectedV2Text:
+      "Privilégier les activités d'endurance (marche, vélo)."
+  },
+
+
+  "bpco::adaptations::2": {
+
+    expectedLegacyText:
+      "Fractionner les séances (périodes de 5 à 10 minutes si besoin)",
+
+    expectedV2Text:
+      "Fractionner les séances (5 à 10 min si besoin)."
+  },
+
+
+  "bpco::adaptations::3": {
+
+    expectedLegacyText:
+      "Adapter l’intensité selon dyspnée (Borg 3 à 6)",
+
+    expectedV2Text:
+      "Adapter l'intensité selon la dyspnée (Borg 4-6/10 ; 3-4/10 si BPCO sévère)."
+  },
+
+
+  "bpco::regles::0": {
+
+    expectedLegacyText:
+      "SI dyspnée importante → ALORS réduire l’intensité ou fractionner",
+
+    expectedV2Text:
+      "Si dyspnée importante : réduire l'intensité ou fractionner."
+  },
+
+
+  "bpco::regles::1": {
+
+    expectedLegacyText:
+      "SI exacerbation récente → ALORS éviter sédentarité et reprise progressive de l’AP sur 4 semaines",
+
+    expectedV2Text:
+      "Après exacerbation récente : éviter la sédentarité et reprendre progressivement l'AP sur 4 semaines."
+  },
+
+
+  "bpco::regles::3": {
+
+    expectedLegacyText:
+      "SI désaturation à l’effort → ALORS adaptation ou encadrement spécialisé",
+
+    expectedV2Text:
+      "Si désaturation à l'effort : adapter l'AP et envisager un encadrement spécialisé."
+  },
+
+
+  "bpco::situations::2": {
+
+    expectedLegacyText:
+      "<a href='http://medicalcul.free.fr/goldbpco.html' target='_blank' rel='noopener noreferrer'>GOLD</a> 2 sans ces critères : avec comorbidités stabilisées → réadaptation, APA ou section sport santé selon situation ; sans comorbidités → idem <a href='http://medicalcul.free.fr/goldbpco.html' target='_blank' rel='noopener noreferrer'>GOLD</a> 1",
+
+    expectedV2Text:
+      "Si GOLD II sans ces critères : avec comorbidités stabilisées → réadaptation respiratoire, APA ou section sport-santé selon la situation ; sans comorbidités → idem GOLD I."
+  },
+
+
+  "bpco::situations::3": {
+
+    expectedLegacyText:
+      "<a href='http://medicalcul.free.fr/goldbpco.html' target='_blank' rel='noopener noreferrer'>GOLD</a> 1 : pratique d’activité physique en club sport santé ou en autonomie",
+
+    expectedV2Text:
+      "Si GOLD I : activité physique en club sport-santé ou en autonomie."
+  },
+
+
+  "bpco::situations::4": {
+
+    expectedLegacyText:
+      "Comorbidités fréquentes (cardio, anxiété, dépression)",
+
+    expectedV2Text:
+      "Comorbidités fréquentes : cardiovasculaires, anxiété, dépression."
+  },
+
+
+  "bpco::crc::2": {
+
+    expectedLegacyText:
+      "fractionner l’activité physique si nécessaire",
+
+    expectedV2Text:
+      "Fractionner l'activité physique en plusieurs périodes courtes si nécessaire."
   }
 
 };

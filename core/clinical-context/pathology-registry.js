@@ -23,6 +23,20 @@ const PATHOLOGY_REGISTRY = {
     label: "Hypertension artérielle",
     shortLabel: "HTA",
     aliases: []
+  },
+
+  dt2: {
+    id: "dt2",
+    label: "Diabète de type 2",
+    shortLabel: "DT2",
+    aliases: []
+  },
+
+  bpco: {
+    id: "bpco",
+    label: "Bronchopneumopathie chronique obstructive",
+    shortLabel: "BPCO",
+    aliases: []
   }
 
 };

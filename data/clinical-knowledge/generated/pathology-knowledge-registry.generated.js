@@ -1679,6 +1679,818 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          "status":  "active",
                          "version":  "1"
                      }
+    },
+    {
+        "id":  "bpco-constraint-severe-desaturation-old-high-intensity-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "safety",
+                                 "category":  "contraindication"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "BPCO sévère avec désaturation à l\u0027effort ou insuffisance respiratoire chronique sous OLD : contre-indication relative aux AP d\u0027intensité élevée.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "contraintes",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-constraint-uncontrolled-respiratory-failure-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "safety",
+                                 "category":  "contraindication"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Insuffisance respiratoire non contrôlée ou comorbidité décompensée : contre-indication temporaire.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "contraintes",
+                                                                     "index":  1
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-always-progressive-low-intensity-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Toujours : limiter la sédentarité, augmenter l\u0027AP d\u0027intensité faible, être très progressif (déconditionnement fréquent).",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "adaptations",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-endurance-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "activityType"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Privilégier les activités d\u0027endurance (marche, vélo).",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "adaptations",
+                                                                     "index":  1
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-fractionated-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Fractionner les séances (5 à 10 min si besoin).",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "adaptations",
+                                                                     "index":  2
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-dyspnea-borg-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Adapter l\u0027intensité selon la dyspnée (Borg 4-6/10 ; 3-4/10 si BPCO sévère).",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "adaptations",
+                                                                     "index":  3
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-strength-training-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "activityType"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Associer du renforcement musculaire adapté à la tolérance.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "bpco-guidance-important-dyspnea-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si dyspnée importante : réduire l\u0027intensité ou fractionner.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "regles",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-recent-exacerbation-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Après exacerbation récente : éviter la sédentarité et reprendre progressivement l\u0027AP sur 4 semaines.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "regles",
+                                                                     "index":  1
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-exercise-desaturation-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si désaturation à l\u0027effort : adapter l\u0027AP et envisager un encadrement spécialisé.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "regles",
+                                                                     "index":  3
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-gold-3-4-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si GOLD III-IV et/ou insuffisance respiratoire chronique sous OLD et/ou ventilation non invasive (= ≥ 1 des critères suivants : ) : réadaptation respiratoire puis APA ; progression très progressive de l\u0027intensité et du volume, ± surveillance SpO₂.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "situations",
+                                                                     "index":  0
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "situations",
+                                                                     "index":  1
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "regles",
+                                                                     "index":  2
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-gold-2-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si GOLD II sans ces critères : avec comorbidités stabilisées → réadaptation respiratoire, APA ou section sport-santé selon la situation ; sans comorbidités → idem GOLD I.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "situations",
+                                                                     "index":  2
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-gold-1-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si GOLD I : activité physique en club sport-santé ou en autonomie.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "situations",
+                                                                     "index":  3
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-common-comorbidities-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Comorbidités fréquentes : cardiovasculaires, anxiété, dépression.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "situations",
+                                                                     "index":  4
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-patient-treatment-benefit-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "L\u0027activité physique fait partie intégrante du traitement de la BPCO et aide à améliorer l\u0027essoufflement et la tolérance à l\u0027effort."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  true
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "bpco-patient-regular-low-intensity-inactivity-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Être actif régulièrement, même à faible intensité, et éviter de rester longtemps inactif."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  true
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "crc",
+                                                                     "index":  0
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "crc",
+                                                                     "index":  3
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "crc_default",
+                                                                     "index":  0
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "crc_default",
+                                                                     "index":  2
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-patient-progressive-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Augmenter progressivement la durée et l\u0027intensité selon la tolérance."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  true
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "bpco-patient-dyspnea-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "selfMonitoring"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Adapter l\u0027intensité de l\u0027effort à l\u0027essoufflement."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  true
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "crc",
+                                                                     "index":  1
+                                                                 },
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "crc_default",
+                                                                     "index":  1
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-patient-fractionate-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Fractionner l\u0027activité physique en plusieurs périodes courtes si nécessaire."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "crc",
+                                                                     "index":  2
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-patient-post-exacerbation-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Après une exacerbation, reprendre progressivement l\u0027activité physique selon les consignes données par l\u0027équipe soignante."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
     }
 ];
 

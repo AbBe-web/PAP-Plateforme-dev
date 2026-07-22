@@ -5638,7 +5638,7 @@ function initMedicationApaPanel() {
 // ============================================================
 // PROTOTYPE UX — AIDE COGNITIVE CLINIQUE V2
 //
-// Prototype visible HTA / DT2.
+// Prototype visible HTA / DT2 / BPCO.
 // Aucun impact sur les sorties documentaires.
 // Aucun état clinique n'est modifié.
 // ============================================================
@@ -5653,13 +5653,120 @@ function escapeClinicalCognitiveHtml(value = "") {
     .replace(/'/g, "&#039;");
 }
 
+function buildClinicalCognitiveMessageHtml(
+  projection,
+  message
+) {
+
+  let messageHtml =
+    escapeClinicalCognitiveHtml(message);
+
+  const knowledgeItemId =
+    projection?.knowledgeItemId || "";
+
+  const goldUrl =
+    "http://medicalcul.free.fr/goldbpco.html";
+
+  const buildGoldLink = label => `
+    <a
+      href="${goldUrl}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >${escapeClinicalCognitiveHtml(label)}</a>
+  `;
+
+
+  // ----------------------------------------------------------
+  // BPCO — GOLD III-IV
+  // ----------------------------------------------------------
+
+if (
+  knowledgeItemId ===
+  "bpco-guidance-gold-3-4-001"
+) {
+
+  const infoText =
+    "Persistance d’une dyspnée invalidante malgré traitement optimal, " +
+    "mMRC ≥2, VEMS <50 %, exacerbations fréquentes (>1/an), " +
+    "désaturation mal contrôlée, HTAP, " +
+    "comorbidité cardiovasculaire ou métabolique.";
+
+  const infoButton = `
+    <button
+      type="button"
+      class="info-trigger info-hitbox"
+      data-info="${escapeClinicalCognitiveHtml(
+        infoText
+      )}"
+    >
+      <span class="info-icon">i</span>
+    </button>
+  `;
+
+  messageHtml =
+    messageHtml.replace(
+      "GOLD III-IV",
+      buildGoldLink("GOLD III-IV")
+    );
+
+  messageHtml =
+    messageHtml.replace(
+      "(= ≥ 1 des critères suivants : )",
+      `(= ≥ 1 des critères suivants : ${infoButton})`
+    );
+}
+
+
+  // ----------------------------------------------------------
+  // BPCO — GOLD II
+  // ----------------------------------------------------------
+
+  if (
+    knowledgeItemId ===
+    "bpco-guidance-gold-2-001"
+  ) {
+
+    messageHtml =
+      messageHtml
+        .replace(
+          "GOLD II",
+          buildGoldLink("GOLD II")
+        )
+        .replace(
+          "GOLD I",
+          buildGoldLink("GOLD I")
+        );
+  }
+
+
+  // ----------------------------------------------------------
+  // BPCO — GOLD I
+  // ----------------------------------------------------------
+
+  if (
+    knowledgeItemId ===
+    "bpco-guidance-gold-1-001"
+  ) {
+
+    messageHtml =
+      messageHtml.replace(
+        "GOLD I",
+        buildGoldLink("GOLD I")
+      );
+  }
+
+
+  return messageHtml;
+}
+
 function getClinicalCognitivePathologyLabel(
   pathologyId
 ) {
 
   const labels = {
     hta: "HTA",
-    dt2: "DT2"
+    dt2: "DT2",
+    bpco: "BPCO"
   };
 
   return (
@@ -5869,14 +5976,22 @@ const originBadges =
   );
 
 
+const messageHtml =
+  buildClinicalCognitiveMessageHtml(
+    item,
+    message
+  );
+
+
 return `
   <li style="margin:5px 0;">
     <span>
-      ${escapeClinicalCognitiveHtml(message)}
+      ${messageHtml}
     </span>
     ${originBadges}
   </li>
 `;
+
         })
         .filter(Boolean)
         .join("");
