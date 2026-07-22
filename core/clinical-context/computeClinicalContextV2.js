@@ -330,19 +330,9 @@ function deduplicateContextProjectionsV2(
     }
   );
 
-  return [
-    ...projectionMap.values()
-  ].sort(
-    (projectionA, projectionB) =>
-
-      getProjectionKeyV2(
-        projectionA
-      ).localeCompare(
-        getProjectionKeyV2(
-          projectionB
-        )
-      )
-  );
+ return [
+  ...projectionMap.values()
+];
 }
 
 

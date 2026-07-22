@@ -136,6 +136,39 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                      }
     },
     {
+        "id":  "hta-guidance-moderate-below-ci-thresholds-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Sous les seuils de contre-indication liés à l’HTA et en l’absence d’autre limitation clinique, une AP d’intensité modérée peut être envisagée.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "description":  "Pression artérielle inférieure aux seuils de contre-indication liés à l’HTA et absence d’autre limitation clinique",
+                          "machineEvaluable":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
         "id":  "hta-guidance-endurance-strength-001",
         "context":  {
                         "pathologiesAny":  [
@@ -149,7 +182,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                              }
                          ],
         "messages":  {
-                         "clinician":  "Privilégier les activités d’endurance et le renforcement musculaire modéré",
+                         "clinician":  "Privilégier les activités d’endurance et le renforcement musculaire d’intensité modérée.",
                          "patient":  ""
                      },
         "condition":  {
@@ -170,48 +203,6 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                                                      "pathologyId":  "hta",
                                                                      "field":  "adaptations",
                                                                      "index":  0
-                                                                 }
-                                                             ]
-                                       }
-                     }
-    },
-    {
-        "id":  "hta-guidance-warmup-intense-001",
-        "context":  {
-                        "pathologiesAny":  [
-                                               "hta"
-                                           ]
-                    },
-        "clinicalUses":  [
-                             {
-                                 "function":  "prescriptionGuidance",
-                                 "category":  "practicalAdaptation"
-                             }
-                         ],
-        "messages":  {
-                         "clinician":  "En cas d\u0027AP intense, bien s\u0027échauffer",
-                         "patient":  ""
-                     },
-        "condition":  {
-                          "type":  "clinicianCheck",
-                          "description":  "En cas d’activité physique intense",
-                          "machineEvaluable":  false
-                      },
-        "evidenceSourceIds":  [
-
-                              ],
-        "relatedResourceIds":  [
-
-                               ],
-        "metadata":  {
-                         "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "hta",
-                                                                     "field":  "adaptations",
-                                                                     "index":  1
                                                                  }
                                                              ]
                                        }
@@ -266,17 +257,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                     },
         "clinicalUses":  [
                              {
-                                 "function":  "safety",
-                                 "category":  "monitoring"
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
                              }
                          ],
         "messages":  {
-                         "clinician":  "Hypotension post-effort, notamment sous traitement antihypertenseur",
+                         "clinician":  "Traitement antihypertenseur : risque d’hypotension post-effort, parfois subite et excessive ; prévoir une information adaptée du patient.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Traitement antihypertenseur ou contexte exposant à une hypotension post-effort",
+                          "description":  "Traitement antihypertenseur",
                           "machineEvaluable":  false
                       },
         "evidenceSourceIds":  [
@@ -426,7 +417,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                      }
     },
     {
-        "id":  "hta-rule-diuretic-dehydration-001",
+        "id":  "hta-guidance-beta-blocker-intensity-001",
         "context":  {
                         "pathologiesAny":  [
                                                "hta"
@@ -434,17 +425,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                     },
         "clinicalUses":  [
                              {
-                                 "function":  "safety",
-                                 "category":  "monitoring"
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
                              }
                          ],
         "messages":  {
-                         "clinician":  "SI traitement diurétique → ALORS risque de déshydratation ou de troubles ioniques, notamment en cas d’effort prolongé ou de chaleur",
+                         "clinician":  "Si bêtabloquant : la fréquence cardiaque reflète moins bien l’intensité de l’effort ; privilégier également les sensations perçues, notamment respiratoires.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Traitement diurétique",
+                          "description":  "Traitement par bêtabloquant",
                           "machineEvaluable":  false
                       },
         "evidenceSourceIds":  [
@@ -455,16 +446,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                ],
         "metadata":  {
                          "status":  "active",
-                         "version":  "1",
-                         "migration":  {
-                                           "legacyOrigins":  [
-                                                                 {
-                                                                     "pathologyId":  "hta",
-                                                                     "field":  "regles",
-                                                                     "index":  3
-                                                                 }
-                                                             ]
-                                       }
+                         "version":  "1"
                      }
     },
     {
@@ -510,7 +492,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                      }
     },
     {
-        "id":  "hta-patient-avoid-valsava-001",
+        "id":  "hta-rule-diuretic-dehydration-001",
         "context":  {
                         "pathologiesAny":  [
                                                "hta"
@@ -518,19 +500,18 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                     },
         "clinicalUses":  [
                              {
-                                 "function":  "patientInformation",
-                                 "category":  "safety"
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
                              }
                          ],
         "messages":  {
-                         "clinician":  "",
-                         "patient":  "éviter les efforts en glotte fermée"
+                         "clinician":  "Si diurétique : vigilance vis-à-vis de la déshydratation et des troubles électrolytiques, notamment en cas d’effort prolongé ou de chaleur.",
+                         "patient":  ""
                      },
         "condition":  {
-                          "type":  "always"
-                      },
-        "selection":  {
-                          "defaultSelected":  false
+                          "type":  "clinicianCheck",
+                          "description":  "Traitement diurétique",
+                          "machineEvaluable":  false
                       },
         "evidenceSourceIds":  [
 
@@ -545,8 +526,8 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                            "legacyOrigins":  [
                                                                  {
                                                                      "pathologyId":  "hta",
-                                                                     "field":  "crc",
-                                                                     "index":  0
+                                                                     "field":  "regles",
+                                                                     "index":  3
                                                                  }
                                                              ]
                                        }
@@ -567,7 +548,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          ],
         "messages":  {
                          "clinician":  "",
-                         "patient":  "privilégier les activités d’endurance régulières"
+                         "patient":  "Privilégier une activité d’endurance régulière."
                      },
         "condition":  {
                           "type":  "always"
@@ -615,7 +596,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          ],
         "messages":  {
                          "clinician":  "",
-                         "patient":  "surveiller la tolérance tensionnelle à l’effort"
+                         "patient":  "Surveiller la tolérance pendant et après l’effort."
                      },
         "condition":  {
                           "type":  "always"
@@ -1542,6 +1523,128 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                                                      "pathologyId":  "dt2",
                                                                      "field":  "crc_default",
                                                                      "index":  3
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "hta-patient-avoid-valsava-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "safety"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "Éviter les efforts importants en bloquant la respiration."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "hta",
+                                                                     "field":  "crc",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "hta-patient-malaise-medical-advice-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "safety"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "En cas de malaise pendant ou après l’effort, interrompre l’activité et demander un avis médical si nécessaire."
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "hta-guidance-warmup-intense-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "patientInformation",
+                                 "category":  "practicalAdvice"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "",
+                         "patient":  "En cas de séance d’activité physique ou sportive, notamment intense, bien s’échauffer et ne pas débuter brutalement une AP intense."
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "description":  "En cas d’activité physique ou sportive, notamment intense",
+                          "machineEvaluable":  false
+                      },
+        "selection":  {
+                          "defaultSelected":  false
+                      },
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "hta",
+                                                                     "field":  "adaptations",
+                                                                     "index":  1
                                                                  }
                                                              ]
                                        }

@@ -2325,3 +2325,32 @@ details[open] > .pap-patho-rule-summary::before {
 .pap-hidden-state-input {
   display: none;
 }
+
+/* =========================================
+   PAP — AIDE COGNITIVE : MESSAGES PATIENT
+   1 information = 1 ligne visuelle
+========================================= */
+
+.crc-page label.pap-cognitive-patient-item:has(input[type="checkbox"]) {
+  display: flex !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  align-items: flex-start !important;
+  gap: 8px;
+  margin: 0 !important;
+  padding: 7px 0;
+  white-space: normal !important;
+}
+
+.crc-page label.pap-cognitive-patient-item input[type="checkbox"] {
+  flex: 0 0 auto;
+  margin: 3px 0 0 0 !important;
+}
+
+.crc-page label.pap-cognitive-patient-item span {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: block;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

@@ -39,6 +39,56 @@ const CLINICAL_KNOWLEDGE_LEGACY_FIELDS = [
  */
 const CLINICAL_KNOWLEDGE_LEGACY_TEXT_OVERRIDES = {
 
+    "hta::adaptations::0": {
+
+    expectedLegacyText:
+      "Privilégier les activités d’endurance et le renforcement musculaire modéré",
+
+    expectedV2Text:
+      "Privilégier les activités d’endurance et le renforcement musculaire d’intensité modérée."
+  },
+
+
+  "hta::adaptations::1": {
+
+    expectedLegacyText:
+      "En cas d'AP intense, bien s'échauffer",
+
+    expectedV2Text:
+      ""
+  },
+
+
+  "hta::situations::0": {
+
+    expectedLegacyText:
+      "Hypotension post-effort, notamment sous traitement antihypertenseur",
+
+    expectedV2Text:
+      "Traitement antihypertenseur : risque d’hypotension post-effort, parfois subite et excessive ; prévoir une information adaptée du patient."
+  },
+
+
+  "hta::regles::3": {
+
+    expectedLegacyText:
+      "SI traitement diurétique → ALORS risque de déshydratation ou de troubles ioniques, notamment en cas d’effort prolongé ou de chaleur",
+
+    expectedV2Text:
+      "Si diurétique : vigilance vis-à-vis de la déshydratation et des troubles électrolytiques, notamment en cas d’effort prolongé ou de chaleur."
+  },
+
+
+  "hta::crc::0": {
+
+    expectedLegacyText:
+      "éviter les efforts en glotte fermée",
+
+    expectedV2Text:
+      "Éviter les efforts importants en bloquant la respiration."
+  },
+
+
   "dt2::adaptations::1": {
 
     expectedLegacyText:

@@ -5730,92 +5730,17 @@ function renderClinicalCognitiveAidV2() {
       ?.patientInformation || [];
 
 
-  // ==========================================================
-  // 1. SÉCURISER MAINTENANT
-  // ==========================================================
+// ==========================================================
+// 1. SÉCURITÉ / CONTRE-INDICATIONS
+//
+// Prototype 7A-3 :
+// le bloc supérieur v2 n'est pas affiché.
+// Le rendu legacy "Contre-indications / limitations"
+// reste la référence visible à ce stade.
+// ==========================================================
 
-  if (safetyItems.length === 0) {
-
-    safetyContainer.innerHTML = "";
-    safetyContainer.style.display =
-      "none";
-
-  } else {
-
-    const safetyHtml =
-      safetyItems
-        .map(item => {
-
-          const message =
-            item?.messages?.clinician;
-
-          if (!message) {
-            return "";
-          }
-
-          return `
-            <li style="margin:5px 0;">
-              ${escapeClinicalCognitiveHtml(message)}
-            </li>
-          `;
-        })
-        .filter(Boolean)
-        .join("");
-
-
-    safetyContainer.innerHTML = `
-      <div style="
-        padding:12px 14px;
-        border:1px solid #fecaca;
-        border-left:4px solid #dc2626;
-        border-radius:10px;
-        background:#fef2f2;
-        font-size:0.92rem;
-        line-height:1.45;
-      ">
-
-        <strong style="
-          display:block;
-          margin-bottom:8px;
-          font-size:1.02rem;
-          color:#991b1b;
-        ">
-          🛡️ Sécuriser maintenant
-        </strong>
-
-        <div style="
-          margin-bottom:8px;
-          color:#4b5563;
-          font-size:0.88rem;
-        ">
-          Éléments à vérifier ou à considérer
-          avant d’adapter la prescription.
-        </div>
-
-        <details>
-          <summary style="
-            cursor:pointer;
-            font-weight:600;
-          ">
-            ${safetyItems.length}
-            point${safetyItems.length > 1 ? "s" : ""}
-            contextuel${safetyItems.length > 1 ? "s" : ""}
-          </summary>
-
-          <ul style="
-            margin:10px 0 0 18px;
-            padding:0;
-          ">
-            ${safetyHtml}
-          </ul>
-        </details>
-
-      </div>
-    `;
-
-    safetyContainer.style.display =
-      "block";
-  }
+safetyContainer.innerHTML = "";
+safetyContainer.style.display = "none";
 
 
   // ==========================================================
@@ -5918,27 +5843,40 @@ function renderClinicalCognitiveAidV2() {
               ?.selection
               ?.defaultSelected === true;
 
-          return `
-            <label style="
-              display:block;
-              margin:5px 0;
-              line-height:1.35;
-            ">
+return `
+  <label class="pap-cognitive-patient-item" style="
+    display:flex;
+    align-items:flex-start;
+    gap:6px;
+    width:100%;
+    box-sizing:border-box;
+    margin:0;
+    padding:3px 0;
+    line-height:1.25;
+  ">
 
-              <input
-                type="checkbox"
-                ${isDefaultSelected ? "checked" : ""}
-                disabled
-                style="
-                  vertical-align:middle;
-                  margin-right:5px;
-                "
-              >
+    <input
+      type="checkbox"
+      ${isDefaultSelected ? "checked" : ""}
+      disabled
+      style="
+        flex:0 0 auto;
+        margin:2px 0 0 0;
+      "
+    >
 
-              ${escapeClinicalCognitiveHtml(message)}
+    <span style="
+      flex:1 1 auto;
+      min-width:0;
+      display:block;
+      white-space:normal;
+      overflow-wrap:anywhere;
+    ">
+      ${escapeClinicalCognitiveHtml(message)}
+    </span>
 
-            </label>
-          `;
+  </label>
+`;
         })
         .filter(Boolean)
         .join("");
