@@ -2738,6 +2738,13 @@ placeholder="Préciser..."
   id="clinicalCognitiveExperimentalV2"
   hidden
   aria-hidden="true"
+  style="
+    margin:16px 0;
+    padding:14px;
+    border:2px dashed #7c3aed;
+    border-radius:10px;
+    background:#faf5ff;
+  "
 ></div>
 
 <div id="pathoRulesBlock" style="
@@ -3821,6 +3828,9 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 /* =====================================
 1. VARIABLES GLOBALES ==================
 ===================================== */
+const ENABLE_CLINICAL_COGNITIVE_UX_PREVIEW =
+  false;
+
 const consultationState = {
   reportGenerated: false,
   reportDirty: false
@@ -5980,17 +5990,35 @@ function renderClinicalCognitiveAidV2() {
 
     experimentalContainer.innerHTML = `
       <div class="pap-cognitive-ux-experimental">
+
+        <div style="
+          margin-bottom:12px;
+          font-weight:700;
+          color:#5b21b6;
+        ">
+          Aperçu expérimental — nouvelle aide cognitive
+        </div>
+
         ${clinicianHtml}
         ${patientHtml}
         ${referenceHtml}
+
       </div>
     `;
 
-    experimentalContainer.hidden = true;
+    const previewEnabled =
+      ENABLE_CLINICAL_COGNITIVE_UX_PREVIEW ===
+      true;
+
+
+    experimentalContainer.hidden =
+      !previewEnabled;
 
     experimentalContainer.setAttribute(
       "aria-hidden",
-      "true"
+      previewEnabled
+        ? "false"
+        : "true"
     );
   }
 
