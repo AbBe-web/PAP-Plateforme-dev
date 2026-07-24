@@ -2726,17 +2726,13 @@ placeholder="Préciser..."
 
 <div
   id="clinicalCognitivePrescriptionV2"
-  style="display:none; margin:16px 0;"
-></div>
-
-<div
-  id="clinicalCognitivePatientV2"
+  class="pap-cognitive-ux-host"
   style="display:none; margin:16px 0;"
 ></div>
 
 <div
   id="clinicalCognitiveExperimentalV2"
-  class="pap-cognitive-ux-preview"
+  class="pap-cognitive-ux-host pap-cognitive-ux-preview"
   hidden
   aria-hidden="true"
 ></div>
@@ -3514,6 +3510,13 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 </div>
 </div>
 
+
+<div
+  id="clinicalCognitivePatientV2"
+  class="pap-cognitive-ux-host"
+  style="display:none; margin:16px 0;"
+></div>
+
 <!-- ================= FICHES ================= -->
 <div class="pap-prescription-subtitle">
   Ressources / documents patient
@@ -3617,6 +3620,13 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 
   </div>
 </div>
+
+<div
+  id="clinicalCognitiveReferenceV2"
+  class="pap-cognitive-ux-host"
+  style="display:none; margin:16px 0;"
+></div>
+
 </div>
 
             <div class="form-group">
@@ -3823,6 +3833,9 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 1. VARIABLES GLOBALES ==================
 ===================================== */
 const ENABLE_CLINICAL_COGNITIVE_UX_PREVIEW =
+  false;
+
+const ENABLE_CLINICAL_COGNITIVE_UX_SPLIT_PREVIEW =
   false;
 
 const consultationState = {
@@ -5897,11 +5910,17 @@ function renderClinicalCognitiveAidV2() {
       "clinicalCognitivePatientV2"
     );
 
+  const referenceContainer =
+    document.getElementById(
+      "clinicalCognitiveReferenceV2"
+    );
+
 
   if (
     !safetyContainer ||
     !prescriptionContainer ||
-    !patientContainer
+    !patientContainer ||
+    !referenceContainer
   ) {
     return;
   }
@@ -6031,6 +6050,54 @@ function renderClinicalCognitiveAidV2() {
   const patientItems =
     clinicalContextV2
       ?.patientInformation || [];
+
+  const splitPreviewEnabled =
+    ENABLE_CLINICAL_COGNITIVE_UX_SPLIT_PREVIEW ===
+    true;
+
+  if (splitPreviewEnabled) {
+
+    const clinicianHtml =
+      cognitiveUxHtml?.clinicianHtml || "";
+
+    const patientHtml =
+      cognitiveUxHtml?.patientHtml || "";
+
+    const referenceHtml =
+      cognitiveUxHtml?.referenceHtml || "";
+
+    safetyContainer.innerHTML = "";
+    safetyContainer.style.display = "none";
+
+    prescriptionContainer.innerHTML =
+      clinicianHtml;
+
+    prescriptionContainer.style.display =
+      clinicianHtml
+        ? "block"
+        : "none";
+
+    patientContainer.innerHTML =
+      patientHtml;
+
+    patientContainer.style.display =
+      patientHtml
+        ? "block"
+        : "none";
+
+    referenceContainer.innerHTML =
+      referenceHtml;
+
+    referenceContainer.style.display =
+      referenceHtml
+        ? "block"
+        : "none";
+
+    return;
+  }
+
+  referenceContainer.innerHTML = "";
+  referenceContainer.style.display = "none";
 
 
 // ==========================================================
