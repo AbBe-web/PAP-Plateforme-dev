@@ -5929,6 +5929,11 @@ function renderClinicalCognitiveAidV2() {
       ?.patient
       ?.pathologies || [];
 
+  const isQuickMode =
+    document.body.classList.contains(
+      "pap-quick-mode"
+    );
+
   const clinicalContextV2 =
     computeClinicalContextV2(
       prototypeModel
@@ -5959,7 +5964,11 @@ function renderClinicalCognitiveAidV2() {
     typeof renderClinicalCognitiveUxHtml ===
     "function"
       ? renderClinicalCognitiveUxHtml(
-          cognitiveUxViewModel
+          cognitiveUxViewModel,
+          {
+            isQuickMode,
+            activePathologies
+          }
         )
       : null;
 
@@ -15874,15 +15883,34 @@ function initPapConsultationModeToggle() {
   function setPapConsultationMode(mode) {
     const isQuickMode = mode === "quick";
 
-    document.body.classList.toggle("pap-quick-mode", isQuickMode);
+    document.body.classList.toggle(
+      "pap-quick-mode",
+      isQuickMode
+    );
 
-    updatePapPathoRulesDisclosure(isQuickMode);
+    updatePapPathoRulesDisclosure(
+      isQuickMode
+    );
 
-    if (typeof updateMedicationApaPanel === "function") {
-     updateMedicationApaPanel();
-   }
+    if (
+      typeof updateMedicationApaPanel ===
+      "function"
+    ) {
+      updateMedicationApaPanel();
+    }
 
-    fullModeBtn.classList.toggle("pap-mode-btn-active", !isQuickMode);
+    if (
+      typeof renderClinicalCognitiveAidV2 ===
+      "function"
+    ) {
+      renderClinicalCognitiveAidV2();
+    }
+
+    fullModeBtn.classList.toggle(
+      "pap-mode-btn-active",
+      !isQuickMode
+    );
+
     quickModeBtn.classList.toggle("pap-mode-btn-active", isQuickMode);
 
     fullModeBtn.setAttribute("aria-pressed", String(!isQuickMode));
