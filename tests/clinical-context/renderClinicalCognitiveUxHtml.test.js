@@ -15,7 +15,15 @@ const viewModel = {
             title: "Repères généraux",
             items: [
                 {
-                    knowledgeItemId: "general-1",
+                    knowledgeItemId:
+                        "general-1",
+
+                    matchedContext: {
+                        pathologiesAny: [
+                            "hta"
+                        ]
+                    },
+
                     messages: {
                         clinician:
                             "Conseil général <test>",
@@ -142,6 +150,29 @@ const result =
         viewModel
     );
 
+const quickModeResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            isQuickMode: true,
+            activePathologies: [
+                "hta",
+                "bpco"
+            ]
+        }
+    );
+
+const singlePathologyResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            isQuickMode: false,
+            activePathologies: [
+                "hta"
+            ]
+        }
+    );
+
 assert(
     result.clinicianHtml.includes(
         'data-section-id="general"'
@@ -165,6 +196,41 @@ assert(
         "<details"
     ),
     "Les sections doivent être repliables"
+);
+
+assert(
+    result.clinicianHtml.includes(
+        'data-section-id="general" open'
+    ),
+    "Les sections doivent être ouvertes par défaut en mode complet"
+);
+
+assert(
+    !quickModeResult.clinicianHtml.includes(
+        'data-section-id="general" open'
+    ),
+    "Les sections doivent rester fermées en mode rapide"
+);
+
+assert(
+    quickModeResult.clinicianHtml.includes(
+        'data-pathology-id="hta"'
+    ),
+    "Le badge d’origine doit être affiché lorsque plusieurs pathologies sont actives"
+);
+
+assert(
+    quickModeResult.clinicianHtml.includes(
+        "pap-cognitive-ux-origin-badges"
+    ),
+    "Le conteneur des badges d’origine doit être rendu"
+);
+
+assert(
+    !singlePathologyResult.clinicianHtml.includes(
+        "pap-cognitive-ux-origin-badges"
+    ),
+    "Les badges d’origine ne doivent pas être affichés avec une seule pathologie active"
 );
 
 assert(
@@ -300,8 +366,12 @@ console.log(
                 referenceRendered: true,
                 htmlEscaped: true,
                 diagnosticsPreserved: true,
-                emptyInputHandled: true
-            }
+                emptyInputHandled: true,
+                fullModeSectionsOpened: true,
+                quickModeSectionsCollapsed: true,
+                multiPathologyBadgesRendered: true,
+                singlePathologyBadgesHidden: true
+   }
         },
         null,
         2

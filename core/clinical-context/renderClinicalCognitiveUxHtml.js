@@ -12,6 +12,46 @@
             .replace(/'/g, "&#039;");
     }
 
+    function getPathologyLabel(
+        pathologyId
+    ) {
+        const labels = {
+            hta: "HTA",
+            dt2: "DT2",
+            bpco: "BPCO"
+        };
+
+        return (
+            labels[pathologyId] ||
+            String(pathologyId || "")
+                .toUpperCase()
+        );
+    }
+
+    function normalizePathologyIds(
+        values
+    ) {
+        if (!Array.isArray(values)) {
+            return [];
+        }
+
+        return [
+            ...new Set(
+                values
+                    .filter(function (value) {
+                        return (
+                            typeof value ===
+                                "string" &&
+                            value.trim() !== ""
+                        );
+                    })
+                    .map(function (value) {
+                        return value.trim();
+                    })
+            )
+        ];
+    }
+
     function getItemIdentity(item) {
         if (
             !item ||
@@ -49,9 +89,76 @@
         ).trim();
     }
 
+    function renderOriginBadgesHtml(
+        item,
+        activePathologies
+    ) {
+        const normalizedActivePathologies =
+            normalizePathologyIds(
+                activePathologies
+            );
+
+        if (
+            normalizedActivePathologies.length <
+            2
+        ) {
+            return "";
+        }
+
+        const itemPathologies =
+            normalizePathologyIds(
+                item
+                    ?.matchedContext
+                    ?.pathologiesAny
+            );
+
+        const relevantPathologies =
+            itemPathologies.filter(
+                function (pathologyId) {
+                    return (
+                        normalizedActivePathologies
+                            .includes(
+                                pathologyId
+                            )
+                    );
+                }
+            );
+
+        if (
+            relevantPathologies.length === 0
+        ) {
+            return "";
+        }
+
+        const badgesHtml =
+            relevantPathologies
+                .map(function (pathologyId) {
+                    return `
+<span
+  class="pap-cognitive-ux-origin-badge"
+  data-pathology-id="${escapeClinicalCognitiveUxHtml(
+      pathologyId
+  )}"
+>
+  ${escapeClinicalCognitiveUxHtml(
+      getPathologyLabel(
+          pathologyId
+      )
+  )}
+</span>`;
+                })
+                .join("");
+
+        return `
+<span class="pap-cognitive-ux-origin-badges">
+  ${badgesHtml}
+</span>`;
+    }
+
     function renderItemHtml(
         item,
-        audience
+        audience,
+        options
     ) {
         const message =
             getItemMessage(
@@ -73,9 +180,18 @@
                 )}"`
                 : "";
 
+        const originBadgesHtml =
+            renderOriginBadgesHtml(
+                item,
+                options?.activePathologies
+            );
+
         return `
 <li class="pap-cognitive-ux-item"${itemIdAttribute}>
-  ${escapeClinicalCognitiveUxHtml(message)}
+  <span class="pap-cognitive-ux-item-message">
+    ${escapeClinicalCognitiveUxHtml(message)}
+  </span>
+  ${originBadgesHtml}
 </li>`;
     }
 
@@ -126,7 +242,8 @@
     function renderSectionHtml(
         section,
         audience,
-        sectionClass
+        sectionClass,
+        options
     ) {
         if (
             !section ||
@@ -151,7 +268,8 @@
                 .map(function (item) {
                     return renderItemHtml(
                         item,
-                        audience
+                        audience,
+                        options
                     );
                 })
                 .filter(Boolean)
@@ -162,7 +280,8 @@
                 .map(function (item) {
                     return renderItemHtml(
                         item,
-                        audience
+                        audience,
+                        options
                     );
                 })
                 .filter(Boolean)
@@ -214,10 +333,15 @@
 </div>`
                 : "";
 
+        const openAttribute =
+            options?.isQuickMode === true
+                ? ""
+                : " open";
+
         return `
 <details
   class="${sectionClass}"
-  ${sectionIdAttribute}
+  ${sectionIdAttribute}${openAttribute}
 >
   <summary class="pap-cognitive-ux-section-summary">
     <span class="pap-cognitive-ux-section-title">
@@ -266,7 +390,8 @@
     }
 
     function renderClinicalCognitiveUxHtml(
-        viewModel
+        viewModel,
+        options = {}
     ) {
         const safeViewModel =
             viewModel &&
@@ -287,7 +412,8 @@
                     return renderSectionHtml(
                         section,
                         "clinician",
-                        "pap-cognitive-ux-section pap-cognitive-ux-section-clinician"
+                        "pap-cognitive-ux-section pap-cognitive-ux-section-clinician",
+                        options
                     );
                 })
                 .filter(Boolean)
@@ -297,14 +423,16 @@
             renderSectionHtml(
                 safeViewModel.patient,
                 "patient",
-                "pap-cognitive-ux-section pap-cognitive-ux-section-patient"
+                "pap-cognitive-ux-section pap-cognitive-ux-section-patient",
+                options
             );
 
         const referenceHtml =
             renderSectionHtml(
                 safeViewModel.reference,
                 "clinician",
-                "pap-cognitive-ux-section pap-cognitive-ux-section-reference"
+                "pap-cognitive-ux-section pap-cognitive-ux-section-reference",
+                options
             );
 
         const unassigned =
@@ -327,7 +455,8 @@
                                 renderSectionHtml(
                                     section,
                                     "clinician",
-                                    "pap-cognitive-ux-section"
+                                    "pap-cognitive-ux-section",
+                                    options
                                 )
                             );
                         }
