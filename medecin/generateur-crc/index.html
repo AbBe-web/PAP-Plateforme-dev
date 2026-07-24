@@ -2745,7 +2745,7 @@ placeholder="Préciser..."
   background:#fefce8;
 ">
 
-  <strong>⚙️ Repères de prescription selon les pathologies</strong>
+  <strong>🧾 Messages patient à intégrer aux documents</strong>
 
   <div id="pathoRulesContainer" style="margin-top:10px; font-size:0.9rem;">
     Aucune pathologie sélectionnée.
@@ -6374,20 +6374,10 @@ function updatePathoRules() {
   ${data.titre}
 </summary>
 
-<div style="margin-top:10px;">
+<div style="margin-top:8px;">
 
-         <strong>🔎 Situations particulières</strong><br>
-        ${data.situations?.map(s => `• ${s}`).join("<br>") || ""}<br><br>
-        
-        <strong>🔧 Adaptations prescription</strong><br>
-       ${data.adaptations?.map(a => `• ${a}`).join("<br>") || ""}<br><br>
-
-        <strong>⚙️ Points de vigilance</strong><br>
-${data.regles?.map(r => `• ${r}`).join("<br>") || ""}
-
-<br>
-<strong style="display:block; margin-top:6px;">
-  🧾 Messages patient.e
+<strong style="display:block; margin-bottom:4px;">
+  Sélection des messages patient
 </strong>
 
 <div style="display:flex; gap:10px; align-items:center; margin:2px 0; font-size:0.9em; flex-wrap:wrap;">
