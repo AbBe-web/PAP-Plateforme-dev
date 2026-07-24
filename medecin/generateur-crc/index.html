@@ -2734,6 +2734,12 @@ placeholder="Préciser..."
   style="display:none; margin:16px 0;"
 ></div>
 
+<div
+  id="clinicalCognitiveExperimentalV2"
+  hidden
+  aria-hidden="true"
+></div>
+
 <div id="pathoRulesBlock" style="
   margin:20px 0;
   padding:12px;
@@ -5953,6 +5959,40 @@ function renderClinicalCognitiveAidV2() {
 
   window.PAP_CLINICAL_COGNITIVE_HTML_V2 =
     cognitiveUxHtml;
+
+  const experimentalContainer =
+    document.getElementById(
+      "clinicalCognitiveExperimentalV2"
+    );
+
+
+  if (experimentalContainer) {
+
+    const clinicianHtml =
+      cognitiveUxHtml?.clinicianHtml || "";
+
+    const patientHtml =
+      cognitiveUxHtml?.patientHtml || "";
+
+    const referenceHtml =
+      cognitiveUxHtml?.referenceHtml || "";
+
+
+    experimentalContainer.innerHTML = `
+      <div class="pap-cognitive-ux-experimental">
+        ${clinicianHtml}
+        ${patientHtml}
+        ${referenceHtml}
+      </div>
+    `;
+
+    experimentalContainer.hidden = true;
+
+    experimentalContainer.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+  }
 
   const safetyItems =
     clinicalContextV2?.safety || [];
