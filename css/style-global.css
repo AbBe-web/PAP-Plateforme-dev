@@ -2381,3 +2381,272 @@ details[open] > .pap-patho-rule-summary::before {
   line-height: 1.2;
   white-space: nowrap;
 }
+
+/* =========================================================
+   PAP — AIDE COGNITIVE V2 : APERÇU EXPÉRIMENTAL
+   Hiérarchie médecin / patient / référence
+   ========================================================= */
+
+#clinicalCognitiveExperimentalV2.pap-cognitive-ux-preview {
+  margin: 16px 0;
+  padding: 14px;
+
+  border: 2px dashed #7c3aed;
+  border-radius: 10px;
+
+  background: #faf5ff;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-preview-title {
+  margin: 0 0 12px;
+
+  color: #5b21b6;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-experimental {
+  display: grid;
+  gap: 10px;
+}
+
+/* =========================================================
+   Sections repliables
+   ========================================================= */
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-section {
+  margin: 0;
+  overflow: hidden;
+
+  border: 1px solid #dbe3ee;
+  border-radius: 9px;
+
+  background: #ffffff;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-section-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  min-height: 42px;
+  padding: 9px 11px;
+
+  cursor: pointer;
+  list-style: none;
+}
+
+body.pap-quick-mode
+  #clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-summary {
+  min-height: 32px;
+  padding: 5px 9px;
+  gap: 7px;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-summary::-webkit-details-marker {
+  display: none;
+}
+
+body.pap-quick-mode
+  #clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-experimental {
+  gap: 7px;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-summary::before {
+  content: "▶";
+
+  flex: 0 0 auto;
+
+  color: #64748b;
+  font-size: 0.72rem;
+
+  transition: transform 0.15s ease;
+}
+
+#clinicalCognitiveExperimentalV2
+  details[open]
+  > .pap-cognitive-ux-section-summary::before {
+  transform: rotate(90deg);
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-section-title {
+  flex: 1 1 auto;
+
+  color: #1f2937;
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-section-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 24px;
+  height: 22px;
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  background: #eef2f7;
+  color: #475569;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-section-content {
+  padding: 0 11px 11px;
+
+  border-top: 1px solid #eef2f7;
+}
+
+/* =========================================================
+   Listes et messages
+   ========================================================= */
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-list {
+  margin: 0;
+  padding: 8px 0 0 1.15rem;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-item {
+  margin: 0;
+  padding: 5px 0;
+
+  color: #334155;
+  font-size: 0.9rem;
+  line-height: 1.42;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-item-message {
+  overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   Zone à vérifier selon la situation clinique
+   ========================================================= */
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-clinician-check {
+  margin: 9px 0 0;
+  padding: 8px 10px;
+
+  border-left: 3px solid #f59e0b;
+  border-radius: 6px;
+
+  background: #fffbeb;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-subsection-title {
+  margin: 0;
+
+  color: #92400e;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-list-clinician-check {
+  padding-top: 5px;
+}
+
+/* =========================================================
+   Différenciation des niveaux d’information
+   ========================================================= */
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-clinician
+  > .pap-cognitive-ux-section-summary {
+  background: #f8fafc;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-patient {
+  border-color: #bfdbfe;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-patient
+  > .pap-cognitive-ux-section-summary {
+  background: #eff6ff;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-patient
+  .pap-cognitive-ux-section-title {
+  color: #1d4ed8;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-reference {
+  border-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-reference
+  > .pap-cognitive-ux-section-summary {
+  background: #f1f5f9;
+}
+
+#clinicalCognitiveExperimentalV2
+  .pap-cognitive-ux-section-reference
+  .pap-cognitive-ux-section-title {
+  color: #64748b;
+  font-size: 0.88rem;
+}
+
+/* =========================================================
+   Badges d’origine pathologique V2
+   ========================================================= */
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-origin-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 3px;
+
+  margin-left: 5px;
+
+  vertical-align: baseline;
+}
+
+#clinicalCognitiveExperimentalV2 .pap-cognitive-ux-origin-badge {
+  display: inline-block;
+
+  padding: 1px 4px;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+
+  background: #f8fafc;
+  color: #64748b;
+
+  font-size: 0.65rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Adaptation petits écrans
+   ========================================================= */
+
+@media (max-width: 640px) {
+  #clinicalCognitiveExperimentalV2.pap-cognitive-ux-preview {
+    padding: 10px;
+  }
+
+  #clinicalCognitiveExperimentalV2 .pap-cognitive-ux-section-summary {
+    padding: 8px 9px;
+  }
+
+  #clinicalCognitiveExperimentalV2 .pap-cognitive-ux-section-content {
+    padding: 0 9px 9px;
+  }
+}
