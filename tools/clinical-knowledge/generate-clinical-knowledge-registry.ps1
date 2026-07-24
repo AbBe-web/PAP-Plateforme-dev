@@ -290,6 +290,11 @@ try {
       "Contexts"
     )
 
+  $presentationTargetsSheet =
+    $workbook.Worksheets.Item(
+      "PresentationTargets"
+    )
+
   $legacyOriginsSheet =
     $workbook.Worksheets.Item(
       "LegacyOrigins"
@@ -321,6 +326,10 @@ try {
   $contextsHeaders =
     Get-HeaderMap `
       -Worksheet $contextsSheet
+
+  $presentationTargetsHeaders =
+    Get-HeaderMap `
+      -Worksheet $presentationTargetsSheet
 
   $legacyOriginsHeaders =
     Get-HeaderMap `
@@ -465,6 +474,10 @@ try {
           New-Object `
             System.Collections.ArrayList
       }
+
+      presentationTargets =
+        New-Object `
+          System.Collections.ArrayList
 
       legacyOrigins =
         New-Object `
@@ -612,6 +625,51 @@ try {
     }
   }
 
+
+
+
+  # ==========================================================
+  # PRESENTATION TARGETS
+  # ==========================================================
+
+  for (
+    $row = 2;
+    $row -le
+      $presentationTargetsSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $knowledgeItemId =
+      Get-FieldText `
+        -Worksheet $presentationTargetsSheet `
+        -Headers $presentationTargetsHeaders `
+        -Row $row `
+        -Name "knowledgeItemId"
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      )
+    ) {
+      continue
+    }
+
+
+    $target =
+      Get-FieldText `
+        -Worksheet $presentationTargetsSheet `
+        -Headers $presentationTargetsHeaders `
+        -Row $row `
+        -Name "target"
+
+
+    Add-UniqueValue `
+      -List $itemStates[
+        $knowledgeItemId
+      ].presentationTargets `
+      -Value $target
+  }
 
   # ==========================================================
   # LEGACY ORIGINS
@@ -881,6 +939,11 @@ try {
 
         condition =
           [pscustomobject]$condition
+
+        presentationTargets =
+          @(
+            $state.presentationTargets
+          )
       }
 
 
@@ -1076,9 +1139,36 @@ window.PATHOLOGY_KNOWLEDGE_REGISTRY =
   ) `
     -ForegroundColor Green
 
+  $targetedItemCount =
+    @(
+      $registry |
+      Where-Object {
+        $_.presentationTargets.Count -gt 0
+      }
+    ).Count
+
+  $presentationTargetCount =
+    @(
+      $registry |
+      ForEach-Object {
+        $_.presentationTargets
+      }
+    ).Count
+
+
   Write-Host (
     "KnowledgeItems générés : " +
     $registry.Count
+  )
+
+  Write-Host (
+    "KnowledgeItems avec cible : " +
+    $targetedItemCount
+  )
+
+  Write-Host (
+    "PresentationTargets générées : " +
+    $presentationTargetCount
   )
 
   Write-Host (

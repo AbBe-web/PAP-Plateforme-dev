@@ -31,6 +31,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "HTA non équilibrée symptomatique avec PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -73,6 +76,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "HTA non équilibrée symptomatique avec PAS ≥ 180 mmHg ou PAD ≥ 105 mmHg",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -115,6 +121,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "HTA mal équilibrée, symptomatique et/ou avec atteinte d’organe",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -157,6 +166,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Pression artérielle inférieure aux seuils de contre-indication liés à l’HTA et absence d’autre limitation clinique",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -188,6 +200,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -195,7 +210,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
 
                                ],
         "metadata":  {
-                         "status":  "active",
+                         "status":  "deprecated",
                          "version":  "1",
                          "migration":  {
                                            "legacyOrigins":  [
@@ -228,6 +243,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.strength"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -270,6 +288,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Traitement antihypertenseur",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -312,6 +333,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "PAS ≥ 200 mmHg ou PAD ≥ 115 mmHg",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -354,6 +378,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "HTA non contrôlée",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -396,6 +423,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Traitement antihypertenseur",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -438,6 +468,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Traitement par bêtabloquant",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -471,6 +504,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Vertiges ou malaise pendant ou après l’effort",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -513,6 +549,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Traitement diurétique",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -553,6 +592,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -601,6 +643,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -649,6 +694,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  false
                       },
@@ -692,6 +740,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  false
                       },
@@ -728,6 +779,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "En cas d’activité physique ou sportive, notamment intense",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  false
                       },
@@ -771,6 +825,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -812,6 +869,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "clinicianCheck",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -857,6 +917,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "clinicianCheck",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -902,6 +965,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "clinicianCheck",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -943,6 +1009,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "clinicianCheck",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -983,6 +1052,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1014,6 +1086,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1054,6 +1129,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1096,6 +1174,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Diabète compliqué : rétinopathie sévère, néphropathie sévère, dysautonomie sévère ou HTA non contrôlée associée",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1138,6 +1219,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Mal perforant plantaire",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1180,6 +1264,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Insuline ou traitement insulinosécréteur",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1220,6 +1307,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1260,6 +1350,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1302,6 +1395,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Traitement hypoglycémiant : insuline, glinides ou sulfamides hypoglycémiants",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1344,6 +1440,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Activité inhabituelle ou prolongée",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1386,6 +1485,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Lésion du pied",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1428,6 +1530,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "description":  "Absence de bilan récent",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1468,6 +1573,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -1526,6 +1634,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -1575,6 +1686,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "clinicianCheck",
                           "machineEvaluable":  false
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  false
                       },
@@ -1618,6 +1732,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -1666,6 +1783,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  false
                       },
@@ -1700,6 +1820,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1740,6 +1863,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1780,6 +1906,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1820,6 +1949,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1860,6 +1992,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1900,6 +2035,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1940,6 +2078,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.strength"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -1971,6 +2112,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.endurance"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -2011,6 +2155,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -2051,6 +2198,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -2058,7 +2208,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
 
                                ],
         "metadata":  {
-                         "status":  "active",
+                         "status":  "deprecated",
                          "version":  "1",
                          "migration":  {
                                            "legacyOrigins":  [
@@ -2091,6 +2241,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "orientation"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -2141,6 +2294,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "orientation"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -2181,6 +2337,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "orientation"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -2221,6 +2380,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "referenceOnly"
+                                ],
         "evidenceSourceIds":  [
 
                               ],
@@ -2261,6 +2423,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -2295,6 +2460,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -2353,6 +2521,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -2387,6 +2558,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  true
                       },
@@ -2435,6 +2609,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  false
                       },
@@ -2478,6 +2655,9 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "condition":  {
                           "type":  "always"
                       },
+        "presentationTargets":  [
+                                    "patientInformation"
+                                ],
         "selection":  {
                           "defaultSelected":  false
                       },
@@ -2490,6 +2670,182 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "metadata":  {
                          "status":  "active",
                          "version":  "1"
+                     }
+    },
+    {
+        "id":  "hta-guidance-endurance-priority-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "activityType"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Privilégier les activités physiques d’endurance.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "hta",
+                                                                     "field":  "adaptations",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "hta-guidance-strength-moderate-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "hta"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "activityType"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Les activités physiques d’endurance peuvent être complétées par des activités de renforcement musculaire d’intensité modérée.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always"
+                      },
+        "presentationTargets":  [
+                                    "prescription.strength"
+                                ],
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "hta",
+                                                                     "field":  "adaptations",
+                                                                     "index":  0
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-guidance-exercise-desaturation-adaptation-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "prescriptionGuidance",
+                                 "category":  "practicalAdaptation"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si désaturation à l’effort : adapter l’activité physique.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "description":  "Désaturation à l’effort",
+                          "machineEvaluable":  false
+                      },
+        "presentationTargets":  [
+                                    "prescription.general"
+                                ],
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "regles",
+                                                                     "index":  3
+                                                                 }
+                                                             ]
+                                       }
+                     }
+    },
+    {
+        "id":  "bpco-orientation-exercise-desaturation-support-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "supervisionFactor"
+                             }
+                         ],
+        "messages":  {
+                         "clinician":  "Si désaturation à l’effort : un encadrement spécialisé peut être envisagé.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "description":  "Désaturation à l’effort",
+                          "machineEvaluable":  false
+                      },
+        "presentationTargets":  [
+                                    "orientation"
+                                ],
+        "evidenceSourceIds":  [
+
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1",
+                         "migration":  {
+                                           "legacyOrigins":  [
+                                                                 {
+                                                                     "pathologyId":  "bpco",
+                                                                     "field":  "regles",
+                                                                     "index":  3
+                                                                 }
+                                                             ]
+                                       }
                      }
     }
 ];

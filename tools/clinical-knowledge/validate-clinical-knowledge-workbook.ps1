@@ -24,6 +24,7 @@ $expectedSheets = @(
   "LegacyOrigins",
   "EvidenceRefs",
   "ResourceRefs",
+  "PresentationTargets",
   "Lists",
   "Pathologies"
 )
@@ -77,6 +78,11 @@ $requiredHeaders = @{
     "resourceId"
   )
 
+  "PresentationTargets" = @(
+    "knowledgeItemId",
+    "target"
+  )
+
   "Pathologies" = @(
     "id",
     "label",
@@ -105,6 +111,17 @@ $allowedStatusValues = @(
   "active",
   "draft",
   "deprecated"
+)
+
+
+$allowedPresentationTargets = @(
+  "prescription.general",
+  "prescription.endurance",
+  "prescription.strength",
+  "prescription.otherActivity",
+  "orientation",
+  "patientInformation",
+  "referenceOnly"
 )
 
 
@@ -533,6 +550,8 @@ try {
     New-Object `
       System.Collections.Generic.HashSet[string]
 
+  $knowledgeItemStatusById = @{}
+
 
   for (
     $row = 2;
@@ -607,6 +626,11 @@ try {
         "KnowledgeItem '$id' : " +
         "status invalide '$status'."
       )
+    }
+    else {
+
+      $knowledgeItemStatusById[$id] =
+        $status
     }
 
 
@@ -938,6 +962,147 @@ try {
   }
 
 
+
+
+  # ==========================================================
+  # PRESENTATION TARGETS
+  # ==========================================================
+
+  $presentationTargetsSheet =
+    $workbook.Worksheets.Item(
+      "PresentationTargets"
+    )
+
+  $presentationTargetsHeaders =
+    $headerMaps["PresentationTargets"]
+
+  $presentationTargetPairs =
+    New-Object `
+      System.Collections.Generic.HashSet[string]
+
+  $presentationTargetCount = 0
+
+
+  for (
+    $row = 2;
+    $row -le
+      $presentationTargetsSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $knowledgeItemId =
+      Get-FieldText `
+        -Worksheet $presentationTargetsSheet `
+        -Headers $presentationTargetsHeaders `
+        -Row $row `
+        -Name "knowledgeItemId"
+
+    $target =
+      Get-FieldText `
+        -Worksheet $presentationTargetsSheet `
+        -Headers $presentationTargetsHeaders `
+        -Row $row `
+        -Name "target"
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $target
+      )
+    ) {
+      continue
+    }
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      )
+    ) {
+
+      $errors.Add(
+        "PresentationTargets ligne $row : " +
+        "knowledgeItemId obligatoire."
+      )
+
+      continue
+    }
+
+
+    Test-KnowledgeItemReference `
+      -SheetName "PresentationTargets" `
+      -Row $row `
+      -KnowledgeItemId $knowledgeItemId
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $target
+      )
+    ) {
+
+      $errors.Add(
+        "PresentationTargets ligne $row : " +
+        "target obligatoire."
+      )
+
+      continue
+    }
+
+
+    if (
+      $target -notin
+      $allowedPresentationTargets
+    ) {
+
+      $errors.Add(
+        "PresentationTargets ligne $row : " +
+        "target invalide '$target'."
+      )
+    }
+
+
+    $pairKey =
+      "$knowledgeItemId::$target"
+
+
+    if (
+      -not $presentationTargetPairs.Add(
+        $pairKey
+      )
+    ) {
+
+      $errors.Add(
+        "PresentationTargets ligne $row : " +
+        "couple dupliqué '$pairKey'."
+      )
+    }
+
+
+    if (
+      $knowledgeItemStatusById.ContainsKey(
+        $knowledgeItemId
+      ) -and
+      $knowledgeItemStatusById[
+        $knowledgeItemId
+      ] -eq
+      "deprecated"
+    ) {
+
+      $errors.Add(
+        "PresentationTargets ligne $row : " +
+        "un item deprecated ne peut pas recevoir " +
+        "de cible de présentation ('$knowledgeItemId')."
+      )
+    }
+
+
+    $presentationTargetCount++
+  }
+
   # ==========================================================
   # LEGACY ORIGINS
   # ==========================================================
@@ -1161,6 +1326,12 @@ try {
   Write-Host (
     "KnowledgeItems : " +
     $knowledgeItemIds.Count
+  )
+
+
+  Write-Host (
+    "PresentationTargets : " +
+    $presentationTargetCount
   )
 
 
