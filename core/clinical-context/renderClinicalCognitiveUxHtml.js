@@ -79,6 +79,50 @@
 </li>`;
     }
 
+    function partitionItemsByCondition(
+        items,
+        audience
+    ) {
+        const result = {
+            always: [],
+            clinicianCheck: []
+        };
+
+        if (!Array.isArray(items)) {
+            return result;
+        }
+
+        items.forEach(function (item) {
+            const message =
+                getItemMessage(
+                    item,
+                    audience
+                );
+
+            if (!message) {
+                return;
+            }
+
+            const conditionType =
+                item?.condition?.type || "always";
+
+            if (
+                conditionType ===
+                "clinicianCheck"
+            ) {
+                result.clinicianCheck.push(
+                    item
+                );
+
+                return;
+            }
+
+            result.always.push(item);
+        });
+
+        return result;
+    }
+
     function renderSectionHtml(
         section,
         audience,
@@ -96,8 +140,14 @@
                 ? section.items
                 : [];
 
-        const itemsHtml =
-            items
+        const partition =
+            partitionItemsByCondition(
+                items,
+                audience
+            );
+
+        const alwaysHtml =
+            partition.always
                 .map(function (item) {
                     return renderItemHtml(
                         item,
@@ -107,7 +157,22 @@
                 .filter(Boolean)
                 .join("");
 
-        if (!itemsHtml) {
+        const clinicianCheckHtml =
+            partition.clinicianCheck
+                .map(function (item) {
+                    return renderItemHtml(
+                        item,
+                        audience
+                    );
+                })
+                .filter(Boolean)
+                .join("");
+
+        const renderedItemCount =
+            partition.always.length +
+            partition.clinicianCheck.length;
+
+        if (renderedItemCount === 0) {
             return "";
         }
 
@@ -127,15 +192,48 @@
                 section.title || ""
             );
 
-        return `
-<section class="${sectionClass}"${sectionIdAttribute}>
-  <h3 class="pap-cognitive-ux-section-title">
-    ${title}
-  </h3>
-  <ul class="pap-cognitive-ux-list">
-    ${itemsHtml}
+        const alwaysBlock =
+            alwaysHtml
+                ? `
+<ul class="pap-cognitive-ux-list pap-cognitive-ux-list-always">
+  ${alwaysHtml}
+</ul>`
+                : "";
+
+        const clinicianCheckBlock =
+            clinicianCheckHtml
+                ? `
+<div class="pap-cognitive-ux-clinician-check">
+  <h4 class="pap-cognitive-ux-subsection-title">
+    À vérifier selon la situation clinique
+  </h4>
+
+  <ul class="pap-cognitive-ux-list pap-cognitive-ux-list-clinician-check">
+    ${clinicianCheckHtml}
   </ul>
-</section>`;
+</div>`
+                : "";
+
+        return `
+<details
+  class="${sectionClass}"
+  ${sectionIdAttribute}
+>
+  <summary class="pap-cognitive-ux-section-summary">
+    <span class="pap-cognitive-ux-section-title">
+      ${title}
+    </span>
+
+    <span class="pap-cognitive-ux-section-count">
+      ${renderedItemCount}
+    </span>
+  </summary>
+
+  <div class="pap-cognitive-ux-section-content">
+    ${alwaysBlock}
+    ${clinicianCheckBlock}
+  </div>
+</details>`;
     }
 
     function countRenderedItems(

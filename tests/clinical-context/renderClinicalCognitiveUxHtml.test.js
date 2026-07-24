@@ -68,6 +68,11 @@ const viewModel = {
                 {
                     knowledgeItemId:
                         "orientation-1",
+
+                    condition: {
+                        type: "clinicianCheck"
+                    },
+
                     messages: {
                         clinician:
                             "Encadrement à envisager",
@@ -153,6 +158,34 @@ assert(
     result.clinicianHtml.includes(
         'data-section-id="orientation"'
     )
+);
+
+assert(
+    result.clinicianHtml.includes(
+        "<details"
+    ),
+    "Les sections doivent être repliables"
+);
+
+assert(
+    result.clinicianHtml.includes(
+        "pap-cognitive-ux-section-count"
+    ),
+    "Chaque section doit afficher un compteur"
+);
+
+assert(
+    result.clinicianHtml.includes(
+        "À vérifier selon la situation clinique"
+    ),
+    "Les conditions clinicianCheck doivent être distinguées"
+);
+
+assert(
+    result.clinicianHtml.includes(
+        "pap-cognitive-ux-list-clinician-check"
+    ),
+    "La liste des éléments à vérifier doit avoir une classe dédiée"
 );
 
 assert(
