@@ -228,7 +228,15 @@ function projectKnowledgeItemV2(
       selection:
         item.selection || null,
 
+      presentationTargets:
+        Array.isArray(
+          item.presentationTargets
+        )
+          ? [...item.presentationTargets]
+          : [],
+
       evidenceSourceIds:
+
         Array.isArray(
           item.evidenceSourceIds
         )
