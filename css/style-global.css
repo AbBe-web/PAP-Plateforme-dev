@@ -2428,21 +2428,13 @@ details[open] > .pap-patho-rule-summary::before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 7px;
 
-  min-height: 42px;
-  padding: 9px 11px;
+  min-height: 32px;
+  padding: 5px 9px;
 
   cursor: pointer;
   list-style: none;
-}
-
-body.pap-quick-mode
-  .pap-cognitive-ux-host
-  .pap-cognitive-ux-section-summary {
-  min-height: 32px;
-  padding: 5px 9px;
-  gap: 7px;
 }
 
 .pap-cognitive-ux-host
