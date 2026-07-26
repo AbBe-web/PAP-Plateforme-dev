@@ -3839,6 +3839,9 @@ const ENABLE_CLINICAL_COGNITIVE_UX_PREVIEW =
 const ENABLE_CLINICAL_COGNITIVE_UX_SPLIT_PREVIEW =
   true;
 
+const clinicalCognitivePatientSelectionState =
+  new Map();
+
 const consultationState = {
   reportGenerated: false,
   reportDirty: false
@@ -5893,6 +5896,105 @@ function buildPrototypeClinicalModelV2() {
   };
 }
 
+function buildClinicalCognitivePatientSelectionById(
+  cognitiveUxViewModel
+) {
+
+  const patientItems =
+    Array.isArray(
+      cognitiveUxViewModel
+        ?.patient
+        ?.items
+    )
+      ? cognitiveUxViewModel.patient.items
+      : [];
+
+  const selectionById = {};
+
+  patientItems.forEach(item => {
+
+    const knowledgeItemId =
+      String(
+        item?.knowledgeItemId ||
+        item?.id ||
+        ""
+      ).trim();
+
+    if (!knowledgeItemId) {
+      return;
+    }
+
+    if (
+      !clinicalCognitivePatientSelectionState
+        .has(knowledgeItemId)
+    ) {
+
+      clinicalCognitivePatientSelectionState.set(
+        knowledgeItemId,
+        item
+          ?.selection
+          ?.defaultSelected === true
+      );
+    }
+
+    selectionById[knowledgeItemId] =
+      clinicalCognitivePatientSelectionState
+        .get(knowledgeItemId) === true;
+
+  });
+
+  return selectionById;
+}
+
+
+function initClinicalCognitivePatientSelection() {
+
+  if (
+    window
+      ._clinicalCognitivePatientSelectionInitialized
+  ) {
+    return;
+  }
+
+  window
+    ._clinicalCognitivePatientSelectionInitialized =
+      true;
+
+  document.addEventListener(
+    "change",
+    function(event) {
+
+      const checkbox =
+        event.target;
+
+      if (
+        !checkbox ||
+        !checkbox.classList ||
+        !checkbox.classList.contains(
+          "pap-cognitive-ux-patient-checkbox"
+        )
+      ) {
+        return;
+      }
+
+      const knowledgeItemId =
+        String(
+          checkbox.dataset
+            ?.knowledgeItemId || ""
+        ).trim();
+
+      if (!knowledgeItemId) {
+        return;
+      }
+
+      clinicalCognitivePatientSelectionState.set(
+        knowledgeItemId,
+        checkbox.checked === true
+      );
+
+    }
+  );
+}
 
 function renderClinicalCognitiveAidV2() {
 
@@ -5974,6 +6076,12 @@ function renderClinicalCognitiveAidV2() {
       : null;
 
 
+  const patientSelectionById =
+    buildClinicalCognitivePatientSelectionById(
+      cognitiveUxViewModel
+    );
+
+
   const cognitiveUxHtml =
     typeof renderClinicalCognitiveUxHtml ===
     "function"
@@ -5981,7 +6089,8 @@ function renderClinicalCognitiveAidV2() {
           cognitiveUxViewModel,
           {
             isQuickMode,
-            activePathologies
+            activePathologies,
+            patientSelectionById
           }
         )
       : null;
@@ -16002,6 +16111,7 @@ initResourceSelectionToggle();
 // 1️⃣ UI DE BASE
 // =====================================
 initUI();
+initClinicalCognitivePatientSelection();
 initPapConsultationModeToggle();
 initPapQuickOptionalBlocks();
 

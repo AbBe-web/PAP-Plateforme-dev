@@ -181,6 +181,17 @@ const quickModeResult =
         }
     );
 
+const overriddenSelectionResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            patientSelectionById: {
+                "patient-1": false,
+                "patient-2": true
+            }
+        }
+    );
+
 const singlePathologyResult =
     window.renderClinicalCognitiveUxHtml(
         viewModel,
@@ -323,13 +334,6 @@ assert(
 
 assert(
     result.patientHtml.includes(
-        "disabled"
-    ),
-    "Les cases patient doivent rester désactivées dans ce sous-lot"
-);
-
-assert(
-    result.patientHtml.includes(
         'data-knowledge-item-id="patient-1"'
     ),
     "La case patient doit conserver l’identifiant stable du premier message"
@@ -374,6 +378,47 @@ assert(
         unselectedPatientInputMatch[0]
     ),
     "La case doit rester décochée lorsque defaultSelected === false"
+);
+
+const overriddenPatient1Input =
+    overriddenSelectionResult.patientHtml.match(
+        /<input(?=[^>]*data-knowledge-item-id="patient-1")[^>]*>/
+    );
+
+const overriddenPatient2Input =
+    overriddenSelectionResult.patientHtml.match(
+        /<input(?=[^>]*data-knowledge-item-id="patient-2")[^>]*>/
+    );
+
+assert(
+    overriddenPatient1Input,
+    "La première case patient doit être rendue avec un état explicite"
+);
+
+assert(
+    overriddenPatient2Input,
+    "La seconde case patient doit être rendue avec un état explicite"
+);
+
+assert(
+    !/\bchecked\b/.test(
+        overriddenPatient1Input[0]
+    ),
+    "Un état utilisateur false doit remplacer defaultSelected true"
+);
+
+assert(
+    /\bchecked\b/.test(
+        overriddenPatient2Input[0]
+    ),
+    "Un état utilisateur true doit remplacer defaultSelected false"
+);
+
+assert(
+    !result.patientHtml.includes(
+        " disabled"
+    ),
+    "Les cases patient doivent être modifiables"
 );
 
 assert(
@@ -467,6 +512,7 @@ console.log(
                 patientMessagesRendered: true,
                 patientSelectionControlsRendered: true,
                 patientSelectionDefaultsPreserved: true,
+                patientSelectionOverridesPreserved: true,
                 referenceRendered: true,
                 htmlEscaped: true,
                 diagnosticsPreserved: true,

@@ -187,13 +187,28 @@
             );
 
         if (audience === "patient") {
-            const isDefaultSelected =
-                item
-                    ?.selection
-                    ?.defaultSelected === true;
+            const patientSelectionById =
+                options
+                    ?.patientSelectionById || {};
+
+            const hasSelectionOverride =
+                Boolean(itemIdentity) &&
+                Object.prototype.hasOwnProperty.call(
+                    patientSelectionById,
+                    itemIdentity
+                );
+
+            const isSelected =
+                hasSelectionOverride
+                    ? patientSelectionById[
+                        itemIdentity
+                    ] === true
+                    : item
+                        ?.selection
+                        ?.defaultSelected === true;
 
             const checkedAttribute =
-                isDefaultSelected
+                isSelected
                     ? " checked"
                     : "";
 
@@ -207,7 +222,6 @@
           itemIdentity
       )}"
       ${checkedAttribute}
-      disabled
     >
 
     <span class="pap-cognitive-ux-item-message">
