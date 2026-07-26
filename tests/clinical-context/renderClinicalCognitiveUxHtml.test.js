@@ -99,10 +99,29 @@ const viewModel = {
             {
                 knowledgeItemId:
                     "patient-1",
+
+                selection: {
+                    defaultSelected: true
+                },
+
                 messages: {
                     clinician: "",
                     patient:
                         "Informer le patient & vérifier"
+                }
+            },
+            {
+                knowledgeItemId:
+                    "patient-2",
+
+                selection: {
+                    defaultSelected: false
+                },
+
+                messages: {
+                    clinician: "",
+                    patient:
+                        "Deuxième message patient"
                 }
             },
             {
@@ -283,9 +302,92 @@ assert(
 );
 
 assert(
+    result.patientHtml.includes(
+        "Deuxième message patient"
+    ),
+    "Le second message patient doit être rendu"
+);
+
+assert(
     !result.patientHtml.includes(
         "Message non destiné au patient"
     )
+);
+
+assert(
+    result.patientHtml.includes(
+        "pap-cognitive-ux-patient-checkbox"
+    ),
+    "Les messages patient doivent afficher une case de sélection"
+);
+
+assert(
+    result.patientHtml.includes(
+        "disabled"
+    ),
+    "Les cases patient doivent rester désactivées dans ce sous-lot"
+);
+
+assert(
+    result.patientHtml.includes(
+        'data-knowledge-item-id="patient-1"'
+    ),
+    "La case patient doit conserver l’identifiant stable du premier message"
+);
+
+assert(
+    result.patientHtml.includes(
+        'data-knowledge-item-id="patient-2"'
+    ),
+    "La case patient doit conserver l’identifiant stable du second message"
+);
+
+const selectedPatientInputMatch =
+    result.patientHtml.match(
+        /<input(?=[^>]*data-knowledge-item-id="patient-1")[^>]*>/
+    );
+
+assert(
+    selectedPatientInputMatch,
+    "La case du message sélectionné par défaut doit être rendue"
+);
+
+assert(
+    /\bchecked\b/.test(
+        selectedPatientInputMatch[0]
+    ),
+    "La case doit refléter defaultSelected === true"
+);
+
+const unselectedPatientInputMatch =
+    result.patientHtml.match(
+        /<input(?=[^>]*data-knowledge-item-id="patient-2")[^>]*>/
+    );
+
+assert(
+    unselectedPatientInputMatch,
+    "La case du message non sélectionné par défaut doit être rendue"
+);
+
+assert(
+    !/\bchecked\b/.test(
+        unselectedPatientInputMatch[0]
+    ),
+    "La case doit rester décochée lorsque defaultSelected === false"
+);
+
+assert(
+    !result.clinicianHtml.includes(
+        "pap-cognitive-ux-patient-checkbox"
+    ),
+    "Les sections médecin ne doivent pas afficher de case patient"
+);
+
+assert(
+    !result.referenceHtml.includes(
+        "pap-cognitive-ux-patient-checkbox"
+    ),
+    "La section référence ne doit pas afficher de case patient"
 );
 
 assert(
@@ -309,7 +411,7 @@ assert.strictEqual(
 assert.strictEqual(
     result.diagnostics
         .patientItemCount,
-    1
+    2
 );
 
 assert.strictEqual(
@@ -363,6 +465,8 @@ console.log(
                 emptySectionsHidden: true,
                 clinicianMessagesRendered: true,
                 patientMessagesRendered: true,
+                patientSelectionControlsRendered: true,
+                patientSelectionDefaultsPreserved: true,
                 referenceRendered: true,
                 htmlEscaped: true,
                 diagnosticsPreserved: true,

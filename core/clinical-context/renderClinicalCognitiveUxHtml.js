@@ -186,6 +186,38 @@
                 options?.activePathologies
             );
 
+        if (audience === "patient") {
+            const isDefaultSelected =
+                item
+                    ?.selection
+                    ?.defaultSelected === true;
+
+            const checkedAttribute =
+                isDefaultSelected
+                    ? " checked"
+                    : "";
+
+            return `
+<li class="pap-cognitive-ux-item pap-cognitive-ux-item-patient"${itemIdAttribute}>
+  <label class="pap-cognitive-ux-patient-selection">
+    <input
+      type="checkbox"
+      class="pap-cognitive-ux-patient-checkbox"
+      data-knowledge-item-id="${escapeClinicalCognitiveUxHtml(
+          itemIdentity
+      )}"
+      ${checkedAttribute}
+      disabled
+    >
+
+    <span class="pap-cognitive-ux-item-message">
+      ${escapeClinicalCognitiveUxHtml(message)}
+      ${originBadgesHtml}
+    </span>
+  </label>
+</li>`;
+        }
+
         return `
 <li class="pap-cognitive-ux-item"${itemIdAttribute}>
   <span class="pap-cognitive-ux-item-message">
