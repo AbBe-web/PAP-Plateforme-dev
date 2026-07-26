@@ -659,6 +659,10 @@ details summary::-webkit-details-marker {
   background: #fafafa;
 }
 
+#physicianIdentityBlock {
+  margin-top: 12px;
+}
+
 .physician-summary {
   cursor: pointer;
   font-weight: 600;

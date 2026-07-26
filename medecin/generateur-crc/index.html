@@ -167,26 +167,23 @@ document.head.appendChild(manifestLink);
 }
     
 .format-tabs {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   margin-top: 25px;
 
   width: 100%;
+  box-sizing: border-box;
 }
     
-@media (min-width: 769px) {
-
-  .tab-btn {
-    flex: 1 1 0;
-  }
-
-}
-    
- /* ===== Onglets (comme version stable NON DEV) ===== */
+/* ===== Onglets (comme version stable NON DEV) ===== */
 
 .tab-btn {
-  flex: 1 1 calc(25% - 10px);
+  width: 100%;
+  min-width: 0;
+  min-height: 42px;
+  box-sizing: border-box;
+
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
@@ -198,7 +195,6 @@ document.head.appendChild(manifestLink);
   text-align: center;
   white-space: normal;
   font-size: 0.9rem;
-  min-height: 42px;
 
   -webkit-tap-highlight-color: transparent;
 }
@@ -206,7 +202,7 @@ document.head.appendChild(manifestLink);
 /* Ligne ordonnance : 2 boutons occupant toute la largeur */
 .format-tabs .tab-btn:nth-child(5),
 .format-tabs .tab-btn:nth-child(6) {
-  flex: 1 1 calc(50% - 10px);
+  grid-column: span 2;
 }
 
 /* état actif */
@@ -240,8 +236,13 @@ document.head.appendChild(manifestLink);
 
 @media (max-width: 768px) {
 
-  .tab-btn {
-    flex: 1 1 calc(50% - 10px);
+  .format-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .format-tabs .tab-btn:nth-child(5),
+  .format-tabs .tab-btn:nth-child(6) {
+    grid-column: auto;
   }
 
 }
