@@ -183,6 +183,137 @@ th {
 .copy-toast.show {
   opacity: 1;
 }
+
+/* =========================
+   CLINICAL SITUATIONS
+   STICKY CONTROL
+========================= */
+
+.pap-clinical-situations-floating-host {
+  position: sticky;
+  top: 8px;
+  z-index: 30;
+
+  width: 100%;
+  box-sizing: border-box;
+  margin: 10px 0 14px;
+}
+
+.pap-clinical-situations-floating-host[hidden] {
+  display: none !important;
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle {
+  width: 100%;
+  margin: 0;
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+
+  padding: 11px 14px;
+
+  border: 1px solid #f59e0b;
+  border-left: 5px solid #d97706;
+  border-radius: 10px;
+
+  background: #fffbeb;
+  color: #78350f;
+
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: left;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 10px rgba(120, 53, 15, 0.12);
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-button::before {
+  content: "⚠";
+  flex: 0 0 auto;
+  font-size: 1.1rem;
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-button:hover {
+  background: #fef3c7;
+  border-color: #d97706;
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-button[aria-pressed="true"] {
+  border-color: #2563eb;
+  border-left-color: #1d4ed8;
+  background: #eff6ff;
+  color: #1e3a8a;
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-button[aria-pressed="true"]::before {
+  content: "✓";
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+
+  min-width: 28px;
+  height: 28px;
+  padding: 0 7px;
+  box-sizing: border-box;
+
+  border-radius: 999px;
+  background: #d97706;
+  color: #ffffff;
+
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-button[aria-pressed="true"]
+  .pap-clinical-situations-toggle-count {
+  background: #2563eb;
+}
+
+.pap-clinical-situations-floating-host
+  .pap-clinical-situations-toggle-button:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+
+  .pap-clinical-situations-floating-host {
+    top: 4px;
+    margin: 8px 0 12px;
+  }
+
+  .pap-clinical-situations-floating-host
+    .pap-clinical-situations-toggle-button {
+    min-height: 52px;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+}
+
 /* =========================
    FORM GROUPS
 ========================= */

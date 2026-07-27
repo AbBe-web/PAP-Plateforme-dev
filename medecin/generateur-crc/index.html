@@ -2726,6 +2726,13 @@ placeholder="Préciser..."
 <h2>10/ Prescription d’activité physique</h2>
 
 <div
+  id="clinicalSituationsFloatingHostV2"
+  class="pap-clinical-situations-floating-host"
+  hidden
+  aria-hidden="true"
+></div>
+
+<div
   id="clinicalCognitivePrescriptionGeneralV2"
   class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
   style="display:none;"
@@ -6319,8 +6326,13 @@ function buildClinicalSituationsToggleHtml(
 
   const buttonLabel =
     showAllClinicalSituations
-      ? "Revenir à l’affichage contextuel"
-      : "Afficher toutes les situations particulières";
+      ? "Tous les repères sont affichés — masquer les repères à vérifier"
+      : "Afficher les repères à vérifier";
+
+  const clinicianCheckCountLabel =
+    clinicianCheckCount === 1
+      ? "1 repère à vérifier"
+      : `${clinicianCheckCount} repères à vérifier`;
 
   return `
 <div class="pap-clinical-situations-toggle">
@@ -6330,12 +6342,17 @@ function buildClinicalSituationsToggleHtml(
     aria-pressed="${String(
       showAllClinicalSituations
     )}"
+    aria-label="${buttonLabel} — ${clinicianCheckCountLabel}"
   >
     <span>
       ${buttonLabel}
     </span>
 
-    <span class="pap-clinical-situations-toggle-count">
+    <span
+      class="pap-clinical-situations-toggle-count"
+      title="${clinicianCheckCountLabel}"
+      aria-hidden="true"
+    >
       ${clinicianCheckCount}
     </span>
   </button>
@@ -6410,6 +6427,42 @@ function initClinicalCognitivePatientSelection() {
     }
   );
 }
+
+function renderClinicalSituationsFloatingToggleV2(
+  toggleHtml
+) {
+
+  const floatingHost =
+    document.getElementById(
+      "clinicalSituationsFloatingHostV2"
+    );
+
+  if (!floatingHost) {
+    return false;
+  }
+
+  const normalizedHtml =
+    String(toggleHtml || "").trim();
+
+  const hasAvailableSituations =
+    Boolean(normalizedHtml);
+
+  floatingHost.innerHTML =
+    normalizedHtml;
+
+  floatingHost.hidden =
+    !hasAvailableSituations;
+
+  floatingHost.setAttribute(
+    "aria-hidden",
+    hasAvailableSituations
+      ? "false"
+      : "true"
+  );
+
+  return hasAvailableSituations;
+}
+
 
 function initClinicalSituationsToggle() {
 
@@ -6500,6 +6553,11 @@ function renderClinicalCognitiveAidV2() {
     !patientContainer ||
     !referenceContainer
   ) {
+
+    renderClinicalSituationsFloatingToggleV2(
+      ""
+    );
+
     return;
   }
 
@@ -6508,6 +6566,11 @@ function renderClinicalCognitiveAidV2() {
     typeof computeClinicalContextV2 !==
     "function"
   ) {
+
+    renderClinicalSituationsFloatingToggleV2(
+      ""
+    );
+
     return;
   }
 
@@ -6737,11 +6800,14 @@ function renderClinicalCognitiveAidV2() {
         cognitiveUxViewModel
       );
 
+    renderClinicalSituationsFloatingToggleV2(
+      clinicalSituationsToggleHtml
+    );
+
     safetyContainer.innerHTML = "";
     safetyContainer.style.display = "none";
 
     const generalContentHtml =
-      clinicalSituationsToggleHtml +
       sectionHtmlById.general;
 
     const generalRenderedLocally =
