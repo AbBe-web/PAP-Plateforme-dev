@@ -5960,6 +5960,42 @@ function buildClinicalCognitivePatientSelectionById(
   return selectionById;
 }
 
+
+function resetClinicalCognitivePatientSelectionV2() {
+
+  clinicalCognitivePatientSelectionState.clear();
+
+  const emptySelectionResult = {
+    groups: [],
+    selectedItemIds: [],
+    availablePathologyIds: []
+  };
+
+  window.PAP_SELECTED_PATIENT_MESSAGES_V2 =
+    emptySelectionResult;
+
+  if (
+    typeof renderClinicalCognitiveAidV2 ===
+    "function"
+  ) {
+    renderClinicalCognitiveAidV2();
+  } else if (
+    typeof renderSelectedPatientMessagesPreviewV2 ===
+    "function"
+  ) {
+    renderSelectedPatientMessagesPreviewV2(
+      emptySelectionResult
+    );
+  }
+
+  return emptySelectionResult;
+}
+
+
+window.resetClinicalCognitivePatientSelectionV2 =
+  resetClinicalCognitivePatientSelectionV2;
+
+
 function escapeSelectedPatientMessagesPreviewHtml(
   value
 ) {
