@@ -6507,8 +6507,24 @@ function renderClinicalCognitiveAidV2() {
 
   if (splitPreviewEnabled) {
 
-    const clinicianHtml =
-      cognitiveUxHtml?.clinicianHtml || "";
+    const clinicianSectionHtmlById =
+      cognitiveUxHtml
+        ?.clinicianSectionHtmlById || {};
+
+    const prescriptionHtml = [
+      "general",
+      "endurance",
+      "strength",
+      "otherActivity",
+      "orientation"
+    ]
+      .map(sectionId =>
+        clinicianSectionHtmlById[
+          sectionId
+        ] || ""
+      )
+      .filter(Boolean)
+      .join("");
 
     const patientHtml =
       cognitiveUxHtml?.patientHtml || "";
@@ -6520,10 +6536,10 @@ function renderClinicalCognitiveAidV2() {
     safetyContainer.style.display = "none";
 
     prescriptionContainer.innerHTML =
-      clinicianHtml;
+      prescriptionHtml;
 
     prescriptionContainer.style.display =
-      clinicianHtml
+      prescriptionHtml
         ? "block"
         : "none";
 
