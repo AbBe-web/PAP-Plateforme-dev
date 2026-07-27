@@ -3518,6 +3518,13 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
   style="display:none; margin:16px 0;"
 ></div>
 
+<div
+  id="selectedPatientMessagesPreviewV2"
+  class="pap-selected-patient-messages-preview"
+  hidden
+  aria-hidden="true"
+></div>
+
 <!-- ================= FICHES ================= -->
 <div class="pap-prescription-subtitle">
   Ressources / documents patient
@@ -3838,6 +3845,9 @@ const ENABLE_CLINICAL_COGNITIVE_UX_PREVIEW =
   false;
 
 const ENABLE_CLINICAL_COGNITIVE_UX_SPLIT_PREVIEW =
+  true;
+
+const ENABLE_SELECTED_PATIENT_MESSAGES_PREVIEW_V2 =
   true;
 
 const clinicalCognitivePatientSelectionState =
@@ -5947,6 +5957,160 @@ function buildClinicalCognitivePatientSelectionById(
   return selectionById;
 }
 
+function escapeSelectedPatientMessagesPreviewHtml(
+  value
+) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+function renderSelectedPatientMessagesPreviewV2(
+  selectedPatientMessages
+) {
+
+  const previewContainer =
+    document.getElementById(
+      "selectedPatientMessagesPreviewV2"
+    );
+
+  if (!previewContainer) {
+    return;
+  }
+
+  const previewEnabled =
+    ENABLE_SELECTED_PATIENT_MESSAGES_PREVIEW_V2 ===
+    true;
+
+  if (!previewEnabled) {
+
+    previewContainer.innerHTML = "";
+    previewContainer.hidden = true;
+
+    previewContainer.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    return;
+  }
+
+  const groups =
+    Array.isArray(
+      selectedPatientMessages?.groups
+    )
+      ? selectedPatientMessages.groups
+      : [];
+
+  const groupsHtml =
+    groups
+      .map(group => {
+
+        const pathologyId =
+          String(
+            group?.pathologyId || ""
+          ).trim();
+
+        const pathologyLabel =
+          typeof getPatientPathologyShortLabel ===
+          "function"
+            ? getPatientPathologyShortLabel(
+                pathologyId
+              )
+            : pathologyId;
+
+        const items =
+          Array.isArray(group?.items)
+            ? group.items
+            : [];
+
+        const itemsHtml =
+          items
+            .map(item => {
+
+              const message =
+                String(
+                  item?.message || ""
+                ).trim();
+
+              if (!message) {
+                return "";
+              }
+
+              return `
+<li>
+  ${escapeSelectedPatientMessagesPreviewHtml(
+    message
+  )}
+</li>
+              `;
+
+            })
+            .filter(Boolean)
+            .join("");
+
+        if (!itemsHtml) {
+          return "";
+        }
+
+        return `
+<section
+  class="pap-selected-patient-messages-preview-group"
+  data-pathology-id="${escapeSelectedPatientMessagesPreviewHtml(
+    pathologyId
+  )}"
+>
+  <h5>
+    ${escapeSelectedPatientMessagesPreviewHtml(
+      pathologyLabel
+    )}
+  </h5>
+
+  <ul>
+    ${itemsHtml}
+  </ul>
+</section>
+        `;
+
+      })
+      .filter(Boolean)
+      .join("");
+
+  previewContainer.innerHTML = `
+<div class="pap-selected-patient-messages-preview-inner">
+
+  <div class="pap-selected-patient-messages-preview-heading">
+    Aperçu du futur bloc patient
+  </div>
+
+  <p class="pap-selected-patient-messages-preview-note">
+    Prévisualisation technique uniquement — aucun effet sur les documents générés.
+  </p>
+
+  ${
+    groupsHtml ||
+    `
+    <p class="pap-selected-patient-messages-preview-empty">
+      Aucun message patient sélectionné.
+    </p>
+    `
+  }
+
+</div>
+  `;
+
+  previewContainer.hidden = false;
+
+  previewContainer.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+}
 
 function updateSelectedClinicalCognitivePatientMessagesV2(
   cognitiveUxViewModel,
@@ -6006,6 +6170,10 @@ function updateSelectedClinicalCognitivePatientMessagesV2(
 
   window.PAP_SELECTED_PATIENT_MESSAGES_V2 =
     normalizedResult;
+
+  renderSelectedPatientMessagesPreviewV2(
+    normalizedResult
+  );
 
   return normalizedResult;
 }
