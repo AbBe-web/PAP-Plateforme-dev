@@ -441,6 +441,56 @@ assert(
     )
 );
 
+assert.deepStrictEqual(
+    Object.keys(
+        result.clinicianSectionHtmlById
+    ),
+    [
+        "general",
+        "strength",
+        "orientation"
+    ],
+    "Le renderer doit exposer uniquement les sections médecin non vides"
+);
+
+assert(
+    result
+        .clinicianSectionHtmlById
+        .general
+        .includes(
+            'data-section-id="general"'
+        ),
+    "La section general doit être accessible séparément"
+);
+
+assert(
+    result
+        .clinicianSectionHtmlById
+        .strength
+        .includes(
+            'data-section-id="strength"'
+        ),
+    "La section strength doit être accessible séparément"
+);
+
+assert(
+    result
+        .clinicianSectionHtmlById
+        .orientation
+        .includes(
+            'data-section-id="orientation"'
+        ),
+    "La section orientation doit être accessible séparément"
+);
+
+assert.strictEqual(
+    result
+        .clinicianSectionHtmlById
+        .endurance,
+    undefined,
+    "Une section vide ne doit pas être exposée"
+);
+
 assert.strictEqual(
     result.diagnostics
         .clinicianSectionCount,
@@ -476,6 +526,12 @@ const emptyResult =
         null
     );
 
+assert.deepStrictEqual(
+    emptyResult.clinicianSectionHtmlById,
+    {},
+    "Un contexte vide doit exposer une table de sections vide"
+);
+
 assert.strictEqual(
     emptyResult.clinicianHtml,
     ""
@@ -509,6 +565,7 @@ console.log(
             verified: {
                 emptySectionsHidden: true,
                 clinicianMessagesRendered: true,
+                clinicianSectionsExposedById: true,
                 patientMessagesRendered: true,
                 patientSelectionControlsRendered: true,
                 patientSelectionDefaultsPreserved: true,

@@ -452,15 +452,34 @@
                 ? safeViewModel.clinician
                 : [];
 
+        const clinicianSectionHtmlById = {};
+
         const clinicianHtml =
             clinicianSections
                 .map(function (section) {
-                    return renderSectionHtml(
-                        section,
-                        "clinician",
-                        "pap-cognitive-ux-section pap-cognitive-ux-section-clinician",
-                        options
-                    );
+                    const sectionHtml =
+                        renderSectionHtml(
+                            section,
+                            "clinician",
+                            "pap-cognitive-ux-section pap-cognitive-ux-section-clinician",
+                            options
+                        );
+
+                    const sectionId =
+                        String(
+                            section?.id || ""
+                        ).trim();
+
+                    if (
+                        sectionId &&
+                        sectionHtml
+                    ) {
+                        clinicianSectionHtmlById[
+                            sectionId
+                        ] = sectionHtml;
+                    }
+
+                    return sectionHtml;
                 })
                 .filter(Boolean)
                 .join("");
@@ -490,6 +509,7 @@
 
         return {
             clinicianHtml,
+            clinicianSectionHtmlById,
             patientHtml,
             referenceHtml,
 
