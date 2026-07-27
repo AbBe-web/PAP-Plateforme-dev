@@ -3831,6 +3831,7 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 <script src="../../core/clinical-context/buildClinicalCognitiveUxViewModel.js"></script>
 <script src="../../core/clinical-context/buildSelectedClinicalCognitivePatientMessages.js"></script>
 <script src="../../core/clinical-context/buildClinicalCognitiveClinicianMessages.js"></script>
+<script src="../../core/clinical-context/renderClinicalCognitiveClinicianMessagesPreviewHtml.js"></script>
 <script src="../../core/clinical-context/renderClinicalCognitiveUxHtml.js"></script>
 
 <script src="../../core/clinical-context/resource-registry.js"></script>
@@ -3849,6 +3850,9 @@ const ENABLE_CLINICAL_COGNITIVE_UX_SPLIT_PREVIEW =
   true;
 
 const ENABLE_SELECTED_PATIENT_MESSAGES_PREVIEW_V2 =
+  false;
+
+const ENABLE_CLINICIAN_MESSAGES_PREVIEW_V2 =
   false;
 
 const ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 =
@@ -6420,37 +6424,60 @@ function renderClinicalCognitiveAidV2() {
       "clinicalCognitiveExperimentalV2"
     );
 
-
   if (experimentalContainer) {
 
-    const clinicianHtml =
-      cognitiveUxHtml?.clinicianHtml || "";
-
-    const patientHtml =
-      cognitiveUxHtml?.patientHtml || "";
-
-    const referenceHtml =
-      cognitiveUxHtml?.referenceHtml || "";
-
-
-    experimentalContainer.innerHTML = `
-      <div class="pap-cognitive-ux-experimental">
-
-        <div class="pap-cognitive-ux-preview-title">
-          Aperçu expérimental — nouvelle aide cognitive
-        </div>
-
-        ${clinicianHtml}
-        ${patientHtml}
-        ${referenceHtml}
-
-      </div>
-    `;
-
-    const previewEnabled =
+    const generalPreviewEnabled =
       ENABLE_CLINICAL_COGNITIVE_UX_PREVIEW ===
       true;
 
+    const clinicianMessagesPreviewEnabled =
+      ENABLE_CLINICIAN_MESSAGES_PREVIEW_V2 ===
+      true;
+
+    let experimentalHtml = "";
+
+    if (
+      clinicianMessagesPreviewEnabled &&
+      typeof
+        renderClinicalCognitiveClinicianMessagesPreviewHtml ===
+      "function"
+    ) {
+      experimentalHtml =
+        renderClinicalCognitiveClinicianMessagesPreviewHtml(
+          window
+            .PAP_CLINICAL_COGNITIVE_CLINICIAN_MESSAGES_V2
+        );
+    } else if (generalPreviewEnabled) {
+
+      const clinicianHtml =
+        cognitiveUxHtml?.clinicianHtml || "";
+
+      const patientHtml =
+        cognitiveUxHtml?.patientHtml || "";
+
+      const referenceHtml =
+        cognitiveUxHtml?.referenceHtml || "";
+
+      experimentalHtml = `
+        <div class="pap-cognitive-ux-experimental">
+
+          <div class="pap-cognitive-ux-preview-title">
+            Aperçu expérimental — nouvelle aide cognitive
+          </div>
+
+          ${clinicianHtml}
+          ${patientHtml}
+          ${referenceHtml}
+
+        </div>
+      `;
+    }
+
+    const previewEnabled =
+      Boolean(experimentalHtml);
+
+    experimentalContainer.innerHTML =
+      experimentalHtml;
 
     experimentalContainer.hidden =
       !previewEnabled;
