@@ -29,22 +29,22 @@
                 ),
                 createSection(
                     "endurance",
-                    "Endurance",
+                    "Repères de prescription — Endurance",
                     []
                 ),
                 createSection(
                     "strength",
-                    "Renforcement musculaire",
+                    "Repères de prescription — Renforcement musculaire",
                     []
                 ),
                 createSection(
                     "otherActivity",
-                    "Autres activités",
+                    "Repères de prescription — Autres activités",
                     []
                 ),
                 createSection(
                     "orientation",
-                    "Orientation et encadrement",
+                    "Repères — Orientation et encadrement",
                     []
                 )
             ],
@@ -89,22 +89,22 @@
             ),
             createSection(
                 "endurance",
-                "Endurance",
+                "Repères de prescription — Endurance",
                 prescription.endurance
             ),
             createSection(
                 "strength",
-                "Renforcement musculaire",
+                "Repères de prescription — Renforcement musculaire",
                 prescription.strength
             ),
             createSection(
                 "otherActivity",
-                "Autres activités",
+                "Repères de prescription — Autres activités",
                 prescription.otherActivity
             ),
             createSection(
                 "orientation",
-                "Orientation et encadrement",
+                "Repères — Orientation et encadrement",
                 cognitiveUxProjection.orientation
             )
         ];

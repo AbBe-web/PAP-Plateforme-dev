@@ -2320,6 +2320,15 @@ details[open] > .pap-patho-rule-summary::before {
   margin-left: 12px;
 }
 
+/* Les aides cognitives intercalées après le titre empêchent
+   la règle précédente de cibler les options.
+   On rétablit donc exactement le même retrait. */
+.crc-page .pap-prescription-option-row {
+  margin-left: 12px;
+  width: calc(100% - 12px);
+  box-sizing: border-box;
+}
+
 .pap-orientation-heading {
   display: flex;
   align-items: center;
@@ -2412,6 +2421,40 @@ details[open] > .pap-patho-rule-summary::before {
 #clinicalCognitiveExperimentalV2 .pap-cognitive-ux-experimental {
   display: grid;
   gap: 10px;
+}
+
+/* =========================================================
+   Hôtes locaux de l’aide cognitive V2
+   ========================================================= */
+
+.pap-cognitive-ux-local-host {
+  margin: 7px 0 10px;
+  box-sizing: border-box;
+}
+
+/* Retrait visible des aides intégrées
+   aux composantes de la prescription */
+#clinicalCognitiveEnduranceV2,
+#clinicalCognitiveStrengthV2,
+#clinicalCognitiveOtherActivityV2 {
+  margin-left: 20px;
+  width: calc(100% - 20px);
+}
+
+/* Repères généraux : conserver l’alignement actuel */
+#clinicalCognitivePrescriptionGeneralV2 {
+  margin: 12px 0 16px;
+  width: 100%;
+}
+
+/* Orientation : conserver l’alignement dans son panneau */
+#clinicalCognitiveOrientationV2 {
+  margin: 8px 0 0;
+  width: 100%;
+}
+
+.pap-cognitive-ux-local-host:empty {
+  display: none !important;
 }
 
 /* =========================================================

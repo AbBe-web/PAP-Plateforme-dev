@@ -2726,6 +2726,13 @@ placeholder="Préciser..."
 <h2>10/ Prescription d’activité physique</h2>
 
 <div
+  id="clinicalCognitivePrescriptionGeneralV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
+
+<!-- Fallback temporaire du rendu groupé V2 -->
+<div
   id="clinicalCognitivePrescriptionV2"
   class="pap-cognitive-ux-host"
   style="display:none; margin:16px 0;"
@@ -2904,7 +2911,16 @@ placeholder="Préciser..."
 
 <h3 class="pap-prescription-item-title">AP aérobie :</h3>
 
-  <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+<div
+  id="clinicalCognitiveEnduranceV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
+
+<div
+  class="pap-prescription-option-row"
+  style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;"
+>
 
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
    <input type="radio" name="mode_aerobie" value="fitt">
@@ -2997,7 +3013,16 @@ placeholder="Préciser..."
 <div class="sub-group">
 <h3 class="pap-prescription-item-title">Renforcement musculaire :</h3>
 
-  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
+<div
+  id="clinicalCognitiveStrengthV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
+
+<div
+  class="pap-prescription-option-row"
+  style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;"
+>
     <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
     <input type="radio" name="renforcement_musculaire" id="renforcement_musculaire" value="oui">
       Oui
@@ -3037,6 +3062,12 @@ placeholder="Préciser..."
 </div>
   </div>
 </div>
+
+<div
+  id="clinicalCognitiveOtherActivityV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
 
 <!-- ================= SOUPLESSE ================= -->
 <div class="sub-group">
@@ -3198,6 +3229,12 @@ pour pratiquer l’activité physique en sécurité ?
 >
 Aucun repère identifié.
 </div>
+
+<div
+  id="clinicalCognitiveOrientationV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
 
 </div>
 
@@ -6421,6 +6458,31 @@ function renderClinicalCognitiveAidV2() {
       "clinicalCognitivePrescriptionV2"
     );
 
+  const prescriptionGeneralContainer =
+    document.getElementById(
+      "clinicalCognitivePrescriptionGeneralV2"
+    );
+
+  const enduranceContainer =
+    document.getElementById(
+      "clinicalCognitiveEnduranceV2"
+    );
+
+  const strengthContainer =
+    document.getElementById(
+      "clinicalCognitiveStrengthV2"
+    );
+
+  const otherActivityContainer =
+    document.getElementById(
+      "clinicalCognitiveOtherActivityV2"
+    );
+
+  const orientationContainer =
+    document.getElementById(
+      "clinicalCognitiveOrientationV2"
+    );
+
   const patientContainer =
     document.getElementById(
       "clinicalCognitivePatientV2"
@@ -6629,20 +6691,40 @@ function renderClinicalCognitiveAidV2() {
       cognitiveUxHtml
         ?.clinicianSectionHtmlById || {};
 
-    const prescriptionHtml = [
-      "general",
-      "endurance",
-      "strength",
-      "otherActivity",
-      "orientation"
-    ]
-      .map(sectionId =>
-        clinicianSectionHtmlById[
-          sectionId
-        ] || ""
-      )
-      .filter(Boolean)
-      .join("");
+    const sectionHtmlById = {
+      general:
+        clinicianSectionHtmlById.general || "",
+
+      endurance:
+        clinicianSectionHtmlById.endurance || "",
+
+      strength:
+        clinicianSectionHtmlById.strength || "",
+
+      otherActivity:
+        clinicianSectionHtmlById.otherActivity || "",
+
+      orientation:
+        clinicianSectionHtmlById.orientation || ""
+    };
+
+    function renderClinicalSectionInto(
+      container,
+      html
+    ) {
+      if (!container) {
+        return false;
+      }
+
+      container.innerHTML = html || "";
+
+      container.style.display =
+        html
+          ? "block"
+          : "none";
+
+      return true;
+    }
 
     const patientHtml =
       cognitiveUxHtml?.patientHtml || "";
@@ -6658,15 +6740,69 @@ function renderClinicalCognitiveAidV2() {
     safetyContainer.innerHTML = "";
     safetyContainer.style.display = "none";
 
-    const prescriptionContentHtml =
+    const generalContentHtml =
       clinicalSituationsToggleHtml +
-      prescriptionHtml;
+      sectionHtmlById.general;
+
+    const generalRenderedLocally =
+      renderClinicalSectionInto(
+        prescriptionGeneralContainer,
+        generalContentHtml
+      );
+
+    const enduranceRenderedLocally =
+      renderClinicalSectionInto(
+        enduranceContainer,
+        sectionHtmlById.endurance
+      );
+
+    const strengthRenderedLocally =
+      renderClinicalSectionInto(
+        strengthContainer,
+        sectionHtmlById.strength
+      );
+
+    const otherActivityRenderedLocally =
+      renderClinicalSectionInto(
+        otherActivityContainer,
+        sectionHtmlById.otherActivity
+      );
+
+    const orientationRenderedLocally =
+      renderClinicalSectionInto(
+        orientationContainer,
+        sectionHtmlById.orientation
+      );
+
+    const fallbackPrescriptionHtml = [
+      generalRenderedLocally
+        ? ""
+        : generalContentHtml,
+
+      enduranceRenderedLocally
+        ? ""
+        : sectionHtmlById.endurance,
+
+      strengthRenderedLocally
+        ? ""
+        : sectionHtmlById.strength,
+
+      otherActivityRenderedLocally
+        ? ""
+        : sectionHtmlById.otherActivity,
+
+      orientationRenderedLocally
+        ? ""
+        : sectionHtmlById.orientation
+    ]
+      .filter(Boolean)
+      .join("");
 
     prescriptionContainer.innerHTML =
-      prescriptionContentHtml;
+      fallbackPrescriptionHtml;
 
     prescriptionContainer.style.display =
-      prescriptionContentHtml
+      fallbackPrescriptionHtml
         ? "block"
         : "none";
 
