@@ -2498,7 +2498,7 @@ body.pap-quick-mode
 }
 
 .pap-cognitive-ux-host .pap-cognitive-ux-section-content {
-  padding: 0 11px 11px;
+  padding: 0 12px 8px;
 
   border-top: 1px solid #eef2f7;
 }
@@ -2509,12 +2509,12 @@ body.pap-quick-mode
 
 .pap-cognitive-ux-host .pap-cognitive-ux-list {
   margin: 0;
-  padding: 8px 0 0 1.15rem;
+  padding: 6px 0 0 1rem;
 }
 
 .pap-cognitive-ux-host .pap-cognitive-ux-item {
   margin: 0;
-  padding: 5px 0;
+  padding: 3px 0;
 
   color: #334155;
   font-size: 0.9rem;
@@ -2604,8 +2604,8 @@ body.pap-quick-mode
    ========================================================= */
 
 .pap-cognitive-ux-host .pap-cognitive-ux-clinician-check {
-  margin: 9px 0 0;
-  padding: 8px 10px;
+  margin: 6px 0 0;
+  padding: 7px 9px 6px;
 
   border-left: 3px solid #f59e0b;
   border-radius: 6px;
@@ -2615,15 +2615,17 @@ body.pap-quick-mode
 
 .pap-cognitive-ux-host .pap-cognitive-ux-subsection-title {
   margin: 0;
+  padding-left: 1px;
 
   color: #92400e;
   font-size: 0.82rem;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .pap-cognitive-ux-host
   .pap-cognitive-ux-list-clinician-check {
-  padding-top: 5px;
+  padding-top: 3px;
 }
 
 /* =========================================================
@@ -2713,11 +2715,15 @@ body.pap-quick-mode
   }
 
   .pap-cognitive-ux-host .pap-cognitive-ux-section-summary {
-    padding: 8px 9px;
+    padding: 7px 9px;
   }
 
   .pap-cognitive-ux-host .pap-cognitive-ux-section-content {
-    padding: 0 9px 9px;
+    padding: 0 10px 7px;
+  }
+
+  .pap-cognitive-ux-host .pap-cognitive-ux-list {
+    padding-left: 0.95rem;
   }
 }
 
