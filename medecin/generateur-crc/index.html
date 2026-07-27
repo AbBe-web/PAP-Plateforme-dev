@@ -3850,6 +3850,9 @@ const ENABLE_CLINICAL_COGNITIVE_UX_SPLIT_PREVIEW =
 const ENABLE_SELECTED_PATIENT_MESSAGES_PREVIEW_V2 =
   true;
 
+const ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 =
+  false;
+
 const clinicalCognitivePatientSelectionState =
   new Map();
 
@@ -10758,6 +10761,132 @@ function buildOrdonnanceQuickAccessBlock(
   `;
 }
 
+function buildSelectedPatientMessagesDocumentBlockV2(
+  selectedPatientMessages
+) {
+
+  if (
+    ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 !==
+    true
+  ) {
+    return "";
+  }
+
+  const groups =
+    Array.isArray(
+      selectedPatientMessages?.groups
+    )
+      ? selectedPatientMessages.groups
+      : [];
+
+  const groupsHtml =
+    groups
+      .map(group => {
+
+        const pathologyId =
+          String(
+            group?.pathologyId || ""
+          ).trim();
+
+        const pathologyLabel =
+          typeof getPatientPathologyShortLabel ===
+          "function"
+            ? getPatientPathologyShortLabel(
+                pathologyId
+              )
+            : pathologyId;
+
+        const items =
+          Array.isArray(group?.items)
+            ? group.items
+            : [];
+
+        const itemsHtml =
+          items
+            .map(item => {
+
+              const message =
+                String(
+                  item?.message || ""
+                ).trim();
+
+              if (!message) {
+                return "";
+              }
+
+              return `
+<li>
+  ${escapeSelectedPatientMessagesPreviewHtml(
+    message
+  )}
+</li>
+              `;
+
+            })
+            .filter(Boolean)
+            .join("");
+
+        if (!itemsHtml) {
+          return "";
+        }
+
+        return `
+<div
+  data-patient-messages-v2-pathology="${escapeSelectedPatientMessagesPreviewHtml(
+    pathologyId
+  )}"
+  style="
+    margin-top:8px;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  "
+>
+  <strong>
+    ${escapeSelectedPatientMessagesPreviewHtml(
+      pathologyLabel
+    )} :
+  </strong>
+
+  <ul style="margin-top:5px;">
+    ${itemsHtml}
+  </ul>
+</div>
+        `;
+
+      })
+      .filter(Boolean)
+      .join("");
+
+  if (!groupsHtml) {
+    return "";
+  }
+
+  return `
+<div
+  data-patient-messages-document-v2="true"
+  style="
+    margin-top:12px;
+    padding:10px 12px;
+    border:1px dashed #8b98a7;
+    border-radius:6px;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  "
+>
+  <div style="
+    margin-bottom:6px;
+    font-size:11px;
+    font-style:italic;
+  ">
+    Bloc patient v2 expérimental — comparaison avec le bloc actuel
+  </div>
+
+  ${groupsHtml}
+</div>
+  `;
+}
+
+
 function renderPatientVersion(
   model,
   clinicalContext = null
@@ -10789,6 +10918,12 @@ const crcPathoBloc =
     "patient",
     clinicalContext,
     model
+  );
+
+const selectedPatientMessagesDocumentBlocV2 =
+  buildSelectedPatientMessagesDocumentBlockV2(
+    window
+      .PAP_SELECTED_PATIENT_MESSAGES_V2
   );
 
 const patientResourcesBloc =
@@ -10871,6 +11006,8 @@ ${crcPathoBloc ? `
 ${crcPathoBloc}
 </p>
 ` : ""}
+
+${selectedPatientMessagesDocumentBlocV2}
 
 <p>
 Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
