@@ -5948,6 +5948,69 @@ function buildClinicalCognitivePatientSelectionById(
 }
 
 
+function updateSelectedClinicalCognitivePatientMessagesV2(
+  cognitiveUxViewModel,
+  patientSelectionById,
+  activePathologies
+) {
+
+  const emptySelectionResult = {
+    groups: [],
+    selectedItemIds: [],
+    availablePathologyIds: []
+  };
+
+  if (
+    typeof
+      buildSelectedClinicalCognitivePatientMessages !==
+    "function"
+  ) {
+
+    window.PAP_SELECTED_PATIENT_MESSAGES_V2 =
+      emptySelectionResult;
+
+    return emptySelectionResult;
+  }
+
+  const selectedPatientMessages =
+    buildSelectedClinicalCognitivePatientMessages(
+      cognitiveUxViewModel,
+      patientSelectionById,
+      activePathologies
+    );
+
+  const normalizedResult = {
+    groups:
+      Array.isArray(
+        selectedPatientMessages?.groups
+      )
+        ? selectedPatientMessages.groups
+        : [],
+
+    selectedItemIds:
+      Array.isArray(
+        selectedPatientMessages?.selectedItemIds
+      )
+        ? selectedPatientMessages.selectedItemIds
+        : [],
+
+    availablePathologyIds:
+      Array.isArray(
+        selectedPatientMessages
+          ?.availablePathologyIds
+      )
+        ? selectedPatientMessages
+            .availablePathologyIds
+        : []
+  };
+
+  window.PAP_SELECTED_PATIENT_MESSAGES_V2 =
+    normalizedResult;
+
+  return normalizedResult;
+}
+
+
 function initClinicalCognitivePatientSelection() {
 
   if (
@@ -5991,6 +6054,26 @@ function initClinicalCognitivePatientSelection() {
       clinicalCognitivePatientSelectionState.set(
         knowledgeItemId,
         checkbox.checked === true
+      );
+
+      const cognitiveUxViewModel =
+        window
+          .PAP_CLINICAL_COGNITIVE_VIEW_MODEL_V2;
+
+      const activePathologies =
+        buildPrototypeClinicalModelV2()
+          ?.patient
+          ?.pathologies || [];
+
+      const patientSelectionById =
+        buildClinicalCognitivePatientSelectionById(
+          cognitiveUxViewModel
+        );
+
+      updateSelectedClinicalCognitivePatientMessagesV2(
+        cognitiveUxViewModel,
+        patientSelectionById,
+        activePathologies
       );
 
     }
@@ -6081,6 +6164,13 @@ function renderClinicalCognitiveAidV2() {
     buildClinicalCognitivePatientSelectionById(
       cognitiveUxViewModel
     );
+
+
+  updateSelectedClinicalCognitivePatientMessagesV2(
+    cognitiveUxViewModel,
+    patientSelectionById,
+    activePathologies
+  );
 
 
   const cognitiveUxHtml =
