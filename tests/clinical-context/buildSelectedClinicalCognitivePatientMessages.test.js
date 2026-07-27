@@ -207,6 +207,112 @@ assert.strictEqual(
     "L’ordre des pathologies actives doit déterminer le groupe principal d’un item partagé"
 );
 
+const noSelectedMessageResult =
+    window
+        .buildSelectedClinicalCognitivePatientMessages(
+            viewModel,
+            {
+                "hta-default-selected": false,
+                "hta-default-unselected": false,
+                "shared-item": false
+            },
+            [
+                "hta",
+                "bpco"
+            ]
+        );
+
+assert.deepStrictEqual(
+    noSelectedMessageResult.groups,
+    [],
+    "Toutes les cases décochées doivent produire zéro message patient"
+);
+
+assert.deepStrictEqual(
+    noSelectedMessageResult.selectedItemIds,
+    [],
+    "Toutes les cases décochées doivent produire zéro knowledgeItemId sélectionné"
+);
+
+assert.deepStrictEqual(
+    noSelectedMessageResult.availablePathologyIds,
+    [
+        "hta",
+        "bpco"
+    ],
+    "La couverture v2 doit rester déclarée même lorsque toutes les cases sont décochées"
+);
+
+
+const pathologyRemovedResult =
+    window
+        .buildSelectedClinicalCognitivePatientMessages(
+            viewModel,
+            {
+                "hta-default-selected": false,
+                "hta-default-unselected": true,
+                "shared-item": false
+            },
+            [
+                "bpco"
+            ]
+        );
+
+assert.deepStrictEqual(
+    pathologyRemovedResult.groups,
+    [],
+    "Une pathologie inactive ne doit produire aucun message"
+);
+
+assert.deepStrictEqual(
+    pathologyRemovedResult.availablePathologyIds,
+    [
+        "bpco"
+    ],
+    "Seules les pathologies actives couvertes par v2 doivent être exposées"
+);
+
+
+const pathologyReaddedResult =
+    window
+        .buildSelectedClinicalCognitivePatientMessages(
+            viewModel,
+            {
+                "hta-default-selected": false,
+                "hta-default-unselected": true,
+                "shared-item": false
+            },
+            [
+                "hta",
+                "bpco"
+            ]
+        );
+
+assert.deepStrictEqual(
+    pathologyReaddedResult.selectedItemIds,
+    [
+        "hta-default-unselected"
+    ],
+    "Le retrait puis réajout d’une pathologie dans la même consultation doit conserver les choix explicites"
+);
+
+assert.deepStrictEqual(
+    pathologyReaddedResult.groups,
+    [
+        {
+            pathologyId: "hta",
+            items: [
+                {
+                    knowledgeItemId:
+                        "hta-default-unselected",
+                    message:
+                        "Message HTA non sélectionné par défaut"
+                }
+            ]
+        }
+    ]
+);
+
 const emptyResult =
     window
         .buildSelectedClinicalCognitivePatientMessages(
@@ -236,6 +342,9 @@ console.log(
                 multiPathologyItemsDeduplicated: true,
                 activePathologyOrderPreserved: true,
                 availablePathologiesExposed: true,
+                emptySelectionPreservesV2Coverage: true,
+                inactivePathologiesExcluded: true,
+                pathologyReadditionPreservesOverrides: true,
                 emptyInputHandled: true
             }
         },
