@@ -2415,6 +2415,79 @@ details[open] > .pap-patho-rule-summary::before {
 }
 
 /* =========================================================
+   Commande globale des situations particulières
+   ========================================================= */
+
+.pap-cognitive-ux-host
+  .pap-clinical-situations-toggle {
+  display: flex;
+  justify-content: flex-end;
+
+  margin: 0 0 7px;
+}
+
+.pap-cognitive-ux-host
+  .pap-clinical-situations-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  min-height: 30px;
+  padding: 4px 9px;
+
+  border: 1px solid #d6dce5;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #475569;
+
+  cursor: pointer;
+
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.pap-cognitive-ux-host
+  .pap-clinical-situations-toggle-button:hover {
+  background: #f8fafc;
+  border-color: #aeb8c6;
+}
+
+.pap-cognitive-ux-host
+  .pap-clinical-situations-toggle-button[aria-pressed="true"] {
+  border-color: #b45309;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.pap-cognitive-ux-host
+  .pap-clinical-situations-toggle-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 22px;
+  height: 20px;
+  padding: 0 5px;
+
+  border-radius: 999px;
+
+  background: #eef2f7;
+  color: #475569;
+
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.pap-cognitive-ux-host
+  .pap-clinical-situations-toggle-button[aria-pressed="true"]
+  .pap-clinical-situations-toggle-count {
+  background: #fde68a;
+  color: #78350f;
+}
+
+/* =========================================================
    Sections repliables
    ========================================================= */
 
@@ -2726,6 +2799,17 @@ body.pap-quick-mode
     padding-left: 0.95rem;
   }
 }
+
+  .pap-cognitive-ux-host
+    .pap-clinical-situations-toggle {
+    justify-content: stretch;
+  }
+
+  .pap-cognitive-ux-host
+    .pap-clinical-situations-toggle-button {
+    justify-content: space-between;
+    width: 100%;
+  }
 
 /* =========================================
    APERÇU DOCUMENTAIRE — MESSAGES PATIENT V2

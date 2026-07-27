@@ -203,6 +203,24 @@ const singlePathologyResult =
         }
     );
 
+const contextualClinicianResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            showAllClinicalSituations:
+                false
+        }
+    );
+
+const exhaustiveClinicianResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            showAllClinicalSituations:
+                true
+        }
+    );
+
 assert(
     result.clinicianHtml.includes(
         'data-section-id="general"'
@@ -275,6 +293,51 @@ assert(
         "À vérifier selon la situation clinique"
     ),
     "Les conditions clinicianCheck doivent être distinguées"
+);
+
+assert(
+    !contextualClinicianResult
+        .clinicianHtml
+        .includes(
+            "À vérifier selon la situation clinique"
+        ),
+    "Les situations particulières doivent être masquées dans l’affichage contextuel"
+);
+
+assert(
+    !contextualClinicianResult
+        .clinicianHtml
+        .includes(
+            'data-section-id="orientation"'
+        ),
+    "Une section contenant uniquement des situations particulières doit être masquée dans l’affichage contextuel"
+);
+
+assert(
+    exhaustiveClinicianResult
+        .clinicianHtml
+        .includes(
+            "À vérifier selon la situation clinique"
+        ),
+    "L’affichage exhaustif doit rendre les situations particulières"
+);
+
+assert(
+    exhaustiveClinicianResult
+        .clinicianHtml
+        .includes(
+            'data-section-id="orientation"'
+        ),
+    "L’affichage exhaustif doit restaurer les sections conditionnelles"
+);
+
+assert(
+    contextualClinicianResult
+        .patientHtml
+        .includes(
+            "Informer le patient &amp; vérifier"
+        ),
+    "Le filtrage médecin ne doit pas masquer les messages patient"
 );
 
 assert(
@@ -566,6 +629,9 @@ console.log(
                 emptySectionsHidden: true,
                 clinicianMessagesRendered: true,
                 clinicianSectionsExposedById: true,
+                contextualClinicianChecksHidden: true,
+                exhaustiveClinicianChecksRendered: true,
+                patientRenderingUnaffectedByClinicianFilter: true,
                 patientMessagesRendered: true,
                 patientSelectionControlsRendered: true,
                 patientSelectionDefaultsPreserved: true,

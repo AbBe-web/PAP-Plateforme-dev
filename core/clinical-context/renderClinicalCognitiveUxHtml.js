@@ -321,8 +321,19 @@
                 .filter(Boolean)
                 .join("");
 
+        const shouldRenderClinicianChecks =
+            audience !== "clinician" ||
+            options
+                ?.showAllClinicalSituations !==
+                false;
+
+        const visibleClinicianCheckItems =
+            shouldRenderClinicianChecks
+                ? partition.clinicianCheck
+                : [];
+
         const clinicianCheckHtml =
-            partition.clinicianCheck
+            visibleClinicianCheckItems
                 .map(function (item) {
                     return renderItemHtml(
                         item,
@@ -335,7 +346,7 @@
 
         const renderedItemCount =
             partition.always.length +
-            partition.clinicianCheck.length;
+            visibleClinicianCheckItems.length;
 
         if (renderedItemCount === 0) {
             return "";

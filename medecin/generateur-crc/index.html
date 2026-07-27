@@ -3861,6 +3861,8 @@ const ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 =
 const clinicalCognitivePatientSelectionState =
   new Map();
 
+let showAllClinicalSituations = false;
+
 const consultationState = {
   reportGenerated: false,
   reportDirty: false
@@ -6000,6 +6002,22 @@ function resetClinicalCognitivePatientSelectionV2() {
 window.resetClinicalCognitivePatientSelectionV2 =
   resetClinicalCognitivePatientSelectionV2;
 
+function resetClinicalSituationsDisplayV2() {
+
+  showAllClinicalSituations = false;
+
+  if (
+    typeof renderClinicalCognitiveAidV2 ===
+    "function"
+  ) {
+    renderClinicalCognitiveAidV2();
+  }
+
+  return showAllClinicalSituations;
+}
+
+window.resetClinicalSituationsDisplayV2 =
+  resetClinicalSituationsDisplayV2;
 
 function escapeSelectedPatientMessagesPreviewHtml(
   value
@@ -6222,6 +6240,70 @@ function updateSelectedClinicalCognitivePatientMessagesV2(
   return normalizedResult;
 }
 
+function buildClinicalSituationsToggleHtml(
+  cognitiveUxViewModel
+) {
+  const clinicianSections =
+    Array.isArray(
+      cognitiveUxViewModel?.clinician
+    )
+      ? cognitiveUxViewModel.clinician
+      : [];
+
+  const clinicianCheckCount =
+    clinicianSections.reduce(
+      function(total, section) {
+
+        const items =
+          Array.isArray(section?.items)
+            ? section.items
+            : [];
+
+        return total +
+          items.filter(function(item) {
+            return (
+              item?.condition?.type ===
+              "clinicianCheck" &&
+              Boolean(
+                String(
+                  item?.messages
+                    ?.clinician || ""
+                ).trim()
+              )
+            );
+          }).length;
+      },
+      0
+    );
+
+  if (clinicianCheckCount === 0) {
+    return "";
+  }
+
+  const buttonLabel =
+    showAllClinicalSituations
+      ? "Revenir à l’affichage contextuel"
+      : "Afficher toutes les situations particulières";
+
+  return `
+<div class="pap-clinical-situations-toggle">
+  <button
+    type="button"
+    class="pap-clinical-situations-toggle-button"
+    aria-pressed="${String(
+      showAllClinicalSituations
+    )}"
+  >
+    <span>
+      ${buttonLabel}
+    </span>
+
+    <span class="pap-clinical-situations-toggle-count">
+      ${clinicianCheckCount}
+    </span>
+  </button>
+</div>`;
+}
 
 function initClinicalCognitivePatientSelection() {
 
@@ -6287,6 +6369,41 @@ function initClinicalCognitivePatientSelection() {
         patientSelectionById,
         activePathologies
       );
+
+    }
+  );
+}
+
+function initClinicalSituationsToggle() {
+
+  if (
+    window
+      ._clinicalSituationsToggleInitialized
+  ) {
+    return;
+  }
+
+  window
+    ._clinicalSituationsToggleInitialized =
+      true;
+
+  document.addEventListener(
+    "click",
+    function(event) {
+
+      const button =
+        event.target?.closest?.(
+          ".pap-clinical-situations-toggle-button"
+        );
+
+      if (!button) {
+        return;
+      }
+
+      showAllClinicalSituations =
+        !showAllClinicalSituations;
+
+      renderClinicalCognitiveAidV2();
 
     }
   );
@@ -6393,7 +6510,8 @@ function renderClinicalCognitiveAidV2() {
           {
             isQuickMode,
             activePathologies,
-            patientSelectionById
+            patientSelectionById,
+            showAllClinicalSituations
           }
         )
       : null;
@@ -6532,14 +6650,23 @@ function renderClinicalCognitiveAidV2() {
     const referenceHtml =
       cognitiveUxHtml?.referenceHtml || "";
 
+    const clinicalSituationsToggleHtml =
+      buildClinicalSituationsToggleHtml(
+        cognitiveUxViewModel
+      );
+
     safetyContainer.innerHTML = "";
     safetyContainer.style.display = "none";
 
-    prescriptionContainer.innerHTML =
+    const prescriptionContentHtml =
+      clinicalSituationsToggleHtml +
       prescriptionHtml;
 
+    prescriptionContainer.innerHTML =
+      prescriptionContentHtml;
+
     prescriptionContainer.style.display =
-      prescriptionHtml
+      prescriptionContentHtml
         ? "block"
         : "none";
 
@@ -16641,6 +16768,7 @@ initResourceSelectionToggle();
 // =====================================
 initUI();
 initClinicalCognitivePatientSelection();
+initClinicalSituationsToggle();
 initPapConsultationModeToggle();
 initPapQuickOptionalBlocks();
 

@@ -368,7 +368,15 @@ if (
     window.resetClinicalCognitivePatientSelectionV2();
 }
 
-// 17. Resynchroniser les résumés factuels après reset complet
+// 17. Retour à l’affichage contextuel de l’aide cognitive v2
+if (
+    typeof window.resetClinicalSituationsDisplayV2 ===
+    "function"
+) {
+    window.resetClinicalSituationsDisplayV2();
+}
+
+// 18. Resynchroniser les résumés factuels après reset complet
 if (typeof updatePapQuickOptionalSummaries === "function") {
     updatePapQuickOptionalSummaries();
 }
