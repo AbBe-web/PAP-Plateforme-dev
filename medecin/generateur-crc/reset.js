@@ -360,7 +360,15 @@ if (typeof resetOrientationPanelAfterReset === "function") {
     resetOrientationPanelAfterReset();
 }
 
-// 16. Resynchroniser les résumés factuels après reset complet
+// 16. Reset des sélections patient de l’aide cognitive v2
+if (
+    typeof window.resetClinicalCognitivePatientSelectionV2 ===
+    "function"
+) {
+    window.resetClinicalCognitivePatientSelectionV2();
+}
+
+// 17. Resynchroniser les résumés factuels après reset complet
 if (typeof updatePapQuickOptionalSummaries === "function") {
     updatePapQuickOptionalSummaries();
 }
