@@ -3851,7 +3851,7 @@ const ENABLE_SELECTED_PATIENT_MESSAGES_PREVIEW_V2 =
   true;
 
 const ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 =
-  false;
+  true;
 
 const clinicalCognitivePatientSelectionState =
   new Map();
@@ -9330,10 +9330,35 @@ function getPatientPathologyShortLabel(pathologyId) {
 function buildCRCPathoBloc(
   mode = "long",
   clinicalContext = null,
-  clinicalModel = null
+  clinicalModel = null,
+  options = {}
 ) {
 
-  const selectedPathos = Array.from(document.querySelectorAll(".patho:checked"));
+  const excludedPathologyIds =
+    new Set(
+      Array.isArray(
+        options?.excludePathologyIds
+      )
+        ? options.excludePathologyIds
+        : []
+    );
+
+  const selectedPathos =
+    Array.from(
+      document.querySelectorAll(
+        ".patho:checked"
+      )
+    ).filter(pathologyInput => {
+
+      if (mode !== "patient") {
+        return true;
+      }
+
+      return !excludedPathologyIds.has(
+        pathologyInput.value
+      );
+
+    });
 
   let grouped = {};
 
@@ -10867,21 +10892,13 @@ function buildSelectedPatientMessagesDocumentBlockV2(
   style="
     margin-top:12px;
     padding:10px 12px;
-    border:1px dashed #8b98a7;
+    border:1px solid #d9d9d9;
     border-radius:6px;
     break-inside:avoid;
     page-break-inside:avoid;
   "
 >
-  <div style="
-    margin-bottom:6px;
-    font-size:11px;
-    font-style:italic;
-  ">
-    Bloc patient v2 expérimental — comparaison avec le bloc actuel
-  </div>
-
-  ${groupsHtml}
+    ${groupsHtml}
 </div>
   `;
 }
@@ -10913,17 +10930,39 @@ const prescriptionBloc = buildPrescription({ ...model, context: "patient" })
   .replace("Un travail de renforcement musculaire est conseillé", "Votre médecin vous a prescrit un travail de renforcement musculaire")
   .replace("Un travail de souplesse et de mobilité est proposé", "Votre médecin vous a prescrit un travail de souplesse et de mobilité");
 
+const selectedPatientMessagesV2 =
+  window
+    .PAP_SELECTED_PATIENT_MESSAGES_V2 || {
+      groups: [],
+      selectedItemIds: [],
+      availablePathologyIds: []
+    };
+
+const patientPathologyIdsCoveredByV2 =
+  ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 ===
+  true &&
+  Array.isArray(
+    selectedPatientMessagesV2
+      ?.availablePathologyIds
+  )
+    ? selectedPatientMessagesV2
+        .availablePathologyIds
+    : [];
+
 const crcPathoBloc =
   buildCRCPathoBloc(
     "patient",
     clinicalContext,
-    model
+    model,
+    {
+      excludePathologyIds:
+        patientPathologyIdsCoveredByV2
+    }
   );
 
 const selectedPatientMessagesDocumentBlocV2 =
   buildSelectedPatientMessagesDocumentBlockV2(
-    window
-      .PAP_SELECTED_PATIENT_MESSAGES_V2
+    selectedPatientMessagesV2
   );
 
 const patientResourcesBloc =
