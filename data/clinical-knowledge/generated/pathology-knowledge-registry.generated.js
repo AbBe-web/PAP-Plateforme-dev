@@ -4315,6 +4315,985 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "icc-constraint-decompensated-heart-failure-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "En cas d’insuffisance cardiaque décompensée, considérer le report de l’activité physique et une réévaluation clinique avant reprise ou progression.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Signes ou contexte évoquant une décompensation de l’insuffisance cardiaque",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-constraint-severe-hemodynamic-arrhythmic-instability-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Une HTA sévère non contrôlée, une HTAP sévère symptomatique ou un trouble rythmique ventriculaire complexe constituent des éléments à vérifier avant d’envisager l’activité physique.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "HTA sévère non contrôlée, HTAP sévère symptomatique ou trouble rythmique ventriculaire complexe",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-constraint-unstable-coronary-lvot-thrombus-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Un syndrome coronarien instable, un obstacle symptomatique ou sévère de la chambre de chasse du ventricule gauche, ou un thrombus intracardiaque à haut risque sont à considérer comme contre-indications à l’activité physique tant que la situation n’est pas réévaluée.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Syndrome coronarien instable, obstacle symptomatique ou sévère de la chambre de chasse du ventricule gauche, ou thrombus intracardiaque à haut risque",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-constraint-recent-venous-thromboembolism-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Une thrombose veineuse profonde ou une embolie pulmonaire récente est à prendre en compte avant toute reprise d’activité physique.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Thrombose veineuse profonde ou embolie pulmonaire récente",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "contraintes",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-constraint-acute-disease-or-current-inability-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Une affection aiguë inflammatoire ou infectieuse, ou une incapacité actuelle à pratiquer liée à une limitation motrice ou à une autre cause, justifie de différer ou d’adapter l’activité selon l’évaluation clinique.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Affection aiguë inflammatoire ou infectieuse, ou incapacité actuelle à pratiquer une activité physique",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "contraintes",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-constraint-sport-high-risk-cardiac-findings-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Pour une pratique sportive ou une activité intense, rechercher une dysfonction myocardique sévère, une péricardite chronique constrictive, une capacité d’effort inférieure à 5–6 METs ou des anomalies cardiologiques limitantes avant d’envisager la pratique.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Projet de sport ou d’activité intense avec élément cardiologique à risque",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "contraintes",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-orientation-cardiac-rehabilitation-cardiology-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "rehabilitationFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "Envisager une reprise ou une progression après réadaptation cardiaque et/ou avis cardiologique selon la stabilité, la capacité fonctionnelle et la tolérance.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Absence de réadaptation ou d’avis cardiologique, reprise après hospitalisation ou décompensation, limitation persistante ou situation complexe",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-ischemia-angina-arrhythmia-threshold-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "intensity"
+      }
+    ],
+    "messages": {
+      "clinician": "Adapter l’intensité sous le seuil d’apparition d’une ischémie, d’un angor ou d’une arythmie lorsqu’un seuil ou une consigne cardiologique est connu.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Seuil d’ischémie, d’angor ou d’arythmie connu, ou consigne cardiologique disponible",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.endurance"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-moderate-borg-progressive-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "intensity"
+      }
+    ],
+    "messages": {
+      "clinician": "Privilégier une intensité modérée, autour de Borg 3 à 5, avec une progression graduelle selon la tolérance.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.endurance"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-weather-pollution-golden-rules-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "environment"
+      }
+    ],
+    "messages": {
+      "clinician": "Respecter les précautions habituelles, notamment selon la météo, la pollution et les règles d’or de la pratique cardiovasculaire.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "adaptations",
+            "index": 3
+          },
+          {
+            "pathologyId": "icc",
+            "field": "regles",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-altitude-over-2500m-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "environment"
+      }
+    ],
+    "messages": {
+      "clinician": "En cas de projet d’activité au-dessus de 2 500 m, envisager une adaptation ou un report selon la situation clinique et l’avis cardiologique.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Projet d’activité en altitude supérieure à 2 500 m",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "adaptations",
+            "index": 4
+          },
+          {
+            "pathologyId": "icc",
+            "field": "regles",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-cold-water-under-25c-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "environment"
+      }
+    ],
+    "messages": {
+      "clinician": "En cas d’activité aquatique dans une eau inférieure à 25 °C, envisager une adaptation ou un évitement selon la stabilité clinique et la tolérance.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Projet d’activité aquatique dans une eau inférieure à 25 °C",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "adaptations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-beta-blocker-borg-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Sous bêtabloquant, la fréquence cardiaque peut moins bien refléter l’intensité ; utiliser aussi l’échelle de Borg et les sensations perçues.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Traitement bêtabloquant actuel",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.endurance"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-diuretic-dehydration-electrolytes-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Sous diurétique, être vigilant vis-à-vis de la déshydratation et des troubles électrolytiques, notamment en cas de chaleur ou d’effort prolongé.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Traitement diurétique actuel",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement diurétique actuel, notamment avec pratique par temps chaud, effort prolongé ou symptômes pouvant évoquer une mauvaise tolérance",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, rechercher la tolérance à la chaleur et aux efforts prolongés, les modalités d’hydratation, le respect des conseils donnés et d’éventuels symptômes de déshydratation ou de trouble électrolytique."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-safety-fatigue-exercise-intolerance-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "En cas de fatigue excessive, d’intolérance à l’effort, de récupération anormalement longue ou de baisse de capacité, rechercher notamment une progression trop rapide, une récupération insuffisante, une affection intercurrente, une mauvaise tolérance thérapeutique ou une aggravation cardiaque.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Fatigue excessive, intolérance à l’effort, récupération anormalement longue ou baisse de capacité",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la tolérance à l’effort, l’essoufflement, la fatigue inhabituelle, la récupération et l’évolution de la capacité physique depuis la dernière consultation."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-safety-cardiac-warning-symptoms-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "warningSign"
+      }
+    ],
+    "messages": {
+      "clinician": "En cas de dyspnée inhabituelle ou aggravée, de douleur thoracique, de palpitations, de vertiges ou de malaise pendant ou après l’activité, envisager l’arrêt ou l’adaptation de la progression et une réévaluation clinique ou spécialisée selon la situation.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Dyspnée inhabituelle ou aggravée, douleur thoracique, palpitations, vertiges ou malaise pendant ou après l’activité",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Dyspnée inhabituelle ou aggravée, douleur thoracique, palpitations, vertiges ou malaise pendant ou après les séances",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, préciser les circonstances et l’évolution des symptômes ; envisager l’interruption ou l’adaptation de la progression et une réévaluation clinique ou spécialisée selon la situation."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-guidance-muscular-symptoms-medications-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "En cas de crampes, de myalgies ou de faiblesse musculaire inhabituelle, considérer notamment une déshydratation, un trouble électrolytique sous diurétique, un effet médicamenteux ou une progression inadaptée.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Crampes, myalgies ou faiblesse musculaire inhabituelle pendant ou après l’activité",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Crampes, myalgies ou faiblesse musculaire inhabituelle pendant ou après les séances, notamment sous diurétique",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, considérer notamment une déshydratation, un trouble électrolytique, un effet médicamenteux ou une progression inadaptée."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-referentiel-001",
+      "has-icc-synthese-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "regles",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-patient-weather-pollution-golden-rules-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Respecter les précautions habituelles selon la météo et la pollution, ainsi que les règles d’or de la pratique cardiovasculaire."
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-information-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "icc",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-patient-progressive-adapted-intensity-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Respecter une intensité d’effort adaptée et augmenter progressivement la durée et l’intensité selon la tolérance."
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-information-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "crc",
+            "index": 1
+          },
+          {
+            "pathologyId": "icc",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-patient-monitor-exercise-tolerance-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "selfMonitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Surveiller sa tolérance à l’effort, notamment l’essoufflement, la fatigue inhabituelle et la récupération."
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        }
+      }
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-information-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "crc",
+            "index": 2
+          },
+          {
+            "pathologyId": "icc",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "icc-patient-stop-warning-symptoms-001",
+    "context": {
+      "pathologiesAny": [
+        "icc"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "warningSign"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Interrompre l’activité physique en cas de malaise, de douleur thoracique ou d’essoufflement inhabituel et demander un avis médical selon la situation."
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [
+      "has-icc-information-001"
+    ],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "icc",
+            "field": "crc",
+            "index": 3
+          }
+        ]
+      }
+    }
   }
 ];
 
