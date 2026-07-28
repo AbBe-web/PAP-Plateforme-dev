@@ -295,6 +295,11 @@ try {
       "PresentationTargets"
     )
 
+  $clinicalMomentsSheet =
+    $workbook.Worksheets.Item(
+      "ClinicalMoments"
+    )
+
   $legacyOriginsSheet =
     $workbook.Worksheets.Item(
       "LegacyOrigins"
@@ -330,6 +335,10 @@ try {
   $presentationTargetsHeaders =
     Get-HeaderMap `
       -Worksheet $presentationTargetsSheet
+
+  $clinicalMomentsHeaders =
+    Get-HeaderMap `
+      -Worksheet $clinicalMomentsSheet
 
   $legacyOriginsHeaders =
     Get-HeaderMap `
@@ -476,6 +485,10 @@ try {
       }
 
       presentationTargets =
+        New-Object `
+          System.Collections.ArrayList
+
+      clinicalMoments =
         New-Object `
           System.Collections.ArrayList
 
@@ -670,6 +683,126 @@ try {
       ].presentationTargets `
       -Value $target
   }
+
+  # ==========================================================
+  # CLINICAL MOMENTS
+  # ==========================================================
+
+  for (
+    $row = 2;
+    $row -le
+      $clinicalMomentsSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $knowledgeItemId =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "knowledgeItemId"
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      )
+    ) {
+      continue
+    }
+
+
+    $momentConditionType =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "conditionType"
+
+
+    $momentCondition =
+      [ordered]@{
+
+        type =
+          $momentConditionType
+      }
+
+
+    $momentConditionDescription =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "conditionDescription"
+
+
+    if (
+      -not [string]::IsNullOrWhiteSpace(
+        $momentConditionDescription
+      )
+    ) {
+
+      $momentCondition[
+        "description"
+      ] =
+        $momentConditionDescription
+    }
+
+
+    if (
+      $momentConditionType -eq
+      "clinicianCheck"
+    ) {
+
+      $momentCondition[
+        "machineEvaluable"
+      ] = $false
+    }
+
+
+    $clinicalMoment =
+      [ordered]@{
+
+        moment =
+          Get-FieldText `
+            -Worksheet $clinicalMomentsSheet `
+            -Headers $clinicalMomentsHeaders `
+            -Row $row `
+            -Name "moment"
+
+        condition =
+          [pscustomobject]$momentCondition
+      }
+
+
+    $messageClinicianOverride =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "messageClinicianOverride"
+
+
+    if (
+      -not [string]::IsNullOrWhiteSpace(
+        $messageClinicianOverride
+      )
+    ) {
+
+      $clinicalMoment[
+        "messageClinicianOverride"
+      ] =
+        $messageClinicianOverride
+    }
+
+
+    [void]$itemStates[
+      $knowledgeItemId
+    ].clinicalMoments.Add(
+      [pscustomobject]$clinicalMoment
+    )
+  }
+
 
   # ==========================================================
   # LEGACY ORIGINS
@@ -945,6 +1078,19 @@ try {
             $state.presentationTargets
           )
       }
+
+
+    if (
+      $state.clinicalMoments.Count -gt 0
+    ) {
+
+      $item[
+        "clinicalMoments"
+      ] =
+        @(
+          $state.clinicalMoments
+        )
+    }
 
 
     # --------------------------------------------------------

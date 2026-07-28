@@ -176,6 +176,150 @@ function validateClinicalKnowledgeItem(item) {
   }
 
   if (
+    item.clinicalMoments !== undefined
+  ) {
+
+    if (
+      !Array.isArray(
+        item.clinicalMoments
+      )
+    ) {
+      errors.push(
+        "clinicalMoments must be an array"
+      );
+
+    } else if (
+      item.clinicalMoments.length === 0
+    ) {
+      errors.push(
+        "clinicalMoments must not be empty when provided"
+      );
+
+    } else {
+
+      const seenClinicalMoments =
+        new Set();
+
+      item.clinicalMoments.forEach(
+        (clinicalMoment, index) => {
+
+          if (
+            !clinicalMoment ||
+            typeof clinicalMoment !== "object" ||
+            Array.isArray(clinicalMoment)
+          ) {
+            errors.push(
+              `clinicalMoments[${index}] must be an object`
+            );
+            return;
+          }
+
+          const moment =
+            clinicalMoment.moment;
+
+          if (
+            typeof moment !== "string" ||
+            !CLINICAL_KNOWLEDGE_SCHEMA
+              .clinicalMoments
+              .includes(moment)
+          ) {
+            errors.push(
+              `clinicalMoments[${index}].moment is invalid`
+            );
+
+          } else if (
+            seenClinicalMoments.has(
+              moment
+            )
+          ) {
+            errors.push(
+              `clinicalMoments contains duplicate moment: ${moment}`
+            );
+
+          } else {
+
+            seenClinicalMoments.add(
+              moment
+            );
+          }
+
+          const momentCondition =
+            clinicalMoment.condition;
+
+          if (
+            !momentCondition ||
+            typeof momentCondition !== "object" ||
+            Array.isArray(momentCondition)
+          ) {
+            errors.push(
+              `clinicalMoments[${index}].condition must be an object`
+            );
+
+          } else if (
+            !CLINICAL_KNOWLEDGE_SCHEMA
+              .conditionTypes
+              .includes(
+                momentCondition.type
+              )
+          ) {
+            errors.push(
+              `clinicalMoments[${index}].condition.type is invalid`
+            );
+          }
+
+          if (
+            momentCondition &&
+            momentCondition.description !==
+              undefined &&
+            (
+              typeof momentCondition
+                .description !== "string" ||
+              momentCondition
+                .description
+                .trim() === ""
+            )
+          ) {
+            errors.push(
+              `clinicalMoments[${index}].condition.description must be a non-empty string`
+            );
+          }
+
+          if (
+            momentCondition &&
+            momentCondition.machineEvaluable !==
+              undefined &&
+            typeof momentCondition
+              .machineEvaluable !== "boolean"
+          ) {
+            errors.push(
+              `clinicalMoments[${index}].condition.machineEvaluable must be a boolean`
+            );
+          }
+
+          if (
+            clinicalMoment
+              .messageClinicianOverride !==
+                undefined &&
+            (
+              typeof clinicalMoment
+                .messageClinicianOverride !==
+                  "string" ||
+              clinicalMoment
+                .messageClinicianOverride
+                .trim() === ""
+            )
+          ) {
+            errors.push(
+              `clinicalMoments[${index}].messageClinicianOverride must be a non-empty string`
+            );
+          }
+
+        }
+      );
+    }
+  }
+
+  if (
     item.evidenceSourceIds !== undefined &&
     !Array.isArray(item.evidenceSourceIds)
   ) {

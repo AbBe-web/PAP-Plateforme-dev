@@ -90,6 +90,11 @@ const CLINICAL_KNOWLEDGE_SCHEMA = {
     "clinicianCheck"
   ],
 
+  clinicalMoments: [
+    "initialAssessment",
+    "followUp"
+  ],
+
   evidenceSourceTypes: [
     "guideline",
     "consensus",

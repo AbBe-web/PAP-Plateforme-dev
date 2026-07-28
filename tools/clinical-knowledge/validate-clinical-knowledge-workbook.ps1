@@ -25,6 +25,7 @@ $expectedSheets = @(
   "EvidenceRefs",
   "ResourceRefs",
   "PresentationTargets",
+  "ClinicalMoments",
   "Lists",
   "Pathologies"
 )
@@ -83,6 +84,15 @@ $requiredHeaders = @{
     "target"
   )
 
+  "ClinicalMoments" = @(
+    "knowledgeItemId",
+    "moment",
+    "conditionType",
+    "conditionDescription",
+    "messageClinicianOverride",
+    "notes"
+  )
+
   "Pathologies" = @(
     "id",
     "label",
@@ -114,6 +124,12 @@ $allowedStatusValues = @(
 )
 
 
+$allowedClinicalMoments = @(
+  "initialAssessment",
+  "followUp"
+)
+
+
 $allowedPresentationTargets = @(
   "prescription.general",
   "prescription.endurance",
@@ -138,25 +154,48 @@ $allowedLegacyFields = @(
 $allowedCategoriesByFunction = @{
 
   "safety" = @(
+    "constraint",
     "contraindication",
+    "temporaryContraindication",
     "limitation",
     "precaution",
-    "monitoring",
-    "warningSign"
+    "warningSign",
+    "monitoring"
   )
 
   "prescriptionGuidance" = @(
     "activityType",
+    "endurance",
+    "strength",
+    "balance",
+    "mobility",
+    "intensity",
+    "frequency",
+    "duration",
+    "progression",
+    "fractionation",
+    "environment",
+    "equipment",
+    "monitoring",
     "practicalAdaptation"
   )
 
   "patientInformation" = @(
+    "benefit",
     "safety",
+    "selfMonitoring",
     "practicalAdvice",
-    "selfMonitoring"
+    "warningSign",
+    "motivation"
   )
 
-  "orientationFactors" = @()
+  "orientationFactors" = @(
+    "supervisionFactor",
+    "functionalFactor",
+    "rehabilitationFactor",
+    "specialistInput",
+    "assessmentNeed"
+  )
 }
 
 
@@ -965,6 +1004,176 @@ try {
 
 
   # ==========================================================
+  # CLINICAL MOMENTS
+  # ==========================================================
+
+  $clinicalMomentsSheet =
+    $workbook.Worksheets.Item(
+      "ClinicalMoments"
+    )
+
+  $clinicalMomentsHeaders =
+    $headerMaps["ClinicalMoments"]
+
+  $clinicalMomentPairs =
+    New-Object `
+      System.Collections.Generic.HashSet[string]
+
+  $clinicalMomentCount = 0
+
+
+  for (
+    $row = 2;
+    $row -le
+      $clinicalMomentsSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $knowledgeItemId =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "knowledgeItemId"
+
+    $moment =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "moment"
+
+    $conditionType =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "conditionType"
+
+    $conditionDescription =
+      Get-FieldText `
+        -Worksheet $clinicalMomentsSheet `
+        -Headers $clinicalMomentsHeaders `
+        -Row $row `
+        -Name "conditionDescription"
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $moment
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $conditionType
+      )
+    ) {
+      continue
+    }
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      )
+    ) {
+
+      $errors.Add(
+        "ClinicalMoments ligne $row : " +
+        "knowledgeItemId obligatoire."
+      )
+
+      continue
+    }
+
+
+    Test-KnowledgeItemReference `
+      -SheetName "ClinicalMoments" `
+      -Row $row `
+      -KnowledgeItemId $knowledgeItemId
+
+
+    if (
+      $moment -notin
+      $allowedClinicalMoments
+    ) {
+
+      $errors.Add(
+        "ClinicalMoments ligne $row : " +
+        "moment invalide '$moment'."
+      )
+    }
+
+
+    if (
+      $conditionType -notin
+      $allowedConditionTypes
+    ) {
+
+      $errors.Add(
+        "ClinicalMoments ligne $row : " +
+        "conditionType invalide " +
+        "'$conditionType'."
+      )
+    }
+
+
+    if (
+      $conditionType -ne "always" -and
+      [string]::IsNullOrWhiteSpace(
+        $conditionDescription
+      )
+    ) {
+
+      $warnings.Add(
+        "ClinicalMoments ligne $row : " +
+        "conditionDescription vide pour " +
+        "conditionType '$conditionType'."
+      )
+    }
+
+
+    $pairKey =
+      "$knowledgeItemId::$moment"
+
+
+    if (
+      -not $clinicalMomentPairs.Add(
+        $pairKey
+      )
+    ) {
+
+      $errors.Add(
+        "ClinicalMoments ligne $row : " +
+        "couple dupliqué '$pairKey'."
+      )
+    }
+
+
+    if (
+      $knowledgeItemStatusById.ContainsKey(
+        $knowledgeItemId
+      ) -and
+      $knowledgeItemStatusById[
+        $knowledgeItemId
+      ] -eq
+      "deprecated"
+    ) {
+
+      $errors.Add(
+        "ClinicalMoments ligne $row : " +
+        "un item deprecated ne peut pas recevoir " +
+        "de moment clinique ('$knowledgeItemId')."
+      )
+    }
+
+
+    $clinicalMomentCount++
+  }
+
+
+  # ==========================================================
   # PRESENTATION TARGETS
   # ==========================================================
 
@@ -1332,6 +1541,12 @@ try {
   Write-Host (
     "PresentationTargets : " +
     $presentationTargetCount
+  )
+
+
+  Write-Host (
+    "ClinicalMoments : " +
+    $clinicalMomentCount
   )
 
 
