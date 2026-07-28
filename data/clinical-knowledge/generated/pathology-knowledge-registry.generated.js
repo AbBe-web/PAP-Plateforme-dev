@@ -879,6 +879,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.endurance"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Contrôle glycémique insuffisant avec projet de progression vers une activité physique d’intensité élevée",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une progression vers une intensité élevée est envisagée, réévaluer le contrôle glycémique et les conditions de progression."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1043,6 +1054,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.general"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement une douleur, une rougeur, une irritation, une plaie ou une difficulté liée au chaussage depuis le début des séances."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1160,6 +1180,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Mal perforant plantaire présent ou récemment traité",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si un mal perforant plantaire est présent ou récemment traité, réévaluer son évolution avant toute reprise d’activités sollicitant les membres inférieurs."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1236,6 +1267,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "type": "always"
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Risque accru de pied diabétique identifié",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si un risque accru de pied diabétique est identifié, rechercher la tolérance des pieds à la pratique, les difficultés de chaussage et l’apparition de lésions."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1371,6 +1413,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Activité inhabituelle ou prolongée réalisée ou prévue",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une activité inhabituelle ou prolongée a été réalisée ou est prévue, examiner la tolérance glycémique et les adaptations des apports glucidiques ou du traitement effectivement utilisées ou envisagées."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1410,6 +1463,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Lésion du pied présente ou survenue depuis la dernière consultation",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une lésion du pied est présente ou est survenue, préciser son évolution et la tolérance des activités choisies avant de considérer leur poursuite ou leur adaptation."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1449,6 +1513,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Bilan récent toujours absent ou incomplet",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si le bilan reste absent ou incomplet, considérer la recherche de complications du diabète et de facteurs de risque cardiovasculaire."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
