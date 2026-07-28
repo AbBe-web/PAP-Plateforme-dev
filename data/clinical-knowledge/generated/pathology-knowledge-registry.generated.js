@@ -337,6 +337,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "HTA non contrôlée au suivi",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si l’HTA reste non contrôlée ou le redevient, réévaluer les conditions de reprise ou de progression de l’activité physique après stabilisation clinique."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -376,6 +387,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement antihypertenseur avec symptômes ou contexte évocateur d’hypotension pendant ou après l’effort",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, rechercher des vertiges, un malaise, une faiblesse ou une sensation lipothymique pendant ou après les séances, y compris dans les heures suivantes ; préciser les circonstances et les horaires de prise du traitement."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -417,6 +439,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.endurance"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement par bêtabloquant avec pratique effective d’activité physique",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier comment l’intensité a été appréciée pendant les séances, la tolérance observée et l’utilisation des sensations perçues plutôt que de la seule fréquence cardiaque."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -447,6 +480,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Vertiges ou malaise pendant ou après l’effort",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, préciser les circonstances, le délai après l’effort, la durée, la récidive et l’évolution des vertiges ou malaises ; considérer une adaptation de l’activité physique et une réévaluation clinique ou thérapeutique selon la situation."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -487,6 +531,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement diurétique, notamment avec chaleur, effort prolongé ou symptômes pouvant évoquer une déshydratation",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, rechercher la tolérance à la chaleur et aux efforts prolongés, les modalités d’hydratation et d’éventuels symptômes pouvant évoquer une déshydratation ou un trouble électrolytique."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -898,7 +953,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       }
     ],
     "messages": {
-      "clinician": "Si traitement à risque d’hypoglycémie : anticiper le risque d’hypoglycémie ; prévoir une autosurveillance glycémique et une adaptation du traitement et/ou des apports glucidiques selon la situation.",
+      "clinician": "Si traitement exposant à l’hypoglycémie — notamment insuline, sulfamides hypoglycémiants ou glinides — : anticiper le risque lié à l’effort, prévoir selon la situation une autosurveillance glycémique avant et après l’activité, avoir une collation disponible et considérer une adaptation des apports glucidiques ou du traitement.",
       "patient": ""
     },
     "condition": {
@@ -907,6 +962,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement exposant à l’hypoglycémie avec pratique effective d’activité physique",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, rechercher les hypoglycémies survenues pendant ou après les séances, les mesures glycémiques réalisées, l’utilisation d’une collation et les adaptations effectivement mises en œuvre."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -1136,7 +1202,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
-      "status": "active",
+      "status": "deprecated",
       "version": "1",
       "migration": {
         "legacyOrigins": [
@@ -1237,7 +1303,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       }
     ],
     "messages": {
-      "clinician": "SI traitement hypoglycémiant (insuline, glinides, sulfamides hypoglycémiants) → ALORS auto-surveillance glycémique avant et après effort, prévoir collation avec soi",
+      "clinician": "Si traitement exposant à l’hypoglycémie : vérifier que les modalités d’autosurveillance glycémique et de correction d’une éventuelle hypoglycémie sont adaptées à l’activité prévue.",
       "patient": ""
     },
     "condition": {
@@ -1246,6 +1312,26 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "machineEvaluable": false
     },
     "presentationTargets": [],
+    "clinicalMoments": [
+      {
+        "moment": "initialAssessment",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement exposant à l’hypoglycémie : insuline, sulfamides hypoglycémiants ou glinides",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Si traitement exposant à l’hypoglycémie : vérifier que les modalités d’autosurveillance glycémique et de correction d’une éventuelle hypoglycémie sont adaptées à l’activité prévue."
+      },
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement exposant à l’hypoglycémie avec activité physique débutée ou poursuivie",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier que les modalités d’autosurveillance glycémique et de correction d’une éventuelle hypoglycémie restent adaptées à l’activité réellement pratiquée et à sa tolérance."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
