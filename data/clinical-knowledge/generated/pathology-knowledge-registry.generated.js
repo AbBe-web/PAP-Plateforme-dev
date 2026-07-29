@@ -16895,6 +16895,1467 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "cancer-constraint-temporary-ci-moderate-or-higher-ap-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "CI temporaire AP ≥ modérée si :",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-constraint-extreme-fatigue-severe-malnutrition-poor-general-condition-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Fatigue extrême / dénutrition sévère / altération majeure de l’état général",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-constraint-severe-infectious-syndrome-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Syndrome infectieux sévère en cours",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-constraint-marked-cytopenias-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Cytopénies marquées (Hb <8 gr/L, Pl <50 G/L, GB <1.5 G/L)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-constraint-early-postoperative-period-impaired-healing-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Suites précoces de chirurgie / cicatrisation non acquise",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-constraint-lytic-bone-metastases-zone-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Métastases osseuses lytiques (pour zone concernée)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-individualize-by-cancer-treatment-phase-symptoms-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Individualiser selon cancer, traitements, phase thérapeutique, symptômes (parfois uniquement AVQ <button type='button' class='info-trigger info-hitbox' data-info='Activités de la vie quotidienne'><span class='info-icon'>i</span></button>)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-start-five-to-ten-minute-blocks-progress-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "duration"
+      }
+    ],
+    "messages": {
+      "clinician": "Début possible par blocs de 5–10 min puis progression",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement les durées réellement réalisées et leur progression depuis la consultation précédente."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-relative-intensity-borg-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "intensity"
+      }
+    ],
+    "messages": {
+      "clinician": "Intensité relative (ressenti/Borg) plutôt que repères fixes",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement l’intensité ressentie utilisée, la tolérance et les adaptations réalisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-fracture-risk-avoid-falls-increase-supervision-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Risque fracturaire ↑ <button type='button' class='info-trigger info-hitbox' data-info='Métastases osseuses, hormonothérapie, ostéoporose'><span class='info-icon'>i</span></button> : éviter AP à risque de chute, ↑ encadrement",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Risque fracturaire augmenté présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general",
+      "orientation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Risque fracturaire augmenté pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier les activités à risque de chute évitées, le niveau d’encadrement utilisé et les incidents éventuels."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-immunodeficiency-avoid-public-gyms-pools-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "environment"
+      }
+    ],
+    "messages": {
+      "clinician": "Déficit immunitaire : éviter gymnases et piscines publiques (pendant 1 an post greffe)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Déficit immunitaire ou période post-greffe concernée présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-external-radiotherapy-no-aquatic-activity-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "RTE <button type='button' class='info-trigger info-hitbox' data-info='Radiothérapie externe'><span class='info-icon'>i</span></button> : pas d’AP aquatique pendant et jusque 2-3 mois après selon avis spécialisé",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Radiothérapie externe en cours ou récente présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-post-surgery-wait-healing-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Post-chirurgie : attendre cicatrisation (jusqu’à 8 sem)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Période post-chirurgicale avec cicatrisation non acquise présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-stoma-ap-strength-contact-sports-complications-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Stomies digest/urinaires : pas CI AP si patient autonome (/stomie), avis médical avant RM <button type='button' class='info-trigger info-hitbox' data-info='Renforcement musculaire'><span class='info-icon'>i</span></button> (risque hernie) ou sport de contact (risque coups), arrêt AP si complications (hernie, infection)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Stomie digestive ou urinaire présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Stomie digestive ou urinaire pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier l’autonomie, les activités réalisées, les complications éventuelles et les adaptations utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-catheter-feeding-tube-avoid-water-strength-zone-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Cathéter / sonde digestive : éviter piscine, lac, mer (risque infectieux) et RM <button type='button' class='info-trigger info-hitbox' data-info='Renforcement musculaire'><span class='info-icon'>i</span></button> dans la zone de la sonde (risque délogement)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Cathéter ou sonde digestive présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 8
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-guidance-medicosport-sante-resource-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Possibilité d’utiliser <a href='https://www.vidal.fr/sante/sport/infos-sport-medicosport-sante/quel-sport-patient/' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>MEDICOSPORT&nbsp;SANTE</a>",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 9
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-cardiotoxic-treatment-echocardiography-cardiology-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Traitement cardiotoxique <button type='button' class='info-trigger info-hitbox' data-info='Anthracyclines (doxo-dauno-épi-ida-rubicine), mitoxantrone, trastuzumab, RTE thoracique'><span class='info-icon'>i</span></button> : ETT ± avis cardio si doute",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Traitement cardiotoxique présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-musculoskeletal-morbidity-peripheral-neuropathy-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Morbidités MS <button type='button' class='info-trigger info-hitbox' data-info='Musculosquelettiques'><span class='info-icon'>i</span></button> et neuropathie périphérique (force, équilibre) : voir si adaptation AP utile",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Morbidité musculosquelettique ou neuropathie périphérique présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Morbidité musculosquelettique ou neuropathie périphérique pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la force, l’équilibre, les difficultés rencontrées et les adaptations effectivement utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-bone-metastases-hormonal-treatment-fracture-risk-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Métastases osseuses / traitement hormonal : évaluer risque fracturaire ± PEC",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Métastases osseuses ou traitement hormonal présents ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-breast-cancer-shoulder-arm-morbidity-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Cancer du sein : évaluer morbidités épaules et bras pour AP membres supérieurs (kiné ?)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Cancer du sein avec morbidité de l’épaule ou du bras présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general",
+      "orientation"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-prostate-cancer-force-endurance-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Cancer de prostate : évaluer force/endurance si tt hormonal ± métastases os",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Cancer de prostate avec traitement hormonal ou métastases osseuses présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-colon-cancer-stoma-capacity-before-beyond-walking-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Cancer du côlon avec stomie : voir capacité du patient à gérer AP avant validation AP > marche",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Cancer du côlon avec stomie présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-lymphedema-management-compression-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Lymphœdème : pas de CI AP mais discuter PEC médicale si symptômes ou augmentation nette ± vêtement compression",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Lymphœdème symptomatique ou en augmentation nette présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Lymphœdème symptomatique ou en augmentation pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier l’évolution des symptômes, la prise en charge discutée et l’utilisation éventuelle d’un vêtement de compression."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-situation-reduced-joint-mobility-stretching-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Mobilité articulaire réduite (chirurgie, RTE, corticoïdes) : intérêt exercices assouplissement",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Mobilité articulaire réduite présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.otherActivity"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Mobilité articulaire réduite pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier les exercices d’assouplissement réalisés, leur tolérance et leur effet fonctionnel."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-rule-active-treatment-fluctuating-side-effects-adjust-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI phase active de traitement avec effets secondaires fluctuants → ajuster durée/intensité fréquemment",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Phase active de traitement avec effets secondaires fluctuants présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Phase active de traitement avec effets secondaires fluctuants pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier les ajustements de durée et d’intensité réellement réalisés selon l’état clinique."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-rule-fatigue-over-24-48h-reduce-next-load-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI fatigue >24–48h après séance → réduire charge suivante",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Fatigue persistant plus de 24 à 48 heures après une séance présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Fatigue persistant plus de 24 à 48 heures après une séance pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la fatigue post-séance et la réduction de charge éventuellement appliquée à la séance suivante."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-rule-unusual-bone-pain-dizziness-chest-pain-malaise-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI douleur osseuse inhabituelle / vertiges / douleur thoracique / malaise → suspendre et réévaluer",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement toute douleur osseuse inhabituelle, vertige, douleur thoracique ou malaise survenu pendant la pratique, ainsi que la suspension et la réévaluation réalisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-rule-good-clinical-tolerance-progress-general-recommendations-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI bonne tolérance clinique → progression graduelle vers recommandations générales",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Bonne tolérance clinique présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Bonne tolérance clinique pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la tolérance et la progression graduelle effectivement réalisée vers les recommandations générales."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-patient-adapted-physical-activity-supportive-care-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "L’activité physique adaptée fait partie des soins de support utiles"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "cancer",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-patient-even-tired-gentle-movement-preferable-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Même fatigué, bouger doucement est souvent préférable à l’inactivité complète si cela est possible"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 1
+          },
+          {
+            "pathologyId": "cancer",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-patient-physical-activity-fights-cancer-fatigue-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "L’activité physique aide à lutter contre la fatigue liée au cancer"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-patient-adapt-sessions-daily-condition-treatments-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "selfMonitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Adapter les séances selon l’état du jour et les traitements"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 3
+          },
+          {
+            "pathologyId": "cancer",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cancer-patient-stop-report-unusual-symptom-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "warningSign"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Arrêtez et signalez tout symptôme inhabituel"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 4
+          },
+          {
+            "pathologyId": "cancer",
+            "field": "crc_default",
+            "index": 3
+          }
+        ]
+      }
+    }
   }
 ];
 
