@@ -2940,6 +2940,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.general"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement l’intégration d’un échauffement et d’un retour au calme progressifs dans les séances, ainsi que leur tolérance."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -2978,6 +2987,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.strength"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la réalisation, la tolérance et la progression du renforcement musculaire, avec respiration libre et sans blocage ventilatoire."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -3019,6 +3037,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement bradycardisant : bêtabloquant, vérapamil ou diltiazem",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier comment l’intensité a été appréciée pendant les séances et la tolérance observée, en tenant compte de la perception de l’effort plutôt que de la seule fréquence cardiaque."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -3065,6 +3094,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Déconditionnement physique ou anxiété de reprise limitant la pratique après un événement coronarien",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si un déconditionnement physique ou une appréhension limite encore la pratique, reconsidérer la progressivité et le niveau d’accompagnement."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -3219,6 +3259,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.general"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Interruption de l’activité physique de plusieurs semaines",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une interruption de plusieurs semaines est survenue, réévaluer le niveau de reprise et les conditions d’une progression adaptée."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -3299,6 +3350,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "orientation"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Activité sportive intense ou compétition envisagée",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si un projet d’activité sportive intense ou de compétition apparaît ou évolue, reconsidérer la nécessité d’un bilan cardiologique complet et d’un avis spécialisé."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -3339,6 +3401,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.otherActivity"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement antiagrégant plaquettaire avec activité comportant un risque important de contact, de choc ou de chute",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une activité comportant un risque important de contact, de choc ou de chute est pratiquée ou envisagée, réévaluer le risque traumatique et les adaptations possibles."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
