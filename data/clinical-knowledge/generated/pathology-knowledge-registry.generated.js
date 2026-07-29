@@ -11160,6 +11160,746 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "sep-constraint-acute-relapse-temporary-contraindication-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Poussée aiguë de SEP → CI temporaire",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-constraint-intense-activity-heat-humidity-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "precaution"
+      }
+    ],
+    "messages": {
+      "clinician": "AP intense en ambiance chaude ± humide → prudence (aggravation transitoire possible)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-guidance-reassure-relapse-risk-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Rassurer contre fausses croyances : AP n’augmente pas le risque de poussée",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-guidance-multimodal-program-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Associer endurance + renforcement + équilibre + mobilité",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-guidance-progressivity-fractionation-daily-state-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Progressivité, fractionnement si besoin, adaptation à l’état du jour",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement la progression, le recours éventuel au fractionnement et l’adaptation de la pratique à l’état du jour."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-guidance-heat-humidity-adaptations-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "environment"
+      }
+    ],
+    "messages": {
+      "clinician": "Si chaleur/humidité : intérieur frais, ↓ intensité, pauses régulières, hydratation",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "adaptations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-guidance-useful-activities-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Activités utiles : marche ± nordique, vélo, aquagym, Pilates, yoga, tai-chi, kickboxing selon capacités",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "adaptations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-orientation-framework-by-edss-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "rehabilitationFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "Cadre selon <a href='http://medicalcul.free.fr/edssech.html' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>EDSS</a> : kiné ± APA si >6 (confort/fonctionnel), APA ± kiné si 3.5–6 (autonomie), ES ou autonomie si <3.5 (↓ fatigue, ↑ QDV)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Niveau de handicap selon EDSS connu ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "adaptations",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-situation-vesicosphincter-aquatic-precautions-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Troubles vésico-sphinctériens : précautions pour AP aquatique",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Troubles vésico-sphinctériens présents ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Troubles vésico-sphinctériens présents pendant une pratique aquatique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier les précautions effectivement utilisées et la tolérance de la pratique aquatique."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-orientation-fall-risk-supervision-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "supervisionFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "Risque de chute : activité supervisée ou avec appui sécurisé",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Risque de chute présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Risque de chute présent pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier le cadre de supervision, les appuis utilisés et les chutes ou quasi-chutes survenues."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-situation-disability-edss-objectives-programs-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Handicap évalué par <a href='http://medicalcul.free.fr/edssech.html' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>EDSS</a> → objectifs/programmes différents",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Niveau de handicap selon EDSS connu ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-rule-acute-relapse-defer-structured-activity-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI poussée aiguë en cours → différer activité structurée et réévaluer ensuite",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-rule-symptom-worsening-stop-cool-recover-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI aggravation des symptômes pendant effort → arrêter, refroidir, récupérer puis réévaluer",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement une aggravation des symptômes pendant l’effort et les mesures de récupération utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-rule-good-tolerance-increase-duration-frequency-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI bonne tolérance → augmenter progressivement durée puis fréquence",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la tolérance et la progression de la durée puis de la fréquence de pratique."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "regles",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-patient-regular-movement-benefits-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bouger régulièrement améliore fatigue, mobilité, équilibre et qualité de vie"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "sep",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-patient-activity-does-not-trigger-relapses-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "L’activité physique ne déclenche pas les poussées, même si certains symptômes peuvent augmenter transitoirement pendant l’effort"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "crc",
+            "index": 1
+          },
+          {
+            "pathologyId": "sep",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "sep-patient-prefer-cool-environment-001",
+    "context": {
+      "pathologiesAny": [
+        "sep"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Privilégiez un environnement frais"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "sep",
+            "field": "crc",
+            "index": 2
+          },
+          {
+            "pathologyId": "sep",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
   }
 ];
 
