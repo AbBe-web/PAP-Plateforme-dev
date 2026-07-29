@@ -15573,6 +15573,610 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "depression-constraint-no-specific-ci-except-major-eating-disorders-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Pas de CI spécifique hors désordres majeurs de l’alimentation",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-constraint-orthostatic-hypotension-sedation-psychotropics-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "limitation"
+      }
+    ],
+    "messages": {
+      "clinician": "L : risque d’hypotension orthostatique et sédation sous antidépresseurs et autres psychotropes",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-orientation-supervised-apa-three-months-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "supervisionFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "APA supervisée 3 mois (≥3 séances/sem) : traitement possible de l’EDC <button type='button' class='info-trigger info-hitbox' data-info='Épisode dépressif caractérisé'><span class='info-icon'>i</span></button> seul si intensité légère à modérée ou associé à psychotrope et/ou psychothérapie si intensité modérée à sévère",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement les séances d’APA effectivement réalisées, leur régularité et leur maintien sur la période prévue."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-guidance-walking-simple-effective-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Marche = option simple, accessible et efficace",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.endurance"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-guidance-yoga-qigong-effective-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Yoga / Qi Gong : efficacité prouvée sur anxiété et dépression",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.otherActivity"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-guidance-general-recommendations-support-useful-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Même recommandations que population générale, accompagnement souvent utile (motivation, progressivité, maintien)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement la motivation, la progressivité, le maintien de la pratique et l’accompagnement effectivement utilisé."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-situation-tricyclic-antidepressant-resting-ecg-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Traitement par AD tricyclique : ECG de repos (allongement du QT ?)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Traitement par antidépresseur tricyclique présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-situation-search-orthostatic-hypotension-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Rechercher hypotension orthostatique : si + → PEC",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-situation-assess-cardiovascular-risk-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Importance de l’évaluation du RCV (comorbidités fréquentes)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-situation-acute-suicidal-ideation-severe-agitation-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Idées suicidaires aiguës / agitation sévère → priorité PEC psychiatrique",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-rule-psychotropic-monitor-orthostatic-hypotension-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI psychotrope → surveillance signes d’hypotension orthostatique",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Traitement psychotrope présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement psychotrope pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, rechercher les signes d’hypotension orthostatique survenus pendant la pratique et les adaptations éventuellement utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-orientation-difficult-adherence-adapt-format-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "supervisionFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "SI observance difficile → adapter format (groupe, accompagnement si souhaité et possible)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Difficulté d’observance présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Difficulté d’observance pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier l’observance, le format effectivement utilisé et l’effet du groupe ou de l’accompagnement lorsqu’ils ont été choisis."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-patient-moving-a-little-useful-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bouger un peu est déjà utile"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "depression",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "depression-patient-moving-improves-mood-anxiety-sleep-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bouger peut améliorer l’humeur, l’anxiété et le sommeil"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 1
+          },
+          {
+            "pathologyId": "depression",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
   }
 ];
 
