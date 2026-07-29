@@ -3838,6 +3838,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.endurance"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la réalisation, la tolérance et la progression de l’entraînement à la marche intermittente."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -3876,6 +3885,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.endurance"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement l’intensité de la douleur à la marche, le délai de récupération et la tolérance globale du programme."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -3920,6 +3938,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.endurance"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la fréquence, la durée, la régularité et la progression réellement atteintes dans le programme de marche."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -3960,6 +3987,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.endurance"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Marche difficile ou insuffisamment tolérée",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si la marche reste difficile ou insuffisamment tolérée, réévaluer sa tolérance et l’intérêt d’une activité d’endurance alternative."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -4007,6 +4045,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.strength"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Marche difficile ou insuffisamment tolérée",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si la marche reste limitée, réévaluer la réalisation et la tolérance des exercices adaptés des membres supérieurs ou du renforcement musculaire."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -4052,6 +4101,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement la qualité du chaussage, la tolérance cutanée et l’absence de lésion liée à la pratique."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -4135,6 +4193,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.general"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Douleurs musculaires à l’effort sous statine",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si des douleurs musculaires à l’effort sont apparues sous statine, préciser leur relation avec l’effort, leur évolution et leur retentissement sur la pratique."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -4180,6 +4249,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Traitement antiagrégant avec activité comportant un risque important de choc ou de chute",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une activité exposant aux chocs ou aux chutes est pratiquée ou envisagée, réévaluer le risque traumatique et les adaptations possibles."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -4227,6 +4307,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.general"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Déconditionnement physique limitant encore la pratique",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si le déconditionnement physique limite encore la pratique, reconsidérer l’intensité, le fractionnement ou le niveau d’accompagnement."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -4265,6 +4356,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la claudication intermittente, le périmètre de marche, leur évolution et leur retentissement fonctionnel."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
