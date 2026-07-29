@@ -1864,6 +1864,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.general"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la régularité de l’activité physique, la progression mise en œuvre et la tolérance à l’effort."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1942,6 +1951,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.endurance"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Séance continue difficilement tolérée ou fractionnement utilisé",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une séance continue est difficilement tolérée ou si un fractionnement est utilisé, réévaluer son utilité, sa tolérance et son adéquation à la pratique."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -1980,6 +2000,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.endurance"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la dyspnée et la tolérance à l’intensité réellement pratiquée."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -2020,6 +2049,15 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.strength"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la réalisation, la tolérance et la progression du renforcement musculaire."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -2049,6 +2087,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.endurance"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Dyspnée importante pendant l’activité physique",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une dyspnée importante est survenue, préciser les circonstances et reconsidérer l’intensité ou le fractionnement selon la situation."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -2088,6 +2137,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Exacerbation récente ou survenue depuis la dernière consultation",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une exacerbation est survenue, réévaluer la reprise de l’activité physique, sa progression et sa tolérance."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
@@ -2656,6 +2716,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "presentationTargets": [
       "prescription.general"
     ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Désaturation à l’effort connue ou suspectée",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une désaturation à l’effort est connue ou suspectée, réévaluer la tolérance et les adaptations de l’activité physique mises en place."
+      }
+    ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
@@ -2696,6 +2767,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     },
     "presentationTargets": [
       "orientation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Désaturation persistante ou limitant la pratique",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si la désaturation persiste ou limite la pratique, reconsidérer le cadre de pratique et l’intérêt d’un encadrement spécialisé."
+      }
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
