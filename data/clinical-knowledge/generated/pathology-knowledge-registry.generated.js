@@ -20512,6 +20512,984 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "grossesse-constraint-absolute-contraindications-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Absolues : indices de RCIU <button type='button' class='info-trigger info-hitbox' data-info='Retard de croissance intra-utérin'><span class='info-icon'>i</span></button>, ATCD ≥2 accouchements prématurés, MAP <button type='button' class='info-trigger info-hitbox' data-info='Menace d’accouchement prématuré'><span class='info-icon'>i</span></button>, rupture prématurée des membranes, saignement vaginal inexpliqué, placenta prævia après 24 SA, béance du col/cerclage, grossesse multiple ≥ triplés, pré-éclampsie, épilepsie non contrôlée, autres pathologies aiguës ou chroniques graves (CV, pulm, hémoglobinopathies…)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-constraint-relative-contraindications-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "precaution"
+      }
+    ],
+    "messages": {
+      "clinician": "Relatives : ATCD FC à répétition, HTA gestationnelle, grossesse gémellaire à partir 28 sem, Hb <9 ou anémie symptomatique, diabète mal équilibré (HbA1c >6.5%), malnutrition, troubles alimentation (anorexie, boulimie), obésité IMC >40, limitations orthopédiques (rachis, genou, hanches), maladies CV ou pulmonaires légères à modérées, HTA non contrôlée, maladie thyroïdienne non contrôlée, haut niveau de tabagisme, autres problèmes de santé importants (discussion pro santé / obstétricien)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-endurance-strength-mobility-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Privilégier endurance + renforcement musculaire modérés + mobilité",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-strength-back-hips-lower-limbs-pelvic-floor-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Intégrer renforcement dos, hanches, membres inférieurs et plancher pelvien",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.strength"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-low-impact-activities-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Favoriser activités à faible impact : marche, vélo stationnaire, natation, aquagym",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-hydration-loose-clothing-breaks-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Hydratation régulière, vêtements amples adaptés, pauses fréquentes",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement l’hydratation, les vêtements utilisés, les pauses réellement prises et les difficultés rencontrées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-caution-impact-sports-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Prudence sports à impact <button type='button' class='info-trigger info-hitbox' data-info='Course à pied, trampoline, tennis, activités avec sauts'><span class='info-icon'>i</span></button>",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-avoid-fall-risk-traumatic-sports-diving-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Éviter sports à risque de chute <button type='button' class='info-trigger info-hitbox' data-info='Ski alpin, équitation...'><span class='info-icon'>i</span></button>, sports traumatiques <button type='button' class='info-trigger info-hitbox' data-info='Arts martiaux, sports collectifs'><span class='info-icon'>i</span></button> et plongée sous-marine",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-avoid-heat-humidity-altitude-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "environment"
+      }
+    ],
+    "messages": {
+      "clinician": "Éviter chaleur, humidité excessive, altitude >2500 m si non habituée",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-avoid-valsalva-strength-training-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Éviter manœuvre de Valsalva (RM)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.strength"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 7
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-avoid-supine-after-24-weeks-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Éviter position allongée sur le dos après 24 SA",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Grossesse après 24 SA présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 8
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-guidance-inform-stop-signs-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Informer sur signes d’arrêt : <a href='https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>signes classiques</a> + dyspnée inhabituelle, douleur/gonflement mollet, contractions régulières douloureuses, saignement, fuite de LA <button type='button' class='info-trigger info-hitbox' data-info='Liquide amniotique'><span class='info-icon'>i</span></button>",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement les signes d’arrêt survenus pendant la pratique et l’information effectivement transmise."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 9
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-situation-relative-ci-discuss-health-professional-obstetrician-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "CI relative : voir AP avec discussion professionnel de santé et obstétricien",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-situation-absolute-ci-low-intensity-after-obstetric-agreement-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "CI absolue : encourager AP d’intensité faible après accord obstétricien",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-situation-uncomplicated-150-180-minutes-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "duration"
+      }
+    ],
+    "messages": {
+      "clinician": "Grossesse non compliquée : viser au moins 150 à 180 min/sem d’AP modérée répartie sur ≥3 jours",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-situation-previously-inactive-overweight-obesity-progressive-start-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "duration"
+      }
+    ],
+    "messages": {
+      "clinician": "Femme auparavant inactive/surpoids/obésité : débuter progressivement (ex : 15 min x3/sem puis augmenter selon tolérance)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Femme auparavant inactive, en surpoids ou en situation d’obésité présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Situation d’inactivité antérieure, de surpoids ou d’obésité pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la durée réelle, la progression, la tolérance et l’augmentation éventuelle des séances."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-situation-athlete-continue-training-avoid-heavy-strength-very-intense-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "intensity"
+      }
+    ],
+    "messages": {
+      "clinician": "Sportive souhaitant poursuivre entraînement <button type='button' class='info-trigger info-hitbox' data-info='Pas de preuve que le sport soit délétère pendant la grossesse mais discussion médicale nécessaire pour adaptations éventuelles'><span class='info-icon'>i</span></button> : éviter musculation lourde et AP très intense <button type='button' class='info-trigger info-hitbox' data-info='FC <80-85% FCM = 85-90% VO2 max'><span class='info-icon'>i</span></button>",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Sportive souhaitant poursuivre son entraînement présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Poursuite d’un entraînement sportif pendant la grossesse.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier les intensités réellement pratiquées, la musculation utilisée, la tolérance et les adaptations mises en place."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-rule-warning-signs-stop-and-rapid-medical-advice-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI signes d’alerte <button type='button' class='info-trigger info-hitbox' data-info='Dyspnée inhabituelle, douleur/gonflement mollet, contractions douloureuses, saignement vaginal, fuite de liquide amniotique, malaise'><span class='info-icon'>i</span></button> → arrêter AP et avis médical rapide",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement tout signe d’alerte survenu pendant la pratique, l’arrêt de l’activité et l’avis médical obtenu."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-patient-moving-benefits-mother-child-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bouger pendant la grossesse est bon pour la femme enceinte et son enfant"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "grossesse",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-patient-hydrate-loose-clothing-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bien s’hydrater et porter des vêtements amples adaptés"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-patient-walking-swimming-stationary-bike-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Marche, natation, vélo stationnaire sont souvent de bons choix"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 2
+          },
+          {
+            "pathologyId": "grossesse",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-patient-know-stop-signs-consult-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "warningSign"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Connaître les signes devant faire interrompre l’activité physique et consulter"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "grossesse-patient-every-movement-counts-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Chaque mouvement compte, même en petites durées"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 4
+          },
+          {
+            "pathologyId": "grossesse",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
   }
 ];
 
