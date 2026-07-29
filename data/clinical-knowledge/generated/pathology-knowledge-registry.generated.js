@@ -11900,6 +11900,977 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "arthrose-constraint-congestive-flare-temporary-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "temporaryContraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Poussée congestive <button type='button' class='info-trigger info-hitbox' data-info='augmentation en quelques jours des douleurs, douleurs nocturnes, raideur matinale >15 min, gonflement ou chaleur locale'><span class='info-icon'>i</span></button> → CI temporaire articulation concernée",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-guidance-search-comorbidities-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Rechercher comorbidités modifiant l’AP : surpoids/obésité, diabète, RCV élevé",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-guidance-deconditioning-overweight-start-low-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Si déconditionnement ++ et/ou surpoids → début faible/modéré puis progression selon tolérance",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Déconditionnement important et/ou surpoids présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Déconditionnement important et/ou surpoids présent pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la tolérance au niveau initial choisi et la progression effectivement réalisée."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-guidance-targeted-and-general-exercises-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Associer RM ciblé articulation atteinte + exercices généraux (endurance, RM, mobilité)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-guidance-lower-limb-low-impact-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Arthrose MI → activités faible impact : marche adaptée (± bâtons), vélo, natation, aquagym",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Arthrose des membres inférieurs présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "adaptations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-guidance-adapted-footwear-lower-limb-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Chaussage adapté si atteinte MI",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Atteinte des membres inférieurs présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "adaptations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-guidance-search-kinesiophobia-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Rechercher kinésiophobie (fréquente)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la kinésiophobie et son retentissement sur la pratique depuis la consultation précédente."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "adaptations",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-guidance-education-flare-postexercise-pain-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Éduquer sur adaptation AP en cas de poussée ou douleur post-exercice",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement la survenue d’une poussée ou d’une douleur post-exercice et les adaptations réellement utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "adaptations",
+            "index": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-orientation-physiotherapy-before-activity-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "rehabilitationFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "SI raideur, déficit moteur ou instabilité marqués → ALORS kinésithérapie préalable",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Raideur, déficit moteur ou instabilité marqués présents ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-situation-low-motivation-deconditioning-daily-activities-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI motivation faible et/ou déconditionnement ++ → ALORS activités du quotidien en 1ère étape",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Motivation faible et/ou déconditionnement important présent ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Motivation faible et/ou déconditionnement important pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la réalisation des activités du quotidien choisies comme première étape et leur progression."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-situation-comorbidities-adapt-activity-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI comorbidités → ALORS adapter AP",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Comorbidité modifiant la pratique présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-rule-congestive-flare-relative-rest-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI poussée congestive → ALORS repos relatif ± avis médical",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-rule-persistent-pain-reduce-load-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI douleur durable après séance → ALORS diminuer charge",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement une douleur durable après séance et vérifier la diminution de charge éventuellement mise en œuvre."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-rule-impact-poorly-tolerated-low-impact-options-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "SI impact mal toléré → ALORS vélo/natation/aquatique/marche avec bâtons",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement la tolérance aux impacts et les activités alternatives effectivement utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "regles",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-rule-after-weeks-off-restart-lower-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI arrêt plusieurs semaines → ALORS reprise à niveau inférieur puis progression",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement les interruptions prolongées, le niveau de reprise et la progression réalisée."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "regles",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-patient-exercise-first-line-no-wear-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "L’exercice est un traitement de 1ère intention à tous les stades : il n’use pas l’articulation"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "arthrose",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-patient-combine-targeted-general-exercise-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Associer exercices ciblés (renforcement, mobilité) et activité physique générale"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "crc",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-patient-recognize-congestive-flare-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Reconnaître une poussée congestive pour adapter temporairement l’activité physique"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "crc",
+            "index": 2
+          },
+          {
+            "pathologyId": "arthrose",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-patient-distinguish-joint-pain-soreness-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Différencier douleur articulaire et courbatures après effort inhabituel"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "crc",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-patient-persistent-pain-reduce-intensity-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Si douleur durable après séance → diminuer intensité"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "crc",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-patient-adapted-footwear-lower-limb-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Chaussage adapté si atteinte MI"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "crc",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "arthrose-patient-weight-control-lower-limb-001",
+    "context": {
+      "pathologiesAny": [
+        "arthrose"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Contrôle du poids utile pour les articulations des MI"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "arthrose",
+            "field": "crc",
+            "index": 6
+          },
+          {
+            "pathologyId": "arthrose",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
   }
 ];
 
