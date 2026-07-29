@@ -14764,6 +14764,815 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "spa-constraint-bamboo-spine-violent-sports-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Colonne bambou → CI sports violents à risque de fracture vertébrale",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-constraint-flare-or-pain-adapt-load-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "precaution"
+      }
+    ],
+    "messages": {
+      "clinician": "Poussée ou douleur → adapter AP et charge mécanique de la zone concernée",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-guidance-comorbidities-cardiovascular-risk-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Dépister/traiter comorbidités, surtout CV (<a href='https://ard.bmj.com/content/annrheumdis/early/2016/10/03/annrheumdis-2016-209775.full.pdf' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>RCV&nbsp;x1.5&nbsp;si&nbsp;SPA</a>)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-orientation-adapt-by-basdai-basfi-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "rehabilitationFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "Adapter AP selon <a href='http://medicalcul.free.fr/basdai.html' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>BASDAI</a> + <a href='http://medicalcul.free.fr/basfi.html' target='_blank' rel='noopener noreferrer' style='display:inline;color:inherit;text-decoration:underline;'>BASFI</a> : kiné ± APA si maladie active (BASDAI ↑), sinon APA (inactivité/comorbidités/déconditionnement) ou sport santé",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-guidance-simple-daily-life-exercises-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Privilégier exercices simples et intégrables à la vie quotidienne",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-guidance-respiratory-thoracic-opening-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Ajouter travail respiratoire et ouverture thoracique si raideur costo-vertébrale",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Raideur costo-vertébrale présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-guidance-useful-endurance-activities-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Vélo, marche, natation, aquatique souvent utiles",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.endurance"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-situation-sacroiliac-lower-limb-limit-impact-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Atteinte sacro-iliaques/MI → limiter AP avec impact",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Atteinte sacro-iliaque ou des membres inférieurs présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-situation-bamboo-spine-violent-sport-duplicate-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Colonne bambou : CI sport violent à risque de chute ou de chocs",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "deprecated",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-situation-severe-ankylosis-bone-risk-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Ankylose sévère : adapter AP au risque osseux (fracture), prévenir professionnel AP",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Ankylose sévère présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general",
+      "orientation"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-guidance-detect-kinesiophobia-reassure-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Dépister kinésiophobie + rassurer sur bénéfices AP",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la kinésiophobie et son retentissement sur la pratique depuis la consultation précédente."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-rule-localized-inflammatory-flare-adapt-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI poussée inflammatoire localisée → repos relatif local + adaptation charge/volume",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-rule-persistent-pain-reduce-load-change-modality-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI douleur durable après exercice → diminuer charge ou changer modalité",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement une douleur durable après exercice et vérifier la diminution de charge ou le changement de modalité éventuellement mis en œuvre."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-rule-unusual-symptom-worsening-stop-reassess-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI aggravation inhabituelle des symptômes → interrompre et réévaluer",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement toute aggravation inhabituelle des symptômes, l’interruption éventuelle de la pratique et la réévaluation réalisée."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-orientation-stable-motivated-safe-autonomy-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "supervisionFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "SI maladie stabilisée et patient motivé → envisager progression vers activité autonome sécurisée",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Maladie stabilisée et motivation pour une progression vers l’autonomie présentes ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Conditions de progression vers une activité autonome réunies pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la progression vers l’autonomie, la sécurité de la pratique et les difficultés rencontrées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-patient-regular-movement-limits-stiffness-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bouger régulièrement aide à limiter l’enraidissement"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "spa",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-patient-benefits-symptoms-bone-cardiovascular-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "L’activité physique a des effets bénéfiques sur les symptômes, la santé osseuse et cardiovasculaire"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 1
+          },
+          {
+            "pathologyId": "spa",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-patient-adapted-activity-no-flare-risk-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Une activité adaptée n’augmente pas le risque de poussée"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 2
+          },
+          {
+            "pathologyId": "spa",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "spa-patient-report-unusual-persistent-pain-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "warningSign"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Signaler toute douleur inhabituelle persistante"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 3
+          }
+        ]
+      }
+    }
   }
 ];
 
