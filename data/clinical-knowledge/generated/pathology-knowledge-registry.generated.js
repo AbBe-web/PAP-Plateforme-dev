@@ -5710,6 +5710,1384 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "dt1-constraint-hyperglycemia-ketones-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "limitation"
+      }
+    ],
+    "messages": {
+      "clinician": "G > 2,5 g/L (13.9 mM) ou cétonémie > 0.5 mM/L en début d’exercice → éviter séance et corriger",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "G > 2,5 g/L (13.9 mM) ou cétonémie > 0.5 mM/L en début d’exercice",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-constraint-positive-ketones-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Cétonémie > 0,5 mmol/L ou cétonurie positive → différer activité",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Cétonémie > 0,5 mmol/L ou cétonurie positive",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-constraint-recent-severe-hypoglycemia-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Hypoglycémie sévère (≤2.8 mM, 0.5 g ou intervention autre personne) récente (<24 h) → contre-indication temporaire",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Hypoglycémie sévère récente depuis moins de 24 heures",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "contraintes",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-constraint-recent-mild-hypoglycemia-risk-sport-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "precaution"
+      }
+    ],
+    "messages": {
+      "clinician": "Hypoglycémie légère récente (2.9-3.9 mM, 0.5-0.7 g) → prudence renforcée, éviter sports à risque isolé <button type='button' class='info-trigger info-hitbox' data-info='ski alpin, escalade, natation, randonnée en solitaire'><span class='info-icon'>i</span></button>",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Hypoglycémie légère récente avec activité à risque isolé",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "contraintes",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-constraint-uncontrolled-complicated-intense-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "DT1 déséquilibré (HbA1C ↑) ou ancien ± compliqué <button type='button' class='info-trigger info-hitbox' data-info='rétinopathie proliférative instable, dysautonomie sévère, néphropathie, pathologie CV dont HTA'><span class='info-icon'>i</span></button> → CI AP intense (aérobie ou RM avec fortes charges)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "DT1 déséquilibré, ancien ou compliqué avec projet d’activité intense",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "contraintes",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-constraint-proliferative-retinopathy-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "limitation"
+      }
+    ],
+    "messages": {
+      "clinician": "Rétinopathie proliférante sévère <button type='button' class='info-trigger info-hitbox' data-info='polycoagulée ou non stabilisée'><span class='info-icon'>i</span></button> → éviter efforts violents et force intense (RM avec Valsalva)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Rétinopathie proliférante sévère",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "contraintes",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-constraint-plantar-ulcer-lower-limb-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Mal perforant plantaire → CI temporaire aux activités des membres inférieurs",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Mal perforant plantaire",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "contraintes",
+            "index": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-diabetologist-coordination-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Coordination diabétologue +++",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-anticipate-insulin-carbohydrates-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Anticiper AP (si possible) pour adapter dose insuline et/ou apport glucides",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement l’anticipation des séances et les adaptations d’insuline ou d’apports glucidiques effectivement utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-preexercise-glucose-targets-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Prendre glycémie avant AP : viser 1.3-1.9 g (7.2-10.5 mM) si AP aérobie modérée, 0.9-1.3 g (5-7.2 mM) avant AP anaérobie/intense",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la glycémie avant l’activité, sa tendance et son adéquation avec le type d’effort pratiqué."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-monitoring-material-snacks-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Avoir matériel + collations pour surveillance glycémique et correction hypoglycémie",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement la disponibilité et l’utilisation du matériel de surveillance et des collations de correction."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "adaptations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-strength-before-aerobic-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Renforcement musculaire avant aérobie possible pour limiter risque hypoglycémie",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.strength"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "adaptations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-unusual-exercise-vigilance-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Vigilance particulière si effort inhabituel",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement la réalisation d’un effort inhabituel et réévaluer la réponse glycémique et les adaptations utilisées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "adaptations",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-footwear-daily-foot-check-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Chaussage adapté + contrôle quotidien des pieds",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement le chaussage, le contrôle des pieds et la survenue éventuelle de lésions liées à la pratique."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "adaptations",
+            "index": 6
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-situation-respect-contraindications-limitations-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Respect des CI/limitations",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "deprecated",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-autonomic-neuropathy-risks-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Neuropathie autonome à risque accru d’hypoglycémie, d’hypotension orthostatique, de thermorégulation réduite et de pathologie coronarienne",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Neuropathie autonome connue ou suspectée",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Neuropathie autonome connue ou suspectée",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une neuropathie autonome est connue ou suspectée, réévaluer la tolérance, les symptômes et les adaptations de la pratique."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-delayed-nocturnal-hypoglycemia-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "Risque d’hypoglycémie retardée jusqu’à 24 h, surtout nocturne",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement les hypoglycémies retardées ou nocturnes après les séances et réévaluer la surveillance mise en place."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-reference-microvascular-cardiovascular-complications-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Complications microvasculaires/CV fréquentes",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "referenceOnly"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "situations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-guidance-cgm-pump-exercise-management-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "MCG (capteur SC) ou pompe à insuline peut faciliter la gestion de l’effort",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Utilisation d’un capteur de glucose ou d’une pompe à insuline",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Utilisation d’un capteur de glucose ou d’une pompe à insuline",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si un capteur ou une pompe est utilisé, réévaluer son utilisation pendant l’activité et l’exploitation des données observées."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "situations",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-rule-prolonged-aerobic-carbohydrates-insulin-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI activité aérobie prolongée prévue → anticiper glucides et/ou réduction insuline (hypogly)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.endurance"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Activité aérobie prolongée réalisée ou prévue",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une activité aérobie prolongée a été réalisée ou est prévue, réévaluer les adaptations glucidiques ou d’insuline utilisées et leur efficacité."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-rule-intense-anaerobic-transient-hyperglycemia-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI activité intense ou anaérobie → surveiller possible hyperglycémie transitoire",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Activité intense ou anaérobie pratiquée ou prévue",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.otherActivity"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Activité intense ou anaérobie réalisée ou prévue",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, si une activité intense ou anaérobie a été réalisée ou est prévue, réévaluer la réponse glycémique pendant et après l’effort."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-rule-low-falling-glucose-treat-before-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI glycémie basse ou tendance descendante → resucrer avant de débuter",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, réévaluer systématiquement la survenue d’une glycémie basse ou descendante avant l’activité et la conduite effectivement mise en œuvre."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "regles",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-rule-hypoglycemia-symptoms-stop-treat-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI symptômes d’hypoglycémie pendant AP → arrêter, contrôler glycémie, resucrer",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement des symptômes d’hypoglycémie pendant l’activité et réévaluer la conduite suivie."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "regles",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-rule-afternoon-major-session-nocturnal-vigilance-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI séance l’après-midi ou importante → vigilance nocturne renforcée",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, rechercher systématiquement les séances réalisées l’après-midi ou particulièrement importantes et la surveillance nocturne mise en place."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "regles",
+            "index": 4
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-rule-neuropathy-podiatric-foot-care-activity-choice-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "SI neuropathie ou problème podologique → renforcer soins des pieds et choix activités",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Neuropathie ou problème podologique",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.endurance"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "regles",
+            "index": 5
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-patient-glucose-monitoring-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "selfMonitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Importance de surveiller sa glycémie avant, pendant et après l’effort"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "dt1",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-patient-rapid-sugar-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Gardez toujours une source de sucre rapide avec soi"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "crc",
+            "index": 1
+          },
+          {
+            "pathologyId": "dt1",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-patient-new-activity-adjustments-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Chaque activité nouvelle peut nécessiter d’adapter les apports glucidiques ou l’insuline"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "crc",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-patient-evening-night-monitoring-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "selfMonitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Après une grosse séance, surveillez la glycémie également le soir et la nuit"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "crc",
+            "index": 3
+          },
+          {
+            "pathologyId": "dt1",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-patient-footwear-foot-check-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bon chaussage et contrôle quotidien des pieds recommandés"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "crc",
+            "index": 4
+          },
+          {
+            "pathologyId": "dt1",
+            "field": "crc_default",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dt1-patient-regular-movement-001",
+    "context": {
+      "pathologiesAny": [
+        "dt1"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bouger régulièrement apporte plus de bénéfices que rester inactif"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "dt1",
+            "field": "crc",
+            "index": 5
+          }
+        ]
+      }
+    }
   }
 ];
 
