@@ -196,6 +196,28 @@ const overriddenSelectionResult =
         }
     );
 
+const allPatientMessagesSelectedResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            patientSelectionById: {
+                "patient-1": true,
+                "patient-2": true
+            }
+        }
+    );
+
+const noPatientMessagesSelectedResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            patientSelectionById: {
+                "patient-1": false,
+                "patient-2": false
+            }
+        }
+    );
+
 const singlePathologyResult =
     window.renderClinicalCognitiveUxHtml(
         viewModel,
@@ -432,6 +454,75 @@ assert(
         "pap-cognitive-ux-patient-checkbox"
     ),
     "Les messages patient doivent afficher une case de sélection"
+);
+
+assert(
+    result.patientHtml.includes(
+        "pap-cognitive-ux-patient-selection-mode"
+    ),
+    "La section patient doit afficher les contrôles globaux de sélection"
+);
+
+assert(
+    result.patientHtml.includes(
+        'value="some"'
+    ),
+    "Une sélection mixte doit afficher l’option Certains"
+);
+
+const mixedSelectionInput =
+    result.patientHtml.match(
+        /<input(?=[^>]*class="pap-cognitive-ux-patient-selection-mode-input")(?=[^>]*value="some")[^>]*>/
+    );
+
+assert(
+    mixedSelectionInput,
+    "Le radio Certains doit être rendu"
+);
+
+assert(
+    /\bchecked\b/.test(
+        mixedSelectionInput[0]
+    ),
+    "Certains doit être actif lorsque la sélection est mixte"
+);
+
+const allSelectionInput =
+    allPatientMessagesSelectedResult
+        .patientHtml
+        .match(
+            /<input(?=[^>]*class="pap-cognitive-ux-patient-selection-mode-input")(?=[^>]*value="all")[^>]*>/
+        );
+
+assert(
+    allSelectionInput,
+    "Le radio Tous doit être rendu"
+);
+
+assert(
+    /\bchecked\b/.test(
+        allSelectionInput[0]
+    ),
+    "Tous doit être actif lorsque tous les messages sont sélectionnés"
+);
+
+const noSelectionInput =
+    noPatientMessagesSelectedResult
+        .patientHtml
+        .match(
+            /<input(?=[^>]*class="pap-cognitive-ux-patient-selection-mode-input")(?=[^>]*value="none")[^>]*>/
+        );
+
+assert(
+    noSelectionInput,
+    "Le radio Aucun doit être rendu"
+);
+
+assert(
+    /\bchecked\b/.test(
+        noSelectionInput[0]
+    ),
+    "Aucun doit être actif lorsqu’aucun message n’est sélectionné"
 );
 
 assert(
@@ -673,6 +764,8 @@ console.log(
                 patientRenderingUnaffectedByClinicianFilter: true,
                 patientMessagesRendered: true,
                 patientSelectionControlsRendered: true,
+                patientGlobalSelectionRendered: true,
+                patientGlobalSelectionStateDerived: true,
                 patientSelectionDefaultsPreserved: true,
                 patientSelectionOverridesPreserved: true,
                 referenceRendered: true,

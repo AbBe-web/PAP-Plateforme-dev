@@ -304,6 +304,122 @@
         return result;
     }
 
+    function renderPatientSelectionModeHtml(
+        items,
+        options
+    ) {
+        const patientItems =
+            Array.isArray(items)
+                ? items.filter(function (item) {
+                    return Boolean(
+                        getItemMessage(
+                            item,
+                            "patient"
+                        )
+                    );
+                })
+                : [];
+
+        if (patientItems.length === 0) {
+            return "";
+        }
+
+        const patientSelectionById =
+            options?.patientSelectionById || {};
+
+        const selectedCount =
+            patientItems.reduce(
+                function (total, item) {
+                    const itemIdentity =
+                        getItemIdentity(item);
+
+                    if (!itemIdentity) {
+                        return total;
+                    }
+
+                    const hasSelectionOverride =
+                        Object.prototype
+                            .hasOwnProperty
+                            .call(
+                                patientSelectionById,
+                                itemIdentity
+                            );
+
+                    const isSelected =
+                        hasSelectionOverride
+                            ? patientSelectionById[
+                                itemIdentity
+                            ] === true
+                            : item
+                                ?.selection
+                                ?.defaultSelected ===
+                                true;
+
+                    return total +
+                        (isSelected ? 1 : 0);
+                },
+                0
+            );
+
+        const selectionMode =
+            selectedCount === 0
+                ? "none"
+                : selectedCount ===
+                    patientItems.length
+                    ? "all"
+                    : "some";
+
+        return `
+<div
+  class="pap-cognitive-ux-patient-selection-mode"
+  style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:2px 0 8px;
+    font-size:0.9rem;
+  "
+>
+  <strong style="margin-right:2px;">
+    Sélection des messages patient
+  </strong>
+
+  <label style="margin:0;">
+    <input
+      type="radio"
+      class="pap-cognitive-ux-patient-selection-mode-input"
+      name="clinical_cognitive_patient_selection_mode"
+      value="all"
+      ${selectionMode === "all" ? "checked" : ""}
+    >
+    Tous
+  </label>
+
+  <label style="margin:0;">
+    <input
+      type="radio"
+      class="pap-cognitive-ux-patient-selection-mode-input"
+      name="clinical_cognitive_patient_selection_mode"
+      value="some"
+      ${selectionMode === "some" ? "checked" : ""}
+    >
+    Certains
+  </label>
+
+  <label style="margin:0;">
+    <input
+      type="radio"
+      class="pap-cognitive-ux-patient-selection-mode-input"
+      name="clinical_cognitive_patient_selection_mode"
+      value="none"
+      ${selectionMode === "none" ? "checked" : ""}
+    >
+    Aucun
+  </label>
+</div>`;
+    }
+
     function renderSectionHtml(
         section,
         audience,
@@ -430,6 +546,14 @@
   </summary>
 
   <div class="pap-cognitive-ux-section-content">
+    ${
+        audience === "patient"
+            ? renderPatientSelectionModeHtml(
+                items,
+                options
+            )
+            : ""
+    }
     ${alwaysBlock}
     ${clinicianCheckBlock}
   </div>
