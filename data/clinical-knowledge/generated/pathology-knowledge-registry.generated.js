@@ -14769,7 +14769,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-constraint-bamboo-spine-violent-sports-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -14794,7 +14794,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "contraintes",
             "index": 0
           }
@@ -14806,7 +14806,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-constraint-flare-or-pain-adapt-load-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -14831,7 +14831,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "contraintes",
             "index": 1
           }
@@ -14843,7 +14843,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-guidance-comorbidities-cardiovascular-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -14870,7 +14870,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "adaptations",
             "index": 0
           }
@@ -14882,7 +14882,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-orientation-adapt-by-basdai-basfi-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -14909,7 +14909,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "adaptations",
             "index": 1
           }
@@ -14921,7 +14921,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-guidance-simple-daily-life-exercises-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -14948,7 +14948,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "adaptations",
             "index": 2
           }
@@ -14960,7 +14960,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-guidance-respiratory-thoracic-opening-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -14989,7 +14989,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "adaptations",
             "index": 3
           }
@@ -15001,7 +15001,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-guidance-useful-endurance-activities-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15028,7 +15028,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "adaptations",
             "index": 4
           }
@@ -15040,7 +15040,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-situation-sacroiliac-lower-limb-limit-impact-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15069,7 +15069,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "situations",
             "index": 0
           }
@@ -15081,7 +15081,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-situation-bamboo-spine-violent-sport-duplicate-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15106,7 +15106,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "situations",
             "index": 1
           }
@@ -15118,7 +15118,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-situation-severe-ankylosis-bone-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15148,7 +15148,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "situations",
             "index": 2
           }
@@ -15160,7 +15160,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-guidance-detect-kinesiophobia-reassure-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15196,7 +15196,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "situations",
             "index": 3
           }
@@ -15208,7 +15208,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-rule-localized-inflammatory-flare-adapt-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15235,7 +15235,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "regles",
             "index": 0
           }
@@ -15247,7 +15247,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-rule-persistent-pain-reduce-load-change-modality-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15283,7 +15283,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "regles",
             "index": 1
           }
@@ -15295,7 +15295,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-rule-unusual-symptom-worsening-stop-reassess-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15331,7 +15331,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "regles",
             "index": 2
           }
@@ -15343,7 +15343,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-orientation-stable-motivated-safe-autonomy-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15383,7 +15383,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "regles",
             "index": 3
           }
@@ -15395,7 +15395,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-patient-regular-movement-limits-stiffness-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15425,7 +15425,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "crc",
             "index": 0
           },
@@ -15442,7 +15442,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-patient-benefits-symptoms-bone-cardiovascular-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15472,7 +15472,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "crc",
             "index": 1
           },
@@ -15489,7 +15489,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-patient-adapted-activity-no-flare-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15519,7 +15519,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "crc",
             "index": 2
           },
@@ -15536,7 +15536,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "spa-patient-report-unusual-persistent-pain-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "spa"
       ]
     },
     "clinicalUses": [
@@ -15566,7 +15566,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "spa",
             "field": "crc",
             "index": 3
           }
@@ -15578,7 +15578,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-constraint-no-specific-ci-except-major-eating-disorders-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15603,7 +15603,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "contraintes",
             "index": 0
           }
@@ -15615,7 +15615,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-constraint-orthostatic-hypotension-sedation-psychotropics-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15640,7 +15640,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "contraintes",
             "index": 1
           }
@@ -15652,7 +15652,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-orientation-supervised-apa-three-months-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15688,7 +15688,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "adaptations",
             "index": 0
           }
@@ -15700,7 +15700,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-guidance-walking-simple-effective-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15727,7 +15727,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "adaptations",
             "index": 1
           }
@@ -15739,7 +15739,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-guidance-yoga-qigong-effective-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15766,7 +15766,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "adaptations",
             "index": 2
           }
@@ -15778,7 +15778,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-guidance-general-recommendations-support-useful-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15814,7 +15814,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "adaptations",
             "index": 3
           }
@@ -15826,7 +15826,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-situation-tricyclic-antidepressant-resting-ecg-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15855,7 +15855,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "situations",
             "index": 0
           }
@@ -15867,7 +15867,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-situation-search-orthostatic-hypotension-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15894,7 +15894,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "situations",
             "index": 1
           }
@@ -15906,7 +15906,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-situation-assess-cardiovascular-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15933,7 +15933,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "situations",
             "index": 2
           }
@@ -15945,7 +15945,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-situation-acute-suicidal-ideation-severe-agitation-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -15972,7 +15972,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "situations",
             "index": 3
           }
@@ -15984,7 +15984,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-rule-psychotropic-monitor-orthostatic-hypotension-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -16024,7 +16024,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "regles",
             "index": 0
           }
@@ -16036,7 +16036,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-orientation-difficult-adherence-adapt-format-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -16076,7 +16076,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "regles",
             "index": 1
           }
@@ -16088,7 +16088,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-patient-moving-a-little-useful-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -16118,7 +16118,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "crc",
             "index": 0
           },
@@ -16135,7 +16135,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "depression-patient-moving-improves-mood-anxiety-sleep-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "depression"
       ]
     },
     "clinicalUses": [
@@ -16165,7 +16165,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "depression",
             "field": "crc",
             "index": 1
           },
@@ -16182,7 +16182,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-constraint-no-specific-ci-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16207,7 +16207,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "contraintes",
             "index": 0
           }
@@ -16219,7 +16219,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-constraint-prolonged-qt-resting-ecg-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16244,7 +16244,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "contraintes",
             "index": 1
           }
@@ -16256,7 +16256,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-constraint-orthostatic-hypotension-sedation-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16281,7 +16281,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "contraintes",
             "index": 2
           }
@@ -16293,7 +16293,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-guidance-screen-comorbidities-cardiovascular-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16320,7 +16320,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "adaptations",
             "index": 0
           }
@@ -16332,7 +16332,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-guidance-deconditioned-sedentary-low-motivation-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16359,7 +16359,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "adaptations",
             "index": 1
           }
@@ -16371,7 +16371,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-guidance-progressivity-daily-activities-reduce-sedentarity-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16407,7 +16407,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "adaptations",
             "index": 2
           }
@@ -16419,7 +16419,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-orientation-apa-three-months-trained-staff-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16455,7 +16455,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "adaptations",
             "index": 3
           }
@@ -16467,7 +16467,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-orientation-individual-or-group-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16505,7 +16505,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "adaptations",
             "index": 4
           }
@@ -16517,7 +16517,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-situation-psychotropic-hypotension-sedation-avoid-risk-sports-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16557,7 +16557,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "situations",
             "index": 0
           }
@@ -16569,7 +16569,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-situation-marked-negative-symptoms-simple-progressive-goals-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16609,7 +16609,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "situations",
             "index": 1
           }
@@ -16621,7 +16621,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-rule-orthostatic-hypotension-slow-transitions-hydration-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16661,7 +16661,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "regles",
             "index": 0
           }
@@ -16673,7 +16673,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-rule-good-tolerance-progress-duration-intensity-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16713,7 +16713,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "regles",
             "index": 1
           }
@@ -16725,7 +16725,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-rule-clear-psychiatric-worsening-rapid-reassessment-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16752,7 +16752,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "regles",
             "index": 2
           }
@@ -16764,7 +16764,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-patient-regular-movement-morale-sleep-physical-health-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16794,7 +16794,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "crc",
             "index": 0
           },
@@ -16811,7 +16811,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-patient-regular-movement-reduce-fatigue-stress-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16841,7 +16841,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "crc",
             "index": 1
           },
@@ -16858,7 +16858,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "schizophrenie-patient-physical-activity-improves-anxiety-mood-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "schizophrenie"
       ]
     },
     "clinicalUses": [
@@ -16888,7 +16888,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "schizophrenie",
             "field": "crc",
             "index": 2
           }
@@ -16900,7 +16900,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-constraint-temporary-ci-moderate-or-higher-ap-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -16925,7 +16925,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "contraintes",
             "index": 0
           }
@@ -16937,7 +16937,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-constraint-extreme-fatigue-severe-malnutrition-poor-general-condition-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -16962,7 +16962,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "contraintes",
             "index": 1
           }
@@ -16974,7 +16974,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-constraint-severe-infectious-syndrome-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -16999,7 +16999,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "contraintes",
             "index": 2
           }
@@ -17011,7 +17011,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-constraint-marked-cytopenias-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17036,7 +17036,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "contraintes",
             "index": 3
           }
@@ -17048,7 +17048,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-constraint-early-postoperative-period-impaired-healing-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17073,7 +17073,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "contraintes",
             "index": 4
           }
@@ -17085,7 +17085,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-constraint-lytic-bone-metastases-zone-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17110,7 +17110,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "contraintes",
             "index": 5
           }
@@ -17122,7 +17122,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-individualize-by-cancer-treatment-phase-symptoms-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17149,7 +17149,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 0
           }
@@ -17161,7 +17161,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-start-five-to-ten-minute-blocks-progress-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17197,7 +17197,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 1
           }
@@ -17209,7 +17209,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-relative-intensity-borg-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17245,7 +17245,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 2
           }
@@ -17257,7 +17257,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-fracture-risk-avoid-falls-increase-supervision-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17298,7 +17298,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 3
           }
@@ -17310,7 +17310,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-immunodeficiency-avoid-public-gyms-pools-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17339,7 +17339,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 4
           }
@@ -17351,7 +17351,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-external-radiotherapy-no-aquatic-activity-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17380,7 +17380,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 5
           }
@@ -17392,7 +17392,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-post-surgery-wait-healing-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17421,7 +17421,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 6
           }
@@ -17433,7 +17433,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-stoma-ap-strength-contact-sports-complications-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17473,7 +17473,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 7
           }
@@ -17485,7 +17485,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-catheter-feeding-tube-avoid-water-strength-zone-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17514,7 +17514,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 8
           }
@@ -17526,7 +17526,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-guidance-medicosport-sante-resource-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17553,7 +17553,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "adaptations",
             "index": 9
           }
@@ -17565,7 +17565,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-cardiotoxic-treatment-echocardiography-cardiology-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17594,7 +17594,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 0
           }
@@ -17606,7 +17606,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-musculoskeletal-morbidity-peripheral-neuropathy-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17646,7 +17646,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 1
           }
@@ -17658,7 +17658,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-bone-metastases-hormonal-treatment-fracture-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17687,7 +17687,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 2
           }
@@ -17699,7 +17699,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-breast-cancer-shoulder-arm-morbidity-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17729,7 +17729,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 3
           }
@@ -17741,7 +17741,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-prostate-cancer-force-endurance-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17770,7 +17770,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 4
           }
@@ -17782,7 +17782,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-colon-cancer-stoma-capacity-before-beyond-walking-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17811,7 +17811,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 5
           }
@@ -17823,7 +17823,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-lymphedema-management-compression-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17863,7 +17863,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 6
           }
@@ -17875,7 +17875,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-situation-reduced-joint-mobility-stretching-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17915,7 +17915,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "situations",
             "index": 7
           }
@@ -17927,7 +17927,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-rule-active-treatment-fluctuating-side-effects-adjust-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -17967,7 +17967,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "regles",
             "index": 0
           }
@@ -17979,7 +17979,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-rule-fatigue-over-24-48h-reduce-next-load-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18019,7 +18019,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "regles",
             "index": 1
           }
@@ -18031,7 +18031,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-rule-unusual-bone-pain-dizziness-chest-pain-malaise-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18067,7 +18067,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "regles",
             "index": 2
           }
@@ -18079,7 +18079,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-rule-good-clinical-tolerance-progress-general-recommendations-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18119,7 +18119,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "regles",
             "index": 3
           }
@@ -18131,7 +18131,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-patient-adapted-physical-activity-supportive-care-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18161,7 +18161,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "crc",
             "index": 0
           },
@@ -18178,7 +18178,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-patient-even-tired-gentle-movement-preferable-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18208,7 +18208,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "crc",
             "index": 1
           },
@@ -18225,7 +18225,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-patient-physical-activity-fights-cancer-fatigue-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18255,7 +18255,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "crc",
             "index": 2
           }
@@ -18267,7 +18267,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-patient-adapt-sessions-daily-condition-treatments-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18297,7 +18297,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "crc",
             "index": 3
           },
@@ -18314,7 +18314,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "cancer-patient-stop-report-unusual-symptom-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "cancer"
       ]
     },
     "clinicalUses": [
@@ -18344,7 +18344,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "cancer",
             "field": "crc",
             "index": 4
           },
@@ -18361,7 +18361,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-constraint-no-specific-ci-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18386,7 +18386,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "contraintes",
             "index": 0
           }
@@ -18398,7 +18398,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-constraint-fall-fracture-musculoskeletal-skin-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18423,7 +18423,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "contraintes",
             "index": 1
           }
@@ -18435,7 +18435,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-constraint-medications-hypotension-dehydration-hypoglycemia-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18460,7 +18460,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "contraintes",
             "index": 2
           }
@@ -18472,7 +18472,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-guidance-heat-intensity-hydration-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18508,7 +18508,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "adaptations",
             "index": 0
           }
@@ -18520,7 +18520,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-guidance-short-sessions-if-frail-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18560,7 +18560,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "adaptations",
             "index": 1
           }
@@ -18572,7 +18572,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-guidance-adapted-footwear-safe-environment-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18608,7 +18608,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "adaptations",
             "index": 2
           }
@@ -18620,7 +18620,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-guidance-pleasant-social-activities-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18656,7 +18656,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "adaptations",
             "index": 3
           }
@@ -18668,7 +18668,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-situation-five-chair-rise-test-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18695,7 +18695,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 0
           }
@@ -18707,7 +18707,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-orientation-chair-test-under-fifteen-seconds-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18736,7 +18736,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 1
           }
@@ -18748,7 +18748,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-orientation-chair-test-over-fifteen-seconds-sppb-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18777,7 +18777,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 2
           }
@@ -18789,7 +18789,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-orientation-sppb-zero-to-six-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18818,7 +18818,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 3
           }
@@ -18830,7 +18830,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-orientation-sppb-seven-to-twelve-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18859,7 +18859,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 4
           }
@@ -18871,7 +18871,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-situation-lower-limb-pain-feet-footwear-podiatry-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18898,7 +18898,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 5
           }
@@ -18910,7 +18910,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-situation-review-medications-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18937,7 +18937,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 6
           }
@@ -18949,7 +18949,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-orientation-fall-fracture-risk-multifactorial-intervention-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -18978,7 +18978,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 7
           }
@@ -18990,7 +18990,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-situation-frail-nutrition-protein-energy-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19019,7 +19019,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 8
           }
@@ -19031,7 +19031,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-situation-major-cognitive-disorders-simple-repetitive-supervised-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19072,7 +19072,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "situations",
             "index": 9
           }
@@ -19084,7 +19084,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-rule-malaise-fall-pain-unusual-sign-reassess-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19120,7 +19120,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "regles",
             "index": 0
           }
@@ -19132,7 +19132,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-patient-moving-useful-at-any-age-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19162,7 +19162,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "crc",
             "index": 0
           },
@@ -19179,7 +19179,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-patient-starting-late-still-beneficial-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19209,7 +19209,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "crc",
             "index": 1
           },
@@ -19226,7 +19226,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-patient-take-medications-usual-times-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19256,7 +19256,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "crc",
             "index": 2
           }
@@ -19268,7 +19268,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-patient-adapted-footwear-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19298,7 +19298,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "crc",
             "index": 3
           },
@@ -19315,7 +19315,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-patient-hydrate-before-thirst-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19345,7 +19345,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "crc",
             "index": 4
           },
@@ -19362,7 +19362,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-maintien-patient-know-warning-signs-stop-ap-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_maintien"
       ]
     },
     "clinicalUses": [
@@ -19392,7 +19392,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_maintien",
             "field": "crc",
             "index": 5
           }
@@ -19404,7 +19404,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-constraint-no-specific-ci-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19429,7 +19429,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "contraintes",
             "index": 0
           }
@@ -19441,7 +19441,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-constraint-fall-fracture-musculoskeletal-skin-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19466,7 +19466,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "contraintes",
             "index": 1
           }
@@ -19478,7 +19478,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-constraint-medications-hypotension-dehydration-hypoglycemia-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19503,7 +19503,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "contraintes",
             "index": 2
           }
@@ -19515,7 +19515,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-guidance-combined-balance-strength-walking-coordination-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19551,7 +19551,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 0
           }
@@ -19563,7 +19563,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-orientation-low-risk-autonomy-sport-health-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19592,7 +19592,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 1
           }
@@ -19604,7 +19604,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-orientation-intermediate-risk-apa-physiotherapy-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19633,7 +19633,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 2
           }
@@ -19645,7 +19645,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-orientation-high-risk-rehabilitation-apa-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19674,7 +19674,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 3
           }
@@ -19686,7 +19686,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-guidance-strict-progressivity-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19722,7 +19722,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 4
           }
@@ -19734,7 +19734,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-guidance-functional-exercises-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19770,7 +19770,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 5
           }
@@ -19782,7 +19782,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-guidance-footwear-lighting-technical-aids-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19818,7 +19818,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 6
           }
@@ -19830,7 +19830,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-guidance-useful-programs-vivifrail-pem-es-otago-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19857,7 +19857,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "adaptations",
             "index": 7
           }
@@ -19869,7 +19869,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-situation-screening-3q-steadi-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19896,7 +19896,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "situations",
             "index": 0
           }
@@ -19908,7 +19908,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-situation-fall-assess-severity-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19935,7 +19935,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "situations",
             "index": 1
           }
@@ -19947,7 +19947,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-situation-positive-screening-assess-tug-walking-speed-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -19974,7 +19974,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "situations",
             "index": 2
           }
@@ -19986,7 +19986,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-situation-normal-tug-walking-low-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20013,7 +20013,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "situations",
             "index": 3
           }
@@ -20025,7 +20025,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-situation-abnormal-tug-or-walking-intermediate-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20052,7 +20052,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "situations",
             "index": 4
           }
@@ -20064,7 +20064,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-situation-systematic-somatic-home-fear-assessment-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20091,7 +20091,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "situations",
             "index": 5
           }
@@ -20103,7 +20103,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-rule-malaise-fall-pain-unusual-sign-reassess-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20139,7 +20139,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "regles",
             "index": 0
           }
@@ -20151,7 +20151,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-orientation-no-progression-reassess-fall-clinic-day-hospital-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20191,7 +20191,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "regles",
             "index": 1
           }
@@ -20203,7 +20203,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-patient-moving-key-treatment-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20233,7 +20233,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "crc",
             "index": 0
           },
@@ -20250,7 +20250,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-patient-work-balance-strength-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20280,7 +20280,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "crc",
             "index": 1
           },
@@ -20297,7 +20297,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-patient-fear-of-falling-progressive-training-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20327,7 +20327,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "crc",
             "index": 2
           }
@@ -20339,7 +20339,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-patient-report-recent-fall-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20369,7 +20369,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "crc",
             "index": 3
           },
@@ -20386,7 +20386,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-patient-secure-home-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20416,7 +20416,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "crc",
             "index": 4
           },
@@ -20433,7 +20433,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-patient-check-vision-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20463,7 +20463,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "crc",
             "index": 5
           }
@@ -20475,7 +20475,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "pa-chute-patient-nutrition-preserves-muscle-strength-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "pa_chute"
       ]
     },
     "clinicalUses": [
@@ -20505,7 +20505,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "pa_chute",
             "field": "crc",
             "index": 6
           }
@@ -20517,7 +20517,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-constraint-absolute-contraindications-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20542,7 +20542,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "contraintes",
             "index": 0
           }
@@ -20554,7 +20554,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-constraint-relative-contraindications-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20579,7 +20579,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "contraintes",
             "index": 1
           }
@@ -20591,7 +20591,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-endurance-strength-mobility-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20618,7 +20618,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 0
           }
@@ -20630,7 +20630,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-strength-back-hips-lower-limbs-pelvic-floor-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20657,7 +20657,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 1
           }
@@ -20669,7 +20669,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-low-impact-activities-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20696,7 +20696,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 2
           }
@@ -20708,7 +20708,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-hydration-loose-clothing-breaks-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20744,7 +20744,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 3
           }
@@ -20756,7 +20756,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-caution-impact-sports-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20783,7 +20783,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 4
           }
@@ -20795,7 +20795,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-avoid-fall-risk-traumatic-sports-diving-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20822,7 +20822,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 5
           }
@@ -20834,7 +20834,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-avoid-heat-humidity-altitude-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20861,7 +20861,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 6
           }
@@ -20873,7 +20873,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-avoid-valsalva-strength-training-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20900,7 +20900,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 7
           }
@@ -20912,7 +20912,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-avoid-supine-after-24-weeks-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20941,7 +20941,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 8
           }
@@ -20953,7 +20953,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-guidance-inform-stop-signs-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -20989,7 +20989,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "adaptations",
             "index": 9
           }
@@ -21001,7 +21001,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-situation-relative-ci-discuss-health-professional-obstetrician-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21028,7 +21028,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "situations",
             "index": 0
           }
@@ -21040,7 +21040,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-situation-absolute-ci-low-intensity-after-obstetric-agreement-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21067,7 +21067,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "situations",
             "index": 1
           }
@@ -21079,7 +21079,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-situation-uncomplicated-150-180-minutes-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21106,7 +21106,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "situations",
             "index": 2
           }
@@ -21118,7 +21118,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-situation-previously-inactive-overweight-obesity-progressive-start-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21158,7 +21158,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "situations",
             "index": 3
           }
@@ -21170,7 +21170,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-situation-athlete-continue-training-avoid-heavy-strength-very-intense-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21210,7 +21210,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "situations",
             "index": 4
           }
@@ -21222,7 +21222,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-rule-warning-signs-stop-and-rapid-medical-advice-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21258,7 +21258,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "regles",
             "index": 0
           }
@@ -21270,7 +21270,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-patient-moving-benefits-mother-child-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21300,7 +21300,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "crc",
             "index": 0
           },
@@ -21317,7 +21317,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-patient-hydrate-loose-clothing-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21347,7 +21347,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "crc",
             "index": 1
           }
@@ -21359,7 +21359,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-patient-walking-swimming-stationary-bike-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21389,7 +21389,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "crc",
             "index": 2
           },
@@ -21406,7 +21406,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-patient-know-stop-signs-consult-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21436,7 +21436,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "crc",
             "index": 3
           }
@@ -21448,7 +21448,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "grossesse-patient-every-movement-counts-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "grossesse"
       ]
     },
     "clinicalUses": [
@@ -21478,7 +21478,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "grossesse",
             "field": "crc",
             "index": 4
           },
@@ -21495,7 +21495,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-constraint-no-specific-ci-except-obstetric-complications-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21520,7 +21520,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "contraintes",
             "index": 0
           }
@@ -21532,7 +21532,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-constraint-perineal-healing-fatigue-vigilance-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21557,7 +21557,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "contraintes",
             "index": 1
           }
@@ -21569,7 +21569,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-guidance-systematic-perineal-rehabilitation-before-impact-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21606,7 +21606,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "adaptations",
             "index": 0
           }
@@ -21618,7 +21618,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-guidance-ap-caloric-intake-weight-loss-maintenance-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21645,7 +21645,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "adaptations",
             "index": 1
           }
@@ -21657,7 +21657,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-guidance-breastfeeding-energy-intake-support-bra-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21684,7 +21684,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "adaptations",
             "index": 2
           }
@@ -21696,7 +21696,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-guidance-before-postnatal-consultation-light-moderate-ap-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21723,7 +21723,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "situations",
             "index": 0
           }
@@ -21735,7 +21735,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-orientation-after-postnatal-consultation-perineal-rehabilitation-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21762,7 +21762,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "situations",
             "index": 1
           }
@@ -21774,7 +21774,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-situation-impact-ap-normal-perineal-function-timing-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21814,7 +21814,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "situations",
             "index": 2
           }
@@ -21826,7 +21826,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-situation-athlete-progressive-endurance-strength-pelvic-floor-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21866,7 +21866,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "situations",
             "index": 3
           }
@@ -21878,7 +21878,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-rule-perineal-symptoms-delay-impact-reassess-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21918,7 +21918,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "regles",
             "index": 0
           }
@@ -21930,7 +21930,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-rule-good-tolerance-gradual-progression-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -21968,7 +21968,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "regles",
             "index": 1
           }
@@ -21980,7 +21980,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-patient-moving-aids-recovery-reduces-depression-risk-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -22010,7 +22010,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "crc",
             "index": 0
           },
@@ -22027,7 +22027,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-patient-ap-compatible-breastfeeding-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -22057,7 +22057,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "crc",
             "index": 1
           },
@@ -22074,7 +22074,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-patient-resume-progressively-by-feeling-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -22104,7 +22104,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "crc",
             "index": 2
           },
@@ -22121,7 +22121,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "id": "post-partum-patient-pelvic-floor-essential-before-impact-001",
     "context": {
       "pathologiesAny": [
-        "pr"
+        "post_partum"
       ]
     },
     "clinicalUses": [
@@ -22151,7 +22151,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       "migration": {
         "legacyOrigins": [
           {
-            "pathologyId": "pr",
+            "pathologyId": "post_partum",
             "field": "crc",
             "index": 3
           }
