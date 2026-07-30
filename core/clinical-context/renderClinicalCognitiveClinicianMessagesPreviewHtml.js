@@ -10,6 +10,23 @@
             .replace(/'/g, "&#039;");
     }
 
+    function renderClinicalMessageHtml(
+        value
+    ) {
+        const renderer =
+            window
+                .renderClinicalCognitiveMessageHtml;
+
+        if (
+            typeof renderer ===
+            "function"
+        ) {
+            return renderer(value);
+        }
+
+        return escapeHtml(value);
+    }
+
     function renderItems(items) {
         if (!Array.isArray(items) || items.length === 0) {
             return "";
@@ -28,7 +45,7 @@
                 return `
 <li class="pap-cognitive-ux-item">
   <span class="pap-cognitive-ux-item-message">
-    ${escapeHtml(message)}
+    ${renderClinicalMessageHtml(message)}
   </span>
 </li>`;
             })
@@ -69,7 +86,7 @@
           : ""
   }
   <div class="pap-cognitive-ux-item-message">
-    ${escapeHtml(message)}
+    ${renderClinicalMessageHtml(message)}
   </div>
 </li>`;
             })

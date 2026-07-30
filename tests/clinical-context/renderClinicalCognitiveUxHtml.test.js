@@ -5,6 +5,10 @@ const assert = require("assert");
 global.window = global;
 
 require(
+    "../../core/clinical-context/renderClinicalCognitiveMessageHtml.js"
+);
+
+require(
     "../../core/clinical-context/renderClinicalCognitiveUxHtml.js"
 );
 
@@ -24,11 +28,11 @@ const viewModel = {
                         ]
                     },
 
-                    messages: {
-                        clinician:
-                            "Conseil général <test>",
-                        patient: ""
-                    }
+                   messages: {
+                       clinician:
+                           "Conseil général <test> — voir <a href='https://example.com/clinicien' target='_blank' rel='noopener noreferrer'>le lien médecin</a> <button type='button' class='info-trigger info-hitbox' data-info='Information médecin'><span class='info-icon'>i</span></button>",
+                       patient: ""
+              }
                 }
             ]
         },
@@ -107,7 +111,7 @@ const viewModel = {
                 messages: {
                     clinician: "",
                     patient:
-                        "Informer le patient & vérifier"
+                         "Informer le patient & vérifier — voir <a href='https://example.com/patient' target='_blank' rel='noopener noreferrer'>le lien patient</a> <button type='button' class='info-trigger info-hitbox' data-info='Information patient'><span class='info-icon'>i</span></button>"
                 }
             },
             {
@@ -365,14 +369,49 @@ assert(
     result.clinicianHtml.includes(
         "Conseil général &lt;test&gt;"
     ),
-    "Le HTML du message clinicien doit être échappé"
+    "Le texte HTML non autorisé du message clinicien doit rester échappé"
+);
+
+assert(
+    result.clinicianHtml.includes(
+        'href="https://example.com/clinicien"'
+    ),
+    "Le lien autorisé du message clinicien doit être rendu"
+);
+
+assert(
+    result.clinicianHtml.includes(
+        'data-info="Information médecin"'
+    ),
+    "Le bouton d’information du message clinicien doit être rendu"
+);
+
+assert(
+    result.clinicianHtml.includes(
+        'class="info-trigger info-hitbox"'
+    ),
+    "Le bouton médecin doit conserver les classes utilisées par le listener existant"
 );
 
 assert(
     result.patientHtml.includes(
         "Informer le patient &amp; vérifier"
     ),
-    "Le HTML du message patient doit être échappé"
+    "Le texte du message patient doit rester correctement échappé"
+);
+
+assert(
+    result.patientHtml.includes(
+        'href="https://example.com/patient"'
+    ),
+    "Le lien autorisé du message patient doit être rendu"
+);
+
+assert(
+    result.patientHtml.includes(
+        'data-info="Information patient"'
+    ),
+    "Le bouton d’information du message patient doit être rendu"
 );
 
 assert(

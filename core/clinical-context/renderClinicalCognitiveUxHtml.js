@@ -12,6 +12,25 @@
             .replace(/'/g, "&#039;");
     }
 
+    function renderClinicalMessageHtml(
+        value
+    ) {
+        const renderer =
+            window
+                .renderClinicalCognitiveMessageHtml;
+
+        if (
+            typeof renderer ===
+            "function"
+        ) {
+            return renderer(value);
+        }
+
+        return escapeClinicalCognitiveUxHtml(
+            value
+        );
+    }
+
     function getPathologyLabel(
         pathologyId
     ) {
@@ -225,7 +244,7 @@
     >
 
     <span class="pap-cognitive-ux-item-message">
-      ${escapeClinicalCognitiveUxHtml(message)}
+      ${renderClinicalMessageHtml(message)}
       ${originBadgesHtml}
     </span>
   </label>
@@ -235,7 +254,7 @@
         return `
 <li class="pap-cognitive-ux-item"${itemIdAttribute}>
   <span class="pap-cognitive-ux-item-message">
-    ${escapeClinicalCognitiveUxHtml(message)}
+    ${renderClinicalMessageHtml(message)}
   </span>
   ${originBadgesHtml}
 </li>`;

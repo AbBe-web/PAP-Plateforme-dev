@@ -3,6 +3,10 @@ const assert = require("assert");
 global.window = global;
 
 require(
+    "../../core/clinical-context/renderClinicalCognitiveMessageHtml.js"
+);
+
+require(
     "../../core/clinical-context/renderClinicalCognitiveClinicianMessagesPreviewHtml.js"
 );
 
