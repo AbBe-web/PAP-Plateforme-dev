@@ -372,53 +372,168 @@ if (
 function buildPathoPlainText() {
 
   const selectedPathos =
-    Array.from(document.querySelectorAll(".patho:checked"));
+    Array.from(
+      document.querySelectorAll(
+        ".patho:checked"
+      )
+    );
 
-  let blocks = [];
+  const selectedPatientMessagesV2 =
+    window.PAP_SELECTED_PATIENT_MESSAGES_V2 &&
+    typeof window.PAP_SELECTED_PATIENT_MESSAGES_V2 ===
+      "object"
+      ? window.PAP_SELECTED_PATIENT_MESSAGES_V2
+      : {
+          groups: [],
+          selectedItemIds: [],
+          availablePathologyIds: []
+        };
 
-  selectedPathos.forEach(p => {
+  const v2AvailablePathologyIds =
+    new Set(
+      Array.isArray(
+        selectedPatientMessagesV2
+          .availablePathologyIds
+      )
+        ? selectedPatientMessagesV2
+            .availablePathologyIds
+            .map(pathologyId =>
+              String(
+                pathologyId || ""
+              ).trim()
+            )
+            .filter(Boolean)
+        : []
+    );
 
-    const container =
-      document.getElementById(`crcContainer_${p.value}`);
+  const v2Groups =
+    Array.isArray(
+      selectedPatientMessagesV2.groups
+    )
+      ? selectedPatientMessagesV2.groups
+      : [];
 
-    if (!container) return;
+  const blocks = [];
 
-    const detailMode =
-      document.querySelector(
-        `input[name="crc_detail_${p.value}"]:checked`
-      )?.value;
+  selectedPathos.forEach(pathologyInput => {
+
+    const pathologyId =
+      String(
+        pathologyInput?.value || ""
+      ).trim();
+
+    if (!pathologyId) {
+      return;
+    }
 
     let items = [];
 
-    if (detailMode === "detail") {
+    /*
+     * Source prioritaire :
+     * sélection documentaire V2.
+     *
+     * Une pathologie couverte par V2 avec une
+     * sélection vide ne doit jamais retomber
+     * vers les données legacy.
+     */
+    if (
+      v2AvailablePathologyIds.has(
+        pathologyId
+      )
+    ) {
+
+      const v2Group =
+        v2Groups.find(group =>
+          String(
+            group?.pathologyId || ""
+          ).trim() === pathologyId
+        );
 
       items =
-        Array.from(
-          container.querySelectorAll(".crc-item:checked")
-        ).map(el => el.value);
+        Array.isArray(v2Group?.items)
+          ? v2Group.items
+              .map(item =>
+                String(
+                  item?.message || ""
+                ).trim()
+              )
+              .filter(Boolean)
+          : [];
 
     } else {
 
-      items = PATHO_DATA[p.value]?.crc || [];
+      /*
+       * Fallback transitoire :
+       * uniquement pour les pathologies
+       * qui ne sont pas encore couvertes par V2.
+       */
+      const container =
+        document.getElementById(
+          `crcContainer_${pathologyId}`
+        );
+
+      if (!container) {
+        return;
+      }
+
+      const detailMode =
+        document.querySelector(
+          `input[name="crc_detail_${pathologyId}"]:checked`
+        )?.value;
+
+      if (detailMode === "detail") {
+
+        items =
+          Array.from(
+            container.querySelectorAll(
+              ".crc-item:checked"
+            )
+          ).map(element =>
+            String(
+              element?.value || ""
+            ).trim()
+          );
+
+      } else if (detailMode === "simple") {
+
+        items =
+          Array.isArray(
+            PATHO_DATA[pathologyId]?.crc
+          )
+            ? PATHO_DATA[pathologyId].crc
+            : [];
+
+      } else if (detailMode === "none") {
+
+        items = [];
+
+      }
+
+      items =
+        items.filter(Boolean);
     }
 
-    if (!items.length) return;
+    if (items.length === 0) {
+      return;
+    }
 
-    const short = p.value.toUpperCase();
+    const short =
+      pathologyId.toUpperCase();
 
-   const lines = items.join(", ");
+    blocks.push(
+      `${short} : ${items.join(", ")}`
+    );
 
-blocks.push(`${short} : ${lines}`);
   });
 
-if (blocks.length === 0) {
-  return "";
-}
+  if (blocks.length === 0) {
+    return "";
+  }
 
-return (
-  "CONSEILS ASSOCIÉS à vos problèmes de santé : "
-  + blocks.join(" | ")
-);
+  return (
+    "CONSEILS ASSOCIÉS à vos problèmes de santé : "
+    + blocks.join(" | ")
+  );
 }
 
 function generatePrescriptionPlainText(model) {
