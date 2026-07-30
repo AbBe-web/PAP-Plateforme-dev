@@ -2343,14 +2343,14 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
       }
     ],
     "messages": {
-      "clinician": "Comorbidités fréquentes : cardiovasculaires, anxiété, dépression.",
+      "clinician": "Repérer les comorbidités fréquentes associées à la BPCO, notamment cardiovasculaires, anxieuses ou dépressives.",
       "patient": ""
     },
     "condition": {
       "type": "always"
     },
     "presentationTargets": [
-      "referenceOnly"
+      "prescription.general"
     ],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],

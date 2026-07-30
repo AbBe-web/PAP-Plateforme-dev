@@ -295,7 +295,7 @@ const CLINICAL_KNOWLEDGE_LEGACY_TEXT_OVERRIDES = {
       "Comorbidités fréquentes (cardio, anxiété, dépression)",
 
     expectedV2Text:
-      "Comorbidités fréquentes : cardiovasculaires, anxiété, dépression."
+      "Repérer les comorbidités fréquentes associées à la BPCO, notamment cardiovasculaires, anxieuses ou dépressives."
   },
 
 
