@@ -10649,10 +10649,15 @@ const decisionBloc =
     clinicalContext
   );
 const prescriptionBloc = buildPrescription(model);
+const medicalClinicalContextV2 =
+  buildSelectedPatientMessagesMedicalClinicalContextV2(
+    clinicalContext
+  );
+
 const crcPathoBloc =
   buildCRCPathoBloc(
     "long",
-    clinicalContext,
+    medicalClinicalContextV2,
     model
   );
 
@@ -10754,12 +10759,17 @@ ${renderPhysicianSignature()}
   const rcvBloc = buildRCV(model);
   const decisionBloc = buildDecisionBloc(model);
   const prescriptionBloc = buildPrescription(model);
+  const medicalClinicalContextV2 =
+    buildSelectedPatientMessagesMedicalClinicalContextV2(
+      clinicalContext
+    );
+
   const crcPathoBloc =
-  buildCRCPathoBloc(
-    "paragraph",
-    clinicalContext,
-    model
-  );   
+    buildCRCPathoBloc(
+      "paragraph",
+      medicalClinicalContextV2,
+      model
+    );
  
   const traitementsBloc = buildTraitementsBloc();
   const objectifsBloc = buildObjectivesBlock(model);
@@ -10817,10 +10827,15 @@ function renderMedicalRecord(
   const objectifsBloc = buildObjectivesBlock(model);
   const objectifsCount = getObjectivesCount(model);
   const prescriptionBloc = buildPrescription(model, clinicalContext) || "";
+  const medicalClinicalContextV2 =
+    buildSelectedPatientMessagesMedicalClinicalContextV2(
+      clinicalContext
+    );
+
 const crcPathoBloc =
   buildCRCPathoBloc(
     "medical",
-    clinicalContext,
+    medicalClinicalContextV2,
     model
   ) || "";
 
@@ -11428,6 +11443,220 @@ function buildSelectedPatientMessagesDocumentBlockV2(
   `;
 }
 
+function buildSelectedPatientMessagesClinicalContextV2(
+  clinicalContext
+) {
+
+  const baseClinicalContext =
+    clinicalContext &&
+    typeof clinicalContext === "object"
+      ? clinicalContext
+      : {};
+
+  const selectedPatientMessagesV2 =
+    window
+      .PAP_SELECTED_PATIENT_MESSAGES_V2 || {
+        groups: [],
+        selectedItemIds: [],
+        availablePathologyIds: []
+      };
+
+  const groups =
+    Array.isArray(
+      selectedPatientMessagesV2?.groups
+    )
+      ? selectedPatientMessagesV2.groups
+      : [];
+
+  const patientMessages =
+    groups.flatMap(group => {
+
+      const pathologyId =
+        String(
+          group?.pathologyId || ""
+        ).trim();
+
+      const pathologyLabel =
+        typeof getPatientPathologyShortLabel ===
+        "function"
+          ? getPatientPathologyShortLabel(
+              pathologyId
+            )
+          : pathologyId;
+
+      const items =
+        Array.isArray(group?.items)
+          ? group.items.filter(item =>
+              Boolean(
+                String(
+                  item?.message || ""
+                ).trim()
+              )
+            )
+          : [];
+
+      return items.map(
+        function(item, itemIndex) {
+
+          const isLastItemInGroup =
+            itemIndex === items.length - 1;
+
+          return {
+            ...item,
+            message:
+              String(
+                item?.message || ""
+              ).trim(),
+            sourceLabel:
+              isLastItemInGroup
+                ? pathologyLabel
+                : ""
+          };
+        }
+      );
+    });
+
+  return {
+    ...baseClinicalContext,
+    patientMessages
+  };
+}
+
+function buildSelectedPatientMessagesMedicalClinicalContextV2(
+  clinicalContext
+) {
+
+  if (
+    clinicalCognitivePatientDocumentDestination !==
+    "allReportsAndPatient"
+  ) {
+    return {
+      ...(
+        clinicalContext &&
+        typeof clinicalContext === "object"
+          ? clinicalContext
+          : {}
+      ),
+      patientMessages: []
+    };
+  }
+
+  return buildSelectedPatientMessagesClinicalContextV2(
+    clinicalContext
+  );
+}
+
+function buildSelectedPatientMessagesPatientSentenceV2(
+  selectedPatientMessages
+) {
+
+  if (
+    ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 !==
+    true
+  ) {
+    return "";
+  }
+
+  const groups =
+    Array.isArray(
+      selectedPatientMessages?.groups
+    )
+      ? selectedPatientMessages.groups
+      : [];
+
+  const parts =
+    groups
+      .map(group => {
+
+        const pathologyId =
+          String(
+            group?.pathologyId || ""
+          ).trim();
+
+        const pathologyLabel =
+          (
+            typeof getPatientPathologyShortLabel ===
+            "function"
+              ? getPatientPathologyShortLabel(
+                  pathologyId
+                )
+              : pathologyId
+          )
+            .toLowerCase();
+
+        const items =
+          Array.isArray(group?.items)
+            ? group.items
+            : [];
+
+        const messages =
+          items
+            .map(item => {
+
+              const message =
+                String(
+                  item?.message || ""
+                )
+                  .trim()
+                  .replace(/\.$/, "");
+
+              if (!message) {
+                return "";
+              }
+
+              return (
+                message.charAt(0).toLowerCase() +
+                message.slice(1)
+              );
+
+            })
+            .filter(Boolean);
+
+        if (
+          messages.length === 0 ||
+          !pathologyLabel
+        ) {
+          return null;
+        }
+
+        return {
+          text:
+            `${messages.join(", ")} ` +
+            `(${pathologyLabel})`,
+          itemCount: messages.length
+        };
+
+      })
+      .filter(Boolean);
+
+  if (parts.length === 0) {
+    return "";
+  }
+
+  const totalItemCount =
+    parts.reduce(
+      function(total, part) {
+        return total + part.itemCount;
+      },
+      0
+    );
+
+  const probleme =
+    parts.length > 1
+      ? "vos problèmes"
+      : "votre problème";
+
+  const conseil =
+    totalItemCount > 1
+      ? "voici quelques conseils de santé"
+      : "voici un conseil de santé";
+
+  return (
+    `En lien avec ${probleme} de santé, ` +
+    `${conseil} : ` +
+    `${parts.map(part => part.text).join(", ")}.`
+  );
+}
 
 function renderPatientVersion(
   model,
@@ -11463,30 +11692,8 @@ const selectedPatientMessagesV2 =
       availablePathologyIds: []
     };
 
-const patientPathologyIdsCoveredByV2 =
-  ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 ===
-  true &&
-  Array.isArray(
-    selectedPatientMessagesV2
-      ?.availablePathologyIds
-  )
-    ? selectedPatientMessagesV2
-        .availablePathologyIds
-    : [];
-
 const crcPathoBloc =
-  buildCRCPathoBloc(
-    "patient",
-    clinicalContext,
-    model,
-    {
-      excludePathologyIds:
-        patientPathologyIdsCoveredByV2
-    }
-  );
-
-const selectedPatientMessagesDocumentBlocV2 =
-  buildSelectedPatientMessagesDocumentBlockV2(
+  buildSelectedPatientMessagesPatientSentenceV2(
     selectedPatientMessagesV2
   );
 
@@ -11570,8 +11777,6 @@ ${crcPathoBloc ? `
 ${crcPathoBloc}
 </p>
 ` : ""}
-
-${selectedPatientMessagesDocumentBlocV2}
 
 <p>
 Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
