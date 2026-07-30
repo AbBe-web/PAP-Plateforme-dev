@@ -51,7 +51,7 @@
 
             patient: createSection(
                 "patientInformation",
-                "Informations à transmettre",
+                "Messages à transmettre pendant la consultation",
                 []
             ),
 

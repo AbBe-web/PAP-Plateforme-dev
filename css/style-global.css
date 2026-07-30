@@ -2899,7 +2899,9 @@ body.pap-quick-mode
 .pap-cognitive-ux-host
   .pap-cognitive-ux-section-patient
   .pap-cognitive-ux-section-title {
-  color: #1d4ed8;
+  color: #005bbb;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .pap-cognitive-ux-host
