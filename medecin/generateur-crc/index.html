@@ -6375,6 +6375,28 @@ function buildClinicalSituationsToggleHtml(
       ${clinicianCheckCount}
     </span>
   </button>
+
+  <div
+    class="pap-clinical-situations-general-reference"
+    style="
+      margin-top:5px;
+      padding-top:0;
+      text-align:center;
+      font-size:0.9em;
+    "
+  >
+    <a
+      href="https://www.has-sante.fr/jcms/c_2876862/fr/consultation-et-prescription-medicale-d-activite-physique-a-des-fins-de-sante"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        color:#2563eb;
+        text-decoration:underline;
+      "
+    >
+      Recommandations HAS – activité physique - toutes pathologies chroniques
+    </a>
+  </div>
 </div>`;
 }
 
@@ -7334,24 +7356,8 @@ ${c}
 
   container.innerHTML = html;
 
-container.innerHTML += `
-  <div style="
-    margin-top:20px;
-    padding-top:10px;
-    border-top:1px solid #e5e7eb;
-    text-align:center;
-    font-size:0.9em;
-  ">
-    <a href="https://www.has-sante.fr/jcms/c_2876862/fr/consultation-et-prescription-medicale-d-activite-physique-a-des-fins-de-sante"
-       target="_blank"
-       style="color:#2563eb;text-decoration:underline;">
-      Recommandations HAS – activité physique - toutes pathologies chroniques
-    </a>
-  </div>
-`;
-    
-initCRCModeToggle();
-updateResourceSelection();
+  initCRCModeToggle();
+  updateResourceSelection();
 }
 
 const resourceSelectionState = new Map();
