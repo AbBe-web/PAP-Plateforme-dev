@@ -218,6 +218,19 @@ const noPatientMessagesSelectedResult =
         }
     );
 
+const patientOnlyDestinationResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
+            patientSelectionById: {
+                "patient-1": true,
+                "patient-2": false
+            },
+            patientDocumentDestination:
+                "patientOnly"
+        }
+    );
+
 const singlePathologyResult =
     window.renderClinicalCognitiveUxHtml(
         viewModel,
@@ -527,6 +540,49 @@ assert(
 
 assert(
     result.patientHtml.includes(
+        "pap-cognitive-ux-patient-document-destination"
+    ),
+    "La destination documentaire doit être affichée dans la section patient"
+);
+
+const defaultDocumentDestinationInput =
+    result.patientHtml.match(
+        /<input(?=[^>]*class="pap-cognitive-ux-patient-document-destination-input")(?=[^>]*value="allReportsAndPatient")[^>]*>/
+    );
+
+assert(
+    defaultDocumentDestinationInput,
+    "La destination comptes rendus et version patient doit être rendue"
+);
+
+assert(
+    /\bchecked\b/.test(
+        defaultDocumentDestinationInput[0]
+    ),
+    "La destination par défaut doit être comptes rendus et version patient"
+);
+
+const patientOnlyDestinationInput =
+    patientOnlyDestinationResult
+        .patientHtml
+        .match(
+            /<input(?=[^>]*class="pap-cognitive-ux-patient-document-destination-input")(?=[^>]*value="patientOnly")[^>]*>/
+        );
+
+assert(
+    patientOnlyDestinationInput,
+    "La destination version patient uniquement doit être rendue"
+);
+
+assert(
+    /\bchecked\b/.test(
+        patientOnlyDestinationInput[0]
+    ),
+    "La destination patientOnly doit remplacer la destination par défaut"
+);
+
+assert(
+    result.patientHtml.includes(
         'data-knowledge-item-id="patient-1"'
     ),
     "La case patient doit conserver l’identifiant stable du premier message"
@@ -766,6 +822,8 @@ console.log(
                 patientSelectionControlsRendered: true,
                 patientGlobalSelectionRendered: true,
                 patientGlobalSelectionStateDerived: true,
+                patientDocumentDestinationRendered: true,
+                patientDocumentDestinationPreserved: true,
                 patientSelectionDefaultsPreserved: true,
                 patientSelectionOverridesPreserved: true,
                 referenceRendered: true,

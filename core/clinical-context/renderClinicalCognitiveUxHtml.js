@@ -417,6 +417,54 @@
     >
     Aucun
   </label>
+</div>
+
+<div
+  class="pap-cognitive-ux-patient-document-destination"
+  style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin:2px 0 10px;
+    font-size:0.9rem;
+  "
+>
+  <strong style="margin-right:2px;">
+    Destination des messages sélectionnés
+  </strong>
+
+  <label style="margin:0;">
+    <input
+      type="radio"
+      class="pap-cognitive-ux-patient-document-destination-input"
+      name="clinical_cognitive_patient_document_destination"
+      value="allReportsAndPatient"
+      ${
+          options?.patientDocumentDestination ===
+          "patientOnly"
+              ? ""
+              : "checked"
+      }
+    >
+    Comptes rendus et version patient
+  </label>
+
+  <label style="margin:0;">
+    <input
+      type="radio"
+      class="pap-cognitive-ux-patient-document-destination-input"
+      name="clinical_cognitive_patient_document_destination"
+      value="patientOnly"
+      ${
+          options?.patientDocumentDestination ===
+          "patientOnly"
+              ? "checked"
+              : ""
+      }
+    >
+    Version patient uniquement
+  </label>
 </div>`;
     }
 
