@@ -21490,6 +21490,674 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         ]
       }
     }
+  },
+  {
+    "id": "post-partum-constraint-no-specific-ci-except-obstetric-complications-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "contraindication"
+      }
+    ],
+    "messages": {
+      "clinician": "Pas de CI spécifique hors complications obstétricales",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-constraint-perineal-healing-fatigue-vigilance-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "safety",
+        "category": "precaution"
+      }
+    ],
+    "messages": {
+      "clinician": "Vigilance selon état périnéal, cicatrisation, fatigue",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "contraintes",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-guidance-systematic-perineal-rehabilitation-before-impact-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "rehabilitationFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "Rééducation périnéale systématique surtout avant reprise AP avec impact",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general",
+      "orientation"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "always"
+        },
+        "messageClinicianOverride": "Au suivi, vérifier systématiquement la rééducation périnéale effectuée, la reprise éventuelle d’une activité avec impact et la tolérance."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-guidance-ap-caloric-intake-weight-loss-maintenance-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Associer AP + apport calorique adapté pour perte et maintien pondéral",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-guidance-breastfeeding-energy-intake-support-bra-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Allaitement : AP possible si apports énergétiques suffisants et brassière adaptée",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "adaptations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-guidance-before-postnatal-consultation-light-moderate-ap-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "activityType"
+      }
+    ],
+    "messages": {
+      "clinician": "Avant CS postnatale : AP légère à modérée (marche, escaliers, natation)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-orientation-after-postnatal-consultation-perineal-rehabilitation-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "rehabilitationFactor"
+      }
+    ],
+    "messages": {
+      "clinician": "Après CS postnatale : prescription rééducation périnéale + conseils reprise AP ± sport",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "orientation"
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-situation-impact-ap-normal-perineal-function-timing-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Reprise AP avec impact <button type='button' class='info-trigger info-hitbox' data-info='Course à pied, trampoline, activités avec sauts'><span class='info-icon'>i</span></button> si fonction périnéale normale (4–6 sem si RAS, 8–10 sem si césarienne/épisiotomie, parfois moins)",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Reprise d’une activité physique avec impact envisagée ou réalisée, avec fonction périnéale à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Reprise d’une activité physique avec impact pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la fonction périnéale, le délai de reprise, l’activité réellement réalisée et sa tolérance."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-situation-athlete-progressive-endurance-strength-pelvic-floor-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "Femme sportive : reprise progressive endurance (privilégier faible impact initial), reprise renforcement progressive avec travail du plancher pelvien",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Femme sportive reprenant une activité d’endurance ou de renforcement présente ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Reprise sportive d’endurance ou de renforcement pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la progression réellement réalisée, l’impact des activités, le renforcement et le travail du plancher pelvien."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "situations",
+            "index": 3
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-rule-perineal-symptoms-delay-impact-reassess-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "monitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "SI symptômes périnéaux (fuites, pesanteur, douleur) → différer AP avec impact et réévaluer",
+      "patient": ""
+    },
+    "condition": {
+      "type": "clinicianCheck",
+      "description": "Symptômes périnéaux tels que fuites, pesanteur ou douleur présents ou à vérifier.",
+      "machineEvaluable": false
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Symptômes périnéaux pendant la période de pratique.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier les symptômes périnéaux, le report éventuel des activités avec impact et la réévaluation réalisée."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-rule-good-tolerance-gradual-progression-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "prescriptionGuidance",
+        "category": "practicalAdaptation"
+      }
+    ],
+    "messages": {
+      "clinician": "SI bonne tolérance → progression graduelle",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "prescription.general"
+    ],
+    "clinicalMoments": [
+      {
+        "moment": "followUp",
+        "condition": {
+          "type": "clinicianCheck",
+          "description": "Bonne tolérance de la pratique présente ou à vérifier.",
+          "machineEvaluable": false
+        },
+        "messageClinicianOverride": "Au suivi, vérifier la tolérance et la progression graduelle réellement effectuée."
+      }
+    ],
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "regles",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-patient-moving-aids-recovery-reduces-depression-risk-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Bouger après l’accouchement aide à récupérer et réduit le risque de dépression"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 0
+          },
+          {
+            "pathologyId": "post_partum",
+            "field": "crc_default",
+            "index": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-patient-ap-compatible-breastfeeding-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "L’activité physique est compatible avec l’allaitement"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 1
+          },
+          {
+            "pathologyId": "post_partum",
+            "field": "crc_default",
+            "index": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-patient-resume-progressively-by-feeling-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "selfMonitoring"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Reprendre progressivement en fonction de son ressenti"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": true
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 2
+          },
+          {
+            "pathologyId": "post_partum",
+            "field": "crc_default",
+            "index": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "post-partum-patient-pelvic-floor-essential-before-impact-001",
+    "context": {
+      "pathologiesAny": [
+        "pr"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "patientInformation",
+        "category": "practicalAdvice"
+      }
+    ],
+    "messages": {
+      "clinician": "",
+      "patient": "Le travail du périnée est essentiel avant les activités à impact"
+    },
+    "condition": {
+      "type": "always"
+    },
+    "presentationTargets": [
+      "patientInformation"
+    ],
+    "selection": {
+      "defaultSelected": false
+    },
+    "evidenceSourceIds": [],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1",
+      "migration": {
+        "legacyOrigins": [
+          {
+            "pathologyId": "pr",
+            "field": "crc",
+            "index": 3
+          }
+        ]
+      }
+    }
   }
 ];
 
