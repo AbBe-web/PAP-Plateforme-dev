@@ -200,10 +200,12 @@
                 : "";
 
         const originBadgesHtml =
-            renderOriginBadgesHtml(
-                item,
-                options?.activePathologies
-            );
+            options?.hideOriginBadges === true
+                ? ""
+                : renderOriginBadgesHtml(
+                    item,
+                    options?.activePathologies
+                );
 
         if (audience === "patient") {
             const patientSelectionById =
@@ -468,6 +470,322 @@
 </div>`;
     }
 
+    function getRelevantItemPathologyIds(
+        item,
+        activePathologies
+    ) {
+        const normalizedActivePathologies =
+            normalizePathologyIds(
+                activePathologies
+            );
+
+        const itemPathologies =
+            normalizePathologyIds(
+                item
+                    ?.matchedContext
+                    ?.pathologiesAny
+            );
+
+        return normalizedActivePathologies
+            .filter(function (pathologyId) {
+                return itemPathologies
+                    .includes(pathologyId);
+            });
+    }
+
+    function createPatientPathologyGroups(
+        items,
+        activePathologies
+    ) {
+        const normalizedActivePathologies =
+            normalizePathologyIds(
+                activePathologies
+            );
+
+        const groupsById =
+            new Map();
+
+        normalizedActivePathologies
+            .forEach(function (pathologyId) {
+                groupsById.set(
+                    pathologyId,
+                    {
+                        id: pathologyId,
+                        title:
+                            getPathologyLabel(
+                                pathologyId
+                            ),
+                        isShared: false,
+                        always: [],
+                        clinicianCheck: []
+                    }
+                );
+            });
+
+        const sharedGroup = {
+            id: "shared",
+            title:
+                "Messages communs à plusieurs pathologies",
+            isShared: true,
+            always: [],
+            clinicianCheck: []
+        };
+
+        const unassignedGroup = {
+            id: "other",
+            title: "Autres messages",
+            isShared: false,
+            always: [],
+            clinicianCheck: []
+        };
+
+        items.forEach(function (item) {
+            const relevantPathologyIds =
+                getRelevantItemPathologyIds(
+                    item,
+                    normalizedActivePathologies
+                );
+
+            const targetCollection =
+                item?.condition?.type ===
+                "clinicianCheck"
+                    ? "clinicianCheck"
+                    : "always";
+
+            if (
+                relevantPathologyIds.length >
+                1
+            ) {
+                sharedGroup[
+                    targetCollection
+                ].push(item);
+
+                return;
+            }
+
+            if (
+                relevantPathologyIds.length ===
+                1
+            ) {
+                const pathologyGroup =
+                    groupsById.get(
+                        relevantPathologyIds[0]
+                    );
+
+                if (pathologyGroup) {
+                    pathologyGroup[
+                        targetCollection
+                    ].push(item);
+
+                    return;
+                }
+            }
+
+            unassignedGroup[
+                targetCollection
+            ].push(item);
+        });
+
+        const orderedGroups =
+            normalizedActivePathologies
+                .map(function (pathologyId) {
+                    return groupsById.get(
+                        pathologyId
+                    );
+                })
+                .filter(function (group) {
+                    return Boolean(
+                        group &&
+                        (
+                            group.always.length ||
+                            group
+                                .clinicianCheck
+                                .length
+                        )
+                    );
+                });
+
+        if (
+            sharedGroup.always.length ||
+            sharedGroup
+                .clinicianCheck
+                .length
+        ) {
+            orderedGroups.push(
+                sharedGroup
+            );
+        }
+
+        if (
+            unassignedGroup.always.length ||
+            unassignedGroup
+                .clinicianCheck
+                .length
+        ) {
+            orderedGroups.push(
+                unassignedGroup
+            );
+        }
+
+        return orderedGroups;
+    }
+
+    function renderPatientPathologyGroupHtml(
+        group,
+        options
+    ) {
+        if (
+            !group ||
+            typeof group !== "object"
+        ) {
+            return "";
+        }
+
+        const groupOptions = {
+            ...options,
+            hideOriginBadges:
+                group.isShared !== true
+        };
+
+        const alwaysHtml =
+            group.always
+                .map(function (item) {
+                    return renderItemHtml(
+                        item,
+                        "patient",
+                        groupOptions
+                    );
+                })
+                .filter(Boolean)
+                .join("");
+
+        const clinicianCheckHtml =
+            group.clinicianCheck
+                .map(function (item) {
+                    return renderItemHtml(
+                        item,
+                        "patient",
+                        groupOptions
+                    );
+                })
+                .filter(Boolean)
+                .join("");
+
+        if (
+            !alwaysHtml &&
+            !clinicianCheckHtml
+        ) {
+            return "";
+        }
+
+        const groupId =
+            escapeClinicalCognitiveUxHtml(
+                group.id || ""
+            );
+
+        const groupTitle =
+            escapeClinicalCognitiveUxHtml(
+                group.title || ""
+            );
+
+        const alwaysBlock =
+            alwaysHtml
+                ? `
+<ul
+  class="pap-cognitive-ux-list pap-cognitive-ux-list-always"
+  style="
+     margin:0;
+     padding:0 0 0 4px;
+     list-style:none;
+     "
+>
+  ${alwaysHtml}
+</ul>`
+                : "";
+
+        const clinicianCheckBlock =
+            clinicianCheckHtml
+                ? `
+<div
+  class="pap-cognitive-ux-clinician-check pap-cognitive-ux-patient-clinician-check"
+  style="
+    margin-top:10px;
+    padding-top:9px;
+    border-top:1px solid #b8d5e5;
+  "
+>
+  <h4 class="pap-cognitive-ux-subsection-title">
+    À vérifier selon la situation clinique
+  </h4>
+
+  <ul
+    class="pap-cognitive-ux-list pap-cognitive-ux-list-clinician-check"
+    style="
+      margin:0;
+      padding:0;
+      list-style:none;
+    "
+  >
+    ${clinicianCheckHtml}
+  </ul>
+</div>`
+                : "";
+
+        return `
+<section
+  class="pap-cognitive-ux-patient-pathology-group"
+  data-patient-pathology-group="${groupId}"
+  style="
+    margin-top:12px;
+  "
+>
+  <h4
+    class="pap-cognitive-ux-patient-pathology-title"
+    style="
+      margin:0;
+      font-size:0.95rem;
+      font-weight:700;
+    "
+  >
+    ${groupTitle}
+  </h4>
+
+  ${alwaysBlock}
+  ${clinicianCheckBlock}
+</section>`;
+    }
+
+    function renderPatientGroupedContentHtml(
+        items,
+        options
+    ) {
+        const patientItems =
+            items.filter(function (item) {
+                return Boolean(
+                    getItemMessage(
+                        item,
+                        "patient"
+                    )
+                );
+            });
+
+        const groups =
+            createPatientPathologyGroups(
+                patientItems,
+                options?.activePathologies
+            );
+
+        return groups
+            .map(function (group) {
+                return renderPatientPathologyGroupHtml(
+                    group,
+                    options
+                );
+            })
+            .filter(Boolean)
+            .join("");
+    }
+
     function renderSectionHtml(
         section,
         audience,
@@ -492,18 +810,6 @@
                 audience
             );
 
-        const alwaysHtml =
-            partition.always
-                .map(function (item) {
-                    return renderItemHtml(
-                        item,
-                        audience,
-                        options
-                    );
-                })
-                .filter(Boolean)
-                .join("");
-
         const shouldRenderClinicianChecks =
             audience !== "clinician" ||
             options
@@ -514,18 +820,6 @@
             shouldRenderClinicianChecks
                 ? partition.clinicianCheck
                 : [];
-
-        const clinicianCheckHtml =
-            visibleClinicianCheckItems
-                .map(function (item) {
-                    return renderItemHtml(
-                        item,
-                        audience,
-                        options
-                    );
-                })
-                .filter(Boolean)
-                .join("");
 
         const renderedItemCount =
             partition.always.length +
@@ -551,17 +845,54 @@
                 section.title || ""
             );
 
-        const alwaysBlock =
-            alwaysHtml
-                ? `
+        let sectionBodyHtml = "";
+
+        if (audience === "patient") {
+            sectionBodyHtml = `
+${renderPatientSelectionModeHtml(
+    items,
+    options
+)}
+${renderPatientGroupedContentHtml(
+    items,
+    options
+)}`;
+        } else {
+            const alwaysHtml =
+                partition.always
+                    .map(function (item) {
+                        return renderItemHtml(
+                            item,
+                            audience,
+                            options
+                        );
+                    })
+                    .filter(Boolean)
+                    .join("");
+
+            const clinicianCheckHtml =
+                visibleClinicianCheckItems
+                    .map(function (item) {
+                        return renderItemHtml(
+                            item,
+                            audience,
+                            options
+                        );
+                    })
+                    .filter(Boolean)
+                    .join("");
+
+            const alwaysBlock =
+                alwaysHtml
+                    ? `
 <ul class="pap-cognitive-ux-list pap-cognitive-ux-list-always">
   ${alwaysHtml}
 </ul>`
-                : "";
+                    : "";
 
-        const clinicianCheckBlock =
-            clinicianCheckHtml
-                ? `
+            const clinicianCheckBlock =
+                clinicianCheckHtml
+                    ? `
 <div class="pap-cognitive-ux-clinician-check">
   <h4 class="pap-cognitive-ux-subsection-title">
     À vérifier selon la situation clinique
@@ -571,7 +902,12 @@
     ${clinicianCheckHtml}
   </ul>
 </div>`
-                : "";
+                    : "";
+
+            sectionBodyHtml = `
+${alwaysBlock}
+${clinicianCheckBlock}`;
+        }
 
         const openAttribute =
             options?.isQuickMode === true
@@ -594,16 +930,7 @@
   </summary>
 
   <div class="pap-cognitive-ux-section-content">
-    ${
-        audience === "patient"
-            ? renderPatientSelectionModeHtml(
-                items,
-                options
-            )
-            : ""
-    }
-    ${alwaysBlock}
-    ${clinicianCheckBlock}
+    ${sectionBodyHtml}
   </div>
 </details>`;
     }

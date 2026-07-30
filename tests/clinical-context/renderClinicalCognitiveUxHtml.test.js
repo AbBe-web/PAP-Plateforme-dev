@@ -101,10 +101,16 @@ const viewModel = {
             "Informations à transmettre",
         items: [
             {
-                knowledgeItemId:
-                    "patient-1",
+               knowledgeItemId:
+                "patient-1",
 
-                selection: {
+            matchedContext: {
+                pathologiesAny: [
+                    "hta"
+                ]
+            },
+
+            selection: {
                     defaultSelected: true
                 },
 
@@ -115,10 +121,20 @@ const viewModel = {
                 }
             },
             {
-                knowledgeItemId:
-                    "patient-2",
+              knowledgeItemId:
+                "patient-2",
 
-                selection: {
+            matchedContext: {
+                pathologiesAny: [
+                    "bpco"
+                ]
+            },
+
+            condition: {
+                type: "clinicianCheck"
+            },
+
+            selection: {
                     defaultSelected: false
                 },
 
@@ -178,6 +194,17 @@ const quickModeResult =
         viewModel,
         {
             isQuickMode: true,
+            activePathologies: [
+                "hta",
+                "bpco"
+            ]
+        }
+    );
+
+const groupedPatientResult =
+    window.renderClinicalCognitiveUxHtml(
+        viewModel,
+        {
             activePathologies: [
                 "hta",
                 "bpco"
@@ -545,6 +572,60 @@ assert(
     "La destination documentaire doit être affichée dans la section patient"
 );
 
+assert(
+    groupedPatientResult.patientHtml.includes(
+        'data-patient-pathology-group="hta"'
+    ),
+    "Les messages HTA doivent être regroupés dans un bloc HTA"
+);
+
+assert(
+    groupedPatientResult.patientHtml.includes(
+        'data-patient-pathology-group="bpco"'
+    ),
+    "Les messages BPCO doivent être regroupés dans un bloc BPCO"
+);
+
+assert(
+    groupedPatientResult.patientHtml.includes(
+        "pap-cognitive-ux-patient-pathology-title"
+    ),
+    "Chaque groupe patient doit afficher un titre pathologique"
+);
+
+const bpcoGroupStart =
+    groupedPatientResult.patientHtml.indexOf(
+        'data-patient-pathology-group="bpco"'
+    );
+
+const contextualPatientTitleStart =
+    groupedPatientResult.patientHtml.indexOf(
+        "À vérifier selon la situation clinique",
+        bpcoGroupStart
+    );
+
+const secondPatientMessageStart =
+    groupedPatientResult.patientHtml.indexOf(
+        "Deuxième message patient",
+        bpcoGroupStart
+    );
+
+assert(
+    bpcoGroupStart >= 0 &&
+    contextualPatientTitleStart >
+        bpcoGroupStart &&
+    secondPatientMessageStart >
+        contextualPatientTitleStart,
+    "Le message patient contextuel doit rester dans le groupe de sa pathologie"
+);
+
+assert(
+    !groupedPatientResult.patientHtml.includes(
+        "pap-cognitive-ux-origin-badges"
+    ),
+    "Les badges d’origine redondants doivent être masqués dans les groupes mono-pathologie"
+);
+
 const defaultDocumentDestinationInput =
     result.patientHtml.match(
         /<input(?=[^>]*class="pap-cognitive-ux-patient-document-destination-input")(?=[^>]*value="allReportsAndPatient")[^>]*>/
@@ -823,8 +904,11 @@ console.log(
                 patientGlobalSelectionRendered: true,
                 patientGlobalSelectionStateDerived: true,
                 patientDocumentDestinationRendered: true,
-                patientDocumentDestinationPreserved: true,
-                patientSelectionDefaultsPreserved: true,
+            patientDocumentDestinationPreserved: true,
+            patientMessagesGroupedByPathology: true,
+            contextualPatientMessagesRemainGrouped: true,
+            redundantPatientOriginBadgesHidden: true,
+            patientSelectionDefaultsPreserved: true,
                 patientSelectionOverridesPreserved: true,
                 referenceRendered: true,
                 htmlEscaped: true,
