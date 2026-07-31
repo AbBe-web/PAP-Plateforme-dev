@@ -56,6 +56,23 @@ assert(
     "Les messages V2 doivent être adaptés au format historique"
 );
 
+const terminalPunctuationNormalizations =
+    source.match(
+        /replace\(\s*\/\[\.\!\?;:,\\s\]\+\$\/\s*,\s*["']["']\s*\)/g
+    ) || [];
+
+assert(
+    terminalPunctuationNormalizations.length >= 2,
+    "La ponctuation terminale doit être normalisée dans les assembleurs patient et médecin"
+);
+
+assert(
+    /const\s+items\s*=\s*Array\.isArray\(v2Group\?\.items\)[\s\S]*?replace\(\s*\/\[\.\!\?;:,\\s\]\+\$\/\s*,\s*["']["']\s*\)[\s\S]*?\.filter\(Boolean\)/.test(
+        source
+    ),
+    "Les messages V2 doivent être normalisés avant leur assemblage dans les trois CRC médecin"
+);
+
 const helperCalls =
     source.match(
         /buildSelectedPatientMessagesMedicalClinicalContextV2\(/g

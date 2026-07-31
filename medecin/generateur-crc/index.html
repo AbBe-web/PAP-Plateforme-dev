@@ -9615,16 +9615,31 @@ function buildContextRecommendationsBloc(
     patientMessages
       .map(item => {
 
+        const cleanMessage =
+          String(
+            item?.message || ""
+          )
+            .trim()
+            .replace(
+              /[.!?;:,]+$/,
+              ""
+            )
+            .trim();
+
+        if (!cleanMessage) {
+          return "";
+        }
+
         const label =
-          item.sourceLabel
-            ? ` (${item.sourceLabel})`
+          item?.sourceLabel
+            ? ` (${String(
+                item.sourceLabel
+              ).trim()})`
             : "";
 
-        return item.message.replace(
-          /\.$/,
-          `${label}.`
-        );
+        return `${cleanMessage}${label}`;
       })
+      .filter(Boolean)
       .filter((message, index, array) =>
         array.indexOf(message) === index
       );
@@ -9637,7 +9652,13 @@ function buildContextRecommendationsBloc(
     messages.map(message => {
 
       const clean =
-        message.replace(/\.$/, "");
+        String(message || "")
+          .trim()
+          .replace(
+            /[.!?;:,]+$/,
+            ""
+          )
+          .trim();
 
       return clean.charAt(0).toLowerCase()
         + clean.slice(1);
@@ -9785,7 +9806,13 @@ function buildCRCPathoBloc(
               .map(item =>
                 String(
                   item?.message || ""
-                ).trim()
+                )
+                  .trim()
+                  .replace(
+                    /[.!?;:,\s]+$/,
+                    ""
+                  )
+                  .trim()
               )
               .filter(Boolean)
           : [];
@@ -11542,7 +11569,11 @@ function buildSelectedPatientMessagesPatientSentenceV2(
                   item?.message || ""
                 )
                   .trim()
-                  .replace(/\.$/, "");
+                  .replace(
+                    /[.!?;:,\s]+$/,
+                    ""
+                  )
+                  .trim();
 
               if (!message) {
                 return "";
