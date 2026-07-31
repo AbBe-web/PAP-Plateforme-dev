@@ -463,54 +463,46 @@ function buildPathoPlainText() {
     } else {
 
       /*
-       * Fallback transitoire :
+       * Fallback transitoire de données :
        * uniquement pour les pathologies
        * qui ne sont pas encore couvertes par V2.
+       *
+       * crc_default est prioritaire.
+       * crc reste le dernier fallback disponible.
        */
-      const container =
-        document.getElementById(
-          `crcContainer_${pathologyId}`
-        );
+      const legacyPathologyData =
+        PATHO_DATA[pathologyId];
 
-      if (!container) {
+      if (!legacyPathologyData) {
         return;
       }
 
-      const detailMode =
-        document.querySelector(
-          `input[name="crc_detail_${pathologyId}"]:checked`
-        )?.value;
+      const defaultItems =
+        Array.isArray(
+          legacyPathologyData.crc_default
+        )
+          ? legacyPathologyData.crc_default
+              .map(item =>
+                String(item || "").trim()
+              )
+              .filter(Boolean)
+          : [];
 
-      if (detailMode === "detail") {
-
-        items =
-          Array.from(
-            container.querySelectorAll(
-              ".crc-item:checked"
-            )
-          ).map(element =>
-            String(
-              element?.value || ""
-            ).trim()
-          );
-
-      } else if (detailMode === "simple") {
-
-        items =
-          Array.isArray(
-            PATHO_DATA[pathologyId]?.crc
-          )
-            ? PATHO_DATA[pathologyId].crc
-            : [];
-
-      } else if (detailMode === "none") {
-
-        items = [];
-
-      }
+      const allItems =
+        Array.isArray(
+          legacyPathologyData.crc
+        )
+          ? legacyPathologyData.crc
+              .map(item =>
+                String(item || "").trim()
+              )
+              .filter(Boolean)
+          : [];
 
       items =
-        items.filter(Boolean);
+        defaultItems.length > 0
+          ? defaultItems
+          : allItems;
     }
 
     if (items.length === 0) {

@@ -9423,36 +9423,7 @@ if (container) {
 /* =====================================
 6. GENERATION CRC / RENDU =============
 ===================================== */
-function getSelectedCRC(){
-
-  const detailMode = document.querySelector('input[name="crc_detail"]:checked')?.value;
-
-  let values = [];
-
-  if (detailMode === "simple") {
-
-    // 🔹 on prend tous les éléments des pathologies cochées
-    const selectedPathos = document.querySelectorAll('.patho:checked');
-
-    selectedPathos.forEach(p => {
-      const data = PATHO_DATA[p.value];
-      if (data && data.crc) {
-        values = values.concat(data.crc);
-      }
-    });
-
-  } else {
-
-    document.querySelectorAll('.crc-item:checked').forEach(el => {
-      values.push(el.value);
-    });
-
-  }
-
-  return values;
-}
-    
-    function handleGenerate(e, options = {}) {
+function handleGenerate(e, options = {}) {
 
   e.preventDefault();
   e.stopPropagation();
@@ -9994,49 +9965,47 @@ function buildCRCPathoBloc(
     }
 
     /*
-     * Fallback transitoire :
-     * uniquement pour les pathologies non couvertes par V2
-     * et pour l’ancien chemin patient s’il reste appelé.
+     * Fallback transitoire de données :
+     * uniquement pour les pathologies non couvertes par V2.
+     *
+     * Aucun DOM caché n’est nécessaire.
      */
-    const container =
-      document.getElementById(
-        `crcContainer_${pathologyId}`
-      );
+    const legacyPathologyData =
+      PATHO_DATA[pathologyId];
 
-    if (!container) {
+    if (!legacyPathologyData) {
       return;
     }
 
-    const detailMode =
-      document.querySelector(
-        `input[name="crc_detail_${pathologyId}"]:checked`
-      )?.value;
+    const defaultItems =
+      Array.isArray(
+        legacyPathologyData.crc_default
+      )
+        ? legacyPathologyData.crc_default
+            .map(item =>
+              String(item || "").trim()
+            )
+            .filter(Boolean)
+        : [];
 
-    let items = [];
+    const allItems =
+      Array.isArray(
+        legacyPathologyData.crc
+      )
+        ? legacyPathologyData.crc
+            .map(item =>
+              String(item || "").trim()
+            )
+            .filter(Boolean)
+        : [];
 
-    if (detailMode === "detail") {
-
-      items =
-        Array.from(
-          container.querySelectorAll(
-            ".crc-item:checked"
-          )
-        ).map(el => el.value);
-
-    } else if (detailMode === "simple") {
-
-      items =
-        PATHO_DATA[pathologyId]?.crc ||
-        [];
-
-    } else if (detailMode === "none") {
-
-      items = [];
-
-    }
+    const items =
+      defaultItems.length > 0
+        ? defaultItems
+        : allItems;
 
     const full =
-      PATHO_DATA[pathologyId]?.titre ||
+      legacyPathologyData.titre ||
       pathologyId;
 
     const short =
@@ -17987,45 +17956,6 @@ if (
   );
 }
 
-const crcElements = getSelectedCRC();
-const crcMode = document.querySelector('input[name="crc_mode"]:checked')?.value;
-const outputType = document.querySelector('input[name="output_type"]:checked')?.value || "medecin";                
-                
-const selectedPathos = document.querySelectorAll('.patho:checked');
-let pathoNames = [];
-
-selectedPathos.forEach(p => {
-  const data = PATHO_DATA[p.value];
-  if (data?.titre) pathoNames.push(data.titre);
-});
-
-if (crcElements.length > 0 && crcMode === "both" && pathoNames.length > 0) {
-
-  const pluriel = pathoNames.length > 1;
-
- let intro = "";
-
-if (isPatient) {
-
-  intro = pluriel
-    ? `Des éléments importants liés à vos pathologies (${pathoNames.join(", ")}) ont été abordés`
-    : `Des éléments importants liés à votre pathologie (${pathoNames[0]}) ont été abordés`;
-
-} else {
-
-  intro = pluriel
-    ? `Les points spécifiques liés à ses pathologies (${pathoNames.join(", ")}) ont été abordés en consultation`
-    : `Les points spécifiques liés à sa pathologie (${pathoNames[0]}) ont été abordés en consultation`;
-
-}
-
-  const details = crcElements
-    .map(c => c.charAt(0).toLowerCase() + c.slice(1))
-    .join(", ");
-
-  phrases.push(`${intro} : ${details}.`);
-}
-                
 if (phrases.length === 0) {
   return "Aucune prescription spécifique n’a été formalisée lors de cette consultation.";
 }
