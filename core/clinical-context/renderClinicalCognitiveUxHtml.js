@@ -821,11 +821,15 @@
                 ? partition.clinicianCheck
                 : [];
 
+        const availableItemCount =
+            partition.always.length +
+            partition.clinicianCheck.length;
+
         const renderedItemCount =
             partition.always.length +
             visibleClinicianCheckItems.length;
 
-        if (renderedItemCount === 0) {
+        if (availableItemCount === 0) {
             return "";
         }
 

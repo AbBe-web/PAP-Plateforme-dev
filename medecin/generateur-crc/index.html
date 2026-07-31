@@ -6310,7 +6310,7 @@ function buildClinicalSituationsToggleHtml(
 
   const buttonLabel =
     showAllClinicalSituations
-      ? "Tous les repères sont affichés — masquer les repères à vérifier"
+      ? "Masquer les repères à vérifier"
       : "Afficher les repères à vérifier";
 
   const clinicianCheckCountLabel =
@@ -6613,10 +6613,62 @@ function initClinicalSituationsToggle() {
         return;
       }
 
+      const previouslyOpenSectionIds =
+        new Set(
+          Array.from(
+            document.querySelectorAll(
+              ".pap-cognitive-ux-section-clinician[open][data-section-id]"
+            )
+          )
+            .map(function(section) {
+              return String(
+                section.dataset?.sectionId || ""
+              ).trim();
+            })
+            .filter(Boolean)
+        );
+
       showAllClinicalSituations =
         !showAllClinicalSituations;
 
       renderClinicalCognitiveAidV2();
+
+      previouslyOpenSectionIds.forEach(
+        function(sectionId) {
+
+          const section =
+            document.querySelector(
+              `.pap-cognitive-ux-section-clinician[data-section-id="${CSS.escape(
+                sectionId
+              )}"]`
+            );
+
+          if (section) {
+            section.open = true;
+          }
+
+        }
+      );
+
+      if (showAllClinicalSituations) {
+
+        document
+          .querySelectorAll(
+            ".pap-cognitive-ux-section-clinician"
+          )
+          .forEach(function(section) {
+
+            if (
+              section.querySelector(
+                ".pap-cognitive-ux-clinician-check"
+              )
+            ) {
+              section.open = true;
+            }
+
+          });
+
+      }
 
     }
   );

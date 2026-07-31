@@ -371,12 +371,12 @@ assert(
 );
 
 assert(
-    !contextualClinicianResult
+    contextualClinicianResult
         .clinicianHtml
         .includes(
             'data-section-id="orientation"'
         ),
-    "Une section contenant uniquement des situations particulières doit être masquée dans l’affichage contextuel"
+    "Le bandeau d’une section contenant uniquement des situations particulières doit rester visible dans l’affichage contextuel"
 );
 
 assert(
