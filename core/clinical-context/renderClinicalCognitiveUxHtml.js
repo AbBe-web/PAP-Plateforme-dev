@@ -233,6 +233,17 @@
                     ? " checked"
                     : "";
 
+            const patientSelectionMode =
+                String(
+                    options?.patientSelectionMode || ""
+                ).trim();
+
+            const disabledAttribute =
+                patientSelectionMode === "all" ||
+                patientSelectionMode === "none"
+                    ? " disabled"
+                    : "";
+
             return `
 <li class="pap-cognitive-ux-item pap-cognitive-ux-item-patient"${itemIdAttribute}>
   <label class="pap-cognitive-ux-patient-selection">
@@ -242,7 +253,7 @@
       data-knowledge-item-id="${escapeClinicalCognitiveUxHtml(
           itemIdentity
       )}"
-      ${checkedAttribute}
+      ${checkedAttribute}${disabledAttribute}
     >
 
     <span class="pap-cognitive-ux-item-message">
@@ -326,50 +337,16 @@
             return "";
         }
 
-        const patientSelectionById =
-            options?.patientSelectionById || {};
-
-        const selectedCount =
-            patientItems.reduce(
-                function (total, item) {
-                    const itemIdentity =
-                        getItemIdentity(item);
-
-                    if (!itemIdentity) {
-                        return total;
-                    }
-
-                    const hasSelectionOverride =
-                        Object.prototype
-                            .hasOwnProperty
-                            .call(
-                                patientSelectionById,
-                                itemIdentity
-                            );
-
-                    const isSelected =
-                        hasSelectionOverride
-                            ? patientSelectionById[
-                                itemIdentity
-                            ] === true
-                            : item
-                                ?.selection
-                                ?.defaultSelected ===
-                                true;
-
-                    return total +
-                        (isSelected ? 1 : 0);
-                },
-                0
-            );
+        const requestedSelectionMode =
+            String(
+                options?.patientSelectionMode || ""
+            ).trim();
 
         const selectionMode =
-            selectedCount === 0
-                ? "none"
-                : selectedCount ===
-                    patientItems.length
-                    ? "all"
-                    : "some";
+            requestedSelectionMode === "all" ||
+            requestedSelectionMode === "none"
+                ? requestedSelectionMode
+                : "some";
 
         return `
 <div

@@ -3883,6 +3883,9 @@ const ENABLE_SELECTED_PATIENT_MESSAGES_DOCUMENT_V2 =
 const clinicalCognitivePatientSelectionState =
   new Map();
 
+let clinicalCognitivePatientSelectionMode =
+  "some";
+
 let clinicalCognitivePatientDocumentDestination =
   "allReportsAndPatient";
 
@@ -5997,6 +6000,9 @@ function resetClinicalCognitivePatientSelectionV2() {
 
   clinicalCognitivePatientSelectionState.clear();
 
+  clinicalCognitivePatientSelectionMode =
+    "some";
+
   clinicalCognitivePatientDocumentDestination =
     "allReportsAndPatient";
 
@@ -6421,6 +6427,17 @@ function initClinicalCognitivePatientSelection() {
 
       if (isPatientCheckbox) {
 
+        if (
+          clinicalCognitivePatientSelectionMode !==
+          "some"
+        ) {
+          target.checked =
+            clinicalCognitivePatientSelectionMode ===
+            "all";
+
+          return;
+        }
+
         const knowledgeItemId =
           String(
             target.dataset
@@ -6450,10 +6467,16 @@ function initClinicalCognitivePatientSelection() {
 
       } else {
 
-        const selectionMode =
+        const requestedSelectionMode =
           String(
             target.value || ""
           ).trim();
+
+        clinicalCognitivePatientSelectionMode =
+          requestedSelectionMode === "all" ||
+          requestedSelectionMode === "none"
+            ? requestedSelectionMode
+            : "some";
 
         const patientItems =
           Array.isArray(
@@ -6467,12 +6490,15 @@ function initClinicalCognitivePatientSelection() {
             : [];
 
         if (
-          selectionMode === "all" ||
-          selectionMode === "none"
+          clinicalCognitivePatientSelectionMode ===
+            "all" ||
+          clinicalCognitivePatientSelectionMode ===
+            "none"
         ) {
 
           const shouldSelect =
-            selectionMode === "all";
+            clinicalCognitivePatientSelectionMode ===
+            "all";
 
           patientItems.forEach(function(item) {
 
@@ -6505,29 +6531,40 @@ function initClinicalCognitivePatientSelection() {
 
           });
 
-          document
-            .querySelectorAll(
-              ".pap-cognitive-ux-patient-checkbox"
-            )
-            .forEach(function(checkbox) {
+        }
 
-              const knowledgeItemId =
-                String(
-                  checkbox.dataset
-                    ?.knowledgeItemId || ""
-                ).trim();
+        document
+          .querySelectorAll(
+            ".pap-cognitive-ux-patient-checkbox"
+          )
+          .forEach(function(checkbox) {
 
-              if (!knowledgeItemId) {
-                return;
-              }
+            const knowledgeItemId =
+              String(
+                checkbox.dataset
+                  ?.knowledgeItemId || ""
+              ).trim();
 
+            if (!knowledgeItemId) {
+              return;
+            }
+
+            if (
+              clinicalCognitivePatientSelectionMode ===
+                "all" ||
+              clinicalCognitivePatientSelectionMode ===
+                "none"
+            ) {
               checkbox.checked =
                 clinicalCognitivePatientSelectionState
                   .get(knowledgeItemId) === true;
+            }
 
-            });
+            checkbox.disabled =
+              clinicalCognitivePatientSelectionMode !==
+              "some";
 
-        }
+          });
 
       }
 
@@ -6811,6 +6848,8 @@ function renderClinicalCognitiveAidV2() {
             isQuickMode,
             activePathologies,
             patientSelectionById,
+            patientSelectionMode:
+              clinicalCognitivePatientSelectionMode,
             patientDocumentDestination:
               clinicalCognitivePatientDocumentDestination,
             showAllClinicalSituations

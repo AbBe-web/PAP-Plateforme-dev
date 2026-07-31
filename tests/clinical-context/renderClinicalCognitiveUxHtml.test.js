@@ -230,7 +230,8 @@ const allPatientMessagesSelectedResult =
             patientSelectionById: {
                 "patient-1": true,
                 "patient-2": true
-            }
+            },
+            patientSelectionMode: "all"
         }
     );
 
@@ -241,7 +242,8 @@ const noPatientMessagesSelectedResult =
             patientSelectionById: {
                 "patient-1": false,
                 "patient-2": false
-            }
+            },
+            patientSelectionMode: "none"
         }
     );
 
@@ -544,6 +546,13 @@ assert(
         allSelectionInput[0]
     ),
     "Tous doit être actif lorsque tous les messages sont sélectionnés"
+);
+
+assert(
+    noPatientMessagesSelectedResult
+        .patientHtml
+        .includes(" disabled"),
+    "Aucun doit verrouiller les cases patient"
 );
 
 const noSelectionInput =
