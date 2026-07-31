@@ -2389,30 +2389,6 @@ body.pap-quick-mode
 }
 
 /* =========================================================
-   PAP — Repères pathologies : indicateur ouverture / fermeture
-   ========================================================= */
-
-.pap-patho-rule-summary {
-  list-style: none;
-}
-
-.pap-patho-rule-summary::-webkit-details-marker {
-  display: none;
-}
-
-.pap-patho-rule-summary::before {
-  content: "▶";
-  display: inline-block;
-  margin-right: 0.4rem;
-  font-size: 0.8em;
-  transition: transform 0.15s ease;
-}
-
-details[open] > .pap-patho-rule-summary::before {
-  transform: rotate(90deg);
-}
-
-/* =========================================================
    PAP — HAS : navigation vers champs manquants
    ========================================================= */
 
@@ -2691,6 +2667,58 @@ details[open] > .pap-patho-rule-summary::before {
 .pap-cognitive-ux-host
   .pap-cognitive-ux-section-summary::-webkit-details-marker {
   display: none;
+}
+
+/* Commande intégrée au bandeau du bloc patient */
+.pap-cognitive-ux-host
+  .pap-cognitive-ux-section-patient
+  > .pap-cognitive-ux-section-summary
+  .pap-cognitive-ux-section-toggle-label {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+
+  margin-left: auto;
+  padding: 3px 8px;
+
+  border: 1px solid currentColor;
+  border-radius: 6px;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.pap-cognitive-ux-host
+  .pap-cognitive-ux-section-patient
+  > .pap-cognitive-ux-section-summary
+  .pap-cognitive-ux-section-toggle-close {
+  display: none;
+}
+
+.pap-cognitive-ux-host
+  .pap-cognitive-ux-section-patient[open]
+  > .pap-cognitive-ux-section-summary
+  .pap-cognitive-ux-section-toggle-open {
+  display: none;
+}
+
+.pap-cognitive-ux-host
+  .pap-cognitive-ux-section-patient[open]
+  > .pap-cognitive-ux-section-summary
+  .pap-cognitive-ux-section-toggle-close {
+  display: inline;
+}
+
+@media (max-width: 560px) {
+  .pap-cognitive-ux-host
+    .pap-cognitive-ux-section-patient
+    > .pap-cognitive-ux-section-summary
+    .pap-cognitive-ux-section-toggle-label {
+    padding: 2px 6px;
+    font-size: 0.76rem;
+  }
 }
 
 body.pap-quick-mode

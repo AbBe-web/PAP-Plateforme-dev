@@ -50,25 +50,6 @@ document.head.appendChild(manifestLink);
    CRC – LISIBILITÉ GÉNÉRALE DU FORMULAIRE
 ========================= */
 
-.crc-container {
-  line-height: 1.45;
-  margin-top: 8px;
-}
-
-.crc-container label {
-  font-size: 15px;
-  margin-top: 6px;
-  margin-bottom: 6px;
-}
-
-/*
-  Ne pas réduire artificiellement les champs de saisie.
-  Les cases et radios conservent leurs règles dédiées.
-*/
-.crc-container input:not([type="checkbox"]):not([type="radio"]) {
-  transform: none;
-}
-    
 .modal {
   position: fixed;
   inset: 0;
@@ -2751,23 +2732,6 @@ placeholder="Préciser..."
   hidden
   aria-hidden="true"
 ></div>
-
-<div id="pathoRulesBlock" style="
-  display:none;
-  margin:20px 0;
-  padding:12px;
-  border:1px solid #e5e7eb;
-  border-radius:10px;
-  background:#fefce8;
-">
-
-  <strong>🧾 Messages patient à intégrer aux documents</strong>
-
-  <div id="pathoRulesContainer" style="margin-top:10px; font-size:0.9rem;">
-    Aucune pathologie sélectionnée.
-  </div>
-
-</div>
 
 <div style="margin-bottom:18px;">
 
@@ -6541,24 +6505,47 @@ function initClinicalCognitivePatientSelection() {
 
           });
 
-        } else if (
-          selectionMode === "some"
-        ) {
+          document
+            .querySelectorAll(
+              ".pap-cognitive-ux-patient-checkbox"
+            )
+            .forEach(function(checkbox) {
 
-          /*
-           * Conserver le cochage natif du bouton radio
-           * sans reconstruire immédiatement l’interface.
-           *
-           * Les cases restent inchangées et chaque changement
-           * individuel recalculera ensuite la sélection V2.
-           */
-          return;
+              const knowledgeItemId =
+                String(
+                  checkbox.dataset
+                    ?.knowledgeItemId || ""
+                ).trim();
+
+              if (!knowledgeItemId) {
+                return;
+              }
+
+              checkbox.checked =
+                clinicalCognitivePatientSelectionState
+                  .get(knowledgeItemId) === true;
+
+            });
 
         }
 
       }
 
-      renderClinicalCognitiveAidV2();
+      const patientSelectionById =
+        buildClinicalCognitivePatientSelectionById(
+          cognitiveUxViewModel
+        );
+
+      const activePathologies =
+        buildPrototypeClinicalModelV2()
+          ?.patient
+          ?.pathologies || [];
+
+      updateSelectedClinicalCognitivePatientMessagesV2(
+        cognitiveUxViewModel,
+        patientSelectionById,
+        activePathologies
+      );
 
     }
   );
@@ -7253,124 +7240,14 @@ return `
 
 function updatePathoRules() {
 
-  const container =
-    document.getElementById(
-      "pathoRulesContainer"
-    );
-
-  if (!container) return;
-
-
-  const selectedPathos =
-    document.querySelectorAll(
-      ".patho:checked"
-    );
-
-
-  // Nouveau rendu cognitif v2.
-  // Le legacy reste entièrement conservé.
+  /*
+   * Point d’entrée conservé pour les changements
+   * de pathologies.
+   *
+   * Le rendu documentaire et les sélections patient
+   * reposent désormais uniquement sur V2.
+   */
   renderClinicalCognitiveAidV2();
-
-
-  // 🔒 sécurité
-  if (selectedPathos.length === 0) {
-
-    container.innerHTML =
-      "Aucune pathologie sélectionnée.";
-
-    updateResourceSelection();
-
-    return;
-  }
-
-  let html = "";
-
-  selectedPathos.forEach(p => {
-
-    const data = PATHO_DATA[p.value];
-    if (!data) return;
-
-    html += `
-   <details
-  class="pap-patho-rule-details"
-  style="margin-bottom:15px;border-left:4px solid #6366f1;background:#f8fafc;border-radius:8px;padding:10px;"
-  ${document.body.classList.contains("pap-quick-mode") ? "" : "open"}
->
-
-<summary class="pap-patho-rule-summary" style="
-  cursor:pointer;
-  font-weight:700;
-  font-size:1.08em;
-  color:#312e81;
-  padding:4px 0;
-">
-  ${data.titre}
-</summary>
-
-<div style="margin-top:8px;">
-
-<strong style="display:block; margin-bottom:4px;">
-  Sélection des messages patient pour courrier
-</strong>
-
-<div style="display:flex; gap:10px; align-items:center; margin:2px 0; font-size:0.9em; flex-wrap:wrap;">
-
-  <label style="margin:0;">
-    <input type="radio" name="crc_detail_${p.value}" value="simple">
-    Tous
-  </label>
-
-  <label style="margin:0;">
-    <input type="radio" name="crc_detail_${p.value}" value="detail" checked>
-    Certains
-  </label>
-
-  <label style="margin:0;">
-    <input type="radio" name="crc_detail_${p.value}" value="none">
-    Aucun
-  </label>
-
-</div>
-
-<div style="display:flex; gap:10px; align-items:center; margin:2px 0; font-size:0.9em;">
-
-  <label style="margin:0;">
-    <input type="radio" name="crc_mode_${p.value}" value="both" checked>
-    Intégrer à tous les CRC
-  </label>
-
-  <label style="margin:0;">
-    <input type="radio" name="crc_mode_${p.value}" value="patient">
-    À la version patient
-  </label>
-
-</div>
-
-<div id="crcContainer_${p.value}" class="crc-container">
-
-<div class="crc-simple">
-<em>Tous les éléments seront intégrés automatiquement.</em>
-</div>
-
-<div class="crc-detail" style="display:none;">
-${(data.crc || []).map(c => `
-<label style="display:block; margin:1px 0; line-height:1.2;">
-<input type="checkbox" class="crc-item" value="${c}" style="vertical-align:middle;"
-${data.crc_default && data.crc_default.includes(c) ? "checked" : ""}>
-${c}
-</label>
-`).join("")}
-</div>
-
-</div>
-</details>
-    `;
-
-  });
-
-  container.innerHTML = html;
-
-  initCRCModeToggle();
   updateResourceSelection();
 }
 
@@ -8220,24 +8097,6 @@ ${data.contraintes.map((c, index) =>
 crContainer.innerHTML = "";
 }
 
-function copySelectedCRC(){
-  const selected = document.querySelectorAll(".crc-item:checked");
-  let text = "";
-  selected.forEach(el => text += "- " + el.value + "\\n");
-  navigator.clipboard.writeText(text);
-}
-
-function copyAllCRC(){
-  const selectedPatho = document.querySelectorAll(".patho:checked");
-  let text = "";
-  selectedPatho.forEach(el => {
-    const data = PATHO_DATA[el.value];
-    if (!data) return;
-    data.crc.forEach(c => text += "- " + c + "\\n");
-  });
-  navigator.clipboard.writeText(text);
-}    
-
 const consultationForm =
   document.getElementById("consultationForm");
 
@@ -8337,7 +8196,6 @@ function initBPCO() {
 }
 initHandicap();
 initActivitePhysique();
-initCRCModeToggle();
 initMedicationApaPanel();
 initPhysicalTestsPanel();
 
@@ -8558,111 +8416,6 @@ updateNiveauButtons("clinique");
 document.querySelectorAll(".patho").forEach(el => {
   el.addEventListener("change", updatePathoHelp);
 });    
-}
-    
-function syncCRCModeDisplay() {
-
-  document
-    .querySelectorAll('[id^="crcContainer_"]')
-    .forEach(container => {
-
-      const patho =
-        container.id.replace(
-          "crcContainer_",
-          ""
-        );
-
-      const selected =
-        document.querySelector(
-          `input[name="crc_detail_${patho}"]:checked`
-        )?.value || "detail";
-
-      const simple =
-        container.querySelector(".crc-simple");
-
-      const detail =
-        container.querySelector(".crc-detail");
-
-      if (!simple || !detail) {
-        return;
-      }
-
-      const modeBlock =
-        container.previousElementSibling;
-
-      if (selected === "simple") {
-
-        if (modeBlock) {
-          modeBlock.style.display = "flex";
-        }
-
-        container.style.display = "block";
-        simple.style.display = "block";
-        detail.style.display = "none";
-
-      } else if (selected === "detail") {
-
-        if (modeBlock) {
-          modeBlock.style.display = "flex";
-        }
-
-        container.style.display = "block";
-        simple.style.display = "none";
-        detail.style.display = "block";
-
-      } else if (selected === "none") {
-
-        if (modeBlock) {
-          modeBlock.style.display = "none";
-        }
-
-        container.style.display = "none";
-      }
-
-    });
-}
-
-function initCRCModeToggle() {
-
-  // Synchronisation visuelle à chaque reconstruction du bloc pathologies
-  syncCRCModeDisplay();
-
-  // Listener global attaché une seule fois
-  if (window._crcModeToggleInitialized) {
-    return;
-  }
-
-  window._crcModeToggleInitialized = true;
-
-  document.addEventListener("change", function(e) {
-
-    const isDetailModeChange =
-      e.target.name &&
-      e.target.name.startsWith("crc_detail_");
-
-    if (isDetailModeChange) {
-      syncCRCModeDisplay();
-    }
-
-    const isRelevantChange =
-      e.target.classList.contains("patho") ||
-      e.target.classList.contains("crc-item") ||
-      isDetailModeChange ||
-      (
-        e.target.name &&
-        e.target.name.startsWith("crc_mode_")
-      );
-
-    if (isRelevantChange) {
-
-      if (typeof renderActiveMode === "function") {
-        renderActiveMode();
-      }
-
-    }
-
-  });
-
 }
     
 /* =====================================
@@ -16211,7 +15964,21 @@ function initHASListeners() {
 
 document.querySelectorAll('input, textarea').forEach(el => {
 
-  if (el.id === "finalTextOutput") {
+  const isClinicalCognitivePatientControl =
+    el.classList.contains(
+      "pap-cognitive-ux-patient-checkbox"
+    ) ||
+    el.classList.contains(
+      "pap-cognitive-ux-patient-selection-mode-input"
+    ) ||
+    el.classList.contains(
+      "pap-cognitive-ux-patient-document-destination-input"
+    );
+
+  if (
+    el.id === "finalTextOutput" ||
+    isClinicalCognitivePatientControl
+  ) {
     return;
   }
 
@@ -16223,23 +15990,6 @@ document.querySelectorAll('input, textarea').forEach(el => {
   const refreshBtn = document.getElementById("refreshHAS");
   if (refreshBtn) {
     refreshBtn.addEventListener("click", updateHAS);
-  }
-
-  // 🔹 CRC : auto-refresh (UNE SEULE FOIS)
-  if (!window._crcListenerAdded) {
-    document.addEventListener("change", function(e){
-
-      if (
-        e.target.classList.contains("crc-item") ||
-        e.target.name === "crc_detail" ||
-        e.target.name === "crc_mode"
-      ) {
-
-           updateHAS();
-      }
-
-    });
-    window._crcListenerAdded = true;
   }
 
   updatePathoRules();
@@ -17088,14 +16838,6 @@ if (respiratoire) {
 // MODE CONSULTATION RAPIDE / COMPLÈTE
 // Lot 1 : toggle UX uniquement
 // ===============================
-function updatePapPathoRulesDisclosure(isQuickMode) {
-  document
-    .querySelectorAll("#pathoRulesContainer details.pap-patho-rule-details")
-    .forEach(detail => {
-      detail.open = !isQuickMode;
-    });
-}
-
 function updatePapQuickOptionalSummaries() {
 
   // =========================
@@ -17314,10 +17056,6 @@ function initPapConsultationModeToggle() {
 
     document.body.classList.toggle(
       "pap-quick-mode",
-      isQuickMode
-    );
-
-    updatePapPathoRulesDisclosure(
       isQuickMode
     );
 

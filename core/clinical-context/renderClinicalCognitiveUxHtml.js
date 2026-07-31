@@ -914,6 +914,23 @@ ${clinicianCheckBlock}`;
                 ? ""
                 : " open";
 
+        const sectionToggleLabel =
+            audience === "patient"
+                ? `
+    <span
+      class="pap-cognitive-ux-section-toggle-label"
+      aria-hidden="true"
+    >
+      <span class="pap-cognitive-ux-section-toggle-open">
+        ▸ Compléter
+      </span>
+
+      <span class="pap-cognitive-ux-section-toggle-close">
+        ▾ Masquer
+      </span>
+    </span>`
+                : "";
+
         return `
 <details
   class="${sectionClass}"
@@ -927,6 +944,8 @@ ${clinicianCheckBlock}`;
     <span class="pap-cognitive-ux-section-count">
       ${renderedItemCount}
     </span>
+
+    ${sectionToggleLabel}
   </summary>
 
   <div class="pap-cognitive-ux-section-content">
