@@ -1114,6 +1114,23 @@ details summary::-webkit-details-marker {
     text-align: center;
   }
 
+  .body-map-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .body-map-selection strong {
+    white-space: normal;
+  }
+
+  #bodyMapSelectedZones {
+    width: 100%;
+    flex: none;
+    align-items: center;
+  }
+
   .body-map-figure {
     width: 100%;
     height: auto;
