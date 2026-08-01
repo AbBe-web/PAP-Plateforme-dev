@@ -1099,7 +1099,151 @@ details summary::-webkit-details-marker {
 
 @media (max-width: 700px) {
   .body-map-wrapper {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .body-map-panel {
+    min-width: 0;
+    padding: 6px;
+  }
+
+  .body-map-title {
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .body-map-figure {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 260 / 620;
+  }
+
+  .body-dot {
+    border-width: 1px;
+  }
+
+  .shoulder-left {
+    top: 22.097%;
+    left: 25%;
+    width: 12.308%;
+    height: 5.161%;
+  }
+
+  .shoulder-right {
+    top: 22.097%;
+    right: 25%;
+    width: 12.308%;
+    height: 5.161%;
+  }
+
+  .elbow-left {
+    top: 33.871%;
+    left: 18.462%;
+    width: 8.462%;
+    height: 3.548%;
+  }
+
+  .elbow-right {
+    top: 33.871%;
+    right: 18.462%;
+    width: 8.462%;
+    height: 3.548%;
+  }
+
+  .wrist-left {
+    top: 45.806%;
+    left: 9.231%;
+    width: 8.462%;
+    height: 3.548%;
+  }
+
+  .wrist-right {
+    top: 45.806%;
+    right: 10.769%;
+    width: 8.462%;
+    height: 3.548%;
+  }
+
+  .pelvis-front {
+    top: 41.935%;
+    width: 23.846%;
+    height: 6.129%;
+  }
+
+  .hip-left {
+    top: 48.065%;
+    left: 30.769%;
+    width: 13.846%;
+    height: 5.806%;
+  }
+
+  .hip-right {
+    top: 48.065%;
+    right: 30.769%;
+    width: 13.846%;
+    height: 5.806%;
+  }
+
+  .knee-left {
+    top: 63.548%;
+    left: 32.308%;
+    width: 10.769%;
+    height: 4.516%;
+  }
+
+  .knee-right {
+    top: 63.548%;
+    right: 33.077%;
+    width: 10.769%;
+    height: 4.516%;
+  }
+
+  .ankle-left {
+    top: 87.097%;
+    left: 33.077%;
+    width: 10%;
+    height: 4.194%;
+  }
+
+  .ankle-right {
+    top: 87.097%;
+    right: 33.077%;
+    width: 10%;
+    height: 4.194%;
+  }
+
+  .foot-left {
+    top: 91.613%;
+    left: 30%;
+    width: 10%;
+    height: 4.194%;
+  }
+
+  .foot-right {
+    top: 91.613%;
+    right: 30%;
+    width: 10%;
+    height: 4.194%;
+  }
+
+  .spine-cervical {
+    top: 13.548%;
+    width: 10%;
+    height: 7.097%;
+  }
+
+  .spine-dorsal {
+    top: 22.581%;
+    width: 13.077%;
+    height: 12.581%;
+  }
+
+  .spine-lumbar {
+    top: 37.097%;
+    width: 13.846%;
+    height: 11.613%;
   }
 }
 
