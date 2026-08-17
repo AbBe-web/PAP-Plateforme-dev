@@ -149,6 +149,8 @@ p + p {
 <body>
 <div class="container" id="app"></div>
 
+<script src="../../core/engagement/engagement-rules.js"></script>
+
 <script>
   
 const app = document.getElementById("app");
@@ -957,7 +959,7 @@ function motivation(){
      <button class="btn" onclick="
      advanceProgress(2);
      state.result.ap_envisagee='oui';
-     state.result.stade='préparation';
+     updatePatientStageOfChange();
      evaImportance();
      ">Oui</button>
 
@@ -983,14 +985,14 @@ function motivation(){
    <button class="btn" onclick="
    advanceProgress(2);
    state.result.actif_depuis='oui';
-   state.result.stade='consolidation';
+   updatePatientStageOfChange();
    evaImportance();
   ">Oui</button>
 
   <button class="btn" onclick="
   advanceProgress(2);
   state.result.actif_depuis='non';
-  state.result.stade='action';
+  updatePatientStageOfChange();
   evaImportance();
   ">Non</button>
 
@@ -1002,6 +1004,75 @@ function motivation(){
     `,95);
   }
 }
+
+function updatePatientStageOfChange() {
+
+  const questionnaireSource =
+    state.tool === "gpaq"
+      ? "GPAQ"
+      : state.tool === "marshall"
+        ? "Marshall"
+        : null;
+
+  const meetsRecommendations =
+    normalizeActivityStatusForEngagement(
+      questionnaireSource,
+      state.result?.niveau ?? null
+    );
+
+  let activeDuration = null;
+
+  if (meetsRecommendations === true) {
+
+    if (state.result.actif_depuis === "oui") {
+      activeDuration = "gte_6_months";
+    }
+
+    if (state.result.actif_depuis === "non") {
+      activeDuration = "lt_6_months";
+    }
+  }
+
+  let increaseWithinOneMonth = null;
+  let increaseWithinSixMonths = null;
+
+  if (meetsRecommendations === false) {
+
+    if (state.result.ap_envisagee === "oui") {
+      increaseWithinOneMonth = true;
+    }
+
+    if (state.result.ap_envisagee === "non") {
+
+      increaseWithinOneMonth = false;
+
+      if (state.result.ap_6_mois === "oui") {
+        increaseWithinSixMonths = true;
+      }
+
+      if (state.result.ap_6_mois === "non") {
+        increaseWithinSixMonths = false;
+      }
+    }
+  }
+
+  const result =
+    computeStageOfChange({
+      meetsRecommendations,
+      activeDuration,
+      increaseAlreadyStarted: null,
+      increaseWithinOneMonth,
+      increaseWithinSixMonths
+    });
+
+  state.result.stade =
+    result.status === "determined"
+      ? result.stage
+      : null;
+
+  return result;
+}
+
 
 function motivation2(){
 pushScreen(
@@ -1015,14 +1086,14 @@ pushScreen(
 <button class="btn" onclick="
 advanceProgress(2);
 state.result.ap_6_mois='oui';
-state.result.stade='intention';
+updatePatientStageOfChange();
 evaImportance();
 ">Oui</button>
 
 <button class="btn" onclick="
 advanceProgress(2);
 state.result.ap_6_mois='non';
-state.result.stade='indétermination';
+updatePatientStageOfChange();
 evaImportance();
 ">Non</button>
 <button class="btn secondary" onclick="back()">Retour</button>
@@ -1354,7 +1425,12 @@ state.tool = parsed.meta.questionnaire === "GPAQ"
   niveau: state.exportJSON.resultats?.niveau_activite ?? null,
   met: state.exportJSON.resultats?.met_minutes_semaine ?? null,
   pas_mois: state.exportJSON.resultats?.pas_moyens_jour_1_mois ?? null,
+
   stade: state.exportJSON.motivation?.stade ?? null,
+  actif_depuis: state.exportJSON.motivation?.actif_depuis ?? null,
+  ap_envisagee: state.exportJSON.motivation?.ap_envisagee ?? null,
+  ap_6_mois: state.exportJSON.motivation?.ap_6_mois ?? null,
+
   importance: state.exportJSON.motivation?.importance_eva_0_10 ?? null,
   confiance: state.exportJSON.motivation?.confiance_eva_0_10 ?? null
 };

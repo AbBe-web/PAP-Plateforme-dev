@@ -49,6 +49,14 @@ assert.strictEqual(
 assert.strictEqual(
   normalizeActivityStatusForEngagement(
     "GPAQ",
+    "très_actif"
+  ),
+  true
+);
+
+assert.strictEqual(
+  normalizeActivityStatusForEngagement(
+    "GPAQ",
     "moyennement_actif"
   ),
   true

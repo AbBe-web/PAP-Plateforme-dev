@@ -13798,6 +13798,7 @@ try {
 // normalisation niveau JSON → formulaire
 if (niveau === "suffisamment_actif") niveau = "actif";
 if (niveau === "insuffisamment_actif") niveau = "inactif";
+if (niveau === "très_actif") niveau = "tres_actif";
     pas = data.p ?? data.pas;
    sedentarite =
      data.sd ??
@@ -17535,7 +17536,15 @@ function getStadeMotivationPatient(stade) {
   let phrase = "Son niveau d’activité physique est actuellement ";
 
   // Reformulation clinique
- if (e.classification === "actif") {
+if (e.classification === "tres_actif") {
+  phrase += "très actif";
+}
+
+if (e.classification === "moyennement_actif") {
+  phrase += "moyennement actif";
+}
+
+if (e.classification === "actif") {
   phrase += "actif au regard des recommandations actuelles";
 }
 

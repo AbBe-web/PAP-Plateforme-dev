@@ -54,6 +54,7 @@ function normalizeActivityStatusForEngagement(
 
     if (
       level === "tres_actif" ||
+      level === "très_actif" ||
       level === "moyennement_actif"
     ) {
       return true;
