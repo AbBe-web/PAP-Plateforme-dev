@@ -3838,6 +3838,8 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 <script src="../../core/prescriptionSync.js"></script>
 <script src="../../core/prescriptionRenderer.js"></script>
 
+<script src="../../core/engagement/engagement-rules.js"></script>
+
 <script src="../../core/clinical-context/context-schema.js"></script>
 
 <script src="../../core/clinical-context/clinical-knowledge-schema.js"></script>
@@ -17363,20 +17365,93 @@ document.addEventListener("visibilitychange", function () {
 });
       
         function getStadeMotivation() {
-    const niveauActuel = document.querySelector('input[name="niveau_actuel"]:checked') ? document.querySelector('input[name="niveau_actuel"]:checked').value : '';
-    if (niveauActuel === 'actif') {
-        const actifDepuis = document.querySelector('input[name="actif_depuis"]:checked') ? document.querySelector('input[name="actif_depuis"]:checked').value : '';
-        return actifDepuis === 'plus_6_mois' ? 'consolidation' : 'action';
-    } else if (niveauActuel === 'inactif') {
-        const apEnvisagee = document.querySelector('input[name="ap_envisagee"]:checked') ? document.querySelector('input[name="ap_envisagee"]:checked').value : '';
-        return apEnvisagee === 'oui' ? 'préparation' : 'intention';
+
+    const niveauActuel =
+        document.querySelector(
+            'input[name="niveau_actuel"]:checked'
+        )?.value || null;
+
+    const questionnaireSource =
+        document.querySelector(
+            'input[name="questionnaire"]:checked'
+        )?.value || "clinique";
+
+    const meetsRecommendations =
+        normalizeActivityStatusForEngagement(
+            questionnaireSource,
+            niveauActuel
+        );
+
+    let activeDuration = null;
+
+    if (meetsRecommendations === true) {
+
+        const actifDepuis =
+            document.querySelector(
+                'input[name="actif_depuis"]:checked'
+            )?.value || null;
+
+        if (actifDepuis === "moins_6_mois") {
+            activeDuration = "lt_6_months";
+        }
+
+        if (actifDepuis === "plus_6_mois") {
+            activeDuration = "gte_6_months";
+        }
     }
-    return 'indétermination';
+
+    let increaseWithinOneMonth = null;
+    let increaseWithinSixMonths = null;
+
+    if (meetsRecommendations === false) {
+
+        const apEnvisagee =
+            document.querySelector(
+                'input[name="ap_envisagee"]:checked'
+            )?.value || null;
+
+        if (apEnvisagee === "oui") {
+            increaseWithinOneMonth = true;
+        }
+
+        if (apEnvisagee === "non") {
+            increaseWithinOneMonth = false;
+
+            const ap6Mois =
+                document.querySelector(
+                    'input[name="ap_6_mois"]:checked'
+                )?.value || null;
+
+            if (ap6Mois === "oui") {
+                increaseWithinSixMonths = true;
+            }
+
+            if (ap6Mois === "non") {
+                increaseWithinSixMonths = false;
+            }
+        }
+    }
+
+    const result =
+        computeStageOfChange({
+            meetsRecommendations,
+            activeDuration,
+            increaseAlreadyStarted: null,
+            increaseWithinOneMonth,
+            increaseWithinSixMonths
+        });
+
+    return result.status === "determined"
+        ? result.stage
+        : null;
 }
 
 function getStadeMotivationPatient(stade) {
 
   switch (stade) {
+
+    case "indétermination":
+      return "vous n’envisagez pas actuellement d’augmenter votre activité physique dans les prochains mois";
 
     case "intention":
       return "vous envisagez de reprendre ou de débuter une activité physique";
@@ -17504,7 +17579,7 @@ if (e.sedentarite === "non_recherche") {
 
 let phrase = "Sur le plan motivationnel, ";
 
-if (m.stade && m.stade !== "indétermination") {
+if (m.stade) {
   phrase += `la personne se situe dans un stade de ${m.stade}`;
 } else {
   phrase += "le stade motivationnel n’a pas pu être précisé";
