@@ -344,6 +344,96 @@ assert.deepStrictEqual(
 );
 
 
+/*
+ * ========================================
+ * DETECTION DETERMINISTE DES SPORTS
+ * ========================================
+ */
+
+assert.strictEqual(
+  detectEngagementSport("football"),
+  "football"
+);
+
+assert.strictEqual(
+  detectEngagementSport("Foot"),
+  "football"
+);
+
+assert.strictEqual(
+  detectEngagementSport("v\u00e9lo"),
+  "cyclisme"
+);
+
+assert.strictEqual(
+  detectEngagementSport("cyclisme"),
+  "cyclisme"
+);
+
+assert.strictEqual(
+  detectEngagementSport("marche nordique"),
+  "marche_nordique"
+);
+
+assert.strictEqual(
+  detectEngagementSport("Karat\u00e9"),
+  "karate"
+);
+
+assert.strictEqual(
+  detectEngagementSport("course \u00e0 pied"),
+  "course_a_pied"
+);
+
+assert.strictEqual(
+  detectEngagementSport("running"),
+  "course_a_pied"
+);
+
+assert.strictEqual(
+  detectEngagementSport("trail"),
+  "trail"
+);
+
+
+/* Activites non reconnues comme sport */
+
+assert.strictEqual(
+  detectEngagementSport("marche"),
+  null
+);
+
+assert.strictEqual(
+  detectEngagementSport("randonn\u00e9e"),
+  null
+);
+
+
+/*
+ * Garde-fou :
+ * aucune detection par simple sous-chaine.
+ */
+assert.strictEqual(
+  detectEngagementSport("tennis de table"),
+  null
+);
+
+
+/*
+ * Normalisation
+ */
+
+assert.strictEqual(
+  normalizeEngagementActivityLabel("  V\u00e9lo  "),
+  "velo"
+);
+
+assert.strictEqual(
+  normalizeEngagementActivityLabel("Karat\u00e9"),
+  "karate"
+);
+
+
 console.log(
-  "OK — Engagement rules: normalization and TTM tests passed."
+  "OK — Engagement rules: normalization, TTM and sport detection tests passed."
 );

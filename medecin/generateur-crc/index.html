@@ -1414,8 +1414,40 @@ Apixaban 5 mg x2/j">
 
     <div class="sub-group pap-ap-current-block">
       <h3 id="niveau-actuel-title">
-        Niveau actuel d’activité physique
+        Activité physique
       </h3>
+
+      <div class="pap-ap-experience-block pap-quick-ap-detail">
+
+        <div class="pap-ap-experience-section">
+          <div class="pap-ap-experience-subtitle">
+            Pratique antérieure
+          </div>
+
+          <div class="pap-ap-experience-row">
+            <label for="activities_past">
+              Activités physiques pratiquées antérieurement :
+            </label>
+
+            <input
+              type="text"
+              id="activities_past"
+              name="activities_past"
+              placeholder="Ex. natation, football, randonnée"
+            >
+          </div>
+
+          <div
+            id="activities_past_competition"
+            class="pap-engagement-competition-list"
+          ></div>
+        </div>
+
+        <div class="pap-ap-experience-subtitle pap-ap-current-subtitle">
+          Pratique actuelle
+        </div>
+
+      </div>
 
       <div class="pap-quick-hide pap-quick-ap-detail" style="margin-bottom:10px;">
         <label><input type="radio" name="questionnaire" value="GPAQ"> GPAQ</label>
@@ -1439,6 +1471,24 @@ Apixaban 5 mg x2/j">
           <input id="niveau_inactif" type="radio" name="niveau_actuel" value="inactif"> Insuffisamment actif
         </label>
       </div>
+
+      <div class="pap-ap-experience-row pap-quick-ap-detail">
+        <label for="activities_current">
+          Activités physiques pratiquées actuellement :
+        </label>
+
+        <input
+          type="text"
+          id="activities_current"
+          name="activities_current"
+          placeholder="Ex. marche, vélo, tennis"
+        >
+      </div>
+
+      <div
+        id="activities_current_competition"
+        class="pap-engagement-competition-list pap-quick-ap-detail"
+      ></div>
 
       <div id="actif-subgroup" class="hidden">
         <label>
@@ -1498,10 +1548,19 @@ Apixaban 5 mg x2/j">
         </label>
       </div>
 
-<label class="pap-quick-hide pap-quick-ap-detail">
-        Nombre de pas par jour sur le dernier mois :
-        <input type="number" name="nombre_pas" placeholder="Ex : 7500">
-       </label>
+<div class="pap-ap-experience-row pap-quick-hide pap-quick-ap-detail">
+  <label for="nombre_pas">
+    Nombre de pas par jour sur le dernier mois :
+  </label>
+
+  <input
+    type="number"
+    id="nombre_pas"
+    name="nombre_pas"
+    placeholder="Ex : 7500"
+  >
+</div>
+
     </div>
 
     <div class="sub-group pap-ap-target-block">
@@ -8333,6 +8392,7 @@ function initBPCO() {
 }
 initHandicap();
 initActivitePhysique();
+initEngagementSportCompetition();
 initMedicationApaPanel();
 initPhysicalTestsPanel();
 
@@ -15678,6 +15738,255 @@ tm6.cardiorespiratory.spo2_recup_pct,
   };
 }
 
+function parseEngagementActivitiesText(value) {
+
+  if (!value || !value.trim()) {
+    return [];
+  }
+
+  return value
+    .split(/[,;]+/)
+    .map(item => item.trim())
+    .filter(Boolean)
+    .map(label => {
+
+      const sportId =
+        typeof detectEngagementSport === "function"
+          ? detectEngagementSport(label)
+          : null;
+
+      return {
+        label,
+        type: sportId ? "sport" : null,
+        sport_id: sportId,
+        competition: null
+      };
+    });
+}
+
+function getEngagementCompetitionValue(period, sportId) {
+
+  if (!period || !sportId) {
+    return null;
+  }
+
+  return document.querySelector(
+    `input[name="engagement_competition_${period}_${sportId}"]:checked`
+  )?.value || null;
+}
+
+
+function applyEngagementCompetitionToActivities(
+  activities,
+  period
+) {
+
+  return activities.map(activity => {
+
+    if (
+      activity.type !== "sport" ||
+      !activity.sport_id
+    ) {
+      return activity;
+    }
+
+    return {
+      ...activity,
+      competition:
+        getEngagementCompetitionValue(
+          period,
+          activity.sport_id
+        )
+    };
+  });
+}
+
+
+function renderEngagementCompetitionForPeriod({
+  inputId,
+  containerId,
+  period
+}) {
+
+  const input =
+    document.getElementById(inputId);
+
+  const container =
+    document.getElementById(containerId);
+
+  if (!input || !container) {
+    return;
+  }
+
+
+  /*
+   * Préserve les réponses déjà saisies
+   * lorsqu'on modifie simplement le texte
+   * des activités.
+   */
+  const previousValues = {};
+
+  container
+    .querySelectorAll('input[type="radio"]:checked')
+    .forEach(radio => {
+
+      const sportId =
+        radio.dataset.sportId;
+
+      if (sportId) {
+        previousValues[sportId] = radio.value;
+      }
+    });
+
+
+  const activities =
+    parseEngagementActivitiesText(
+      input.value
+    );
+
+  const detectedSports = [];
+  const seenSportIds = new Set();
+
+  activities.forEach(activity => {
+
+    if (
+      activity.type !== "sport" ||
+      !activity.sport_id ||
+      seenSportIds.has(activity.sport_id)
+    ) {
+      return;
+    }
+
+    seenSportIds.add(activity.sport_id);
+
+    detectedSports.push(activity);
+  });
+
+
+  container.innerHTML = "";
+
+  detectedSports.forEach(activity => {
+
+    const row =
+      document.createElement("div");
+
+    row.className =
+      "pap-engagement-competition-row";
+
+
+    const sportLabel =
+      document.createElement("span");
+
+    sportLabel.className =
+      "pap-engagement-competition-sport";
+
+    sportLabel.textContent =
+      activity.label
+        ? activity.label.charAt(0).toUpperCase() +
+          activity.label.slice(1)
+        : "";
+
+    row.appendChild(sportLabel);
+
+
+    const questionLabel =
+      document.createElement("span");
+
+    questionLabel.className =
+      "pap-engagement-competition-question";
+
+    questionLabel.textContent =
+      "compétition :";
+
+    row.appendChild(questionLabel);
+
+
+    ["oui", "non"].forEach(value => {
+
+      const label =
+        document.createElement("label");
+
+      const radio =
+        document.createElement("input");
+
+      radio.type = "radio";
+      radio.name =
+        `engagement_competition_${period}_${activity.sport_id}`;
+
+      radio.value = value;
+      radio.dataset.sportId =
+        activity.sport_id;
+
+      if (
+        previousValues[activity.sport_id] === value
+      ) {
+        radio.checked = true;
+      }
+
+      label.appendChild(radio);
+      label.append(
+        value === "oui"
+          ? " Oui"
+          : " Non"
+      );
+
+      row.appendChild(label);
+    });
+
+    container.appendChild(row);
+  });
+}
+
+
+function initEngagementSportCompetition() {
+
+  const pastInput =
+    document.getElementById("activities_past");
+
+  const currentInput =
+    document.getElementById("activities_current");
+
+
+  function updatePast() {
+
+    renderEngagementCompetitionForPeriod({
+      inputId: "activities_past",
+      containerId: "activities_past_competition",
+      period: "past"
+    });
+  }
+
+
+  function updateCurrent() {
+
+    renderEngagementCompetitionForPeriod({
+      inputId: "activities_current",
+      containerId: "activities_current_competition",
+      period: "current"
+    });
+  }
+
+
+  if (pastInput) {
+    pastInput.addEventListener(
+      "input",
+      updatePast
+    );
+  }
+
+  if (currentInput) {
+    currentInput.addEventListener(
+      "input",
+      updateCurrent
+    );
+  }
+
+
+  updatePast();
+  updateCurrent();
+}
+
+
 function buildClinicalModel() {
 
   const aerobieFrequence =
@@ -16092,7 +16401,23 @@ physicalTests,
       augmentation_deja_engagee:
         document.querySelector(
           'input[name="augmentation_deja_engagee"]:checked'
-        )?.value || null
+        )?.value || null,
+
+      activities_past:
+        applyEngagementCompetitionToActivities(
+          parseEngagementActivitiesText(
+            document.getElementById("activities_past")?.value || ""
+          ),
+          "past"
+        ),
+
+      activities_current:
+        applyEngagementCompetitionToActivities(
+          parseEngagementActivitiesText(
+            document.getElementById("activities_current")?.value || ""
+          ),
+          "current"
+        )
     },
 
 therapeutic_plan: {

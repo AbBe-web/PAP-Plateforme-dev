@@ -116,6 +116,182 @@ function normalizeActivityStatusForEngagement(
 
 
 /*
+ * Registre déterministe minimal de sports reconnus.
+ *
+ * Objectif :
+ * - déclencher certaines questions d'engagement
+ *   (ex. pratique en compétition) ;
+ * - sans demander à l'utilisateur de classifier
+ *   chaque activité physique ;
+ * - sans IA ni inférence libre.
+ *
+ * Le registre est volontairement non exhaustif :
+ * un sport non reconnu reste simplement non détecté.
+ */
+const ENGAGEMENT_SPORT_REGISTRY = {
+  football: [
+    "football",
+    "foot",
+    "soccer"
+  ],
+
+  tennis: [
+    "tennis"
+  ],
+
+  rugby: [
+    "rugby"
+  ],
+
+  basketball: [
+    "basket",
+    "basketball",
+    "basket ball"
+  ],
+
+  handball: [
+    "handball",
+    "hand ball"
+  ],
+
+  volleyball: [
+    "volley",
+    "volleyball",
+    "volley ball"
+  ],
+
+  badminton: [
+    "badminton"
+  ],
+
+  squash: [
+    "squash"
+  ],
+
+  padel: [
+    "padel"
+  ],
+
+  judo: [
+    "judo"
+  ],
+
+  karate: [
+    "karate"
+  ],
+
+  boxe: [
+    "boxe",
+    "boxing"
+  ],
+
+  triathlon: [
+    "triathlon"
+  ],
+
+  athletisme: [
+    "athletisme"
+  ],
+
+  escalade: [
+    "escalade"
+  ],
+
+  aviron: [
+    "aviron"
+  ],
+
+  golf: [
+    "golf"
+  ],
+
+  cyclisme: [
+    "cyclisme",
+    "velo"
+  ],
+
+  marche_nordique: [
+    "marche nordique",
+    "nordic walking"
+  ],
+
+  course_a_pied: [
+    "course à pied",
+    "course a pied",
+    "running",
+    "jogging"
+  ],
+
+  trail: [
+    "trail",
+    "trail running"
+  ]
+};
+
+
+/*
+ * Normalise un libellé uniquement pour permettre
+ * une comparaison déterministe avec le registre.
+ *
+ * Exemple :
+ * "  Vélo " -> "velo"
+ * "Karaté"   -> "karate"
+ */
+function normalizeEngagementActivityLabel(value) {
+
+  if (typeof value !== "string") {
+    return "";
+  }
+
+  return value
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[-_]+/g, " ")
+    .replace(/\s+/g, " ");
+}
+
+
+/*
+ * Détecte si un libellé correspond exactement
+ * à un sport connu du registre.
+ *
+ * Retour :
+ * - identifiant canonique du sport si reconnu ;
+ * - null sinon.
+ *
+ * IMPORTANT :
+ * pas de recherche par sous-chaîne.
+ * "tennis de table" ne devient donc pas automatiquement
+ * "tennis" tant qu'il n'est pas explicitement ajouté au registre.
+ */
+function detectEngagementSport(activityLabel) {
+
+  const normalizedLabel =
+    normalizeEngagementActivityLabel(activityLabel);
+
+  if (!normalizedLabel) {
+    return null;
+  }
+
+  for (const [sportId, aliases] of Object.entries(
+    ENGAGEMENT_SPORT_REGISTRY
+  )) {
+
+    const normalizedAliases =
+      aliases.map(normalizeEngagementActivityLabel);
+
+    if (normalizedAliases.includes(normalizedLabel)) {
+      return sportId;
+    }
+  }
+
+  return null;
+}
+
+
+/*
  * Dérive le stade motivationnel TTM à partir
  * de déterminants explicites.
  *
@@ -214,6 +390,12 @@ function computeStageOfChange({
 
 window.normalizeActivityStatusForEngagement =
   normalizeActivityStatusForEngagement;
+
+window.normalizeEngagementActivityLabel =
+  normalizeEngagementActivityLabel;
+
+window.detectEngagementSport =
+  detectEngagementSport;
 
 window.computeStageOfChange =
   computeStageOfChange;

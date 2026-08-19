@@ -2295,10 +2295,179 @@ body.pap-quick-mode .pap-quick-prescription {
   white-space: nowrap;
 }
 
-.pap-ap-sedentarite-block input[type="number"],
-.pap-ap-current-block input[type="number"] {
+/* =========================================================
+   PAP — Expérience d'activité physique : passé / actuel
+   ========================================================= */
+
+.pap-ap-current-block > .pap-ap-experience-block {
+  display: block;
+  width: 100%;
+  margin: 0.2rem 0 0.2rem 0;
+}
+
+.pap-ap-experience-section {
+  display: block;
+  width: 100%;
+  margin: 0 0 0.3rem 0;
+}
+
+.pap-ap-experience-subtitle {
+  display: block;
+  width: 100%;
+  margin: 0 0 0.2rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+  line-height: 1.25;
+}
+
+.pap-ap-current-subtitle {
+  margin-top: 0.35rem;
+  margin-bottom: 0.25rem;
+}
+
+.pap-ap-experience-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.7rem;
+  width: 100%;
+  margin: 0;
+  padding-left: 14px;
+  box-sizing: border-box;
+}
+
+.pap-ap-experience-row input[type="text"],
+.pap-ap-experience-row input[type="number"] {
+  flex: 1 1 260px;
+  width: auto;
+  min-width: 220px;
+  max-width: 360px;
+  height: 28px;
+  margin: 0;
+  padding: 3px 6px;
+  box-sizing: border-box;
+  font-size: 15px;
+  line-height: 1.2;
+  border: 1px solid #767676;
+  border-radius: 0;
+  background: #ffffff;
+}
+
+.pap-ap-current-block > .pap-quick-hide.pap-quick-ap-detail,
+.pap-ap-current-block > #niveau-container,
+.pap-ap-current-block > .pap-ap-experience-row {
+  width: 100%;
+}
+
+.pap-ap-current-block > .pap-quick-hide.pap-quick-ap-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 0.15rem 0 !important;
+  padding-left: 14px;
+  box-sizing: border-box;
+  line-height: 1.2;
+}
+
+.pap-ap-current-block > #niveau-container {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem 1rem !important;
+  margin: 0 0 0.15rem 0;
+  padding-left: 14px;
+  box-sizing: border-box;
+  line-height: 1.2;
+}
+
+.pap-ap-current-block > #niveau-container label,
+.pap-ap-current-block > .pap-quick-hide.pap-quick-ap-detail label {
+  line-height: 1.2;
+}
+
+.pap-ap-current-block > .pap-ap-experience-row {
+  margin: 0.1rem 0 0.15rem 0;
+}
+
+.pap-ap-sedentarite-block input[type="number"] {
   margin-top: 0.2rem;
   max-width: 130px;
+}
+
+/* Questions compétition — Engagement */
+.pap-engagement-competition-list {
+  display: block;
+  width: 100%;
+  padding-left: 28px;
+  box-sizing: border-box;
+}
+
+.pap-engagement-competition-list {
+  display: block !important;
+  width: 100% !important;
+  padding-left: 28px;
+  box-sizing: border-box;
+}
+
+.pap-ap-current-block > .pap-engagement-competition-list {
+  display: block !important;
+  width: 100% !important;
+}
+
+.pap-engagement-competition-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  gap: 0.45rem;
+  margin: 0.25rem 0;
+  line-height: 1.15;
+}
+
+.pap-engagement-competition-sport {
+  display: inline-block;
+  flex: 0 0 auto;
+  min-width: 90px;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.pap-engagement-competition-question {
+  display: inline-block;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #4b5563;
+  line-height: 1.15;
+}
+
+.pap-engagement-competition-row label {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 0.15rem !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap;
+  font-size: 0.78rem !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+}
+
+.pap-engagement-competition-row input[type="radio"] {
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+  width: 13px !important;
+  height: 13px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle;
 }
 
 /* Mode rapide : masquer les champs AP complémentaires même s’ils sont remplis */
