@@ -260,6 +260,7 @@ function goToScreen(id) {
     "MAR-Q2": marshallQ2,
 
     "MAR-STAGE1": motivation,
+    "MAR-STAGE1B": motivation30Days,
     "MAR-STAGE2": motivation2,
     
     "MAR-STEPS": stepsQuestion,
@@ -292,6 +293,7 @@ function goToScreen(id) {
 "GPAQ-STEPS": stepsQuestion,
 
 "GPAQ-STAGE1": motivation,
+"GPAQ-STAGE1B": motivation30Days,
 "GPAQ-STAGE2": motivation2,
 
 
@@ -949,24 +951,22 @@ function motivation(){
     return;
   }
 
-  // 🔹 Cas insuffisamment actif
+    // 🔹 Cas insuffisamment actif
   if(niveau === "insuffisamment_actif"){
 
     render(`
       <h2>Motivation</h2>
-      <p>Envisagez-vous d’augmenter votre activité physique dans les 30 jours ?</p>
+      <p>Avez-vous déjà commencé à augmenter votre activité physique par rapport à votre niveau habituel ?</p>
 
-     <button class="btn" onclick="
-     advanceProgress(2);
-     state.result.ap_envisagee='oui';
-     updatePatientStageOfChange();
-     evaImportance();
-     ">Oui</button>
+      <button class="btn" onclick="
+      state.result.augmentation_deja_engagee='oui';
+      motivation30Days();
+      ">Oui</button>
 
-    <button class="btn" onclick="
-    state.result.ap_envisagee='non';
-    motivation2();
-    ">Non</button>
+      <button class="btn" onclick="
+      state.result.augmentation_deja_engagee='non';
+      motivation30Days();
+      ">Non</button>
 
       <button class="btn secondary" onclick="back()">Retour</button>
 
@@ -1005,6 +1005,70 @@ function motivation(){
   }
 }
 
+function motivation30Days(){
+
+  pushScreen(
+    state.tool === "marshall"
+      ? "MAR-STAGE1B"
+      : "GPAQ-STAGE1B"
+  );
+
+  render(`
+    <h2>Motivation</h2>
+    <p>Envisagez-vous de poursuivre ou d’augmenter votre activité physique dans les 30 prochains jours ?</p>
+
+    <button class="btn" onclick="
+    advanceProgress(2);
+    state.result.ap_envisagee='oui';
+    updatePatientStageOfChange();
+    evaImportance();
+    ">Oui</button>
+
+    <button class="btn" onclick="
+    state.result.ap_envisagee='non';
+    motivation2();
+    ">Non</button>
+
+    <button class="btn secondary" onclick="back()">Retour</button>
+
+    <div class="back-info">
+      Les réponses déjà saisies sont conservées pour le calcul final.
+    </div>
+  `,95);
+}
+
+function motivation30Days(){
+
+  pushScreen(
+    state.tool === "marshall"
+      ? "MAR-STAGE1B"
+      : "GPAQ-STAGE1B"
+  );
+
+  render(`
+    <h2>Motivation</h2>
+    <p>Envisagez-vous de poursuivre ou d’augmenter votre activité physique dans les 30 prochains jours ?</p>
+
+    <button class="btn" onclick="
+    advanceProgress(2);
+    state.result.ap_envisagee='oui';
+    updatePatientStageOfChange();
+    evaImportance();
+    ">Oui</button>
+
+    <button class="btn" onclick="
+    state.result.ap_envisagee='non';
+    motivation2();
+    ">Non</button>
+
+    <button class="btn secondary" onclick="back()">Retour</button>
+
+    <div class="back-info">
+      Les réponses déjà saisies sont conservées pour le calcul final.
+    </div>
+  `,95);
+}
+
 function updatePatientStageOfChange() {
 
   const questionnaireSource =
@@ -1033,10 +1097,19 @@ function updatePatientStageOfChange() {
     }
   }
 
+  let increaseAlreadyStarted = null;
   let increaseWithinOneMonth = null;
   let increaseWithinSixMonths = null;
 
   if (meetsRecommendations === false) {
+
+    if (state.result.augmentation_deja_engagee === "oui") {
+      increaseAlreadyStarted = true;
+    }
+
+    if (state.result.augmentation_deja_engagee === "non") {
+      increaseAlreadyStarted = false;
+    }
 
     if (state.result.ap_envisagee === "oui") {
       increaseWithinOneMonth = true;
@@ -1060,7 +1133,7 @@ function updatePatientStageOfChange() {
     computeStageOfChange({
       meetsRecommendations,
       activeDuration,
-      increaseAlreadyStarted: null,
+      increaseAlreadyStarted,
       increaseWithinOneMonth,
       increaseWithinSixMonths
     });
@@ -1280,6 +1353,7 @@ function buildExportJSON(){
 
 motivation: {
       stade: state.result.stade ?? null,
+      augmentation_deja_engagee: state.result.augmentation_deja_engagee ?? null,
       actif_depuis: state.result.actif_depuis ?? null,
       ap_envisagee: state.result.ap_envisagee ?? null,
       ap_6_mois: state.result.ap_6_mois ?? null,
@@ -1427,6 +1501,7 @@ state.tool = parsed.meta.questionnaire === "GPAQ"
   pas_mois: state.exportJSON.resultats?.pas_moyens_jour_1_mois ?? null,
 
   stade: state.exportJSON.motivation?.stade ?? null,
+  augmentation_deja_engagee: state.exportJSON.motivation?.augmentation_deja_engagee ?? null,
   actif_depuis: state.exportJSON.motivation?.actif_depuis ?? null,
   ap_envisagee: state.exportJSON.motivation?.ap_envisagee ?? null,
   ap_6_mois: state.exportJSON.motivation?.ap_6_mois ?? null,
