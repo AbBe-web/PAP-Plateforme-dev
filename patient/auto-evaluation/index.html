@@ -168,6 +168,12 @@ const state = {
   gpaq: {},
   marshall: {},
   result: {},
+
+  engagement: {
+    activities_past: [],
+    activities_current: []
+  },
+
   history: [],
   navStack: [],
   navMode: "forward",   // ⬅️ AJOUT ICI
@@ -259,6 +265,8 @@ function goToScreen(id) {
    "MAR-Q1": marshallQ1,
     "MAR-Q2": marshallQ2,
 
+    "MAR-ACTIVITIES": engagementActivities,
+
     "MAR-STAGE1": motivation,
     "MAR-STAGE1B": motivation30Days,
     "MAR-STAGE2": motivation2,
@@ -291,6 +299,8 @@ function goToScreen(id) {
     "GPAQ-Q16": gpaqQ16,
 
 "GPAQ-STEPS": stepsQuestion,
+
+"GPAQ-ACTIVITIES": engagementActivities,
 
 "GPAQ-STAGE1": motivation,
 "GPAQ-STAGE1B": motivation30Days,
@@ -576,7 +586,7 @@ oninput="state.marshall.sed_m=this.value">
 
 ` : ""}
 
-<button class="btn" onclick="motivation()">Continuer</button>
+<button class="btn" onclick="engagementActivities()">Continuer</button>
 <button class="btn secondary" onclick="back()">Retour</button>
 
 `,94);
@@ -924,6 +934,354 @@ oninput="state.marshall.sed_m=this.value">
 <button class="btn secondary" onclick="back()">Retour</button>
 
 `, 94);
+
+/*************************************************
+ * ACTIVITES / EXPERIENCE
+ *************************************************/
+
+function parsePatientEngagementActivitiesText(
+  value,
+  previousActivities = []
+) {
+
+  if (!value || !value.trim()) {
+    return [];
+  }
+
+  const previousCompetitionBySport = {};
+
+  previousActivities.forEach(activity => {
+
+    if (
+      activity?.sport_id &&
+      activity?.competition
+    ) {
+      previousCompetitionBySport[
+        activity.sport_id
+      ] = activity.competition;
+    }
+  });
+
+
+  return value
+    .split(/[,;]+/)
+    .map(item => item.trim())
+    .filter(Boolean)
+    .map(label => {
+
+      const sportId =
+        typeof detectEngagementSport === "function"
+          ? detectEngagementSport(label)
+          : null;
+
+      return {
+        label,
+        type: sportId ? "sport" : null,
+        sport_id: sportId,
+        competition:
+          sportId
+            ? previousCompetitionBySport[sportId] || null
+            : null
+      };
+    });
+}
+
+
+function patientEngagementActivitiesText(period) {
+
+  const activities =
+    period === "past"
+      ? state.engagement.activities_past
+      : state.engagement.activities_current;
+
+  return activities
+    .map(activity => activity.label)
+    .join(", ");
+}
+
+
+function updatePatientEngagementActivities(
+  period,
+  value
+) {
+
+  const key =
+    period === "past"
+      ? "activities_past"
+      : "activities_current";
+
+  state.engagement[key] =
+    parsePatientEngagementActivitiesText(
+      value,
+      state.engagement[key]
+    );
+
+  renderPatientEngagementCompetition(
+    period
+  );
+}
+
+
+function setPatientEngagementCompetition(
+  period,
+  sportId,
+  value
+) {
+
+  const key =
+    period === "past"
+      ? "activities_past"
+      : "activities_current";
+
+  state.engagement[key] =
+    state.engagement[key].map(activity => {
+
+      if (
+        activity.type !== "sport" ||
+        activity.sport_id !== sportId
+      ) {
+        return activity;
+      }
+
+      return {
+        ...activity,
+        competition: value
+      };
+    });
+}
+
+
+function renderPatientEngagementCompetition(
+  period
+) {
+
+  const container =
+    document.getElementById(
+      `patient_engagement_competition_${period}`
+    );
+
+  if (!container) {
+    return;
+  }
+
+  const activities =
+    period === "past"
+      ? state.engagement.activities_past
+      : state.engagement.activities_current;
+
+
+  const detectedSports = [];
+  const seenSportIds = new Set();
+
+  activities.forEach(activity => {
+
+    if (
+      activity.type !== "sport" ||
+      !activity.sport_id ||
+      seenSportIds.has(activity.sport_id)
+    ) {
+      return;
+    }
+
+    seenSportIds.add(
+      activity.sport_id
+    );
+
+    detectedSports.push(
+      activity
+    );
+  });
+
+
+  container.innerHTML = "";
+
+
+  detectedSports.forEach(activity => {
+
+    const row =
+      document.createElement("div");
+
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.flexWrap = "wrap";
+    row.style.gap = "8px";
+    row.style.margin = "8px 0";
+
+
+    const competitionQuestion =
+      document.createElement("span");
+
+    const displayedSportLabel =
+      activity.label
+        ? activity.label.charAt(0).toUpperCase() +
+          activity.label.slice(1)
+        : "";
+
+    competitionQuestion.textContent =
+      `${displayedSportLabel} en compétition ?`;
+
+    row.appendChild(
+      competitionQuestion
+    );
+
+
+    ["oui", "non"].forEach(value => {
+
+      const label =
+        document.createElement("label");
+
+      label.style.display =
+        "inline-flex";
+
+      label.style.alignItems =
+        "center";
+
+      label.style.gap =
+        "4px";
+
+      label.style.margin =
+        "0";
+
+
+      const radio =
+        document.createElement("input");
+
+      radio.type =
+        "radio";
+
+      radio.name =
+        `patient_engagement_competition_${period}_${activity.sport_id}`;
+
+      radio.value =
+        value;
+
+      radio.checked =
+        activity.competition === value;
+
+      radio.addEventListener(
+        "change",
+        function() {
+
+          setPatientEngagementCompetition(
+            period,
+            activity.sport_id,
+            value
+          );
+        }
+      );
+
+
+      label.appendChild(
+        radio
+      );
+
+      label.append(
+        value === "oui"
+          ? " Oui"
+          : " Non"
+      );
+
+      row.appendChild(
+        label
+      );
+    });
+
+
+    container.appendChild(
+      row
+    );
+  });
+}
+
+
+function engagementActivities() {
+
+  pushScreen(
+    state.tool === "marshall"
+      ? "MAR-ACTIVITIES"
+      : "GPAQ-ACTIVITIES"
+  );
+
+
+  render(`
+    <h2>Vos activités physiques</h2>
+
+    <div class="section">
+      <p>
+        <strong>Activités pratiquées auparavant</strong>
+      </p>
+
+      <p>
+        Vous pouvez indiquer les principales activités physiques ou sports que vous avez pratiqués.
+      </p>
+
+      <input
+        type="text"
+        id="patient_activities_past"
+        placeholder="Ex. : natation, football, randonnée"
+        value="${patientEngagementActivitiesText("past")}"
+        oninput="updatePatientEngagementActivities('past', this.value)"
+      >
+
+      <div
+        id="patient_engagement_competition_past"
+      ></div>
+    </div>
+
+
+    <div class="section">
+      <p>
+        <strong>Activités pratiquées actuellement</strong>
+      </p>
+
+      <p>
+        Vous pouvez indiquer les principales activités physiques ou sports que vous pratiquez actuellement.
+      </p>
+
+      <input
+        type="text"
+        id="patient_activities_current"
+        placeholder="Ex. : marche, vélo, tennis"
+        value="${patientEngagementActivitiesText("current")}"
+        oninput="updatePatientEngagementActivities('current', this.value)"
+      >
+
+      <div
+        id="patient_engagement_competition_current"
+      ></div>
+    </div>
+
+
+    <button
+      class="btn"
+      onclick="motivation()"
+    >
+      Continuer
+    </button>
+
+    <button
+      class="btn secondary"
+      onclick="back()"
+    >
+      Retour
+    </button>
+
+    <div class="back-info">
+      Ces informations sont facultatives.
+      Les réponses déjà saisies sont conservées.
+    </div>
+  `,94);
+
+
+  renderPatientEngagementCompetition(
+    "past"
+  );
+
+  renderPatientEngagementCompetition(
+    "current"
+  );
+}
+
 
 /*************************************************
  * MOTIVATION + EVA
@@ -1361,6 +1719,18 @@ motivation: {
       importance_commentaire: state.result.importance_comment ?? null,
       confiance_eva_0_10: state.result.confiance ?? null,
       confiance_commentaire: state.result.confiance_comment ?? null
+    },
+
+    engagement: {
+      activities_past:
+        Array.isArray(state.engagement?.activities_past)
+          ? state.engagement.activities_past
+          : [],
+
+      activities_current:
+        Array.isArray(state.engagement?.activities_current)
+          ? state.engagement.activities_current
+          : []
     }
   };
 }
@@ -1508,6 +1878,18 @@ state.tool = parsed.meta.questionnaire === "GPAQ"
 
   importance: state.exportJSON.motivation?.importance_eva_0_10 ?? null,
   confiance: state.exportJSON.motivation?.confiance_eva_0_10 ?? null
+};
+
+state.engagement = {
+  activities_past:
+    Array.isArray(state.exportJSON.engagement?.activities_past)
+      ? state.exportJSON.engagement.activities_past
+      : [],
+
+  activities_current:
+    Array.isArray(state.exportJSON.engagement?.activities_current)
+      ? state.exportJSON.engagement.activities_current
+      : []
 };
 
       final();

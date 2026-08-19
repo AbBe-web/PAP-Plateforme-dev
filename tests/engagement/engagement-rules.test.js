@@ -376,12 +376,32 @@ assert.strictEqual(
 );
 
 assert.strictEqual(
+  detectEngagementSport("natation"),
+  "natation"
+);
+
+assert.strictEqual(
+  detectEngagementSport("swimming"),
+  "natation"
+);
+
+assert.strictEqual(
   detectEngagementSport("Karat\u00e9"),
   "karate"
 );
 
 assert.strictEqual(
-  detectEngagementSport("course \u00e0 pied"),
+  detectEngagementSport("course à pied"),
+  "course_a_pied"
+);
+
+assert.strictEqual(
+  detectEngagementSport("course à pieds"),
+  "course_a_pied"
+);
+
+assert.strictEqual(
+  detectEngagementSport("course a pieds"),
   "course_a_pied"
 );
 

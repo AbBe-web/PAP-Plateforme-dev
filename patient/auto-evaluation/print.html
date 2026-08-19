@@ -781,7 +781,30 @@ i: data.motivation.importance_eva_0_10,
 c: data.motivation.confiance_eva_0_10,
 
 ci: data.motivation.importance_commentaire,
-cc: data.motivation.confiance_commentaire
+cc: data.motivation.confiance_commentaire,
+
+// engagement — activités ; type/sport_id recalculés côté médecin
+ep: Array.isArray(data.engagement?.activities_past)
+  ? data.engagement.activities_past.map(activity => [
+      activity.label,
+      activity.competition === "oui"
+        ? "o"
+        : activity.competition === "non"
+          ? "n"
+          : null
+    ])
+  : [],
+
+ec: Array.isArray(data.engagement?.activities_current)
+  ? data.engagement.activities_current.map(activity => [
+      activity.label,
+      activity.competition === "oui"
+        ? "o"
+        : activity.competition === "non"
+          ? "n"
+          : null
+    ])
+  : []
 };
 
 // ------------------------------
@@ -809,6 +832,9 @@ if (cc) {
 if (!qrPayload.ad) delete qrPayload.ad;
 if (!qrPayload.ae) delete qrPayload.ae;
 if (!qrPayload.a6) delete qrPayload.a6;
+
+if (!qrPayload.ep?.length) delete qrPayload.ep;
+if (!qrPayload.ec?.length) delete qrPayload.ec;
   
 let qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
 

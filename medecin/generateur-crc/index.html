@@ -13869,6 +13869,9 @@ let confiance;
 let importanceComment;
 let confianceComment;
 
+let importedActivitiesPast = [];
+let importedActivitiesCurrent = [];
+
 try {
 
   let decompressed = LZString.decompressFromBase64(jsonText);
@@ -13929,6 +13932,96 @@ augmentationDejaEngagee =
 
 apEnvisagee = data.ae ?? data.motivation?.ap_envisagee ?? null;
 ap6Mois = data.a6 ?? data.motivation?.ap_6_mois ?? null;
+    function normalizeImportedEngagementActivities(
+      compactValue,
+      fullValue
+    ) {
+
+      const source =
+        Array.isArray(compactValue)
+          ? compactValue
+          : Array.isArray(fullValue)
+            ? fullValue
+            : [];
+
+      return source
+        .map(item => {
+
+          /*
+           * Format QR compact :
+           * ["natation", "o"]
+           */
+          if (Array.isArray(item)) {
+
+            const label =
+              typeof item[0] === "string"
+                ? item[0].trim()
+                : "";
+
+            if (!label) {
+              return null;
+            }
+
+            const competition =
+              item[1] === "o"
+                ? "oui"
+                : item[1] === "n"
+                  ? "non"
+                  : null;
+
+            return {
+              label,
+              competition
+            };
+          }
+
+
+          /*
+           * Format JSON complet :
+           * { label, type, sport_id, competition }
+           */
+          if (
+            item &&
+            typeof item === "object" &&
+            typeof item.label === "string"
+          ) {
+
+            const label =
+              item.label.trim();
+
+            if (!label) {
+              return null;
+            }
+
+            return {
+              label,
+              competition:
+                item.competition === "oui" ||
+                item.competition === "non"
+                  ? item.competition
+                  : null
+            };
+          }
+
+          return null;
+        })
+        .filter(Boolean);
+    }
+
+
+    importedActivitiesPast =
+      normalizeImportedEngagementActivities(
+        data.ep,
+        data.engagement?.activities_past
+      );
+
+    importedActivitiesCurrent =
+      normalizeImportedEngagementActivities(
+        data.ec,
+        data.engagement?.activities_current
+      );
+
+
     importance = data.i ?? data.importance;
     confiance = data.c ?? data.confiance;
     importanceComment = data.ci ?? data.importance_commentaire;
@@ -13984,6 +14077,85 @@ setTimeout(() => {
   const pasInput = document.querySelector('input[name="nombre_pas"]');
   if (pasInput) pasInput.value = pas;
 }
+
+
+/*
+ * Activités / expérience patient
+ */
+
+function restoreImportedEngagementActivities(
+  activities,
+  period
+) {
+
+  const inputId =
+    period === "past"
+      ? "activities_past"
+      : "activities_current";
+
+  const containerId =
+    period === "past"
+      ? "activities_past_competition"
+      : "activities_current_competition";
+
+  const input =
+    document.getElementById(inputId);
+
+  if (!input) {
+    return;
+  }
+
+
+  input.value =
+    activities
+      .map(activity => activity.label)
+      .join(", ");
+
+
+  renderEngagementCompetitionForPeriod({
+    inputId,
+    containerId,
+    period
+  });
+
+
+  activities.forEach(activity => {
+
+    if (!activity.competition) {
+      return;
+    }
+
+    const sportId =
+      typeof detectEngagementSport === "function"
+        ? detectEngagementSport(activity.label)
+        : null;
+
+    if (!sportId) {
+      return;
+    }
+
+    const radio =
+      document.querySelector(
+        `input[name="engagement_competition_${period}_${sportId}"][value="${activity.competition}"]`
+      );
+
+    if (radio) {
+      radio.checked = true;
+    }
+  });
+}
+
+
+restoreImportedEngagementActivities(
+  importedActivitiesPast,
+  "past"
+);
+
+restoreImportedEngagementActivities(
+  importedActivitiesCurrent,
+  "current"
+);
+
           
 if (sedentarite !== undefined && sedentarite !== null) {
 

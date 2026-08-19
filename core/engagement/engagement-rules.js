@@ -215,9 +215,16 @@ const ENGAGEMENT_SPORT_REGISTRY = {
     "nordic walking"
   ],
 
+  natation: [
+    "natation",
+    "swimming"
+  ],
+
   course_a_pied: [
     "course à pied",
     "course a pied",
+    "course à pieds",
+    "course a pieds",
     "running",
     "jogging"
   ],
