@@ -2516,73 +2516,145 @@ Apixaban 5 mg x2/j">
 
 <div class="form-group">
 
-<h2>8/ Objectifs thérapeutiques</h2>
+<h2>8/ Objectifs de l’activité physique</h2>
 
 <div class="sub-group objectifs-group">
 
-<h3 style="color:#0056b3;">🏥 Santé</h3>
+  <h3 style="color:#0056b3;">
+    Objectifs généraux d’activité physique / sédentarité
+  </h3>
 
-<label><input type="checkbox" name="objectif_ap" value="augmenter_ap">
-Augmenter le niveau global d'activité physique</label>
+  <label>
+    <input
+      type="checkbox"
+      name="objectif_ap"
+      value="augmenter_ap"
+    >
+    Commencer, reprendre ou augmenter l’activité physique
+  </label>
 
-<label><input type="checkbox" name="objectif_ap" value="reduire_sedentarite">
-Réduire la sédentarité</label>
+  <label>
+    <input
+      type="checkbox"
+      name="objectif_ap"
+      value="maintenir_ap"
+    >
+    Maintenir le niveau d’activité physique
+  </label>
 
-<label><input type="checkbox" name="objectif_ap" value="controle_maladie">
-Améliorer le contrôle d'une maladie chronique</label>
+  <label>
+    <input
+      type="checkbox"
+      name="objectif_ap"
+      value="reduire_sedentarite"
+    >
+    Réduire la sédentarité
+  </label>
 
-<h3 style="color:#0056b3;">💪 Condition physique</h3>
-
-<label><input type="checkbox" name="objectif_ap" value="condition_physique">
-Améliorer la condition physique</label>
-
-<label><input type="checkbox" name="objectif_ap" value="capacites_cardio">
-Améliorer les capacités cardiorespiratoires</label>
-
-<label><input type="checkbox" name="objectif_ap" value="force">
-Renforcer la force musculaire</label>
-
-<label><input type="checkbox" name="objectif_ap" value="equilibre">
-Améliorer l’équilibre / prévenir les chutes</label>
-
-<h3 style="color:#0056b3;">🚶 Fonction</h3>
-
-<label><input type="checkbox" name="objectif_ap" value="autonomie">
-Préserver ou restaurer l’autonomie</label>
-
-<label><input type="checkbox" name="objectif_ap" value="limitation">
-Réduire une limitation fonctionnelle</label>
-
-<h3 style="color:#0056b3;">😊 Qualité de vie</h3>
-
-<label><input type="checkbox" name="objectif_ap" value="qualite_vie">
-Améliorer la qualité de vie</label>
-
-<label><input type="checkbox" name="objectif_ap" value="bien_etre">
-Améliorer le bien-être psychologique</label>
-
-<label>
-<input type="checkbox" id="objectif_autre_checkbox">
-Autre
-</label>
-
-<input
-type="text"
-id="objectif_autre"
-style="display:none;"
-placeholder="Préciser..."
->
+  <label>
+    <input
+      type="checkbox"
+      name="objectif_ap"
+      value="progresser_recommandations"
+    >
+    Progresser vers les repères d’activité physique HAS / OMS
+  </label>
 
 </div>
 
-<label style="display:block;margin-top:6px;">
-Commentaires complémentaires (facultatif) :
-</label>
+<div class="sub-group">
 
-<textarea
-  name="objectifs_ap"
-  style="width:95%;"
-></textarea>
+  <h3 style="color:#0056b3;">
+    Projet / priorité du patient
+  </h3>
+
+  <textarea
+    id="engagement_patient_goal"
+    style="width:95%;"
+    rows="2"
+    placeholder="Ex. reprendre le vélo avec des amis ; pouvoir refaire ses courses seul(e) ; continuer les randonnées en montagne..."
+  ></textarea>
+
+  <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+    Projet initial pouvant être repris ou reformulé lors de la discussion.
+  </div>
+
+</div>
+
+<div class="sub-group">
+
+  <div class="pap-quick-section-heading">
+
+    <h3 style="color:#0056b3;margin:0;">
+      Analyse fonctionnelle du projet — si utile
+    </h3>
+
+    <span
+      id="papQuickObjectiveFunctionalSummary"
+      class="pap-quick-status-summary hidden"
+    >
+      analyse renseignée
+    </span>
+
+    <button
+      type="button"
+      id="papQuickObjectiveFunctionalToggle"
+      class="pap-quick-optional-toggle pap-quick-inline-toggle"
+      aria-expanded="false"
+      aria-controls="papQuickObjectiveFunctionalDetail"
+    >
+      ▸ Compléter
+    </button>
+
+  </div>
+
+  <div
+    id="papQuickObjectiveFunctionalDetail"
+    class="pap-quick-hide pap-quick-optional-detail"
+  >
+
+    <textarea
+      id="objectif_functional_analysis"
+      style="width:95%;"
+      rows="2"
+      placeholder="Ex. distance à marcher, escaliers, charges à porter, chariot à pousser/tirer, dénivelé, durée, équilibre..."
+    ></textarea>
+
+    <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+      Facultatif — préciser les exigences concrètes du projet si utile.
+    </div>
+
+  </div>
+
+</div>
+
+<div
+  class="sub-group"
+  style="
+    margin-top:14px;
+    padding:12px;
+    border:1px solid #d9e4f2;
+    border-radius:8px;
+    background:#f8fbff;
+  "
+>
+
+  <h3 style="color:#0056b3;margin-top:0;">
+    Objectif(s) partagé(s) retenu(s) avec le patient
+  </h3>
+
+  <textarea
+    name="objectifs_ap"
+    style="width:95%;"
+    rows="4"
+    placeholder="Un objectif par ligne. Ex. pouvoir aller au marché à pied ; reprendre progressivement le vélo ; marcher 10 minutes après le déjeuner 3 jours par semaine..."
+  ></textarea>
+
+  <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+    Un objectif par ligne. Objectifs intermédiaires possibles si utiles.
+  </div>
+
+</div>
 
 </div>
 
@@ -8397,7 +8469,6 @@ initMedicationApaPanel();
 initPhysicalTestsPanel();
 
 initAerobieMode();
-initObjectifAutre();
 initPrecautionsAucune();
 updateOrientationHelp();
 
@@ -12538,7 +12609,7 @@ const apaOrientationOptionsBlock =
   buildAPAOrientationOptionsBlock();
 
 const apaObjectivesBlock =
-  buildAPAObjectivesBlock();
+  buildAPAObjectivesBlock(model);
 
 const certificateBlock =
   apaNoContraindicationConfirmed
@@ -14895,33 +14966,6 @@ function initAerobieMode() {
   updateDisplay();
 }
 
-function initObjectifAutre() {
-
-  const checkbox =
-    document.getElementById("objectif_autre_checkbox");
-
-  const input =
-    document.getElementById("objectif_autre");
-
-  if (!checkbox || !input) return;
-
-  function updateDisplay() {
-
-    input.style.display =
-      checkbox.checked
-        ? "inline-block"
-        : "none";
-
-    if (!checkbox.checked) {
-      input.value = "";
-    }
-  }
-
-  checkbox.addEventListener("change", updateDisplay);
-
-  updateDisplay();
-}
-
 function initPrecautionsAucune() {
 
   const aucune =
@@ -16552,19 +16596,24 @@ objectifsSelectionnes.forEach(obj => {
 
 });
 
-const objectifAutre =
-  document.getElementById("objectif_autre");
+const objectifsPartagesTexte =
+  document.querySelector(
+    'textarea[name="objectifs_ap"]'
+  )?.value || "";
 
-if (
-  objectifAutre &&
-  objectifAutre.value.trim()
-) {
+const objectifsPartages =
+  objectifsPartagesTexte
+    .split(/\r?\n/)
+    .map(value => value.trim())
+    .filter(Boolean);
 
-  prescriptionModel.objectifs.push(
-    objectifAutre.value.trim()
-  );
+objectifsPartages.forEach(objectif => {
 
-}
+  if (!prescriptionModel.objectifs.includes(objectif)) {
+    prescriptionModel.objectifs.push(objectif);
+  }
+
+});
 
 const limitationsSelectionnees =
   document.querySelectorAll(
@@ -16891,6 +16940,11 @@ physicalTests,
           'input[name="augmentation_deja_engagee"]:checked'
         )?.value || null,
 
+      patient_goal:
+        document.getElementById(
+          "engagement_patient_goal"
+        )?.value?.trim() || null,
+
       activities_past:
         applyEngagementCompetitionToActivities(
           parseEngagementActivitiesText(
@@ -16913,10 +16967,15 @@ therapeutic_plan: {
   objectifs:
     prescriptionModel.objectifs,
 
-  objectif_principal:
+  objectifs_partages_texte:
     document.querySelector(
       'textarea[name="objectifs_ap"]'
-    )?.value || null,
+    )?.value?.trim() || null,
+
+  analyse_fonctionnelle_objectif:
+    document.getElementById(
+      "objectif_functional_analysis"
+    )?.value?.trim() || null,
 
   indicateur_cible_libre: null
 },
@@ -17744,14 +17803,22 @@ function buildAPAOrientationOptionsBlock() {
 `;
 }
 
-function buildAPAObjectivesBlock() {
+function buildAPAObjectivesBlock(model) {
 
   const objectifs =
-    document.querySelector('textarea[name="objectifs_ap"]')?.value?.trim() || "";
+    buildObjectivesBlock(model);
 
   if (!objectifs) {
     return "";
   }
+
+  const objectifsCount =
+    getObjectivesCount(model);
+
+  const label =
+    objectifsCount > 1
+      ? "Objectifs retenus avec le patient :"
+      : "Objectif retenu avec le patient :";
 
   return `
 <div style="
@@ -17763,7 +17830,7 @@ function buildAPAObjectivesBlock() {
   font-size: 0.92rem;
   line-height: 1.45;
 ">
-  <strong>Objectifs thérapeutiques principaux :</strong>
+  <strong>${label}</strong>
   ${objectifs}
 </div>
 `;
@@ -17946,6 +18013,32 @@ const motivationFields =
       !hasMotivationDetails
     );
   }
+
+  // =========================
+  // ANALYSE FONCTIONNELLE DE L'OBJECTIF
+  // =========================
+  const objectiveFunctionalInput =
+    document.getElementById(
+      "objectif_functional_analysis"
+    );
+
+  const objectiveFunctionalSummary =
+    document.getElementById(
+      "papQuickObjectiveFunctionalSummary"
+    );
+
+  if (objectiveFunctionalSummary) {
+
+    const hasObjectiveFunctionalAnalysis =
+      Boolean(
+        objectiveFunctionalInput?.value?.trim()
+      );
+
+    objectiveFunctionalSummary.classList.toggle(
+      "hidden",
+      !hasObjectiveFunctionalAnalysis
+    );
+  }
 }
 
 function initPapQuickOptionalBlocks() {
@@ -18047,6 +18140,45 @@ if (apToggle && apDetails.length) {
     });
   }
 
+  // =========================
+  // ANALYSE FONCTIONNELLE DE L'OBJECTIF
+  // =========================
+  const objectiveFunctionalToggle =
+    document.getElementById(
+      "papQuickObjectiveFunctionalToggle"
+    );
+
+  const objectiveFunctionalDetail =
+    document.getElementById(
+      "papQuickObjectiveFunctionalDetail"
+    );
+
+  if (
+    objectiveFunctionalToggle &&
+    objectiveFunctionalDetail
+  ) {
+    objectiveFunctionalToggle.addEventListener(
+      "click",
+      function() {
+
+        const isOpen =
+          objectiveFunctionalDetail.classList.toggle(
+            "pap-quick-optional-open"
+          );
+
+        objectiveFunctionalToggle.setAttribute(
+          "aria-expanded",
+          isOpen ? "true" : "false"
+        );
+
+        objectiveFunctionalToggle.textContent =
+          isOpen
+            ? "▾ Masquer"
+            : "▸ Compléter";
+      }
+    );
+  }
+
  // =========================
 // RÉSUMÉS FACTUELS
 // =========================
@@ -18085,6 +18217,34 @@ if (
   );
 
   motivationDetailForSummary.addEventListener(
+    "change",
+    updatePapQuickOptionalSummaries
+  );
+}
+
+
+// =========================
+// ANALYSE FONCTIONNELLE DE L'OBJECTIF
+// =========================
+const objectiveFunctionalInputForSummary =
+  document.getElementById(
+    "objectif_functional_analysis"
+  );
+
+if (
+  objectiveFunctionalInputForSummary &&
+  !objectiveFunctionalInputForSummary.dataset.papQuickSummaryBound
+) {
+
+  objectiveFunctionalInputForSummary.dataset.papQuickSummaryBound =
+    "true";
+
+  objectiveFunctionalInputForSummary.addEventListener(
+    "input",
+    updatePapQuickOptionalSummaries
+  );
+
+  objectiveFunctionalInputForSummary.addEventListener(
     "change",
     updatePapQuickOptionalSummaries
   );
@@ -18137,6 +18297,34 @@ function initPapConsultationModeToggle() {
 
     if (quickModeNotice) {
       quickModeNotice.classList.toggle("hidden", !isQuickMode);
+    }
+
+    const objectiveFunctionalDetail =
+      document.getElementById(
+        "papQuickObjectiveFunctionalDetail"
+      );
+
+    const objectiveFunctionalToggle =
+      document.getElementById(
+        "papQuickObjectiveFunctionalToggle"
+      );
+
+    if (
+      isQuickMode &&
+      objectiveFunctionalDetail &&
+      objectiveFunctionalToggle
+    ) {
+      objectiveFunctionalDetail.classList.remove(
+        "pap-quick-optional-open"
+      );
+
+      objectiveFunctionalToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      objectiveFunctionalToggle.textContent =
+        "▸ Compléter";
     }
   }
 
@@ -18860,10 +19048,16 @@ const objectifs =
   const mappingObjectifs = {
 
   augmenter_ap:
-    "augmenter le niveau global d’activité physique",
+    "commencer, reprendre ou augmenter l’activité physique",
+
+  maintenir_ap:
+    "maintenir le niveau d’activité physique",
 
   reduire_sedentarite:
     "réduire la sédentarité",
+
+  progresser_recommandations:
+    "progresser vers les repères d’activité physique HAS / OMS",
 
   controle_maladie:
     "améliorer le contrôle d’une maladie chronique",
