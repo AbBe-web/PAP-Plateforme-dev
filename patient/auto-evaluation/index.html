@@ -58,6 +58,46 @@ p + p {
   margin-top:25px;
 }
 
+/* ===== Autocomplétion activités physiques ===== */
+
+.patient-engagement-autocomplete-list {
+  width:100%;
+  max-width:100%;
+  margin:4px 0 8px 0;
+  padding:3px;
+  box-sizing:border-box;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  background:#fff;
+  max-height:190px;
+  overflow-y:auto;
+}
+
+.patient-engagement-autocomplete-list[hidden] {
+  display:none !important;
+}
+
+.patient-engagement-autocomplete-item {
+  display:block;
+  width:100%;
+  margin:0;
+  padding:9px 10px;
+  box-sizing:border-box;
+  border:0;
+  border-radius:6px;
+  background:transparent;
+  color:inherit;
+  text-align:left;
+  font:inherit;
+  line-height:1.25;
+  cursor:pointer;
+}
+
+.patient-engagement-autocomplete-item:hover,
+.patient-engagement-autocomplete-item.is-active {
+  background:#f3f4f6;
+}
+
 /* ===== Progress ===== */
 
 .progress {
@@ -1203,6 +1243,306 @@ function renderPatientEngagementCompetition(
   });
 }
 
+function initPatientEngagementActivityAutocomplete(
+  input,
+  period
+) {
+
+  if (
+    !input ||
+    !period ||
+    typeof getEngagementActivitySuggestions !== "function"
+  ) {
+    return;
+  }
+
+  const container =
+    document.createElement("div");
+
+  container.className =
+    "patient-engagement-autocomplete-list";
+
+  container.hidden = true;
+
+  input.insertAdjacentElement(
+    "afterend",
+    container
+  );
+
+  let suggestions = [];
+  let activeIndex = -1;
+
+
+  function getCurrentFragment() {
+
+    const value = input.value || "";
+
+    const cursor =
+      typeof input.selectionStart === "number"
+        ? input.selectionStart
+        : value.length;
+
+    const beforeCursor =
+      value.slice(0, cursor);
+
+    const separatorIndex =
+      Math.max(
+        beforeCursor.lastIndexOf(","),
+        beforeCursor.lastIndexOf(";")
+      );
+
+    return beforeCursor
+      .slice(separatorIndex + 1)
+      .trim();
+  }
+
+
+  function closeSuggestions() {
+
+    suggestions = [];
+    activeIndex = -1;
+
+    container.innerHTML = "";
+    container.hidden = true;
+  }
+
+
+  function replaceCurrentFragment(label) {
+
+    const value = input.value || "";
+
+    const cursor =
+      typeof input.selectionStart === "number"
+        ? input.selectionStart
+        : value.length;
+
+    const beforeCursor =
+      value.slice(0, cursor);
+
+    const afterCursor =
+      value.slice(cursor);
+
+    const separatorIndex =
+      Math.max(
+        beforeCursor.lastIndexOf(","),
+        beforeCursor.lastIndexOf(";")
+      );
+
+    const prefix =
+      separatorIndex >= 0
+        ? beforeCursor.slice(
+            0,
+            separatorIndex + 1
+          ) + " "
+        : "";
+
+    input.value =
+      prefix +
+      label +
+      afterCursor;
+
+    const newCursorPosition =
+      (prefix + label).length;
+
+    input.focus();
+
+    input.setSelectionRange(
+      newCursorPosition,
+      newCursorPosition
+    );
+
+    updatePatientEngagementActivities(
+      period,
+      input.value
+    );
+
+    closeSuggestions();
+  }
+
+
+  function updateActiveSuggestion() {
+
+    const items =
+      container.querySelectorAll(
+        ".patient-engagement-autocomplete-item"
+      );
+
+    items.forEach((item, index) => {
+
+      const isActive =
+        index === activeIndex;
+
+      item.classList.toggle(
+        "is-active",
+        isActive
+      );
+
+      item.setAttribute(
+        "aria-selected",
+        isActive ? "true" : "false"
+      );
+    });
+  }
+
+
+  function renderSuggestions() {
+
+    const fragment =
+      getCurrentFragment();
+
+    if (fragment.length < 2) {
+      closeSuggestions();
+      return;
+    }
+
+    suggestions =
+      getEngagementActivitySuggestions(
+        fragment,
+        8
+      );
+
+    activeIndex = -1;
+
+    container.innerHTML = "";
+
+    if (!suggestions.length) {
+      container.hidden = true;
+      return;
+    }
+
+    suggestions.forEach(
+      suggestion => {
+
+        const button =
+          document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+          "patient-engagement-autocomplete-item";
+
+        button.textContent =
+          suggestion.label;
+
+        button.setAttribute(
+          "role",
+          "option"
+        );
+
+        button.setAttribute(
+          "aria-selected",
+          "false"
+        );
+
+        button.addEventListener(
+          "mousedown",
+          function(event) {
+            event.preventDefault();
+          }
+        );
+
+        button.addEventListener(
+          "click",
+          function() {
+            replaceCurrentFragment(
+              suggestion.label
+            );
+          }
+        );
+
+        container.appendChild(button);
+      }
+    );
+
+    container.hidden = false;
+  }
+
+
+  input.setAttribute(
+    "autocomplete",
+    "off"
+  );
+
+  input.addEventListener(
+    "input",
+    renderSuggestions
+  );
+
+  input.addEventListener(
+    "focus",
+    renderSuggestions
+  );
+
+  input.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        container.hidden ||
+        !suggestions.length
+      ) {
+        return;
+      }
+
+      if (event.key === "ArrowDown") {
+
+        event.preventDefault();
+
+        activeIndex =
+          activeIndex < suggestions.length - 1
+            ? activeIndex + 1
+            : 0;
+
+        updateActiveSuggestion();
+        return;
+      }
+
+      if (event.key === "ArrowUp") {
+
+        event.preventDefault();
+
+        activeIndex =
+          activeIndex > 0
+            ? activeIndex - 1
+            : suggestions.length - 1;
+
+        updateActiveSuggestion();
+        return;
+      }
+
+      if (
+        event.key === "Enter" &&
+        activeIndex >= 0
+      ) {
+
+        event.preventDefault();
+
+        replaceCurrentFragment(
+          suggestions[activeIndex].label
+        );
+
+        return;
+      }
+
+      if (event.key === "Escape") {
+
+        event.preventDefault();
+        closeSuggestions();
+      }
+    }
+  );
+
+  input.addEventListener(
+    "blur",
+    function() {
+
+      window.setTimeout(
+        closeSuggestions,
+        150
+      );
+    }
+  );
+}
 
 function engagementActivities() {
 
@@ -1288,6 +1628,20 @@ function engagementActivities() {
   );
 
   renderPatientEngagementCompetition(
+    "current"
+  );
+
+  initPatientEngagementActivityAutocomplete(
+    document.getElementById(
+      "patient_activities_past"
+    ),
+    "past"
+  );
+
+  initPatientEngagementActivityAutocomplete(
+    document.getElementById(
+      "patient_activities_current"
+    ),
     "current"
   );
 }
