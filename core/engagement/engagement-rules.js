@@ -936,6 +936,105 @@ function shouldAskEngagementCompetition(activityId) {
   return activityDefinition?.competition_question === true;
 }
 
+
+/*
+ * Retourne des suggestions déterministes à partir
+ * d'un fragment de saisie.
+ *
+ * Règles :
+ * - comparaison sur label canonique + aliases ;
+ * - correspondance uniquement en début de terme ;
+ * - aucune correction floue ;
+ * - une seule suggestion par activité ;
+ * - labels canoniques retournés ;
+ * - ordre déterministe :
+ *   1. label canonique commençant par le fragment ;
+ *   2. correspondance via alias ;
+ *   3. ordre alphabétique du label.
+ */
+function getEngagementActivitySuggestions(
+  fragment,
+  limit = 8
+) {
+
+  const normalizedFragment =
+    normalizeEngagementActivityLabel(fragment);
+
+  if (!normalizedFragment) {
+    return [];
+  }
+
+  const suggestions = [];
+
+  Object.entries(
+    ENGAGEMENT_SPORT_REGISTRY
+  ).forEach(([activityId, activityDefinition]) => {
+
+    const label =
+      typeof activityDefinition?.label === "string"
+        ? activityDefinition.label
+        : "";
+
+    const aliases =
+      Array.isArray(activityDefinition?.aliases)
+        ? activityDefinition.aliases
+        : [];
+
+    const normalizedLabel =
+      normalizeEngagementActivityLabel(label);
+
+    const normalizedAliases =
+      aliases.map(normalizeEngagementActivityLabel);
+
+    const labelMatches =
+      normalizedLabel.startsWith(normalizedFragment);
+
+    const aliasMatches =
+      normalizedAliases.some(alias =>
+        alias.startsWith(normalizedFragment)
+      );
+
+    if (!labelMatches && !aliasMatches) {
+      return;
+    }
+
+    suggestions.push({
+      id: activityId,
+      label,
+      activity_type:
+        activityDefinition?.activity_type || null,
+      competition_question:
+        activityDefinition?.competition_question === true,
+      match_priority:
+        labelMatches ? 0 : 1
+    });
+  });
+
+  suggestions.sort((a, b) => {
+
+    if (a.match_priority !== b.match_priority) {
+      return a.match_priority - b.match_priority;
+    }
+
+    return a.label.localeCompare(
+      b.label,
+      "fr",
+      { sensitivity: "base" }
+    );
+  });
+
+  const safeLimit =
+    Number.isInteger(limit) && limit > 0
+      ? limit
+      : 8;
+
+  return suggestions
+    .slice(0, safeLimit)
+    .map(({ match_priority, ...suggestion }) =>
+      suggestion
+    );
+}
+
 /*
  * Dérive le stade motivationnel TTM à partir
  * de déterminants explicites.
@@ -1053,6 +1152,9 @@ window.getEngagementActivityType =
 
 window.shouldAskEngagementCompetition =
   shouldAskEngagementCompetition;
+
+window.getEngagementActivitySuggestions =
+  getEngagementActivitySuggestions;
 
 window.computeStageOfChange =
   computeStageOfChange;

@@ -2470,6 +2470,44 @@ body.pap-quick-mode .pap-quick-prescription {
   vertical-align: middle;
 }
 
+/* Autocomplétion déterministe des activités — Engagement */
+.pap-engagement-autocomplete-list {
+  flex: 1 0 100%;
+  max-width: 360px;
+  margin: 0 0 0 0;
+  padding: 3px;
+  box-sizing: border-box;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  max-height: 190px;
+  overflow-y: auto;
+}
+
+.pap-engagement-autocomplete-list[hidden] {
+  display: none !important;
+}
+
+.pap-engagement-autocomplete-item {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.pap-engagement-autocomplete-item:hover,
+.pap-engagement-autocomplete-item.is-active {
+  background: #f3f4f6;
+}
+
 /* Mode rapide : masquer les champs AP complémentaires même s’ils sont remplis */
 body.pap-quick-mode .form-group label.pap-quick-hide,
 body.pap-quick-mode .pap-ap-sedentarite-block label.pap-quick-hide,

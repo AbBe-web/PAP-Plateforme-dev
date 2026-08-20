@@ -695,6 +695,76 @@ assert.strictEqual(
   "danse"
 );
 
+/*
+ * Autocomplétion déterministe
+ */
+
+assert.deepStrictEqual(
+  getEngagementActivitySuggestions("cou")
+    .map(item => item.id),
+  [
+    "course_a_pied",
+    "course_orientation"
+  ]
+);
+
+assert.deepStrictEqual(
+  getEngagementActivitySuggestions("gym")
+    .map(item => item.id),
+  [
+    "gymnastique",
+    "gymnastique_volontaire",
+    "aquagym"
+  ]
+);
+
+assert.deepStrictEqual(
+  getEngagementActivitySuggestions("ski")
+    .map(item => item.id),
+  [
+    "ski_alpin",
+    "ski_fond",
+    "ski_randonnee"
+  ]
+);
+
+assert.deepStrictEqual(
+  getEngagementActivitySuggestions("vé")
+    .map(item => item.id),
+  [
+    "velo_loisir",
+    "vtt"
+  ]
+);
+
+assert.deepStrictEqual(
+  getEngagementActivitySuggestions("foot")
+    .map(item => item.id),
+  [
+    "football",
+    "futsal"
+  ]
+);
+
+assert.strictEqual(
+  getEngagementActivitySuggestions("fotbal").length,
+  0
+);
+
+assert.strictEqual(
+  getEngagementActivitySuggestions("").length,
+  0
+);
+
+assert.strictEqual(
+  getEngagementActivitySuggestions("   ").length,
+  0
+);
+
+assert.strictEqual(
+  getEngagementActivitySuggestions("s", 3).length,
+  3
+);
 
 /*
  * Normalisation

@@ -16117,6 +16117,304 @@ function renderEngagementCompetitionForPeriod({
   });
 }
 
+function initEngagementActivityAutocomplete(input) {
+
+  if (
+    !input ||
+    typeof getEngagementActivitySuggestions !== "function"
+  ) {
+    return;
+  }
+
+  const container =
+    document.createElement("div");
+
+  container.className =
+    "pap-engagement-autocomplete-list";
+
+  container.hidden = true;
+
+  input.insertAdjacentElement(
+    "afterend",
+    container
+  );
+
+  let suggestions = [];
+  let activeIndex = -1;
+
+
+  function getCurrentFragment() {
+
+    const value = input.value || "";
+
+    const cursor =
+      typeof input.selectionStart === "number"
+        ? input.selectionStart
+        : value.length;
+
+    const beforeCursor =
+      value.slice(0, cursor);
+
+    const separatorIndex =
+      Math.max(
+        beforeCursor.lastIndexOf(","),
+        beforeCursor.lastIndexOf(";")
+      );
+
+    return beforeCursor
+      .slice(separatorIndex + 1)
+      .trim();
+  }
+
+
+  function closeSuggestions() {
+
+    suggestions = [];
+    activeIndex = -1;
+
+    container.innerHTML = "";
+    container.hidden = true;
+  }
+
+
+  function replaceCurrentFragment(label) {
+
+    const value = input.value || "";
+
+    const cursor =
+      typeof input.selectionStart === "number"
+        ? input.selectionStart
+        : value.length;
+
+    const beforeCursor =
+      value.slice(0, cursor);
+
+    const afterCursor =
+      value.slice(cursor);
+
+    const separatorIndex =
+      Math.max(
+        beforeCursor.lastIndexOf(","),
+        beforeCursor.lastIndexOf(";")
+      );
+
+    const prefix =
+      separatorIndex >= 0
+        ? beforeCursor.slice(
+            0,
+            separatorIndex + 1
+          ) + " "
+        : "";
+
+    input.value =
+      prefix +
+      label +
+      afterCursor;
+
+    const newCursorPosition =
+      (prefix + label).length;
+
+    input.focus();
+
+    input.setSelectionRange(
+      newCursorPosition,
+      newCursorPosition
+    );
+
+    input.dispatchEvent(
+      new Event(
+        "input",
+        { bubbles: true }
+      )
+    );
+
+    closeSuggestions();
+  }
+
+
+  function updateActiveSuggestion() {
+
+    const items =
+      container.querySelectorAll(
+        ".pap-engagement-autocomplete-item"
+      );
+
+    items.forEach((item, index) => {
+
+      const isActive =
+        index === activeIndex;
+
+      item.classList.toggle(
+        "is-active",
+        isActive
+      );
+
+      item.setAttribute(
+        "aria-selected",
+        isActive ? "true" : "false"
+      );
+    });
+  }
+
+
+  function renderSuggestions() {
+
+    const fragment =
+      getCurrentFragment();
+
+    if (fragment.length < 2) {
+      closeSuggestions();
+      return;
+    }
+
+    suggestions =
+      getEngagementActivitySuggestions(
+        fragment,
+        8
+      );
+
+    activeIndex = -1;
+
+    container.innerHTML = "";
+
+    if (!suggestions.length) {
+      container.hidden = true;
+      return;
+    }
+
+    suggestions.forEach(
+      (suggestion, index) => {
+
+        const button =
+          document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+          "pap-engagement-autocomplete-item";
+
+        button.textContent =
+          suggestion.label;
+
+        button.setAttribute(
+          "role",
+          "option"
+        );
+
+        button.setAttribute(
+          "aria-selected",
+          "false"
+        );
+
+        button.addEventListener(
+          "mousedown",
+          function(event) {
+            event.preventDefault();
+          }
+        );
+
+        button.addEventListener(
+          "click",
+          function() {
+            replaceCurrentFragment(
+              suggestion.label
+            );
+          }
+        );
+
+        container.appendChild(button);
+      }
+    );
+
+    container.hidden = false;
+  }
+
+
+  input.setAttribute(
+    "autocomplete",
+    "off"
+  );
+
+  input.addEventListener(
+    "input",
+    renderSuggestions
+  );
+
+  input.addEventListener(
+    "focus",
+    renderSuggestions
+  );
+
+  input.addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        container.hidden ||
+        !suggestions.length
+      ) {
+        return;
+      }
+
+      if (event.key === "ArrowDown") {
+
+        event.preventDefault();
+
+        activeIndex =
+          activeIndex < suggestions.length - 1
+            ? activeIndex + 1
+            : 0;
+
+        updateActiveSuggestion();
+        return;
+      }
+
+      if (event.key === "ArrowUp") {
+
+        event.preventDefault();
+
+        activeIndex =
+          activeIndex > 0
+            ? activeIndex - 1
+            : suggestions.length - 1;
+
+        updateActiveSuggestion();
+        return;
+      }
+
+      if (
+        event.key === "Enter" &&
+        activeIndex >= 0
+      ) {
+
+        event.preventDefault();
+
+        replaceCurrentFragment(
+          suggestions[activeIndex].label
+        );
+
+        return;
+      }
+
+      if (event.key === "Escape") {
+
+        event.preventDefault();
+        closeSuggestions();
+      }
+    }
+  );
+
+  input.addEventListener(
+    "blur",
+    function() {
+
+      window.setTimeout(
+        closeSuggestions,
+        150
+      );
+    }
+  );
+}
 
 function initEngagementSportCompetition() {
 
@@ -16148,16 +16446,26 @@ function initEngagementSportCompetition() {
 
 
   if (pastInput) {
+
     pastInput.addEventListener(
       "input",
       updatePast
     );
+
+    initEngagementActivityAutocomplete(
+      pastInput
+    );
   }
 
   if (currentInput) {
+
     currentInput.addEventListener(
       "input",
       updateCurrent
+    );
+
+    initEngagementActivityAutocomplete(
+      currentInput
     );
   }
 
