@@ -361,8 +361,18 @@ assert.strictEqual(
 );
 
 assert.strictEqual(
+  detectEngagementActivity("v\u00e9lo"),
+  "velo_loisir"
+);
+
+assert.strictEqual(
   detectEngagementSport("v\u00e9lo"),
-  "cyclisme"
+  null
+);
+
+assert.strictEqual(
+  getEngagementActivityType("velo_loisir"),
+  "physical_activity"
 );
 
 assert.strictEqual(
@@ -416,7 +426,94 @@ assert.strictEqual(
 );
 
 
-/* Activites non reconnues comme sport */
+/*
+ * Nouvelles activités reconnues comme sport
+ */
+
+assert.strictEqual(
+  detectEngagementActivity("tennis de table"),
+  "tennis_table"
+);
+
+assert.strictEqual(
+  detectEngagementSport("tennis de table"),
+  "tennis_table"
+);
+
+assert.strictEqual(
+  getEngagementActivityType("tennis_table"),
+  "sport"
+);
+
+assert.strictEqual(
+  detectEngagementActivity("VTT"),
+  "vtt"
+);
+
+assert.strictEqual(
+  detectEngagementSport("VTT"),
+  "vtt"
+);
+
+assert.strictEqual(
+  detectEngagementActivity("course d'orientation"),
+  "course_orientation"
+);
+
+assert.strictEqual(
+  detectEngagementSport("pétanque"),
+  "petanque"
+);
+
+
+/*
+ * Question compétition
+ */
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("football"),
+  true
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("natation"),
+  true
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("course_a_pied"),
+  true
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("vtt"),
+  true
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("tennis_table"),
+  true
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("sport_inconnu"),
+  false
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition(null),
+  false
+);
+
+
+/*
+ * Activités physiques reconnues sans qualification de sport
+ */
+
+assert.strictEqual(
+  detectEngagementActivity("marche"),
+  "marche"
+);
 
 assert.strictEqual(
   detectEngagementSport("marche"),
@@ -424,18 +521,178 @@ assert.strictEqual(
 );
 
 assert.strictEqual(
-  detectEngagementSport("randonn\u00e9e"),
+  getEngagementActivityType("marche"),
+  "physical_activity"
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("marche"),
+  false
+);
+
+assert.strictEqual(
+  detectEngagementActivity("randonnée"),
+  "randonnee_pedestre"
+);
+
+assert.strictEqual(
+  detectEngagementSport("randonnée"),
+  null
+);
+
+assert.strictEqual(
+  getEngagementActivityType("randonnee_pedestre"),
+  "physical_activity"
+);
+
+assert.strictEqual(
+  detectEngagementActivity("yoga"),
+  "yoga"
+);
+
+assert.strictEqual(
+  detectEngagementSport("yoga"),
+  null
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("yoga"),
+  false
+);
+
+assert.strictEqual(
+  detectEngagementActivity("pilates"),
+  "pilates"
+);
+
+assert.strictEqual(
+  detectEngagementSport("pilates"),
+  null
+);
+
+assert.strictEqual(
+  detectEngagementActivity("aquagym"),
+  "aquagym"
+);
+
+assert.strictEqual(
+  detectEngagementSport("aquagym"),
   null
 );
 
 
 /*
  * Garde-fou :
- * aucune detection par simple sous-chaine.
+ * aucune détection automatique par simple sous-chaîne.
  */
+
 assert.strictEqual(
-  detectEngagementSport("tennis de table"),
+  detectEngagementActivity("tennis de table loisir"),
   null
+);
+
+assert.strictEqual(
+  detectEngagementSport("tennis de table loisir"),
+  null
+);
+
+/*
+ * Catalogue élargi
+ */
+
+assert.strictEqual(
+  detectEngagementActivity("équitation"),
+  "equitation"
+);
+
+assert.strictEqual(
+  detectEngagementSport("futsal"),
+  "futsal"
+);
+
+assert.strictEqual(
+  detectEngagementSport("ski de fond"),
+  "ski_fond"
+);
+
+assert.strictEqual(
+  detectEngagementSport("plongée"),
+  "plongee"
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("plongee"),
+  false
+);
+
+assert.strictEqual(
+  detectEngagementActivity("vélo"),
+  "velo_loisir"
+);
+
+assert.strictEqual(
+  detectEngagementSport("vélo"),
+  null
+);
+
+assert.strictEqual(
+  getEngagementActivityType("velo_loisir"),
+  "physical_activity"
+);
+
+assert.strictEqual(
+  detectEngagementActivity("cyclisme"),
+  "cyclisme"
+);
+
+assert.strictEqual(
+  detectEngagementSport("cyclisme"),
+  "cyclisme"
+);
+
+assert.strictEqual(
+  detectEngagementActivity("musculation"),
+  "musculation"
+);
+
+assert.strictEqual(
+  getEngagementActivityType("musculation"),
+  "physical_activity"
+);
+
+assert.strictEqual(
+  shouldAskEngagementCompetition("musculation"),
+  false
+);
+
+assert.strictEqual(
+  detectEngagementActivity("gymnastique"),
+  "gymnastique"
+);
+
+assert.strictEqual(
+  detectEngagementSport("gymnastique"),
+  "gymnastique"
+);
+
+assert.strictEqual(
+  detectEngagementActivity("gym volontaire"),
+  "gymnastique_volontaire"
+);
+
+assert.strictEqual(
+  detectEngagementSport("gym volontaire"),
+  null
+);
+
+assert.strictEqual(
+  detectEngagementActivity("tai chi"),
+  "tai_chi_qi_gong"
+);
+
+assert.strictEqual(
+  detectEngagementActivity("danse"),
+  "danse"
 );
 
 

@@ -969,18 +969,26 @@ function parsePatientEngagementActivitiesText(
     .filter(Boolean)
     .map(label => {
 
-      const sportId =
-        typeof detectEngagementSport === "function"
-          ? detectEngagementSport(label)
+      const activityId =
+        typeof detectEngagementActivity === "function"
+          ? detectEngagementActivity(label)
+          : null;
+
+      const activityType =
+        activityId &&
+        typeof getEngagementActivityType === "function"
+          ? getEngagementActivityType(activityId)
           : null;
 
       return {
         label,
-        type: sportId ? "sport" : null,
-        sport_id: sportId,
+        type: activityType,
+        sport_id: activityId,
         competition:
-          sportId
-            ? previousCompetitionBySport[sportId] || null
+          activityId &&
+          typeof shouldAskEngagementCompetition === "function" &&
+          shouldAskEngagementCompetition(activityId)
+            ? previousCompetitionBySport[activityId] || null
             : null
       };
     });
@@ -1078,6 +1086,8 @@ function renderPatientEngagementCompetition(
     if (
       activity.type !== "sport" ||
       !activity.sport_id ||
+      typeof shouldAskEngagementCompetition !== "function" ||
+      !shouldAskEngagementCompetition(activity.sport_id) ||
       seenSportIds.has(activity.sport_id)
     ) {
       return;
