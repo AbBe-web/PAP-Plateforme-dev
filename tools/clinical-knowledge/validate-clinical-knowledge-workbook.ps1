@@ -20,6 +20,8 @@ $expectedSheets = @(
   "README",
   "KnowledgeItems",
   "ClinicalUses",
+  "FunctionalUseDefinitions",
+  "FunctionalUses",
   "Contexts",
   "LegacyOrigins",
   "EvidenceRefs",
@@ -49,6 +51,22 @@ $requiredHeaders = @{
     "knowledgeItemId",
     "function",
     "category"
+  )
+
+  "FunctionalUseDefinitions" = @(
+    "domainId",
+    "domainLabel",
+    "roleId",
+    "roleLabel",
+    "definition",
+    "allowsFacets"
+  )
+
+  "FunctionalUses" = @(
+    "knowledgeItemId",
+    "domainId",
+    "roleId",
+    "facets"
   )
 
   "Contexts" = @(
@@ -925,6 +943,626 @@ try {
       )
     }
   }
+
+
+  # ==========================================================
+  # FUNCTIONAL USES V2
+  # ==========================================================
+  #
+  # Source humaine canonique :
+  # - FunctionalUseDefinitions = Domain / Role / allowsFacets
+  # - Lists.functionalFacets = vocabulaire des Facets
+  # - FunctionalUses = liens KnowledgeItem -> Domain / Role / Facets
+  #
+  # Règles :
+  # - aucune décision clinique n'est produite ici ;
+  # - 0 FunctionalUse est valide pour un KnowledgeItem actif ;
+  # - ClinicalUses legacy reste validé séparément pendant la migration.
+  # ==========================================================
+
+  $functionalUseDefinitionsSheet =
+    $workbook.Worksheets.Item(
+      "FunctionalUseDefinitions"
+    )
+
+  $functionalUseDefinitionsHeaders =
+    $headerMaps[
+      "FunctionalUseDefinitions"
+    ]
+
+  $functionalUseDefinitionKeys =
+    New-Object `
+      System.Collections.Generic.HashSet[string]
+
+  $functionalUseAllowsFacetsByKey = @{}
+  $functionalDomainLabelById = @{}
+
+  $functionalUseDefinitionCount = 0
+
+
+  for (
+    $row = 2;
+    $row -le
+      $functionalUseDefinitionsSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $domainId =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "domainId"
+
+    $domainLabel =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "domainLabel"
+
+    $roleId =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "roleId"
+
+    $roleLabel =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "roleLabel"
+
+    $definition =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "definition"
+
+    $allowsFacetsRaw =
+      Get-FieldRaw `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "allowsFacets"
+
+    $allowsFacetsText =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "allowsFacets"
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $domainId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $domainLabel
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $roleId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $roleLabel
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $definition
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $allowsFacetsText
+      )
+    ) {
+      continue
+    }
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $domainId
+      )
+    ) {
+      $errors.Add(
+        "FunctionalUseDefinitions ligne $row : " +
+        "domainId obligatoire."
+      )
+    }
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $domainLabel
+      )
+    ) {
+      $errors.Add(
+        "FunctionalUseDefinitions ligne $row : " +
+        "domainLabel obligatoire."
+      )
+    }
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $roleId
+      )
+    ) {
+      $errors.Add(
+        "FunctionalUseDefinitions ligne $row : " +
+        "roleId obligatoire."
+      )
+    }
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $roleLabel
+      )
+    ) {
+      $errors.Add(
+        "FunctionalUseDefinitions ligne $row : " +
+        "roleLabel obligatoire."
+      )
+    }
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $definition
+      )
+    ) {
+      $errors.Add(
+        "FunctionalUseDefinitions ligne $row : " +
+        "definition obligatoire."
+      )
+    }
+
+
+    if (
+      -not [string]::IsNullOrWhiteSpace(
+        $domainId
+      ) -and
+      -not [string]::IsNullOrWhiteSpace(
+        $domainLabel
+      )
+    ) {
+
+      if (
+        $functionalDomainLabelById.ContainsKey(
+          $domainId
+        ) -and
+        $functionalDomainLabelById[
+          $domainId
+        ] -ne
+        $domainLabel
+      ) {
+
+        $errors.Add(
+          "FunctionalUseDefinitions ligne $row : " +
+          "domainLabel incohérent pour domainId " +
+          "'$domainId'."
+        )
+      }
+      else {
+        $functionalDomainLabelById[
+          $domainId
+        ] =
+          $domainLabel
+      }
+    }
+
+
+    $definitionKey = ""
+
+    if (
+      -not [string]::IsNullOrWhiteSpace(
+        $domainId
+      ) -and
+      -not [string]::IsNullOrWhiteSpace(
+        $roleId
+      )
+    ) {
+
+      $definitionKey =
+        "$domainId::$roleId"
+
+      if (
+        -not $functionalUseDefinitionKeys.Add(
+          $definitionKey
+        )
+      ) {
+
+        $errors.Add(
+          "FunctionalUseDefinitions ligne $row : " +
+          "couple Domain/Role dupliqué " +
+          "'$definitionKey'."
+        )
+      }
+    }
+
+
+    if (
+      -not (
+        $allowsFacetsRaw -is [bool]
+      )
+    ) {
+
+      $errors.Add(
+        "FunctionalUseDefinitions ligne $row : " +
+        "allowsFacets doit être un booléen Excel natif."
+      )
+    }
+    elseif (
+      -not [string]::IsNullOrWhiteSpace(
+        $definitionKey
+      )
+    ) {
+
+      $functionalUseAllowsFacetsByKey[
+        $definitionKey
+      ] =
+        [bool]$allowsFacetsRaw
+    }
+
+
+    $functionalUseDefinitionCount++
+  }
+
+
+  if (
+    $functionalUseDefinitionCount -eq 0
+  ) {
+
+    $errors.Add(
+      "FunctionalUseDefinitions : " +
+      "au moins une définition Domain/Role est requise."
+    )
+  }
+
+
+  # ----------------------------------------------------------
+  # VOCABULAIRE DES FACETS
+  # ----------------------------------------------------------
+
+  $listsSheet =
+    $workbook.Worksheets.Item(
+      "Lists"
+    )
+
+  $listsHeaders =
+    Get-HeaderMap `
+      -Worksheet $listsSheet
+
+  $allowedFunctionalFacets =
+    New-Object `
+      System.Collections.Generic.HashSet[string]
+
+
+  if (
+    -not $listsHeaders.ContainsKey(
+      "functionalFacets"
+    )
+  ) {
+
+    $errors.Add(
+      "Colonne obligatoire absente dans 'Lists' : " +
+      "functionalFacets"
+    )
+  }
+  else {
+
+    for (
+      $row = 2;
+      $row -le
+        $listsSheet.UsedRange.Rows.Count;
+      $row++
+    ) {
+
+      $facet =
+        Get-FieldText `
+          -Worksheet $listsSheet `
+          -Headers $listsHeaders `
+          -Row $row `
+          -Name "functionalFacets"
+
+      if (
+        [string]::IsNullOrWhiteSpace(
+          $facet
+        )
+      ) {
+        continue
+      }
+
+
+      if (
+        -not $allowedFunctionalFacets.Add(
+          $facet
+        )
+      ) {
+
+        $errors.Add(
+          "Lists.functionalFacets ligne $row : " +
+          "Facet dupliquée '$facet'."
+        )
+      }
+    }
+  }
+
+
+  if (
+    $allowedFunctionalFacets.Count -eq 0
+  ) {
+
+    $errors.Add(
+      "Lists.functionalFacets : " +
+      "au moins une Facet est requise."
+    )
+  }
+
+
+  # ----------------------------------------------------------
+  # FUNCTIONAL USES
+  # ----------------------------------------------------------
+
+  $functionalUsesSheet =
+    $workbook.Worksheets.Item(
+      "FunctionalUses"
+    )
+
+  $functionalUsesHeaders =
+    $headerMaps[
+      "FunctionalUses"
+    ]
+
+  $functionalUseKeys =
+    New-Object `
+      System.Collections.Generic.HashSet[string]
+
+  $knowledgeItemsWithFunctionalUse =
+    New-Object `
+      System.Collections.Generic.HashSet[string]
+
+  $functionalUseCount = 0
+
+
+  for (
+    $row = 2;
+    $row -le
+      $functionalUsesSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $knowledgeItemId =
+      Get-FieldText `
+        -Worksheet $functionalUsesSheet `
+        -Headers $functionalUsesHeaders `
+        -Row $row `
+        -Name "knowledgeItemId"
+
+    $domainId =
+      Get-FieldText `
+        -Worksheet $functionalUsesSheet `
+        -Headers $functionalUsesHeaders `
+        -Row $row `
+        -Name "domainId"
+
+    $roleId =
+      Get-FieldText `
+        -Worksheet $functionalUsesSheet `
+        -Headers $functionalUsesHeaders `
+        -Row $row `
+        -Name "roleId"
+
+    $facetsText =
+      Get-FieldText `
+        -Worksheet $functionalUsesSheet `
+        -Headers $functionalUsesHeaders `
+        -Row $row `
+        -Name "facets"
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $domainId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $roleId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $facetsText
+      )
+    ) {
+      continue
+    }
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      )
+    ) {
+
+      $errors.Add(
+        "FunctionalUses ligne $row : " +
+        "knowledgeItemId obligatoire."
+      )
+
+      continue
+    }
+
+
+    Test-KnowledgeItemReference `
+      -SheetName "FunctionalUses" `
+      -Row $row `
+      -KnowledgeItemId $knowledgeItemId
+
+
+    if (
+      $knowledgeItemStatusById.ContainsKey(
+        $knowledgeItemId
+      ) -and
+      $knowledgeItemStatusById[
+        $knowledgeItemId
+      ] -ne
+      "active"
+    ) {
+
+      $errors.Add(
+        "FunctionalUses ligne $row : " +
+        "seul un KnowledgeItem actif peut recevoir " +
+        "un FunctionalUse ('$knowledgeItemId')."
+      )
+    }
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $domainId
+      )
+    ) {
+
+      $errors.Add(
+        "FunctionalUses ligne $row : " +
+        "domainId obligatoire."
+      )
+    }
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $roleId
+      )
+    ) {
+
+      $errors.Add(
+        "FunctionalUses ligne $row : " +
+        "roleId obligatoire."
+      )
+    }
+
+
+    $definitionKey = ""
+
+    if (
+      -not [string]::IsNullOrWhiteSpace(
+        $domainId
+      ) -and
+      -not [string]::IsNullOrWhiteSpace(
+        $roleId
+      )
+    ) {
+
+      $definitionKey =
+        "$domainId::$roleId"
+
+      if (
+        -not $functionalUseDefinitionKeys.Contains(
+          $definitionKey
+        )
+      ) {
+
+        $errors.Add(
+          "FunctionalUses ligne $row : " +
+          "couple Domain/Role inconnu " +
+          "'$definitionKey'."
+        )
+      }
+
+
+      $functionalUseKey =
+        "$knowledgeItemId::$definitionKey"
+
+      if (
+        -not $functionalUseKeys.Add(
+          $functionalUseKey
+        )
+      ) {
+
+        $errors.Add(
+          "FunctionalUses ligne $row : " +
+          "FunctionalUse dupliqué " +
+          "'$functionalUseKey'."
+        )
+      }
+    }
+
+
+    $facets =
+      Split-MultipleValues `
+        $facetsText
+
+    $facetsSeen =
+      New-Object `
+        System.Collections.Generic.HashSet[string]
+
+
+    foreach (
+      $facet in
+      $facets
+    ) {
+
+      if (
+        -not $facetsSeen.Add(
+          $facet
+        )
+      ) {
+
+        $errors.Add(
+          "FunctionalUses ligne $row : " +
+          "Facet dupliquée dans la ligne " +
+          "'$facet'."
+        )
+      }
+
+
+      if (
+        -not $allowedFunctionalFacets.Contains(
+          $facet
+        )
+      ) {
+
+        $errors.Add(
+          "FunctionalUses ligne $row : " +
+          "Facet inconnue '$facet'."
+        )
+      }
+    }
+
+
+    if (
+      $facets.Count -gt 0 -and
+      -not [string]::IsNullOrWhiteSpace(
+        $definitionKey
+      ) -and
+      $functionalUseAllowsFacetsByKey.ContainsKey(
+        $definitionKey
+      ) -and
+      -not $functionalUseAllowsFacetsByKey[
+        $definitionKey
+      ]
+    ) {
+
+      $errors.Add(
+        "FunctionalUses ligne $row : " +
+        "le couple '$definitionKey' " +
+        "n'autorise pas de Facet."
+      )
+    }
+
+
+    [void]$knowledgeItemsWithFunctionalUse.Add(
+      $knowledgeItemId
+    )
+
+    $functionalUseCount++
+  }
+
+
+  # IMPORTANT :
+  # aucun contrôle "au moins 1 FunctionalUse par KnowledgeItem".
+  # Les KnowledgeItems actifs à 0 FunctionalUse sont valides par contrat V2.
 
 
   # ==========================================================

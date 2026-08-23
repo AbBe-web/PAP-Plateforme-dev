@@ -15,6 +15,9 @@ function loadScript(path) {
 }
 
 loadScript(
+    "./data/clinical-knowledge/generated/functional-use-definitions.generated.js"
+);
+loadScript(
     "./core/clinical-context/clinical-knowledge-schema.js"
 );
 loadScript(

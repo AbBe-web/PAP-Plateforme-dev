@@ -7,6 +7,7 @@
         "prescription.strength",
         "prescription.otherActivity",
         "orientation",
+        "objectiveDiscussion",
         "patientInformation",
         "referenceOnly"
     ]);
@@ -15,7 +16,8 @@
         "safety",
         "prescriptionGuidance",
         "patientInformation",
-        "orientationFactors"
+        "orientationFactors",
+        "objectiveDiscussion"
     ];
 
     function createEmptyProjection() {
@@ -27,6 +29,7 @@
                 otherActivity: []
             },
             orientation: [],
+            objectiveDiscussion: [],
             patientInformation: [],
             referenceOnly: [],
             unassigned: []
@@ -69,7 +72,15 @@
     function addItemToTarget(projection, target, item) {
         switch (target) {
             case "prescription.general":
-                projection.prescription.general.push(item);
+                if (
+                    !shouldSuppressLegacyPrescriptionGeneralV2(
+                        item
+                    )
+                ) {
+                    projection.prescription.general.push(
+                        item
+                    );
+                }
                 break;
 
             case "prescription.endurance":
@@ -88,6 +99,10 @@
                 projection.orientation.push(item);
                 break;
 
+            case "objectiveDiscussion":
+                projection.objectiveDiscussion.push(item);
+                break;
+
             case "patientInformation":
                 projection.patientInformation.push(item);
                 break;
@@ -99,6 +114,53 @@
             default:
                 break;
         }
+    }
+
+    function hasFunctionalUseDomainForPresentationV2(
+        item,
+        domainId
+    ) {
+        if (
+            !item ||
+            !Array.isArray(
+                item.functionalUses
+            )
+        ) {
+            return false;
+        }
+
+        return item.functionalUses.some(
+            function (functionalUse) {
+                return (
+                    functionalUse &&
+                    functionalUse.domainId ===
+                        domainId
+                );
+            }
+        );
+    }
+
+
+    function shouldSuppressLegacyPrescriptionGeneralV2(
+        item
+    ) {
+        const hasObjectivesUse =
+            hasFunctionalUseDomainForPresentationV2(
+                item,
+                "objectives"
+            );
+
+        if (!hasObjectivesUse) {
+            return false;
+        }
+
+        const hasPrescriptionUse =
+            hasFunctionalUseDomainForPresentationV2(
+                item,
+                "prescription"
+            );
+
+        return !hasPrescriptionUse;
     }
 
     function projectClinicalCognitiveUx(clinicalContextOrItems) {

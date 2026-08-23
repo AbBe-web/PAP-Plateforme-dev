@@ -110,7 +110,8 @@
 
     function renderOriginBadgesHtml(
         item,
-        activePathologies
+        activePathologies,
+        forceVisible
     ) {
         const normalizedActivePathologies =
             normalizePathologyIds(
@@ -118,6 +119,7 @@
             );
 
         if (
+            forceVisible !== true &&
             normalizedActivePathologies.length <
             2
         ) {
@@ -204,7 +206,8 @@
                 ? ""
                 : renderOriginBadgesHtml(
                     item,
-                    options?.activePathologies
+                    options?.activePathologies,
+                    options?.forceOriginBadges === true
                 );
 
         if (audience === "patient") {
@@ -814,6 +817,14 @@
             String(section.id || "")
                 .trim();
 
+        const sectionOptions =
+            sectionId === "objectiveDiscussion"
+                ? {
+                    ...options,
+                    forceOriginBadges: true
+                }
+                : options;
+
         const sectionIdAttribute =
             sectionId
                 ? ` data-section-id="${escapeClinicalCognitiveUxHtml(
@@ -832,11 +843,11 @@
             sectionBodyHtml = `
 ${renderPatientSelectionModeHtml(
     items,
-    options
+    sectionOptions
 )}
 ${renderPatientGroupedContentHtml(
     items,
-    options
+    sectionOptions
 )}`;
         } else {
             const alwaysHtml =
@@ -845,7 +856,7 @@ ${renderPatientGroupedContentHtml(
                         return renderItemHtml(
                             item,
                             audience,
-                            options
+                            sectionOptions
                         );
                     })
                     .filter(Boolean)
@@ -857,7 +868,7 @@ ${renderPatientGroupedContentHtml(
                         return renderItemHtml(
                             item,
                             audience,
-                            options
+                            sectionOptions
                         );
                     })
                     .filter(Boolean)

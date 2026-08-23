@@ -9,6 +9,12 @@ param(
     Join-Path `
       $PSScriptRoot `
       "..\..\data\clinical-knowledge\generated\pathology-knowledge-registry.generated.js"
+  ),
+
+  [string]$FunctionalUseDefinitionsOutputPath = (
+    Join-Path `
+      $PSScriptRoot `
+      "..\..\data\clinical-knowledge\generated\functional-use-definitions.generated.js"
   )
 )
 
@@ -315,6 +321,21 @@ try {
       "ResourceRefs"
     )
 
+  $functionalUseDefinitionsSheet =
+    $workbook.Worksheets.Item(
+      "FunctionalUseDefinitions"
+    )
+
+  $functionalUsesSheet =
+    $workbook.Worksheets.Item(
+      "FunctionalUses"
+    )
+
+  $listsSheet =
+    $workbook.Worksheets.Item(
+      "Lists"
+    )
+
 
   # ==========================================================
   # HEADER MAPS
@@ -351,6 +372,149 @@ try {
   $resourceRefsHeaders =
     Get-HeaderMap `
       -Worksheet $resourceRefsSheet
+
+  $functionalUseDefinitionsHeaders =
+    Get-HeaderMap `
+      -Worksheet $functionalUseDefinitionsSheet
+
+  $functionalUsesHeaders =
+    Get-HeaderMap `
+      -Worksheet $functionalUsesSheet
+
+  $listsHeaders =
+    Get-HeaderMap `
+      -Worksheet $listsSheet
+
+
+  # ==========================================================
+  # FUNCTIONAL USE DEFINITIONS V2
+  # ==========================================================
+
+  $functionalUseDefinitions =
+    New-Object `
+      System.Collections.ArrayList
+
+  for (
+    $row = 2;
+    $row -le
+      $functionalUseDefinitionsSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $domainId =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "domainId"
+
+    $roleId =
+      Get-FieldText `
+        -Worksheet $functionalUseDefinitionsSheet `
+        -Headers $functionalUseDefinitionsHeaders `
+        -Row $row `
+        -Name "roleId"
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $domainId
+      ) -and
+      [string]::IsNullOrWhiteSpace(
+        $roleId
+      )
+    ) {
+      continue
+    }
+
+    $definitionItem =
+      [pscustomobject][ordered]@{
+        domainId =
+          $domainId
+
+        domainLabel =
+          Get-FieldText `
+            -Worksheet $functionalUseDefinitionsSheet `
+            -Headers $functionalUseDefinitionsHeaders `
+            -Row $row `
+            -Name "domainLabel"
+
+        roleId =
+          $roleId
+
+        roleLabel =
+          Get-FieldText `
+            -Worksheet $functionalUseDefinitionsSheet `
+            -Headers $functionalUseDefinitionsHeaders `
+            -Row $row `
+            -Name "roleLabel"
+
+        definition =
+          Get-FieldText `
+            -Worksheet $functionalUseDefinitionsSheet `
+            -Headers $functionalUseDefinitionsHeaders `
+            -Row $row `
+            -Name "definition"
+
+        allowsFacets =
+          [bool](
+            Get-FieldRaw `
+              -Worksheet $functionalUseDefinitionsSheet `
+              -Headers $functionalUseDefinitionsHeaders `
+              -Row $row `
+              -Name "allowsFacets"
+          )
+      }
+
+    [void]$functionalUseDefinitions.Add(
+      $definitionItem
+    )
+  }
+
+
+  $functionalFacets =
+    New-Object `
+      System.Collections.ArrayList
+
+  for (
+    $row = 2;
+    $row -le
+      $listsSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $facet =
+      Get-FieldText `
+        -Worksheet $listsSheet `
+        -Headers $listsHeaders `
+        -Row $row `
+        -Name "functionalFacets"
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $facet
+      )
+    ) {
+      continue
+    }
+
+    [void]$functionalFacets.Add(
+      $facet
+    )
+  }
+
+
+  $functionalUseDefinitionsPayload =
+    [pscustomobject][ordered]@{
+      definitions =
+        @(
+          $functionalUseDefinitions
+        )
+
+      functionalFacets =
+        @(
+          $functionalFacets
+        )
+    }
 
 
   # ==========================================================
@@ -450,6 +614,10 @@ try {
           -Name "version"
 
       clinicalUses =
+        New-Object `
+          System.Collections.ArrayList
+
+      functionalUses =
         New-Object `
           System.Collections.ArrayList
 
@@ -566,6 +734,72 @@ try {
       $knowledgeItemId
     ].clinicalUses.Add(
       [pscustomobject]$clinicalUse
+    )
+  }
+
+
+  # ==========================================================
+  # FUNCTIONAL USES V2
+  # ==========================================================
+
+  for (
+    $row = 2;
+    $row -le
+      $functionalUsesSheet.UsedRange.Rows.Count;
+    $row++
+  ) {
+
+    $knowledgeItemId =
+      Get-FieldText `
+        -Worksheet $functionalUsesSheet `
+        -Headers $functionalUsesHeaders `
+        -Row $row `
+        -Name "knowledgeItemId"
+
+
+    if (
+      [string]::IsNullOrWhiteSpace(
+        $knowledgeItemId
+      )
+    ) {
+      continue
+    }
+
+
+    $functionalUse =
+      [ordered]@{
+
+        domainId =
+          Get-FieldText `
+            -Worksheet $functionalUsesSheet `
+            -Headers $functionalUsesHeaders `
+            -Row $row `
+            -Name "domainId"
+
+        roleId =
+          Get-FieldText `
+            -Worksheet $functionalUsesSheet `
+            -Headers $functionalUsesHeaders `
+            -Row $row `
+            -Name "roleId"
+
+        facets =
+          @(
+            Split-MultipleValues (
+              Get-FieldText `
+                -Worksheet $functionalUsesSheet `
+                -Headers $functionalUsesHeaders `
+                -Row $row `
+                -Name "facets"
+            )
+          )
+      }
+
+
+    [void]$itemStates[
+      $knowledgeItemId
+    ].functionalUses.Add(
+      [pscustomobject]$functionalUse
     )
   }
 
@@ -1060,6 +1294,11 @@ try {
             $state.clinicalUses
           )
 
+        functionalUses =
+          @(
+            $state.functionalUses
+          )
+
         messages =
           [pscustomobject][ordered]@{
 
@@ -1276,6 +1515,72 @@ window.PATHOLOGY_KNOWLEDGE_REGISTRY =
 
 
   # ==========================================================
+  # SORTIE FUNCTIONAL USE DEFINITIONS V2
+  # ==========================================================
+
+  $functionalUseDefinitionsJson =
+    $functionalUseDefinitionsPayload |
+    ConvertTo-Json `
+      -Depth 10
+
+  $functionalUseDefinitionsContent = @"
+// ============================================================
+// PAP - GENERATED FILE
+//
+// Source:
+// Clinical Knowledge master workbook
+//
+// Generated automatically.
+// Do not edit manually.
+// ============================================================
+
+const FUNCTIONAL_USE_DEFINITIONS = $functionalUseDefinitionsJson;
+
+window.FUNCTIONAL_USE_DEFINITIONS =
+  FUNCTIONAL_USE_DEFINITIONS;
+"@
+
+  $functionalUseDefinitionsOutputDirectory =
+    Split-Path `
+      -Parent `
+      $FunctionalUseDefinitionsOutputPath
+
+  if (
+    -not (
+      Test-Path `
+        -LiteralPath $functionalUseDefinitionsOutputDirectory
+    )
+  ) {
+
+    New-Item `
+      -ItemType Directory `
+      -Path $functionalUseDefinitionsOutputDirectory `
+      -Force |
+      Out-Null
+  }
+
+  $resolvedFunctionalUseDefinitionsOutputDirectory =
+    (Resolve-Path `
+      -LiteralPath $functionalUseDefinitionsOutputDirectory
+    ).Path
+
+  $resolvedFunctionalUseDefinitionsOutputPath =
+    Join-Path `
+      $resolvedFunctionalUseDefinitionsOutputDirectory `
+      (
+        Split-Path `
+          -Leaf `
+          $FunctionalUseDefinitionsOutputPath
+      )
+
+  [System.IO.File]::WriteAllText(
+    $resolvedFunctionalUseDefinitionsOutputPath,
+    $functionalUseDefinitionsContent,
+    $utf8WithoutBom
+  )
+
+
+  # ==========================================================
   # RÉSULTAT
   # ==========================================================
 
@@ -1320,6 +1625,21 @@ window.PATHOLOGY_KNOWLEDGE_REGISTRY =
   Write-Host (
     "Fichier : " +
     $resolvedOutputPath
+  )
+
+  Write-Host (
+    "FunctionalUseDefinitions generees : " +
+    $functionalUseDefinitions.Count
+  )
+
+  Write-Host (
+    "FunctionalFacets generees : " +
+    $functionalFacets.Count
+  )
+
+  Write-Host (
+    "Fichier FU-V2 : " +
+    $resolvedFunctionalUseDefinitionsOutputPath
   )
 
   Write-Host ""

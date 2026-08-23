@@ -21,6 +21,7 @@ function createEmptyClinicalContextV2() {
     prescriptionGuidance: [],
     patientInformation: [],
     orientationFactors: [],
+    objectiveDiscussion: [],
 
     resources: {
       eligible: []
@@ -197,68 +198,199 @@ function evaluateKnowledgeConditionV2(
 }
 
 
+function hasOwnClinicalUsePropertyV2(
+  object,
+  propertyName
+) {
+
+  return Boolean(
+    object &&
+    typeof object === "object" &&
+    Object.prototype.hasOwnProperty.call(
+      object,
+      propertyName
+    )
+  );
+}
+
+
+function resolveClinicalUseMessageV2(
+  item,
+  clinicalUse,
+  audience
+) {
+
+  if (
+    clinicalUse?.messages &&
+    hasOwnClinicalUsePropertyV2(
+      clinicalUse.messages,
+      audience
+    )
+  ) {
+    return clinicalUse.messages[audience];
+  }
+
+  return item?.messages?.[audience] || "";
+}
+
+
+function resolveClinicalUseArrayV2(
+  item,
+  clinicalUse,
+  propertyName
+) {
+
+  const source =
+    hasOwnClinicalUsePropertyV2(
+      clinicalUse,
+      propertyName
+    )
+      ? clinicalUse[propertyName]
+      : item[propertyName];
+
+  return Array.isArray(source)
+    ? [...source]
+    : [];
+}
+
+
+function resolveClinicalUseConditionV2(
+  item,
+  clinicalUse
+) {
+
+  if (
+    hasOwnClinicalUsePropertyV2(
+      clinicalUse,
+      "condition"
+    )
+  ) {
+    return clinicalUse.condition;
+  }
+
+  return item.condition;
+}
+
+
 function projectKnowledgeItemV2(
   item,
   matchedContext
 ) {
 
-  return item.clinicalUses.map(
-    clinicalUse => ({
+  return item.clinicalUses.flatMap(
+    clinicalUse => {
 
-      knowledgeItemId:
-        item.id,
+      const resolvedCondition =
+        resolveClinicalUseConditionV2(
+          item,
+          clinicalUse
+        );
 
-      clinicalFunction:
-        clinicalUse.function,
+      const conditionResult =
+        evaluateKnowledgeConditionV2(
+          resolvedCondition
+        );
 
-      category:
-        clinicalUse.category,
-
-      messages: {
-        clinician:
-          item.messages?.clinician || "",
-
-        patient:
-          item.messages?.patient || ""
-      },
-
-      condition:
-        item.condition,
-
-      selection:
-        item.selection || null,
-
-      presentationTargets:
-        Array.isArray(
-          item.presentationTargets
-        )
-          ? [...item.presentationTargets]
-          : [],
-
-      evidenceSourceIds:
-
-        Array.isArray(
-          item.evidenceSourceIds
-        )
-          ? [...item.evidenceSourceIds]
-          : [],
-
-      relatedResourceIds:
-        Array.isArray(
-          item.relatedResourceIds
-        )
-          ? [...item.relatedResourceIds]
-          : [],
-
-      matchedContext:
-        { ...matchedContext },
-
-      provenance: {
-        registry:
-          "pathologyKnowledge"
+      if (
+        conditionResult.action ===
+        "exclude"
+      ) {
+        return [];
       }
 
-    })
+      return [{
+
+        knowledgeItemId:
+          item.id,
+
+        semanticConceptId:
+          typeof item.semanticConceptId === "string"
+            ? item.semanticConceptId
+            : null,
+
+        clinicalFunction:
+          clinicalUse.function,
+
+        category:
+          clinicalUse.category,
+
+
+        functionalUses:
+          Array.isArray(
+            item.functionalUses
+          )
+            ? item.functionalUses.map(
+                functionalUse => ({
+                  domainId:
+                    functionalUse.domainId,
+
+                  roleId:
+                    functionalUse.roleId,
+
+                  facets:
+                    Array.isArray(
+                      functionalUse.facets
+                    )
+                      ? [
+                          ...functionalUse.facets
+                        ]
+                      : []
+                })
+              )
+            : [],
+        messages: {
+          clinician:
+            resolveClinicalUseMessageV2(
+              item,
+              clinicalUse,
+              "clinician"
+            ),
+
+          patient:
+            resolveClinicalUseMessageV2(
+              item,
+              clinicalUse,
+              "patient"
+            )
+        },
+
+        condition:
+          resolvedCondition,
+
+        selection:
+          item.selection || null,
+
+        presentationTargets:
+          resolveClinicalUseArrayV2(
+            item,
+            clinicalUse,
+            "presentationTargets"
+          ),
+
+        evidenceSourceIds:
+          resolveClinicalUseArrayV2(
+            item,
+            clinicalUse,
+            "evidenceSourceIds"
+          ),
+
+        relatedResourceIds:
+          resolveClinicalUseArrayV2(
+            item,
+            clinicalUse,
+            "relatedResourceIds"
+          ),
+
+        matchedContext:
+          { ...matchedContext },
+
+        provenance: {
+          registry:
+            "pathologyKnowledge"
+        }
+
+      }];
+    }
   );
 }
 
@@ -397,18 +529,6 @@ function computeClinicalContextV2(
       );
 
     if (!matchResult.matches) {
-      return;
-    }
-
-    const conditionResult =
-      evaluateKnowledgeConditionV2(
-        item.condition
-      );
-
-    if (
-      conditionResult.action ===
-      "exclude"
-    ) {
       return;
     }
 

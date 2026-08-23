@@ -46,6 +46,11 @@
                     "orientation",
                     "Repères — Orientation et encadrement",
                     []
+                ),
+                createSection(
+                    "objectiveDiscussion",
+                    "Éléments cliniques / fonctionnels à considérer",
+                    []
                 )
             ],
 
@@ -106,6 +111,11 @@
                 "orientation",
                 "Repères — Orientation et encadrement",
                 cognitiveUxProjection.orientation
+            ),
+            createSection(
+                "objectiveDiscussion",
+                "Éléments cliniques / fonctionnels à considérer",
+                cognitiveUxProjection.objectiveDiscussion
             )
         ];
 

@@ -2629,6 +2629,12 @@ Apixaban 5 mg x2/j">
 </div>
 
 <div
+  id="clinicalCognitiveObjectiveDiscussionV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none; margin-top:8px; margin-bottom:12px;"
+></div>
+
+<div
   class="sub-group"
   style="
     margin-top:14px;
@@ -4017,6 +4023,7 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 
 <script src="../../core/clinical-context/context-schema.js"></script>
 
+<script src="../../data/clinical-knowledge/generated/functional-use-definitions.generated.js"></script>
 <script src="../../core/clinical-context/clinical-knowledge-schema.js"></script>
 <script src="../../core/clinical-context/pathology-registry.js"></script>
 <script src="../../core/clinical-context/clinical-situation-registry.js"></script>
@@ -4025,6 +4032,10 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 <script src="../../core/clinical-context/clinical-knowledge-parity.js"></script>
 <script src="../../core/clinical-context/clinical-knowledge-validation.js"></script>
 <script src="../../core/clinical-context/computeClinicalContextV2.js"></script>
+<script src="../../core/clinical-context/projectClinicalUsesV2.js"></script>
+<script src="../../core/clinical-context/selectClinicalUsesV2.js"></script>
+<script src="../../core/clinical-context/projectObjectiveGuidanceV2.js"></script>
+<script src="../../core/clinical-context/objective-guidance-presentation-v2.js"></script>
 <script src="../../core/clinical-context/projectClinicalCognitiveUx.js"></script>
 <script src="../../core/clinical-context/buildClinicalCognitiveUxViewModel.js"></script>
 <script src="../../core/clinical-context/buildSelectedClinicalCognitivePatientMessages.js"></script>
@@ -6983,6 +6994,187 @@ function renderClinicalCognitiveAidV2() {
     );
 
 
+    const clinicalUsesV2 =
+    typeof projectClinicalUsesV2 ===
+    "function"
+      ? projectClinicalUsesV2(
+          clinicalContextV2
+        )
+      : [];
+
+  window.PAP_CLINICAL_USES_V2 =
+    clinicalUsesV2;
+
+
+  const objectiveClinicalUsesV2 =
+    typeof selectClinicalUsesV2 ===
+    "function"
+      ? selectClinicalUsesV2(
+          clinicalUsesV2,
+          {
+            domainId:
+              "objectives"
+          }
+        )
+      : [];
+
+  window.PAP_OBJECTIVE_CLINICAL_USES_V2 =
+    objectiveClinicalUsesV2;
+
+
+  const objectiveGuidanceV2 =
+    typeof projectObjectiveGuidanceV2 ===
+    "function"
+      ? projectObjectiveGuidanceV2(
+          objectiveClinicalUsesV2
+        )
+      : {
+          objectiveConsiderations: [],
+          objectiveCandidates: [],
+          goalSettingAdaptations: [],
+          unmapped: []
+        };
+
+  window.PAP_OBJECTIVE_GUIDANCE_V2 =
+    objectiveGuidanceV2;
+
+  const objectiveGuidanceViewModelV2 =
+    typeof buildObjectiveGuidanceViewModelV2 ===
+    "function"
+      ? buildObjectiveGuidanceViewModelV2(
+          objectiveGuidanceV2
+        )
+      : {
+          sections: [],
+          diagnostics: {
+            unmappedCount: 0
+          }
+        };
+
+  window.PAP_OBJECTIVE_GUIDANCE_VIEW_MODEL_V2 =
+    objectiveGuidanceViewModelV2;
+
+
+  const objectiveGuidanceLocalHtmlByIdV2 =
+    typeof renderObjectiveGuidanceLocalSectionsByIdV2 ===
+    "function"
+      ? renderObjectiveGuidanceLocalSectionsByIdV2(
+          objectiveGuidanceViewModelV2
+        )
+      : {};
+
+  window.PAP_OBJECTIVE_GUIDANCE_LOCAL_HTML_BY_ID_V2 =
+    objectiveGuidanceLocalHtmlByIdV2;
+
+
+  function renderObjectiveGuidanceLocalSlotV2(
+    containerId,
+    html,
+    anchorElement,
+    position
+  ) {
+    let container =
+      document.getElementById(
+        containerId
+      );
+
+    if (
+      !container &&
+      html &&
+      anchorElement
+    ) {
+      container =
+        document.createElement(
+          "div"
+        );
+
+      container.id =
+        containerId;
+
+      container.className =
+        "pap-objective-guidance-local-host";
+
+      anchorElement.insertAdjacentElement(
+        position,
+        container
+      );
+    }
+
+    if (!container) {
+      return;
+    }
+
+    container.innerHTML =
+      html || "";
+
+    container.style.display =
+      html
+        ? "block"
+        : "none";
+  }
+
+
+  const objectiveProjectGroupV2 =
+    document
+      .getElementById(
+        "engagement_patient_goal"
+      )
+      ?.closest(
+        ".sub-group"
+      ) || null;
+
+  const objectiveFunctionalGroupV2 =
+    document
+      .getElementById(
+        "objectif_functional_analysis"
+      )
+      ?.closest(
+        ".sub-group"
+      ) || null;
+
+  const objectiveSharedGoalGroupV2 =
+    document
+      .querySelector(
+        'textarea[name="objectifs_ap"]'
+      )
+      ?.closest(
+        ".sub-group"
+      ) || null;
+
+
+  renderObjectiveGuidanceLocalSlotV2(
+    "clinicalObjectiveCandidateGuidanceV2",
+    objectiveGuidanceLocalHtmlByIdV2
+      .objectiveCandidates || "",
+    objectiveProjectGroupV2,
+    "afterend"
+  );
+
+
+  renderObjectiveGuidanceLocalSlotV2(
+    "clinicalObjectiveConsiderationGuidanceV2",
+    objectiveGuidanceLocalHtmlByIdV2
+      .objectiveConsiderations || "",
+    objectiveFunctionalGroupV2,
+    "afterend"
+  );
+
+
+  renderObjectiveGuidanceLocalSlotV2(
+    "clinicalObjectiveGoalSettingGuidanceV2",
+    objectiveGuidanceLocalHtmlByIdV2
+      .goalSettingAdaptations || "",
+    objectiveSharedGoalGroupV2,
+    "beforebegin"
+  );
+
+
+  window.PAP_OBJECTIVE_GUIDANCE_HTML_V2 =
+    Object.values(
+      objectiveGuidanceLocalHtmlByIdV2
+    ).join("");
+
+
   const cognitiveUxProjection =
     typeof projectClinicalCognitiveUx ===
     "function"
@@ -7033,6 +7225,26 @@ function renderClinicalCognitiveAidV2() {
           }
         )
       : null;
+
+  const objectiveDiscussionContainer =
+    document.getElementById(
+      "clinicalCognitiveObjectiveDiscussionV2"
+    );
+
+  const objectiveDiscussionHtml =
+    cognitiveUxHtml
+      ?.clinicianSectionHtmlById
+      ?.objectiveDiscussion || "";
+
+  if (objectiveDiscussionContainer) {
+    objectiveDiscussionContainer.innerHTML =
+      objectiveDiscussionHtml;
+
+    objectiveDiscussionContainer.style.display =
+      objectiveDiscussionHtml
+        ? "block"
+        : "none";
+  }
 
 
   window.PAP_CLINICAL_COGNITIVE_VIEW_MODEL_V2 =

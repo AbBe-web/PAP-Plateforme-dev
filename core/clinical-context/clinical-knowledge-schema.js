@@ -16,9 +16,92 @@
  * la nouvelle architecture de connaissance clinique.
  */
 
+const FUNCTIONAL_USE_DEFINITIONS_V2 =
+  window.FUNCTIONAL_USE_DEFINITIONS;
+
+if (
+  !FUNCTIONAL_USE_DEFINITIONS_V2 ||
+  typeof FUNCTIONAL_USE_DEFINITIONS_V2 !== "object" ||
+  !Array.isArray(
+    FUNCTIONAL_USE_DEFINITIONS_V2.definitions
+  ) ||
+  !Array.isArray(
+    FUNCTIONAL_USE_DEFINITIONS_V2.functionalFacets
+  )
+) {
+  throw new Error(
+    "FUNCTIONAL_USE_DEFINITIONS is required before clinical-knowledge-schema.js"
+  );
+}
+
+const functionalUseDefinitions =
+  FUNCTIONAL_USE_DEFINITIONS_V2
+    .definitions
+    .map(definition => ({
+      domainId: definition.domainId,
+      domainLabel: definition.domainLabel,
+      roleId: definition.roleId,
+      roleLabel: definition.roleLabel,
+      definition: definition.definition,
+      allowsFacets: definition.allowsFacets
+    }));
+
+const functionalDomains =
+  Array.from(
+    new Set(
+      functionalUseDefinitions
+        .map(definition => definition.domainId)
+    )
+  );
+
+const functionalRolesByDomain =
+  functionalUseDefinitions
+    .reduce(
+      (rolesByDomain, definition) => {
+
+        if (!rolesByDomain[definition.domainId]) {
+          rolesByDomain[definition.domainId] = [];
+        }
+
+        rolesByDomain[definition.domainId]
+          .push(definition.roleId);
+
+        return rolesByDomain;
+      },
+      {}
+    );
+
+const functionalFacets =
+  [
+    ...FUNCTIONAL_USE_DEFINITIONS_V2
+      .functionalFacets
+  ];
+
+const allowsFacetsByDomainRole =
+  functionalUseDefinitions
+    .reduce(
+      (allowsFacets, definition) => {
+
+        const key =
+          `${definition.domainId}::${definition.roleId}`;
+
+        allowsFacets[key] =
+          definition.allowsFacets;
+
+        return allowsFacets;
+      },
+      {}
+    );
+
 const CLINICAL_KNOWLEDGE_SCHEMA = {
 
-  version: "1",
+  version: "2",
+
+  functionalUseDefinitions,
+  functionalDomains,
+  functionalRolesByDomain,
+  functionalFacets,
+  allowsFacetsByDomainRole,
 
   contextKeys: [
     "pathologiesAny",
@@ -34,7 +117,8 @@ const CLINICAL_KNOWLEDGE_SCHEMA = {
     "safety",
     "prescriptionGuidance",
     "patientInformation",
-    "orientationFactors"
+    "orientationFactors",
+    "objectiveDiscussion"
   ],
 
   categoriesByFunction: {
@@ -81,6 +165,10 @@ const CLINICAL_KNOWLEDGE_SCHEMA = {
       "rehabilitationFactor",
       "specialistInput",
       "assessmentNeed"
+    ],
+
+    objectiveDiscussion: [
+      "clinicalFunctional"
     ]
   },
 

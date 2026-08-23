@@ -35,6 +35,18 @@ function validateClinicalKnowledgeItem(item) {
     errors.push("id is required");
   }
 
+  if (
+    item.semanticConceptId !== undefined &&
+    (
+      typeof item.semanticConceptId !== "string" ||
+      item.semanticConceptId.trim() === ""
+    )
+  ) {
+    errors.push(
+      "semanticConceptId must be a non-empty string when provided"
+    );
+  }
+
   if (!Array.isArray(item.clinicalUses)) {
     errors.push("clinicalUses must be an array");
 
@@ -86,7 +98,302 @@ function validateClinicalKnowledgeItem(item) {
         );
       }
 
+      if (
+        clinicalUse.condition !== undefined
+      ) {
+
+        if (
+          !clinicalUse.condition ||
+          typeof clinicalUse.condition !== "object" ||
+          Array.isArray(clinicalUse.condition)
+        ) {
+          errors.push(
+            `clinicalUses[${index}].condition must be an object`
+          );
+
+        } else if (
+          !CLINICAL_KNOWLEDGE_SCHEMA
+            .conditionTypes
+            .includes(
+              clinicalUse.condition.type
+            )
+        ) {
+          errors.push(
+            `clinicalUses[${index}].condition.type is invalid`
+          );
+        }
+
+        if (
+          clinicalUse.condition &&
+          clinicalUse.condition.description !== undefined &&
+          (
+            typeof clinicalUse.condition.description !== "string" ||
+            clinicalUse.condition.description.trim() === ""
+          )
+        ) {
+          errors.push(
+            `clinicalUses[${index}].condition.description must be a non-empty string`
+          );
+        }
+
+        if (
+          clinicalUse.condition &&
+          clinicalUse.condition.machineEvaluable !== undefined &&
+          typeof clinicalUse.condition.machineEvaluable !== "boolean"
+        ) {
+          errors.push(
+            `clinicalUses[${index}].condition.machineEvaluable must be a boolean`
+          );
+        }
+      }
+
+      if (
+        clinicalUse.messages !== undefined
+      ) {
+
+        if (
+          !clinicalUse.messages ||
+          typeof clinicalUse.messages !== "object" ||
+          Array.isArray(clinicalUse.messages)
+        ) {
+          errors.push(
+            `clinicalUses[${index}].messages must be an object`
+          );
+
+        } else {
+
+          ["clinician", "patient"]
+            .forEach(audience => {
+
+              if (
+                Object.prototype.hasOwnProperty.call(
+                  clinicalUse.messages,
+                  audience
+                ) &&
+                typeof clinicalUse.messages[audience] !== "string"
+              ) {
+                errors.push(
+                  `clinicalUses[${index}].messages.${audience} must be a string`
+                );
+              }
+
+            });
+        }
+      }
+
+      if (
+        clinicalUse.presentationTargets !== undefined &&
+        (
+          !Array.isArray(
+            clinicalUse.presentationTargets
+          ) ||
+          clinicalUse.presentationTargets.some(
+            target =>
+              typeof target !== "string" ||
+              target.trim() === ""
+          )
+        )
+      ) {
+        errors.push(
+          `clinicalUses[${index}].presentationTargets must be an array of non-empty strings`
+        );
+      }
+
+      if (
+        clinicalUse.evidenceSourceIds !== undefined &&
+        !Array.isArray(
+          clinicalUse.evidenceSourceIds
+        )
+      ) {
+        errors.push(
+          `clinicalUses[${index}].evidenceSourceIds must be an array`
+        );
+      }
+
+      if (
+        clinicalUse.relatedResourceIds !== undefined &&
+        !Array.isArray(
+          clinicalUse.relatedResourceIds
+        )
+      ) {
+        errors.push(
+          `clinicalUses[${index}].relatedResourceIds must be an array`
+        );
+      }
+
     });
+  }
+
+  if (item.functionalUses !== undefined) {
+
+    if (!Array.isArray(item.functionalUses)) {
+      errors.push(
+        "functionalUses must be an array when provided"
+      );
+
+    } else {
+
+      const seenFunctionalUses =
+        new Set();
+
+      item.functionalUses
+        .forEach((functionalUse, index) => {
+
+          if (
+            !functionalUse ||
+            typeof functionalUse !== "object" ||
+            Array.isArray(functionalUse)
+          ) {
+            errors.push(
+              `functionalUses[${index}] must be an object`
+            );
+            return;
+          }
+
+          const domainId =
+            functionalUse.domainId;
+
+          const roleId =
+            functionalUse.roleId;
+
+          if (
+            typeof domainId !== "string" ||
+            domainId.trim() === ""
+          ) {
+            errors.push(
+              `functionalUses[${index}].domainId is required`
+            );
+          }
+
+          if (
+            typeof roleId !== "string" ||
+            roleId.trim() === ""
+          ) {
+            errors.push(
+              `functionalUses[${index}].roleId is required`
+            );
+          }
+
+          const domainKnown =
+            typeof domainId === "string" &&
+            CLINICAL_KNOWLEDGE_SCHEMA
+              .functionalDomains
+              .includes(domainId);
+
+          if (!domainKnown) {
+            errors.push(
+              `functionalUses[${index}].domainId is invalid`
+            );
+          }
+
+          const allowedRoles =
+            domainKnown
+              ? (
+                  CLINICAL_KNOWLEDGE_SCHEMA
+                    .functionalRolesByDomain[
+                      domainId
+                    ] || []
+                )
+              : [];
+
+          const roleKnown =
+            typeof roleId === "string" &&
+            allowedRoles.includes(roleId);
+
+          if (!roleKnown) {
+            errors.push(
+              `functionalUses[${index}].roleId is invalid for domainId`
+            );
+          }
+
+          if (!Array.isArray(functionalUse.facets)) {
+            errors.push(
+              `functionalUses[${index}].facets must be an array`
+            );
+
+          } else {
+
+            const seenFacets =
+              new Set();
+
+            functionalUse.facets
+              .forEach((facet, facetIndex) => {
+
+                if (
+                  typeof facet !== "string" ||
+                  facet.trim() === ""
+                ) {
+                  errors.push(
+                    `functionalUses[${index}].facets[${facetIndex}] must be a non-empty string`
+                  );
+                  return;
+                }
+
+                if (
+                  !CLINICAL_KNOWLEDGE_SCHEMA
+                    .functionalFacets
+                    .includes(facet)
+                ) {
+                  errors.push(
+                    `functionalUses[${index}].facets[${facetIndex}] is invalid`
+                  );
+                }
+
+                if (seenFacets.has(facet)) {
+                  errors.push(
+                    `functionalUses[${index}] contains duplicate facet: ${facet}`
+                  );
+                } else {
+                  seenFacets.add(facet);
+                }
+
+              });
+
+            if (
+              domainKnown &&
+              roleKnown &&
+              functionalUse.facets.length > 0
+            ) {
+
+              const functionalUseKey =
+                `${domainId}::${roleId}`;
+
+              if (
+                CLINICAL_KNOWLEDGE_SCHEMA
+                  .allowsFacetsByDomainRole[
+                    functionalUseKey
+                  ] !== true
+              ) {
+                errors.push(
+                  `functionalUses[${index}].facets are not allowed for ${functionalUseKey}`
+                );
+              }
+            }
+          }
+
+          if (
+            domainKnown &&
+            roleKnown
+          ) {
+
+            const functionalUseKey =
+              `${domainId}::${roleId}`;
+
+            if (
+              seenFunctionalUses
+                .has(functionalUseKey)
+            ) {
+              errors.push(
+                `duplicate functional use: ${functionalUseKey}`
+              );
+            } else {
+              seenFunctionalUses
+                .add(functionalUseKey);
+            }
+          }
+
+        });
+    }
   }
 
   if (
