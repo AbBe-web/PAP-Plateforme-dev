@@ -17171,7 +17171,11 @@ physicalTests,
     motivation: {
       stade: getStadeMotivation(),
       importance: document.querySelector('input[name="importance_ap"]')?.value || null,
+      importance_commentaire:
+        document.getElementById("importance_patient_comment")?.value?.trim() || null,
       confiance: document.querySelector('input[name="confiance_ap"]')?.value || null,
+      confiance_commentaire:
+        document.getElementById("confiance_patient_comment")?.value?.trim() || null,
       freins: document.querySelector('textarea[name="freins"]')?.value || null,
       leviers: document.querySelector('textarea[name="leviers"]')?.value || null
     },
