@@ -4034,6 +4034,7 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 <script src="../../core/clinical-context/computeClinicalContextV2.js"></script>
 <script src="../../core/clinical-context/projectClinicalUsesV2.js"></script>
 <script src="../../core/clinical-context/selectClinicalUsesV2.js"></script>
+<script src="../../core/clinical-context/projectEngagementGuidanceV2.js"></script>
 <script src="../../core/clinical-context/projectObjectiveGuidanceV2.js"></script>
 <script src="../../core/clinical-context/objective-guidance-presentation-v2.js"></script>
 <script src="../../core/clinical-context/projectClinicalCognitiveUx.js"></script>
@@ -7006,7 +7007,36 @@ function renderClinicalCognitiveAidV2() {
     clinicalUsesV2;
 
 
-  const objectiveClinicalUsesV2 =
+  const engagementClinicalUsesV2 =
+  typeof selectClinicalUsesV2 === "function"
+    ? selectClinicalUsesV2(
+        clinicalUsesV2,
+        {
+          domainId: "engagement"
+        }
+      )
+    : [];
+
+window.PAP_ENGAGEMENT_CLINICAL_USES_V2 =
+  engagementClinicalUsesV2;
+
+
+const engagementGuidanceV2 =
+  typeof projectEngagementGuidanceV2 === "function"
+    ? projectEngagementGuidanceV2(
+        engagementClinicalUsesV2
+      )
+    : {
+        determinantsToExplore: [],
+        strategyConsiderations: [],
+        unmapped: []
+      };
+
+window.PAP_ENGAGEMENT_GUIDANCE_V2 =
+  engagementGuidanceV2;
+
+
+const objectiveClinicalUsesV2 =
     typeof selectClinicalUsesV2 ===
     "function"
       ? selectClinicalUsesV2(
