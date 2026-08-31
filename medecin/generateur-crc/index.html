@@ -593,6 +593,95 @@ label:has(input[type="radio"]) .info-icon{
     
     <script src="https://unpkg.com/html5-qrcode"></script>
     <script src="https://cdn.jsdelivr.net/npm/lz-string@1.4.4/libs/lz-string.min.js"></script>
+
+    <style id="papObjectivesUxStyles">
+
+      /* =========================================
+         OBJECTIFS — HIÉRARCHIE COGNITIVE
+         ========================================= */
+
+      .pap-objectives-level {
+        margin-top: 14px;
+      }
+
+      .pap-objectives-level-title {
+        color: #0056b3;
+        margin: 0 0 10px 0;
+      }
+
+      .pap-objectives-level-content {
+        margin-left: 16px;
+      }
+
+      .pap-objectives-subsection {
+        margin-top: 14px;
+      }
+
+      .pap-objectives-subsection:first-child {
+        margin-top: 0;
+      }
+
+      .pap-objectives-subtitle {
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .pap-objectives-card {
+        margin-top: 12px;
+        border: 1px solid #d9e4f2;
+        border-radius: 8px;
+        background: #ffffff;
+        overflow: hidden;
+      }
+
+      .pap-objectives-card-header {
+        padding: 9px 11px;
+        font-weight: 600;
+        background: #f6f9fc;
+        border-bottom: 1px solid #e4eaf1;
+      }
+
+      .pap-objectives-card-body {
+        padding: 10px 12px;
+      }
+
+      .pap-objectives-reference-list {
+        margin: 0;
+        padding-left: 20px;
+        color: #475569;
+        line-height: 1.45;
+      }
+
+      .pap-objectives-reference-list li {
+        margin: 3px 0;
+      }
+
+      .pap-objectives-decision-card {
+        margin-top: 14px;
+        padding: 12px;
+        border: 1px solid #d9e4f2;
+        border-radius: 8px;
+        background: #f8fbff;
+      }
+
+      .pap-objectives-guidance-host {
+        margin-top: 14px;
+      }
+
+      .pap-objectives-guidance-host:empty {
+        display: none;
+      }
+
+      .pap-objectives-engagement-host {
+        margin-top: 14px;
+      }
+
+      .pap-objectives-engagement-host:empty {
+        display: none;
+      }
+
+    </style>
+
  </head>
 <body>
 <div class="container crc-page">
@@ -2518,121 +2607,139 @@ Apixaban 5 mg x2/j">
 
 <h2>8/ Objectifs de l’activité physique</h2>
 
-<div class="sub-group objectifs-group">
 
-  <h3 style="color:#0056b3;">
-    Objectifs généraux d’activité physique / sédentarité
-  </h3>
-
-  <label>
-    <input
-      type="checkbox"
-      name="objectif_ap"
-      value="augmenter_ap"
-    >
-    Commencer, reprendre ou augmenter l’activité physique
-  </label>
-
-  <label>
-    <input
-      type="checkbox"
-      name="objectif_ap"
-      value="maintenir_ap"
-    >
-    Maintenir le niveau d’activité physique
-  </label>
-
-  <label>
-    <input
-      type="checkbox"
-      name="objectif_ap"
-      value="reduire_sedentarite"
-    >
-    Réduire la sédentarité
-  </label>
-
-  <label>
-    <input
-      type="checkbox"
-      name="objectif_ap"
-      value="progresser_recommandations"
-    >
-    Progresser vers les repères d’activité physique HAS / OMS
-  </label>
-
-</div>
+<!-- =========================================
+     1 — CE QUI COMPTE POUR LE PATIENT
+     ========================================= -->
 
 <div class="sub-group">
 
   <h3 style="color:#0056b3;">
-    Projet / priorité du patient
+    1 — Ce qui compte pour le patient
   </h3>
 
-  <textarea
-    id="engagement_patient_goal"
-    style="width:95%;"
-    rows="2"
-    placeholder="Ex. reprendre le vélo avec des amis ; pouvoir refaire ses courses seul(e) ; continuer les randonnées en montagne..."
-  ></textarea>
+  <div style="margin-top:10px;">
 
-  <div style="margin-top:6px;font-size:0.9rem;color:#555;">
-    Projet initial pouvant être repris ou reformulé lors de la discussion.
-  </div>
-
-</div>
-
-<div class="sub-group">
-
-  <div class="pap-quick-section-heading">
-
-    <h3 style="color:#0056b3;margin:0;">
-      Analyse fonctionnelle du projet — si utile
-    </h3>
-
-    <span
-      id="papQuickObjectiveFunctionalSummary"
-      class="pap-quick-status-summary hidden"
-    >
-      analyse renseignée
-    </span>
-
-    <button
-      type="button"
-      id="papQuickObjectiveFunctionalToggle"
-      class="pap-quick-optional-toggle pap-quick-inline-toggle"
-      aria-expanded="false"
-      aria-controls="papQuickObjectiveFunctionalDetail"
-    >
-      ▸ Compléter
-    </button>
-
-  </div>
-
-  <div
-    id="papQuickObjectiveFunctionalDetail"
-    class="pap-quick-hide pap-quick-optional-detail"
-  >
+    <div style="font-weight:600;margin-bottom:6px;">
+      Projet / priorité du patient
+    </div>
 
     <textarea
-      id="objectif_functional_analysis"
+      id="engagement_patient_goal"
       style="width:95%;"
       rows="2"
-      placeholder="Ex. distance à marcher, escaliers, charges à porter, chariot à pousser/tirer, dénivelé, durée, équilibre..."
+      placeholder="Ex. reprendre le vélo avec des amis ; pouvoir refaire ses courses seul(e) ; continuer les randonnées en montagne..."
     ></textarea>
 
     <div style="margin-top:6px;font-size:0.9rem;color:#555;">
-      Facultatif — préciser les exigences concrètes du projet si utile.
+      Projet initial pouvant être repris, précisé ou reformulé lors de la discussion.
     </div>
 
   </div>
 
 </div>
 
-<div
-  id="clinicalCognitiveObjectiveDiscussionV2"
-  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
-  style="display:none; margin-top:8px; margin-bottom:12px;"
-></div>
+
+<!-- =========================================
+     2 — ÉLÉMENTS POUR CONSTRUIRE LES OBJECTIFS
+     ========================================= -->
+
+<div class="sub-group">
+
+  <h3 style="color:#0056b3;">
+    2 — Éléments pour construire les objectifs
+  </h3>
+
+
+  <div style="margin-top:12px;">
+
+    <div class="pap-quick-section-heading">
+
+      <div style="font-weight:600;">
+        Analyse fonctionnelle du projet — si utile
+      </div>
+
+      <span
+        id="papQuickObjectiveFunctionalSummary"
+        class="pap-quick-status-summary hidden"
+      >
+        analyse renseignée
+      </span>
+
+      <button
+        type="button"
+        id="papQuickObjectiveFunctionalToggle"
+        class="pap-quick-optional-toggle pap-quick-inline-toggle"
+        aria-expanded="false"
+        aria-controls="papQuickObjectiveFunctionalDetail"
+      >
+        ▸ Compléter
+      </button>
+
+    </div>
+
+    <div
+      id="papQuickObjectiveFunctionalDetail"
+      class="pap-quick-hide pap-quick-optional-detail"
+    >
+
+      <textarea
+        id="objectif_functional_analysis"
+        style="width:95%;"
+        rows="2"
+        placeholder="Ex. distance à marcher, escaliers, charges à porter, chariot à pousser/tirer, dénivelé, durée, équilibre..."
+      ></textarea>
+
+      <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+        Facultatif — préciser les exigences concrètes du projet si utile.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div style="margin-top:16px;">
+
+    <div style="font-weight:600;margin-bottom:5px;">
+      Repères généraux AP / sédentarité
+    </div>
+
+    <div style="font-size:0.92rem;color:#555;line-height:1.45;">
+      Commencer, reprendre ou augmenter l’activité physique ·
+      Maintenir le niveau d’activité physique ·
+      Réduire la sédentarité ·
+      Progresser vers les repères d’activité physique HAS / OMS
+    </div>
+
+  </div>
+
+
+  <div
+    id="objectiveEngagementContextV2"
+    style="display:none; margin-top:16px;"
+  ></div>
+
+
+  <div
+    id="clinicalObjectiveGuidanceV2"
+    class="pap-objective-guidance-local-host"
+    style="display:none; margin-top:16px;"
+  ></div>
+
+
+  <div
+    id="clinicalCognitiveObjectiveDiscussionV2"
+    class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+    style="display:none; margin-top:8px; margin-bottom:12px;"
+  ></div>
+
+</div>
+
+
+<!-- =========================================
+     3 — OBJECTIFS RETENUS
+     ========================================= -->
 
 <div
   class="sub-group"
@@ -2646,18 +2753,72 @@ Apixaban 5 mg x2/j">
 >
 
   <h3 style="color:#0056b3;margin-top:0;">
-    Objectif(s) partagé(s) retenu(s) avec le patient
+    3 — Objectifs retenus
   </h3>
 
-  <textarea
-    name="objectifs_ap"
-    style="width:95%;"
-    rows="4"
-    placeholder="Un objectif par ligne. Ex. pouvoir aller au marché à pied ; reprendre progressivement le vélo ; marcher 10 minutes après le déjeuner 3 jours par semaine..."
-  ></textarea>
 
-  <div style="margin-top:6px;font-size:0.9rem;color:#555;">
-    Un objectif par ligne. Objectifs intermédiaires possibles si utiles.
+  <div style="margin-top:10px;">
+
+    <div style="font-weight:600;margin-bottom:7px;">
+      Objectifs généraux AP / sédentarité
+    </div>
+
+    <label>
+      <input
+        type="checkbox"
+        name="objectif_ap"
+        value="augmenter_ap"
+      >
+      Commencer, reprendre ou augmenter l’activité physique
+    </label>
+
+    <label>
+      <input
+        type="checkbox"
+        name="objectif_ap"
+        value="maintenir_ap"
+      >
+      Maintenir le niveau d’activité physique
+    </label>
+
+    <label>
+      <input
+        type="checkbox"
+        name="objectif_ap"
+        value="reduire_sedentarite"
+      >
+      Réduire la sédentarité
+    </label>
+
+    <label>
+      <input
+        type="checkbox"
+        name="objectif_ap"
+        value="progresser_recommandations"
+      >
+      Progresser vers les repères d’activité physique HAS / OMS
+    </label>
+
+  </div>
+
+
+  <div style="margin-top:16px;">
+
+    <div style="font-weight:600;margin-bottom:6px;">
+      Objectif(s) partagé(s) retenu(s) avec le patient
+    </div>
+
+    <textarea
+      name="objectifs_ap"
+      style="width:95%;"
+      rows="4"
+      placeholder="Un objectif par ligne. Ex. pouvoir aller au marché à pied ; reprendre progressivement le vélo ; marcher 10 minutes après le déjeuner 3 jours par semaine..."
+    ></textarea>
+
+    <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+      Un objectif par ligne. Objectifs intermédiaires possibles si utiles.
+    </div>
+
   </div>
 
 </div>
@@ -7144,58 +7305,42 @@ const objectiveClinicalUsesV2 =
   }
 
 
-  const objectiveProjectGroupV2 =
-    document
-      .getElementById(
-        "engagement_patient_goal"
-      )
-      ?.closest(
-        ".sub-group"
-      ) || null;
-
-  const objectiveFunctionalGroupV2 =
-    document
-      .getElementById(
-        "objectif_functional_analysis"
-      )
-      ?.closest(
-        ".sub-group"
-      ) || null;
-
-  const objectiveSharedGoalGroupV2 =
-    document
-      .querySelector(
-        'textarea[name="objectifs_ap"]'
-      )
-      ?.closest(
-        ".sub-group"
-      ) || null;
-
-
-  renderObjectiveGuidanceLocalSlotV2(
-    "clinicalObjectiveCandidateGuidanceV2",
-    objectiveGuidanceLocalHtmlByIdV2
-      .objectiveCandidates || "",
-    objectiveProjectGroupV2,
-    "afterend"
-  );
-
-
-  renderObjectiveGuidanceLocalSlotV2(
-    "clinicalObjectiveConsiderationGuidanceV2",
+  const objectiveGuidanceCombinedHtmlV2 = [
     objectiveGuidanceLocalHtmlByIdV2
       .objectiveConsiderations || "",
-    objectiveFunctionalGroupV2,
-    "afterend"
-  );
+    objectiveGuidanceLocalHtmlByIdV2
+      .goalSettingAdaptations || "",
+    objectiveGuidanceLocalHtmlByIdV2
+      .objectiveCandidates || ""
+  ]
+    .filter(Boolean)
+    .join("");
+
+
+  const objectiveGuidanceContainerHtmlV2 =
+    objectiveGuidanceCombinedHtmlV2
+      ? `
+        <div>
+          <div
+            style="
+              font-weight:600;
+              margin-bottom:7px;
+            "
+          >
+            Éléments à considérer pour les objectifs
+          </div>
+
+          ${objectiveGuidanceCombinedHtmlV2}
+        </div>
+      `
+      : "";
 
 
   renderObjectiveGuidanceLocalSlotV2(
-    "clinicalObjectiveGoalSettingGuidanceV2",
-    objectiveGuidanceLocalHtmlByIdV2
-      .goalSettingAdaptations || "",
-    objectiveSharedGoalGroupV2,
-    "beforebegin"
+    "clinicalObjectiveGuidanceV2",
+    objectiveGuidanceContainerHtmlV2,
+    null,
+    "afterend"
   );
 
 
