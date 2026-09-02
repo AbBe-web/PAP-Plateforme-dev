@@ -34,17 +34,20 @@
     function getPathologyLabel(
         pathologyId
     ) {
-        const labels = {
-            hta: "HTA",
-            dt2: "DT2",
-            bpco: "BPCO"
-        };
+        if (
+            typeof window
+                .getPathologyShortLabel ===
+            "function"
+        ) {
+            return window
+                .getPathologyShortLabel(
+                    pathologyId
+                );
+        }
 
-        return (
-            labels[pathologyId] ||
-            String(pathologyId || "")
-                .toUpperCase()
-        );
+        return String(
+            pathologyId || ""
+        ).trim();
     }
 
     function normalizePathologyIds(
@@ -108,6 +111,46 @@
         ).trim();
     }
 
+    function renderClinicalCognitiveOriginBadgesHtml(
+        pathologyIds
+    ) {
+        const normalizedPathologyIds =
+            normalizePathologyIds(
+                pathologyIds
+            );
+
+        if (
+            normalizedPathologyIds.length === 0
+        ) {
+            return "";
+        }
+
+        const badgesHtml =
+            normalizedPathologyIds
+                .map(function (pathologyId) {
+                    return `
+<span
+  class="pap-cognitive-ux-origin-badge"
+  data-pathology-id="${escapeClinicalCognitiveUxHtml(
+      pathologyId
+  )}"
+>
+  ${escapeClinicalCognitiveUxHtml(
+      getPathologyLabel(
+          pathologyId
+      )
+  )}
+</span>`;
+                })
+                .join("");
+
+        return `
+<span class="pap-cognitive-ux-origin-badges">
+  ${badgesHtml}
+</span>`;
+    }
+
+
     function renderOriginBadgesHtml(
         item,
         activePathologies,
@@ -145,35 +188,9 @@
                 }
             );
 
-        if (
-            relevantPathologies.length === 0
-        ) {
-            return "";
-        }
-
-        const badgesHtml =
+        return renderClinicalCognitiveOriginBadgesHtml(
             relevantPathologies
-                .map(function (pathologyId) {
-                    return `
-<span
-  class="pap-cognitive-ux-origin-badge"
-  data-pathology-id="${escapeClinicalCognitiveUxHtml(
-      pathologyId
-  )}"
->
-  ${escapeClinicalCognitiveUxHtml(
-      getPathologyLabel(
-          pathologyId
-      )
-  )}
-</span>`;
-                })
-                .join("");
-
-        return `
-<span class="pap-cognitive-ux-origin-badges">
-  ${badgesHtml}
-</span>`;
+        );
     }
 
     function renderItemHtml(
@@ -1094,6 +1111,9 @@ ${clinicianCheckBlock}`;
 
     window.escapeClinicalCognitiveUxHtml =
         escapeClinicalCognitiveUxHtml;
+
+    window.renderClinicalCognitiveOriginBadgesHtml =
+        renderClinicalCognitiveOriginBadgesHtml;
 
     window.renderClinicalCognitiveUxHtml =
         renderClinicalCognitiveUxHtml;

@@ -9,7 +9,7 @@
             id:
                 "objectiveConsiderations",
             title:
-                "Éléments cliniques à considérer"
+                "À prendre en compte"
         },
         {
             sourceKey:
@@ -17,7 +17,7 @@
             id:
                 "objectiveCandidates",
             title:
-                "Objectifs possibles à discuter"
+                "Cible possible à discuter"
         },
         {
             sourceKey:
@@ -25,7 +25,7 @@
             id:
                 "goalSettingAdaptations",
             title:
-                "Adaptations de la co-construction"
+                "Pour adapter l’objectif"
         }
     ];
 
@@ -96,14 +96,65 @@
                                         return null;
                                     }
 
-                                    return {
-                                        knowledgeItemId:
-                                            clinicalUse
-                                                .knowledgeItemId ||
-                                            "",
+                                    const knowledgeItemId =
+                                        clinicalUse
+                                            .knowledgeItemId ||
+                                        "";
 
-                                        message:
-                                            message
+                                    const pathologyIds =
+                                        Array.isArray(
+                                            sourceProjection
+                                                ?.matchedContext
+                                                ?.pathologiesAny
+                                        )
+                                            ? [
+                                                ...new Set(
+                                                    sourceProjection
+                                                        .matchedContext
+                                                        .pathologiesAny
+                                                        .map(
+                                                            function (
+                                                                pathologyId
+                                                            ) {
+                                                                return String(
+                                                                    pathologyId ||
+                                                                    ""
+                                                                ).trim();
+                                                            }
+                                                        )
+                                                        .filter(Boolean)
+                                                )
+                                            ]
+                                            : [];
+
+                                    const registry =
+                                        typeof sourceProjection
+                                            ?.provenance
+                                            ?.registry ===
+                                            "string"
+                                            ? sourceProjection
+                                                .provenance
+                                                .registry
+                                                .trim()
+                                            : "";
+
+                                    return {
+                                        knowledgeItemId,
+
+                                        semanticConceptId:
+                                            sourceProjection
+                                                ?.semanticConceptId ||
+                                            null,
+
+                                        message,
+
+                                        sources: [
+                                            {
+                                                knowledgeItemId,
+                                                pathologyIds,
+                                                registry
+                                            }
+                                        ]
                                     };
                                 }
                             )
@@ -172,6 +223,72 @@
     }
 
 
+    function getObjectiveGuidancePathologyIdsV2(
+        item
+    ) {
+        const sources =
+            Array.isArray(
+                item?.sources
+            )
+                ? item.sources
+                : [];
+
+        return [
+            ...new Set(
+                sources
+                    .flatMap(
+                        function (source) {
+                            return Array.isArray(
+                                source?.pathologyIds
+                            )
+                                ? source.pathologyIds
+                                : [];
+                        }
+                    )
+                    .map(
+                        function (pathologyId) {
+                            return String(
+                                pathologyId || ""
+                            ).trim();
+                        }
+                    )
+                    .filter(Boolean)
+            )
+        ];
+    }
+
+
+    function renderObjectiveGuidanceOriginBadgesHtmlV2(
+        item
+    ) {
+        const pathologyIds =
+            getObjectiveGuidancePathologyIdsV2(
+                item
+            );
+
+        if (
+            pathologyIds.length === 0
+        ) {
+            return "";
+        }
+
+        const sharedRenderer =
+            window
+                .renderClinicalCognitiveOriginBadgesHtml;
+
+        if (
+            typeof sharedRenderer !==
+            "function"
+        ) {
+            return "";
+        }
+
+        return sharedRenderer(
+            pathologyIds
+        );
+    }
+
+
     function renderObjectiveGuidanceHtmlV2(
         viewModel
     ) {
@@ -216,12 +333,18 @@
                                                 item.message
                                             );
 
+                                        const originBadgesHtml =
+                                            renderObjectiveGuidanceOriginBadgesHtmlV2(
+                                                item
+                                            );
+
                                         return `
 <li
   class="pap-objective-guidance-item"
   data-knowledge-item-id="${itemId}"
 >
   ${messageHtml}
+  ${originBadgesHtml}
 </li>`;
                                     }
                                 )
@@ -332,6 +455,11 @@
                             return "";
                         }
 
+                        const originBadgesHtml =
+                            renderObjectiveGuidanceOriginBadgesHtmlV2(
+                                item
+                            );
+
                         return `
 <li
   class="pap-objective-guidance-local-item"
@@ -340,6 +468,7 @@
   ${renderObjectiveGuidanceMessageHtml(
       message
   )}
+  ${originBadgesHtml}
 </li>`;
                     }
                 )
@@ -357,25 +486,11 @@
       section.id || ""
   )}"
   style="
-    margin:6px 0 10px 0;
-    padding:7px 10px;
-    border-left:3px solid #b9cde8;
-    background:#f8fbff;
+    margin:4px 0 10px 0;
     font-size:0.9rem;
     line-height:1.4;
   "
 >
-  <div
-    class="pap-objective-guidance-local-context"
-    style="
-      font-weight:600;
-      color:#0056b3;
-      margin-bottom:2px;
-    "
-  >
-    Repères — Objectifs
-  </div>
-
   <div
     class="pap-objective-guidance-local-title"
     style="

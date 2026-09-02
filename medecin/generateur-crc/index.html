@@ -610,7 +610,21 @@ label:has(input[type="radio"]) .info-icon{
       }
 
       .pap-objectives-level-content {
+        display: block !important;
+        width: calc(100% - 16px);
+        max-width: calc(100% - 16px);
         margin-left: 16px;
+        box-sizing: border-box;
+      }
+
+      .pap-objectives-level-content
+        > .pap-objectives-subsection,
+      .pap-objectives-level-content
+        > .pap-objectives-decision-card {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .pap-objectives-subsection {
@@ -658,18 +672,51 @@ label:has(input[type="radio"]) .info-icon{
 
       .pap-objectives-decision-card {
         margin-top: 14px;
-        padding: 12px;
-        border: 1px solid #d9e4f2;
-        border-radius: 8px;
-        background: #f8fbff;
+      }
+
+      .pap-objectives-decision-card
+        .pap-objectives-subsection:first-child
+        > div
+        > label {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        line-height: 1.15;
+      }
+
+      .pap-objectives-decision-card
+        .pap-objectives-subsection:first-child
+        > div
+        > div
+        + div {
+        margin-top: -3px !important;
       }
 
       .pap-objectives-guidance-host {
+        display: block;
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
         margin-top: 14px;
+        box-sizing: border-box;
       }
 
       .pap-objectives-guidance-host:empty {
         display: none;
+      }
+
+      .pap-objectives-cognitive-card-full {
+        display: block;
+        flex: 0 0 100%;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+      }
+
+      .pap-objectives-guidance-host > .pap-cognitive-ux-section,
+      .pap-objectives-cognitive-card-full > .pap-cognitive-ux-section {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
       }
 
       .pap-objectives-engagement-host {
@@ -678,6 +725,39 @@ label:has(input[type="radio"]) .info-icon{
 
       .pap-objectives-engagement-host:empty {
         display: none;
+      }
+
+      .pap-objectives-example {
+        margin-top: 5px;
+        font-size: 0.88rem;
+        color: #64748b;
+        line-height: 1.4;
+      }
+
+      .pap-objectives-help {
+        margin-top: 5px;
+        font-size: 0.88rem;
+        color: #555;
+        line-height: 1.4;
+      }
+
+      .pap-objectives-textarea {
+        width: 100%;
+        box-sizing: border-box;
+        resize: vertical;
+        overflow-y: hidden;
+        min-height: 44px;
+        font-family: inherit;
+        font-size: 0.88rem;
+        line-height: 1.35;
+      }
+
+      #engagement_patient_goal::placeholder,
+      #objectif_functional_analysis::placeholder,
+      textarea[name="objectifs_ap"]::placeholder {
+        font-family: inherit;
+        font-size: 0.88rem;
+        line-height: 1.25;
       }
 
     </style>
@@ -2612,27 +2692,31 @@ Apixaban 5 mg x2/j">
      1 — CE QUI COMPTE POUR LE PATIENT
      ========================================= -->
 
-<div class="sub-group">
+<div class="sub-group pap-objectives-level">
 
-  <h3 style="color:#0056b3;">
+  <h3 class="pap-objectives-level-title">
     1 — Ce qui compte pour le patient
   </h3>
 
-  <div style="margin-top:10px;">
+  <div class="pap-objectives-level-content">
 
-    <div style="font-weight:600;margin-bottom:6px;">
-      Projet / priorité du patient
-    </div>
+    <div class="pap-objectives-subsection">
 
-    <textarea
-      id="engagement_patient_goal"
-      style="width:95%;"
-      rows="2"
-      placeholder="Ex. reprendre le vélo avec des amis ; pouvoir refaire ses courses seul(e) ; continuer les randonnées en montagne..."
-    ></textarea>
+      <div class="pap-objectives-subtitle">
+        Projet / priorité du patient
+      </div>
 
-    <div style="margin-top:6px;font-size:0.9rem;color:#555;">
-      Projet initial pouvant être repris, précisé ou reformulé lors de la discussion.
+      <textarea
+        id="engagement_patient_goal"
+        class="pap-objectives-textarea"
+        rows="2"
+        placeholder="Ex. reprendre le vélo avec des amis ; refaire ses courses seul(e) ; continuer les randonnées..."
+      ></textarea>
+
+      <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+        Projet initial pouvant être repris, précisé ou reformulé lors de la discussion.
+      </div>
+
     </div>
 
   </div>
@@ -2644,95 +2728,92 @@ Apixaban 5 mg x2/j">
      2 — ÉLÉMENTS POUR CONSTRUIRE LES OBJECTIFS
      ========================================= -->
 
-<div class="sub-group">
+<div class="sub-group pap-objectives-level">
 
-  <h3 style="color:#0056b3;">
+  <h3 class="pap-objectives-level-title">
     2 — Éléments pour construire les objectifs
   </h3>
 
+  <div class="pap-objectives-level-content">
 
-  <div style="margin-top:12px;">
 
-    <div class="pap-quick-section-heading">
+    <!-- Analyse fonctionnelle -->
 
-      <div style="font-weight:600;">
-        Analyse fonctionnelle du projet — si utile
+    <div class="pap-objectives-subsection">
+
+      <div class="pap-quick-section-heading">
+
+        <div class="pap-objectives-subtitle" style="margin-bottom:0;">
+          Analyse fonctionnelle du projet — si utile
+        </div>
+
+        <span
+          id="papQuickObjectiveFunctionalSummary"
+          class="pap-quick-status-summary hidden"
+        >
+          analyse renseignée
+        </span>
+
+        <button
+          type="button"
+          id="papQuickObjectiveFunctionalToggle"
+          class="pap-quick-optional-toggle pap-quick-inline-toggle"
+          aria-expanded="false"
+          aria-controls="papQuickObjectiveFunctionalDetail"
+        >
+          ▸ Compléter
+        </button>
+
       </div>
 
-      <span
-        id="papQuickObjectiveFunctionalSummary"
-        class="pap-quick-status-summary hidden"
+      <div
+        id="papQuickObjectiveFunctionalDetail"
+        class="pap-quick-hide pap-quick-optional-detail"
       >
-        analyse renseignée
-      </span>
 
-      <button
-        type="button"
-        id="papQuickObjectiveFunctionalToggle"
-        class="pap-quick-optional-toggle pap-quick-inline-toggle"
-        aria-expanded="false"
-        aria-controls="papQuickObjectiveFunctionalDetail"
-      >
-        ▸ Compléter
-      </button>
+        <textarea
+          id="objectif_functional_analysis"
+          class="pap-objectives-textarea"
+          rows="2"
+          placeholder="Ex. distance, escaliers, charges, dénivelé, durée, équilibre..."
+        ></textarea>
+
+        <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+          Facultatif — préciser les exigences concrètes du projet si utile.
+        </div>
+
+      </div>
 
     </div>
+
+
+    <!-- Contexte Engagement -->
 
     <div
-      id="papQuickObjectiveFunctionalDetail"
-      class="pap-quick-hide pap-quick-optional-detail"
-    >
-
-      <textarea
-        id="objectif_functional_analysis"
-        style="width:95%;"
-        rows="2"
-        placeholder="Ex. distance à marcher, escaliers, charges à porter, chariot à pousser/tirer, dénivelé, durée, équilibre..."
-      ></textarea>
-
-      <div style="margin-top:6px;font-size:0.9rem;color:#555;">
-        Facultatif — préciser les exigences concrètes du projet si utile.
-      </div>
-
-    </div>
-
-  </div>
+      id="objectiveEngagementContextV2"
+      class="pap-cognitive-ux-host pap-objectives-engagement-host"
+      style="display:none;"
+    ></div>
 
 
-  <div style="margin-top:16px;">
+    <!-- ClinicalKnowledge Objectives -->
 
-    <div style="font-weight:600;margin-bottom:5px;">
-      Repères généraux AP / sédentarité
-    </div>
+    <div
+      id="clinicalObjectiveGuidanceV2"
+      class="pap-cognitive-ux-host pap-objectives-guidance-host"
+      style="display:none;"
+    ></div>
 
-    <div style="font-size:0.92rem;color:#555;line-height:1.45;">
-      Commencer, reprendre ou augmenter l’activité physique ·
-      Maintenir le niveau d’activité physique ·
-      Réduire la sédentarité ·
-      Progresser vers les repères d’activité physique HAS / OMS
-    </div>
+
+    <!-- Host legacy conservé -->
+
+    <div
+      id="clinicalCognitiveObjectiveDiscussionV2"
+      class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+      style="display:none; margin-top:8px; margin-bottom:12px;"
+    ></div>
 
   </div>
-
-
-  <div
-    id="objectiveEngagementContextV2"
-    style="display:none; margin-top:16px;"
-  ></div>
-
-
-  <div
-    id="clinicalObjectiveGuidanceV2"
-    class="pap-objective-guidance-local-host"
-    style="display:none; margin-top:16px;"
-  ></div>
-
-
-  <div
-    id="clinicalCognitiveObjectiveDiscussionV2"
-    class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
-    style="display:none; margin-top:8px; margin-bottom:12px;"
-  ></div>
 
 </div>
 
@@ -2741,82 +2822,128 @@ Apixaban 5 mg x2/j">
      3 — OBJECTIFS RETENUS
      ========================================= -->
 
-<div
-  class="sub-group"
-  style="
-    margin-top:14px;
-    padding:12px;
-    border:1px solid #d9e4f2;
-    border-radius:8px;
-    background:#f8fbff;
-  "
->
+<div class="sub-group pap-objectives-level">
 
-  <h3 style="color:#0056b3;margin-top:0;">
+  <h3 class="pap-objectives-level-title">
     3 — Objectifs retenus
   </h3>
 
+  <div class="pap-objectives-level-content">
 
-  <div style="margin-top:10px;">
+    <div class="pap-cognitive-ux-host pap-objectives-cognitive-card-full">
 
-    <div style="font-weight:600;margin-bottom:7px;">
-      Objectifs généraux AP / sédentarité
+      <details
+        id="papObjectiveGeneralReferenceDetails"
+        class="pap-cognitive-ux-section pap-cognitive-ux-section-clinician"
+        open
+      >
+
+        <summary class="pap-cognitive-ux-section-summary">
+          <span class="pap-cognitive-ux-section-title">
+            Repère général AP / sédentarité
+          </span>
+
+          <span class="pap-cognitive-ux-section-count">
+            1
+          </span>
+        </summary>
+
+        <div class="pap-cognitive-ux-section-content">
+
+          <div
+            class="pap-cognitive-ux-item"
+            style="list-style:none;"
+          >
+            Selon la situation, les objectifs peuvent porter sur l’évolution
+            ou le maintien de l’activité physique, la réduction de la sédentarité
+            et/ou une progression vers les repères d’activité physique HAS / OMS.
+          </div>
+
+        </div>
+
+      </details>
+
     </div>
 
-    <label>
-      <input
-        type="checkbox"
-        name="objectif_ap"
-        value="augmenter_ap"
-      >
-      Commencer, reprendre ou augmenter l’activité physique
-    </label>
-
-    <label>
-      <input
-        type="checkbox"
-        name="objectif_ap"
-        value="maintenir_ap"
-      >
-      Maintenir le niveau d’activité physique
-    </label>
-
-    <label>
-      <input
-        type="checkbox"
-        name="objectif_ap"
-        value="reduire_sedentarite"
-      >
-      Réduire la sédentarité
-    </label>
-
-    <label>
-      <input
-        type="checkbox"
-        name="objectif_ap"
-        value="progresser_recommandations"
-      >
-      Progresser vers les repères d’activité physique HAS / OMS
-    </label>
-
-  </div>
+    <div class="pap-objectives-decision-card">
 
 
-  <div style="margin-top:16px;">
+      <div class="pap-objectives-subsection">
 
-    <div style="font-weight:600;margin-bottom:6px;">
-      Objectif(s) partagé(s) retenu(s) avec le patient
-    </div>
+        <div class="pap-objectives-subtitle">
+          Objectifs généraux AP / sédentarité
+        </div>
 
-    <textarea
-      name="objectifs_ap"
-      style="width:95%;"
-      rows="4"
-      placeholder="Un objectif par ligne. Ex. pouvoir aller au marché à pied ; reprendre progressivement le vélo ; marcher 10 minutes après le déjeuner 3 jours par semaine..."
-    ></textarea>
+        <div style="margin-left:10px;">
 
-    <div style="margin-top:6px;font-size:0.9rem;color:#555;">
-      Un objectif par ligne. Objectifs intermédiaires possibles si utiles.
+          <div style="margin:0;">
+            <label>
+              <input
+                type="checkbox"
+                name="objectif_ap"
+                value="augmenter_ap"
+              >
+              Commencer, reprendre ou augmenter l’activité physique
+            </label>
+          </div>
+
+          <div style="margin:0;">
+            <label>
+              <input
+                type="checkbox"
+                name="objectif_ap"
+                value="maintenir_ap"
+              >
+              Maintenir le niveau d’activité physique
+            </label>
+          </div>
+
+          <div style="margin:0;">
+            <label>
+              <input
+                type="checkbox"
+                name="objectif_ap"
+                value="reduire_sedentarite"
+              >
+              Réduire la sédentarité
+            </label>
+          </div>
+
+          <div style="margin:0;">
+            <label>
+              <input
+                type="checkbox"
+                name="objectif_ap"
+                value="progresser_recommandations"
+              >
+              Progresser vers les repères d’activité physique HAS / OMS
+            </label>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="pap-objectives-subsection">
+
+        <div class="pap-objectives-subtitle">
+          Objectif(s) retenu(s) avec le patient
+        </div>
+
+        <textarea
+             name="objectifs_ap"
+             class="pap-objectives-textarea"
+             rows="2"
+             placeholder="Un objectif par ligne. Ex. aller au marché à pied ; reprendre le vélo ; marcher 10 min après le déjeuner..."
+           ></textarea>
+
+           <div style="margin-top:6px;font-size:0.9rem;color:#555;">
+             Un objectif par ligne. Objectifs intermédiaires possibles si utiles.
+           </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -4187,6 +4314,7 @@ Commentaire complémentaire pour le professionnel encadrant — APA, kinésithé
 <script src="../../data/clinical-knowledge/generated/functional-use-definitions.generated.js"></script>
 <script src="../../core/clinical-context/clinical-knowledge-schema.js"></script>
 <script src="../../core/clinical-context/pathology-registry.js"></script>
+<script src="../../core/clinical-context/pathology-resolver.js"></script>
 <script src="../../core/clinical-context/clinical-situation-registry.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -7061,6 +7189,238 @@ function initClinicalSituationsToggle() {
   );
 }
 
+function escapeObjectiveEngagementTextV2(
+  value
+) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function buildObjectiveEngagementPatientContextV2() {
+  return {
+    confiance:
+      document.querySelector(
+        'input[name="confiance_ap"]'
+      )?.value || null,
+
+    confiance_commentaire:
+      document.getElementById(
+        "confiance_patient_comment"
+      )?.value?.trim() || null,
+
+    freins:
+      document.querySelector(
+        'textarea[name="freins"]'
+      )?.value?.trim() || null,
+
+    leviers:
+      document.querySelector(
+        'textarea[name="leviers"]'
+      )?.value?.trim() || null
+  };
+}
+
+
+function buildObjectiveEngagementContextHtmlV2(
+  engagementPatientContext
+) {
+  const context =
+    engagementPatientContext || {};
+
+  const items = [];
+
+  if (
+    context.confiance !== null &&
+    context.confiance !== undefined &&
+    String(
+      context.confiance
+    ).trim() !== ""
+  ) {
+    items.push(
+      `<div class="pap-cognitive-ux-item" style="list-style:none;">
+        <strong>Confiance :</strong>
+        ${escapeObjectiveEngagementTextV2(
+          context.confiance
+        )}/10
+      </div>`
+    );
+  }
+
+  if (
+    String(
+      context.confiance_commentaire || ""
+    ).trim()
+  ) {
+    items.push(
+      `<div class="pap-cognitive-ux-item" style="list-style:none;">
+        <strong>Précision sur la confiance :</strong>
+        ${escapeObjectiveEngagementTextV2(
+          context.confiance_commentaire
+        )}
+      </div>`
+    );
+  }
+
+  if (
+    String(
+      context.freins || ""
+    ).trim()
+  ) {
+    items.push(
+      `<div class="pap-cognitive-ux-item" style="list-style:none;">
+        <strong>Freins :</strong>
+        ${escapeObjectiveEngagementTextV2(
+          context.freins
+        )}
+      </div>`
+    );
+  }
+
+  if (
+    String(
+      context.leviers || ""
+    ).trim()
+  ) {
+    items.push(
+      `<div class="pap-cognitive-ux-item" style="list-style:none;">
+        <strong>Leviers / ressources :</strong>
+        ${escapeObjectiveEngagementTextV2(
+          context.leviers
+        )}
+      </div>`
+    );
+  }
+
+  if (items.length === 0) {
+    return "";
+  }
+
+  const isQuickMode =
+    document.body.classList.contains(
+      "pap-quick-mode"
+    );
+
+  return `
+    <details
+      id="papObjectiveEngagementContextDetails"
+      class="pap-cognitive-ux-section pap-cognitive-ux-section-clinician"
+      ${isQuickMode ? "" : "open"}
+    >
+      <summary class="pap-cognitive-ux-section-summary">
+        <span class="pap-cognitive-ux-section-title">
+          Éléments d’engagement à prendre en compte
+        </span>
+      </summary>
+
+      <div class="pap-cognitive-ux-section-content">
+        ${items.join("")}
+      </div>
+    </details>
+  `;
+}
+
+
+function renderObjectiveEngagementContextV2() {
+  const host =
+    document.getElementById(
+      "objectiveEngagementContextV2"
+    );
+
+  if (!host) {
+    return "";
+  }
+
+  const patientContext =
+    buildObjectiveEngagementPatientContextV2();
+
+  const html =
+    buildObjectiveEngagementContextHtmlV2(
+      patientContext
+    );
+
+  window.PAP_OBJECTIVE_ENGAGEMENT_PATIENT_CONTEXT_V2 =
+    patientContext;
+
+  window.PAP_OBJECTIVE_ENGAGEMENT_CONTEXT_HTML_V2 =
+    html;
+
+  host.innerHTML =
+    html;
+
+  host.style.display =
+    html
+      ? "block"
+      : "none";
+
+  return html;
+}
+
+
+function initObjectiveEngagementContextV2() {
+  const fields = [
+    document.querySelector(
+      'input[name="confiance_ap"]'
+    ),
+    document.getElementById(
+      "confiance_patient_comment"
+    ),
+    document.querySelector(
+      'textarea[name="freins"]'
+    ),
+    document.querySelector(
+      'textarea[name="leviers"]'
+    )
+  ].filter(Boolean);
+
+  let renderTimer = null;
+
+  function scheduleRender() {
+    window.clearTimeout(
+      renderTimer
+    );
+
+    renderTimer =
+      window.setTimeout(
+        function() {
+          renderObjectiveEngagementContextV2();
+        },
+        120
+      );
+  }
+
+  fields.forEach(function(field) {
+    if (
+      field.dataset
+        .papObjectiveEngagementBound ===
+      "true"
+    ) {
+      return;
+    }
+
+    field.dataset
+      .papObjectiveEngagementBound =
+      "true";
+
+    field.addEventListener(
+      "input",
+      scheduleRender
+    );
+
+    field.addEventListener(
+      "change",
+      scheduleRender
+    );
+  });
+
+  renderObjectiveEngagementContextV2();
+}
+
+
 function renderClinicalCognitiveAidV2() {
 
   const safetyContainer =
@@ -7197,6 +7557,9 @@ window.PAP_ENGAGEMENT_GUIDANCE_V2 =
   engagementGuidanceV2;
 
 
+renderObjectiveEngagementContextV2();
+
+
 const objectiveClinicalUsesV2 =
     typeof selectClinicalUsesV2 ===
     "function"
@@ -7305,6 +7668,34 @@ const objectiveClinicalUsesV2 =
   }
 
 
+  const objectiveGuidanceItemCountV2 =
+    Array.isArray(
+      objectiveGuidanceViewModelV2
+        ?.sections
+    )
+      ? objectiveGuidanceViewModelV2
+          .sections
+          .reduce(
+            function (
+              total,
+              section
+            ) {
+              return (
+                total +
+                (
+                  Array.isArray(
+                    section?.items
+                  )
+                    ? section.items.length
+                    : 0
+                )
+              );
+            },
+            0
+          )
+      : 0;
+
+
   const objectiveGuidanceCombinedHtmlV2 = [
     objectiveGuidanceLocalHtmlByIdV2
       .objectiveConsiderations || "",
@@ -7320,18 +7711,25 @@ const objectiveClinicalUsesV2 =
   const objectiveGuidanceContainerHtmlV2 =
     objectiveGuidanceCombinedHtmlV2
       ? `
-        <div>
-          <div
-            style="
-              font-weight:600;
-              margin-bottom:7px;
-            "
-          >
-            Éléments à considérer pour les objectifs
-          </div>
+        <details
+          id="papObjectiveClinicalGuidanceDetails"
+          class="pap-cognitive-ux-section pap-cognitive-ux-section-clinician"
+          open
+        >
+          <summary class="pap-cognitive-ux-section-summary">
+            <span class="pap-cognitive-ux-section-title">
+              Éléments à considérer pour les objectifs
+            </span>
 
-          ${objectiveGuidanceCombinedHtmlV2}
-        </div>
+            <span class="pap-cognitive-ux-section-count">
+              ${objectiveGuidanceItemCountV2}
+            </span>
+          </summary>
+
+          <div class="pap-cognitive-ux-section-content">
+            ${objectiveGuidanceCombinedHtmlV2}
+          </div>
+        </details>
       `
       : "";
 
@@ -11198,9 +11596,12 @@ const crcPathoBloc =
 
 const antecedentsBloc =
   buildAntecedentsBloc();
-const traitementsBloc = buildTraitementsBloc();
-const objectifsBloc = buildObjectivesBlock(model);
-const objectifsCount = getObjectivesCount(model);
+
+const traitementsBloc =
+  buildTraitementsBloc();
+
+const transmittedObjectives =
+  buildTransmittedObjectivesDescriptor(model);
           
   return `
 <p style="text-align:right;">Le ${today}</p>
@@ -11247,12 +11648,19 @@ ${decisionBloc}
 </p>
 ` : ""}
 
-${objectifsBloc ? `
+${transmittedObjectives.text ? `
 <p>
-${objectifsCount > 1
-  ? "Les objectifs de cette prescription d’activité physique sont :"
-  : "L’objectif de cette prescription d’activité physique est :"}
-${objectifsBloc}.
+${transmittedObjectives.source === "shared"
+  ? (
+      transmittedObjectives.count > 1
+        ? "Les objectifs retenus avec le patient sont"
+        : "L’objectif retenu avec le patient est"
+    )
+  : (
+      transmittedObjectives.count > 1
+        ? "Les objectifs de cette prescription d’activité physique sont"
+        : "L’objectif de cette prescription d’activité physique est"
+    )} : ${transmittedObjectives.text}.
 </p>
 ` : ""}
 
@@ -11306,9 +11714,11 @@ ${renderPhysicianSignature()}
       model
     );
  
-  const traitementsBloc = buildTraitementsBloc();
-  const objectifsBloc = buildObjectivesBlock(model);
-  const objectifsCount = getObjectivesCount(model);
+  const traitementsBloc =
+    buildTraitementsBloc();
+
+const transmittedObjectives =
+  buildTransmittedObjectivesDescriptor(model);
 
   return `
 
@@ -11326,11 +11736,18 @@ ${rcvBloc}
 
 ${decisionBloc}
 
-${objectifsBloc ? `
-${objectifsCount > 1
-  ? "Les objectifs principaux sont :"
-  : "L’objectif principal est :"}
-${objectifsBloc}.
+${transmittedObjectives.text ? `
+${transmittedObjectives.source === "shared"
+  ? (
+      transmittedObjectives.count > 1
+        ? "Les objectifs retenus avec le patient sont"
+        : "L’objectif retenu avec le patient est"
+    )
+  : (
+      transmittedObjectives.count > 1
+        ? "Les objectifs principaux sont"
+        : "L’objectif principal est"
+    )} : ${transmittedObjectives.text}.
 ` : ""}
 
 ${prescriptionBloc}
@@ -11357,11 +11774,20 @@ function renderMedicalRecord(
 
   const antecedentsBloc = buildAntecedentsBloc();
   const traitementsBloc = buildTraitementsBloc();
-  const rcvBloc = buildRCV(model) || "";
-  const decisionBloc = buildDecisionBloc(model);
-  const objectifsBloc = buildObjectivesBlock(model);
-  const objectifsCount = getObjectivesCount(model);
-  const prescriptionBloc = buildPrescription(model, clinicalContext) || "";
+  const rcvBloc =
+    buildRCV(model) || "";
+
+  const decisionBloc =
+    buildDecisionBloc(model);
+
+  const transmittedObjectives =
+    buildTransmittedObjectivesDescriptor(model);
+
+  const prescriptionBloc =
+    buildPrescription(
+      model,
+      clinicalContext
+    ) || "";
   const medicalClinicalContextV2 =
     buildSelectedPatientMessagesMedicalClinicalContextV2(
       clinicalContext
@@ -11421,9 +11847,21 @@ ${decisionBloc}
 </p>
 ` : ""}
 
-${objectifsBloc ? `
-<p><strong>${objectifsCount > 1 ? "Objectifs" : "Objectif"} :</strong><br>
-${objectifsBloc}</p>
+${transmittedObjectives.text ? `
+<p><strong>${
+  transmittedObjectives.source === "shared"
+    ? (
+        transmittedObjectives.count > 1
+          ? "Objectifs retenus avec le patient"
+          : "Objectif retenu avec le patient"
+      )
+    : (
+        transmittedObjectives.count > 1
+          ? "Objectifs principaux"
+          : "Objectif principal"
+      )
+} :</strong><br>
+${transmittedObjectives.text}</p>
 ` : ""}
 
 ${prescriptionBloc ? `
@@ -12249,8 +12687,8 @@ const patientQuickAccessBloc =
     clinicalContext
   );
 
-const objectifsBloc = buildObjectivesBlock(model);
-const objectifsCount = getObjectivesCount(model);
+const transmittedObjectives =
+  buildTransmittedObjectivesDescriptor(model);
 
   // 🔹 Message progressivité seulement si insuffisamment actif ou actif depuis moins de 6 mois
 const progressiviteMessage = (() => {
@@ -12295,14 +12733,20 @@ ${decisionBloc}
 </p>
 ` : ""}
 
-${objectifsBloc ? `
+${transmittedObjectives.text ? `
 <p>
-Lors de l’échange que vous avez eu avec votre médecin, ${
-  objectifsCount > 1
-    ? "les objectifs principaux retenus en termes d’activité physique sont"
-    : "l’objectif principal retenu en termes d’activité physique est"
-} :
-${objectifsBloc}.
+${transmittedObjectives.source === "shared"
+  ? (
+      transmittedObjectives.count > 1
+        ? "Lors de l’échange avec votre médecin, les objectifs retenus avec vous sont"
+        : "Lors de l’échange avec votre médecin, l’objectif retenu avec vous est"
+    )
+  : (
+      transmittedObjectives.count > 1
+        ? "Les objectifs principaux retenus en termes d’activité physique sont"
+        : "L’objectif principal retenu en termes d’activité physique est"
+    )} :
+${transmittedObjectives.text}.
 </p>
 ` : ""}
 
@@ -16975,32 +17419,65 @@ pathologiesSelectionnees.forEach(patho => {
     'input[name="objectif_ap"]:checked'
   );
 
-objectifsSelectionnes.forEach(obj => {
+const objectifsGenerauxAP =
+  Array.from(
+    objectifsSelectionnes
+  )
+    .map(function (obj) {
+      return String(
+        obj.value || ""
+      ).trim();
+    })
+    .filter(Boolean);
 
-  prescriptionModel.objectifs.push(
-    obj.value
-  );
+objectifsGenerauxAP.forEach(
+  function (objectifGeneral) {
 
-});
+    prescriptionModel.objectifs.push(
+      objectifGeneral
+    );
+
+  }
+);
 
 const objectifsPartagesTexte =
   document.querySelector(
     'textarea[name="objectifs_ap"]'
   )?.value || "";
 
-const objectifsPartages =
+const objectifsPartagesTextes =
   objectifsPartagesTexte
     .split(/\r?\n/)
-    .map(value => value.trim())
+    .map(function (value) {
+      return value.trim();
+    })
     .filter(Boolean);
 
-objectifsPartages.forEach(objectif => {
+const objectifsPartagesStructures =
+  objectifsPartagesTextes
+    .map(function (text) {
+      return {
+        text,
+        origin: "shared",
+        state: "retained"
+      };
+    });
 
-  if (!prescriptionModel.objectifs.includes(objectif)) {
-    prescriptionModel.objectifs.push(objectif);
+objectifsPartagesTextes.forEach(
+  function (objectif) {
+
+    if (
+      !prescriptionModel.objectifs.includes(
+        objectif
+      )
+    ) {
+      prescriptionModel.objectifs.push(
+        objectif
+      );
+    }
+
   }
-
-});
+);
 
 const limitationsSelectionnees =
   document.querySelectorAll(
@@ -17355,18 +17832,31 @@ physicalTests,
 
 therapeutic_plan: {
 
-  objectifs:
-    prescriptionModel.objectifs,
+  objectifs_generaux_ap:
+    objectifsGenerauxAP,
+
+  objectifs_partages:
+    objectifsPartagesStructures,
 
   objectifs_partages_texte:
-    document.querySelector(
-      'textarea[name="objectifs_ap"]'
-    )?.value?.trim() || null,
+    objectifsPartagesTexte.trim() ||
+    null,
 
   analyse_fonctionnelle_objectif:
     document.getElementById(
       "objectif_functional_analysis"
     )?.value?.trim() || null,
+
+  /*
+   * Compatibilité legacy transitoire.
+   *
+   * Agrège encore objectifs généraux
+   * et objectifs partagés afin de ne
+   * pas modifier les sorties historiques
+   * pendant leur migration E13-D3.
+   */
+  objectifs:
+    prescriptionModel.objectifs,
 
   indicateur_cible_libre: null
 },
@@ -18196,20 +18686,27 @@ function buildAPAOrientationOptionsBlock() {
 
 function buildAPAObjectivesBlock(model) {
 
-  const objectifs =
-    buildObjectivesBlock(model);
+  const transmittedObjectives =
+    buildTransmittedObjectivesDescriptor(
+      model
+    );
 
-  if (!objectifs) {
+  if (!transmittedObjectives.text) {
     return "";
   }
 
-  const objectifsCount =
-    getObjectivesCount(model);
-
   const label =
-    objectifsCount > 1
-      ? "Objectifs retenus avec le patient :"
-      : "Objectif retenu avec le patient :";
+    transmittedObjectives.source === "shared"
+      ? (
+          transmittedObjectives.count > 1
+            ? "Objectifs retenus avec le patient :"
+            : "Objectif retenu avec le patient :"
+        )
+      : (
+          transmittedObjectives.count > 1
+            ? "Objectifs de la prescription :"
+            : "Objectif de la prescription :"
+        );
 
   return `
 <div style="
@@ -18222,7 +18719,7 @@ function buildAPAObjectivesBlock(model) {
   line-height: 1.45;
 ">
   <strong>${label}</strong>
-  ${objectifs}
+  ${transmittedObjectives.text}
 </div>
 `;
 }
@@ -18430,6 +18927,40 @@ const motivationFields =
       !hasObjectiveFunctionalAnalysis
     );
   }
+}
+
+function initPapObjectiveTextareaAutosize() {
+  const textareas =
+    document.querySelectorAll(
+      ".pap-objectives-textarea"
+    );
+
+  textareas.forEach(function (textarea) {
+    if (
+      textarea.dataset
+        .papObjectivesAutosizeBound ===
+      "true"
+    ) {
+      return;
+    }
+
+    textarea.dataset
+      .papObjectivesAutosizeBound =
+      "true";
+
+    function resizeTextarea() {
+      textarea.style.height = "auto";
+      textarea.style.height =
+        `${textarea.scrollHeight}px`;
+    }
+
+    textarea.addEventListener(
+      "input",
+      resizeTextarea
+    );
+
+    resizeTextarea();
+  });
 }
 
 function initPapQuickOptionalBlocks() {
@@ -18643,6 +19174,8 @@ if (
 
 
 updatePapQuickOptionalSummaries();
+initPapObjectiveTextareaAutosize();
+initObjectiveEngagementContextV2();
 }
 
 function initPapConsultationModeToggle() {
@@ -18689,6 +19222,27 @@ function initPapConsultationModeToggle() {
     if (quickModeNotice) {
       quickModeNotice.classList.toggle("hidden", !isQuickMode);
     }
+
+    const objectiveClinicalGuidanceDetails =
+      document.getElementById(
+        "papObjectiveClinicalGuidanceDetails"
+      );
+
+    const objectiveGeneralReferenceDetails =
+      document.getElementById(
+        "papObjectiveGeneralReferenceDetails"
+      );
+
+    [
+      objectiveClinicalGuidanceDetails,
+      objectiveGeneralReferenceDetails
+    ].forEach(function (detailsElement) {
+      if (!detailsElement) {
+        return;
+      }
+
+      detailsElement.open = !isQuickMode;
+    });
 
     const objectiveFunctionalDetail =
       document.getElementById(
@@ -19427,85 +19981,398 @@ if (phrases.length === 0) {
 return phrases.join(" ");
 }
   
-function buildObjectivesBlock(model) {
+// =====================================
+// OBJECTIFS — HELPERS DE RENDU MODERNES
+// =====================================
 
-const objectifs =
-  model.therapeutic_plan.objectifs || [];
+function formatObjectivesAsNaturalLanguage(
+  items
+) {
 
-  if (!objectifs.length) {
+  const values =
+    Array.isArray(items)
+      ? items
+          .map(function (item) {
+            return String(
+              item ?? ""
+            ).trim();
+          })
+          .filter(Boolean)
+      : [];
+
+  if (values.length === 0) {
     return "";
   }
 
-  const mappingObjectifs = {
+  if (values.length === 1) {
+    return values[0];
+  }
 
-  augmenter_ap:
-    "commencer, reprendre ou augmenter l’activité physique",
+  if (values.length === 2) {
+    return values.join(" et ");
+  }
 
-  maintenir_ap:
-    "maintenir le niveau d’activité physique",
+  return (
+    values
+      .slice(0, -1)
+      .join(", ") +
+    " et " +
+    values[values.length - 1]
+  );
+}
 
-  reduire_sedentarite:
-    "réduire la sédentarité",
+function buildGeneralAPObjectivesBlock(
+  model
+) {
 
-  progresser_recommandations:
-    "progresser vers les repères d’activité physique HAS / OMS",
+  const objectifsGeneraux =
+    model?.therapeutic_plan
+      ?.objectifs_generaux_ap || [];
 
-  controle_maladie:
-    "améliorer le contrôle d’une maladie chronique",
+  const mappingObjectifsGeneraux = {
 
-  condition_physique:
-    "améliorer la condition physique",
+    augmenter_ap:
+      "commencer, reprendre ou augmenter l’activité physique",
 
-  capacites_cardio:
-    "améliorer les capacités cardiorespiratoires",
+    maintenir_ap:
+      "maintenir le niveau d’activité physique",
 
-  force:
-    "renforcer la force musculaire",
+    reduire_sedentarite:
+      "réduire la sédentarité",
 
-  equilibre:
-    "améliorer l’équilibre et prévenir les chutes",
+    progresser_recommandations:
+      "progresser vers les repères d’activité physique HAS / OMS"
 
-  autonomie:
-    "préserver ou restaurer l’autonomie",
-
-  limitation:
-    "réduire une limitation fonctionnelle",
-
-  qualite_vie:
-    "améliorer la qualité de vie",
-
-  bien_etre:
-    "améliorer le bien-être psychologique"
-};
+  };
 
   const objectifsFormates =
-    objectifs.map(obj => {
+    objectifsGeneraux.map(
+      function (objectif) {
 
-      return mappingObjectifs[obj] || obj;
+        return (
+          mappingObjectifsGeneraux[
+            objectif
+          ] ||
+          String(
+            objectif || ""
+          ).trim()
+        );
 
-    });
+      }
+    );
 
-  if (objectifsFormates.length === 1) {
-    return objectifsFormates[0];
+  return formatObjectivesAsNaturalLanguage(
+    objectifsFormates
+  );
+}
+
+function buildSharedObjectivesBlock(
+  model
+) {
+
+  const objectifsPartages =
+    model?.therapeutic_plan
+      ?.objectifs_partages || [];
+
+  const objectifsRetenus =
+    objectifsPartages
+      .filter(function (objectif) {
+
+        if (
+          typeof objectif === "string"
+        ) {
+          return true;
+        }
+
+        return (
+          !objectif?.state ||
+          objectif.state === "retained"
+        );
+
+      })
+      .map(function (objectif) {
+
+        if (
+          typeof objectif === "string"
+        ) {
+          return objectif.trim();
+        }
+
+        return String(
+          objectif?.text || ""
+        ).trim();
+
+      })
+      .filter(Boolean);
+
+  return formatObjectivesAsNaturalLanguage(
+    objectifsRetenus
+  );
+}
+
+function buildPatientGoalBlock(
+  model
+) {
+
+  return String(
+    model?.engagement?.patient_goal ||
+    ""
+  ).trim();
+}
+
+function buildTransmittedObjectivesDescriptor(
+  model
+) {
+
+  const sharedText =
+    buildSharedObjectivesBlock(model);
+
+  if (sharedText) {
+
+    const sharedItems =
+      model?.therapeutic_plan
+        ?.objectifs_partages || [];
+
+    const sharedCount =
+      sharedItems.filter(function (objectif) {
+
+        if (typeof objectif === "string") {
+          return Boolean(objectif.trim());
+        }
+
+        return (
+          (!objectif?.state ||
+            objectif.state === "retained") &&
+          Boolean(
+            String(
+              objectif?.text || ""
+            ).trim()
+          )
+        );
+
+      }).length;
+
+    return {
+      source: "shared",
+      text: sharedText,
+      count: sharedCount
+    };
   }
 
-  if (objectifsFormates.length === 2) {
-    return objectifsFormates.join(" et ");
+  const generalText =
+    buildGeneralAPObjectivesBlock(model);
+
+  if (generalText) {
+
+    const generalCount =
+      (
+        model?.therapeutic_plan
+          ?.objectifs_generaux_ap ||
+        []
+      ).length;
+
+    return {
+      source: "general",
+      text: generalText,
+      count: generalCount
+    };
   }
 
-  return objectifsFormates
-    .slice(0, -1)
-    .join(", ") +
-    " et " +
-    objectifsFormates[objectifsFormates.length - 1];
+  return {
+    source: null,
+    text: "",
+    count: 0
+  };
+}
 
+function buildFunctionalObjectiveAnalysisBlock(
+  model
+) {
+
+  return String(
+    model?.therapeutic_plan
+      ?.analyse_fonctionnelle_objectif ||
+    ""
+  ).trim();
+}
+
+
+// =====================================
+// OBJECTIFS — LEGACY TRANSITOIRE
+// =====================================
+
+function formatObjectivesList(items) {
+
+  const cleanItems =
+    Array.isArray(items)
+      ? items
+          .map(item =>
+            String(item ?? "").trim()
+          )
+          .filter(Boolean)
+      : [];
+
+  if (!cleanItems.length) {
+    return "";
+  }
+
+  if (cleanItems.length === 1) {
+    return cleanItems[0];
+  }
+
+  if (cleanItems.length === 2) {
+    return cleanItems.join(" et ");
+  }
+
+  return cleanItems.slice(0, -1).join(", ")
+    + " et "
+    + cleanItems[cleanItems.length - 1];
+}
+
+function getObjectivesDescriptor(model) {
+
+  const therapeuticPlan =
+    model?.therapeutic_plan || {};
+
+  const mappingObjectifs = {
+    augmenter_ap:
+      "commencer, reprendre ou augmenter l’activité physique",
+
+    maintenir_ap:
+      "maintenir le niveau d’activité physique",
+
+    reduire_sedentarite:
+      "réduire la sédentarité",
+
+    progresser_recommandations:
+      "progresser vers les repères d’activité physique HAS / OMS",
+
+    controle_maladie:
+      "améliorer le contrôle d’une maladie chronique",
+
+    condition_physique:
+      "améliorer la condition physique",
+
+    capacites_cardio:
+      "améliorer les capacités cardiorespiratoires",
+
+    force:
+      "renforcer la force musculaire",
+
+    equilibre:
+      "améliorer l’équilibre et prévenir les chutes",
+
+    autonomie:
+      "préserver ou restaurer l’autonomie",
+
+    limitation:
+      "réduire une limitation fonctionnelle",
+
+    qualite_vie:
+      "améliorer la qualité de vie",
+
+    bien_etre:
+      "améliorer le bien-être psychologique"
+  };
+
+  const objectifsPartages =
+    Array.isArray(
+      therapeuticPlan.objectifs_partages
+    )
+      ? therapeuticPlan.objectifs_partages
+          .map(item => {
+
+            if (typeof item === "string") {
+              return item.trim();
+            }
+
+            return String(
+              item?.label ||
+              item?.text ||
+              item?.value ||
+              ""
+            ).trim();
+          })
+          .filter(Boolean)
+      : [];
+
+  if (objectifsPartages.length > 0) {
+    return {
+      source: "shared",
+      count: objectifsPartages.length,
+      text: formatObjectivesList(
+        objectifsPartages
+      )
+    };
+  }
+
+  const objectifsGeneraux =
+    Array.isArray(
+      therapeuticPlan.objectifs_generaux_ap
+    )
+      ? therapeuticPlan.objectifs_generaux_ap
+          .map(item =>
+            mappingObjectifs[item] ||
+            String(item ?? "").trim()
+          )
+          .filter(Boolean)
+      : [];
+
+  if (objectifsGeneraux.length > 0) {
+    return {
+      source: "general",
+      count: objectifsGeneraux.length,
+      text: formatObjectivesList(
+        objectifsGeneraux
+      )
+    };
+  }
+
+  const objectifsLegacy =
+    Array.isArray(
+      therapeuticPlan.objectifs
+    )
+      ? therapeuticPlan.objectifs
+          .map(item =>
+            mappingObjectifs[item] ||
+            String(item ?? "").trim()
+          )
+          .filter(Boolean)
+      : [];
+
+  if (objectifsLegacy.length > 0) {
+    return {
+      source: "legacy",
+      count: objectifsLegacy.length,
+      text: formatObjectivesList(
+        objectifsLegacy
+      )
+    };
+  }
+
+  return {
+    source: null,
+    count: 0,
+    text: ""
+  };
+}
+
+function buildObjectivesBlock(model) {
+
+  return getObjectivesDescriptor(model)
+    .text;
 }
 
 function getObjectivesCount(model) {
 
-  return (
-    model?.therapeutic_plan?.objectifs || []
-  ).length;
+  return getObjectivesDescriptor(model)
+    .count;
+}
+
+function getObjectivesSource(model) {
+
+  return getObjectivesDescriptor(model)
+    .source;
 }
 
 function buildRecommendationsBlock() {
