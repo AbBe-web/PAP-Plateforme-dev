@@ -804,6 +804,30 @@ ec: Array.isArray(data.engagement?.activities_current)
           ? "n"
           : null
     ])
+  : [],
+
+// engagement — préférences de pratique
+pa: Array.isArray(data.engagement?.preferences?.activities)
+  ? data.engagement.preferences.activities
+      .map(activity =>
+        typeof activity?.label === "string"
+          ? activity.label.trim()
+          : ""
+      )
+      .filter(Boolean)
+  : [],
+
+pi:
+  typeof data.engagement?.preferences?.intensity === "string"
+    ? data.engagement.preferences.intensity
+    : null,
+
+ps: Array.isArray(data.engagement?.preferences?.settings)
+  ? data.engagement.preferences.settings
+  : [],
+
+pm: Array.isArray(data.engagement?.preferences?.social_modes)
+  ? data.engagement.preferences.social_modes
   : []
 };
 
@@ -835,6 +859,11 @@ if (!qrPayload.a6) delete qrPayload.a6;
 
 if (!qrPayload.ep?.length) delete qrPayload.ep;
 if (!qrPayload.ec?.length) delete qrPayload.ec;
+
+if (!qrPayload.pa?.length) delete qrPayload.pa;
+if (!qrPayload.pi) delete qrPayload.pi;
+if (!qrPayload.ps?.length) delete qrPayload.ps;
+if (!qrPayload.pm?.length) delete qrPayload.pm;
   
 let qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
 

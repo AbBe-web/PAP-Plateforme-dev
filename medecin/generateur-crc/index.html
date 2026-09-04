@@ -375,8 +375,7 @@ button {
   align-items: flex-start !important;
 }
 
-.form-group input[name="heures_assises"],
-.form-group input[name="nombre_pas"] {
+.form-group input[name="heures_assises"] {
   width: 100%;
   max-width: 180px;
   margin-top: 4px;
@@ -1598,14 +1597,14 @@ Apixaban 5 mg x2/j">
 
           <div class="pap-ap-experience-row">
             <label for="activities_past">
-              Activités physiques pratiquées antérieurement :
+              Activités antérieures :
             </label>
 
             <input
               type="text"
               id="activities_past"
               name="activities_past"
-              placeholder="Ex. natation, football, randonnée"
+              placeholder="Ex. natation, randonnée"
             >
           </div>
 
@@ -1644,9 +1643,22 @@ Apixaban 5 mg x2/j">
         </label>
       </div>
 
+      <div class="pap-ap-experience-row pap-quick-hide pap-quick-ap-detail">
+        <label for="nombre_pas">
+          Pas/jour sur le dernier mois :
+        </label>
+
+        <input
+          type="number"
+          id="nombre_pas"
+          name="nombre_pas"
+          placeholder="Ex : 7500"
+        >
+      </div>
+
       <div class="pap-ap-experience-row pap-quick-ap-detail">
         <label for="activities_current">
-          Activités physiques pratiquées actuellement :
+          Activités actuelles :
         </label>
 
         <input
@@ -1661,6 +1673,174 @@ Apixaban 5 mg x2/j">
         id="activities_current_competition"
         class="pap-engagement-competition-list pap-quick-ap-detail"
       ></div>
+
+      <details
+        id="engagement_preferences_details"
+        class="pap-engagement-preferences pap-quick-ap-detail"
+      >
+        <summary>
+          <span class="pap-engagement-preferences-title">
+            Préférences de pratique — facultatif
+          </span>
+
+          <span
+            id="engagement_preferences_summary"
+            class="pap-engagement-preferences-summary"
+          ></span>
+
+          <span class="pap-engagement-preferences-toggle-label">
+            <span class="pap-engagement-preferences-toggle-closed">
+              ▸ Compléter
+            </span>
+            <span class="pap-engagement-preferences-toggle-open">
+              ▾ Masquer
+            </span>
+          </span>
+        </summary>
+
+        <div class="pap-engagement-preferences-content">
+
+          <div class="pap-engagement-preference-row">
+            <label for="engagement_preferred_activities">
+              Activité(s) souhaitée(s) :
+            </label>
+
+            <input
+              type="text"
+              id="engagement_preferred_activities"
+              name="engagement_preferred_activities"
+              placeholder="Ex. randonnée, natation, vélo"
+            >
+          </div>
+
+          <div class="pap-engagement-preference-row">
+            <span>Préférence d’intensité du patient :</span>
+
+            <div class="pap-engagement-preference-options">
+              <label>
+                <input
+                  type="radio"
+                  name="engagement_preferred_intensity"
+                  value="faible"
+                >
+                Faible
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="engagement_preferred_intensity"
+                  value="moderee"
+                >
+                Modérée
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="engagement_preferred_intensity"
+                  value="elevee_tres_elevee"
+                >
+                Élevée / très élevée
+              </label>
+
+              <label>
+                <input
+                  type="radio"
+                  name="engagement_preferred_intensity"
+                  value="no_preference"
+                >
+                Pas de préférence
+              </label>
+            </div>
+          </div>
+
+          <div class="pap-engagement-preference-row">
+            <span>Cadre préféré :</span>
+
+            <div class="pap-engagement-preference-options">
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_setting"
+                  value="domicile"
+                >
+                Domicile
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_setting"
+                  value="exterieur"
+                >
+                Extérieur
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_setting"
+                  value="structure"
+                >
+                Structure
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_setting"
+                  value="no_preference"
+                >
+                Pas de préférence
+              </label>
+            </div>
+          </div>
+
+          <div class="pap-engagement-preference-row">
+            <span>Modalité sociale préférée :</span>
+
+            <div class="pap-engagement-preference-options">
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_social_mode"
+                  value="seul"
+                >
+                Seul(e)
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_social_mode"
+                  value="proches"
+                >
+                Avec des proches (amis / famille)
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_social_mode"
+                  value="groupe"
+                >
+                En groupe / activité collective
+              </label>
+
+              <label>
+                <input
+                  type="checkbox"
+                  name="engagement_preferred_social_mode"
+                  value="no_preference"
+                >
+                Pas de préférence
+              </label>
+            </div>
+          </div>
+
+        </div>
+      </details>
 
       <div id="actif-subgroup" class="hidden">
         <label>
@@ -1719,19 +1899,6 @@ Apixaban 5 mg x2/j">
           Non
         </label>
       </div>
-
-<div class="pap-ap-experience-row pap-quick-hide pap-quick-ap-detail">
-  <label for="nombre_pas">
-    Nombre de pas par jour sur le dernier mois :
-  </label>
-
-  <input
-    type="number"
-    id="nombre_pas"
-    name="nombre_pas"
-    placeholder="Ex : 7500"
-  >
-</div>
 
     </div>
 
@@ -15059,7 +15226,167 @@ restoreImportedEngagementActivities(
   "current"
 );
 
-          
+
+/* ======================
+   IMPORT PREFERENCES DE PRATIQUE
+====================== */
+
+const importedPreferences =
+  data?.engagement?.preferences &&
+  typeof data.engagement.preferences === "object"
+    ? data.engagement.preferences
+    : (
+        Array.isArray(data?.pa) ||
+        typeof data?.pi === "string" ||
+        Array.isArray(data?.ps) ||
+        Array.isArray(data?.pm)
+      )
+      ? {
+          activities:
+            Array.isArray(data.pa)
+              ? data.pa
+              : [],
+
+          intensity:
+            typeof data.pi === "string"
+              ? data.pi
+              : null,
+
+          settings:
+            Array.isArray(data.ps)
+              ? data.ps
+              : [],
+
+          social_modes:
+            Array.isArray(data.pm)
+              ? data.pm
+              : []
+        }
+      : null;
+
+const preferredActivitiesInput =
+  document.getElementById(
+    "engagement_preferred_activities"
+  );
+
+const preferredIntensityInputs =
+  document.querySelectorAll(
+    'input[name="engagement_preferred_intensity"]'
+  );
+
+const preferredSettingInputs =
+  document.querySelectorAll(
+    'input[name="engagement_preferred_setting"]'
+  );
+
+const preferredSocialModeInputs =
+  document.querySelectorAll(
+    'input[name="engagement_preferred_social_mode"]'
+  );
+
+
+/*
+ * Reset local systématique :
+ * évite de conserver les préférences d'un patient précédent
+ * lorsqu'un ancien QR ne contient pas encore preferences.
+ */
+
+if (preferredActivitiesInput) {
+  preferredActivitiesInput.value = "";
+}
+
+preferredIntensityInputs.forEach(input => {
+  input.checked = false;
+});
+
+preferredSettingInputs.forEach(input => {
+  input.checked = false;
+});
+
+preferredSocialModeInputs.forEach(input => {
+  input.checked = false;
+});
+
+
+if (
+  importedPreferences &&
+  typeof importedPreferences === "object"
+) {
+
+  if (
+    preferredActivitiesInput &&
+    Array.isArray(importedPreferences.activities)
+  ) {
+
+    preferredActivitiesInput.value =
+      importedPreferences.activities
+        .map(activity => {
+
+          if (
+            activity &&
+            typeof activity === "object" &&
+            typeof activity.label === "string"
+          ) {
+            return activity.label.trim();
+          }
+
+          if (typeof activity === "string") {
+            return activity.trim();
+          }
+
+          return "";
+        })
+        .filter(Boolean)
+        .join(", ");
+  }
+
+
+  if (
+    typeof importedPreferences.intensity === "string"
+  ) {
+
+    const intensityInput =
+      document.querySelector(
+        `input[name="engagement_preferred_intensity"][value="${importedPreferences.intensity}"]`
+      );
+
+    if (intensityInput) {
+      intensityInput.checked = true;
+    }
+  }
+
+
+  const importedSettings =
+    Array.isArray(importedPreferences.settings)
+      ? importedPreferences.settings
+      : [];
+
+  preferredSettingInputs.forEach(input => {
+    input.checked =
+      importedSettings.includes(input.value);
+  });
+
+
+  const importedSocialModes =
+    Array.isArray(importedPreferences.social_modes)
+      ? importedPreferences.social_modes
+      : [];
+
+  preferredSocialModeInputs.forEach(input => {
+    input.checked =
+      importedSocialModes.includes(input.value);
+  });
+}
+
+
+if (
+  typeof updateEngagementPreferencesSummary ===
+  "function"
+) {
+  updateEngagementPreferencesSummary();
+}
+
+
 if (sedentarite !== undefined && sedentarite !== null) {
 
   let heures = 0;
@@ -17292,6 +17619,150 @@ function initEngagementActivityAutocomplete(input) {
   );
 }
 
+function getEngagementCheckedValues(name) {
+
+  return Array.from(
+    document.querySelectorAll(
+      `input[name="${name}"]:checked`
+    )
+  ).map(input => input.value);
+}
+
+
+function initEngagementExclusiveNoPreference(name) {
+
+  const inputs =
+    Array.from(
+      document.querySelectorAll(
+        `input[name="${name}"]`
+      )
+    );
+
+  if (!inputs.length) {
+    return;
+  }
+
+  const noPreference =
+    inputs.find(
+      input => input.value === "no_preference"
+    );
+
+  inputs.forEach(input => {
+
+    input.addEventListener("change", function() {
+
+      if (!this.checked) {
+        updateEngagementPreferencesSummary();
+        return;
+      }
+
+      if (this.value === "no_preference") {
+
+        inputs.forEach(otherInput => {
+
+          if (otherInput !== this) {
+            otherInput.checked = false;
+          }
+        });
+
+      } else if (noPreference) {
+
+        noPreference.checked = false;
+      }
+
+      updateEngagementPreferencesSummary();
+    });
+  });
+}
+
+
+function updateEngagementPreferencesSummary() {
+
+  const output =
+    document.getElementById(
+      "engagement_preferences_summary"
+    );
+
+  if (!output) {
+    return;
+  }
+
+  const parts = [];
+
+  const activities =
+    document.getElementById(
+      "engagement_preferred_activities"
+    )?.value?.trim();
+
+  if (activities) {
+    parts.push(activities);
+  }
+
+  const intensity =
+    document.querySelector(
+      'input[name="engagement_preferred_intensity"]:checked'
+    )?.value || null;
+
+  const intensityLabels = {
+    faible: "faible",
+    moderee: "modérée",
+    elevee_tres_elevee: "élevée / très élevée",
+    no_preference: "intensité sans préférence"
+  };
+
+  if (intensity && intensityLabels[intensity]) {
+    parts.push(intensityLabels[intensity]);
+  }
+
+  const settingLabels = {
+    domicile: "domicile",
+    exterieur: "extérieur",
+    structure: "structure",
+    no_preference: "cadre sans préférence"
+  };
+
+  const settings =
+    getEngagementCheckedValues(
+      "engagement_preferred_setting"
+    );
+
+  if (settings.length) {
+
+    parts.push(
+      settings
+        .map(value => settingLabels[value] || value)
+        .join(" + ")
+    );
+  }
+
+  const socialLabels = {
+    seul: "seul(e)",
+    proches: "avec des proches",
+    groupe: "en groupe",
+    no_preference: "modalité sociale sans préférence"
+  };
+
+  const socialModes =
+    getEngagementCheckedValues(
+      "engagement_preferred_social_mode"
+    );
+
+  if (socialModes.length) {
+
+    parts.push(
+      socialModes
+        .map(value => socialLabels[value] || value)
+        .join(" + ")
+    );
+  }
+
+  output.textContent =
+    parts.length
+      ? "préférences renseignées"
+      : "";
+}
+
+
 function initEngagementSportCompetition() {
 
   const pastInput =
@@ -17299,6 +17770,11 @@ function initEngagementSportCompetition() {
 
   const currentInput =
     document.getElementById("activities_current");
+
+  const preferredActivitiesInput =
+    document.getElementById(
+      "engagement_preferred_activities"
+    );
 
 
   function updatePast() {
@@ -17345,9 +17821,42 @@ function initEngagementSportCompetition() {
     );
   }
 
+  if (preferredActivitiesInput) {
+
+    initEngagementActivityAutocomplete(
+      preferredActivitiesInput
+    );
+
+    preferredActivitiesInput.addEventListener(
+      "input",
+      updateEngagementPreferencesSummary
+    );
+  }
+
+  document
+    .querySelectorAll(
+      'input[name="engagement_preferred_intensity"]'
+    )
+    .forEach(input => {
+
+      input.addEventListener(
+        "change",
+        updateEngagementPreferencesSummary
+      );
+    });
+
+  initEngagementExclusiveNoPreference(
+    "engagement_preferred_setting"
+  );
+
+  initEngagementExclusiveNoPreference(
+    "engagement_preferred_social_mode"
+  );
+
 
   updatePast();
   updateCurrent();
+  updateEngagementPreferencesSummary();
 }
 
 
@@ -17828,7 +18337,36 @@ physicalTests,
             document.getElementById("activities_current")?.value || ""
           ),
           "current"
-        )
+        ),
+
+      preferences: {
+
+        activities:
+          parseEngagementActivitiesText(
+            document.getElementById(
+              "engagement_preferred_activities"
+            )?.value || ""
+          ).map(activity => ({
+            label: activity.label,
+            type: activity.type,
+            sport_id: activity.sport_id
+          })),
+
+        intensity:
+          document.querySelector(
+            'input[name="engagement_preferred_intensity"]:checked'
+          )?.value || null,
+
+        settings:
+          getEngagementCheckedValues(
+            "engagement_preferred_setting"
+          ),
+
+        social_modes:
+          getEngagementCheckedValues(
+            "engagement_preferred_social_mode"
+          )
+      }
     },
 
 therapeutic_plan: {

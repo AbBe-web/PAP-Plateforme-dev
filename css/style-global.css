@@ -2314,10 +2314,10 @@ body.pap-quick-mode .pap-quick-prescription {
 .pap-ap-experience-subtitle {
   display: block;
   width: 100%;
-  margin: 0 0 0.2rem 0;
+  margin: 0 0 0.25rem 0;
   font-size: 0.9rem;
-  font-weight: 600;
-  color: #374151;
+  font-weight: 700;
+  color: #1f2937;
   line-height: 1.25;
 }
 
@@ -2326,25 +2326,34 @@ body.pap-quick-mode .pap-quick-prescription {
   margin-bottom: 0.25rem;
 }
 
-.pap-ap-experience-row {
-  display: flex;
+.crc-page .pap-ap-experience-row {
+  display: grid !important;
+  grid-template-columns: 190px minmax(0, 1fr);
   align-items: center;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.7rem;
+  column-gap: 10px;
   width: 100%;
   margin: 0;
-  padding-left: 14px;
+  padding-left: 6px;
+  padding-right: 6px;
   box-sizing: border-box;
 }
 
-.pap-ap-experience-row input[type="text"],
-.pap-ap-experience-row input[type="number"] {
-  flex: 1 1 260px;
-  width: auto;
-  min-width: 220px;
-  max-width: 360px;
-  height: 28px;
+.crc-page .pap-ap-experience-row > label {
+  display: block !important;
+  width: auto !important;
+  min-width: 0;
   margin: 0;
+  white-space: nowrap !important;
+  overflow: visible;
+}
+
+.crc-page .pap-ap-experience-row input[type="text"],
+.crc-page .pap-ap-experience-row input[type="number"] {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  height: 28px;
+  margin: 0 !important;
   padding: 3px 6px;
   box-sizing: border-box;
   font-size: 15px;
@@ -2360,7 +2369,8 @@ body.pap-quick-mode .pap-quick-prescription {
   width: 100%;
 }
 
-.pap-ap-current-block > .pap-quick-hide.pap-quick-ap-detail {
+.pap-ap-current-block
+  > .pap-quick-hide.pap-quick-ap-detail:not(.pap-ap-experience-row) {
   display: flex;
   align-items: center;
   gap: 0.8rem;
@@ -2470,6 +2480,123 @@ body.pap-quick-mode .pap-quick-prescription {
   vertical-align: middle;
 }
 
+/* Préférences de pratique — Engagement */
+.pap-engagement-preferences {
+  display: block;
+  width: 100%;
+  margin: 0.65rem 0 0.55rem;
+  padding: 0;
+  border: 1px solid #dbe4ee;
+  border-radius: 0.7rem;
+  background: #f8fafc;
+  box-sizing: border-box;
+}
+
+.pap-engagement-preferences > summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 36px;
+  padding: 0.45rem 0.65rem;
+  cursor: pointer;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.pap-engagement-preferences > summary::-webkit-details-marker {
+  display: none;
+}
+
+.pap-engagement-preferences-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.pap-engagement-preferences-summary {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.pap-engagement-preferences-toggle-label {
+  margin-left: 0.15rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid #dbe4ee;
+  border-radius: 0.55rem;
+  background: #ffffff;
+  color: #1f2937;
+  font-size: 0.82rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.pap-engagement-preferences-toggle-open {
+  display: none;
+}
+
+.pap-engagement-preferences[open]
+  .pap-engagement-preferences-toggle-closed {
+  display: none;
+}
+
+.pap-engagement-preferences[open]
+  .pap-engagement-preferences-toggle-open {
+  display: inline;
+}
+
+.pap-engagement-preferences-content {
+  display: block !important;
+  width: 100%;
+  padding: 0.15rem 0.75rem 0.65rem 0.75rem;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 0 0 0.7rem 0.7rem;
+}
+
+.pap-engagement-preference-row {
+  display: flex !important;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.8rem;
+  width: 100%;
+  margin: 0.35rem 0;
+}
+
+.pap-engagement-preference-row > span,
+.pap-engagement-preference-row > label:first-child {
+  font-size: 0.9rem;
+}
+
+.pap-engagement-preference-row input[type="text"] {
+  flex: 1 1 260px;
+  width: auto;
+  min-width: 220px;
+  max-width: 360px;
+  height: 28px;
+  margin: 0;
+  padding: 3px 6px;
+  box-sizing: border-box;
+}
+
+.pap-engagement-preference-options {
+  display: flex !important;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.3rem 0.9rem;
+}
+
+.pap-engagement-preference-options label {
+  display: inline-flex !important;
+  align-items: center;
+  width: auto !important;
+  margin: 0 !important;
+  gap: 0.2rem;
+  white-space: nowrap;
+}
+
 /* Autocomplétion déterministe des activités — Engagement */
 .pap-engagement-autocomplete-list {
   flex: 1 0 100%;
@@ -2531,8 +2658,9 @@ body.pap-quick-mode:not(.pap-quick-show-ap-details) #sixmois-subgroup {
     margin: 0 0 0.35rem 0;
   }
 
-  .pap-ap-sedentarite-block > div,
-  .pap-ap-current-block > div,
+  .pap-ap-sedentarite-block > div:not(.pap-ap-experience-row),
+  .pap-ap-current-block
+    > div:not(.pap-ap-experience-row):not(.pap-ap-experience-block),
   .pap-ap-target-block > div,
   .pap-ap-target-block .inline-radio-group {
     display: flex;
@@ -2660,6 +2788,11 @@ body.pap-quick-mode
   white-space: nowrap;
 }
 
+/* Rapprocher Tests physiques du bloc Intensité visée */
+.form-group:has(> .pap-ap-target-block) {
+  margin-bottom: 0;
+}
+
 /* =========================================================
    PAP — Tests physiques : bloc optionnel tous modes
    ========================================================= */
@@ -2670,7 +2803,7 @@ body.pap-quick-mode
   justify-content: flex-start;
   gap: 0.6rem;
 
-  margin: 1rem 0 0;
+  margin: 0.4rem 0 0;
   padding: 0.5rem 0.65rem;
 
   border: 1px solid #dbeafe;

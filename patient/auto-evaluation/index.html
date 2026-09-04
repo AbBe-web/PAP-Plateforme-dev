@@ -58,6 +58,36 @@ p + p {
   margin-top:25px;
 }
 
+/* ===== Préférences de pratique : choix compacts ===== */
+
+label:has(
+  input[name="patient_preferred_intensity"]
+),
+label:has(
+  input[name="patient_preferred_setting"]
+),
+label:has(
+  input[name="patient_preferred_social_mode"]
+) {
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin:0 0 7px 0;
+  line-height:1.3;
+}
+
+label:has(
+  input[name="patient_preferred_intensity"]
+) + br,
+label:has(
+  input[name="patient_preferred_setting"]
+) + br,
+label:has(
+  input[name="patient_preferred_social_mode"]
+) + br {
+  display:none;
+}
+
 /* ===== Autocomplétion activités physiques ===== */
 
 .patient-engagement-autocomplete-list {
@@ -211,7 +241,14 @@ const state = {
 
   engagement: {
     activities_past: [],
-    activities_current: []
+    activities_current: [],
+
+    preferences: {
+      activities: [],
+      intensity: null,
+      settings: [],
+      social_modes: []
+    }
   },
 
   history: [],
@@ -306,6 +343,7 @@ function goToScreen(id) {
     "MAR-Q2": marshallQ2,
 
     "MAR-ACTIVITIES": engagementActivities,
+    "MAR-PREFERENCES": engagementPreferences,
 
     "MAR-STAGE1": motivation,
     "MAR-STAGE1B": motivation30Days,
@@ -341,6 +379,7 @@ function goToScreen(id) {
 "GPAQ-STEPS": stepsQuestion,
 
 "GPAQ-ACTIVITIES": engagementActivities,
+"GPAQ-PREFERENCES": engagementPreferences,
 
 "GPAQ-STAGE1": motivation,
 "GPAQ-STAGE1B": motivation30Days,
@@ -1351,10 +1390,16 @@ function initPatientEngagementActivityAutocomplete(
       newCursorPosition
     );
 
-    updatePatientEngagementActivities(
-      period,
-      input.value
-    );
+    if (period === "preferred") {
+      updatePatientEngagementPreferredActivities(
+        input.value
+      );
+    } else {
+      updatePatientEngagementActivities(
+        period,
+        input.value
+      );
+    }
 
     closeSuggestions();
   }
@@ -1604,7 +1649,7 @@ function engagementActivities() {
 
     <button
       class="btn"
-      onclick="motivation()"
+      onclick="engagementPreferences()"
     >
       Continuer
     </button>
@@ -1643,6 +1688,471 @@ function engagementActivities() {
       "patient_activities_current"
     ),
     "current"
+  );
+}
+
+
+/*************************************************
+ * PREFERENCES DE PRATIQUE
+ *************************************************/
+
+function ensurePatientEngagementPreferences() {
+
+  if (
+    !state.engagement.preferences ||
+    typeof state.engagement.preferences !== "object"
+  ) {
+    state.engagement.preferences = {
+      activities: [],
+      intensity: null,
+      settings: [],
+      social_modes: []
+    };
+  }
+
+  if (!Array.isArray(state.engagement.preferences.activities)) {
+    state.engagement.preferences.activities = [];
+  }
+
+  if (!Array.isArray(state.engagement.preferences.settings)) {
+    state.engagement.preferences.settings = [];
+  }
+
+  if (!Array.isArray(state.engagement.preferences.social_modes)) {
+    state.engagement.preferences.social_modes = [];
+  }
+
+  return state.engagement.preferences;
+}
+
+
+function parsePatientEngagementPreferredActivitiesText(value) {
+
+  if (!value || !value.trim()) {
+    return [];
+  }
+
+  return value
+    .split(/[,;]+/)
+    .map(item => item.trim())
+    .filter(Boolean)
+    .map(label => {
+
+      const activityId =
+        typeof detectEngagementActivity === "function"
+          ? detectEngagementActivity(label)
+          : null;
+
+      const activityType =
+        activityId &&
+        typeof getEngagementActivityType === "function"
+          ? getEngagementActivityType(activityId)
+          : null;
+
+      return {
+        label,
+        type: activityType,
+        sport_id: activityId
+      };
+    });
+}
+
+
+function patientEngagementPreferredActivitiesText() {
+
+  const preferences =
+    ensurePatientEngagementPreferences();
+
+  return preferences.activities
+    .map(activity => activity.label)
+    .join(", ");
+}
+
+
+function updatePatientEngagementPreferredActivities(value) {
+
+  const preferences =
+    ensurePatientEngagementPreferences();
+
+  preferences.activities =
+    parsePatientEngagementPreferredActivitiesText(
+      value
+    );
+}
+
+
+function setPatientEngagementPreference(
+  key,
+  value
+) {
+
+  const preferences =
+    ensurePatientEngagementPreferences();
+
+  preferences[key] = value;
+}
+
+
+function updatePatientEngagementPreferenceMulti(
+  key,
+  value,
+  checked,
+  inputName
+) {
+
+  const preferences =
+    ensurePatientEngagementPreferences();
+
+  let values =
+    Array.isArray(preferences[key])
+      ? [...preferences[key]]
+      : [];
+
+  if (value === "no_preference") {
+
+    values =
+      checked
+        ? ["no_preference"]
+        : [];
+
+  } else {
+
+    values =
+      values.filter(
+        item => item !== "no_preference"
+      );
+
+    if (checked) {
+
+      if (!values.includes(value)) {
+        values.push(value);
+      }
+
+    } else {
+
+      values =
+        values.filter(
+          item => item !== value
+        );
+    }
+  }
+
+  preferences[key] = values;
+
+
+  document
+    .querySelectorAll(
+      `input[name="${inputName}"]`
+    )
+    .forEach(input => {
+
+      input.checked =
+        values.includes(input.value);
+    });
+}
+
+
+function engagementPreferences() {
+
+  pushScreen(
+    state.tool === "marshall"
+      ? "MAR-PREFERENCES"
+      : "GPAQ-PREFERENCES"
+  );
+
+  const preferences =
+    ensurePatientEngagementPreferences();
+
+  const settings =
+    preferences.settings;
+
+  const socialModes =
+    preferences.social_modes;
+
+  render(`
+    <h2>Vos préférences de pratique</h2>
+
+    <p>
+      Ces informations sont facultatives.
+      Elles peuvent aider à préparer avec votre médecin
+      une activité physique qui vous convient.
+    </p>
+
+
+    <div class="section">
+
+      <p>
+        <strong>Activité(s) souhaitée(s)</strong>
+      </p>
+
+      <p>
+        Y a-t-il une ou plusieurs activités physiques
+        ou sportives que vous aimeriez pratiquer ?
+      </p>
+
+      <input
+        type="text"
+        id="patient_preferred_activities"
+        placeholder="Ex. : randonnée, natation, vélo"
+        value="${patientEngagementPreferredActivitiesText()}"
+        oninput="updatePatientEngagementPreferredActivities(this.value)"
+      >
+
+    </div>
+
+
+    <div class="section">
+
+      <p>
+        <strong>Préférence d’intensité</strong>
+      </p>
+
+      <label>
+        <input
+          type="radio"
+          name="patient_preferred_intensity"
+          value="faible"
+          ${preferences.intensity === "faible" ? "checked" : ""}
+          onchange="setPatientEngagementPreference('intensity', this.value)"
+        >
+        Faible
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="radio"
+          name="patient_preferred_intensity"
+          value="moderee"
+          ${preferences.intensity === "moderee" ? "checked" : ""}
+          onchange="setPatientEngagementPreference('intensity', this.value)"
+        >
+        Modérée
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="radio"
+          name="patient_preferred_intensity"
+          value="elevee_tres_elevee"
+          ${preferences.intensity === "elevee_tres_elevee" ? "checked" : ""}
+          onchange="setPatientEngagementPreference('intensity', this.value)"
+        >
+        Élevée / très élevée
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="radio"
+          name="patient_preferred_intensity"
+          value="no_preference"
+          ${preferences.intensity === "no_preference" ? "checked" : ""}
+          onchange="setPatientEngagementPreference('intensity', this.value)"
+        >
+        Pas de préférence
+      </label>
+
+    </div>
+
+
+    <div class="section">
+
+      <p>
+        <strong>Cadre préféré</strong>
+      </p>
+
+      <p>
+        Plusieurs réponses sont possibles.
+      </p>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_setting"
+          value="domicile"
+          ${settings.includes("domicile") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'settings',
+            this.value,
+            this.checked,
+            'patient_preferred_setting'
+          )"
+        >
+        À domicile
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_setting"
+          value="exterieur"
+          ${settings.includes("exterieur") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'settings',
+            this.value,
+            this.checked,
+            'patient_preferred_setting'
+          )"
+        >
+        En extérieur
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_setting"
+          value="structure"
+          ${settings.includes("structure") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'settings',
+            this.value,
+            this.checked,
+            'patient_preferred_setting'
+          )"
+        >
+        Dans une structure
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_setting"
+          value="no_preference"
+          ${settings.includes("no_preference") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'settings',
+            this.value,
+            this.checked,
+            'patient_preferred_setting'
+          )"
+        >
+        Pas de préférence
+      </label>
+
+    </div>
+
+
+    <div class="section">
+
+      <p>
+        <strong>Modalité sociale préférée</strong>
+      </p>
+
+      <p>
+        Plusieurs réponses sont possibles.
+      </p>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_social_mode"
+          value="seul"
+          ${socialModes.includes("seul") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'social_modes',
+            this.value,
+            this.checked,
+            'patient_preferred_social_mode'
+          )"
+        >
+        Seul(e)
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_social_mode"
+          value="proches"
+          ${socialModes.includes("proches") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'social_modes',
+            this.value,
+            this.checked,
+            'patient_preferred_social_mode'
+          )"
+        >
+        Avec des proches (amis / famille)
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_social_mode"
+          value="groupe"
+          ${socialModes.includes("groupe") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'social_modes',
+            this.value,
+            this.checked,
+            'patient_preferred_social_mode'
+          )"
+        >
+        En groupe / activité collective
+      </label>
+
+      <br>
+
+      <label>
+        <input
+          type="checkbox"
+          name="patient_preferred_social_mode"
+          value="no_preference"
+          ${socialModes.includes("no_preference") ? "checked" : ""}
+          onchange="updatePatientEngagementPreferenceMulti(
+            'social_modes',
+            this.value,
+            this.checked,
+            'patient_preferred_social_mode'
+          )"
+        >
+        Pas de préférence
+      </label>
+
+    </div>
+
+
+    <button
+      class="btn"
+      onclick="motivation()"
+    >
+      Continuer
+    </button>
+
+    <button
+      class="btn secondary"
+      onclick="back()"
+    >
+      Retour
+    </button>
+
+    <div class="back-info">
+      Ces informations sont facultatives.
+      Les réponses déjà saisies sont conservées.
+    </div>
+
+  `, 94);
+
+
+  initPatientEngagementActivityAutocomplete(
+    document.getElementById(
+      "patient_preferred_activities"
+    ),
+    "preferred"
   );
 }
 
@@ -2094,8 +2604,35 @@ motivation: {
       activities_current:
         Array.isArray(state.engagement?.activities_current)
           ? state.engagement.activities_current
-          : []
+          : [],
+
+      preferences: {
+        activities:
+          Array.isArray(
+            state.engagement?.preferences?.activities
+          )
+            ? state.engagement.preferences.activities
+            : [],
+
+        intensity:
+          state.engagement?.preferences?.intensity ?? null,
+
+        settings:
+          Array.isArray(
+            state.engagement?.preferences?.settings
+          )
+            ? state.engagement.preferences.settings
+            : [],
+
+        social_modes:
+          Array.isArray(
+            state.engagement?.preferences?.social_modes
+          )
+            ? state.engagement.preferences.social_modes
+            : []
+      }
     }
+
   };
 }
 
@@ -2246,14 +2783,44 @@ state.tool = parsed.meta.questionnaire === "GPAQ"
 
 state.engagement = {
   activities_past:
-    Array.isArray(state.exportJSON.engagement?.activities_past)
+    Array.isArray(
+      state.exportJSON.engagement?.activities_past
+    )
       ? state.exportJSON.engagement.activities_past
       : [],
 
   activities_current:
-    Array.isArray(state.exportJSON.engagement?.activities_current)
+    Array.isArray(
+      state.exportJSON.engagement?.activities_current
+    )
       ? state.exportJSON.engagement.activities_current
-      : []
+      : [],
+
+  preferences: {
+    activities:
+      Array.isArray(
+        state.exportJSON.engagement?.preferences?.activities
+      )
+        ? state.exportJSON.engagement.preferences.activities
+        : [],
+
+    intensity:
+      state.exportJSON.engagement?.preferences?.intensity ?? null,
+
+    settings:
+      Array.isArray(
+        state.exportJSON.engagement?.preferences?.settings
+      )
+        ? state.exportJSON.engagement.preferences.settings
+        : [],
+
+    social_modes:
+      Array.isArray(
+        state.exportJSON.engagement?.preferences?.social_modes
+      )
+        ? state.exportJSON.engagement.preferences.social_modes
+        : []
+  }
 };
 
       final();
