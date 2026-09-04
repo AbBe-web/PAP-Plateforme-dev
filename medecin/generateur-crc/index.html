@@ -114,8 +114,8 @@ document.head.appendChild(manifestLink);
 ========================= */
 
 .patient-comment-block{
-  margin-top:6px;
-  padding:8px;
+  margin-top:4px;
+  padding:4px 5px;
   background:#f7f7f7;
   border-left:3px solid #d1d5db;
   font-size:0.85rem;
@@ -2772,6 +2772,7 @@ Apixaban 5 mg x2/j">
   <textarea
     id="importance_patient_comment"
     class="patient-comment-text"
+    placeholder="Si plusieurs raisons sont évoquées : une idée par ligne."
   ></textarea>
 
   <button
@@ -2801,6 +2802,7 @@ Apixaban 5 mg x2/j">
   <textarea
     id="confiance_patient_comment"
     class="patient-comment-text"
+    placeholder="Si plusieurs raisons sont évoquées : une idée par ligne."
   ></textarea>
 
   <button
@@ -19808,6 +19810,30 @@ function initPapConsultationModeToggle() {
       );
 
       objectiveFunctionalToggle.textContent =
+        "▸ Compléter";
+    }
+
+    const motivationDetail =
+      document.getElementById("papQuickMotivationDetail");
+
+    const motivationToggle =
+      document.getElementById("papQuickMotivationToggle");
+
+    if (
+      isQuickMode &&
+      motivationDetail &&
+      motivationToggle
+    ) {
+      motivationDetail.classList.remove(
+        "pap-quick-optional-open"
+      );
+
+      motivationToggle.setAttribute(
+        "aria-expanded",
+        "false"
+      );
+
+      motivationToggle.textContent =
         "▸ Compléter";
     }
   }

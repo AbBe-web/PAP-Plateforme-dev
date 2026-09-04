@@ -2415,17 +2415,38 @@ pushScreen(
   render(`
 <h2>Importance de l’activité physique</h2>
 <p>Quelle importance accordez-vous à l’activité physique dans votre vie, entre 0, aucune importance, et 10, une importance majeure ?</p>
-<input type="range" min="0" max="10" value="5"
+<input
+id="eva_importance_range"
+type="range"
+min="0"
+max="10"
+value="5"
 oninput="this.nextElementSibling.innerText=this.value">
-<div>5</div>
+<div id="eva_importance_value">5</div>
 <button class="btn" onclick="
 advanceProgress(1);
-state.result.importance=document.querySelector('input').value;
+state.result.importance=document.getElementById('eva_importance_range').value;
 evaImportanceComment();
 ">Continuer</button>
 <button class="btn secondary" onclick="back()">Retour</button>
 <div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
 `,97);
+
+const importanceRange =
+  document.getElementById("eva_importance_range");
+
+const importanceValue =
+  document.getElementById("eva_importance_value");
+
+if (
+  importanceRange &&
+  importanceValue &&
+  state.result.importance !== undefined &&
+  state.result.importance !== null
+) {
+  importanceRange.value = String(state.result.importance);
+  importanceValue.textContent = String(state.result.importance);
+}
 }
 
 function evaImportanceComment(){
@@ -2438,14 +2459,25 @@ pushScreen(
 <h2>Votre choix</h2>
 <p>
 Pouvez-vous indiquer en quelques mots pour quelles raisons vous avez choisi ce chiffre ?<br>
+<em>Si vous avez plusieurs raisons, vous pouvez écrire une idée par ligne.</em><br>
 <em>Sinon, passez à la question suivante.</em>
 </p>
-<textarea placeholder="Votre réponse (facultative)"
+<textarea
+id="eva_importance_comment"
+placeholder="Votre réponse (facultative)"
 onchange="state.result.importance_comment=this.value"></textarea>
 <button class="btn" onclick="advanceProgress(1); evaConfiance()">Continuer</button>
 <button class="btn secondary" onclick="back()">Retour</button>
 <div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
 `,98);
+
+const importanceCommentField =
+  document.getElementById("eva_importance_comment");
+
+if (importanceCommentField) {
+  importanceCommentField.value =
+    state.result.importance_comment ?? "";
+}
 }
 
 function evaConfiance(){
@@ -2460,17 +2492,38 @@ pushScreen(
   render(`
 <h2>Confiance en soi</h2>
 <p>${question}</p>
-<input type="range" min="0" max="10" value="5"
+<input
+id="eva_confiance_range"
+type="range"
+min="0"
+max="10"
+value="5"
 oninput="this.nextElementSibling.innerText=this.value">
-<div>5</div>
+<div id="eva_confiance_value">5</div>
 <button class="btn" onclick="
 advanceProgress(1);
-state.result.confiance=document.querySelector('input').value;
+state.result.confiance=document.getElementById('eva_confiance_range').value;
 evaConfianceComment();
 ">Continuer</button>
 <button class="btn secondary" onclick="back()">Retour</button>
 <div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
 `,99);
+
+const confianceRange =
+  document.getElementById("eva_confiance_range");
+
+const confianceValue =
+  document.getElementById("eva_confiance_value");
+
+if (
+  confianceRange &&
+  confianceValue &&
+  state.result.confiance !== undefined &&
+  state.result.confiance !== null
+) {
+  confianceRange.value = String(state.result.confiance);
+  confianceValue.textContent = String(state.result.confiance);
+}
 }
 
 function evaConfianceComment(){
@@ -2482,15 +2535,26 @@ pushScreen(
   render(`
 <h2>Votre réponse</h2>
 <p>
-Pouvez-vous indiquer en quelques mots ce qui vous rend confiant(e) en vous ou, au contraire, ce qui vous freine à maintenir ou augmentervotre niveau d'activité physique ?<br>
+Pouvez-vous indiquer en quelques mots ce qui vous rend confiant(e) en vous ou, au contraire, ce qui vous freine à maintenir ou augmenter votre niveau d'activité physique ?<br>
+<em>Si vous avez plusieurs raisons, vous pouvez écrire une idée par ligne.</em><br>
 <em>Sinon, passez à la question suivante.</em>
 </p>
-<textarea placeholder="Votre réponse (facultative)"
+<textarea
+id="eva_confiance_comment"
+placeholder="Votre réponse (facultative)"
 onchange="state.result.confiance_comment=this.value"></textarea>
 <button class="btn" onclick="advanceProgress(1); endTransition()">Terminer</button>
 <button class="btn secondary" onclick="back()">Retour</button>
 <div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
 `,99);
+
+const confianceCommentField =
+  document.getElementById("eva_confiance_comment");
+
+if (confianceCommentField) {
+  confianceCommentField.value =
+    state.result.confiance_comment ?? "";
+}
 }
   
 function endTransition(){
