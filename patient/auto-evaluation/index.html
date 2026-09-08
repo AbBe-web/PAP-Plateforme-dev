@@ -243,6 +243,9 @@ const state = {
     activities_past: [],
     activities_current: [],
 
+    patient_difficulties: null,
+    patient_helpers: null,
+
     preferences: {
       activities: [],
       intensity: null,
@@ -355,6 +358,7 @@ function goToScreen(id) {
     "MAR-EVA-IMP-REASONS": evaImportanceComment,
     "MAR-EVA-CONF": evaConfiance,
     "MAR-EVA-CONF-REASONS": evaConfianceComment,
+    "MAR-ENGAGEMENT-CONTEXT": engagementDifficultiesAndHelpers,
 
     "MAR-THANKS": endTransition,
     "MAR-SUMMARY": final,
@@ -390,7 +394,7 @@ function goToScreen(id) {
     "GPAQ-EVA-IMP-REASONS": evaImportanceComment,
     "GPAQ-EVA-CONF": evaConfiance,
     "GPAQ-EVA-CONF-REASONS": evaConfianceComment,
-    
+    "GPAQ-ENGAGEMENT-CONTEXT": engagementDifficultiesAndHelpers,
     "GPAQ-THANKS": endTransition,
     "GPAQ-SUMMARY": final,
   };
@@ -2543,7 +2547,7 @@ Pouvez-vous indiquer en quelques mots ce qui vous rend confiant(e) en vous ou, a
 id="eva_confiance_comment"
 placeholder="Votre réponse (facultative)"
 onchange="state.result.confiance_comment=this.value"></textarea>
-<button class="btn" onclick="advanceProgress(1); endTransition()">Terminer</button>
+<button class="btn" onclick="advanceProgress(1); engagementDifficultiesAndHelpers()">Continuer</button>
 <button class="btn secondary" onclick="back()">Retour</button>
 <div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
 `,99);
@@ -2555,6 +2559,60 @@ if (confianceCommentField) {
   confianceCommentField.value =
     state.result.confiance_comment ?? "";
 }
+}
+
+function engagementDifficultiesAndHelpers() {
+  pushScreen(
+    state.tool === "marshall"
+      ? "MAR-ENGAGEMENT-CONTEXT"
+      : "GPAQ-ENGAGEMENT-CONTEXT"
+  );
+
+  render(`
+<h2>Pour préparer votre consultation</h2>
+
+<p>
+Y a-t-il quelque chose qui pourrait rendre difficile le fait d’être ou de devenir plus actif ?
+</p>
+
+<textarea
+id="patient_engagement_difficulties"
+placeholder="Votre réponse (facultative)"
+oninput="state.engagement.patient_difficulties=this.value"></textarea>
+
+<p>
+Qu’est-ce qui pourrait vous aider à être ou rester plus actif ?
+</p>
+
+<textarea
+id="patient_engagement_helpers"
+placeholder="Votre réponse (facultative)"
+oninput="state.engagement.patient_helpers=this.value"></textarea>
+
+<p>
+<em>Si vous avez plusieurs idées, vous pouvez écrire une idée par ligne.</em>
+</p>
+
+<button class="btn" onclick="advanceProgress(1); endTransition()">Terminer</button>
+<button class="btn secondary" onclick="back()">Retour</button>
+<div class="back-info">Les réponses déjà saisies sont conservées pour le calcul final.</div>
+`,99);
+
+  const difficultiesField =
+    document.getElementById("patient_engagement_difficulties");
+
+  if (difficultiesField) {
+    difficultiesField.value =
+      state.engagement.patient_difficulties ?? "";
+  }
+
+  const helpersField =
+    document.getElementById("patient_engagement_helpers");
+
+  if (helpersField) {
+    helpersField.value =
+      state.engagement.patient_helpers ?? "";
+  }
 }
   
 function endTransition(){
@@ -2669,6 +2727,12 @@ motivation: {
         Array.isArray(state.engagement?.activities_current)
           ? state.engagement.activities_current
           : [],
+
+      patient_difficulties:
+        state.engagement?.patient_difficulties ?? null,
+
+      patient_helpers:
+        state.engagement?.patient_helpers ?? null,
 
       preferences: {
         activities:
@@ -2859,6 +2923,12 @@ state.engagement = {
     )
       ? state.exportJSON.engagement.activities_current
       : [],
+
+  patient_difficulties:
+    state.exportJSON.engagement?.patient_difficulties ?? null,
+
+  patient_helpers:
+    state.exportJSON.engagement?.patient_helpers ?? null,
 
   preferences: {
     activities:

@@ -2748,6 +2748,54 @@ Apixaban 5 mg x2/j">
   id="papQuickMotivationDetail"
   class="pap-quick-hide pap-quick-optional-detail"
 >
+
+<div
+  id="patientEngagementReportedBlock"
+  class="sub-group hidden"
+>
+  <h3 class="black-text">
+    Éléments rapportés par le patient
+  </h3>
+
+  <div class="patient-comment-block">
+    <div class="patient-comment-label">
+      Difficulté(s) évoquée(s) :
+    </div>
+
+    <textarea
+      id="patient_engagement_difficulties_imported"
+      class="patient-comment-text"
+      readonly
+    ></textarea>
+
+    <button
+      type="button"
+      class="patient-copy-btn"
+      onclick="copyPatientComment('patient_engagement_difficulties_imported')">
+      copier
+    </button>
+  </div>
+
+  <div class="patient-comment-block">
+    <div class="patient-comment-label">
+      Ce qui pourrait aider :
+    </div>
+
+    <textarea
+      id="patient_engagement_helpers_imported"
+      class="patient-comment-text"
+      readonly
+    ></textarea>
+
+    <button
+      type="button"
+      class="patient-copy-btn"
+      onclick="copyPatientComment('patient_engagement_helpers_imported')">
+      copier
+    </button>
+  </div>
+</div>
+
         <div class="sub-group">
         <h3 class="black-text">
   La personne présente les <u>leviers</u> suivants :
@@ -15000,6 +15048,37 @@ if (confianceField) {
   confianceField.value = "";
 }
 
+// =========================
+// ELEMENTS RAPPORTES PATIENT
+// =========================
+
+const patientDifficultiesField =
+  document.getElementById(
+    "patient_engagement_difficulties_imported"
+  );
+
+if (patientDifficultiesField) {
+  patientDifficultiesField.value = "";
+}
+
+const patientHelpersField =
+  document.getElementById(
+    "patient_engagement_helpers_imported"
+  );
+
+if (patientHelpersField) {
+  patientHelpersField.value = "";
+}
+
+const patientReportedBlock =
+  document.getElementById(
+    "patientEngagementReportedBlock"
+  );
+
+if (patientReportedBlock) {
+  patientReportedBlock.classList.add("hidden");
+}
+
   // =========================
   // RESET UI MOTIVATION
   // =========================
@@ -15039,6 +15118,9 @@ let importance;
 let confiance;
 let importanceComment;
 let confianceComment;
+
+let patientDifficulties;
+let patientHelpers;
 
 let importedActivitiesPast = [];
 let importedActivitiesCurrent = [];
@@ -15195,10 +15277,36 @@ ap6Mois = data.a6 ?? data.motivation?.ap_6_mois ?? null;
 
     importance = data.i ?? data.importance;
     confiance = data.c ?? data.confiance;
-    importanceComment = data.ci ?? data.importance_commentaire;
-      const importanceTruncated = data.ci_truncated ?? false;
-    confianceComment = data.cc ?? data.confiance_commentaire;
-      const confianceTruncated = data.cc_truncated ?? false;
+
+    importanceComment =
+      data.ci ??
+      data.importance_commentaire;
+
+    const importanceTruncated =
+      data.ci_truncated ?? false;
+
+    confianceComment =
+      data.cc ??
+      data.confiance_commentaire;
+
+    const confianceTruncated =
+      data.cc_truncated ?? false;
+
+    patientDifficulties =
+      data.pd ??
+      data.engagement?.patient_difficulties ??
+      null;
+
+    patientHelpers =
+      data.ph ??
+      data.engagement?.patient_helpers ??
+      null;
+
+    const patientDifficultiesTruncated =
+      data.pd_truncated ?? false;
+
+    const patientHelpersTruncated =
+      data.ph_truncated ?? false;
            
     
        isProgrammaticUpdate = true;
@@ -15557,6 +15665,65 @@ if (confField) {
       "Commentaire non transmis via QR code (trop long).\n" +
       "Consultez le fichier JSON ou interrogez le patient.";
   }
+}
+
+const patientReportedBlock =
+  document.getElementById("patientEngagementReportedBlock");
+
+const patientDifficultiesField =
+  document.getElementById(
+    "patient_engagement_difficulties_imported"
+  );
+
+const patientHelpersField =
+  document.getElementById(
+    "patient_engagement_helpers_imported"
+  );
+
+if (patientDifficultiesField) {
+
+  if (
+    typeof patientDifficulties === "string" &&
+    patientDifficulties.trim() !== ""
+  ) {
+    patientDifficultiesField.value =
+      patientDifficulties;
+
+  } else if (patientDifficultiesTruncated) {
+    patientDifficultiesField.value =
+      "Réponse non transmise via QR code (trop longue).\n" +
+      "Consultez le fichier JSON ou interrogez le patient.";
+  }
+}
+
+if (patientHelpersField) {
+
+  if (
+    typeof patientHelpers === "string" &&
+    patientHelpers.trim() !== ""
+  ) {
+    patientHelpersField.value =
+      patientHelpers;
+
+  } else if (patientHelpersTruncated) {
+    patientHelpersField.value =
+      "Réponse non transmise via QR code (trop longue).\n" +
+      "Consultez le fichier JSON ou interrogez le patient.";
+  }
+}
+
+if (patientReportedBlock) {
+
+  const hasPatientReportedData =
+    Boolean(
+      patientDifficultiesField?.value?.trim() ||
+      patientHelpersField?.value?.trim()
+    );
+
+  patientReportedBlock.classList.toggle(
+    "hidden",
+    !hasPatientReportedData
+  );
 }
           
 requestAnimationFrame(() => {
@@ -18413,7 +18580,18 @@ physicalTests,
       leviers: document.querySelector('textarea[name="leviers"]')?.value || null
     },
 
-    engagement: {
+engagement: {
+
+      patient_difficulties:
+        document.getElementById(
+          "patient_engagement_difficulties_imported"
+        )?.value?.trim() || null,
+
+      patient_helpers:
+        document.getElementById(
+          "patient_engagement_helpers_imported"
+        )?.value?.trim() || null,
+
       augmentation_deja_engagee:
         document.querySelector(
           'input[name="augmentation_deja_engagee"]:checked'

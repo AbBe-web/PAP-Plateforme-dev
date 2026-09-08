@@ -72,8 +72,40 @@ p {
 .verbatim {
   font-style: italic;
   margin-left: 15px;
-   font-size: 12px;
+  font-size: 12px;
   color: #555;
+}
+
+/* === Éléments rapportés par le patient pour préparer la consultation === */
+.patient-engagement-summary {
+  margin-top: 18px;
+  margin-bottom: 18px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.patient-engagement-summary-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+
+.patient-engagement-item {
+  margin-top: 9px;
+}
+
+.patient-engagement-label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.patient-engagement-verbatim {
+  margin: 0 0 0 15px;
+  font-size: 12px;
+  line-height: 1.45;
+  font-style: italic;
+  color: #555;
+  white-space: pre-wrap;
 }
 
 @media print {
@@ -557,6 +589,37 @@ ${data.motivation.confiance_commentaire
   : ""
 }
 
+${(
+  data.engagement?.patient_difficulties?.trim() ||
+  data.engagement?.patient_helpers?.trim()
+) ? `
+<div class="patient-engagement-summary">
+  <div class="patient-engagement-summary-title">
+    Pour préparer votre consultation
+  </div>
+
+  ${data.engagement?.patient_difficulties?.trim()
+    ? `
+    <div class="patient-engagement-item">
+      <div class="patient-engagement-label">Difficulté(s) évoquée(s)</div>
+      <div class="patient-engagement-verbatim">${data.engagement.patient_difficulties}</div>
+    </div>
+    `
+    : ""
+  }
+
+  ${data.engagement?.patient_helpers?.trim()
+    ? `
+    <div class="patient-engagement-item">
+      <div class="patient-engagement-label">Ce qui pourrait vous aider</div>
+      <div class="patient-engagement-verbatim">${data.engagement.patient_helpers}</div>
+    </div>
+    `
+    : ""
+  }
+</div>
+` : ""}
+
 <div id="gpaq-section">
   <h2 id="gpaq-title">Questionnaire GPAQ – Détail</h2>
 
@@ -783,6 +846,10 @@ c: data.motivation.confiance_eva_0_10,
 ci: data.motivation.importance_commentaire,
 cc: data.motivation.confiance_commentaire,
 
+// engagement — éléments rapportés par le patient
+pd: data.engagement?.patient_difficulties ?? null,
+ph: data.engagement?.patient_helpers ?? null,
+
 // engagement — activités ; type/sport_id recalculés côté médecin
 ep: Array.isArray(data.engagement?.activities_past)
   ? data.engagement.activities_past.map(activity => [
@@ -853,6 +920,24 @@ if (cc) {
   delete qrPayload.cc;
 }
 
+// difficulté(s) rapportée(s) par le patient
+const pd = sanitizeComment(qrPayload.pd);
+if (pd) {
+  qrPayload.pd = pd.text;
+  if (pd.truncated) qrPayload.pd_truncated = true;
+} else {
+  delete qrPayload.pd;
+}
+
+// élément(s) pouvant aider rapporté(s) par le patient
+const ph = sanitizeComment(qrPayload.ph);
+if (ph) {
+  qrPayload.ph = ph.text;
+  if (ph.truncated) qrPayload.ph_truncated = true;
+} else {
+  delete qrPayload.ph;
+}
+
 if (!qrPayload.ad) delete qrPayload.ad;
 if (!qrPayload.ae) delete qrPayload.ae;
 if (!qrPayload.a6) delete qrPayload.a6;
@@ -875,11 +960,20 @@ if (qrData.length > MAX_QR_SIZE) {
 
   console.warn("QR trop grand → suppression commentaires");
 
+  const hadCi = Boolean(qrPayload.ci);
+  const hadCc = Boolean(qrPayload.cc);
+  const hadPd = Boolean(qrPayload.pd);
+  const hadPh = Boolean(qrPayload.ph);
+
   delete qrPayload.ci;
   delete qrPayload.cc;
+  delete qrPayload.pd;
+  delete qrPayload.ph;
 
-  qrPayload.ci_truncated = true;
-  qrPayload.cc_truncated = true;
+  if (hadCi) qrPayload.ci_truncated = true;
+  if (hadCc) qrPayload.cc_truncated = true;
+  if (hadPd) qrPayload.pd_truncated = true;
+  if (hadPh) qrPayload.ph_truncated = true;
 
   qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
 
@@ -919,7 +1013,7 @@ console.info("QR payload size:", qrData.length);
 console.log("QR payload:", qrData);
 
 QRCode.toCanvas(qrData, {
-  width: 260,
+  width: 360,
   errorCorrectionLevel: "M"
 }, function (err, canvas) {
 
@@ -940,7 +1034,7 @@ QRCode.toCanvas(qrData, {
     warning.style.marginTop = "8px";
 
     warning.textContent =
-      "Certains commentaires sont trop longs pour le QR code. Ils sont visibles uniquement dans ce document.";
+      "Certaines réponses textuelles sont trop longues pour être transmises intégralement par le QR code. Elles restent disponibles dans ce document et dans le fichier JSON.";
 
     qrContainer.appendChild(warning);
   }
@@ -1329,6 +1423,24 @@ output += "Confiance (0–10) : ";
   output += data.motivation.confiance_eva_0_10 + "/10\n";
   output += "Commentaire :\n";
   output += formatCommentaire(data.motivation.confiance_commentaire) + "\n\n";
+
+  if (
+    data.engagement?.patient_difficulties?.trim() ||
+    data.engagement?.patient_helpers?.trim()
+  ) {
+    output += "POUR PRÉPARER VOTRE CONSULTATION\n";
+    output += "-------------------------------\n";
+
+    if (data.engagement?.patient_difficulties?.trim()) {
+      output += "Difficulté(s) évoquée(s) :\n";
+      output += data.engagement.patient_difficulties + "\n\n";
+    }
+
+    if (data.engagement?.patient_helpers?.trim()) {
+      output += "Ce qui pourrait vous aider :\n";
+      output += data.engagement.patient_helpers + "\n\n";
+    }
+  }
 
   /* ========================= */
 
