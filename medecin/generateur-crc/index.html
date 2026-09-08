@@ -2749,17 +2749,56 @@ Apixaban 5 mg x2/j">
   class="pap-quick-hide pap-quick-optional-detail"
 >
         <div class="sub-group">
-        <h3 class="black-text">La personne présente les <u>leviers</u> suivants :</h3>
+        <h3 class="black-text">
+  La personne présente les <u>leviers</u> suivants :
+  <span
+            class="info-trigger"
+            role="button"
+            tabindex="0"
+            aria-label="Aide pour explorer les leviers"
+            data-info="Explorer ce qui pourrait aider concrètement à être ou rester plus actif : ce qui a déjà aidé auparavant, raisons personnelles, plaisir, soutien, conditions facilitantes."
+          ></span>
+</h3>
         <textarea name="leviers"></textarea>
     </div>
         <div class="sub-group">
-        <h3 class="black-text">La personne adressée présente les <u>freins</u> suivants :</h3>
+        <h3 class="black-text">
+          La personne adressée présente les <u>freins</u> suivants :
+          <span
+            class="info-trigger"
+            role="button"
+            tabindex="0"
+            aria-label="Aide pour explorer les freins"
+            data-info="Explorer ce qui pourrait rendre difficile le fait d’être ou de devenir plus actif : obstacles perçus, vécus ou anticipés."
+          ></span>
+        </h3>
+
         <textarea name="freins"></textarea>
+
+        <div style="margin-top:6px;font-size:0.82rem;color:#666;">
+          Points pratiques à explorer
+          <span
+            class="info-trigger"
+            role="button"
+            tabindex="0"
+            aria-label="Points pratiques à explorer"
+            data-info="Si pertinent, penser à explorer : temps et organisation ; coût ; accès, proximité ou déplacements ; soutien ou accompagnement réellement disponible."
+          ></span>
+        </div>
     </div>
     
    <div class="sub-group">
 
-<h3 class="black-text">Importance accordée à l’AP de 0 à 10 :</h3>
+<h3 class="black-text">
+  Importance accordée à l’AP de 0 à 10 :
+  <span
+    class="info-trigger"
+    role="button"
+    tabindex="0"
+    aria-label="Aide pour explorer l’importance"
+    data-info="Que mesure cette échelle de type EVA ? Elle mesure de 0 à 10 l’importance que la personne interrogée attribue à l’activité physique dans sa vie."
+  ></span>
+</h3>
 
 <input type="number" name="importance_ap" min="0" max="10">
 
@@ -2789,7 +2828,16 @@ Apixaban 5 mg x2/j">
 
 <div class="sub-group">
 
-<h3 class="black-text">Confiance en soi pour réussir à augmenter son niveau d’AP de 0 à 10 :</h3>
+<h3 class="black-text">
+  Confiance en soi pour maintenir ou, si besoin, augmenter son niveau d’AP de 0 à 10 :
+  <span
+    class="info-trigger"
+    role="button"
+    tabindex="0"
+    aria-label="Aide pour explorer la confiance"
+ data-info="Que mesure cette échelle de type EVA ? Elle mesure de 0 à 10 la confiance qu’a la personne interrogée dans sa capacité à maintenir son niveau actuel d’activité physique ou, s’il est insuffisant, à l’augmenter."
+  ></span>
+</h3>
 
 <input type="number" name="confiance_ap" min="0" max="10">
 
@@ -5912,7 +5960,55 @@ let savedScrollPosition = 0;
 let identityAction = null;
 
 let qrScanner = null;
-let qrAlreadyRead = false;    
+let qrAlreadyRead = false;
+let qrResetPromise = Promise.resolve();
+
+function resetQrScannerState() {
+
+  const scannerToReset = qrScanner;
+
+  // L'instance courante ne doit plus être réutilisée.
+  qrScanner = null;
+
+  // Fermeture visuelle cohérente avec .hidden { display:none !important; }
+  const qrContainer =
+    document.getElementById("qrScannerContainer");
+
+  if (qrContainer) {
+    qrContainer.classList.add("hidden");
+    qrContainer.style.display = "none";
+  }
+
+  /*
+   * Sérialise les nettoyages :
+   * une nouvelle ouverture QR pourra attendre la fin réelle
+   * d'un éventuel stop/clear précédent.
+   */
+  qrResetPromise = qrResetPromise.then(async () => {
+
+    if (scannerToReset) {
+
+      try {
+        await scannerToReset.stop();
+      } catch (e) {
+        // Le scanner peut déjà être arrêté.
+      }
+
+      try {
+        await scannerToReset.clear();
+      } catch (e) {
+        // Nettoyage best-effort d'une instance déjà inactive.
+      }
+    }
+
+    // Déverrouiller seulement une fois l'ancien scanner réellement nettoyé.
+    qrAlreadyRead = false;
+  });
+
+  return qrResetPromise;
+}
+
+window.resetQrScannerState = resetQrScannerState;
 
 function handleFormModification() {
 
@@ -9654,10 +9750,21 @@ const scanBtn = document.getElementById("scanQRBtn");
 const qrContainer = document.getElementById("qrScannerContainer");
 const closeQR = document.getElementById("closeQRScanner");
 
-if(scanBtn){
+if (scanBtn) {
 
- scanBtn.addEventListener("click", function(){
+  scanBtn.addEventListener("click", async function () {
 
+    if (!qrContainer) return;
+
+    /*
+     * Toujours attendre la destruction complète d'une éventuelle
+     * instance précédente avant d'en créer une nouvelle.
+     */
+    await resetQrScannerState();
+
+    // Symétrie indispensable avec le reset :
+    // .hidden impose display:none !important.
+    qrContainer.classList.remove("hidden");
     qrContainer.style.display = "block";
 
     // scroll automatique iPhone/Safari
@@ -9670,62 +9777,54 @@ if(scanBtn){
 
     qrScanner = new Html5Qrcode("qr-reader");
 
-qrScanner.start(
-  { facingMode: "environment" },
-  { fps: 10, qrbox: 250 },
+    qrScanner.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
 
-  function(decodedText){
+      async function (decodedText) {
 
-    if(qrAlreadyRead) return;
-    qrAlreadyRead = true;
+        // Protection contre plusieurs lectures successives du même QR.
+        if (qrAlreadyRead) return;
 
-  try{
-  importPatientJSON(decodedText);
+        qrAlreadyRead = true;
 
-  alert("Données patient importées.\n\nVérifiez et complétez les champs avant de générer le compte-rendu.");
+        try {
 
-  if(qrScanner){
-    qrScanner.stop().then(() => {
-      qrContainer.style.display = "none";
+          importPatientJSON(decodedText);
+
+          alert(
+            "Données patient importées.\n\n" +
+            "Vérifiez et complétez les champs avant de générer le compte-rendu."
+          );
+
+          await resetQrScannerState();
+
+        } catch (e) {
+
+          /*
+           * En cas de QR/import invalide, garder le scanner disponible
+           * pour permettre une nouvelle tentative.
+           */
+          qrAlreadyRead = false;
+        }
+      },
+
+      function () {}
+    )
+    .catch(async err => {
+
+      console.error("Erreur caméra :", err);
+
+      // Ne jamais conserver une instance partiellement démarrée.
+      await resetQrScannerState();
     });
-  }
-
-      setTimeout(() => {
-        qrAlreadyRead = false;
-      }, 1500);
-
-    } catch(e){
-      setTimeout(() => {
-        qrAlreadyRead = false;
-      }, 1000);
-    }
-
-  },
-
-function() {}
-
-)
-.then(() => {
-
-})
-.catch(err => {
-  console.error("Erreur caméra :", err);
-});
-});
+  });
 }
-    
-if(closeQR){
-  closeQR.addEventListener("click", function(){
 
-    if(qrScanner){
-      qrScanner.stop().then(() => {
-        qrContainer.style.display = "none";
-      });
-    } else {
-      qrContainer.style.display = "none";
-    }
+if (closeQR) {
 
-    qrAlreadyRead = false;
+  closeQR.addEventListener("click", function () {
+    resetQrScannerState();
   });
 }
   // 🔹 IMPORT JSON (ouvre le sélecteur de fichier)
@@ -20282,7 +20381,11 @@ phrase += ".";
   }
 
   if (details.length > 0) {
-    phrase += details.join(", ") + ". ";
+    const detailsText = details.join(", ");
+
+    phrase += phrase
+      ? detailsText + ". "
+      : detailsText.charAt(0).toUpperCase() + detailsText.slice(1) + ". ";
   }
 
   if (m.freins) {

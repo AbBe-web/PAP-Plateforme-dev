@@ -50,6 +50,12 @@ document.addEventListener("DOMContentLoaded", function () {
     //----------------------------------
     function executeFullReset() {
 
+        // 0. Fermer et réinitialiser proprement le scanner QR.
+        // Le détail du lifecycle reste encapsulé dans index.html.
+        if (typeof window.resetQrScannerState === "function") {
+            window.resetQrScannerState();
+        }
+
         // 1. Reset formulaire
         const form = document.getElementById("consultationForm");
 
