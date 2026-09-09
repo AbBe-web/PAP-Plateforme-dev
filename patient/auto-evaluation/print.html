@@ -590,6 +590,8 @@ ${data.motivation.confiance_commentaire
 }
 
 ${(
+  data.engagement?.activity_experience_comment?.trim() ||
+  data.engagement?.current_activity_experience_comment?.trim() ||
   data.engagement?.patient_difficulties?.trim() ||
   data.engagement?.patient_helpers?.trim()
 ) ? `
@@ -597,6 +599,26 @@ ${(
   <div class="patient-engagement-summary-title">
     Pour préparer votre consultation
   </div>
+
+  ${data.engagement?.activity_experience_comment?.trim()
+    ? `
+    <div class="patient-engagement-item">
+      <div class="patient-engagement-label">Vécu de la pratique antérieure / raison éventuelle d’arrêt</div>
+      <div class="patient-engagement-verbatim">${data.engagement.activity_experience_comment}</div>
+    </div>
+    `
+    : ""
+  }
+
+  ${data.engagement?.current_activity_experience_comment?.trim()
+    ? `
+    <div class="patient-engagement-item">
+      <div class="patient-engagement-label">Vécu de la pratique actuelle</div>
+      <div class="patient-engagement-verbatim">${data.engagement.current_activity_experience_comment}</div>
+    </div>
+    `
+    : ""
+  }
 
   ${data.engagement?.patient_difficulties?.trim()
     ? `
@@ -850,6 +872,12 @@ cc: data.motivation.confiance_commentaire,
 pd: data.engagement?.patient_difficulties ?? null,
 ph: data.engagement?.patient_helpers ?? null,
 
+// engagement — vécu de pratique antérieure / raison éventuelle d'arrêt
+ax: data.engagement?.activity_experience_comment ?? null,
+
+// engagement — vécu de pratique actuelle
+ay: data.engagement?.current_activity_experience_comment ?? null,
+
 // engagement — activités ; type/sport_id recalculés côté médecin
 ep: Array.isArray(data.engagement?.activities_past)
   ? data.engagement.activities_past.map(activity => [
@@ -938,6 +966,24 @@ if (ph) {
   delete qrPayload.ph;
 }
 
+// vécu de pratique antérieure / raison éventuelle d'arrêt
+const ax = sanitizeComment(qrPayload.ax);
+if (ax) {
+  qrPayload.ax = ax.text;
+  if (ax.truncated) qrPayload.ax_truncated = true;
+} else {
+  delete qrPayload.ax;
+}
+
+// vécu de pratique actuelle
+const ay = sanitizeComment(qrPayload.ay);
+if (ay) {
+  qrPayload.ay = ay.text;
+  if (ay.truncated) qrPayload.ay_truncated = true;
+} else {
+  delete qrPayload.ay;
+}
+
 if (!qrPayload.ad) delete qrPayload.ad;
 if (!qrPayload.ae) delete qrPayload.ae;
 if (!qrPayload.a6) delete qrPayload.a6;
@@ -964,16 +1010,22 @@ if (qrData.length > MAX_QR_SIZE) {
   const hadCc = Boolean(qrPayload.cc);
   const hadPd = Boolean(qrPayload.pd);
   const hadPh = Boolean(qrPayload.ph);
+  const hadAx = Boolean(qrPayload.ax);
+  const hadAy = Boolean(qrPayload.ay);
 
   delete qrPayload.ci;
   delete qrPayload.cc;
   delete qrPayload.pd;
   delete qrPayload.ph;
+  delete qrPayload.ax;
+  delete qrPayload.ay;
 
   if (hadCi) qrPayload.ci_truncated = true;
   if (hadCc) qrPayload.cc_truncated = true;
   if (hadPd) qrPayload.pd_truncated = true;
   if (hadPh) qrPayload.ph_truncated = true;
+  if (hadAx) qrPayload.ax_truncated = true;
+  if (hadAy) qrPayload.ay_truncated = true;
 
   qrData = LZString.compressToBase64(JSON.stringify(qrPayload));
 
@@ -1026,7 +1078,13 @@ QRCode.toCanvas(qrData, {
   qrDiv.appendChild(canvas);
 
   // ✅ AJOUT ICI
-  if (qrPayload.ci_truncated || qrPayload.cc_truncated) {
+  if (
+  qrPayload.ci_truncated ||
+  qrPayload.cc_truncated ||
+  qrPayload.pd_truncated ||
+  qrPayload.ph_truncated ||
+  qrPayload.ax_truncated
+) {
 
     const warning = document.createElement("p");
     warning.className = "small";
@@ -1425,11 +1483,23 @@ output += "Confiance (0–10) : ";
   output += formatCommentaire(data.motivation.confiance_commentaire) + "\n\n";
 
   if (
+    data.engagement?.activity_experience_comment?.trim() ||
+    data.engagement?.current_activity_experience_comment?.trim() ||
     data.engagement?.patient_difficulties?.trim() ||
     data.engagement?.patient_helpers?.trim()
   ) {
     output += "POUR PRÉPARER VOTRE CONSULTATION\n";
     output += "-------------------------------\n";
+
+    if (data.engagement?.activity_experience_comment?.trim()) {
+      output += "Vécu de la pratique antérieure / raison éventuelle d’arrêt :\n";
+      output += data.engagement.activity_experience_comment + "\n\n";
+    }
+
+    if (data.engagement?.current_activity_experience_comment?.trim()) {
+      output += "Vécu de la pratique actuelle :\n";
+      output += data.engagement.current_activity_experience_comment + "\n\n";
+    }
 
     if (data.engagement?.patient_difficulties?.trim()) {
       output += "Difficulté(s) évoquée(s) :\n";

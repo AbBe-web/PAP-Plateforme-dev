@@ -243,6 +243,9 @@ const state = {
     activities_past: [],
     activities_current: [],
 
+    activity_experience_comment: null,
+    current_activity_experience_comment: null,
+
     patient_difficulties: null,
     patient_helpers: null,
 
@@ -1614,7 +1617,7 @@ function engagementActivities() {
         Vous pouvez indiquer les principales activités physiques ou sports que vous avez pratiqués.
       </p>
 
-      <input
+            <input
         type="text"
         id="patient_activities_past"
         placeholder="Ex. : natation, football, randonnée"
@@ -1625,6 +1628,21 @@ function engagementActivities() {
       <div
         id="patient_engagement_competition_past"
       ></div>
+
+      <p style="margin-bottom:4px;">
+        Vous avez déjà pratiqué une activité physique ou un sport :
+        qu’en retenez-vous ? Quelle a été la raison éventuelle d’arrêt ?
+      </p>
+
+      <textarea
+        id="patient_activity_experience_comment"
+        placeholder="Votre réponse (facultative)"
+        oninput="state.engagement.activity_experience_comment=this.value"
+      ></textarea>
+
+      <p style="margin-top:4px;">
+        <em>Par exemple : ce qui vous a plu ou moins plu, raison éventuelle d’arrêt ou d’interruption, souhait éventuel de reprise.</em>
+      </p>
     </div>
 
 
@@ -1648,6 +1666,21 @@ function engagementActivities() {
       <div
         id="patient_engagement_competition_current"
       ></div>
+
+      <p style="margin-bottom:4px;">
+        Vous pratiquez actuellement une activité physique ou un sport :
+        qu’en pensez-vous ? Y a-t-il des aspects qui vous plaisent ou vous conviennent moins ?
+      </p>
+
+      <textarea
+        id="patient_current_activity_experience_comment"
+        placeholder="Votre réponse (facultative)"
+        oninput="state.engagement.current_activity_experience_comment=this.value"
+      ></textarea>
+
+      <p style="margin-top:4px;">
+        <em>Par exemple : plaisir, difficultés rencontrées, envie de poursuivre, de modifier ou d’arrêter cette pratique.</em>
+      </p>
     </div>
 
 
@@ -1671,6 +1704,26 @@ function engagementActivities() {
     </div>
   `,94);
 
+
+  const activityExperienceCommentField =
+    document.getElementById(
+      "patient_activity_experience_comment"
+    );
+
+  if (activityExperienceCommentField) {
+    activityExperienceCommentField.value =
+      state.engagement.activity_experience_comment ?? "";
+  }
+
+  const currentActivityExperienceCommentField =
+    document.getElementById(
+      "patient_current_activity_experience_comment"
+    );
+
+  if (currentActivityExperienceCommentField) {
+    currentActivityExperienceCommentField.value =
+      state.engagement.current_activity_experience_comment ?? "";
+  }
 
   renderPatientEngagementCompetition(
     "past"
@@ -2728,6 +2781,12 @@ motivation: {
           ? state.engagement.activities_current
           : [],
 
+      activity_experience_comment:
+        state.engagement?.activity_experience_comment ?? null,
+
+      current_activity_experience_comment:
+        state.engagement?.current_activity_experience_comment ?? null,
+
       patient_difficulties:
         state.engagement?.patient_difficulties ?? null,
 
@@ -2923,6 +2982,12 @@ state.engagement = {
     )
       ? state.exportJSON.engagement.activities_current
       : [],
+
+  activity_experience_comment:
+    state.exportJSON.engagement?.activity_experience_comment ?? null,
+
+  current_activity_experience_comment:
+    state.exportJSON.engagement?.current_activity_experience_comment ?? null,
 
   patient_difficulties:
     state.exportJSON.engagement?.patient_difficulties ?? null,

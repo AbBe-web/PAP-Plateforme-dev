@@ -1608,10 +1608,46 @@ Apixaban 5 mg x2/j">
             >
           </div>
 
+            <div
+  id="activities_past_competition"
+  class="pap-engagement-competition-list"
+  style="margin-top:4px;"
+></div>
+
           <div
-            id="activities_past_competition"
-            class="pap-engagement-competition-list"
-          ></div>
+            style="margin-top:4px;margin-left:28px;"
+          >
+            <label
+              for="activity_experience_comment"
+              style="display:block;margin:0 0 3px 0;font-size:0.82rem;"
+            >
+              Vécu / raison éventuelle d’arrêt :
+            </label>
+
+            <textarea
+              id="activity_experience_comment"
+              name="activity_experience_comment"
+              rows="2"
+              placeholder="Ce qui a plu ou moins plu, raison éventuelle d’arrêt ou d’interruption, souhait éventuel de reprise."
+              style="width:100%;box-sizing:border-box;font-size:15px;font-family:Arial;line-height:18px;"
+            ></textarea>
+
+            <div
+              id="patient_activity_experience_imported_block"
+              class="hidden"
+              style="margin-top:4px;"
+            >
+              <div style="font-size:0.82rem;margin-bottom:2px;">
+                Réponse rapportée par le patient :
+              </div>
+
+              <textarea
+                id="patient_activity_experience_imported"
+                class="patient-comment-text"
+                readonly
+              ></textarea>
+            </div>
+          </div>
         </div>
 
         <div class="pap-ap-experience-subtitle pap-ap-current-subtitle">
@@ -1672,7 +1708,44 @@ Apixaban 5 mg x2/j">
       <div
         id="activities_current_competition"
         class="pap-engagement-competition-list pap-quick-ap-detail"
+        style="margin-top:4px;"
       ></div>
+
+      <div
+        class="pap-quick-ap-detail"
+        style="margin-top:4px;margin-left:28px;flex-direction:column;align-items:stretch;"
+      >
+        <label
+          for="current_activity_experience_comment"
+          style="display:block;margin:0 0 3px 0;font-size:0.82rem;"
+        >
+          Vécu de la pratique actuelle :
+        </label>
+
+        <textarea
+          id="current_activity_experience_comment"
+          name="current_activity_experience_comment"
+          rows="2"
+          placeholder="Ce qui plaît ou plaît moins, difficultés rencontrées, souhait de poursuivre, de modifier ou d’arrêter la pratique."
+          style="width:100%;box-sizing:border-box;font-size:15px;font-family:Arial;line-height:18px;"
+        ></textarea>
+
+        <div
+          id="patient_current_activity_experience_imported_block"
+          class="hidden"
+          style="margin-top:4px;"
+        >
+          <div style="font-size:0.82rem;margin-bottom:2px;">
+            Réponse rapportée par le patient :
+          </div>
+
+          <textarea
+            id="patient_current_activity_experience_imported"
+            class="patient-comment-text"
+            readonly
+          ></textarea>
+        </div>
+      </div>
 
       <details
         id="engagement_preferences_details"
@@ -15292,6 +15365,42 @@ if (patientReportedBlock) {
   patientReportedBlock.classList.add("hidden");
 }
 
+const patientActivityExperienceField =
+  document.getElementById(
+    "patient_activity_experience_imported"
+  );
+
+if (patientActivityExperienceField) {
+  patientActivityExperienceField.value = "";
+}
+
+const patientActivityExperienceBlock =
+  document.getElementById(
+    "patient_activity_experience_imported_block"
+  );
+
+if (patientActivityExperienceBlock) {
+  patientActivityExperienceBlock.classList.add("hidden");
+}
+
+const patientCurrentActivityExperienceField =
+  document.getElementById(
+    "patient_current_activity_experience_imported"
+  );
+
+if (patientCurrentActivityExperienceField) {
+  patientCurrentActivityExperienceField.value = "";
+}
+
+const patientCurrentActivityExperienceBlock =
+  document.getElementById(
+    "patient_current_activity_experience_imported_block"
+  );
+
+if (patientCurrentActivityExperienceBlock) {
+  patientCurrentActivityExperienceBlock.classList.add("hidden");
+}
+
 // =========================
 // CONTEXTE PRATIQUE
 // =========================
@@ -15349,6 +15458,8 @@ let confianceComment;
 
 let patientDifficulties;
 let patientHelpers;
+let patientActivityExperienceComment;
+let patientCurrentActivityExperienceComment;
 
 let importedActivitiesPast = [];
 let importedActivitiesCurrent = [];
@@ -15529,6 +15640,22 @@ ap6Mois = data.a6 ?? data.motivation?.ap_6_mois ?? null;
       data.ph ??
       data.engagement?.patient_helpers ??
       null;
+
+    patientActivityExperienceComment =
+  data.ax ??
+  data.engagement?.activity_experience_comment ??
+  null;
+
+const patientActivityExperienceTruncated =
+  data.ax_truncated ?? false;
+
+patientCurrentActivityExperienceComment =
+  data.ay ??
+  data.engagement?.current_activity_experience_comment ??
+  null;
+
+const patientCurrentActivityExperienceTruncated =
+  data.ay_truncated ?? false;
 
     const patientDifficultiesTruncated =
       data.pd_truncated ?? false;
@@ -15907,6 +16034,78 @@ const patientHelpersField =
   document.getElementById(
     "patient_engagement_helpers_imported"
   );
+
+const patientActivityExperienceField =
+  document.getElementById(
+    "patient_activity_experience_imported"
+  );
+
+const patientActivityExperienceBlock =
+  document.getElementById(
+    "patient_activity_experience_imported_block"
+  );
+
+const patientCurrentActivityExperienceField =
+  document.getElementById(
+    "patient_current_activity_experience_imported"
+  );
+
+const patientCurrentActivityExperienceBlock =
+  document.getElementById(
+    "patient_current_activity_experience_imported_block"
+  );
+
+if (patientActivityExperienceField) {
+
+  if (
+    typeof patientActivityExperienceComment === "string" &&
+    patientActivityExperienceComment.trim() !== ""
+  ) {
+    patientActivityExperienceField.value =
+      patientActivityExperienceComment +
+      (
+        patientActivityExperienceTruncated
+          ? "\n\n[Réponse tronquée dans le QR code — version complète disponible dans le fichier JSON.]"
+          : ""
+      );
+
+    patientActivityExperienceBlock?.classList.remove("hidden");
+
+  } else if (patientActivityExperienceTruncated) {
+
+    patientActivityExperienceField.value =
+      "Réponse non transmise via QR code faute de place.\n" +
+      "Consultez le fichier JSON ou interrogez le patient.";
+
+    patientActivityExperienceBlock?.classList.remove("hidden");
+  }
+}
+
+if (patientCurrentActivityExperienceField) {
+
+  if (
+    typeof patientCurrentActivityExperienceComment === "string" &&
+    patientCurrentActivityExperienceComment.trim() !== ""
+  ) {
+    patientCurrentActivityExperienceField.value =
+      patientCurrentActivityExperienceComment +
+      (
+        patientCurrentActivityExperienceTruncated
+          ? "\n\n[Réponse tronquée dans le QR code — version complète disponible dans le fichier JSON.]"
+          : ""
+      );
+
+    patientCurrentActivityExperienceBlock?.classList.remove("hidden");
+
+  } else if (patientCurrentActivityExperienceTruncated) {
+
+    patientCurrentActivityExperienceField.value =
+      "Réponse non transmise via QR code faute de place.\n" +
+      "Consultez le fichier JSON ou interrogez le patient.";
+
+    patientCurrentActivityExperienceBlock?.classList.remove("hidden");
+  }
+}
 
 if (patientDifficultiesField) {
 
@@ -18818,6 +19017,26 @@ engagement: {
       patient_helpers:
         document.getElementById(
           "patient_engagement_helpers_imported"
+        )?.value?.trim() || null,
+
+      activity_experience_comment:
+        document.getElementById(
+          "activity_experience_comment"
+        )?.value?.trim() || null,
+
+      patient_activity_experience_comment:
+        document.getElementById(
+          "patient_activity_experience_imported"
+        )?.value?.trim() || null,
+
+      current_activity_experience_comment:
+        document.getElementById(
+          "current_activity_experience_comment"
+        )?.value?.trim() || null,
+
+      patient_current_activity_experience_comment:
+        document.getElementById(
+          "patient_current_activity_experience_imported"
         )?.value?.trim() || null,
 
       practical_context: {
