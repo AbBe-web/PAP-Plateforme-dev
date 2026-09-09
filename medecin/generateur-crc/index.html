@@ -2823,16 +2823,83 @@ Apixaban 5 mg x2/j">
 
         <textarea name="freins"></textarea>
 
-        <div style="margin-top:6px;font-size:0.82rem;color:#666;">
-          Points pratiques à explorer
-          <span
-            class="info-trigger"
-            role="button"
-            tabindex="0"
-            aria-label="Points pratiques à explorer"
-            data-info="Si pertinent, penser à explorer : temps et organisation ; coût ; accès, proximité ou déplacements ; soutien ou accompagnement réellement disponible."
-          ></span>
-        </div>
+<div style="margin-top:6px;font-size:0.82rem;color:#666;width:100%;flex:0 0 100%;box-sizing:border-box;display:block;">
+
+  <div style="margin-bottom:3px;">
+    <strong>Points pratiques à explorer</strong>
+    <span
+      class="info-trigger"
+      role="button"
+      tabindex="0"
+      aria-label="Points pratiques à explorer"
+      data-info="Ces éléments décrivent le contexte pratique. Ils n’entraînent aucune conclusion automatique sur la faisabilité."
+    ></span>
+  </div>
+
+  <div style="display:grid;row-gap:0;">
+
+<div style="display:grid;grid-template-columns:145px 118px 105px 110px;column-gap:8px;row-gap:2px;align-items:center;margin-left:12px;">
+
+  <span>Temps / organisation :</span>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_time" value="no_difficulty">
+    Pas de difficulté
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_time" value="difficulty">
+    Difficulté
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_time" value="not_explored">
+    Non exploré
+  </label>
+
+  <span>Coût :</span>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_cost" value="no_difficulty">
+    Pas de difficulté
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_cost" value="difficulty">
+    Difficulté
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_cost" value="not_explored">
+    Non exploré
+  </label>
+
+  <span>Accès / déplacements :</span>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_access" value="no_difficulty">
+    Pas de difficulté
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_access" value="difficulty">
+    Difficulté
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_access" value="not_explored">
+    Non exploré
+  </label>
+
+  <span>Soutien disponible :</span>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_support" value="available">
+    Disponible
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_support" value="limited_or_absent">
+    Limité / absent
+  </label>
+  <label style="display:inline-flex;align-items:center;margin:0;font-size:0.82rem;line-height:1.2;gap:3px;">
+    <input type="radio" name="engagement_context_support" value="not_explored">
+    Non exploré
+  </label>
+
+</div>
+
+  </div>
+</div>
     </div>
     
    <div class="sub-group">
@@ -2852,22 +2919,40 @@ Apixaban 5 mg x2/j">
 
 <div id="importance_patient_block" class="patient-comment-block">
 
-  <div class="patient-comment-label">
-    Raisons évoquées pour cette cotation :
-  </div>
+<div style="margin-bottom:2px;font-size:0.82rem;color:#666;line-height:1.3;">
+  <span style="font-weight:600;color:#444;">Raisons évoquées :</span>
+  <span>
+    Pour classer, placez le curseur sur la ligne concernée (ou sélectionnez du texte), puis cliquez sur « + Frein » ou « + Levier ».
+  </span>
+</div>
 
-  <textarea
+<textarea
     id="importance_patient_comment"
     class="patient-comment-text"
+    style="margin-top:0px;"
     placeholder="Si plusieurs raisons sont évoquées : une idée par ligne."
   ></textarea>
 
-  <button
+ <button
+  type="button"
+  class="patient-copy-btn"
+  onclick="addPatientCommentToEngagementField('importance_patient_comment', 'freins')">
+  + Frein
+</button>
+
+<button
+  type="button"
+  class="patient-copy-btn"
+  onclick="addPatientCommentToEngagementField('importance_patient_comment', 'leviers')">
+  + Levier
+</button>
+
+<button
   type="button"
   class="patient-copy-btn"
   onclick="copyPatientComment('importance_patient_comment')">
   copier
-  </button>
+</button>
 
 </div>
 
@@ -2891,22 +2976,40 @@ Apixaban 5 mg x2/j">
 
 <div id="confiance_patient_block" class="patient-comment-block">
 
-  <div class="patient-comment-label">
-    Raisons évoquées pour cette cotation :
-  </div>
+<div style="margin-bottom:2px;font-size:0.82rem;color:#666;line-height:1.3;">
+  <span style="font-weight:600;color:#444;">Raisons évoquées :</span>
+  <span>
+    Pour classer, placez le curseur sur la ligne concernée (ou sélectionnez du texte), puis cliquez sur « + Frein » ou « + Levier ».
+  </span>
+</div>
 
   <textarea
     id="confiance_patient_comment"
     class="patient-comment-text"
+    style="margin-top:0px;"
     placeholder="Si plusieurs raisons sont évoquées : une idée par ligne."
   ></textarea>
 
-  <button
+ <button
+  type="button"
+  class="patient-copy-btn"
+  onclick="addPatientCommentToEngagementField('confiance_patient_comment', 'freins')">
+  + Frein
+</button>
+
+<button
+  type="button"
+  class="patient-copy-btn"
+  onclick="addPatientCommentToEngagementField('confiance_patient_comment', 'leviers')">
+  + Levier
+</button>
+
+<button
   type="button"
   class="patient-copy-btn"
   onclick="copyPatientComment('confiance_patient_comment')">
   copier
-  </button>
+</button>
 
 </div>
 
@@ -14938,6 +15041,116 @@ if (typeof resetOrientationPanelAfterReset === "function") {
 isProgrammaticUpdate = false;
 }
 
+function addPatientCommentToEngagementField(
+  sourceId,
+  targetName
+) {
+
+  const source =
+    document.getElementById(sourceId);
+
+  const target =
+    document.querySelector(
+      `textarea[name="${targetName}"]`
+    );
+
+  if (!source || !target) {
+    return;
+  }
+
+  const fullText =
+    source.value || "";
+
+  if (!fullText.trim()) {
+    return;
+  }
+
+  let textToAdd = "";
+
+  const selectionStart =
+    source.selectionStart ?? 0;
+
+  const selectionEnd =
+    source.selectionEnd ?? 0;
+
+  // 1. Si le médecin a sélectionné du texte :
+  // reprendre uniquement cette sélection.
+  if (selectionEnd > selectionStart) {
+
+    textToAdd =
+      fullText
+        .slice(selectionStart, selectionEnd)
+        .trim();
+
+  } else {
+
+    const nonEmptyLines =
+      fullText
+        .split(/\r?\n/)
+        .filter(line => line.trim() !== "");
+
+    // 2. Une seule raison :
+    // reprendre directement cette raison.
+    if (nonEmptyLines.length === 1) {
+
+      textToAdd =
+        nonEmptyLines[0].trim();
+
+    } else {
+
+      // 3. Plusieurs raisons :
+      // reprendre la ligne où se trouve le curseur.
+      const lineStart =
+        fullText.lastIndexOf(
+          "\n",
+          Math.max(0, selectionStart - 1)
+        ) + 1;
+
+      const nextLineBreak =
+        fullText.indexOf(
+          "\n",
+          selectionStart
+        );
+
+      const lineEnd =
+        nextLineBreak === -1
+          ? fullText.length
+          : nextLineBreak;
+
+      textToAdd =
+        fullText
+          .slice(lineStart, lineEnd)
+          .trim();
+    }
+  }
+
+  if (!textToAdd) {
+    return;
+  }
+
+const current =
+  target.value?.trim() || "";
+
+const existingLines =
+  current
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(Boolean);
+
+if (existingLines.includes(textToAdd)) {
+  return;
+}
+
+target.value =
+  current
+    ? `${current}\n${textToAdd}`
+    : textToAdd;
+
+target.dispatchEvent(
+  new Event("input", { bubbles: true })
+);
+}
+
 function resetBlocAutoEvaluationPatient() {
 
   // =========================
@@ -15078,6 +15291,21 @@ const patientReportedBlock =
 if (patientReportedBlock) {
   patientReportedBlock.classList.add("hidden");
 }
+
+// =========================
+// CONTEXTE PRATIQUE
+// =========================
+
+document
+  .querySelectorAll(
+    'input[name="engagement_context_time"], ' +
+    'input[name="engagement_context_cost"], ' +
+    'input[name="engagement_context_access"], ' +
+    'input[name="engagement_context_support"]'
+  )
+  .forEach(el => {
+    el.checked = false;
+  });
 
   // =========================
   // RESET UI MOTIVATION
@@ -18592,6 +18820,28 @@ engagement: {
           "patient_engagement_helpers_imported"
         )?.value?.trim() || null,
 
+      practical_context: {
+        time_organization:
+          document.querySelector(
+            'input[name="engagement_context_time"]:checked'
+          )?.value || null,
+
+        cost:
+          document.querySelector(
+            'input[name="engagement_context_cost"]:checked'
+          )?.value || null,
+
+        access_transport:
+          document.querySelector(
+            'input[name="engagement_context_access"]:checked'
+          )?.value || null,
+
+        support:
+          document.querySelector(
+            'input[name="engagement_context_support"]:checked'
+          )?.value || null
+      },
+
       augmentation_deja_engagee:
         document.querySelector(
           'input[name="augmentation_deja_engagee"]:checked'
@@ -19709,10 +19959,21 @@ const motivationFields =
     '#confiance_patient_comment'
   );
 
-    const hasMotivationDetails =
-      Array.from(motivationFields).some(field =>
-        String(field.value ?? "").trim() !== ""
-      );
+const hasPracticalContext =
+  Boolean(
+    motivationDetail.querySelector(
+      'input[name="engagement_context_time"]:checked, ' +
+      'input[name="engagement_context_cost"]:checked, ' +
+      'input[name="engagement_context_access"]:checked, ' +
+      'input[name="engagement_context_support"]:checked'
+    )
+  );
+
+const hasMotivationDetails =
+  Array.from(motivationFields).some(field =>
+    String(field.value ?? "").trim() !== ""
+  ) ||
+  hasPracticalContext;
 
     motivationSummary.classList.toggle(
       "hidden",
