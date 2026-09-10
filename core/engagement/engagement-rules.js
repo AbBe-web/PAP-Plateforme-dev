@@ -1132,6 +1132,312 @@ function computeStageOfChange({
 }
 
 
+/*
+ * Construit une aide cognitive structurée à partir du ClinicalModel.
+ *
+ * IMPORTANT :
+ * - fonction pure ;
+ * - aucun accès au DOM ;
+ * - aucune mutation du modèle source ;
+ * - aucune décision clinique ;
+ * - aucun score ;
+ * - aucune interprétation des verbatims ;
+ * - les seuls éléments dérivés sont les rapprochements factuels E1-E3.
+ */
+function computeEngagementGuidance(model = {}) {
+
+  const motivation =
+    model?.motivation && typeof model.motivation === "object"
+      ? model.motivation
+      : {};
+
+  const engagement =
+    model?.engagement && typeof model.engagement === "object"
+      ? model.engagement
+      : {};
+
+  const preferences =
+    engagement?.preferences &&
+    typeof engagement.preferences === "object"
+      ? engagement.preferences
+      : {};
+
+  const practicalContext =
+    engagement?.practical_context &&
+    typeof engagement.practical_context === "object"
+      ? engagement.practical_context
+      : {};
+
+  function cloneActivityList(value) {
+
+    if (!Array.isArray(value)) {
+      return [];
+    }
+
+    return value
+      .filter(
+        activity =>
+          activity &&
+          typeof activity === "object"
+      )
+      .map(activity => ({
+        ...activity
+      }));
+  }
+
+  const pastActivities =
+    cloneActivityList(
+      engagement.activities_past
+    );
+
+  const currentActivities =
+    cloneActivityList(
+      engagement.activities_current
+    );
+
+  const preferredActivities =
+    cloneActivityList(
+      preferences.activities
+    );
+
+  const factualMatches = [];
+  const seenMatches = new Set();
+
+  function addFactualMatch(
+    type,
+    activityId,
+    label
+  ) {
+
+    if (
+      typeof activityId !== "string" ||
+      !activityId
+    ) {
+      return;
+    }
+
+    const key =
+      `${type}:${activityId}`;
+
+    if (seenMatches.has(key)) {
+      return;
+    }
+
+    seenMatches.add(key);
+
+    factualMatches.push({
+      type,
+      activity_id: activityId,
+      label:
+        typeof label === "string" && label
+          ? label
+          : null
+    });
+  }
+
+  /*
+   * E1 — activité antérieure ↔ activité souhaitée.
+   *
+   * Aucun fallback sur le libellé :
+   * sans identifiant structuré commun, aucun rapprochement.
+   */
+  pastActivities.forEach(pastActivity => {
+
+    if (
+      typeof pastActivity?.sport_id !== "string" ||
+      !pastActivity.sport_id
+    ) {
+      return;
+    }
+
+    preferredActivities.forEach(
+      preferredActivity => {
+
+        if (
+          typeof preferredActivity?.sport_id !== "string" ||
+          !preferredActivity.sport_id ||
+          pastActivity.sport_id !==
+            preferredActivity.sport_id
+        ) {
+          return;
+        }
+
+        addFactualMatch(
+          "past_preferred",
+          pastActivity.sport_id,
+          preferredActivity.label ||
+            pastActivity.label ||
+            null
+        );
+      }
+    );
+  });
+
+  /*
+   * E2 — activité actuelle ↔ activité souhaitée.
+   */
+  currentActivities.forEach(currentActivity => {
+
+    if (
+      typeof currentActivity?.sport_id !== "string" ||
+      !currentActivity.sport_id
+    ) {
+      return;
+    }
+
+    preferredActivities.forEach(
+      preferredActivity => {
+
+        if (
+          typeof preferredActivity?.sport_id !== "string" ||
+          !preferredActivity.sport_id ||
+          currentActivity.sport_id !==
+            preferredActivity.sport_id
+        ) {
+          return;
+        }
+
+        addFactualMatch(
+          "current_preferred",
+          currentActivity.sport_id,
+          preferredActivity.label ||
+            currentActivity.label ||
+            null
+        );
+      }
+    );
+  });
+
+  /*
+   * E3 — activité antérieure ↔ activité actuelle.
+   */
+  pastActivities.forEach(pastActivity => {
+
+    if (
+      typeof pastActivity?.sport_id !== "string" ||
+      !pastActivity.sport_id
+    ) {
+      return;
+    }
+
+    currentActivities.forEach(
+      currentActivity => {
+
+        if (
+          typeof currentActivity?.sport_id !== "string" ||
+          !currentActivity.sport_id ||
+          pastActivity.sport_id !==
+            currentActivity.sport_id
+        ) {
+          return;
+        }
+
+        addFactualMatch(
+          "past_current",
+          currentActivity.sport_id,
+          currentActivity.label ||
+            pastActivity.label ||
+            null
+        );
+      }
+    );
+  });
+
+  return {
+
+    patientPriority: {
+      goal:
+        engagement.patient_goal ?? null
+    },
+
+    disposition: {
+      stage:
+        motivation.stade ?? null,
+
+      importance:
+        motivation.importance ?? null,
+
+      importance_reason:
+        motivation.importance_commentaire ?? null,
+
+      confidence:
+        motivation.confiance ?? null,
+
+      confidence_reason:
+        motivation.confiance_commentaire ?? null
+    },
+
+    experience: {
+      past_activities:
+        pastActivities,
+
+      current_activities:
+        currentActivities,
+
+      preferred_activities:
+        preferredActivities,
+
+      past_experience_comment:
+        engagement.activity_experience_comment ?? null,
+
+      patient_past_experience_comment:
+        engagement.patient_activity_experience_comment ?? null,
+
+      current_experience_comment:
+        engagement.current_activity_experience_comment ?? null,
+
+      patient_current_experience_comment:
+        engagement.patient_current_activity_experience_comment ?? null
+    },
+
+    modalities: {
+      preferred_intensity:
+        preferences.intensity ?? null,
+
+      preferred_settings:
+        Array.isArray(preferences.settings)
+          ? [...preferences.settings]
+          : [],
+
+      preferred_social_modes:
+        Array.isArray(preferences.social_modes)
+          ? [...preferences.social_modes]
+          : [],
+
+      practical_context: {
+        time_organization:
+          practicalContext.time_organization ?? null,
+
+        cost:
+          practicalContext.cost ?? null,
+
+        access_transport:
+          practicalContext.access_transport ?? null,
+
+        support:
+          practicalContext.support ?? null
+      }
+    },
+
+    engagementFactors: {
+      barriers:
+        motivation.freins ?? null,
+
+      facilitators:
+        motivation.leviers ?? null,
+
+      patient_difficulties:
+        engagement.patient_difficulties ?? null,
+
+      patient_helpers:
+        engagement.patient_helpers ?? null
+    },
+
+    factualMatches
+  };
+}
+
+
 window.normalizeActivityStatusForEngagement =
   normalizeActivityStatusForEngagement;
 
@@ -1158,3 +1464,6 @@ window.getEngagementActivitySuggestions =
 
 window.computeStageOfChange =
   computeStageOfChange;
+
+window.computeEngagementGuidance =
+  computeEngagementGuidance;
