@@ -7711,6 +7711,16 @@ function buildObjectiveEngagementPatientContextV2() {
     leviers:
       document.querySelector(
         'textarea[name="leviers"]'
+      )?.value?.trim() || null,
+
+    patient_difficulties:
+      document.getElementById(
+        "patient_engagement_difficulties_imported"
+      )?.value?.trim() || null,
+
+    patient_helpers:
+      document.getElementById(
+        "patient_engagement_helpers_imported"
       )?.value?.trim() || null
   };
 }
@@ -7763,7 +7773,7 @@ function buildObjectiveEngagementContextHtmlV2(
   ) {
     items.push(
       `<div class="pap-cognitive-ux-item" style="list-style:none;">
-        <strong>Freins :</strong>
+        <strong>Freins rapportés :</strong>
         ${escapeObjectiveEngagementTextV2(
           context.freins
         )}
@@ -7778,9 +7788,39 @@ function buildObjectiveEngagementContextHtmlV2(
   ) {
     items.push(
       `<div class="pap-cognitive-ux-item" style="list-style:none;">
-        <strong>Leviers / ressources :</strong>
+        <strong>Leviers rapportés :</strong>
         ${escapeObjectiveEngagementTextV2(
           context.leviers
+        )}
+      </div>`
+    );
+  }
+
+  if (
+    String(
+      context.patient_difficulties || ""
+    ).trim()
+  ) {
+    items.push(
+      `<div class="pap-cognitive-ux-item" style="list-style:none;">
+        <strong>Difficultés rapportées par le patient :</strong>
+        ${escapeObjectiveEngagementTextV2(
+          context.patient_difficulties
+        )}
+      </div>`
+    );
+  }
+
+  if (
+    String(
+      context.patient_helpers || ""
+    ).trim()
+  ) {
+    items.push(
+      `<div class="pap-cognitive-ux-item" style="list-style:none;">
+        <strong>Éléments pouvant aider rapportés par le patient :</strong>
+        ${escapeObjectiveEngagementTextV2(
+          context.patient_helpers
         )}
       </div>`
     );
@@ -7803,7 +7843,7 @@ function buildObjectiveEngagementContextHtmlV2(
     >
       <summary class="pap-cognitive-ux-section-summary">
         <span class="pap-cognitive-ux-section-title">
-          Éléments d’engagement à prendre en compte
+          Éléments à considérer pour les objectifs
         </span>
       </summary>
 
@@ -7864,6 +7904,12 @@ function initObjectiveEngagementContextV2() {
     ),
     document.querySelector(
       'textarea[name="leviers"]'
+    ),
+    document.getElementById(
+      "patient_engagement_difficulties_imported"
+    ),
+    document.getElementById(
+      "patient_engagement_helpers_imported"
     )
   ].filter(Boolean);
 
@@ -16162,6 +16208,13 @@ requestAnimationFrame(() => {
 
     isImporting = false;
     isProgrammaticUpdate = false;
+
+    if (
+      typeof renderObjectiveEngagementContextV2 ===
+      "function"
+    ) {
+      renderObjectiveEngagementContextV2();
+    }
 
   });
 
