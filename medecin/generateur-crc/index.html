@@ -12263,7 +12263,7 @@ function renderMedicalRecord(
       "medical"
     );
 
-  const motivationBloc = buildMotivation(model);
+  const motivationBloc = buildMotivation(model, "medical");
 
   const antecedentsBloc = buildAntecedentsBloc();
   const traitementsBloc = buildTraitementsBloc();
@@ -12327,7 +12327,10 @@ ${physicalTestsBloc}</p>
 ` : ""}
 
 <p><strong>Évaluation motivationnelle :</strong><br>
-${motivationBloc}</p>
+${motivationBloc
+  .replace(" Freins rapportés :", "<br>Freins rapportés :")
+  .replace(" Leviers rapportés :", "<br>Leviers rapportés :")}
+</p>
 
 ${rcvTexte ? `
 <p><strong>Risque cardiovasculaire global :</strong><br>
@@ -20978,7 +20981,7 @@ if (e.sedentarite === "non_recherche") {
 
   return phrase;
 }
-           function buildMotivation(model) {
+           function buildMotivation(model, format = "sentence") {
 
   const m = model.motivation;
 
@@ -21007,11 +21010,15 @@ if (details.length > 0) {
 phrase += ".";
 
   if (m.freins) {
-    phrase += ` Les principaux freins identifiés sont : ${m.freins}.`;
+    phrase += format === "medical"
+      ? ` Freins rapportés : ${m.freins}.`
+      : ` Les freins rapportés sont : ${m.freins}.`;
   }
 
   if (m.leviers) {
-    phrase += ` Les leviers mobilisables sont : ${m.leviers}.`;
+    phrase += format === "medical"
+      ? ` Leviers rapportés : ${m.leviers}.`
+      : ` Les leviers rapportés sont : ${m.leviers}.`;
   }
 
   return phrase;
@@ -21051,7 +21058,7 @@ phrase += ".";
   }
 
   if (m.leviers) {
-    phrase += `Les points positifs sur lesquels vous pouvez vous appuyer sont : ${m.leviers}.`;
+    phrase += `Vous avez également évoqué comme éléments pouvant aider : ${m.leviers}.`;
   }
 
   return phrase.trim();
