@@ -4047,17 +4047,17 @@ placeholder="Préciser..."
 
 </div>
 
-<!-- ================= CADRE DE REALISATION ========= -->
+<!-- ================= CADRE DE PRATIQUE / ORIENTATION ========= -->
 
 <div class="pap-prescription-subtitle pap-orientation-heading">
 
-<span>Orientation / encadrement</span>
+  <span>Cadre de pratique / orientation</span>
 
   <span
     id="orientationApaStatusSummary"
     class="pap-quick-status-summary"
   >
-    Autonomie
+    Non renseigné
   </span>
 
   <button
@@ -4066,371 +4066,804 @@ placeholder="Préciser..."
     class="pap-quick-optional-toggle pap-quick-inline-toggle pap-always-visible-toggle"
     aria-expanded="false"
   >
-    ▸ Compléter
+    ▸ Aide au choix / critères détaillés
   </button>
 
 </div>
 
-<div
-  id="clinicalCognitiveOrientationV2"
-  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
-  style="display:none; margin-top:8px; margin-bottom:12px;"
-></div>
-
 <div class="sub-group">
 
-<input
-  type="checkbox"
-  id="orientation_ap_toggle"
-  class="pap-hidden-state-input"
-  tabindex="-1"
-  aria-hidden="true"
->
+  <!-- ================= DÉCISION FINALE ================= -->
 
-<div
-  id="orientation_ap_subgroup"
-  style="display:none; margin-top:12px;"
->
+  <div
+    style="
+      margin-top:8px;
+      padding:10px 12px;
+      border:1px solid #e5e7eb;
+      border-radius:8px;
+      background:#fff;
+    "
+  >
 
-<p style="margin-bottom:12px;">
-Le patient nécessite-t-il un encadrement spécifique
-pour pratiquer l’activité physique en sécurité ?
-</p>
+    <div style="font-weight:700; margin-bottom:8px;">
+      Cadre(s) retenu(s) avec le patient :
+    </div>
 
+    <div
+      style="
+        display:grid;
+        gap:7px;
+      "
+    >
 
-<div
-  id="orientation_help_block"
-  style="
-    margin-bottom:14px;
-    padding:10px;
-    background:#f8fafc;
-    border-left:4px solid #cbd5e1;
-    border-radius:6px;
-    font-size:0.9rem;
-  "
->
+      <label>
+        <input
+          type="checkbox"
+          name="orientation_framework"
+          value="rehabilitation"
+        >
+        Niveau 1 — Rééducation / réadaptation
+      </label>
 
-<strong>Repères identifiés :</strong>
+      <label>
+        <input
+          type="checkbox"
+          name="orientation_framework"
+          value="apa"
+        >
+        Niveau 2 — Programme APA
+      </label>
 
-<div
-  id="orientation_help_content"
-  style="margin-top:6px;"
->
-Aucun repère identifié.
+      <label>
+        <input
+          type="checkbox"
+          name="orientation_framework"
+          value="supervisedOrdinaryAP"
+        >
+        Niveau 3 — AP ordinaire supervisée / sport-santé
+      </label>
+
+      <label>
+        <input
+          type="checkbox"
+          name="orientation_framework"
+          value="autonomousOrdinaryAP"
+        >
+        Niveau 4 — AP ordinaire en autonomie
+      </label>
+
+    </div>
+
+    <div
+      style="
+        margin-top:8px;
+        font-size:0.88rem;
+        color:#555;
+        line-height:1.35;
+      "
+    >
+      Plusieurs cadres peuvent être associés.
+      Un relais vers un autre cadre peut être précisé si nécessaire.
+    </div>
+
+  </div>
+
+  <!-- État technique temporaire utilisé pour le repli -->
+  <input
+    type="checkbox"
+    id="orientation_ap_toggle"
+    class="pap-hidden-state-input"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+
+  <!-- ================= AIDE AU CHOIX ================= -->
+
+  <div
+    id="orientation_ap_subgroup"
+    style="display:none; margin-top:12px;"
+  >
+
+    <!-- Repères ClinicalKnowledge existants -->
+
+    <div
+      id="orientation_help_block"
+      style="
+        margin-bottom:14px;
+        padding:10px;
+        background:#f8fafc;
+        border-left:4px solid #cbd5e1;
+        border-radius:6px;
+        font-size:0.9rem;
+      "
+    >
+
+      <strong>Repères cliniques :</strong>
+
+      <div
+        id="orientation_help_content"
+        style="margin-top:6px;"
+      >
+        Aucun repère identifié.
+      </div>
+
+      <div
+        id="clinicalCognitiveOrientationV2"
+        class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+        style="display:none;"
+      ></div>
+
+    </div>
+
+    <!-- ================= NIVEAU 1 ================= -->
+
+    <div
+      style="
+        margin-bottom:14px;
+        padding:12px;
+        border:1px solid #e5e7eb;
+        border-radius:8px;
+      "
+    >
+
+      <div style="font-weight:700; margin-bottom:10px;">
+        1. Rééducation / réadaptation
+      </div>
+
+      <div style="margin-bottom:7px;">
+        Une rééducation ou réadaptation est-elle actuellement à considérer ?
+      </div>
+
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+        <label>
+          <input
+            type="radio"
+            name="orientation_rehabilitation_to_consider"
+            value="yes"
+          >
+          Oui
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="orientation_rehabilitation_to_consider"
+            value="no"
+          >
+          Non
+        </label>
+
+        <label>
+          <input
+            type="radio"
+            name="orientation_rehabilitation_to_consider"
+            value="check"
+          >
+          À vérifier
+        </label>
+
+      </div>
+
+    </div>
+
+    <!-- ================= NIVEAU 2 APA ================= -->
+
+    <div
+      style="
+        margin-bottom:14px;
+        padding:12px;
+        border:1px solid #e5e7eb;
+        border-radius:8px;
+      "
+    >
+
+      <div style="font-weight:700; margin-bottom:4px;">
+        2. Programme APA
+      </div>
+
+      <div
+        style="
+          margin-bottom:12px;
+          font-size:0.88rem;
+          color:#555;
+        "
+      >
+        Critères à considérer
+      </div>
+
+      <div style="margin-bottom:12px;">
+
+        <div style="margin-bottom:6px;">
+          Un programme d’APA a-t-il un bénéfice démontré dans cette situation ?
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_benefit_assessment"
+              value="yes"
+            >
+            Oui
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_benefit_assessment"
+              value="no"
+            >
+            Non
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_benefit_assessment"
+              value="check"
+            >
+            À vérifier
+          </label>
+
+        </div>
+
+      </div>
+
+      <div style="margin-bottom:12px;">
+
+        <div style="margin-bottom:6px;">
+          Le patient ne peut-il actuellement pas augmenter seul son activité physique
+          de façon adaptée et sûre ?
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_cannot_increase_autonomously"
+              value="yes"
+            >
+            Oui
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_cannot_increase_autonomously"
+              value="no"
+            >
+            Non
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_cannot_increase_autonomously"
+              value="check"
+            >
+            À vérifier
+          </label>
+
+        </div>
+
+      </div>
+
+      <div style="margin-bottom:12px;">
+
+        <div style="margin-bottom:6px;">
+          Un changement vers un comportement plus actif est-il envisageable à terme ?
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_more_active_feasible"
+              value="yes"
+            >
+            Oui
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_more_active_feasible"
+              value="no"
+            >
+            Non
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_more_active_feasible"
+              value="check"
+            >
+            À vérifier
+          </label>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <div style="margin-bottom:6px;">
+          Le patient accepte-t-il de suivre un programme d’APA ?
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_acceptance"
+              value="yes"
+            >
+            Oui
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_acceptance"
+              value="no"
+            >
+            Non
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_apa_acceptance"
+              value="discuss"
+            >
+            À discuter
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= NIVEAUX 3 / 4 ================= -->
+
+    <div
+      style="
+        margin-bottom:14px;
+        padding:12px;
+        border:1px solid #e5e7eb;
+        border-radius:8px;
+      "
+    >
+
+      <div style="font-weight:700; margin-bottom:12px;">
+        3. Activité physique ordinaire : encadrement ou autonomie
+      </div>
+
+      <div style="margin-bottom:12px;">
+
+        <div style="margin-bottom:6px;">
+          Une activité physique ordinaire choisie avec le patient
+          est-elle compatible avec ses capacités,
+          ses limitations et les adaptations nécessaires ?
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_compatible"
+              value="yes"
+            >
+            Oui
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_compatible"
+              value="no"
+            >
+            Non
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_compatible"
+              value="check"
+            >
+            À vérifier
+          </label>
+
+        </div>
+
+      </div>
+
+      <div style="margin-bottom:12px;">
+
+        <div style="margin-bottom:6px;">
+          Le patient est-il réceptif, motivé et capable
+          de suivre les recommandations d’activité physique,
+          seul ou avec l’aide d’un appui social ?
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_follow_recommendations"
+              value="yes"
+            >
+            Oui
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_follow_recommendations"
+              value="no"
+            >
+            Non
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_follow_recommendations"
+              value="check"
+            >
+            À vérifier
+          </label>
+
+        </div>
+
+      </div>
+
+      <div style="margin-bottom:12px;">
+
+        <div style="margin-bottom:6px;">
+          Peut-il augmenter et maintenir son niveau d’activité physique
+          par ses propres moyens, efficacement et sans risque ?
+        </div>
+
+        <div style="display:flex; gap:16px; flex-wrap:wrap;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_maintain_safely"
+              value="yes"
+            >
+            Oui
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_maintain_safely"
+              value="no"
+            >
+            Non
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_ordinary_ap_maintain_safely"
+              value="check"
+            >
+            À vérifier
+          </label>
+
+        </div>
+
+      </div>
+
+      <div style="margin-bottom:12px;">
+
+        <div style="margin-bottom:6px;">
+          Préférence du patient :
+        </div>
+
+        <div style="display:grid; gap:5px;">
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_support_preference"
+              value="autonomous"
+            >
+            Plutôt en autonomie
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_support_preference"
+              value="professionalSupervision"
+            >
+            Plutôt avec un encadrement professionnel
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_support_preference"
+              value="noPreference"
+            >
+            Pas de préférence
+          </label>
+
+          <label>
+            <input
+              type="radio"
+              name="orientation_support_preference"
+              value="discuss"
+            >
+            À discuter
+          </label>
+
+        </div>
+
+      </div>
+
+      <details style="margin-top:10px;">
+
+        <summary style="cursor:pointer;">
+          Éléments à considérer pour l’autonomie
+        </summary>
+
+        <ul style="margin:8px 0 0 20px;">
+          <li>compréhension et application des consignes ;</li>
+          <li>adaptation aux capacités et limitations ;</li>
+          <li>identification des situations nécessitant adaptation ou arrêt ;</li>
+          <li>organisation / autogestion ;</li>
+          <li>capacité à maintenir la pratique dans le temps.</li>
+        </ul>
+
+      </details>
+
+    </div>
+
+    <!-- ================= COMMENTAIRES ================= -->
+
+    <details style="margin-bottom:14px;">
+
+      <summary style="cursor:pointer; font-weight:600;">
+        Commentaire / contexte d’orientation
+      </summary>
+
+      <textarea
+        id="orientation_context_comment"
+        name="orientation_context_comment"
+        style="width:95%; margin-top:8px;"
+        placeholder="Ex. parcours déjà réalisé, accessibilité, situation particulière..."
+      ></textarea>
+
+    </details>
+
+    <details style="margin-bottom:14px;">
+
+      <summary style="cursor:pointer; font-weight:600;">
+        Articulation / relais entre cadres
+      </summary>
+
+      <textarea
+        id="orientation_plan_comment"
+        name="orientation_plan_comment"
+        style="width:95%; margin-top:8px;"
+        placeholder="Ex. programme APA initial puis relais vers une pratique sport-santé à réévaluer..."
+      ></textarea>
+
+    </details>
+
+    <!-- ================= COORDINATION LEGACY CONSERVÉE ================= -->
+
+    <details
+      id="orientation_coordination_details"
+      style="
+        margin-top:14px;
+        padding-top:10px;
+        border-top:1px solid #e5e7eb;
+      "
+    >
+
+      <summary
+        style="
+          cursor:pointer;
+          font-weight:600;
+        "
+      >
+        Professionnel / coordination si utile
+      </summary>
+
+      <div style="margin-top:10px;">
+
+        <div style="margin-bottom:8px;">
+          Professionnel envisagé, si déjà connu :
+        </div>
+
+        <div style="display:grid; gap:6px;">
+
+          <label>
+            <input
+              type="checkbox"
+              name="orientation_ap"
+              value="kine"
+            >
+            Masseur-kinésithérapeute
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              name="orientation_ap"
+              value="ergo"
+            >
+            Ergothérapeute
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              name="orientation_ap"
+              value="psychomot"
+            >
+            Psychomotricien
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              name="orientation_ap"
+              value="apa"
+            >
+            Enseignant APA
+          </label>
+
+          <label>
+            <input
+              type="checkbox"
+              name="orientation_ap"
+              value="educateur"
+            >
+            Éducateur sportif
+          </label>
+
+        </div>
+
+        <!-- Compatibilité legacy uniquement -->
+        <input
+          type="checkbox"
+          name="orientation_ap"
+          value="autonome"
+          style="display:none;"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+
+        <div
+          style="
+            margin-top:12px;
+            padding-top:10px;
+            border-top:1px solid #e5e7eb;
+          "
+        >
+
+          <label
+            style="
+              display:flex;
+              align-items:flex-start;
+              gap:8px;
+              line-height:1.35;
+            "
+          >
+
+            <input
+              type="checkbox"
+              id="apaNoContraindicationConfirmed"
+              style="margin-top:2px;"
+            >
+
+            <span>
+              Après examen médical, le patient
+              <strong>ne présente pas de contre-indication</strong>
+              à la pratique d’activités physiques adaptées.
+            </span>
+
+          </label>
+
+        </div>
+
+        <div
+          id="consentement_partage_block"
+          style="
+            display:none;
+            margin-top:12px;
+            padding-top:10px;
+            border-top:1px solid #e5e7eb;
+          "
+        >
+
+          <label
+            style="
+              display:flex;
+              align-items:flex-start;
+              gap:8px;
+              line-height:1.35;
+            "
+          >
+
+            <input
+              type="checkbox"
+              id="consentement_partage_apa"
+            >
+
+            <span>
+              Patient informé du partage des informations nécessaires
+              avec le professionnel encadrant et accord oral recueilli.
+            </span>
+
+          </label>
+
+        </div>
+
+        <div
+          id="bilan_condition_block"
+          style="
+            display:none;
+            margin-top:10px;
+          "
+        >
+
+          <label
+            style="
+              display:flex;
+              align-items:flex-start;
+              gap:8px;
+              line-height:1.35;
+            "
+          >
+
+            <input
+              type="checkbox"
+              id="bilan_condition_apa"
+            >
+
+            <span>
+              Bilan de condition et de capacités physiques souhaité.
+            </span>
+
+          </label>
+
+        </div>
+
+        <label style="display:block; margin-top:12px;">
+          Commentaire pour le professionnel :
+        </label>
+
+        <textarea
+          name="orientation_commentaire"
+          style="width:95%;"
+          placeholder="Ex. points de vigilance, adaptations souhaitées, éléments utiles pour l’encadrement..."
+        ></textarea>
+
+      </div>
+
+    </details>
+
+  </div>
+
 </div>
-
-</div>
-
-<h3
-  style="
-    color:#1f2937;
-    margin-bottom:10px;
-    font-size:0.98rem;
-    font-weight:700;
-  "
->
-🧭 Orientations possibles
-</h3>
-
-<!-- NIVEAU 1 -->
-<div
-  style="
-    display:flex;
-   align-items:center;
-    flex-wrap:wrap;
-    gap:18px;
-    margin-bottom:6px;
-    line-height:1.2;
-  "
->
-
-<span
-  style="
-    font-weight:600;
-    color:#374151;
-  "
->
-Niv 1 :
-</span>
-
-<label
-  style="
-    display:flex;
-align-items:center;
-    gap:4px;
-    line-height:1.2;
-  "
->
-<input
-  type="checkbox"
-  name="orientation_ap"
-  value="kine"
->
-Kinésithérapeute
-</label>
-
-<label
-  style="
-    display:flex;
-align-items:center;
-    gap:4px;
-    line-height:1.2;
-  "
->
-<input
-  type="checkbox"
-  name="orientation_ap"
-  value="ergo"
->
-Ergothérapeute
-</label>
-
-<label
-  style="
-    display:flex;
-align-items:center;
-    gap:4px;
-    line-height:1.2;
-  "
->
-<input
-  type="checkbox"
-  name="orientation_ap"
-  value="psychomot"
->
-Psychomotricien
-</label>
-
-</div>
-
-<!-- NIVEAUX 2 / 3 / 4 -->
-<div
-  style="
-    display:flex;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:26px;
-    margin-bottom:10px;
-    line-height:1.2;
-  "
->
-
-<div style="display:flex; align-items:center; gap:8px;">
-
-<span
-  style="
-    font-weight:600;
-    color:#374151;
-  "
->
-Niv 2 :
-</span>
-
-<label
-  style="
-    display:flex;
-align-items:center;
-    gap:4px;
-    line-height:1.2;
-  "
->
-<input
-  type="checkbox"
-  name="orientation_ap"
-  value="apa"
->
-Enseignant APA
-</label>
-
-</div>
-
-<div style="display:flex; align-items:center; gap:8px;">
-
-<span
-  style="
-    font-weight:600;
-    color:#374151;
-  "
->
-Niv 3 :
-</span>
-
-<label
-  style="
-    display:flex;
-align-items:center;
-    gap:4px;
-    line-height:1.2;
-  "
->
-<input
-  type="checkbox"
-  name="orientation_ap"
-  value="educateur"
->
-Éducateur sportif
-</label>
-
-</div>
-
-<div style="display:flex; align-items:center; gap:8px;">
-
-<span
-  style="
-    font-weight:600;
-    color:#374151;
-  "
->
-Niv 4 :
-</span>
-
-<label
-  style="
-    display:flex;
-    align-items:center;
-    gap:4px;
-    line-height:1.2;
-  "
->
-<input
-  type="checkbox"
-  name="orientation_ap"
-  value="autonome"
->
-En autonomie
-</label>
-
-</div>
-
-</div>
-
-<div
-  style="
-    margin-top:12px;
-    padding-top:10px;
-    border-top:1px solid #e5e7eb;
-    width:100%;
-    box-sizing:border-box;
-  "
->
-
-<label
-  style="
-    display:flex;
-    align-items:flex-start;
-    gap:8px;
-    line-height:1.35;
-    width:100%;
-    box-sizing:border-box;
-  "
->
-
-<input
-  type="checkbox"
-  id="apaNoContraindicationConfirmed"
-  style="
-    margin-top:2px;
-    flex:0 0 auto;
-  "
->
-
-<span
-  style="
-    display:block;
-    flex:1 1 auto;
-    min-width:0;
-    white-space:normal;
-    overflow-wrap:break-word;
-    word-break:normal;
-  "
->
-Après examen médical, le patient <strong>ne présente pas de contre-indication</strong>
-à la pratique d’activités physiques adaptées.
-</span>
-
-</label>
-
-</div>
-
-<div
-  id="consentement_partage_block"
-  style="
-    display:block;
-    margin-top:12px;
-    padding-top:10px;
-    border-top:1px solid #e5e7eb;
-  "
->
-
-<label
-  style="
-    display:flex;
-align-items:center;
-    gap:8px;
-    line-height:1.35;
-  "
->
-
-<input
-  type="checkbox"
-  id="consentement_partage_apa"
->
-
-<span>
-Patient informé du partage des informations
-nécessaires avec le professionnel encadrant
-et accord oral recueilli.
-</span>
-
-</label>
-
-</div>
-
-<div
-  id="bilan_condition_block"
-  style="
-    display:block;
-    margin-top:10px;
-  "
->
-
-<label
-  style="
-    display:flex;
-    align-items:center;
-    gap:8px;
-    line-height:1.35;
-  "
->
-
-<input
-  type="checkbox"
-  id="bilan_condition_apa"
->
-
-<span>
-Bilan de condition et de capacités physiques souhaité.
-</span>
-
-</label>
-
-</div>
-
-<label style="display:block;margin-top:12px;">
-Commentaire complémentaire pour le professionnel encadrant — APA, kinésithérapeute, éducateur sportif... :
-</label>
-
-<textarea
-  name="orientation_commentaire"
-  style="width:95%;"
-  placeholder="Ex. points de vigilance, adaptations souhaitées, éléments utiles pour l’encadrement de la pratique..."
-></textarea>
-
-</div>
-
-</div>
-</div>
-
 
 <div class="pap-prescription-subtitle">
   Informations et ressources pour le patient
@@ -9856,7 +10289,7 @@ if (orientationApaToggleButton) {
         orientationSubgroup.style.display = "none";
 
         orientationApaToggleButton.textContent =
-          "▸ Compléter";
+  "▸ Aide au choix / critères détaillés";
 
         orientationApaToggleButton.setAttribute(
           "aria-expanded",
@@ -9880,7 +10313,7 @@ if (orientationApaToggleButton) {
       orientationSubgroup.style.display = "block";
 
       orientationApaToggleButton.textContent =
-        "▾ Masquer";
+  "▾ Masquer l’aide";
 
       orientationApaToggleButton.setAttribute(
         "aria-expanded",
@@ -9973,6 +10406,21 @@ updateOrientationSummary();
     );
 
   });
+
+document
+  .querySelectorAll(
+    'input[name="orientation_framework"]'
+  )
+  .forEach(function(el) {
+
+    el.addEventListener(
+      "change",
+      updateOrientationSummary
+    );
+
+  });
+
+updateOrientationSummary();
 
 const consentementPartageApa =
   document.getElementById("consentement_partage_apa");
@@ -17026,30 +17474,27 @@ const optionalTestDetails =
 function updateOrientationSummary() {
 
   const output =
-    document.getElementById("orientationApaStatusSummary");
+    document.getElementById(
+      "orientationApaStatusSummary"
+    );
 
   if (!output) return;
 
-  const hasOrientationData =
-    Boolean(
-      document.querySelector(
-        'input[name="orientation_ap"]:checked'
-      ) ||
-      document.getElementById(
-        "consentement_partage_apa"
-      )?.checked ||
-      document.getElementById(
-        "bilan_condition_apa"
-      )?.checked ||
-      document.querySelector(
-        'textarea[name="orientation_commentaire"]'
-      )?.value?.trim()
-    );
+  const frameworkCount =
+    document.querySelectorAll(
+      'input[name="orientation_framework"]:checked'
+    ).length;
+
+  if (frameworkCount === 0) {
+    output.textContent =
+      "Non renseigné";
+    return;
+  }
 
   output.textContent =
-    hasOrientationData
-      ? "orientation renseignée"
-      : "Autonomie";
+    frameworkCount === 1
+      ? "1 cadre retenu"
+      : `${frameworkCount} cadres retenus`;
 }
 
 function resetOrientationPanelAfterReset() {
@@ -19173,6 +19618,33 @@ engagement: {
       }
     },
 
+orientation: {
+
+  clinicianAssessment: {
+
+    rehabilitationToConsider: null,
+
+    apa: {
+      benefitAssessment: null,
+      cannotIncreaseAutonomouslyAdaptedSafely: null,
+      changeTowardMoreActiveFeasible: null
+    },
+
+    ordinaryAP: {
+      compatible: null,
+      canFollowRecommendations: null,
+      canIncreaseAndMaintainSafelyByOwnMeans: null
+    }
+  },
+
+  patientInput: {
+    apaAcceptance: null,
+    ordinaryAPSupportPreference: null
+  },
+
+  contextComment: null
+},
+
 therapeutic_plan: {
 
   objectifs_generaux_ap:
@@ -19227,7 +19699,12 @@ decision: {
     document.querySelector('input[name="consultation_ap"]:checked')?.value || null,
 
   epreuve_effort:
-    document.querySelector('input[name="epreuve_effort"]:checked')?.value || null
+    document.querySelector('input[name="epreuve_effort"]:checked')?.value || null,
+
+  orientation: {
+    frameworks: [],
+    planComment: null
+  }
 }
 
   };
