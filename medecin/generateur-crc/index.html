@@ -3423,169 +3423,598 @@ Apixaban 5 mg x2/j">
 
 <div id="apaLimitationsPanel" class="apa-limitations-panel" hidden>
 
-<h3 style="color:#0056b3;">
-🛡️ Précautions générales
+<h3 class="apa-limitations-section-title">
+🛡️ Précautions particulières
 </h3>
 
-<label><input type="checkbox" name="precaution_ap" value="cardio">
-Cardio-vasculaires</label>
-
-<label><input type="checkbox" name="precaution_ap" value="respiratoire">
-Respiratoires</label>
-
-<label><input type="checkbox" name="precaution_ap" value="metabolique">
-Métaboliques</label>
-
-<label><input type="checkbox" name="precaution_ap" value="neurologique">
-Neurologiques</label>
-
-<label><input type="checkbox" name="precaution_ap" value="psychique">
-Psychiques / cognitives</label>
-
-<label><input type="checkbox" name="precaution_ap" value="chute">
-Risque de chute</label>
-
-<label><input
-type="checkbox"
-name="precaution_ap"
-value="aucune"
-id="precaution_aucune"
->
-Aucune</label>
-
-<h3 style="color:#0056b3;">🚶 Limitations locomotrices</h3>
-
-<div class="body-map-wrapper">
-
-  <div class="body-map-panel">
-    <div class="body-map-title">Vue de face</div>
-
-    <div class="body-map-figure body-map-front">
-
-      <div class="body-silhouette front-silhouette"></div>
-
-      <button type="button" class="body-dot shoulder-left" data-target="epaule_d" aria-label="Épaule droite"></button>
-      <button type="button" class="body-dot shoulder-right" data-target="epaule_g" aria-label="Épaule gauche"></button>
-
-      <button type="button" class="body-dot elbow-left" data-target="coude_d" aria-label="Coude droit"></button>
-      <button type="button" class="body-dot elbow-right" data-target="coude_g" aria-label="Coude gauche"></button>
-
-      <button type="button" class="body-dot wrist-left" data-target="poignet_d" aria-label="Main-poignet droit"></button>
-      <button type="button" class="body-dot wrist-right" data-target="poignet_g" aria-label="Main-poignet gauche"></button>
-
-      <button type="button" class="body-dot pelvis-front" data-target="bassin" aria-label="Bassin"></button>
-
-      <button type="button" class="body-dot hip-left" data-target="hanche_d" aria-label="Hanche droite"></button>
-      <button type="button" class="body-dot hip-right" data-target="hanche_g" aria-label="Hanche gauche"></button>
-
-      <button type="button" class="body-dot knee-left" data-target="genou_d" aria-label="Genou droit"></button>
-      <button type="button" class="body-dot knee-right" data-target="genou_g" aria-label="Genou gauche"></button>
-
-      <button type="button" class="body-dot ankle-left" data-target="cheville_d" aria-label="Cheville droite"></button>
-      <button type="button" class="body-dot ankle-right" data-target="cheville_g" aria-label="Cheville gauche"></button>
-
-      <button type="button" class="body-dot foot-left" data-target="pied_d" aria-label="Pied droit"></button>
-      <button type="button" class="body-dot foot-right" data-target="pied_g" aria-label="Pied gauche"></button>
-
-    </div>
-  </div>
-
-  <div class="body-map-panel">
-    <div class="body-map-title">Vue de dos</div>
-
-    <div class="body-map-figure body-map-back">
-
-      <div class="body-silhouette back-silhouette"></div>
-
-      <button type="button" class="body-dot spine-cervical" data-target="cervical" aria-label="Cervical"></button>
-      <button type="button" class="body-dot spine-dorsal" data-target="dorsal" aria-label="Dorsal"></button>
-      <button type="button" class="body-dot spine-lumbar" data-target="lombaire" aria-label="Lombaire"></button>
-
-    </div>
-  </div>
-
-</div>
-
-<div class="body-map-selection">
-  <strong>Zones sélectionnées :</strong>
-  <span id="bodyMapSelectedZones">Aucune</span>
-</div>
-
-<details class="body-map-fallback">
-  <summary>
-    Voir / modifier la liste détaillée des limitations locomotrices
-  </summary>
-
-  <div class="body-map-fallback-content">
-
-<label><input type="checkbox" name="limitation_ap" value="cervical">
-Cervical</label>
-
-<label><input type="checkbox" name="limitation_ap" value="dorsal">
-Dorsal</label>
-
-<label><input type="checkbox" name="limitation_ap" value="lombaire">
-Lombaire</label>
-
-<label><input type="checkbox" name="limitation_ap" value="epaule_d">
-Épaule droite</label>
-
-<label><input type="checkbox" name="limitation_ap" value="epaule_g">
-Épaule gauche</label>
-
-<label><input type="checkbox" name="limitation_ap" value="coude_d">
-Coude droit</label>
-
-<label><input type="checkbox" name="limitation_ap" value="coude_g">
-Coude gauche</label>
-
-<label><input type="checkbox" name="limitation_ap" value="poignet_d">
-Main-poignet droit</label>
-
-<label><input type="checkbox" name="limitation_ap" value="poignet_g">
-Main-poignet gauche</label>
-
-<label><input type="checkbox" name="limitation_ap" value="bassin">
-Bassin</label>
-
-<label><input type="checkbox" name="limitation_ap" value="hanche_d">
-Hanche droite</label>
-
-<label><input type="checkbox" name="limitation_ap" value="hanche_g">
-Hanche gauche</label>
-
-<label><input type="checkbox" name="limitation_ap" value="genou_d">
-Genou droit</label>
-
-<label><input type="checkbox" name="limitation_ap" value="genou_g">
-Genou gauche</label>
-
-<label><input type="checkbox" name="limitation_ap" value="cheville_d">
-Cheville droite</label>
-
-<label><input type="checkbox" name="limitation_ap" value="cheville_g">
-Cheville gauche</label>
-
-<label><input type="checkbox" name="limitation_ap" value="pied_d">
-Pied droit</label>
-
-<label><input type="checkbox" name="limitation_ap" value="pied_g">
-Pied gauche</label>
+<div class="apa-precautions-options">
 
 <label>
-<input type="checkbox" id="limitation_autre_checkbox">
+<input
+  type="checkbox"
+  name="precaution_ap"
+  value="cardio"
+>
+Cardio-vasculaires
+</label>
+
+<label>
+<input
+  type="checkbox"
+  name="precaution_ap"
+  value="respiratoire"
+>
+Respiratoires
+</label>
+
+<label>
+<input
+  type="checkbox"
+  name="precaution_ap"
+  value="metabolique"
+>
+Métaboliques
+</label>
+
+<label>
+<input
+  type="checkbox"
+  name="precaution_ap"
+  value="psychique"
+>
+Psychiques / comportementales
+</label>
+
+<label>
+<input
+  type="checkbox"
+  name="precaution_ap"
+  value="chute"
+>
+Risque de chute
+</label>
+
+<label>
+<input
+  type="checkbox"
+  name="precaution_ap"
+  value="cutaneous"
+>
+Cutanées / infectieuses
+</label>
+
+<label>
+<input
+  type="checkbox"
+  name="precaution_ap"
+  value="other"
+  id="precaution_other_checkbox"
+>
 Autre
 </label>
 
+<label>
 <input
-type="text"
-id="limitation_autre"
-style="display:none;"
-placeholder="Préciser..."
+  type="checkbox"
+  name="precaution_ap"
+  value="aucune"
+  id="precaution_aucune"
+>
+Aucune
+</label>
+
+<input
+  type="text"
+  id="precaution_other"
+  placeholder="Préciser..."
+  style="display:none;"
 >
 
+</div>
+
+
+<div class="apa-functional-section">
+
+<h3 class="apa-limitations-section-title">
+⚙️ Limitations fonctionnelles
+</h3>
+
+
+<div class="apa-functional-groups">
+
+
+<details
+  class="apa-functional-group"
+  id="functionalGroupLocomotor"
+>
+
+  <summary class="apa-functional-group-summary">
+
+    <span>
+      🚶 Fonctions locomotrices
+    </span>
+
+    <span class="apa-functional-group-status">
+      Non renseignées
+    </span>
+
+  </summary>
+
+
+  <div class="apa-functional-group-content">
+
+    <div class="apa-functional-subtitle">
+      Localisation
+    </div>
+
+
+    <div class="body-map-wrapper">
+
+      <div class="body-map-panel">
+
+        <div class="body-map-title">
+          Vue de face
+        </div>
+
+        <div class="body-map-figure body-map-front">
+
+          <div class="body-silhouette front-silhouette"></div>
+
+          <button
+            type="button"
+            class="body-dot shoulder-left"
+            data-target="epaule_d"
+            aria-label="Épaule droite"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot shoulder-right"
+            data-target="epaule_g"
+            aria-label="Épaule gauche"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot elbow-left"
+            data-target="coude_d"
+            aria-label="Coude droit"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot elbow-right"
+            data-target="coude_g"
+            aria-label="Coude gauche"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot wrist-left"
+            data-target="poignet_d"
+            aria-label="Main-poignet droit"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot wrist-right"
+            data-target="poignet_g"
+            aria-label="Main-poignet gauche"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot pelvis-front"
+            data-target="bassin"
+            aria-label="Bassin"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot hip-left"
+            data-target="hanche_d"
+            aria-label="Hanche droite"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot hip-right"
+            data-target="hanche_g"
+            aria-label="Hanche gauche"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot knee-left"
+            data-target="genou_d"
+            aria-label="Genou droit"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot knee-right"
+            data-target="genou_g"
+            aria-label="Genou gauche"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot ankle-left"
+            data-target="cheville_d"
+            aria-label="Cheville droite"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot ankle-right"
+            data-target="cheville_g"
+            aria-label="Cheville gauche"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot foot-left"
+            data-target="pied_d"
+            aria-label="Pied droit"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot foot-right"
+            data-target="pied_g"
+            aria-label="Pied gauche"
+          ></button>
+
+        </div>
+
+      </div>
+
+
+      <div class="body-map-panel">
+
+        <div class="body-map-title">
+          Vue de dos
+        </div>
+
+        <div class="body-map-figure body-map-back">
+
+          <div class="body-silhouette back-silhouette"></div>
+
+          <button
+            type="button"
+            class="body-dot spine-cervical"
+            data-target="cervical"
+            aria-label="Cervical"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot spine-dorsal"
+            data-target="dorsal"
+            aria-label="Dorsal"
+          ></button>
+
+          <button
+            type="button"
+            class="body-dot spine-lumbar"
+            data-target="lombaire"
+            aria-label="Lombaire"
+          ></button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="body-map-selection">
+
+      <strong>
+        Zones sélectionnées :
+      </strong>
+
+      <span id="bodyMapSelectedZones">
+        Aucune
+      </span>
+
+    </div>
+
+
+    <details class="body-map-fallback">
+
+      <summary>
+        Voir / modifier la liste détaillée des localisations
+      </summary>
+
+      <div class="body-map-fallback-content">
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="cervical"
+          >
+          Cervical
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="dorsal"
+          >
+          Dorsal
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="lombaire"
+          >
+          Lombaire
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="epaule_d"
+          >
+          Épaule droite
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="epaule_g"
+          >
+          Épaule gauche
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="coude_d"
+          >
+          Coude droit
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="coude_g"
+          >
+          Coude gauche
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="poignet_d"
+          >
+          Main-poignet droit
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="poignet_g"
+          >
+          Main-poignet gauche
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="bassin"
+          >
+          Bassin
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="hanche_d"
+          >
+          Hanche droite
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="hanche_g"
+          >
+          Hanche gauche
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="genou_d"
+          >
+          Genou droit
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="genou_g"
+          >
+          Genou gauche
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="cheville_d"
+          >
+          Cheville droite
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="cheville_g"
+          >
+          Cheville gauche
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="pied_d"
+          >
+          Pied droit
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            name="limitation_ap"
+            value="pied_g"
+          >
+          Pied gauche
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            id="limitation_autre_checkbox"
+          >
+          Autre
+        </label>
+
+        <input
+          type="text"
+          id="limitation_autre"
+          style="display:none;"
+          placeholder="Préciser..."
+        >
+
+      </div>
+
+    </details>
+
+
+ <div class="apa-functional-subtitle">
+  Qualification fonctionnelle
+</div>
+
+<div
+  id="functionalDimensionsLocomotor"
+  class="apa-functional-dimensions"
+></div>
+
   </div>
+
 </details>
+
+
+<details
+  class="apa-functional-group"
+  id="functionalGroupCerebral"
+>
+
+  <summary class="apa-functional-group-summary">
+
+    <span>
+      🧠 Fonctions cérébrales
+    </span>
+
+    <span class="apa-functional-group-status">
+      Non renseignées
+    </span>
+
+  </summary>
+
+<div class="apa-functional-group-content">
+
+  <div
+    id="functionalDimensionsCerebral"
+    class="apa-functional-dimensions"
+  ></div>
+
+</div>
+
+</details>
+
+
+<details
+  class="apa-functional-group"
+  id="functionalGroupSensory"
+>
+
+  <summary class="apa-functional-group-summary">
+
+    <span>
+      👁️ Fonctions sensorielles
+    </span>
+
+    <span class="apa-functional-group-status">
+      Non renseignées
+    </span>
+
+  </summary>
+
+<div class="apa-functional-group-content">
+
+  <div
+    id="functionalDimensionsSensory"
+    class="apa-functional-dimensions"
+  ></div>
+
+</div>
+
+</details>
+
+
+<details
+  class="apa-functional-group"
+  id="functionalGroupPain"
+>
+
+  <summary class="apa-functional-group-summary">
+
+    <span>
+      🔸 Douleur
+    </span>
+
+    <span class="apa-functional-group-status">
+      Non renseignée
+    </span>
+
+  </summary>
+
+<div class="apa-functional-group-content">
+
+  <div
+    id="functionalDimensionsPain"
+    class="apa-functional-dimensions"
+  ></div>
+
+</div>
+
+</details>
+
+
+</div>
+
+</div>
 
 <div class="form-group">
   <label for="apa_exercise_adaptations">
@@ -5192,6 +5621,7 @@ placeholder="Préciser..."
 <script src="../../core/clinical-context/pathology-resolver.js"></script>
 <script src="../../core/clinical-context/clinical-situation-registry.js"></script>
 <script src="../../core/clinical-context/functional-limitation-reference-registry.js"></script>
+<script src="../../core/clinical-context/functional-orientation-profile.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
 <script src="../../core/clinical-context/clinical-knowledge-parity.js"></script>
@@ -10224,6 +10654,8 @@ initMedicationApaPanel();
 initPhysicalTestsPanel();
 
 initAerobieMode();
+renderFunctionalLimitationDimensions();
+initFunctionalLimitationsUI();
 initPrecautionsAucune();
 updateOrientationHelp();
 
@@ -17280,21 +17712,786 @@ function initAerobieMode() {
   updateDisplay();
 }
 
+function renderFunctionalLimitationDimensions() {
+
+  const registry =
+    window.FUNCTIONAL_LIMITATION_REFERENCE_REGISTRY;
+
+  if (!registry?.groups) return;
+
+
+  const configurations = [
+
+    {
+      groupKey: "locomotor",
+      hostId: "functionalDimensionsLocomotor"
+    },
+
+    {
+      groupKey: "cerebral",
+      hostId: "functionalDimensionsCerebral"
+    },
+
+    {
+      groupKey: "sensory",
+      hostId: "functionalDimensionsSensory"
+    },
+
+    {
+      groupKey: "pain",
+      hostId: "functionalDimensionsPain"
+    }
+
+  ];
+
+
+  const levelLabels = {
+    none: "Aucune",
+    minimal: "Minime",
+    moderate: "Modérée",
+    severe: "Sévère"
+  };
+
+
+  configurations.forEach(
+    configuration => {
+
+      const host =
+        document.getElementById(
+          configuration.hostId
+        );
+
+      const group =
+        registry.groups[
+          configuration.groupKey
+        ];
+
+      if (
+        !host ||
+        !group?.dimensions
+      ) {
+        return;
+      }
+
+
+      host.innerHTML =
+        Object.entries(
+          group.dimensions
+        )
+          .map(
+            ([
+              dimensionKey,
+              dimension
+            ]) => {
+
+              const radioName =
+                `functional_limitation_${configuration.groupKey}_${dimensionKey}`;
+
+              const choices =
+                [
+                  "none",
+                  "minimal",
+                  "moderate",
+                  "severe"
+                ]
+                  .map(levelKey => {
+
+                    const reference =
+                      dimension
+                        .referenceLevels
+                        ?.[levelKey] || "";
+
+                    return `
+<label class="apa-functional-choice">
+
+  <input
+    type="radio"
+    name="${radioName}"
+    value="${levelKey}"
+    data-functional-limitation-radio="true"
+    data-functional-group="${configuration.groupKey}"
+    data-functional-dimension="${dimensionKey}"
+  >
+
+  <span class="apa-functional-choice-level">
+    ${levelLabels[levelKey]}
+  </span>
+
+  <span class="apa-functional-choice-reference">
+    ${reference}
+  </span>
+
+</label>
+`;
+
+                  })
+                  .join("");
+
+
+              return `
+<details
+  class="apa-functional-dimension"
+  data-functional-dimension-row="true"
+  data-functional-group="${configuration.groupKey}"
+  data-functional-dimension="${dimensionKey}"
+>
+
+  <summary
+    class="apa-functional-dimension-summary"
+  >
+
+    <span
+      class="apa-functional-dimension-label"
+    >
+      ${dimension.label}
+    </span>
+
+    <span
+      class="apa-functional-dimension-status"
+      data-functional-dimension-status="true"
+    >
+      Non renseignée
+    </span>
+
+  </summary>
+
+
+  <div
+    class="apa-functional-dimension-content"
+  >
+
+    ${choices}
+
+    <button
+      type="button"
+      class="apa-functional-clear"
+      data-functional-clear="true"
+      data-functional-group="${configuration.groupKey}"
+      data-functional-dimension="${dimensionKey}"
+    >
+      Effacer la cotation
+    </button>
+
+  </div>
+
+</details>
+`;
+
+            }
+          )
+          .join("");
+
+    }
+  );
+
+}
+
+
+function updateFunctionalLimitationSummaries() {
+
+  const levelLabels = {
+    none: "Aucune",
+    minimal: "Minime",
+    moderate: "Modérée",
+    severe: "Sévère"
+  };
+
+
+  document
+    .querySelectorAll(
+      "[data-functional-dimension-row]"
+    )
+    .forEach(row => {
+
+      const checked =
+        row.querySelector(
+          'input[data-functional-limitation-radio]:checked'
+        );
+
+      const status =
+        row.querySelector(
+          "[data-functional-dimension-status]"
+        );
+
+      if (!status) return;
+
+      status.textContent =
+        checked
+          ? levelLabels[checked.value] ||
+            checked.value
+          : "Non renseignée";
+
+    });
+
+
+  const groupConfigurations = [
+
+    {
+      groupId:
+        "functionalGroupLocomotor"
+    },
+
+    {
+      groupId:
+        "functionalGroupCerebral"
+    },
+
+    {
+      groupId:
+        "functionalGroupSensory"
+    },
+
+    {
+      groupId:
+        "functionalGroupPain"
+    }
+
+  ];
+
+
+  groupConfigurations.forEach(
+    configuration => {
+
+      const group =
+        document.getElementById(
+          configuration.groupId
+        );
+
+      if (!group) return;
+
+
+      const rows =
+        Array.from(
+          group.querySelectorAll(
+            "[data-functional-dimension-row]"
+          )
+        );
+
+
+      const values =
+        rows
+          .map(row =>
+            row.querySelector(
+              'input[data-functional-limitation-radio]:checked'
+            )?.value || null
+          );
+
+
+      const evaluatedCount =
+        values
+          .filter(Boolean)
+          .length;
+
+
+      const limitationCount =
+        values
+          .filter(
+            value =>
+              value === "minimal" ||
+              value === "moderate" ||
+              value === "severe"
+          )
+          .length;
+
+
+      const status =
+        group.querySelector(
+          ".apa-functional-group-status"
+        );
+
+      if (!status) return;
+
+
+      if (evaluatedCount === 0) {
+
+        status.textContent =
+          rows.length === 1
+            ? "Non renseignée"
+            : "Non renseignées";
+
+        return;
+      }
+
+
+      if (limitationCount === 0) {
+
+        status.textContent =
+          `${evaluatedCount}/${rows.length} évaluée` +
+          (
+            evaluatedCount > 1
+              ? "s"
+              : ""
+          ) +
+          " · aucune limitation";
+
+        return;
+      }
+
+
+      status.textContent =
+        `${limitationCount} limitation` +
+        (
+          limitationCount > 1
+            ? "s"
+            : ""
+        ) +
+        ` · ${evaluatedCount}/${rows.length} évaluée` +
+        (
+          evaluatedCount > 1
+            ? "s"
+            : ""
+        );
+
+    }
+  );
+
+}
+
+
+function initFunctionalDimensionAccordion() {
+
+  document
+    .querySelectorAll(
+      ".apa-functional-dimension"
+    )
+    .forEach(dimension => {
+
+      dimension.addEventListener(
+        "toggle",
+        function() {
+
+          if (!dimension.open) {
+            return;
+          }
+
+          const group =
+            dimension.closest(
+              ".apa-functional-group"
+            );
+
+          if (!group) {
+            return;
+          }
+
+          group
+            .querySelectorAll(
+              ".apa-functional-dimension"
+            )
+            .forEach(otherDimension => {
+
+              if (
+                otherDimension !== dimension &&
+                otherDimension.open
+              ) {
+                otherDimension.open = false;
+              }
+
+            });
+
+        }
+      );
+
+    });
+
+}
+
+
+function updateFunctionalWalkingTM6Aid() {
+
+  const output =
+    document.getElementById(
+      "functionalWalkingTM6Aid"
+    );
+
+  if (!output) return;
+
+
+  /*
+   * IMPORTANT :
+   *
+   * aucun calcul TM6 n'est réalisé ici.
+   *
+   * La source unique reste :
+   * getTM6ReferenceModel()
+   */
+  if (
+    typeof getTM6ReferenceModel !==
+    "function"
+  ) {
+
+    output.textContent =
+      "Repères HAS TM6 indisponibles.";
+
+    return;
+  }
+
+
+  const reference =
+    getTM6ReferenceModel();
+
+
+  const distanceRaw =
+    document.getElementById(
+      "physical_tm6_distance"
+    )?.value?.trim() || "";
+
+
+  const distance =
+    parseFloat(distanceRaw);
+
+
+  const hasDistance =
+    Number.isFinite(distance);
+
+
+  /*
+   * Adaptation du texte "Aucune" pour la marche.
+   *
+   * - si les repères HAS sont calculables :
+   *   inutile de réafficher la formule complète ;
+   *
+   * - sinon :
+   *   retour au texte officiel conservé dans
+   *   FUNCTIONAL_LIMITATION_REFERENCE_REGISTRY.
+   *
+   * Le référentiel lui-même n'est jamais modifié.
+   */
+  const walkingNoneReference =
+    document
+      .querySelector(
+        'input[data-functional-limitation-radio][data-functional-group="locomotor"][data-functional-dimension="walking"][value="none"]'
+      )
+      ?.closest(
+        ".apa-functional-choice"
+      )
+      ?.querySelector(
+        ".apa-functional-choice-reference"
+      );
+
+
+  if (walkingNoneReference) {
+
+    if (reference?.available) {
+
+      walkingNoneReference.textContent =
+        "Distance au moins égale à la distance théorique.";
+
+    } else {
+
+      walkingNoneReference.textContent =
+        window
+          .FUNCTIONAL_LIMITATION_REFERENCE_REGISTRY
+          ?.groups
+          ?.locomotor
+          ?.dimensions
+          ?.walking
+          ?.referenceLevels
+          ?.none || "";
+
+    }
+
+  }
+
+
+  output.textContent = "";
+
+
+  const main =
+    document.createElement(
+      "div"
+    );
+
+
+  const title =
+    document.createElement(
+      "strong"
+    );
+
+  title.textContent =
+    "Repères HAS TM6 : ";
+
+
+  main.appendChild(title);
+
+
+  /*
+   * Première partie :
+   * TM6 renseigné ou non.
+   */
+  main.appendChild(
+    document.createTextNode(
+      hasDistance
+        ? `TM6 = ${distance} m`
+        : "TM6 non renseigné"
+    )
+  );
+
+
+  /*
+   * Repères calculables à partir de
+   * âge + sexe + taille + poids.
+   */
+  if (reference?.available) {
+
+    main.appendChild(
+      document.createTextNode(
+        ` · attendu ≈ ${reference.distance_theorique_m} m`
+      )
+    );
+
+
+    main.appendChild(
+      document.createTextNode(
+        ` · limite basse de référence ≈ ${reference.limite_inferieure_normale_m} m`
+      )
+    );
+
+
+    /*
+     * Le pourcentage est volontairement
+     * mis en évidence, mais il ne déclenche
+     * aucune cotation automatique.
+     */
+    if (
+      reference.pourcentage_theorique !==
+      null
+    ) {
+
+      main.appendChild(
+        document.createTextNode(
+          " · "
+        )
+      );
+
+
+      const resultStrong =
+        document.createElement(
+          "strong"
+        );
+
+      resultStrong.className =
+        "apa-functional-walking-tm6-result";
+
+   resultStrong.textContent =
+  `résultat = ${reference.pourcentage_theorique} % de l’attendu`;
+
+
+      main.appendChild(
+        resultStrong
+      );
+
+    }
+
+  } else {
+
+    main.appendChild(
+      document.createTextNode(
+        " · renseigner âge, sexe, taille et poids pour calculer les repères HAS"
+      )
+    );
+
+  }
+
+
+  main.appendChild(
+    document.createTextNode(".")
+  );
+
+
+  const note =
+    document.createElement(
+      "div"
+    );
+
+  note.className =
+    "apa-functional-walking-tm6-aid-note";
+
+  note.textContent =
+    "Aide à la qualification : la cotation de la limitation reste manuelle.";
+
+
+  output.appendChild(main);
+
+  output.appendChild(note);
+
+}
+
+
+function initFunctionalWalkingTM6Aid() {
+
+  const walkingRow =
+    document.querySelector(
+      '[data-functional-dimension-row][data-functional-group="locomotor"][data-functional-dimension="walking"]'
+    );
+
+
+  const walkingContent =
+    walkingRow?.querySelector(
+      ".apa-functional-dimension-content"
+    );
+
+
+  if (!walkingContent) {
+    return;
+  }
+
+
+  let output =
+    document.getElementById(
+      "functionalWalkingTM6Aid"
+    );
+
+
+  if (!output) {
+
+    output =
+      document.createElement(
+        "div"
+      );
+
+    output.id =
+      "functionalWalkingTM6Aid";
+
+    output.className =
+      "apa-functional-walking-tm6-aid";
+
+    output.setAttribute(
+      "aria-live",
+      "polite"
+    );
+
+
+    walkingContent.insertBefore(
+      output,
+      walkingContent.firstChild
+    );
+
+  }
+
+
+  updateFunctionalWalkingTM6Aid();
+
+}
+
+
+function initFunctionalLimitationsUI() {
+
+  document
+    .querySelectorAll(
+      'input[data-functional-limitation-radio]'
+    )
+    .forEach(input => {
+
+      input.addEventListener(
+        "change",
+        function() {
+
+          const aucune =
+            document.getElementById(
+              "precaution_aucune"
+            );
+
+          if (aucune?.checked) {
+            aucune.checked = false;
+          }
+
+
+          updateFunctionalLimitationSummaries();
+
+          updateAPALimitationsCompactText();
+
+        }
+      );
+
+    });
+
+
+  document
+    .querySelectorAll(
+      "[data-functional-clear]"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        function() {
+
+          const groupKey =
+            button.dataset.functionalGroup;
+
+          const dimensionKey =
+            button.dataset.functionalDimension;
+
+
+          document
+            .querySelectorAll(
+              `input[data-functional-limitation-radio][data-functional-group="${groupKey}"][data-functional-dimension="${dimensionKey}"]`
+            )
+            .forEach(input => {
+              input.checked = false;
+            });
+
+
+          updateFunctionalLimitationSummaries();
+
+          updateAPALimitationsCompactText();
+
+
+          if (
+            typeof handleFormModification ===
+            "function"
+          ) {
+            handleFormModification();
+          }
+
+
+          if (
+            typeof updateOrientationHelp ===
+            "function"
+          ) {
+            updateOrientationHelp();
+          }
+
+        }
+      );
+
+    });
+
+
+  initFunctionalDimensionAccordion();
+
+  initFunctionalWalkingTM6Aid();
+
+
+  /*
+   * Douleur est un groupe à dimension unique.
+   * Son second niveau reste ouvert en permanence :
+   * le summary interne est masqué par CSS.
+   */
+  const painDimension =
+    document.querySelector(
+      "#functionalGroupPain .apa-functional-dimension"
+    );
+
+  if (painDimension) {
+    painDimension.open = true;
+  }
+
+
+  updateFunctionalLimitationSummaries();
+
+}
+
+
 function initPrecautionsAucune() {
 
   /*
-   * Nom legacy conservé pour éviter de modifier
-   * les appels existants.
+   * "Aucune" est exclusive de toutes les
+   * précautions particulières et de toutes
+   * les limitations locomotrices actuellement
+   * représentées dans le bloc 9.
    *
-   * "Aucune" est désormais exclusive de toutes
-   * les catégories actuellement représentées
-   * dans le bloc 9 :
-   *
-   * - précautions générales ;
-   * - localisations locomotrices ;
-   * - autre limitation locomotrice.
-   *
-   * Les consignes / adaptations des exercices
+   * Les consignes / adaptations spécifiques
    * restent indépendantes.
    */
 
@@ -17305,19 +18502,40 @@ function initPrecautionsAucune() {
 
   if (!aucune) return;
 
+
   const autresPrecautions =
     document.querySelectorAll(
       'input[name="precaution_ap"]:not(#precaution_aucune)'
     );
+
 
   const limitationsLocomotrices =
     document.querySelectorAll(
       'input[name="limitation_ap"]'
     );
 
-  const autreLimitationLocomotrice =
+
+const autreLimitationLocomotrice =
+  document.getElementById(
+    "limitation_autre_checkbox"
+  );
+
+
+const limitationsFonctionnelles =
+  document.querySelectorAll(
+    'input[data-functional-limitation-radio]'
+  );
+
+
+const precautionOtherCheckbox =
     document.getElementById(
-      "limitation_autre_checkbox"
+      "precaution_other_checkbox"
+    );
+
+
+  const precautionOtherInput =
+    document.getElementById(
+      "precaution_other"
     );
 
 
@@ -17325,6 +18543,25 @@ function initPrecautionsAucune() {
 
     if (aucune.checked) {
       aucune.checked = false;
+    }
+
+  }
+
+
+  function updatePrecautionOtherDisplay() {
+
+    if (!precautionOtherInput) return;
+
+    const isChecked =
+      precautionOtherCheckbox?.checked === true;
+
+    precautionOtherInput.style.display =
+      isChecked
+        ? "block"
+        : "none";
+
+    if (!isChecked) {
+      precautionOtherInput.value = "";
     }
 
   }
@@ -17339,11 +18576,13 @@ function initPrecautionsAucune() {
         return;
       }
 
+
       autresPrecautions.forEach(
         input => {
           input.checked = false;
         }
       );
+
 
       limitationsLocomotrices.forEach(
         input => {
@@ -17351,14 +18590,27 @@ function initPrecautionsAucune() {
         }
       );
 
-      if (autreLimitationLocomotrice) {
-        autreLimitationLocomotrice.checked =
-          false;
-      }
 
-      updateBodyMapFromCheckboxes();
+if (autreLimitationLocomotrice) {
+  autreLimitationLocomotrice.checked =
+    false;
+}
 
-      updateAPALimitationsCompactText();
+
+limitationsFonctionnelles.forEach(
+  input => {
+    input.checked = false;
+  }
+);
+
+
+updatePrecautionOtherDisplay();
+
+updateBodyMapFromCheckboxes();
+
+updateFunctionalLimitationSummaries();
+
+updateAPALimitationsCompactText();
     }
   );
 
@@ -17372,6 +18624,12 @@ function initPrecautionsAucune() {
 
           if (input.checked) {
             uncheckAucuneIfNeeded();
+          }
+
+          if (
+            input === precautionOtherCheckbox
+          ) {
+            updatePrecautionOtherDisplay();
           }
 
           updateAPALimitationsCompactText();
@@ -17417,6 +18675,19 @@ function initPrecautionsAucune() {
     );
 
   }
+
+
+  if (precautionOtherInput) {
+
+    precautionOtherInput.addEventListener(
+      "input",
+      updateAPALimitationsCompactText
+    );
+
+  }
+
+
+  updatePrecautionOtherDisplay();
 
 }
 
@@ -17944,6 +19215,14 @@ const statusSummary =
 if (!enabled || !panel) return;
 
   updateTM6ReferenceDisplay();
+
+  if (
+    typeof updateFunctionalWalkingTM6Aid ===
+    "function"
+  ) {
+    updateFunctionalWalkingTM6Aid();
+  }
+
   updateTM6CardiorespiratoryDetails();
 
 const delegateCheckbox =
@@ -19115,50 +20394,251 @@ function initEngagementSportCompetition() {
 
 function buildActivityConsiderationsFromDOM() {
 
-  const legacyPrecautions = Array.from(
-    document.querySelectorAll('input[name="precaution_ap"]:checked')
-  ).map(input => input.value);
+  const legacyPrecautions =
+    Array.from(
+      document.querySelectorAll(
+        'input[name="precaution_ap"]:checked'
+      )
+    )
+      .map(input => input.value);
 
-  const legacyLocomotorZones = Array.from(
-    document.querySelectorAll('input[name="limitation_ap"]:checked')
-  ).map(input => input.value);
+
+  const legacyLocomotorZones =
+    Array.from(
+      document.querySelectorAll(
+        'input[name="limitation_ap"]:checked'
+      )
+    )
+      .map(input => input.value);
+
 
   const legacyLocomotorOtherChecked =
-    document.getElementById("limitation_autre_checkbox")?.checked === true;
+    document.getElementById(
+      "limitation_autre_checkbox"
+    )?.checked === true;
+
 
   const legacyLocomotorOther =
     legacyLocomotorOtherChecked
-      ? document.getElementById("limitation_autre")?.value?.trim() || null
+      ? document.getElementById(
+          "limitation_autre"
+        )?.value?.trim() || null
       : null;
 
-  const exerciseAdaptations =
-    document.getElementById("apa_exercise_adaptations")?.value?.trim() || null;
 
-  const categories = [];
+  const otherConsiderationChecked =
+    legacyPrecautions.includes(
+      "other"
+    );
 
-  if (legacyPrecautions.includes("cardio")) {
+
+  const otherConsideration =
+    otherConsiderationChecked
+      ? document.getElementById(
+          "precaution_other"
+        )?.value?.trim() || null
+      : null;
+
+
+const exerciseAdaptations =
+  document.getElementById(
+    "apa_exercise_adaptations"
+  )?.value?.trim() || null;
+
+
+function getFunctionalValue(
+  groupKey,
+  dimensionKey
+) {
+
+  const checked =
+    document.querySelector(
+      `input[data-functional-limitation-radio][data-functional-group="${groupKey}"][data-functional-dimension="${dimensionKey}"]:checked`
+    );
+
+  const value =
+    checked?.value || null;
+
+
+  return (
+    value === "none" ||
+    value === "minimal" ||
+    value === "moderate" ||
+    value === "severe"
+  )
+    ? value
+    : null;
+}
+
+
+const functionalLimitations = {
+
+  locomotor: {
+    neuromuscular:
+      getFunctionalValue(
+        "locomotor",
+        "neuromuscular"
+      ),
+
+    osteoarticular:
+      getFunctionalValue(
+        "locomotor",
+        "osteoarticular"
+      ),
+
+    endurance:
+      getFunctionalValue(
+        "locomotor",
+        "endurance"
+      ),
+
+    strength:
+      getFunctionalValue(
+        "locomotor",
+        "strength"
+      ),
+
+    walking:
+      getFunctionalValue(
+        "locomotor",
+        "walking"
+      )
+  },
+
+  cerebral: {
+    cognitive:
+      getFunctionalValue(
+        "cerebral",
+        "cognitive"
+      ),
+
+    language:
+      getFunctionalValue(
+        "cerebral",
+        "language"
+      ),
+
+    anxietyDepression:
+      getFunctionalValue(
+        "cerebral",
+        "anxietyDepression"
+      )
+  },
+
+  sensory: {
+    vision:
+      getFunctionalValue(
+        "sensory",
+        "vision"
+      ),
+
+    sensitivity:
+      getFunctionalValue(
+        "sensory",
+        "sensitivity"
+      ),
+
+    hearing:
+      getFunctionalValue(
+        "sensory",
+        "hearing"
+      ),
+
+    proprioception:
+      getFunctionalValue(
+        "sensory",
+        "proprioception"
+      )
+  },
+
+  pain:
+    getFunctionalValue(
+      "pain",
+      "pain"
+    )
+};
+
+
+const hasFunctionalAssessment =
+  [
+    ...Object.values(
+      functionalLimitations.locomotor
+    ),
+
+    ...Object.values(
+      functionalLimitations.cerebral
+    ),
+
+    ...Object.values(
+      functionalLimitations.sensory
+    ),
+
+    functionalLimitations.pain
+  ]
+    .some(value => value !== null);
+
+
+const categories = [];
+
+
+  if (
+    legacyPrecautions.includes("cardio")
+  ) {
     categories.push("cardiovascular");
   }
 
-  if (legacyPrecautions.includes("respiratoire")) {
+
+  if (
+    legacyPrecautions.includes(
+      "respiratoire"
+    )
+  ) {
     categories.push("respiratory");
   }
 
-  if (legacyPrecautions.includes("metabolique")) {
+
+  if (
+    legacyPrecautions.includes(
+      "metabolique"
+    )
+  ) {
     categories.push("metabolic");
   }
 
-  if (legacyPrecautions.includes("neurologique")) {
-    categories.push("cerebral");
+
+  if (
+    legacyPrecautions.includes(
+      "psychique"
+    )
+  ) {
+    categories.push(
+      "psychiatricBehavioral"
+    );
   }
 
-  if (legacyPrecautions.includes("psychique")) {
-    categories.push("psychiatricBehavioral");
-  }
 
-  if (legacyPrecautions.includes("chute")) {
+  if (
+    legacyPrecautions.includes("chute")
+  ) {
     categories.push("fallRisk");
   }
+
+
+  if (
+    legacyPrecautions.includes(
+      "cutaneous"
+    )
+  ) {
+    categories.push("cutaneous");
+  }
+
+
+  if (
+    legacyPrecautions.includes("other")
+  ) {
+    categories.push("other");
+  }
+
 
   if (
     legacyLocomotorZones.length > 0 ||
@@ -19167,49 +20647,37 @@ function buildActivityConsiderationsFromDOM() {
     categories.push("locomotor");
   }
 
-  const selectionStatus =
-    categories.length > 0
-      ? "selected"
-      : legacyPrecautions.includes("aucune")
-        ? "none"
-        : null;
+
+const selectionStatus =
+  (
+    categories.length > 0 ||
+    hasFunctionalAssessment
+  )
+    ? "selected"
+    : legacyPrecautions.includes(
+        "aucune"
+      )
+      ? "none"
+      : null;
+
 
   return {
+
     selectionStatus,
 
     categories,
 
-    functionalLimitations: {
-      locomotor: {
-        neuromuscular: null,
-        osteoarticular: null,
-        endurance: null,
-        strength: null,
-        walking: null
-      },
-
-      cerebral: {
-        cognitive: null,
-        language: null,
-        anxietyDepression: null
-      },
-
-      sensory: {
-        vision: null,
-        sensitivity: null,
-        hearing: null,
-        proprioception: null
-      },
-
-      pain: null
-    },
+functionalLimitations,
 
     locomotorLocations: {
-      zones: legacyLocomotorZones,
-      other: legacyLocomotorOther
+      zones:
+        legacyLocomotorZones,
+
+      other:
+        legacyLocomotorOther
     },
 
-    otherConsideration: null,
+    otherConsideration,
 
     exerciseAdaptations
   };
@@ -19220,14 +20688,38 @@ function buildActivityConsiderationsLegacyPresentation(
   activityConsiderations
 ) {
 
-  const categoryLabels = {
-    cardiovascular: "cardio-vasculaires",
-    respiratory: "respiratoires",
-    metabolic: "métaboliques",
-    cerebral: "neurologiques",
-    psychiatricBehavioral: "psychiques / cognitives",
-    fallRisk: "risque de chute"
-  };
+const categoryLabels = {
+  cardiovascular: "cardio-vasculaires",
+  respiratory: "respiratoires",
+  metabolic: "métaboliques",
+  cerebral: "neurologiques",
+  psychiatricBehavioral:
+    "psychiques / comportementales",
+  fallRisk: "risque de chute"
+};
+
+/*
+ * Catégories considérées comme précautions
+ * particulières dans l'interface.
+ *
+ * cutaneous et other sont volontairement comptées
+ * ici mais ne sont PAS encore ajoutées à
+ * categoryLabels :
+ *
+ * elles sont donc saisies dans le modèle et visibles
+ * dans le résumé compact, sans être automatiquement
+ * injectées dans les rendus legacy CRC / ordonnance.
+ */
+const precautionCategoryKeys =
+  new Set([
+    "cardiovascular",
+    "respiratory",
+    "metabolic",
+    "psychiatricBehavioral",
+    "fallRisk",
+    "cutaneous",
+    "other"
+  ]);
 
   const locationLabels = {
     cervical: "cervical",
@@ -19286,6 +20778,40 @@ function buildActivityConsiderationsLegacyPresentation(
       ? activityConsiderations.exerciseAdaptations.trim()
       : "";
 
+
+  const functionalLimitationCount =
+    [
+      ...Object.values(
+        activityConsiderations
+          ?.functionalLimitations
+          ?.locomotor || {}
+      ),
+
+      ...Object.values(
+        activityConsiderations
+          ?.functionalLimitations
+          ?.cerebral || {}
+      ),
+
+      ...Object.values(
+        activityConsiderations
+          ?.functionalLimitations
+          ?.sensory || {}
+      ),
+
+      activityConsiderations
+        ?.functionalLimitations
+        ?.pain
+    ]
+      .filter(
+        value =>
+          value === "minimal" ||
+          value === "moderate" ||
+          value === "severe"
+      )
+      .length;
+
+
   return {
     precautions,
     limitations,
@@ -19300,7 +20826,12 @@ function buildActivityConsiderationsLegacyPresentation(
       locomotorZones.length,
 
     precautionCount:
-      precautions.length
+      categories.filter(
+        category =>
+          precautionCategoryKeys.has(category)
+      ).length,
+
+    functionalLimitationCount
   };
 }
 
@@ -20533,6 +22064,7 @@ function updateAPALimitationsCompactText() {
   const {
     precautionCount,
     locomotorZoneCount,
+    functionalLimitationCount,
     exerciseAdaptations
   } =
     buildActivityConsiderationsLegacyPresentation(
@@ -20549,13 +22081,21 @@ function updateAPALimitationsCompactText() {
     );
   }
 
-  if (precautionCount) {
-    parts.push(
-      precautionCount === 1
-        ? "1 précaution générale"
-        : `${precautionCount} précautions générales`
-    );
-  }
+if (precautionCount) {
+  parts.push(
+    precautionCount === 1
+      ? "1 précaution particulière"
+      : `${precautionCount} précautions particulières`
+  );
+}
+
+if (functionalLimitationCount) {
+  parts.push(
+    functionalLimitationCount === 1
+      ? "1 limitation fonctionnelle"
+      : `${functionalLimitationCount} limitations fonctionnelles`
+  );
+}
 
   if (exerciseAdaptations) {
     parts.push("consignes renseignées");

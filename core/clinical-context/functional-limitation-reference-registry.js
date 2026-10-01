@@ -5,23 +5,46 @@
  *
  * Rôle :
  * - fournir les critères officiels d'aide à la qualification ;
- * - servir ultérieurement à l'aide contextuelle du bloc 9 ;
+ * - servir à l'aide contextuelle du bloc 9 ;
  * - ne réalise aucun calcul automatique de sévérité ;
  * - n'est pas un ClinicalKnowledgeItem.
  *
- * Les valeurs stockées dans clinicalModel.activityConsiderations
- * restent :
+ * Valeurs stockées dans :
  *
- *   null | "minimal" | "moderate" | "severe"
+ *   clinicalModel.activityConsiderations.functionalLimitations
  *
- * "Aucune limitation" est conservée ici uniquement comme
- * référence clinique ; elle ne constitue pas une valeur stockée
- * pour chaque fonction.
+ * pour chacune des 13 dimensions :
+ *
+ *   null
+ *   | "none"
+ *   | "minimal"
+ *   | "moderate"
+ *   | "severe"
+ *
+ * Sémantique :
+ *
+ *   null
+ *   = fonction non renseignée / non évaluée.
+ *
+ *   "none"
+ *   = fonction explicitement évaluée sans limitation identifiée.
+ *
+ *   "minimal"
+ *   = limitation minime.
+ *
+ *   "moderate"
+ *   = limitation modérée.
+ *
+ *   "severe"
+ *   = limitation sévère.
+ *
+ * Aucune sévérité n'est calculée automatiquement :
+ * le choix reste explicite et manuel par le médecin.
  */
 
 const FUNCTIONAL_LIMITATION_REFERENCE_REGISTRY = {
 
-  version: "1.0.0",
+  version: "1.1.0",
 
   sources: {
     instruction2017: {

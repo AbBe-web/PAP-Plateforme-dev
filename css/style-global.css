@@ -1488,6 +1488,597 @@ details summary::-webkit-details-marker {
   box-sizing: border-box;
 }
 
+
+/* =========================
+   APA – PRÉCAUTIONS / LIMITATIONS
+   Structure UX O8.3c.8.2B
+========================= */
+
+/*
+ * Le panneau ne doit pas hériter du flex générique
+ * appliqué aux div directement contenues dans .sub-group.
+ */
+.crc-page #apaLimitationsPanel {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+/* Titres des deux grandes parties du bloc 9 */
+.crc-page .apa-limitations-section-title {
+  display: block;
+  width: 100%;
+
+  margin:
+    0 0 8px 0 !important;
+
+  padding: 0;
+
+  color: #0056b3;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+/* Précautions particulières :
+   présentation compacte et indépendante
+   du flex global du formulaire */
+.crc-page .apa-precautions-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap:
+    6px 18px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding-left: 10px;
+
+  margin:
+    0 0 18px 0;
+}
+
+
+.crc-page
+.apa-precautions-options
+> label {
+
+  display: inline-flex !important;
+  align-items: center;
+
+  margin: 0 !important;
+
+  white-space: normal;
+}
+
+
+/* Champ "Autre" */
+.crc-page
+#precaution_other {
+
+  width: 100%;
+  box-sizing: border-box;
+
+  flex-basis: 100%;
+
+  margin:
+    2px 0 0 0;
+
+  padding: 8px;
+
+  border:
+    1px solid #d9d9d9;
+
+  border-radius: 6px;
+}
+
+
+/* Section fonctionnelle */
+.crc-page .apa-functional-section {
+
+  display: block;
+
+  width: 100%;
+
+  margin-top: 2px;
+}
+
+
+.crc-page .apa-functional-groups {
+
+  display: block !important;
+
+  width: 100%;
+}
+
+
+/* Un groupe fonctionnel */
+.crc-page .apa-functional-group {
+
+  display: block;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  margin:
+    0 0 8px 0;
+
+  border:
+    1px solid #d9e1e8;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  overflow: hidden;
+}
+
+
+/* Ligne cliquable du groupe */
+.crc-page .apa-functional-group-summary {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding:
+    9px 11px;
+
+  cursor: pointer;
+
+  background: #f8fafc;
+
+  color: #1f2937;
+
+  font-weight: 600;
+
+  user-select: none;
+}
+
+
+/* Flèche explicite */
+.crc-page
+.apa-functional-group-summary::before {
+
+  content: "▸";
+
+  flex: 0 0 auto;
+
+  color: #0056b3;
+}
+
+
+.crc-page
+.apa-functional-group[open]
+> .apa-functional-group-summary::before {
+
+  content: "▾";
+}
+
+
+/* Le libellé du groupe prend l'espace disponible */
+.crc-page
+.apa-functional-group-summary
+> span:first-of-type {
+
+  flex: 1;
+}
+
+
+/* Petit statut à droite */
+.crc-page .apa-functional-group-status {
+
+  flex: 0 0 auto;
+
+  color: #6b7280;
+
+  font-size: 12px;
+
+  font-weight: 400;
+}
+
+
+/* Contenu d'un groupe ouvert */
+.crc-page .apa-functional-group-content {
+
+  display: block !important;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding:
+    10px 12px 12px 12px;
+}
+
+
+/* Sous-titre interne */
+.crc-page .apa-functional-subtitle {
+
+  display: block;
+
+  width: 100%;
+
+  margin:
+    4px 0 8px 0;
+
+  color: #374151;
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+
+/* Séparation avant "Qualification fonctionnelle" */
+.crc-page
+.body-map-fallback
++ .apa-functional-subtitle {
+
+  margin-top: 16px;
+
+  padding-top: 12px;
+
+  border-top:
+    1px solid #e5e7eb;
+}
+
+
+/* Aperçu compact d'une dimension */
+.crc-page .apa-functional-dimension-preview {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 12px;
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding:
+    8px 2px;
+
+  border-bottom:
+    1px solid #eef1f4;
+}
+
+
+.crc-page
+.apa-functional-dimension-preview:last-child {
+
+  border-bottom: none;
+}
+
+
+.crc-page .apa-functional-preview-status {
+
+  flex: 0 0 auto;
+
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .crc-page
+  .apa-functional-group-summary {
+
+    align-items: flex-start;
+  }
+
+
+  .crc-page
+  .apa-functional-dimension-preview {
+
+    align-items: flex-start;
+  }
+
+
+  .crc-page
+  .apa-functional-preview-status {
+
+    text-align: right;
+  }
+
+}
+
+/* =========================
+   APA – COTATION FONCTIONNELLE
+   O8.3c.8.2C
+========================= */
+
+.crc-page .apa-functional-dimensions {
+  display: block !important;
+  width: 100%;
+}
+
+
+.crc-page .apa-functional-dimension {
+  display: block;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  margin: 0;
+
+  border-bottom: 1px solid #eef1f4;
+}
+
+
+.crc-page .apa-functional-dimension:last-child {
+  border-bottom: none;
+}
+
+
+.crc-page .apa-functional-dimension-summary {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 9px 2px;
+
+  cursor: pointer;
+
+  color: #1f2937;
+
+  font-weight: 500;
+
+  user-select: none;
+}
+
+
+.crc-page
+.apa-functional-dimension-summary::before {
+
+  content: "▸";
+
+  flex: 0 0 auto;
+
+  color: #6b7280;
+}
+
+
+.crc-page
+.apa-functional-dimension[open]
+> .apa-functional-dimension-summary::before {
+
+  content: "▾";
+}
+
+
+.crc-page
+.apa-functional-dimension-summary
+> .apa-functional-dimension-label {
+
+  flex: 1;
+}
+
+
+.crc-page .apa-functional-dimension-status {
+
+  flex: 0 0 auto;
+
+  color: #6b7280;
+
+  font-size: 12px;
+
+  font-weight: 400;
+}
+
+
+.crc-page .apa-functional-dimension-content {
+
+  display: block !important;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding:
+    2px 4px 12px 18px;
+}
+
+
+.crc-page .apa-functional-choice {
+
+  display: grid !important;
+
+  grid-template-columns:
+    auto minmax(70px, 90px) minmax(0, 1fr);
+
+  align-items: start;
+
+  gap: 8px;
+
+  width: 100%;
+  min-width: 0;
+
+  box-sizing: border-box;
+
+  margin: 0 !important;
+
+  padding: 3px 4px;
+
+  cursor: pointer;
+}
+  padding: 6px 4px;
+
+  cursor: pointer;
+}
+
+
+.crc-page
+.apa-functional-choice
+input[type="radio"] {
+
+  margin-top: 2px;
+}
+
+
+.crc-page .apa-functional-choice-level {
+
+  font-weight: 600;
+}
+
+
+.crc-page .apa-functional-choice-reference {
+
+  min-width: 0;
+
+  color: #4b5563;
+
+  font-size: 12px;
+
+  line-height: 1.35;
+
+  white-space: normal !important;
+
+  overflow-wrap: anywhere;
+
+  word-break: normal;
+}
+
+
+.crc-page .apa-functional-clear {
+
+  margin:
+    6px 0 0 24px;
+
+  padding:
+    4px 8px;
+
+  border:
+    1px solid #d1d5db;
+
+  border-radius: 6px;
+
+  background: #ffffff;
+
+  color: #4b5563;
+
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+
+.crc-page .apa-functional-clear:hover {
+
+  background: #f8fafc;
+}
+
+
+/* Douleur : groupe à dimension unique.
+   Le second niveau "Douleur" est masqué. */
+.crc-page
+#functionalGroupPain
+.apa-functional-dimension-summary {
+
+  display: none;
+}
+
+
+.crc-page
+#functionalGroupPain
+.apa-functional-dimension {
+
+  border-bottom: none;
+}
+
+
+.crc-page
+#functionalGroupPain
+.apa-functional-dimension-content {
+
+  padding-top: 4px;
+}
+
+
+/* Aide contextuelle Marche / TM6 */
+.crc-page .apa-functional-walking-tm6-aid {
+
+  display: block;
+
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  margin:
+    0 0 10px 0;
+
+  padding:
+    8px 10px;
+
+  border:
+    1px solid #dbe4ee;
+
+  border-radius: 6px;
+
+  background: #f8fafc;
+
+  color: #374151;
+
+  font-size: 12px;
+
+  line-height: 1.4;
+
+  white-space: normal;
+
+  overflow-wrap: anywhere;
+}
+
+
+.crc-page
+.apa-functional-walking-tm6-aid-note {
+
+  margin-top: 4px;
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+
+@media (max-width: 700px) {
+
+  .crc-page .apa-functional-choice {
+
+    grid-template-columns:
+      auto 1fr;
+  }
+
+
+  .crc-page .apa-functional-choice-reference {
+
+    grid-column: 2;
+  }
+
+}
+
 /* =========================
    APA – ÉLÉMENTS FONCTIONNELS
 ========================= */
@@ -2762,7 +3353,7 @@ body.pap-quick-mode
 }
 
 #apaLimitationsCompact {
-  align-items: baseline;
+  align-items: center;
 }
 
 #apaLimitationsCompact #toggleApaLimitationsPanel {
