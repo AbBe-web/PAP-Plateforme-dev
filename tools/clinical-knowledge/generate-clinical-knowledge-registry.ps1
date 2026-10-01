@@ -639,6 +639,10 @@ try {
           New-Object `
             System.Collections.ArrayList
 
+        functionalProfilesAny =
+          New-Object `
+            System.Collections.ArrayList
+
         ageGroupsAny =
           New-Object `
             System.Collections.ArrayList
@@ -813,6 +817,7 @@ try {
     "medicationsAny",
     "situationsAny",
     "limitationsAny",
+    "functionalProfilesAny",
     "ageGroupsAny",
     "sexAny",
     "otherAny"

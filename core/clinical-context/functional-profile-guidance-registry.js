@@ -2,169 +2,244 @@
 
   "use strict";
 
-
   /*
    * PAP — Functional Profile Guidance Registry
    *
    * Connaissances d'orientation associées au
-   * profil fonctionnel global qualifié par le médecin.
+   * profil fonctionnel global qualifié manuellement
+   * par le médecin.
    *
    * Ce registre :
+   * - utilise le contrat ClinicalKnowledgeItem ;
    * - ne lit pas le DOM ;
    * - ne calcule pas le profil fonctionnel ;
    * - ne choisit pas un professionnel ;
-   * - ne coche aucune réponse d'orientation ;
-   * - fournit uniquement des repères structurés.
+   * - ne sélectionne aucun cadre d'orientation ;
+   * - fournit uniquement des repères cognitifs structurés.
    */
 
+  const FUNCTIONAL_PROFILE_GUIDANCE_REGISTRY = [
 
-  const FUNCTIONAL_PROFILE_GUIDANCE_REGISTRY = {
+    {
+      id:
+        "functional-profile-none-context",
 
-    version: "1.0.0",
-
-
-    itemsByProfile: {
-
-
-      none: [
-
+      clinicalUses: [
         {
-          id:
-            "functional-profile-none-context",
-
-          type:
-            "professionalGuidance",
+          function:
+            "orientationFactors",
 
           category:
-            "functionalFactor",
-
-          message:
-            "Pas de limitation fonctionnelle identifiée : le choix du cadre dépend des autres facteurs cliniques, de l’autonomie et des préférences.",
-
-          evidenceSourceIds: [
-            "fr-instruction-2017-apa-annexe4"
-          ]
+            "functionalFactor"
         }
-
       ],
 
+      context: {
+        functionalProfilesAny: [
+          "none"
+        ]
+      },
 
-      minimal: [
+      messages: {
+        clinician:
+          "Pas de limitation fonctionnelle identifiée : le choix du cadre dépend des autres facteurs cliniques, de l’autonomie et des préférences.",
 
-        {
-          id:
-            "functional-profile-minimal-supervision",
+        patient: ""
+      },
 
-          type:
-            "professionalGuidance",
+      condition: {
+        type:
+          "always"
+      },
 
-          category:
-            "supervisionFactor",
-
-          message:
-            "Limitation fonctionnelle minime : encadrement sportif qualifié ou EAPA à considérer selon les autres besoins.",
-
-          evidenceSourceIds: [
-            "fr-instruction-2017-apa-annexe4",
-            "fr-arrete-2025-certifications-federales-apa"
-          ]
-        }
-
+      presentationTargets: [
+        "orientation"
       ],
 
-
-      moderate: [
-
-        {
-          id:
-            "functional-profile-moderate-supervision",
-
-          type:
-            "professionalGuidance",
-
-          category:
-            "supervisionFactor",
-
-          message:
-            "Limitation fonctionnelle modérée : EAPA particulièrement à considérer ; professionnel de santé selon le besoin de rééducation/réadaptation.",
-
-          evidenceSourceIds: [
-            "fr-instruction-2017-apa-annexe4"
-          ]
-        }
-
+      evidenceSourceIds: [
+        "fr-instruction-2017-apa-annexe4"
       ],
 
+      relatedResourceIds: [],
 
-      severe: [
+      metadata: {
+        status:
+          "active",
 
+        version:
+          "1",
+
+        guidanceNature:
+          "professionalGuidance"
+      }
+    },
+
+    {
+      id:
+        "functional-profile-minimal-supervision",
+
+      clinicalUses: [
         {
-          id:
-            "functional-profile-severe-regulatory",
-
-          type:
-            "regulatoryConstraint",
+          function:
+            "orientationFactors",
 
           category:
-            "supervisionFactor",
-
-          message:
-            "Limitation fonctionnelle sévère : dispensation initiale par un professionnel de santé habilité.",
-
-          evidenceSourceIds: [
-            "fr-csp-d1172-3"
-          ]
+            "supervisionFactor"
         }
+      ],
 
-      ]
+      context: {
+        functionalProfilesAny: [
+          "minimal"
+        ]
+      },
 
+      messages: {
+        clinician:
+          "Limitation fonctionnelle minime : encadrement sportif qualifié ou EAPA à considérer selon les autres besoins.",
+
+        patient: ""
+      },
+
+      condition: {
+        type:
+          "always"
+      },
+
+      presentationTargets: [
+        "orientation"
+      ],
+
+      evidenceSourceIds: [
+        "fr-instruction-2017-apa-annexe4",
+        "fr-arrete-2025-certifications-federales-apa"
+      ],
+
+      relatedResourceIds: [],
+
+      metadata: {
+        status:
+          "active",
+
+        version:
+          "1",
+
+        guidanceNature:
+          "professionalGuidance"
+      }
+    },
+
+    {
+      id:
+        "functional-profile-moderate-supervision",
+
+      clinicalUses: [
+        {
+          function:
+            "orientationFactors",
+
+          category:
+            "supervisionFactor"
+        }
+      ],
+
+      context: {
+        functionalProfilesAny: [
+          "moderate"
+        ]
+      },
+
+      messages: {
+        clinician:
+          "Limitation fonctionnelle modérée : EAPA particulièrement à considérer ; professionnel de santé selon le besoin de rééducation/réadaptation.",
+
+        patient: ""
+      },
+
+      condition: {
+        type:
+          "always"
+      },
+
+      presentationTargets: [
+        "orientation"
+      ],
+
+      evidenceSourceIds: [
+        "fr-instruction-2017-apa-annexe4"
+      ],
+
+      relatedResourceIds: [],
+
+      metadata: {
+        status:
+          "active",
+
+        version:
+          "1",
+
+        guidanceNature:
+          "professionalGuidance"
+      }
+    },
+
+    {
+      id:
+        "functional-profile-severe-regulatory",
+
+      clinicalUses: [
+        {
+          function:
+            "orientationFactors",
+
+          category:
+            "supervisionFactor"
+        }
+      ],
+
+      context: {
+        functionalProfilesAny: [
+          "severe"
+        ]
+      },
+
+      messages: {
+        clinician:
+          "Limitation fonctionnelle sévère : dispensation initiale par un professionnel de santé habilité.",
+
+        patient: ""
+      },
+
+      condition: {
+        type:
+          "always"
+      },
+
+      presentationTargets: [
+        "orientation"
+      ],
+
+      evidenceSourceIds: [
+        "fr-csp-d1172-3"
+      ],
+
+      relatedResourceIds: [],
+
+      metadata: {
+        status:
+          "active",
+
+        version:
+          "1",
+
+        guidanceNature:
+          "regulatoryConstraint"
+      }
     }
 
-  };
-
-
-  function getFunctionalProfileGuidance(
-    functionalProfile
-  ) {
-
-    const items =
-      FUNCTIONAL_PROFILE_GUIDANCE_REGISTRY
-        .itemsByProfile[
-          functionalProfile
-        ];
-
-    if (!Array.isArray(items)) {
-      return [];
-    }
-
-
-    /*
-     * Retour défensif :
-     * le consommateur ne doit pas pouvoir
-     * modifier silencieusement le registre.
-     */
-    return items.map(
-      item => ({
-        ...item,
-
-        evidenceSourceIds:
-          Array.isArray(
-            item.evidenceSourceIds
-          )
-            ? [
-                ...item.evidenceSourceIds
-              ]
-            : []
-      })
-    );
-
-  }
-
+  ];
 
   window.FUNCTIONAL_PROFILE_GUIDANCE_REGISTRY =
     FUNCTIONAL_PROFILE_GUIDANCE_REGISTRY;
-
-  window.getFunctionalProfileGuidance =
-    getFunctionalProfileGuidance;
 
 })();

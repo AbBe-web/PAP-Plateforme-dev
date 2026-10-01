@@ -103,15 +103,16 @@ const CLINICAL_KNOWLEDGE_SCHEMA = {
   functionalFacets,
   allowsFacetsByDomainRole,
 
-  contextKeys: [
-    "pathologiesAny",
-    "medicationsAny",
-    "situationsAny",
-    "limitationsAny",
-    "ageGroupsAny",
-    "sexAny",
-    "otherAny"
-  ],
+contextKeys: [
+  "pathologiesAny",
+  "medicationsAny",
+  "situationsAny",
+  "limitationsAny",
+  "functionalProfilesAny",
+  "ageGroupsAny",
+  "sexAny",
+  "otherAny"
+],
 
   clinicalFunctions: [
     "safety",

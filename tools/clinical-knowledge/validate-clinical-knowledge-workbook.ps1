@@ -75,6 +75,7 @@ $requiredHeaders = @{
     "medicationsAny",
     "situationsAny",
     "limitationsAny",
+    "functionalProfilesAny",
     "ageGroupsAny",
     "sexAny",
     "otherAny"

@@ -82,6 +82,19 @@ function normalizeClinicalContextV2(
 
     limitationsAny: [],
 
+    functionalProfilesAny:
+      normalizeContextValues(
+        clinicalModel
+          ?.activityConsiderations
+          ?.functionalProfile
+          ? [
+              clinicalModel
+                .activityConsiderations
+                .functionalProfile
+            ]
+          : []
+      ),
+
     ageGroupsAny: [],
 
     sexAny: [],
@@ -384,10 +397,10 @@ function projectKnowledgeItemV2(
         matchedContext:
           { ...matchedContext },
 
-        provenance: {
-          registry:
-            "pathologyKnowledge"
-        }
+      provenance: {
+        registry:
+          "clinicalKnowledge"
+      }
 
       }];
     }
@@ -478,10 +491,18 @@ function deduplicateContextProjectionsV2(
 
 function computeClinicalContextV2(
   clinicalModel,
-  knowledgeRegistry =
-    window
-      .PATHOLOGY_KNOWLEDGE_REGISTRY ||
-    []
+  knowledgeRegistry = [
+    ...(
+      window
+        .PATHOLOGY_KNOWLEDGE_REGISTRY ||
+      []
+    ),
+    ...(
+      window
+        .FUNCTIONAL_PROFILE_GUIDANCE_REGISTRY ||
+      []
+    )
+  ]
 ) {
 
   const context =
