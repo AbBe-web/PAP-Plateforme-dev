@@ -52,7 +52,8 @@ assert.deepStrictEqual(
         { id: "endurance", count: 1 },
         { id: "strength", count: 1 },
         { id: "otherActivity", count: 0 },
-        { id: "orientation", count: 1 }
+        { id: "orientation", count: 1 },
+        { id: "objectiveDiscussion", count: 0 }
     ]
 );
 
@@ -78,7 +79,7 @@ const emptyResult =
 
 assert.strictEqual(
     emptyResult.clinician.length,
-    5
+    6
 );
 
 assert(
