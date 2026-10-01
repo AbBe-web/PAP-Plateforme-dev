@@ -4014,6 +4014,164 @@ Aucune
 
 </div>
 
+
+<div
+  id="functionalProfileBlock"
+  style="
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid #e5e7eb;
+  "
+>
+
+  <div style="
+    display:flex;
+    align-items:center;
+    gap:5px;
+    margin-bottom:3px;
+  ">
+
+    <strong>
+      Profil fonctionnel — appréciation globale du médecin
+    </strong>
+
+    <button
+      type="button"
+      id="functionalProfileInfoToggle"
+      aria-label="Aide sur la qualification du profil fonctionnel"
+      aria-expanded="false"
+      aria-controls="functionalProfileInfoPanel"
+      style="
+        border:0;
+        background:none;
+        padding:0;
+        margin:0;
+        cursor:pointer;
+        line-height:1;
+      "
+    >
+      <span class="info-icon">i</span>
+    </button>
+
+  </div>
+
+
+<div
+  id="functionalProfileInfoPanel"
+  hidden
+  style="
+    width:100%;
+    box-sizing:border-box;
+    position:relative;
+    margin:0 0 5px 0;
+    padding:8px 26px 8px 10px;
+      border:1px solid #dbeafe;
+      border-radius:7px;
+      background:#f8fbff;
+      font-size:12px;
+      line-height:1.35;
+      color:#334155;
+    "
+    >
+        <button
+      type="button"
+      id="functionalProfileInfoClose"
+      aria-label="Fermer l’aide"
+      style="
+        position:absolute;
+        top:4px;
+        right:6px;
+        border:0;
+        background:none;
+        padding:0 2px;
+        color:#64748b;
+        font-size:14px;
+        line-height:1;
+        cursor:pointer;
+      "
+    >
+      ×
+    </button>
+    La qualification globale relève de l’appréciation du médecin.
+    Les cotations détaillées constituent des repères et ne sont pas
+    agrégées automatiquement. Un critère sévère isolé ne conduit pas
+    nécessairement à un profil sévère ; l’association de plusieurs
+    critères peut également être prise en compte.
+    <br>
+    <span style="color:#64748b;">
+      Référence : instruction interministérielle du 3 mars 2017,
+      annexe 2 et § 4.1.
+    </span>
+  </div>
+
+
+  <div class="apa-precautions-options">
+
+    <label>
+      <input
+        type="radio"
+        name="functional_profile"
+        value="none"
+      >
+      Sans limitation
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="functional_profile"
+        value="minimal"
+      >
+      Minime
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="functional_profile"
+        value="moderate"
+      >
+      Modérée
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="functional_profile"
+        value="severe"
+      >
+      Sévère
+    </label>
+
+    <button
+      type="button"
+      id="clearFunctionalProfile"
+      style="
+        border:0;
+        background:none;
+        color:#64748b;
+        cursor:pointer;
+        padding:0;
+        font-size:12px;
+      "
+    >
+      Effacer
+    </button>
+
+  </div>
+
+  <div style="
+    margin-top:1px;
+    font-size:12px;
+    line-height:1.2;
+    color:#64748b;
+  ">
+    Non calculé automatiquement à partir des cotations ci-dessus.
+  </div>
+
+</div>
+
+
 </div>
 
 <div class="form-group">
@@ -5623,6 +5781,7 @@ Aucune
 <script src="../../core/clinical-context/functional-limitation-reference-registry.js"></script>
 <script src="../../core/clinical-context/functional-orientation-profile.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
+<script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
 <script src="../../core/clinical-context/clinical-knowledge-parity.js"></script>
 <script src="../../core/clinical-context/clinical-knowledge-validation.js"></script>
@@ -10656,6 +10815,7 @@ initPhysicalTestsPanel();
 initAerobieMode();
 renderFunctionalLimitationDimensions();
 initFunctionalLimitationsUI();
+initFunctionalProfileUI();
 initPrecautionsAucune();
 updateOrientationHelp();
 
@@ -18482,6 +18642,188 @@ function initFunctionalLimitationsUI() {
 
 }
 
+function initFunctionalProfileUI() {
+
+  const profileInputs =
+    document.querySelectorAll(
+      'input[name="functional_profile"]'
+    );
+
+  const clearButton =
+    document.getElementById(
+      "clearFunctionalProfile"
+    );
+
+  const infoToggle =
+    document.getElementById(
+      "functionalProfileInfoToggle"
+    );
+
+  const infoPanel =
+    document.getElementById(
+      "functionalProfileInfoPanel"
+    );
+
+  const infoClose =
+    document.getElementById(
+      "functionalProfileInfoClose"
+    );
+
+  const aucune =
+    document.getElementById(
+      "precaution_aucune"
+    );
+
+
+  if (!profileInputs.length) return;
+
+
+  if (infoToggle && infoPanel) {
+
+    function setFunctionalProfileInfoOpen(
+      isOpen
+    ) {
+
+      infoPanel.hidden =
+        !isOpen;
+
+      infoToggle.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
+    }
+
+
+    infoToggle.addEventListener(
+      "click",
+      function(event) {
+
+        event.stopPropagation();
+
+        setFunctionalProfileInfoOpen(
+          infoPanel.hidden
+        );
+
+      }
+    );
+
+
+    infoClose?.addEventListener(
+      "click",
+      function(event) {
+
+        event.stopPropagation();
+
+        setFunctionalProfileInfoOpen(
+          false
+        );
+
+      }
+    );
+
+
+    document.addEventListener(
+      "click",
+      function(event) {
+
+        if (infoPanel.hidden) return;
+
+        if (
+          infoPanel.contains(event.target) ||
+          infoToggle.contains(event.target)
+        ) {
+          return;
+        }
+
+        setFunctionalProfileInfoOpen(
+          false
+        );
+
+      }
+    );
+
+  }
+
+
+  function clearFunctionalProfile() {
+
+    profileInputs.forEach(input => {
+      input.checked = false;
+    });
+
+  }
+
+
+  profileInputs.forEach(input => {
+
+    input.addEventListener(
+      "change",
+      function() {
+
+        /*
+         * Toute qualification explicite du profil
+         * signifie que le bloc fonctionnel a été évalué.
+         * Elle ne doit donc pas coexister avec
+         * l'option générale "Aucune".
+         */
+        if (aucune?.checked) {
+          aucune.checked = false;
+        }
+
+        updateAPALimitationsCompactText();
+
+        if (
+          typeof handleFormModification ===
+          "function"
+        ) {
+          handleFormModification();
+        }
+
+      }
+    );
+
+  });
+
+
+  clearButton?.addEventListener(
+    "click",
+    function() {
+
+      clearFunctionalProfile();
+
+      updateAPALimitationsCompactText();
+
+      if (
+        typeof handleFormModification ===
+        "function"
+      ) {
+        handleFormModification();
+      }
+
+    }
+  );
+
+
+  /*
+   * "Aucune" générale ne doit pas laisser
+   * persister une qualification fonctionnelle.
+   * Elle revient donc à l'état non qualifié.
+   */
+  aucune?.addEventListener(
+    "change",
+    function() {
+
+      if (!aucune.checked) return;
+
+      clearFunctionalProfile();
+
+      updateAPALimitationsCompactText();
+
+    }
+  );
+
+}
 
 function initPrecautionsAucune() {
 
@@ -20558,8 +20900,24 @@ const functionalLimitations = {
     )
 };
 
+const functionalProfileValue =
+  document.querySelector(
+    'input[name="functional_profile"]:checked'
+  )?.value || null;
+
+
+const functionalProfile =
+  (
+    functionalProfileValue === "none" ||
+    functionalProfileValue === "minimal" ||
+    functionalProfileValue === "moderate" ||
+    functionalProfileValue === "severe"
+  )
+    ? functionalProfileValue
+    : null;
 
 const hasFunctionalAssessment =
+  functionalProfile !== null ||
   [
     ...Object.values(
       functionalLimitations.locomotor
@@ -20667,7 +21025,9 @@ const selectionStatus =
 
     categories,
 
-functionalLimitations,
+    functionalLimitations,
+
+    functionalProfile,
 
     locomotorLocations: {
       zones:
@@ -22073,6 +22433,17 @@ function updateAPALimitationsCompactText() {
 
   const parts = [];
 
+  const functionalProfileLabels = {
+    none:
+      "profil fonctionnel : sans limitation",
+    minimal:
+      "profil fonctionnel minime",
+    moderate:
+      "profil fonctionnel modéré",
+    severe:
+      "profil fonctionnel sévère"
+  };
+
   if (locomotorZoneCount) {
     parts.push(
       locomotorZoneCount === 1
@@ -22095,6 +22466,15 @@ if (functionalLimitationCount) {
       ? "1 limitation fonctionnelle"
       : `${functionalLimitationCount} limitations fonctionnelles`
   );
+}
+
+const functionalProfileLabel =
+  functionalProfileLabels[
+    activityConsiderations.functionalProfile
+  ];
+
+if (functionalProfileLabel) {
+  parts.push(functionalProfileLabel);
 }
 
   if (exerciseAdaptations) {
