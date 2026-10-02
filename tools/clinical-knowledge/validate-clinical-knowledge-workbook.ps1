@@ -155,6 +155,9 @@ $allowedPresentationTargets = @(
   "prescription.strength",
   "prescription.otherActivity",
   "orientation",
+  "orientation.rehabilitation",
+  "orientation.apa",
+  "orientation.ordinaryAP",
   "patientInformation",
   "referenceOnly"
 )
