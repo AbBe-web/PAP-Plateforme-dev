@@ -7929,9 +7929,21 @@ function buildPrototypeClinicalModelV2() {
       .map(input => input.value)
       .filter(Boolean);
 
+  const activityConsiderations =
+    typeof buildActivityConsiderationsFromDOM ===
+    "function"
+      ? buildActivityConsiderationsFromDOM()
+      : null;
+
   return {
     patient: {
       pathologies
+    },
+
+    activityConsiderations: {
+      functionalProfile:
+        activityConsiderations
+          ?.functionalProfile || null
     }
   };
 }
@@ -18774,6 +18786,13 @@ function initFunctionalProfileUI() {
         updateAPALimitationsCompactText();
 
         if (
+          typeof renderClinicalCognitiveAidV2 ===
+          "function"
+        ) {
+          renderClinicalCognitiveAidV2();
+        }
+
+        if (
           typeof handleFormModification ===
           "function"
         ) {
@@ -18793,6 +18812,13 @@ function initFunctionalProfileUI() {
       clearFunctionalProfile();
 
       updateAPALimitationsCompactText();
+
+      if (
+        typeof renderClinicalCognitiveAidV2 ===
+        "function"
+      ) {
+        renderClinicalCognitiveAidV2();
+      }
 
       if (
         typeof handleFormModification ===
@@ -18819,6 +18845,13 @@ function initFunctionalProfileUI() {
       clearFunctionalProfile();
 
       updateAPALimitationsCompactText();
+
+      if (
+        typeof renderClinicalCognitiveAidV2 ===
+        "function"
+      ) {
+        renderClinicalCognitiveAidV2();
+      }
 
     }
   );
