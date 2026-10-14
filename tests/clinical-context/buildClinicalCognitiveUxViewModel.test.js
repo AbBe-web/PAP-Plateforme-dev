@@ -27,6 +27,27 @@ const result =
             { knowledgeItemId: "orientation-1" }
         ],
 
+        orientationByArea: {
+            rehabilitation: [
+                {
+                    knowledgeItemId:
+                        "orientation-rehabilitation-1"
+                }
+            ],
+            apa: [
+                {
+                    knowledgeItemId:
+                        "orientation-apa-1"
+                }
+            ],
+            ordinaryAP: [
+                {
+                    knowledgeItemId:
+                        "orientation-ordinary-ap-1"
+                }
+            ]
+        },
+
         patientInformation: [
             { knowledgeItemId: "patient-1" }
         ],
@@ -54,6 +75,42 @@ assert.deepStrictEqual(
         { id: "otherActivity", count: 0 },
         { id: "orientation", count: 1 },
         { id: "objectiveDiscussion", count: 0 }
+    ]
+);
+
+assert.deepStrictEqual(
+    result.orientationByArea
+        .rehabilitation
+        .items
+        .map(function (item) {
+            return item.knowledgeItemId;
+        }),
+    [
+        "orientation-rehabilitation-1"
+    ]
+);
+
+assert.deepStrictEqual(
+    result.orientationByArea
+        .apa
+        .items
+        .map(function (item) {
+            return item.knowledgeItemId;
+        }),
+    [
+        "orientation-apa-1"
+    ]
+);
+
+assert.deepStrictEqual(
+    result.orientationByArea
+        .ordinaryAP
+        .items
+        .map(function (item) {
+            return item.knowledgeItemId;
+        }),
+    [
+        "orientation-ordinary-ap-1"
     ]
 );
 
@@ -88,6 +145,27 @@ assert(
             return section.items.length === 0;
         }
     )
+);
+
+assert.strictEqual(
+    emptyResult.orientationByArea
+        .rehabilitation
+        .items.length,
+    0
+);
+
+assert.strictEqual(
+    emptyResult.orientationByArea
+        .apa
+        .items.length,
+    0
+);
+
+assert.strictEqual(
+    emptyResult.orientationByArea
+        .ordinaryAP
+        .items.length,
+    0
 );
 
 assert.strictEqual(

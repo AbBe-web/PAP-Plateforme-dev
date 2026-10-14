@@ -7,6 +7,9 @@
         "prescription.strength",
         "prescription.otherActivity",
         "orientation",
+        "orientation.rehabilitation",
+        "orientation.apa",
+        "orientation.ordinaryAP",
         "objectiveDiscussion",
         "patientInformation",
         "referenceOnly"
@@ -29,6 +32,11 @@
                 otherActivity: []
             },
             orientation: [],
+            orientationByArea: {
+                rehabilitation: [],
+                apa: [],
+                ordinaryAP: []
+            },
             objectiveDiscussion: [],
             patientInformation: [],
             referenceOnly: [],
@@ -97,6 +105,22 @@
 
             case "orientation":
                 projection.orientation.push(item);
+                break;
+
+            case "orientation.rehabilitation":
+                projection.orientationByArea.rehabilitation.push(
+                    item
+                );
+                break;
+
+            case "orientation.apa":
+                projection.orientationByArea.apa.push(item);
+                break;
+
+            case "orientation.ordinaryAP":
+                projection.orientationByArea.ordinaryAP.push(
+                    item
+                );
                 break;
 
             case "objectiveDiscussion":

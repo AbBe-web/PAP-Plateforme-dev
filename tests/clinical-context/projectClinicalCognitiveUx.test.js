@@ -144,6 +144,88 @@ assert(
     "Ancien item BPCO deprecated encore projeté"
 );
 
+const orientationTargetsProbe =
+    window.projectClinicalCognitiveUx([
+        {
+            knowledgeItemId:
+                "orientation-probe-transverse",
+            clinicalFunction: "orientationFactors",
+            presentationTargets: [
+                "orientation"
+            ]
+        },
+        {
+            knowledgeItemId:
+                "orientation-probe-rehabilitation",
+            clinicalFunction: "orientationFactors",
+            presentationTargets: [
+                "orientation.rehabilitation"
+            ]
+        },
+        {
+            knowledgeItemId:
+                "orientation-probe-apa",
+            clinicalFunction: "orientationFactors",
+            presentationTargets: [
+                "orientation.apa"
+            ]
+        },
+        {
+            knowledgeItemId:
+                "orientation-probe-ordinary-ap",
+            clinicalFunction: "orientationFactors",
+            presentationTargets: [
+                "orientation.ordinaryAP"
+            ]
+        }
+    ]);
+
+assert.deepStrictEqual(
+    getIds(
+        orientationTargetsProbe.orientation
+    ),
+    [
+        "orientation-probe-transverse"
+    ],
+    "La cible orientation transverse doit rester distincte"
+);
+
+assert.deepStrictEqual(
+    getIds(
+        orientationTargetsProbe
+            .orientationByArea
+            .rehabilitation
+    ),
+    [
+        "orientation-probe-rehabilitation"
+    ],
+    "La cible orientation.rehabilitation doit être projetée séparément"
+);
+
+assert.deepStrictEqual(
+    getIds(
+        orientationTargetsProbe
+            .orientationByArea
+            .apa
+    ),
+    [
+        "orientation-probe-apa"
+    ],
+    "La cible orientation.apa doit être projetée séparément"
+);
+
+assert.deepStrictEqual(
+    getIds(
+        orientationTargetsProbe
+            .orientationByArea
+            .ordinaryAP
+    ),
+    [
+        "orientation-probe-ordinary-ap"
+    ],
+    "La cible orientation.ordinaryAP doit être projetée séparément"
+);
+
 console.log(
     JSON.stringify(
         {

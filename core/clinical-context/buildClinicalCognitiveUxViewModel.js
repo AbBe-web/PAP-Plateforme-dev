@@ -54,6 +54,24 @@
                 )
             ],
 
+            orientationByArea: {
+                rehabilitation: createSection(
+                    "orientation.rehabilitation",
+                    "Repères — Rééducation / réadaptation",
+                    []
+                ),
+                apa: createSection(
+                    "orientation.apa",
+                    "Repères — Programme APA",
+                    []
+                ),
+                ordinaryAP: createSection(
+                    "orientation.ordinaryAP",
+                    "Repères — AP ordinaire",
+                    []
+                )
+            },
+
             patient: createSection(
                 "patientInformation",
                 "Messages à transmettre pendant la consultation",
@@ -85,6 +103,9 @@
 
         const prescription =
             cognitiveUxProjection.prescription || {};
+
+        const orientationByArea =
+            cognitiveUxProjection.orientationByArea || {};
 
         viewModel.clinician = [
             createSection(
@@ -118,6 +139,24 @@
                 cognitiveUxProjection.objectiveDiscussion
             )
         ];
+
+        viewModel.orientationByArea = {
+            rehabilitation: createSection(
+                "orientation.rehabilitation",
+                "Repères — Rééducation / réadaptation",
+                orientationByArea.rehabilitation
+            ),
+            apa: createSection(
+                "orientation.apa",
+                "Repères — Programme APA",
+                orientationByArea.apa
+            ),
+            ordinaryAP: createSection(
+                "orientation.ordinaryAP",
+                "Repères — AP ordinaire",
+                orientationByArea.ordinaryAP
+            )
+        };
 
         viewModel.patient =
             createSection(
