@@ -1041,6 +1041,33 @@ ${clinicianCheckBlock}`;
                 .filter(Boolean)
                 .join("");
 
+        const orientationByArea =
+            safeViewModel.orientationByArea &&
+            typeof safeViewModel.orientationByArea === "object"
+                ? safeViewModel.orientationByArea
+                : {};
+
+        const orientationSectionHtmlByArea = {};
+
+        [
+            "rehabilitation",
+            "apa",
+            "ordinaryAP"
+        ].forEach(function (areaId) {
+            const sectionHtml =
+                renderSectionHtml(
+                    orientationByArea[areaId],
+                    "clinician",
+                    "pap-cognitive-ux-section pap-cognitive-ux-section-clinician",
+                    options
+                );
+
+            if (sectionHtml) {
+                orientationSectionHtmlByArea[areaId] =
+                    sectionHtml;
+            }
+        });
+
         const patientHtml =
             renderSectionHtml(
                 safeViewModel.patient,
@@ -1067,6 +1094,7 @@ ${clinicianCheckBlock}`;
         return {
             clinicianHtml,
             clinicianSectionHtmlById,
+            orientationSectionHtmlByArea,
             patientHtml,
             referenceHtml,
 

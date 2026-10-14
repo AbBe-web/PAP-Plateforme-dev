@@ -897,6 +897,126 @@ assert.deepStrictEqual(
     }
 );
 
+const orientationAreaResult =
+    window.renderClinicalCognitiveUxHtml(
+        {
+            clinician: [],
+
+            orientationByArea: {
+                rehabilitation: {
+                    id: "orientation.rehabilitation",
+                    title:
+                        "Repères — Rééducation / réadaptation",
+                    items: [
+                        {
+                            knowledgeItemId:
+                                "orientation-rehabilitation-test",
+                            condition: {
+                                type: "clinicianCheck"
+                            },
+                            messages: {
+                                clinician:
+                                    "Repère local rééducation"
+                            }
+                        }
+                    ]
+                },
+
+                apa: {
+                    id: "orientation.apa",
+                    title:
+                        "Repères — Programme APA",
+                    items: [
+                        {
+                            knowledgeItemId:
+                                "orientation-apa-test",
+                            condition: {
+                                type: "clinicianCheck"
+                            },
+                            messages: {
+                                clinician:
+                                    "Repère local APA"
+                            }
+                        }
+                    ]
+                },
+
+                ordinaryAP: {
+                    id: "orientation.ordinaryAP",
+                    title:
+                        "Repères — AP ordinaire",
+                    items: [
+                        {
+                            knowledgeItemId:
+                                "orientation-ordinary-ap-test",
+                            condition: {
+                                type: "clinicianCheck"
+                            },
+                            messages: {
+                                clinician:
+                                    "Repère local AP ordinaire"
+                            }
+                        }
+                    ]
+                }
+            },
+
+            patient: {
+                id: "patientInformation",
+                title: "Patient",
+                items: []
+            },
+
+            reference: {
+                id: "referenceOnly",
+                title: "Référence",
+                items: []
+            },
+
+            unassigned: []
+        },
+        {
+            showAllClinicalSituations: true
+        }
+    );
+
+assert(
+    orientationAreaResult
+        .orientationSectionHtmlByArea
+        .rehabilitation
+        .includes(
+            "Repère local rééducation"
+        ),
+    "La zone locale rééducation doit être rendue"
+);
+
+assert(
+    orientationAreaResult
+        .orientationSectionHtmlByArea
+        .apa
+        .includes(
+            "Repère local APA"
+        ),
+    "La zone locale APA doit être rendue"
+);
+
+assert(
+    orientationAreaResult
+        .orientationSectionHtmlByArea
+        .ordinaryAP
+        .includes(
+            "Repère local AP ordinaire"
+        ),
+    "La zone locale AP ordinaire doit être rendue"
+);
+
+assert(
+    !orientationAreaResult.clinicianHtml.includes(
+        "Repère local rééducation"
+    ),
+    "Une aide locale Orientation ne doit pas être dupliquée dans les repères transversaux"
+);
+
 console.log(
     JSON.stringify(
         {
