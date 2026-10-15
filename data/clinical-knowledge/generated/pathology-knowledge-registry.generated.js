@@ -2929,7 +2929,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "always"
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -4127,7 +4127,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "always"
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -4226,7 +4226,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -9386,7 +9386,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "always"
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -11900,7 +11900,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "always"
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -12523,7 +12523,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -16039,7 +16039,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -18606,7 +18606,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -23223,7 +23223,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                       },
         "presentationTargets":  [
                                     "prescription.general",
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
@@ -28333,7 +28333,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                       },
         "presentationTargets":  [
                                     "prescription.general",
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "clinicalMoments":  [
                                 {
@@ -28557,7 +28557,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "type":  "always"
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
 
