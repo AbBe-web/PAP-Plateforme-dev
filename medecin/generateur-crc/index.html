@@ -4201,439 +4201,7 @@ Aucune
 
 </div>
 
-<div class="form-group">
-<h2>10/ Prescription d’activité physique</h2>
-
-<div
-  id="clinicalSituationsFloatingHostV2"
-  class="pap-clinical-situations-floating-host"
-  hidden
-  aria-hidden="true"
-></div>
-
-<div
-  id="clinicalCognitivePrescriptionGeneralV2"
-  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
-  style="display:none;"
-></div>
-
-<!-- Fallback temporaire du rendu groupé V2 -->
-<div
-  id="clinicalCognitivePrescriptionV2"
-  class="pap-cognitive-ux-host"
-  style="display:none; margin:16px 0;"
-></div>
-
-<div
-  id="clinicalCognitiveExperimentalV2"
-  class="pap-cognitive-ux-host pap-cognitive-ux-preview"
-  hidden
-  aria-hidden="true"
-></div>
-
-<div style="margin-bottom:18px;">
-
-<div
-  id="medicationApaBlock"
-  class="hidden pap-quick-secondary"
-  style="
-    margin:14px 0 18px 0;
-    padding:12px;
-    border:1px solid #fde68a;
-    border-left:4px solid #f59e0b;
-    border-radius:10px;
-    background:#fffbeb;
-    font-size:0.92rem;
-    line-height:1.45;
-  "
->
-
-  <strong>
-    💊 Classes médicamenteuses pouvant interférer avec l’activité physique
-  </strong>
-
-<div
-  id="medicationApaTreatmentDetails"
-  style="
-    margin-top:8px;
-    padding:6px 8px;
-    border-radius:8px;
-    background:#ffffff;
-    border:1px solid #fef3c7;
-    font-size:0.86rem;
-    line-height:1.35;
-  "
->
-  <strong>Traitements rappelés :</strong>
-  <span
-    id="medicationApaTreatmentMemo"
-    style="
-      color:#374151;
-      overflow-wrap:anywhere;
-    "
-  ></span>
-</div>
-
-  <div style="margin-top:12px;">
-    <strong>
-      Classes à confirmer par le médecin
-    </strong>
-
-    <div
-      id="medicationApaClassContent"
-      style="margin-top:8px;"
-    ></div>
-  </div>
-
-  <label
-    style="
-      display:block;
-      margin-top:10px;
-      padding:8px;
-      border-radius:8px;
-      background:#ffffff;
-      border:1px solid #fef3c7;
-    "
-  >
-    <input
-      type="checkbox"
-      id="medication_vigilance_autre"
-      name="medication_vigilance_class"
-      value="autre"
-    >
-    Autre classe pertinente non listée
-  </label>
-
-  <input
-    type="text"
-    id="medication_vigilance_autre_text"
-    class="hidden"
-    placeholder="Préciser la classe ou le point de vigilance..."
-    style="
-      width:100%;
-      margin-top:6px;
-      padding:8px;
-      border:1px solid #d1d5db;
-      border-radius:8px;
-      font-size:0.9rem;
-      box-sizing:border-box;
-    "
-  >
-
-  <div
-    style="
-      margin-top:10px;
-      color:#92400e;
-      font-size:0.85rem;
-    "
-  >
-    Mémo indicatif : les classes affichées automatiquement sont seulement probables et doivent être vérifiées.
-  </div>
-
-</div>
-
-<div
-  style="
-    margin:4px 0 18px 0;
-    padding:8px 10px;
-    border:1px solid #e5e7eb;
-    border-radius:8px;
-    background:#f9fafb;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-  "
->
-
-  <label
-    for="duree_prescription"
-    style="
-      font-weight:600;
-      color:#374151;
-    "
-  >
-    Durée de prescription :
-  </label>
-
-  <input
-    type="text"
-    id="duree_prescription"
-    name="duree_prescription"
-    placeholder="Ex : 3 mois"
-    style="
-      width:140px;
-      font-size:inherit;
-      padding:4px 6px;
-      border:1px solid #cbd5e1;
-      border-radius:4px;
-    "
-  />
-
-</div>
-
-<div class="pap-prescription-subtitle">
-  Activités prescrites
-</div>
-
-<!-- ================= AEROBIE ================= -->
-<div class="sub-group">
-
-<h3 class="pap-prescription-item-title">AP aérobie :</h3>
-
-<div
-  id="clinicalCognitiveEnduranceV2"
-  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
-  style="display:none;"
-></div>
-
-<div
-  class="pap-prescription-option-row"
-  style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;"
->
-
-    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-   <input type="radio" name="mode_aerobie" value="fitt">
-    FITT
-    </label>
-
-    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-    <input type="radio" name="mode_aerobie" value="pas">
-    Pas/jour
-    </label>
-
-    <div id="ordonnance_aerobie_subgroup"
-         style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
-
-      <input type="number"
-             name="fois_aerobie"
-             min="0"
-             max="9"
-             style="width:55px; font-size:inherit;">
-
-      <span style="font-size:inherit;">
-        fois/semaine
-      </span>
-
-      <input type="text"
-             name="type_aerobie"
-             placeholder="marche rapide, vélo..."
-             style="width:180px; font-size:inherit;">
-
-      <input type="number"
-             name="duree_aerobie"
-             min="0"
-             max="300"
-             style="width:65px; font-size:inherit;">
-
-      <span style="font-size:inherit;">
-        min/séance
-      </span>
-
-    </div>
-
-  </div>
-
-  <div id="intensite_aerobie_block"
-       style="display:none; margin-top:8px;">
-
-    <label class="inline-option">
-      <input type="radio" name="intensite_aerobie" value="moderee">
-      Intensité modérée
-    </label>
-
-    <label class="inline-option">
-      <input type="radio" name="intensite_aerobie" value="elevee">
-      Intensité élevée
-    </label>
-
-  </div>
-<div id="aerobie_pas_subgroup"
-     style="display:none; margin-top:8px;">
-
-  <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-
-    <input type="number"
-           name="objectif_pas"
-           min="0"
-           max="50000"
-           step="100"
-           style="width:100px; font-size:inherit;">
-
-    <span>
-      pas/jour
-    </span>
-
-  </div>
-
-  <div style="margin-top:8px;">
-
-    <textarea
-      name="consignes_pas"
-      placeholder="Ex : augmentation progressive de 500 pas/semaine si tolérance satisfaisante."
-      style="width:100%; min-height:60px;">
-    </textarea>
-
-  </div>
-
-</div>
-</div>
-
-<!-- ================= RENFORCEMENT ================= -->
-<div class="sub-group">
-<h3 class="pap-prescription-item-title">Renforcement musculaire :</h3>
-
-<div
-  id="clinicalCognitiveStrengthV2"
-  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
-  style="display:none;"
-></div>
-
-<div
-  class="pap-prescription-option-row"
-  style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;"
->
-    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-    <input type="radio" name="renforcement_musculaire" id="renforcement_musculaire" value="oui">
-      Oui
-    </label>
-<label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-  <input type="radio" name="renforcement_musculaire" value="non">
-  Non
-</label>
-<div id="renforcement_musculaire_subgroup"
-     style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
-
-  <input type="number"
-         name="fois_renforcement"
-         min="0"
-         max="9"
-         style="width:55px; font-size:inherit;">
-     
-  <span style="font-size:inherit;">
-    fois/semaine
-  </span>
-
-  <input type="text"
-         name="type_renforcement"
-         placeholder="circuit training..."
-         style="width:180px; font-size:inherit;">
-
-         <input type="number"
-       name="duree_renforcement"
-       min="0"
-       max="300"
-       style="width:65px; font-size:inherit;">
-
-<span style="font-size:inherit;">
-  min/séance
-</span>
-
-</div>
-  </div>
-</div>
-
-<div
-  id="clinicalCognitiveOtherActivityV2"
-  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
-  style="display:none;"
-></div>
-
-<!-- ================= SOUPLESSE ================= -->
-<div class="sub-group">
-<h3 class="pap-prescription-item-title">Souplesse et mobilité :</h3>
-
-  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
-    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-      <input type="radio" name="souplesse_mobilite" id="souplesse_mobilite" value="oui">
-      Oui
-    </label>
-<label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-  <input type="radio" name="souplesse_mobilite" value="non">
-  Non
-</label>
-
-    <div id="souplesse_mobilite_subgroup"
-     style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
-
-  <input type="number"
-         name="fois_souplesse"
-         min="0"
-         max="9"
-         style="width:55px; font-size:inherit;">
-
-  <span style="font-size:inherit;">
-    fois/semaine
-  </span>
-
-  <input type="text"
-         name="type_souplesse"
-         placeholder="yoga, étirements..."
-         style="width:180px; font-size:inherit;">
-
- <input type="number"
-       name="duree_souplesse"
-       min="0"
-       max="300"
-       style="width:65px; font-size:inherit;">
-
-<span style="font-size:inherit;">
-  min/séance
-</span>
-
-</div>
-  </div>
-</div>
-
-<!-- ================= EQUILIBRE ================= -->
-<div class="sub-group">
-<h3 class="pap-prescription-item-title">Équilibre :</h3>
-
-  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
-    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-      <input type="radio" name="equilibre" id="equilibre" value="oui">
-      Oui
-    </label>
-
-    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
-      <input type="radio" name="equilibre" value="non">
-      Non
-    </label>
-
-    <div id="equilibre_subgroup"
-         style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
-
-      <input type="number"
-             name="fois_equilibre"
-             min="0"
-             max="9"
-             style="width:55px; font-size:inherit;">
-
-      <span style="font-size:inherit;">
-        fois/semaine
-      </span>
-
-      <input type="text"
-             name="type_equilibre"
-             placeholder="tai-chi, exercices d'équilibre..."
-             style="width:180px; font-size:inherit;">
-
-      <input type="number"
-             name="duree_equilibre"
-             min="0"
-             max="300"
-             style="width:65px; font-size:inherit;">
-
-      <span style="font-size:inherit;">
-        min/séance
-      </span>
-
-    </div>
-  </div>
-</div>
-
-</div>
-
+<div class="form-group pap-orientation-section">
 <!-- ================= CADRE DE PRATIQUE / ORIENTATION ========= -->
 
 <div class="pap-prescription-subtitle pap-orientation-heading">
@@ -5469,6 +5037,443 @@ Aucune
   </div>
 
 </div>
+
+</div>
+
+<div class="form-group">
+<h2>10/ Prescription d’activité physique</h2>
+
+<div
+  id="clinicalSituationsFloatingHostV2"
+  class="pap-clinical-situations-floating-host"
+  hidden
+  aria-hidden="true"
+></div>
+
+<div
+  id="clinicalCognitivePrescriptionGeneralV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
+
+<!-- Fallback temporaire du rendu groupé V2 -->
+<div
+  id="clinicalCognitivePrescriptionV2"
+  class="pap-cognitive-ux-host"
+  style="display:none; margin:16px 0;"
+></div>
+
+<div
+  id="clinicalCognitiveExperimentalV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-preview"
+  hidden
+  aria-hidden="true"
+></div>
+
+<div style="margin-bottom:18px;">
+
+<div
+  id="medicationApaBlock"
+  class="hidden pap-quick-secondary"
+  style="
+    margin:14px 0 18px 0;
+    padding:12px;
+    border:1px solid #fde68a;
+    border-left:4px solid #f59e0b;
+    border-radius:10px;
+    background:#fffbeb;
+    font-size:0.92rem;
+    line-height:1.45;
+  "
+>
+
+  <strong>
+    💊 Classes médicamenteuses pouvant interférer avec l’activité physique
+  </strong>
+
+<div
+  id="medicationApaTreatmentDetails"
+  style="
+    margin-top:8px;
+    padding:6px 8px;
+    border-radius:8px;
+    background:#ffffff;
+    border:1px solid #fef3c7;
+    font-size:0.86rem;
+    line-height:1.35;
+  "
+>
+  <strong>Traitements rappelés :</strong>
+  <span
+    id="medicationApaTreatmentMemo"
+    style="
+      color:#374151;
+      overflow-wrap:anywhere;
+    "
+  ></span>
+</div>
+
+  <div style="margin-top:12px;">
+    <strong>
+      Classes à confirmer par le médecin
+    </strong>
+
+    <div
+      id="medicationApaClassContent"
+      style="margin-top:8px;"
+    ></div>
+  </div>
+
+  <label
+    style="
+      display:block;
+      margin-top:10px;
+      padding:8px;
+      border-radius:8px;
+      background:#ffffff;
+      border:1px solid #fef3c7;
+    "
+  >
+    <input
+      type="checkbox"
+      id="medication_vigilance_autre"
+      name="medication_vigilance_class"
+      value="autre"
+    >
+    Autre classe pertinente non listée
+  </label>
+
+  <input
+    type="text"
+    id="medication_vigilance_autre_text"
+    class="hidden"
+    placeholder="Préciser la classe ou le point de vigilance..."
+    style="
+      width:100%;
+      margin-top:6px;
+      padding:8px;
+      border:1px solid #d1d5db;
+      border-radius:8px;
+      font-size:0.9rem;
+      box-sizing:border-box;
+    "
+  >
+
+  <div
+    style="
+      margin-top:10px;
+      color:#92400e;
+      font-size:0.85rem;
+    "
+  >
+    Mémo indicatif : les classes affichées automatiquement sont seulement probables et doivent être vérifiées.
+  </div>
+
+</div>
+
+<div
+  style="
+    margin:4px 0 18px 0;
+    padding:8px 10px;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    background:#f9fafb;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  "
+>
+
+  <label
+    for="duree_prescription"
+    style="
+      font-weight:600;
+      color:#374151;
+    "
+  >
+    Durée de prescription :
+  </label>
+
+  <input
+    type="text"
+    id="duree_prescription"
+    name="duree_prescription"
+    placeholder="Ex : 3 mois"
+    style="
+      width:140px;
+      font-size:inherit;
+      padding:4px 6px;
+      border:1px solid #cbd5e1;
+      border-radius:4px;
+    "
+  />
+
+</div>
+
+<div class="pap-prescription-subtitle">
+  Activités prescrites
+</div>
+
+<!-- ================= AEROBIE ================= -->
+<div class="sub-group">
+
+<h3 class="pap-prescription-item-title">AP aérobie :</h3>
+
+<div
+  id="clinicalCognitiveEnduranceV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
+
+<div
+  class="pap-prescription-option-row"
+  style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;"
+>
+
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+   <input type="radio" name="mode_aerobie" value="fitt">
+    FITT
+    </label>
+
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+    <input type="radio" name="mode_aerobie" value="pas">
+    Pas/jour
+    </label>
+
+    <div id="ordonnance_aerobie_subgroup"
+         style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
+
+      <input type="number"
+             name="fois_aerobie"
+             min="0"
+             max="9"
+             style="width:55px; font-size:inherit;">
+
+      <span style="font-size:inherit;">
+        fois/semaine
+      </span>
+
+      <input type="text"
+             name="type_aerobie"
+             placeholder="marche rapide, vélo..."
+             style="width:180px; font-size:inherit;">
+
+      <input type="number"
+             name="duree_aerobie"
+             min="0"
+             max="300"
+             style="width:65px; font-size:inherit;">
+
+      <span style="font-size:inherit;">
+        min/séance
+      </span>
+
+    </div>
+
+  </div>
+
+  <div id="intensite_aerobie_block"
+       style="display:none; margin-top:8px;">
+
+    <label class="inline-option">
+      <input type="radio" name="intensite_aerobie" value="moderee">
+      Intensité modérée
+    </label>
+
+    <label class="inline-option">
+      <input type="radio" name="intensite_aerobie" value="elevee">
+      Intensité élevée
+    </label>
+
+  </div>
+<div id="aerobie_pas_subgroup"
+     style="display:none; margin-top:8px;">
+
+  <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+
+    <input type="number"
+           name="objectif_pas"
+           min="0"
+           max="50000"
+           step="100"
+           style="width:100px; font-size:inherit;">
+
+    <span>
+      pas/jour
+    </span>
+
+  </div>
+
+  <div style="margin-top:8px;">
+
+    <textarea
+      name="consignes_pas"
+      placeholder="Ex : augmentation progressive de 500 pas/semaine si tolérance satisfaisante."
+      style="width:100%; min-height:60px;">
+    </textarea>
+
+  </div>
+
+</div>
+</div>
+
+<!-- ================= RENFORCEMENT ================= -->
+<div class="sub-group">
+<h3 class="pap-prescription-item-title">Renforcement musculaire :</h3>
+
+<div
+  id="clinicalCognitiveStrengthV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
+
+<div
+  class="pap-prescription-option-row"
+  style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;"
+>
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+    <input type="radio" name="renforcement_musculaire" id="renforcement_musculaire" value="oui">
+      Oui
+    </label>
+<label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+  <input type="radio" name="renforcement_musculaire" value="non">
+  Non
+</label>
+<div id="renforcement_musculaire_subgroup"
+     style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
+
+  <input type="number"
+         name="fois_renforcement"
+         min="0"
+         max="9"
+         style="width:55px; font-size:inherit;">
+
+         <span style="font-size:inherit;">
+    fois/semaine
+  </span>
+
+  <input type="text"
+         name="type_renforcement"
+         placeholder="circuit training..."
+         style="width:180px; font-size:inherit;">
+
+         <input type="number"
+       name="duree_renforcement"
+       min="0"
+       max="300"
+       style="width:65px; font-size:inherit;">
+
+<span style="font-size:inherit;">
+  min/séance
+</span>
+
+</div>
+  </div>
+</div>
+
+<div
+  id="clinicalCognitiveOtherActivityV2"
+  class="pap-cognitive-ux-host pap-cognitive-ux-local-host"
+  style="display:none;"
+></div>
+
+<!-- ================= SOUPLESSE ================= -->
+<div class="sub-group">
+<h3 class="pap-prescription-item-title">Souplesse et mobilité :</h3>
+
+  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="souplesse_mobilite" id="souplesse_mobilite" value="oui">
+      Oui
+    </label>
+<label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+  <input type="radio" name="souplesse_mobilite" value="non">
+  Non
+</label>
+
+    <div id="souplesse_mobilite_subgroup"
+     style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
+
+  <input type="number"
+         name="fois_souplesse"
+         min="0"
+         max="9"
+         style="width:55px; font-size:inherit;">
+
+  <span style="font-size:inherit;">
+    fois/semaine
+  </span>
+
+  <input type="text"
+         name="type_souplesse"
+         placeholder="yoga, étirements..."
+         style="width:180px; font-size:inherit;">
+
+ <input type="number"
+       name="duree_souplesse"
+       min="0"
+       max="300"
+       style="width:65px; font-size:inherit;">
+
+<span style="font-size:inherit;">
+  min/séance
+</span>
+
+</div>
+  </div>
+</div>
+
+<!-- ================= EQUILIBRE ================= -->
+<div class="sub-group">
+<h3 class="pap-prescription-item-title">Équilibre :</h3>
+
+  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap;">
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="equilibre" id="equilibre" value="oui">
+      Oui
+    </label>
+
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="equilibre" value="non">
+      Non
+    </label>
+
+    <div id="equilibre_subgroup"
+         style="display:none; align-items:center; gap:10px; flex-wrap:wrap;">
+
+      <input type="number"
+             name="fois_equilibre"
+             min="0"
+             max="9"
+             style="width:55px; font-size:inherit;">
+
+      <span style="font-size:inherit;">
+        fois/semaine
+      </span>
+
+      <input type="text"
+             name="type_equilibre"
+             placeholder="tai-chi, exercices d'équilibre..."
+             style="width:180px; font-size:inherit;">
+
+      <input type="number"
+             name="duree_equilibre"
+             min="0"
+             max="300"
+             style="width:65px; font-size:inherit;">
+
+      <span style="font-size:inherit;">
+        min/séance
+      </span>
+
+    </div>
+  </div>
+</div>
+
+</div>
+
+
 
 <div class="pap-prescription-subtitle">
   Informations et ressources pour le patient
