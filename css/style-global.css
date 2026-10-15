@@ -3530,7 +3530,7 @@ body.pap-quick-mode
 
 .pap-orientation-heading {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 0.5rem;
 }
 
