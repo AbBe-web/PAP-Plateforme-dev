@@ -165,7 +165,8 @@ contextKeys: [
       "functionalFactor",
       "rehabilitationFactor",
       "specialistInput",
-      "assessmentNeed"
+      "assessmentNeed",
+      "apaBenefitFactor"
     ],
 
     objectiveDiscussion: [

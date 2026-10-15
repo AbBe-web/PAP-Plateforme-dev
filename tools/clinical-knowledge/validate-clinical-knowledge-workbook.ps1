@@ -216,7 +216,8 @@ $allowedCategoriesByFunction = @{
     "functionalFactor",
     "rehabilitationFactor",
     "specialistInput",
-    "assessmentNeed"
+    "assessmentNeed",
+    "apaBenefitFactor"
   )
 }
 

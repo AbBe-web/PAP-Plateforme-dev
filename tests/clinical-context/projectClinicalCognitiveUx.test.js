@@ -226,6 +226,87 @@ assert.deepStrictEqual(
     "La cible orientation.ordinaryAP doit être projetée séparément"
 );
 
+// ============================================================
+// ORIENTATION 10.5e — apaBenefitFactor
+// ============================================================
+
+const apaBenefitTestItem = {
+    id: "test-orientation-apa-benefit-001",
+
+    context: {
+        pathologiesAny: ["hta"]
+    },
+
+    clinicalUses: [
+        {
+            function: "orientationFactors",
+            category: "apaBenefitFactor"
+        }
+    ],
+
+    messages: {
+        clinician: "Repère synthétique pour discuter du cadre APA.",
+        patient: ""
+    },
+
+    condition: {
+        type: "always"
+    },
+
+    presentationTargets: [
+        "orientation.apa"
+    ],
+
+    evidenceSourceIds: [],
+    relatedResourceIds: []
+};
+
+const apaBenefitValidation =
+    window.validateClinicalKnowledgeItem(
+        apaBenefitTestItem
+    );
+
+assert.strictEqual(
+    apaBenefitValidation.valid,
+    true,
+    JSON.stringify(apaBenefitValidation.errors)
+);
+
+const apaBenefitContext =
+    window.computeClinicalContextV2(
+        {
+            patient: {
+                pathologies: ["hta"]
+            }
+        },
+        [apaBenefitTestItem]
+    );
+
+assert.strictEqual(
+    apaBenefitContext.orientationFactors.length,
+    1,
+    "Le facteur APA doit être conservé dans ClinicalContextV2"
+);
+
+assert.strictEqual(
+    apaBenefitContext.orientationFactors[0].category,
+    "apaBenefitFactor",
+    "La catégorie apaBenefitFactor doit être conservée"
+);
+
+const apaBenefitProjection =
+    window.projectClinicalCognitiveUx(
+        apaBenefitContext
+    );
+
+assert.deepStrictEqual(
+    getIds(
+        apaBenefitProjection.orientationByArea.apa
+    ),
+    ["test-orientation-apa-benefit-001"],
+    "Le facteur APA doit rejoindre orientation.apa"
+);
+
 console.log(
     JSON.stringify(
         {
