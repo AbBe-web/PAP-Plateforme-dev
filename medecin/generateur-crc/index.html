@@ -21854,27 +21854,37 @@ orientation: {
 
   clinicianAssessment: {
 
-    rehabilitationToConsider: null,
+    rehabilitationToConsider:
+      document.querySelector('input[name="orientation_rehabilitation_to_consider"]:checked')?.value || null,
 
     apa: {
-      benefitAssessment: null,
-      cannotIncreaseAutonomouslyAdaptedSafely: null,
-      changeTowardMoreActiveFeasible: null
+      benefitAssessment:
+        document.querySelector('input[name="orientation_apa_benefit_assessment"]:checked')?.value || null,
+      cannotIncreaseAutonomouslyAdaptedSafely:
+        document.querySelector('input[name="orientation_apa_cannot_increase_autonomously"]:checked')?.value || null,
+      changeTowardMoreActiveFeasible:
+        document.querySelector('input[name="orientation_apa_more_active_feasible"]:checked')?.value || null
     },
 
     ordinaryAP: {
-      compatible: null,
-      canFollowRecommendations: null,
-      canIncreaseAndMaintainSafelyByOwnMeans: null
+      compatible:
+        document.querySelector('input[name="orientation_ordinary_ap_compatible"]:checked')?.value || null,
+      canFollowRecommendations:
+        document.querySelector('input[name="orientation_ordinary_ap_follow_recommendations"]:checked')?.value || null,
+      canIncreaseAndMaintainSafelyByOwnMeans:
+        document.querySelector('input[name="orientation_ordinary_ap_maintain_safely"]:checked')?.value || null
     }
   },
 
   patientInput: {
-    apaAcceptance: null,
-    ordinaryAPSupportPreference: null
+    apaAcceptance:
+      document.querySelector('input[name="orientation_apa_acceptance"]:checked')?.value || null,
+    ordinaryAPSupportPreference:
+      document.querySelector('input[name="orientation_support_preference"]:checked')?.value || null
   },
 
-  contextComment: null
+  contextComment:
+    document.getElementById("orientation_context_comment")?.value?.trim() || null
 },
 
 therapeutic_plan: {
@@ -21934,8 +21944,11 @@ decision: {
     document.querySelector('input[name="epreuve_effort"]:checked')?.value || null,
 
   orientation: {
-    frameworks: [],
-    planComment: null
+    frameworks: Array.from(
+      document.querySelectorAll('input[name="orientation_framework"]:checked')
+    ).map(input => input.value),
+    planComment:
+      document.getElementById("orientation_plan_comment")?.value?.trim() || null
   }
 }
 
