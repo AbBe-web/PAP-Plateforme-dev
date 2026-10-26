@@ -29414,6 +29414,182 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          "status":  "active",
                          "version":  "1"
                      }
+    },
+    {
+        "id":  "coronaropathie-orientation-apa-post-rehabilitation-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "coronaropathie"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Pour une coronaropathie, vérifier si une réadaptation cardiovasculaire est indiquée ou a été réalisée. Au décours, la HAS prévoit un programme d’APA appuyé sur le bilan et les consignes de sortie ; selon le risque, les capacités et l’autonomie, cette poursuite peut être supervisée ou autonome. Ne pas en déduire systématiquement un niveau 2.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Contexte coronarien stable ou après événement aigu, réadaptation réalisée/indiquée, bilan et consignes de sortie à vérifier."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-scc-07-2022"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "icc-orientation-apa-post-rehabilitation-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "icc"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Pour une insuffisance cardiaque chronique stable, examiner la réadaptation cardiovasculaire et, si elle a été réalisée, les consignes d’exercice à sa sortie. La HAS recommande une APA régulière ; l’accompagnement professionnel et les modalités de poursuite sont à apprécier selon symptômes, capacités, risques et autonomie, sans imposer automatiquement le niveau 2.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Stabilité et compensation de l\u0027ICC, symptômes, réadaptation antérieure, bilan et plan de sortie non présumés."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-icc-07-2022"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "bpco-orientation-apa-program-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Dans une BPCO stabilisée, une activité physique adaptée régulière est utile. Si dyspnée, intolérance à l’effort ou limitation des activités malgré une prise en charge optimisée, examiner d’abord l’indication de réadaptation respiratoire ; un programme d’APA peut contribuer à la poursuite des acquis selon les capacités et les besoins d’encadrement. Une pratique autonome reste possible selon la situation.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Dyspnée/retentissement fonctionnel, exacerbations, traitement optimisé, éventuelle réadaptation et autonomie à vérifier."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-bpco-07-2022"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "avc-orientation-apa-post-rehabilitation-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "avc"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Après un AVC, la HAS préconise une APA régulière, à adapter au stade et aux séquelles évaluées. Après la phase de rééducation, discuter un programme structuré, avec supervision initiale si nécessaire ; la rééducation des déficiences et l’AP adaptée peuvent coexister. Ne pas déduire le besoin d’un niveau 2 de la seule mention d’AVC.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Phase aiguë/subaiguë/chronique, séquelles, capacités, risques cardiovasculaires et rééducation actuelle à vérifier."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-avc-09-2022"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
     }
 ];
 

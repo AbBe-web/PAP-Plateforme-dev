@@ -172,6 +172,43 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "date": "2022-07-13",
     "url": "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_grossesse_post_partum_vf.pdf",
     "note": "Repère documentaire Q2a ; ne conclut pas à une indication individuelle d'APA de niveau 2."
+  },
+
+  {
+    "id": "has-aps-scc-07-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : syndrome coronarien chronique, synthèse",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-07-13",
+    "url": "https://www.has-sante.fr/jcms/p_3360238/fr/synthese-prescription-d-activite-physique-syndrome-coronarien-chronique",
+    "note": "Après événement aigu : réadaptation cardiovasculaire puis programme d’APA selon bilan/sortie. La qualification du niveau d’intervention reste individuelle."
+  },
+  {
+    "id": "has-aps-icc-07-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : insuffisance cardiaque chronique, synthèse",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-07-13",
+    "url": "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_icc_vf.pdf",
+    "note": "Recommande une APA régulière en ICC stable, avec réadaptation si possible puis poursuite adaptée ; ne présélectionne pas le niveau 2."
+  },
+  {
+    "id": "has-aps-bpco-07-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : BPCO, référentiel",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-07-13",
+    "url": "https://www.has-sante.fr/jcms/c_2876897/fr/referentiel-de-prescription-d-activite-physique-et-sportive-bronchopneumopathie-obstructive",
+    "note": "Fiche validée par le Collège HAS le 13 juillet 2022, mise à jour en mars 2024. Réadaptation respiratoire selon le retentissement et continuité d’une activité physique adaptée, avec cadre à individualiser."
+  },
+  {
+    "id": "has-aps-avc-09-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : AVC, synthèse",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-09-06",
+    "url": "https://www.has-sante.fr/jcms/p_3360242/fr/synthese-prescription-d-activite-physique-accident-vasculaire-cerebral",
+    "note": "APA après AVC selon phase et séquelles, supervision initiale selon besoins ; la rééducation des déficiences peut se poursuivre."
   }
 ];
 
