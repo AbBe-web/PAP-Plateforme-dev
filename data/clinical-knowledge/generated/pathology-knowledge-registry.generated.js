@@ -4416,13 +4416,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "category": "supervisionFactor"
       }
     ],
-    "functionalUses": [
-      {
-        "domainId": "orientation",
-        "roleId": "orientationOption",
-        "facets": []
-      }
-    ],
+    "functionalUses": [],
     "messages": {
       "clinician": "Envisager initialement un programme supervisé de réadaptation vasculaire ou d’APA, selon la situation du patient et les possibilités locales.",
       "patient": ""
@@ -4430,13 +4424,11 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
     "condition": {
       "type": "always"
     },
-    "presentationTargets": [
-      "orientation"
-    ],
+    "presentationTargets": [],
     "evidenceSourceIds": [],
     "relatedResourceIds": [],
     "metadata": {
-      "status": "active",
+      "status": "deprecated",
       "version": "1",
       "migration": {
         "legacyOrigins": [
@@ -25959,6 +25951,128 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
           }
         ]
       }
+    }
+  },
+  {
+    "id": "aomi-orientation-vascular-rehabilitation-claudication-001",
+    "context": {
+      "pathologiesAny": [
+        "aomi"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "rehabilitationFactor"
+      }
+    ],
+    "functionalUses": [
+      {
+        "domainId": "orientation",
+        "roleId": "orientationOption",
+        "facets": []
+      }
+    ],
+    "messages": {
+      "clinician": "En cas d’AOMI avec claudication intermittente, la HAS recommande une réadaptation vasculaire en première intention. Examiner l’accès à un programme supervisé ou, en cas d’impossibilité, à une réadaptation structurée avec accompagnement. Claudication et modalités de prise en charge à vérifier.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always",
+      "description": "Claudication intermittente, stabilité clinique, possibilités de réadaptation et avis spécialisé à apprécier par le médecin"
+    },
+    "presentationTargets": [
+      "orientation.rehabilitation"
+    ],
+    "evidenceSourceIds": [
+      "has-aps-aomi-07-2022",
+      "has-orientation-aomi-rehabilitation-10-2024"
+    ],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1"
+    }
+  },
+  {
+    "id": "aomi-orientation-apa-program-001",
+    "context": {
+      "pathologiesAny": [
+        "aomi"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "apaBenefitFactor"
+      }
+    ],
+    "functionalUses": [
+      {
+        "domainId": "orientation",
+        "roleId": "orientationOption",
+        "facets": []
+      }
+    ],
+    "messages": {
+      "clinician": "La HAS recommande un programme APA dans l’AOMI. En présence d’une claudication, distinguer le programme APA de la réadaptation vasculaire initiale et examiner les possibilités d’accompagnement ou de relais selon la situation du patient.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always",
+      "description": "Présence de claudication, phase et besoin de réadaptation non déduits de la seule AOMI cochée"
+    },
+    "presentationTargets": [
+      "orientation.apa"
+    ],
+    "evidenceSourceIds": [
+      "has-aps-aomi-07-2022"
+    ],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1"
+    }
+  },
+  {
+    "id": "hta-orientation-apa-program-001",
+    "context": {
+      "pathologiesAny": [
+        "hta"
+      ]
+    },
+    "clinicalUses": [
+      {
+        "function": "orientationFactors",
+        "category": "apaBenefitFactor"
+      }
+    ],
+    "functionalUses": [
+      {
+        "domainId": "orientation",
+        "roleId": "orientationOption",
+        "facets": []
+      }
+    ],
+    "messages": {
+      "clinician": "Chez les patients hypertendus, une activité physique régulière est recommandée. La synthèse HAS de 2022 propose également un programme APA supervisé ; son intérêt est à apprécier selon les besoins d’accompagnement, sans exclure une pratique autonome ou en sport-santé.",
+      "patient": ""
+    },
+    "condition": {
+      "type": "always",
+      "description": "Équilibre de l’HTA, RCV, comorbidités, pratique antérieure et besoins d’accompagnement à apprécier"
+    },
+    "presentationTargets": [
+      "orientation.apa"
+    ],
+    "evidenceSourceIds": [
+      "has-aps-hta-07-2022",
+      "has-ref-aps-hta-09-2018"
+    ],
+    "relatedResourceIds": [],
+    "metadata": {
+      "status": "active",
+      "version": "1"
     }
   }
 ];

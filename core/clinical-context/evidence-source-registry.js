@@ -90,6 +90,43 @@ const EVIDENCE_SOURCE_REGISTRY = [
       "Les certifications fédérales visées concernent les patients ne présentant pas de limitation fonctionnelle ou présentant des limitations fonctionnelles minimes, dans les conditions prévues par l’arrêté."
   }
 
+
+  ,{
+    id: "has-aps-aomi-07-2022",
+    sourceType: "guideline",
+    title: "HAS — Prescription d’activité physique : AOMI, synthèse",
+    authority: "Haute Autorité de santé",
+    date: "2022-07-13",
+    url: "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_aomi_vf.pdf",
+    note: "Recommandation d’AP/APA ; distinguer un programme APA du parcours de réadaptation vasculaire spécialisé. Page exacte non contrôlée."
+  },
+  {
+    id: "has-orientation-aomi-rehabilitation-10-2024",
+    sourceType: "guideline",
+    title: "HAS — Critères d’orientation d’un patient avec claudication intermittente (AOMI) vers la réadaptation vasculaire",
+    authority: "Haute Autorité de santé",
+    date: "2024-10-17",
+    url: "https://www.has-sante.fr/upload/docs/application/pdf/2024-10/fiche_orientation_readaptation_aomi.pdf",
+    note: "Réadaptation vasculaire de première intention en cas de claudication ; centre supervisé ou alternative structurée selon situation. Page exacte non contrôlée."
+  },
+  {
+    id: "has-aps-hta-07-2022",
+    sourceType: "guideline",
+    title: "HAS — Prescription d’activité physique : HTA, synthèse",
+    authority: "Haute Autorité de santé",
+    date: "2022-07-13",
+    url: "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_hta_vf.pdf",
+    note: "La synthèse propose un programme APA supervisé ; ne pas interpréter comme une nécessité individuelle du niveau 2."
+  },
+  {
+    id: "has-ref-aps-hta-09-2018",
+    sourceType: "guideline",
+    title: "HAS — Référentiel de prescription d’activité physique : hypertension artérielle",
+    authority: "Haute Autorité de santé",
+    date: "2018-09-26",
+    url: "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/ref_aps_hta_vf.pdf",
+    note: "Le référentiel 2018 prévoit une AP autonome et des loisirs sportifs chez l’hypertendu équilibré ; mise en regard de la synthèse 2022. Adopté par le Collège HAS le 26 septembre 2018."
+  }
 ];
 
 
