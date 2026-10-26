@@ -210,6 +210,26 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "url": "https://www.has-sante.fr/jcms/p_3360242/fr/synthese-prescription-d-activite-physique-accident-vasculaire-cerebral",
     "note": "APA après AVC selon phase et séquelles, supervision initiale selon besoins ; la rééducation des déficiences peut se poursuivre."
   }
+
+,
+  {
+    id: "has-avc-parcours-2026",
+    sourceType: "guideline",
+    title: "HAS — Guide du parcours de santé : AVC de l’adulte (actualisé en 2026)",
+    authority: "Haute Autorité de santé",
+    date: "2026-09-03",
+    url: "https://www.has-sante.fr/jcms/p_3445524/fr/parcours-de-sante-accident-vasculaire-cerebral-de-l-adulte",
+    note: "Q1 — réévaluer déficiences, limitations et besoins actuels de rééducation/réadaptation ; la pathologie seule ne qualifie pas la phase ni l'indication."
+  },
+  {
+    id: "has-avc-reeducation-chronique-2022",
+    sourceType: "guideline",
+    title: "HAS — Rééducation à la phase chronique d’un AVC de l’adulte : pertinence, indications et modalités",
+    authority: "Haute Autorité de santé",
+    date: "2022-07-04",
+    url: "https://www.has-sante.fr/jcms/p_3150692/fr/reeducation-a-la-phase-chronique-d-un-avc-de-l-adulte-pertinence-indications-et-modalites",
+    note: "Q1 — au-delà de 6 mois, recommandation de rééducation motrice adaptée et suivie en cas de séquelles d'une paralysie initiale. Les autres séquelles exigent une appréciation clinique spécifique."
+  }
 ];
 
 

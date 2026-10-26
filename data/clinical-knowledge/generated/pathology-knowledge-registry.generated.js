@@ -11887,7 +11887,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "Idéal : Rééducation à la phase aigüe (\u003c14j) et kiné et/ou APA phase subaigüe (14j-6 mois)",
+                         "clinician":  "Après un AVC récent, en présence de déficiences neurologiques ou de limitations fonctionnelles persistantes, apprécier les besoins actuels de rééducation/réadaptation. Si ces besoins ne sont pas suffisamment couverts, discuter une évaluation spécialisée, notamment en MPR.",
                          "patient":  ""
                      },
         "condition":  {
@@ -11897,7 +11897,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                     "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-avc-parcours-2026"
                               ],
         "relatedResourceIds":  [
 
@@ -12508,19 +12508,19 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "SI déficit neurologique important → ALORS encadrement recommandé (rééducation)",
+                         "clinician":  "À distance d’un AVC, rechercher des séquelles motrices ou cognitives nécessitant une rééducation poursuivie ou réévaluée. En cas de séquelles d’une paralysie initiale au-delà de six mois, la HAS recommande un programme de rééducation motrice adapté et suivi.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Déficit neurologique important présent ou à vérifier.",
+                          "description":  "AVC à distance : séquelles motrices ou cognitives et retentissement fonctionnel à apprécier ; en cas de séquelles d\u0027une paralysie initiale, vérifier le délai de plus de six mois.",
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
                                     "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-avc-reeducation-chronique-2022"
                               ],
         "relatedResourceIds":  [
 
