@@ -127,6 +127,52 @@ const EVIDENCE_SOURCE_REGISTRY = [
     url: "https://www.has-sante.fr/upload/docs/application/pdf/2018-10/ref_aps_hta_vf.pdf",
     note: "Le référentiel 2018 prévoit une AP autonome et des loisirs sportifs chez l’hypertendu équilibré ; mise en regard de la synthèse 2022. Adopté par le Collège HAS le 26 septembre 2018."
   }
+  ,
+  {
+    "id": "has-aps-dt1-07-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : diabète de type 1, synthèse",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-07-13",
+    "url": "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_dt1_vf.pdf",
+    "note": "Repère documentaire Q2a ; ne conclut pas à une indication individuelle d'APA de niveau 2."
+  },
+  {
+    "id": "has-parcours-dt2-07-2025",
+    "sourceType": "guideline",
+    "title": "HAS — Parcours de soins du patient adulte vivant avec un diabète de type 2 (2025)",
+    "authority": "Haute Autorité de santé",
+    "date": "2025-07-16",
+    "url": "https://www.has-sante.fr/upload/docs/application/pdf/2025-07/parcours_de_soins_du_patient_adulte_vivant_avec_un_diabete_de_type_2_-_guide_2025-07-15_16-42-8_797.pdf",
+    "note": "Parcours DT2 actualisé : apprécier le besoin d'accompagnement, sans imposer un niveau 2."
+  },
+  {
+    "id": "has-aps-surpoids-obesite-07-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : surpoids et obésité de l’adulte, synthèse",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-07-13",
+    "url": "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_surpoids_obesite_vf.pdf",
+    "note": "Repère documentaire Q2a ; ne conclut pas à une indication individuelle d'APA de niveau 2."
+  },
+  {
+    "id": "has-aps-asthme-07-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : asthme, synthèse",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-07-13",
+    "url": "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_asthme_vf.pdf",
+    "note": "Repère documentaire Q2a ; ne conclut pas à une indication individuelle d'APA de niveau 2."
+  },
+  {
+    "id": "has-aps-grossesse-07-2022",
+    "sourceType": "guideline",
+    "title": "HAS — Prescription d’activité physique : grossesse et post-partum, synthèse",
+    "authority": "Haute Autorité de santé",
+    "date": "2022-07-13",
+    "url": "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_grossesse_post_partum_vf.pdf",
+    "note": "Repère documentaire Q2a ; ne conclut pas à une indication individuelle d'APA de niveau 2."
+  }
 ];
 
 
