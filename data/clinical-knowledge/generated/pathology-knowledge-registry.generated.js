@@ -2922,17 +2922,17 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "Si GOLD III-IV et/ou insuffisance respiratoire chronique sous OLD et/ou ventilation non invasive (= ≥ 1 des critères suivants : ) : réadaptation respiratoire puis APA ; progression très progressive de l\u0027intensité et du volume, ± surveillance SpO₂.",
+                         "clinician":  "BPCO GOLD III–IV, oxygénothérapie ou VNI : adapter très progressivement intensité et volume ; discuter une surveillance de la SpO₂ selon la situation.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "always"
                       },
         "presentationTargets":  [
-                                    "orientation.rehabilitation"
+                                    "prescription.general"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-aps-bpco-07-2022"
                               ],
         "relatedResourceIds":  [
 
@@ -4120,7 +4120,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "Recommander une réadaptation cardiovasculaire au patient coronarien ; la prescription d’activité physique par le médecin traitant peut notamment s’inscrire dans sa phase III.",
+                         "clinician":  "En cas de syndrome coronarien chronique, examiner avec le cardiologue l\u0027indication d\u0027une réadaptation cardiovasculaire, notamment si elle n\u0027a jamais été réalisée ou si la capacité d\u0027effort s\u0027est dégradée.",
                          "patient":  ""
                      },
         "condition":  {
@@ -4130,7 +4130,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                     "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-orientation-cardio-2024"
                               ],
         "relatedResourceIds":  [
 
@@ -4217,19 +4217,19 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "En cas de reprise après un syndrome coronarien aigu récent, privilégier la réadaptation cardiovasculaire puis une progression encadrée selon les préconisations spécialisées.",
+                         "clinician":  "Après un syndrome coronarien aigu stabilisé, si aucune réadaptation cardiovasculaire n\u0027a été programmée ou réalisée, discuter son organisation avec le cardiologue.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Reprise après syndrome coronarien aigu récent",
+                          "description":  "Syndrome coronarien aigu stabilisé : réadaptation programmée ou réalisée à vérifier.",
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
                                     "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-orientation-cardio-2024"
                               ],
         "relatedResourceIds":  [
 
@@ -9373,7 +9373,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "Prescription AP après idéalement séjour en réadaptation cardiaque et avis cardiologique",
+                         "clinician":  "En cas d\u0027insuffisance cardiaque stable, discuter avec le cardiologue l\u0027indication d\u0027une réadaptation cardiovasculaire, notamment en présence d\u0027un déconditionnement, d\u0027une intolérance à l\u0027effort ou après une décompensation stabilisée.",
                          "patient":  ""
                      },
         "condition":  {
@@ -9383,7 +9383,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                     "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-orientation-cardio-2024"
                               ],
         "relatedResourceIds":  [
                                    "has-icc-referentiel-001",
@@ -29582,6 +29582,50 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                 ],
         "evidenceSourceIds":  [
                                   "has-aps-avc-09-2022"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "bpco-orientation-rehabilitation-indication-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "bpco"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "rehabilitationFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "BPCO : envisager une réadaptation respiratoire si dyspnée persistante, intolérance à l’effort ou limitation des activités malgré une prise en charge optimisée, ou après une exacerbation stabilisée (surtout si hospitalisation).",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Retentissement fonctionnel malgré prise en charge optimisée ou après exacerbation stabilisée, à vérifier par le médecin."
+                      },
+        "presentationTargets":  [
+                                    "orientation.rehabilitation"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-bpco-rehabilitation-2014"
                               ],
         "relatedResourceIds":  [
 

@@ -230,6 +230,25 @@ const EVIDENCE_SOURCE_REGISTRY = [
     url: "https://www.has-sante.fr/jcms/p_3150692/fr/reeducation-a-la-phase-chronique-d-un-avc-de-l-adulte-pertinence-indications-et-modalites",
     note: "Q1 — au-delà de 6 mois, recommandation de rééducation motrice adaptée et suivie en cas de séquelles d'une paralysie initiale. Les autres séquelles exigent une appréciation clinique spécifique."
   }
+  ,{
+    id: "has-orientation-cardio-2024",
+    sourceType: "guideline",
+    title: "HAS — Critères d’orientation en réadaptation cardiaque et vasculaire",
+    authority: "Haute Autorité de santé",
+    date: "2024-10-22",
+    url: "https://www.has-sante.fr/jcms/p_3551950/fr/criteres-d-orientation-en-readaptation-cardiaque-et-vasculaire",
+    note: "Repère Q1 : indication de réadaptation cardiovasculaire à apprécier dans les situations coronariennes et l'insuffisance cardiaque stabilisée. Ne présélectionne pas l'orientation individuelle."
+  },
+  {
+    id: "has-bpco-rehabilitation-2014",
+    sourceType: "guideline",
+    title: "HAS — Comment mettre en œuvre la réhabilitation respiratoire pour les patients ayant une BPCO ?",
+    authority: "Haute Autorité de santé",
+    date: "2014-07-03",
+    url: "https://www.has-sante.fr/jcms/c_1744735/fr/comment-mettre-en-oeuvre-la-rehabilitation-respiratoire-pour-les-patients-ayant-une-bronchopneumopathie-chronique-obstructive",
+    note: "Repère Q1 : réadaptation en cas de dyspnée, intolérance à l'exercice ou limitation d'activité malgré prise en charge optimale, ou après exacerbation, particulièrement si hospitalisation. Fiche HAS mise en ligne le 3 juillet 2014."
+  }
+
 ];
 
 
