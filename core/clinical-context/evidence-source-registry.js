@@ -336,6 +336,25 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "sourceType":  "guideline",
     "title":  "HAS — Polyarthrite rhumatoïde : prescription d’activité physique, synthèse"
 }
+,
+{
+    "id":  "has-aps-pa-maintien-03-2024",
+    "url":  "https://www.has-sante.fr/upload/docs/application/pdf/2024-04/synthese_aps_icope.pdf",
+    "note":  "Orientation HAS : SPPB 0-6 niveau 1 a examiner ; SPPB 7-9 APA niveau 2 ; niveau 3 possible sans comorbidites CV/osteoarticulaires severes ; SPPB 10-12 niveaux 3/4. Voir synthese pages 6-7.",
+    "authority":  "Haute Autorite de sante",
+    "date":  "2024-03-28",
+    "sourceType":  "guideline",
+    "title":  "HAS - Maintien des capacites motrices des personnes agees, synthese"
+},
+{
+    "id":  "has-aps-pa-chutes-03-2024",
+    "url":  "https://www.has-sante.fr/upload/docs/application/pdf/2024-04/synthese_aps_personnes_agees_a_risque_de_chute.pdf",
+    "note":  "Orientation HAS : risque faible niveaux 3/4 ; intermediaire APA niveau 2 ; eleve intervention multifactorielle avec niveau 1 et/ou 2 selon besoins. Voir synthese pages 7-10.",
+    "authority":  "Haute Autorite de sante",
+    "date":  "2024-03-28",
+    "sourceType":  "guideline",
+    "title":  "HAS - Personnes agees a risque de chute, synthese"
+}
 ];
 
 

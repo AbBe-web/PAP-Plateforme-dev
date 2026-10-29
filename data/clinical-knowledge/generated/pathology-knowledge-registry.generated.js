@@ -24679,7 +24679,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "clinicalUses":  [
                              {
                                  "function":  "orientationFactors",
-                                 "category":  "supervisionFactor"
+                                 "category":  "apaBenefitFactor"
                              }
                          ],
         "functionalUses":  [
@@ -24692,19 +24692,19 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "SI SPPB 7–9 → APA / SI SPPB 10–12 → ES voire autonomie",
+                         "clinician":  "Personnes âgées — maintien des capacités motrices. Cadre d’activité physique selon SPPB et comorbidités :\n• SPPB 0–6 (altération sévère) : examiner une rééducation/réadaptation initiale (niveau 1), notamment en cas de risque élevé de chute, déclin moteur ou cognitif, comorbidités complexes, douleurs persistantes, limitations articulaires, fracture après traumatisme minime ou besoin d’aide technique. Un programme APA (niveau 2) peut être associé ou proposé en relais, voire d’emblée dans certaines situations moins sévères sans comorbidités cardiovasculaires ou ostéoarticulaires sévères.\n• SPPB 7–9 (altération modérée) : programme APA (niveau 2) ; niveau 3 également envisageable en l’absence de comorbidités cardiovasculaires ou ostéoarticulaires sévères.\n• SPPB 10–12 (capacités préservées) : niveau 4 si autonomie suffisante, sinon niveau 3.\nLe SPPB et les conditions cliniques doivent être vérifiés ; aucun niveau n’est attribué automatiquement.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Score SPPB compris entre 7 et 12 présent ou à vérifier.",
+                          "description":  "Situation de personne âgée avec SPPB et comorbidités à vérifier par le médecin ; un diagnostic pa_maintien ne prouve ni le score ni le besoin de niveau 2.",
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.apa"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-aps-pa-maintien-03-2024"
                               ],
         "relatedResourceIds":  [
 
@@ -25702,7 +25702,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
         "clinicalUses":  [
                              {
                                  "function":  "orientationFactors",
-                                 "category":  "rehabilitationFactor"
+                                 "category":  "apaBenefitFactor"
                              }
                          ],
         "functionalUses":  [
@@ -25715,19 +25715,19 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "Risque intermédiaire → APA ± kiné + éducation + rééval 12 mois",
+                         "clinician":  "Personnes âgées — prévention des chutes. Cadre d’activité physique selon le risque de chute évalué :\n• Risque faible : niveau 4 (autonomie) ou niveau 3 (encadré) selon les capacités et préférences.\n• Risque intermédiaire : programme APA (niveau 2) dans une intervention à composantes multiples ; l’APA peut être dispensée par un enseignant APA-S ou un kinésithérapeute (ce dernier n’implique pas un niveau 1).\n• Risque élevé : intervention multifactorielle individualisée ; examiner rééducation/réadaptation (niveau 1) et/ou programme APA individualisé (niveau 2) selon les besoins, en complément ou relais si pertinent ; évaluation gériatrique spécialisée si possible.\nLe niveau de risque doit être qualifié par le médecin ; aucun niveau n’est attribué automatiquement.",
                          "patient":  ""
                      },
         "condition":  {
                           "type":  "clinicianCheck",
-                          "description":  "Niveau de risque intermédiaire présent ou à vérifier.",
+                          "description":  "Risque de chute faible, intermédiaire ou élevé non déduit de la seule situation pa_chute : qualification clinique à vérifier.",
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.apa"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-aps-pa-chutes-03-2024"
                               ],
         "relatedResourceIds":  [
 
