@@ -326,6 +326,16 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "sourceType":  "guideline",
     "title":  "HAS — Prescription d’activité physique : Sclérose en plaques, synthèse"
 }
+,
+{
+    "id":  "has-aps-pr-03-2024",
+    "url":  "https://www.has-sante.fr/upload/docs/application/pdf/2024-04/synthese_aps_polyarthrite_rhumatoide.pdf",
+    "note":  "HAS, synthèse validée le 28/03/2024, p. 2–3. L’orientation dépend du DAS28, du HAQ, du contexte CV, de la stabilisation et des capacités. PR non stabilisée DAS28 élevé/HAQ important : rééducation niveau 1 ; critères moins marqués et absence de pathologie CV : APA niveau 2 possible ; PR stabilisée : niveaux 2/3, puis 4 selon autonomie. Aucun seuil conjoint DAS28/HAQ prescrit pour attribuer automatiquement un niveau. Ne pas présenter la comorbidité CV comme contre-indication générale à l’APA.",
+    "authority":  "Haute Autorité de santé",
+    "date":  "2024-03-28",
+    "sourceType":  "guideline",
+    "title":  "HAS — Polyarthrite rhumatoïde : prescription d’activité physique, synthèse"
+}
 ];
 
 

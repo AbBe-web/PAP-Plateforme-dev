@@ -29858,6 +29858,50 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          "status":  "active",
                          "version":  "1"
                      }
+    },
+    {
+        "id":  "pr-orientation-apa-program-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "pr"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Polyarthrite rhumatoïde : lorsque la maladie est stabilisée sous traitement, la HAS prévoit un programme d’APA (niveau 2) ou une activité encadrée (niveau 3), voire autonome (niveau 4) selon les capacités. Si la PR n’est pas stabilisée, l’orientation dépend notamment de l’activité inflammatoire (DAS28), du retentissement fonctionnel (HAQ) et des comorbidités. En cas de DAS28 élevé et de HAQ important, examiner prioritairement une rééducation (niveau 1). Lorsque ces critères sont moins marqués et en l’absence de pathologie cardiovasculaire, un programme d’APA (niveau 2) peut être envisagé, éventuellement associé à une kinésithérapie ciblée.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "PR sélectionnée ; stabilité sous traitement, DAS28, HAQ, pathologie cardiovasculaire associée et déficit(s) localisé(s) non inférés : vérifier cliniquement ; ne jamais sélectionner de niveau automatiquement."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-pr-03-2024"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
     }
 ];
 
