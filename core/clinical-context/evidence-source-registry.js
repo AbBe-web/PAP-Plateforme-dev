@@ -279,6 +279,43 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "sourceType":  "guideline",
     "title":  "HAS — Prescription d’activité physique : spondylarthrite axiale, synthèse"
 }
+,
+{
+    "id":  "has-aps-cancers-07-2022",
+    "url":  "https://www.has-sante.fr/upload/docs/application/pdf/2022-08/synthese_aps_cancers_vf.pdf",
+    "note":  "HAS, synthèse 2022, p. 1–2 : l’ensemble des patients atteints de cancer peut bénéficier d’une AP adaptée ; programme APA personnalisé décrit dans une fiche portant sur sein/colorectal/prostate. Ne pas attribuer à la HAS une indication systématique de niveau 2 pour toutes les localisations.",
+    "authority":  "Haute Autorité de santé",
+    "date":  "2022-07-13",
+    "sourceType":  "guideline",
+    "title":  "HAS — Prescription d’activité physique : cancers (sein, colorectal, prostate), synthèse"
+},
+{
+    "id":  "inca-benefices-ap-cancer-03-2017",
+    "url":  "https://www.e-cancer.fr/content/download/193374/2587278/file/Benefices_de_l_activite_physique_pendant_et_apres_cancer__mel_20170328.pdf",
+    "note":  "État des connaissances INCa 2017, bénéfices de l’AP pendant et après les cancers, dont fatigue et qualité de vie ; qualité et disponibilité des données hétérogènes selon localisation.",
+    "authority":  "Institut national du cancer",
+    "date":  "2017-03-01",
+    "sourceType":  "institutionalReference",
+    "title":  "INCa — Bénéfices de l’activité physique pendant et après cancer : des connaissances scientifiques aux repères pratiques"
+},
+{
+    "id":  "afsos-activite-physique-cancer-05-2024",
+    "url":  "https://www.afsos.org/fiche-referentiel/activite-physique-et-cancer/",
+    "note":  "Référentiel de soins oncologiques de support 2024 : concerne tous les patients atteints de cancer, y compris âgés et présentant des comorbidités. Référence distincte de la HAS.",
+    "authority":  "Association francophone des soins oncologiques de support",
+    "date":  "2024-05-27",
+    "sourceType":  "guideline",
+    "title":  "AFSOS — Référentiel Activité physique et cancer"
+},
+{
+    "id":  "acsm-getp-12e-oncology-2025",
+    "url":  "https://shop.lww.com/ACSM-s-Guidelines-for-Exercise-Testing-and-Prescription/p/9781975219253",
+    "note":  "Extrait de la section Cancer Survivors fourni par le clinicien : bénéfices de l’exercice aérobie et de résistance, fatigue et qualité de vie ; exercice supervisé souvent plus efficace, non supervisé également bénéfique ; choisir l’encadrement selon état clinique, risques et faisabilité. Recommandation ACSM et non HAS ; références numérotées de l’extrait à vérifier si nécessaire.",
+    "authority":  "American College of Sports Medicine",
+    "date":  "2025-01-17",
+    "sourceType":  "book",
+    "title":  "ACSM — Guidelines for Exercise Testing and Prescription, 12e éd., section Oncology/Cancer Survivors"
+}
 ];
 
 

@@ -29766,6 +29766,53 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          "status":  "active",
                          "version":  "1"
                      }
+    },
+    {
+        "id":  "cancer-orientation-apa-program-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "cancer"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Cancer : l’activité physique adaptée est bénéfique pendant et après les traitements, notamment sur les capacités physiques, la fatigue et la qualité de vie. Un programme d’APA (niveau 2) peut être envisagé selon l’état clinique, les limitations fonctionnelles, le déconditionnement et les besoins d’accompagnement. Adapter la pratique aux traitements et aux précautions spécifiques, en lien avec l’équipe d’oncologie.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Cancer sélectionné ; localisation, traitements, limitations, déconditionnement et précautions non inférés : à apprécier par le médecin ; niveau 2 non automatique."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-cancers-07-2022",
+                                  "inca-benefices-ap-cancer-03-2017",
+                                  "afsos-activite-physique-cancer-05-2024",
+                                  "acsm-getp-12e-oncology-2025"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
     }
 ];
 
