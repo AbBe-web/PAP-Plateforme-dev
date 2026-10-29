@@ -29634,6 +29634,50 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          "status":  "active",
                          "version":  "1"
                      }
+    },
+    {
+        "id":  "arthrose-orientation-apa-first-line-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "arthrose"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Arthrose périphérique : hors poussée congestive, un programme structuré d\u0027APA constitue un traitement de première intention selon la HAS. Vérifier l\u0027absence de poussée et apprécier séparément les besoins éventuels de rééducation.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Arthrose périphérique sélectionnée ; absence de poussée congestive et déficiences éventuelles à vérifier par le médecin."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-arthrose-07-2022"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
     }
 ];
 

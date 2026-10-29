@@ -249,6 +249,16 @@ const EVIDENCE_SOURCE_REGISTRY = [
     note: "Repère Q1 : réadaptation en cas de dyspnée, intolérance à l'exercice ou limitation d'activité malgré prise en charge optimale, ou après exacerbation, particulièrement si hospitalisation. Fiche HAS mise en ligne le 3 juillet 2014."
   }
 
+,
+{
+    "id":  "has-aps-arthrose-07-2022",
+    "url":  "https://www.has-sante.fr/jcms/p_3360250/fr/synthese-prescription-d-activite-physique-arthroses-peripheriques",
+    "note":  "Traitement de première intention par programme structuré d\u0027APA dans l\u0027arthrose ; prescription d\u0027AP hors poussée congestive. Ne qualifie pas automatiquement une indication individuelle du niveau 2.",
+    "authority":  "Haute Autorité de santé",
+    "date":  "2022-07-13",
+    "sourceType":  "guideline",
+    "title":  "HAS — Prescription d’activité physique : arthroses périphériques, synthèse"
+}
 ];
 
 
