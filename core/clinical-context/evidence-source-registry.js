@@ -259,6 +259,16 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "sourceType":  "guideline",
     "title":  "HAS — Prescription d’activité physique : arthroses périphériques, synthèse"
 }
+,
+{
+    "id":  "has-aps-lombalgie-commune-chronique-03-2024",
+    "url":  "https://www.has-sante.fr/upload/docs/application/pdf/2024-04/fiche_aps_lombalgie_commune_chronique.pdf",
+    "note":  "Fiche HAS, page 8 : programme d’APA (niveau 2) pour lombalgie commune chronique avec comorbidité ou stabilisée avec déconditionnement et retentissement biopsychosocial modéré. Critères non inférés du seul diagnostic.",
+    "authority":  "Haute Autorité de santé",
+    "date":  "2024-03-28",
+    "sourceType":  "guideline",
+    "title":  "HAS — Prescription d’activité physique : lombalgie commune chronique, fiche"
+}
 ];
 
 

@@ -29678,6 +29678,50 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          "status":  "active",
                          "version":  "1"
                      }
+    },
+    {
+        "id":  "lombalgie-orientation-apa-chronic-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "lombalgie"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Lombalgie commune chronique : un programme d’APA (niveau 2) peut être envisagé en présence d’une comorbidité, ou d’une lombalgie stabilisée avec déconditionnement à l’effort et retentissement biopsychosocial modéré. Vérifier ces critères ; les autres cadres d’activité physique restent possibles.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Lombalgie commune chronique sélectionnée ; chronicité, comorbidité, stabilisation, déconditionnement et retentissement biopsychosocial à vérifier par le médecin."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-lombalgie-commune-chronique-03-2024"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
     }
 ];
 
