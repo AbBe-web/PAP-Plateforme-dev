@@ -316,6 +316,16 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "sourceType":  "book",
     "title":  "ACSM — Guidelines for Exercise Testing and Prescription, 12e éd., section Oncology/Cancer Survivors"
 }
+,
+{
+    "id":  "has-aps-sep-03-2024",
+    "url":  "https://www.has-sante.fr/upload/docs/application/pdf/2024-04/synthese_aps_sclerose_en_plaques.pdf",
+    "note":  "HAS 28/03/2024, p. 3–4 : EDSS 0–3 AP niveau 3/4 ; EDSS 3,5–6 programme APA niveau 2 supervisé ; EDSS ≥ 6,5 rééducation/réadaptation niveau 1, APA possible au début en complément en SMR. Score non inféré ; poussée aiguë contre-indication distincte.",
+    "authority":  "Haute Autorité de santé",
+    "date":  "2024-03-28",
+    "sourceType":  "guideline",
+    "title":  "HAS — Prescription d’activité physique : Sclérose en plaques, synthèse"
+}
 ];
 
 

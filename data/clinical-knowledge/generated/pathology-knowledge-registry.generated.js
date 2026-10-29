@@ -14978,7 +14978,7 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                }
                            ],
         "messages":  {
-                         "clinician":  "Cadre selon \u003ca href=\u0027http://medicalcul.free.fr/edssech.html\u0027 target=\u0027_blank\u0027 rel=\u0027noopener noreferrer\u0027 style=\u0027display:inline;color:inherit;text-decoration:underline;\u0027\u003eEDSS\u003c/a\u003e : kiné ± APA si \u003e6 (confort/fonctionnel), APA ± kiné si 3.5–6 (autonomie), ES ou autonomie si \u003c3.5 (↓ fatigue, ↑ QDV)",
+                         "clinician":  "SEP : si EDSS ≥ 6,5, examiner les besoins de rééducation/réadaptation (niveau 1). Un programme APA peut être associé en complément en SMR. Vérifier le score EDSS et les besoins fonctionnels.",
                          "patient":  ""
                      },
         "condition":  {
@@ -14987,10 +14987,10 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                           "machineEvaluable":  false
                       },
         "presentationTargets":  [
-                                    "orientation"
+                                    "orientation.rehabilitation"
                                 ],
         "evidenceSourceIds":  [
-
+                                  "has-aps-sep-03-2024"
                               ],
         "relatedResourceIds":  [
 
@@ -29805,6 +29805,51 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                                   "inca-benefices-ap-cancer-03-2017",
                                   "afsos-activite-physique-cancer-05-2024",
                                   "acsm-getp-12e-oncology-2025"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
+    },
+    {
+        "id":  "sep-orientation-apa-edss-context-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "sep"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "SEP : pour un EDSS de 3,5 à 6, la HAS préconise un programme d’APA (niveau 2) supervisé. Pour un EDSS ≥ 6,5, l’APA peut compléter la rééducation au début en SMR. Si l’EDSS est de 0 à 3, la HAS oriente vers les niveaux 3 ou 4. Vérifier le score et les besoins d’accompagnement.",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "clinicianCheck",
+                          "description":  "SEP sélectionnée ; EDSS non connu automatiquement. Repères EDSS 0–3, 3,5–6, ≥ 6,5 à interpréter par le médecin.",
+                          "machineEvaluable":  false
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-sep-03-2024"
                               ],
         "relatedResourceIds":  [
 
