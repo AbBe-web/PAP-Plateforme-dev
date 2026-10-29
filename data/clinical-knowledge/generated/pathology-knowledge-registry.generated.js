@@ -29722,6 +29722,50 @@ const PATHOLOGY_KNOWLEDGE_REGISTRY = [
                          "status":  "active",
                          "version":  "1"
                      }
+    },
+    {
+        "id":  "spa-orientation-apa-program-001",
+        "context":  {
+                        "pathologiesAny":  [
+                                               "spa"
+                                           ]
+                    },
+        "clinicalUses":  [
+                             {
+                                 "function":  "orientationFactors",
+                                 "category":  "apaBenefitFactor"
+                             }
+                         ],
+        "functionalUses":  [
+                               {
+                                   "domainId":  "orientation",
+                                   "roleId":  "orientationOption",
+                                   "facets":  [
+
+                                              ]
+                               }
+                           ],
+        "messages":  {
+                         "clinician":  "Spondyloarthrite axiale : un programme d’APA (niveau 2) peut être envisagé en cas de maladie modérément active, sous traitement de fond stable depuis plusieurs semaines, associée à une inactivité physique, une comorbidité et/ou un déconditionnement à l’effort. Vérifier ces conditions. En cas de maladie stabilisée avec facteurs de risque contrôlés, la HAS recommande une activité physique ordinaire encadrée (niveau 3) ou autonome (niveau 4).",
+                         "patient":  ""
+                     },
+        "condition":  {
+                          "type":  "always",
+                          "description":  "Spondyloarthrite axiale sélectionnée ; activité modérée de la maladie, stabilité du traitement de fond, inactivité physique/comorbidité/déconditionnement et contrôle des facteurs de risque non inférés : à vérifier par le médecin."
+                      },
+        "presentationTargets":  [
+                                    "orientation.apa"
+                                ],
+        "evidenceSourceIds":  [
+                                  "has-aps-spa-03-2024"
+                              ],
+        "relatedResourceIds":  [
+
+                               ],
+        "metadata":  {
+                         "status":  "active",
+                         "version":  "1"
+                     }
     }
 ];
 

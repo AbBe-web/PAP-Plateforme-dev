@@ -269,6 +269,16 @@ const EVIDENCE_SOURCE_REGISTRY = [
     "sourceType":  "guideline",
     "title":  "HAS — Prescription d’activité physique : lombalgie commune chronique, fiche"
 }
+,
+{
+    "id":  "has-aps-spa-03-2024",
+    "url":  "https://www.has-sante.fr/upload/docs/application/pdf/2024-04/synthese_aps_spondylarthrite_axiale.pdf",
+    "note":  "Synthèse HAS mars 2024, p. 3 : niveau 2 envisagé si maladie modérément active et traitement de fond stable depuis plusieurs semaines avec inactivité physique, comorbidité et/ou déconditionnement ; niveaux 3/4 si maladie stabilisée et facteurs de risque contrôlés. Critères non inférés de la seule pathologie.",
+    "authority":  "Haute Autorité de santé",
+    "date":  "2024-03-28",
+    "sourceType":  "guideline",
+    "title":  "HAS — Prescription d’activité physique : spondylarthrite axiale, synthèse"
+}
 ];
 
 
