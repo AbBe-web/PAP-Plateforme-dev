@@ -5807,6 +5807,7 @@ Aucune
 <script src="../../core/clinical-context/buildOrientationAutonomyDiscussionContextV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationApaQuestionsContextV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationFeasibilityContextV1.js"></script>
+<script src="../../core/clinical-context/buildOrientationSynthesisBundleV1.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -9508,6 +9509,18 @@ const objectiveClinicalUsesV2 =
         }
       ]
     };
+  }
+
+
+  // T3.6b.1: assembler les contextes existants, donnees uniquement.
+  // Conserver Q1 et Q2a distincts, avec leurs conditions, sources et incertitudes.
+  const orientationSynthesisBundleV1 =
+    typeof buildOrientationSynthesisBundleV1 === "function"
+      ? buildOrientationSynthesisBundleV1(cognitiveUxViewModel)
+      : null;
+  if (cognitiveUxViewModel && orientationSynthesisBundleV1) {
+    cognitiveUxViewModel.orientationSynthesisBundleV1 =
+      orientationSynthesisBundleV1;
   }
 
   const patientSelectionById =
