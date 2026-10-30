@@ -5809,6 +5809,7 @@ Aucune
 <script src="../../core/clinical-context/buildOrientationFeasibilityContextV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationSynthesisBundleV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationSynthesisStructureV1.js"></script>
+<script src="../../core/clinical-context/buildOrientationSynthesisDraftV1.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -9534,6 +9535,19 @@ const objectiveClinicalUsesV2 =
   if (cognitiveUxViewModel && orientationSynthesisStructureV1) {
     cognitiveUxViewModel.orientationSynthesisStructureV1 =
       orientationSynthesisStructureV1;
+  }
+
+
+  // T3.6b.2b: raccorder la synthese approuvee, sans HTML ni selection de niveau.
+  // Reutiliser les messages deja valides et les incertitudes existantes.
+  // La presentation et la visibilite de ces donnees restent a valider en T4.
+  const orientationSynthesisDraftV1 =
+    typeof buildOrientationSynthesisDraftV1 === "function"
+      ? buildOrientationSynthesisDraftV1(orientationSynthesisStructureV1)
+      : null;
+  if (cognitiveUxViewModel && orientationSynthesisDraftV1) {
+    cognitiveUxViewModel.orientationSynthesisDraftV1 =
+      orientationSynthesisDraftV1;
   }
 
   const patientSelectionById =
