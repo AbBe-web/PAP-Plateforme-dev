@@ -9394,6 +9394,26 @@ const objectiveClinicalUsesV2 =
       orientationFunctionalContextV1;
   }
 
+  // T3.2: non-blocking functional qualification cue, data only.
+  // The clinician alone qualifies the global profile and autonomy.
+  if (cognitiveUxViewModel && orientationFunctionalContextV1) {
+    const severityBuckets =
+      orientationFunctionalContextV1.limitations?.bySeverity;
+    const moderateOrSevereCount =
+      (severityBuckets?.moderate?.length ?? 0) +
+      (severityBuckets?.severe?.length ?? 0);
+
+    cognitiveUxViewModel.orientationFunctionalQualificationCueV1 = {
+      type: "clinicianCheck",
+      applicable:
+        orientationFunctionalContextV1.globalProfile === null &&
+        moderateOrSevereCount >= 2,
+      moderateOrSevereCount,
+      message:
+        "Une ou plusieurs limitations fonctionnelles modérées ou sévères ont été renseignées. À prendre en compte dans l’appréciation du profil fonctionnel global."
+    };
+  }
+
 
   const patientSelectionById =
     buildClinicalCognitivePatientSelectionById(
