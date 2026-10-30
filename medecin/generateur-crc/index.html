@@ -5806,6 +5806,7 @@ Aucune
 <script src="../../core/clinical-context/buildOrientationApaBenefitContextV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationAutonomyDiscussionContextV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationApaQuestionsContextV1.js"></script>
+<script src="../../core/clinical-context/buildOrientationFeasibilityContextV1.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -9419,6 +9420,19 @@ const objectiveClinicalUsesV2 =
   if (cognitiveUxViewModel && orientationApaQuestionsContextV1) {
     cognitiveUxViewModel.orientationApaQuestionsContextV1 =
       orientationApaQuestionsContextV1;
+  }
+
+  // T3.5: facteurs de faisabilite deja renseignes, donnees uniquement.
+  // Absence de donnees et 'not_explored' restent distincts.
+  const orientationFeasibilityContextV1 =
+    typeof buildOrientationFeasibilityContextV1 === "function"
+      ? buildOrientationFeasibilityContextV1(
+          prototypeModel?.engagement ?? null
+        )
+      : null;
+  if (cognitiveUxViewModel && orientationFeasibilityContextV1) {
+    cognitiveUxViewModel.orientationFeasibilityContextV1 =
+      orientationFeasibilityContextV1;
   }
 
   // T3.2: clinician-only functional inputs; no orientation decision.
