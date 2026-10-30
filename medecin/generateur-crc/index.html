@@ -5805,6 +5805,7 @@ Aucune
 <script src="../../core/clinical-context/functional-orientation-profile.js"></script>
 <script src="../../core/clinical-context/buildOrientationApaBenefitContextV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationAutonomyDiscussionContextV1.js"></script>
+<script src="../../core/clinical-context/buildOrientationApaQuestionsContextV1.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -9403,6 +9404,21 @@ const objectiveClinicalUsesV2 =
   if (cognitiveUxViewModel && orientationAutonomyDiscussionContextV1) {
     cognitiveUxViewModel.orientationAutonomyDiscussionContextV1 =
       orientationAutonomyDiscussionContextV1;
+  }
+
+  // T3.4: contrat de visibilite Q2c/Q2d, donnees uniquement.
+  // Q2c n'est pas encore saisie (T4) : ne pas l'inferer des anciennes questions.
+  const orientationQ2cAnswerV1 = null;
+  const orientationApaQuestionsContextV1 =
+    typeof buildOrientationApaQuestionsContextV1 === "function"
+      ? buildOrientationApaQuestionsContextV1(
+          orientationAutonomyDiscussionContextV1,
+          orientationQ2cAnswerV1
+        )
+      : null;
+  if (cognitiveUxViewModel && orientationApaQuestionsContextV1) {
+    cognitiveUxViewModel.orientationApaQuestionsContextV1 =
+      orientationApaQuestionsContextV1;
   }
 
   // T3.2: clinician-only functional inputs; no orientation decision.
