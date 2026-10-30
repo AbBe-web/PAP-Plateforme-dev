@@ -9415,6 +9415,42 @@ const objectiveClinicalUsesV2 =
   }
 
 
+
+  // T3.2: severe functional profile regulatory memo, data only.
+  // Always independent of selected levels, APA discussion and autonomy U.
+  if (cognitiveUxViewModel && orientationFunctionalContextV1) {
+    cognitiveUxViewModel.orientationSevereFunctionalRegulatoryCueV1 = {
+      type: "regulatoryReminder",
+      applicable:
+        orientationFunctionalContextV1.globalProfile === "severe",
+      title: "Profil fonctionnel sévère — Professionnels habilités",
+      lines: [
+        {
+          label: "En première intervention",
+          text: "Kinésithérapeutes ± ergothérapeutes et psychomotriciens (dans leurs champs de compétences)."
+        },
+        {
+          label: "En relais ou en complément",
+          text: "Enseignants en APA (si autonomie suffisante et atténuation des limitations, sur prescription médicale s’appuyant sur le bilan fonctionnel des professionnels de santé)."
+        },
+        {
+          label: "Éducateurs sportifs",
+          text: "Non concernés en cas de limitations fonctionnelles sévères."
+        }
+      ],
+      sources: [
+        {
+          title: "Article D1172-3 — Code de la santé publique",
+          url: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047381390"
+        },
+        {
+          title: "Annexe 4 — Domaines d’intervention préférentiels",
+          url: "https://paca.sport.sante.fr/wp-content/uploads/2018/10/Tableau-des-intervenants-par-limitation-fonctionnelle.pdf"
+        }
+      ]
+    };
+  }
+
   const patientSelectionById =
     buildClinicalCognitivePatientSelectionById(
       cognitiveUxViewModel
