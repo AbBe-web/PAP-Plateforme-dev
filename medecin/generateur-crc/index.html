@@ -5804,6 +5804,7 @@ Aucune
 <script src="../../core/clinical-context/functional-limitation-reference-registry.js"></script>
 <script src="../../core/clinical-context/functional-orientation-profile.js"></script>
 <script src="../../core/clinical-context/buildOrientationApaBenefitContextV1.js"></script>
+<script src="../../core/clinical-context/buildOrientationAutonomyDiscussionContextV1.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -9386,6 +9387,22 @@ const objectiveClinicalUsesV2 =
   if (cognitiveUxViewModel && orientationApaBenefitContextV1) {
     cognitiveUxViewModel.orientationApaBenefitContextV1 =
       orientationApaBenefitContextV1;
+  }
+
+  // T3.3: U explicite uniquement, sans inference ni affichage.
+  // Tant que la saisie U n'existe pas (T4), elle reste non renseignee.
+  const orientationAutonomyForDiscussionV1 =
+    prototypeModel?.orientation?.clinicianAssessment?.autonomy ?? null;
+  const orientationAutonomyDiscussionContextV1 =
+    typeof buildOrientationAutonomyDiscussionContextV1 === "function"
+      ? buildOrientationAutonomyDiscussionContextV1(
+          orientationAutonomyForDiscussionV1,
+          orientationApaBenefitContextV1
+        )
+      : null;
+  if (cognitiveUxViewModel && orientationAutonomyDiscussionContextV1) {
+    cognitiveUxViewModel.orientationAutonomyDiscussionContextV1 =
+      orientationAutonomyDiscussionContextV1;
   }
 
   // T3.2: clinician-only functional inputs; no orientation decision.
