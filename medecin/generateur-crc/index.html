@@ -9376,6 +9376,24 @@ const objectiveClinicalUsesV2 =
         )
       : null;
 
+  // T3.2: clinician-only functional inputs; no orientation decision.
+  const orientationFunctionalContextV1 =
+    typeof buildFunctionalOrientationProfile === "function"
+      ? {
+          globalProfile:
+            prototypeModel?.activityConsiderations?.functionalProfile ?? null,
+          limitations:
+            buildFunctionalOrientationProfile(
+              prototypeModel?.activityConsiderations
+            )
+        }
+      : null;
+
+  if (cognitiveUxViewModel && orientationFunctionalContextV1) {
+    cognitiveUxViewModel.orientationFunctionalContext =
+      orientationFunctionalContextV1;
+  }
+
 
   const patientSelectionById =
     buildClinicalCognitivePatientSelectionById(
