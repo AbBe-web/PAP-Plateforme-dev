@@ -12,7 +12,7 @@
   const MESSAGES = {
     insufficient: {
       applicable:
-        "Un programme APA accompagné présente un intérêt dans cette situation. Discuter sa faisabilité et l’accord du patient.",
+        "Un programme d'APA accompagné présente un intérêt dans cette situation. Discuter sa faisabilité et l’accord du patient.",
       noneIdentified:
         "Aucun repère APA spécifique identifié. L’autonomie étant insuffisante, discuter un accompagnement adapté, notamment le niveau 3 si une pratique encadrée est possible en sécurité. Proposer des conseils simples pour augmenter progressivement l’activité physique et réduire la sédentarité. Explorer les freins, renforcer progressivement l’autonomie et mobiliser les ressources disponibles.",
       pending:
@@ -20,15 +20,15 @@
     },
     partial: {
       applicable:
-        "Un programme APA présente un intérêt dans cette situation. Discuter les niveaux 2, 3 ou 4 selon les besoins d’accompagnement, la faisabilité et les préférences du patient.",
+        "Un programme d'APA présente un intérêt dans cette situation. Discuter les niveaux 2, 3 ou 4 selon les besoins d’accompagnement, la faisabilité et les préférences du patient.",
       noneIdentified:
         "Discuter le niveau 3 si un encadrement paraît utile ; le niveau 4 reste envisageable pour les activités que le patient peut gérer de façon autonome et sûre. Tenir compte de ses préférences et des possibilités d’accompagnement.",
       pending:
-        "Le bénéfice spécifique d’un programme APA reste à préciser selon les critères cliniques à vérifier. Discuter les cadres possibles selon les capacités, les besoins d’encadrement et les préférences, sans présumer du niveau 2."
+        "Le bénéfice spécifique d’un programme d'APA reste à préciser selon les critères cliniques à vérifier. Discuter les cadres possibles selon les capacités, les besoins d’encadrement et les préférences, sans présumer du niveau 2."
     },
     high: {
       applicable:
-        "Un programme APA présente un intérêt dans cette situation clinique. Toutefois, selon les critères HAS, le niveau 2 concerne notamment les patients ne pouvant augmenter leur activité physique de façon autonome, adaptée et sûre. Si le patient en est capable, discuter les niveaux 3 ou 4.",
+        "Intérêt d'un programme d'APA dans cette situation clinique. Toutefois, le niveau 2 concerne notamment les patients ne pouvant augmenter leur activité physique de façon autonome, adaptée et sûre (HAS). Si le patient en est capable, discuter les niveaux 3 ou 4.",
       noneIdentified:
         "Le niveau 4 peut être envisagé si le patient peut augmenter et maintenir son activité physique de façon autonome et sûre : adapter sa progression (durée, intensité), reconnaître les signes d’alerte et réagir de façon appropriée. Le niveau 3 peut être préférable si un encadrement est nécessaire ou fortement souhaité par le patient.",
       pending:

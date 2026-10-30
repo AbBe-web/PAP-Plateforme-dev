@@ -55,7 +55,7 @@ for (const u of ["insufficient", "partial", "high", "check"]) {
 const partial = build("partial", q2aApplicable);
 assert.match(partial.message, /niveaux 2, 3 ou 4/);
 const insufficient = build("insufficient", q2aApplicable);
-assert.match(insufficient.message, /programme APA accompagné/);
+assert.match(insufficient.message, /programme d'APA accompagné/);
 const noBenefit = build("insufficient", q2aNone);
 assert.match(noBenefit.message, /Aucun repère APA spécifique identifié/);
 assert.match(noBenefit.message, /niveau 3 si une pratique encadrée est possible en sécurité/);

@@ -6,11 +6,11 @@
   // Ne lit/reecrit pas le DOM, les reponses du patient ni les niveaux.
   // Les libelles ci-dessous ont ete approuves le 30/10/2026.
   const QUESTION_Q2C =
-    "Le patient paraît-il suffisamment motivé et en mesure de suivre régulièrement un programme APA jusqu'à son terme ?";
+    "Le patient paraît-il suffisamment motivé et en mesure de suivre régulièrement un programme d'APA jusqu'à son terme ?";
   const QUESTION_Q2D_INSUFFICIENT =
-    "Le patient accepte-t-il de suivre ce programme APA ?";
+    "Le patient accepte-t-il de suivre ce programme d'APA ?";
   const QUESTION_Q2D_PARTIAL =
-    "Si un programme APA est proposé au patient, le patient accepterait-il de le suivre ?";
+    "Si un programme d'APA est proposé au patient, le patient accepterait-il de le suivre ?";
 
   function buildOrientationApaQuestionsContextV1(discussionContext, q2cAnswer) {
     const source = discussionContext && typeof discussionContext === "object"

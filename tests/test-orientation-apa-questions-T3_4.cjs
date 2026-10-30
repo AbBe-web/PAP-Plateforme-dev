@@ -62,12 +62,12 @@ for (const u of ["insufficient", "partial", "high", "check"]) {
 // Formulations approuvees par le medecin : aucun texte additionnel.
 const insufficient = make("insufficient", qa, "yes");
 assert.equal(insufficient.q2c.text,
-  "Le patient paraît-il suffisamment motivé et en mesure de suivre régulièrement un programme APA jusqu'à son terme ?");
-assert.equal(insufficient.q2d.text, "Le patient accepte-t-il de suivre ce programme APA ?");
+  "Le patient paraît-il suffisamment motivé et en mesure de suivre régulièrement un programme d'APA jusqu'à son terme ?");
+assert.equal(insufficient.q2d.text, "Le patient accepte-t-il de suivre ce programme d'APA ?");
 const partial = make("partial", qa, "no");
 assert.equal(partial.q2d.visible, true, "U partielle : Q2d meme si Q2c non");
 assert.equal(partial.q2d.text,
-  "Si un programme APA est proposé au patient, le patient accepterait-il de le suivre ?");
+  "Si un programme d'APA est proposé au patient, le patient accepterait-il de le suivre ?");
 
 // Ne pas reutiliser une ancienne reponse Q2d quand Q2c cesse d'etre oui.
 assert.equal(make("insufficient", qa, "yes").q2d.answerApplicable, true);
