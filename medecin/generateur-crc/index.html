@@ -5803,6 +5803,7 @@ Aucune
 <script src="../../core/clinical-context/clinical-situation-registry.js"></script>
 <script src="../../core/clinical-context/functional-limitation-reference-registry.js"></script>
 <script src="../../core/clinical-context/functional-orientation-profile.js"></script>
+<script src="../../core/clinical-context/buildOrientationApaBenefitContextV1.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -9375,6 +9376,17 @@ const objectiveClinicalUsesV2 =
           cognitiveUxProjection
         )
       : null;
+
+  // T3.3: preserve Q2a documentary benefit cues and clinical uncertainty; data only.
+  const orientationApaBenefitContextV1 =
+    typeof buildOrientationApaBenefitContextV1 === "function"
+      ? buildOrientationApaBenefitContextV1(clinicalContextV2)
+      : null;
+
+  if (cognitiveUxViewModel && orientationApaBenefitContextV1) {
+    cognitiveUxViewModel.orientationApaBenefitContextV1 =
+      orientationApaBenefitContextV1;
+  }
 
   // T3.2: clinician-only functional inputs; no orientation decision.
   const orientationFunctionalContextV1 =
