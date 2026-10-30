@@ -11,10 +11,15 @@ assert.ok(fs.existsSync(htmlFile), "index.html not found");
 assert.ok(fs.existsSync(q2aFile), "T3.3 Q2a helper not found");
 const html = fs.readFileSync(htmlFile, "utf8");
 const startMarker = "  // T3.3: preserve Q2a documentary benefit cues and clinical uncertainty; data only.";
-const endMarker = "  // T3.2: clinician-only functional inputs; no orientation decision.";
+const endMarker = "  // T3.3: U explicite uniquement, sans inference ni affichage.";
 const scriptTag = '<script src="../../core/clinical-context/buildOrientationApaBenefitContextV1.js"></script>';
 assert.equal(html.split(startMarker).length, 2, "Unique integration start expected");
-assert.equal(html.split(endMarker).length, 2, "Unique T3.2 boundary expected");
+assert.equal(html.split(endMarker).length, 2, "Unique next T3.3 autonomy block expected");
+const functionalBoundary = "  // T3.2: clinician-only functional inputs; no orientation decision.";
+assert.equal(html.split(functionalBoundary).length, 2, "Unique functional boundary expected");
+assert.ok(html.indexOf(startMarker) < html.indexOf(endMarker) &&
+  html.indexOf(endMarker) < html.indexOf(functionalBoundary),
+  "Q2a integration precedes U and functional context");
 assert.equal(html.split(scriptTag).length, 2, "Q2a script must load exactly once");
 assert.ok(html.indexOf(scriptTag) < html.indexOf("const cognitiveUxViewModel"),
   "Q2a module must load before ViewModel usage");

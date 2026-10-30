@@ -19,8 +19,12 @@ assert.equal(count(html, marker), 1, "Bloc T3.6b.1 unique");
 assert.ok(html.indexOf('<script src="../../core/clinical-context/buildOrientationFeasibilityContextV1.js"></script>') < html.indexOf(script));
 assert.ok(html.indexOf(script) < html.indexOf('<script src="../../core/clinical-context/evidence-source-registry.js"></script>'));
 const blockStart = html.indexOf(marker);
-const blockEnd = html.indexOf("  const patientSelectionById =", blockStart);
-assert.ok(blockEnd > blockStart && blockEnd - blockStart < 1500, "Place juste avant selection patient");
+const nextMarker = "  // T3.6b.2a: structurer les sources deja assemblees, donnees uniquement.";
+const blockEnd = html.indexOf(nextMarker, blockStart);
+const selectionPos = html.indexOf("  const patientSelectionById =", blockEnd);
+assert.ok(blockEnd > blockStart && blockEnd - blockStart < 1500,
+  "Bloc T3.6b.1 precede immediatement la structure T3.6b.2a");
+assert.ok(selectionPos > blockEnd, "Les raccordements precedent la selection patient");
 for (const item of [regulatoryHook, q2aHook, feasibilityHook]) {
   assert.ok(html.indexOf(item) >= 0 && html.indexOf(item) < blockStart, item + " disponible en amont");
 }
