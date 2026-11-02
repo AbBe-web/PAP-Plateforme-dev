@@ -4359,6 +4359,20 @@ Aucune
 
     </div>
 
+    <!-- T4.2 : appréciation clinique U saisie uniquement par le médecin. -->
+    <div id="orientation_autonomy_u_block" style="margin-bottom:14px; padding:10px 12px; border:1px solid #e5e7eb; border-radius:8px;">
+      <div style="margin-bottom:6px;">
+        <strong>Capacité du patient à augmenter et maintenir son AP de façon adaptée et sûre :</strong>
+        <span class="info-trigger" role="button" tabindex="0" aria-label="Explication de l’autonomie pour l’activité physique" data-info="Capacité du patient à augmenter et maintenir son activité physique de façon adaptée et sûre, compte tenu de ses risques et capacités. Cela suppose notamment de savoir reconnaître les signes d’alerte, adapter ou arrêter l’activité si nécessaire et ajuster sa progression (ralentir ou accélérer selon la situation)."></span>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; column-gap:16px; row-gap:4px; align-items:center;">
+        <label style="margin:0;"><input type="radio" name="orientation_autonomy_u" value="insufficient"> Insuffisante</label>
+        <label style="margin:0;"><input type="radio" name="orientation_autonomy_u" value="partial"> Partielle</label>
+        <label style="margin:0;"><input type="radio" name="orientation_autonomy_u" value="high"> Élevée</label>
+        <label style="margin:0;"><input type="radio" name="orientation_autonomy_u" value="check"> À vérifier</label>
+      </div>
+    </div>
+
     <!-- ================= NIVEAU 1 ================= -->
 
     <div
@@ -4490,46 +4504,6 @@ Aucune
       <div style="margin-bottom:12px;">
 
         <div style="margin-bottom:6px;">
-          Le patient ne peut-il actuellement pas augmenter seul son activité physique
-          de façon adaptée et sûre ?
-        </div>
-
-        <div style="display:flex; gap:16px; flex-wrap:wrap;">
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_apa_cannot_increase_autonomously"
-              value="yes"
-            >
-            Oui
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_apa_cannot_increase_autonomously"
-              value="no"
-            >
-            Non
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_apa_cannot_increase_autonomously"
-              value="check"
-            >
-            À vérifier
-          </label>
-
-        </div>
-
-      </div>
-
-      <div style="margin-bottom:12px;">
-
-        <div style="margin-bottom:6px;">
           Un changement vers un comportement plus actif est-il envisageable à terme ?
         </div>
 
@@ -4631,128 +4605,6 @@ Aucune
       <div style="margin-bottom:12px;">
 
         <div style="margin-bottom:6px;">
-          Une activité physique ordinaire choisie avec le patient
-          est-elle compatible avec ses capacités,
-          ses limitations et les adaptations nécessaires ?
-        </div>
-
-        <div style="display:flex; gap:16px; flex-wrap:wrap;">
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_compatible"
-              value="yes"
-            >
-            Oui
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_compatible"
-              value="no"
-            >
-            Non
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_compatible"
-              value="check"
-            >
-            À vérifier
-          </label>
-
-        </div>
-
-      </div>
-
-      <div style="margin-bottom:12px;">
-
-        <div style="margin-bottom:6px;">
-          Le patient est-il réceptif, motivé et capable
-          de suivre les recommandations d’activité physique,
-          seul ou avec l’aide d’un appui social ?
-        </div>
-
-        <div style="display:flex; gap:16px; flex-wrap:wrap;">
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_follow_recommendations"
-              value="yes"
-            >
-            Oui
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_follow_recommendations"
-              value="no"
-            >
-            Non
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_follow_recommendations"
-              value="check"
-            >
-            À vérifier
-          </label>
-
-        </div>
-
-      </div>
-
-      <div style="margin-bottom:12px;">
-
-        <div style="margin-bottom:6px;">
-          Peut-il augmenter et maintenir son niveau d’activité physique
-          par ses propres moyens, efficacement et sans risque ?
-        </div>
-
-        <div style="display:flex; gap:16px; flex-wrap:wrap;">
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_maintain_safely"
-              value="yes"
-            >
-            Oui
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_maintain_safely"
-              value="no"
-            >
-            Non
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="orientation_ordinary_ap_maintain_safely"
-              value="check"
-            >
-            À vérifier
-          </label>
-
-        </div>
-
-      </div>
-
-      <div style="margin-bottom:12px;">
-
-        <div style="margin-bottom:6px;">
           Préférence du patient :
         </div>
 
@@ -4798,21 +4650,7 @@ Aucune
 
       </div>
 
-      <details style="margin-top:10px;">
 
-        <summary style="cursor:pointer;">
-          Éléments à considérer pour l’autonomie
-        </summary>
-
-        <ul style="margin:8px 0 0 20px;">
-          <li>compréhension et application des consignes ;</li>
-          <li>adaptation aux capacités et limitations ;</li>
-          <li>identification des situations nécessitant adaptation ou arrêt ;</li>
-          <li>organisation / autogestion ;</li>
-          <li>capacité à maintenir la pratique dans le temps.</li>
-        </ul>
-
-      </details>
 
     </div>
 
@@ -7932,6 +7770,12 @@ function buildPrototypeClinicalModelV2() {
       functionalProfile:
         activityConsiderations
           ?.functionalProfile || null
+    },
+    // T4.2 : saisie U explicite, indépendante des limitations fonctionnelles.
+    orientation: {
+      clinicianAssessment: {
+        autonomy: document.querySelector('input[name="orientation_autonomy_u"]:checked')?.value || null
+      }
     }
   };
 }
@@ -11035,6 +10879,16 @@ const orientationApaToggleButton =
 
 const orientationApaStatusSummary =
   document.getElementById("orientationApaStatusSummary");
+
+// T4.2 : actualiser le contexte T3 dès que le médecin renseigne U.
+// Le rendu n'ouvre pas l'aide et ne choisit aucun niveau.
+document.querySelectorAll('input[name="orientation_autonomy_u"]').forEach(input => {
+  input.addEventListener("change", function() {
+    if (typeof renderClinicalCognitiveAidV2 === "function") {
+      renderClinicalCognitiveAidV2();
+    }
+  });
+});
 
   // T4.1e : choix du niveau = destinataire associe dans les sorties.
   document.querySelectorAll(
@@ -22021,6 +21875,10 @@ activityConsiderations:
 orientation: {
 
   clinicianAssessment: {
+
+    // T4.2 : même appréciation U que pour le moteur cognitif V2.
+    autonomy:
+      document.querySelector('input[name="orientation_autonomy_u"]:checked')?.value || null,
 
     rehabilitationToConsider:
       document.querySelector('input[name="orientation_rehabilitation_to_consider"]:checked')?.value || null,
