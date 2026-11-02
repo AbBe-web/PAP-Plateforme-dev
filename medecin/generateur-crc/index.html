@@ -4309,7 +4309,10 @@ Aucune
 
   </div>
 
-  <!-- État technique temporaire utilisé pour le repli -->
+    <!-- T4.1e : relais documentaires invisibles, derives du choix explicite des niveaux. -->
+  <input type="checkbox" name="orientation_ap" value="apa" style="display:none;" tabindex="-1" aria-hidden="true">
+  <input type="checkbox" name="orientation_ap" value="educateur" style="display:none;" tabindex="-1" aria-hidden="true">
+<!-- État technique temporaire utilisé pour le repli -->
   <input
     type="checkbox"
     id="orientation_ap_toggle"
@@ -11033,6 +11036,13 @@ const orientationApaToggleButton =
 const orientationApaStatusSummary =
   document.getElementById("orientationApaStatusSummary");
 
+  // T4.1e : choix du niveau = destinataire associe dans les sorties.
+  document.querySelectorAll(
+    'input[name="orientation_framework"][value="apa"], input[name="orientation_framework"][value="supervisedOrdinaryAP"]'
+  ).forEach(input => input.addEventListener("change", syncOrientationProfessionalLinksT41e));
+  syncOrientationProfessionalLinksT41e();
+
+
 // T4.1c : choix explicite d'un professionnel de reeducation => niveau 1.
 const papT41cRehabFramework = document.querySelector(
   'input[name="orientation_framework"][value="rehabilitation"]'
@@ -15311,6 +15321,7 @@ renderedOutput.text =
 }
 
 function buildAPADestinationText() {
+  syncOrientationProfessionalLinksT41e();
 
   const orientationLabels = {
     kine: "masseur-kinésithérapeute",
@@ -15579,6 +15590,7 @@ const apaTextTitle =
 }
 
 function renderActiveMode(options = {}) {
+  syncOrientationProfessionalLinksT41e();
 
   const {
     clinicalModel: explicitClinicalModel,
@@ -19443,6 +19455,8 @@ function resetOrientationPanelAfterReset() {
  if (typeof updateOrientationSummary === "function") {
   updateOrientationSummary();
 }
+  // T4.1e : annuler les relais quand les niveaux sont reinitialises.
+  syncOrientationProfessionalLinksT41e();
 }
 
 function getTM6ReferenceModel() {
@@ -21592,6 +21606,8 @@ precautionsSelectionnees.forEach(precaution => {
 
 });
 
+syncOrientationProfessionalLinksT41e();
+
 const orientationToggle =
   document.getElementById(
     "orientation_ap_toggle"
@@ -22796,7 +22812,25 @@ function buildAPALimitationsBlock() {
 `;
 }
 
+
+// T4.1e : synchroniser niveaux 2/3 et destinataires documentaires.
+function syncOrientationProfessionalLinksT41e() {
+  const links = [
+    ["apa", "apa"],
+    ["supervisedOrdinaryAP", "educateur"]
+  ];
+  links.forEach(([levelValue, proValue]) => {
+    const level = document.querySelector(`input[name="orientation_framework"][value="${levelValue}"]`);
+    const pro = document.querySelector(`input[name="orientation_ap"][value="${proValue}"]`);
+    if (!level || !pro) return;
+    if (pro.checked !== level.checked) {
+      pro.checked = level.checked;
+      pro.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+}
 function buildAPADestinationBlock() {
+  syncOrientationProfessionalLinksT41e();
 
   const orientationLabels = {
     kine: "masseur-kinésithérapeute",
