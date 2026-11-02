@@ -17,7 +17,7 @@ assert.equal(count(uHook), 1, "Contexte U x Q2a intact");
 assert.equal(count(qHook), 1, "Contexte Q2c/Q2d raccorde une seule fois");
 assert.ok(html.indexOf(uHook) < html.indexOf(qHook));
 assert.ok(html.indexOf(qHook) < html.indexOf("// T3.2: clinician-only functional inputs; no orientation decision."));
-assert.match(html, /const\s+orientationQ2cAnswerV1\s*=\s*null\s*;/);
+assert.match(html, /orientationPhysicianApaBenefitV1 === null \|\| orientationPhysicianApaBenefitV1 === "yes"/, "Q2c exploratoire sans Q2a ; Non et À vérifier exclues");
 assert.match(html, /buildOrientationApaQuestionsContextV1\(\s*orientationAutonomyDiscussionContextV1,\s*orientationQ2cAnswerV1\s*\)/);
 const context = vm.createContext({window: {}});
 for (const relative of [

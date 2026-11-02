@@ -4443,7 +4443,7 @@ Aucune
     >
 
       <div style="font-weight:700; margin-bottom:4px;">
-        2. Programme APA
+        2. Programme d’APA
       </div>
 
       <div
@@ -4464,7 +4464,7 @@ Aucune
 
       <div style="margin-bottom:12px;">
 
-        <div style="margin-bottom:6px;">
+        <div style="margin-bottom:2px;">
           Un programme d’APA a-t-il un bénéfice démontré dans cette situation ?
         </div>
 
@@ -4501,10 +4501,10 @@ Aucune
 
       </div>
 
-      <div style="margin-bottom:12px;">
+      <div id="orientation_q2c_block" hidden style="margin-bottom:12px;">
 
-        <div style="margin-bottom:6px;">
-          Un changement vers un comportement plus actif est-il envisageable à terme ?
+        <div id="orientation_q2c_text" style="margin-bottom:2px;">
+          Le patient paraît-il suffisamment motivé et en mesure de suivre régulièrement un programme APA jusqu’à son terme ?
         </div>
 
         <div style="display:flex; gap:16px; flex-wrap:wrap;">
@@ -4512,7 +4512,7 @@ Aucune
           <label>
             <input
               type="radio"
-              name="orientation_apa_more_active_feasible"
+              name="orientation_apa_program_followup"
               value="yes"
             >
             Oui
@@ -4521,7 +4521,7 @@ Aucune
           <label>
             <input
               type="radio"
-              name="orientation_apa_more_active_feasible"
+              name="orientation_apa_program_followup"
               value="no"
             >
             Non
@@ -4530,7 +4530,7 @@ Aucune
           <label>
             <input
               type="radio"
-              name="orientation_apa_more_active_feasible"
+              name="orientation_apa_program_followup"
               value="check"
             >
             À vérifier
@@ -4540,10 +4540,10 @@ Aucune
 
       </div>
 
-      <div>
+      <div id="orientation_q2d_block" hidden>
 
-        <div style="margin-bottom:6px;">
-          Le patient accepte-t-il de suivre un programme d’APA ?
+        <div id="orientation_q2d_text" style="margin-bottom:2px;">
+          Le patient accepte-t-il de suivre ce programme APA ?
         </div>
 
         <div style="display:flex; gap:16px; flex-wrap:wrap;">
@@ -4551,7 +4551,7 @@ Aucune
           <label>
             <input
               type="radio"
-              name="orientation_apa_acceptance"
+              name="orientation_apa_program_acceptance"
               value="yes"
             >
             Oui
@@ -4560,7 +4560,7 @@ Aucune
           <label>
             <input
               type="radio"
-              name="orientation_apa_acceptance"
+              name="orientation_apa_program_acceptance"
               value="no"
             >
             Non
@@ -4569,7 +4569,7 @@ Aucune
           <label>
             <input
               type="radio"
-              name="orientation_apa_acceptance"
+              name="orientation_apa_program_acceptance"
               value="discuss"
             >
             À discuter
@@ -8824,6 +8824,66 @@ function initObjectiveEngagementContextV2() {
 }
 
 
+// T4.3 : simple projection du contrat de visibilité T3.4, sans décision de niveau.
+// T4.3b : le médecin peut explorer Q2c/Q2d sans pathologie renseignée.
+// Le moteur T3.4 reste inchangé : son état documentaire ne doit pas être
+// confondu avec le contrat d'affichage d'un questionnaire clinique facultatif.
+function buildOrientationApaClinicalEntryContextT43b(documentaryQuestions, discussionContext, q2cAnswer, clinicianQ2a) {
+  if (!documentaryQuestions) return null;
+  const autonomy = discussionContext?.status === "ready" ? discussionContext.autonomy : null;
+  const validAutonomy = autonomy === "insufficient" || autonomy === "partial";
+  const allowedByPhysician = clinicianQ2a === null || clinicianQ2a === "yes";
+  // T4.3d : avec U insuffisante, l'exploration est séquentielle dès Q2a :
+  // Q2c attend Q2a=Oui, puis Q2d attend Q2c=Oui.
+  // Avec U partielle, Q2a peut rester non renseignée pour une saisie rapide.
+  const canExplore = validAutonomy && allowedByPhysician &&
+    (autonomy === "partial" || clinicianQ2a === "yes");
+  // Projection d'affichage uniquement : ne modifie jamais le bénéfice documentaire.
+  const presentationContext = canExplore && typeof buildOrientationApaQuestionsContextV1 === "function"
+    ? buildOrientationApaQuestionsContextV1(
+        { ...discussionContext, apaEvidenceState: "applicable" },
+        q2cAnswer
+      )
+    : null;
+  const questions = presentationContext || documentaryQuestions;
+  return {
+    ...questions,
+    mode: canExplore ? questions.mode : "none",
+    q2c: canExplore
+      ? questions.q2c
+      : { ...questions.q2c, visible: false, text: null },
+    q2d: canExplore
+      ? questions.q2d
+      : { ...questions.q2d, visible: false, text: null, answerApplicable: false },
+    // Trace explicite : une réponse Q2a absente n'est pas une indication d'APA.
+    physicianApaBenefitAssessment: clinicianQ2a,
+    pendingPhysicianQ2a: clinicianQ2a === null,
+    documentaryApaEvidenceState: discussionContext?.apaEvidenceState ?? null
+  };
+}
+
+function updateOrientationApaQuestionsUiT43(questions) {
+  const items = [
+    { key: "q2c", block: "orientation_q2c_block", text: "orientation_q2c_text", name: "orientation_apa_program_followup" },
+    { key: "q2d", block: "orientation_q2d_block", text: "orientation_q2d_text", name: "orientation_apa_program_acceptance" }
+  ];
+  items.forEach(item => {
+    const element = document.getElementById(item.block);
+    const title = document.getElementById(item.text);
+    const specification = questions?.[item.key];
+    const visible = specification?.visible === true;
+    if (!element || !title) return;
+    element.hidden = !visible;
+    element.style.display = visible ? "" : "none";
+    if (visible && specification.text) title.textContent = specification.text;
+    if (!visible) {
+      document.querySelectorAll('input[name="' + item.name + '"]').forEach(input => {
+        input.checked = false;
+      });
+    }
+  });
+}
+
 function renderClinicalCognitiveAidV2() {
 
   const safetyContainer =
@@ -9212,20 +9272,35 @@ const objectiveClinicalUsesV2 =
       orientationAutonomyDiscussionContextV1;
   }
 
-  // T3.4: contrat de visibilite Q2c/Q2d, donnees uniquement.
-  // Q2c n'est pas encore saisie (T4) : ne pas l'inferer des anciennes questions.
-  const orientationQ2cAnswerV1 = null;
-  const orientationApaQuestionsContextV1 =
+  // T4.3b : Q2a non renseignée permet d'explorer la faisabilité, sans
+  // valider le bénéfice APA. Non / À vérifier interdisent cette projection.
+  const orientationPhysicianApaBenefitV1 =
+    document.querySelector('input[name="orientation_apa_benefit_assessment"]:checked')?.value || null;
+  const orientationQ2cAnswerV1 =
+    orientationPhysicianApaBenefitV1 === null || orientationPhysicianApaBenefitV1 === "yes"
+      ? (document.querySelector('input[name="orientation_apa_program_followup"]:checked')?.value || null)
+      : null;
+  const orientationApaQuestionsDocumentaryContextV1 =
     typeof buildOrientationApaQuestionsContextV1 === "function"
       ? buildOrientationApaQuestionsContextV1(
           orientationAutonomyDiscussionContextV1,
           orientationQ2cAnswerV1
         )
       : null;
+  const orientationApaQuestionsContextV1 =
+    buildOrientationApaClinicalEntryContextT43b(
+      orientationApaQuestionsDocumentaryContextV1,
+      orientationAutonomyDiscussionContextV1,
+      orientationQ2cAnswerV1,
+      orientationPhysicianApaBenefitV1
+    );
   if (cognitiveUxViewModel && orientationApaQuestionsContextV1) {
     cognitiveUxViewModel.orientationApaQuestionsContextV1 =
       orientationApaQuestionsContextV1;
+    cognitiveUxViewModel.orientationApaQuestionsDocumentaryContextV1 =
+      orientationApaQuestionsDocumentaryContextV1;
   }
+  updateOrientationApaQuestionsUiT43(orientationApaQuestionsContextV1);
 
   // T3.5: facteurs de faisabilite deja renseignes, donnees uniquement.
   // Absence de donnees et 'not_explored' restent distincts.
@@ -10879,6 +10954,24 @@ const orientationApaToggleButton =
 
 const orientationApaStatusSummary =
   document.getElementById("orientationApaStatusSummary");
+
+// T4.3a : réévaluer Q2c/Q2d lors du changement de Q2a.
+document.querySelectorAll('input[name="orientation_apa_benefit_assessment"]').forEach(input => {
+  input.addEventListener("change", function() {
+    if (typeof renderClinicalCognitiveAidV2 === "function") {
+      renderClinicalCognitiveAidV2();
+    }
+  });
+});
+
+// T4.3 : mettre à jour Q2d quand Q2c est modifiée.
+document.querySelectorAll('input[name="orientation_apa_program_followup"]').forEach(input => {
+  input.addEventListener("change", function() {
+    if (typeof renderClinicalCognitiveAidV2 === "function") {
+      renderClinicalCognitiveAidV2();
+    }
+  });
+});
 
 // T4.2 : actualiser le contexte T3 dès que le médecin renseigne U.
 // Le rendu n'ouvre pas l'aide et ne choisit aucun niveau.
@@ -21888,8 +21981,12 @@ orientation: {
         document.querySelector('input[name="orientation_apa_benefit_assessment"]:checked')?.value || null,
       cannotIncreaseAutonomouslyAdaptedSafely:
         document.querySelector('input[name="orientation_apa_cannot_increase_autonomously"]:checked')?.value || null,
-      changeTowardMoreActiveFeasible:
-        document.querySelector('input[name="orientation_apa_more_active_feasible"]:checked')?.value || null
+      // Ancienne question supprimée : elle n'équivalait pas à Q2c.
+      changeTowardMoreActiveFeasible: null,
+      regularProgramFollowup:
+        document.getElementById("orientation_q2c_block")?.hidden === false
+          ? (document.querySelector('input[name="orientation_apa_program_followup"]:checked')?.value || null)
+          : null
     },
 
     ordinaryAP: {
@@ -21904,7 +22001,9 @@ orientation: {
 
   patientInput: {
     apaAcceptance:
-      document.querySelector('input[name="orientation_apa_acceptance"]:checked')?.value || null,
+      document.getElementById("orientation_q2d_block")?.hidden === false
+        ? (document.querySelector('input[name="orientation_apa_program_acceptance"]:checked')?.value || null)
+        : null,
     ordinaryAPSupportPreference:
       document.querySelector('input[name="orientation_support_preference"]:checked')?.value || null
   },
