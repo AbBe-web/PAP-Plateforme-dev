@@ -3530,9 +3530,10 @@ body.pap-quick-mode
 
 .pap-orientation-heading {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.5rem;
 }
+.pap-orientation-heading h2 { margin: 0; }
 
 .pap-hidden-state-input {
   display: none;

@@ -4220,6 +4220,7 @@ Aucune
     id="orientationApaToggleButton"
     class="pap-quick-optional-toggle pap-quick-inline-toggle pap-always-visible-toggle"
     aria-expanded="false"
+    style="align-self:center; vertical-align:middle;"
   >
     ▸ Aide au choix / critères détaillés
   </button>
@@ -4265,29 +4266,23 @@ Aucune
           <label><input type="checkbox" name="orientation_ap" value="psychomot"> Psychomotricien.ne</label>
         </div>
 
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
-        <label>
+      <label>
         <input
           type="checkbox"
           name="orientation_framework"
           value="apa"
         >
-        Niveau 2 — Programme d’APA
+        Niveau 2 — Programme d’APA (enseignant APA)
       </label>
-        <label><input type="checkbox" name="orientation_ap" value="apa"> Enseignant APA</label>
-      </div>
 
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
-        <label>
+      <label>
         <input
           type="checkbox"
           name="orientation_framework"
           value="supervisedOrdinaryAP"
         >
-        Niveau 3 — AP ordinaire supervisée / sport-santé
+        Niveau 3 — AP ordinaire supervisée / sport-santé (éducateur sportif)
       </label>
-        <label><input type="checkbox" name="orientation_ap" value="educateur"> Éducateur sportif</label>
-      </div>
 
       <label>
         <input
@@ -11037,6 +11032,22 @@ const orientationApaToggleButton =
 
 const orientationApaStatusSummary =
   document.getElementById("orientationApaStatusSummary");
+
+// T4.1c : choix explicite d'un professionnel de reeducation => niveau 1.
+const papT41cRehabFramework = document.querySelector(
+  'input[name="orientation_framework"][value="rehabilitation"]'
+);
+document.querySelectorAll(
+  'input[name="orientation_ap"][value="kine"], input[name="orientation_ap"][value="ergo"], input[name="orientation_ap"][value="psychomot"]'
+).forEach(input => {
+  input.addEventListener("change", function() {
+    if (input.checked && papT41cRehabFramework && !papT41cRehabFramework.checked) {
+      papT41cRehabFramework.checked = true;
+      papT41cRehabFramework.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  });
+});
+
 
 if (orientationToggle && orientationSubgroup) {
 
