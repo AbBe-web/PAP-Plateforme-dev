@@ -4321,12 +4321,35 @@ Aucune
     aria-hidden="true"
   >
 
+  <!-- T4 complément 1 : chevron visuel du panneau existant. -->
+  <style>
+    #orientationSevereRegulatoryT4Comp1 details > summary::-webkit-details-marker { display:none; }
+    #orientationSevereRegulatoryT4Comp1 .pap-t4comp1-disclosure-chevron { display:inline-block; font-size:1.28rem; line-height:1; width:0.95em; margin-right:5px; vertical-align:-2px; transition:transform 0.12s ease; }
+    #orientationSevereRegulatoryT4Comp1 details[open] > summary .pap-t4comp1-disclosure-chevron { transform:rotate(90deg); }
+  </style>
+  <!-- T4 complément 1 : rappel réglementaire, accessible même aide fermée. -->
+  <div id="orientationSevereRegulatoryT4Comp1" hidden style="display:none;margin:10px 0;padding:9px 11px;border-left:3px solid #94a3b8;background:#f8fafc;border-radius:6px;font-size:0.88rem;line-height:1.4;">
+    <strong>Repère réglementaire — Profil fonctionnel sévère</strong>
+    <div style="margin-top:4px;">Dispensation initiale par les professionnels de santé habilités : masseur-kinésithérapeute, ergothérapeute ou psychomotricien, chacun dans son champ de compétence.</div>
+    <details style="margin-top:5px;">
+      <summary style="cursor:pointer;list-style:none;"><span class="pap-t4comp1-disclosure-chevron" aria-hidden="true">▸</span> Conditions du relais et référence réglementaire</summary>
+      <div style="margin-top:5px;">Intervention complémentaire d'un enseignant APA envisageable après autonomie suffisante et atténuation des limitations, sur prescription médicale s'appuyant sur le bilan fonctionnel établi par les professionnels de santé. L'autonomie nécessaire à cette intervention doit être appréciée cliniquement, au-delà de la seule réponse à la question sur l'autonomie du patient. <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047381390" target="_blank" rel="noopener noreferrer" style="font-size:0.9em;">Article D1172-3 — Légifrance</a></div>
+    </details>
+  </div>
+
   <!-- ================= AIDE AU CHOIX ================= -->
 
   <div
     id="orientation_ap_subgroup"
     style="display:none; margin-top:12px;"
   >
+
+      <!-- T4 complément 1 : aide T3.2, uniquement si profil absent et >=2 limitations modérées/sévères. -->
+      <div id="orientationQualificationT4Comp1" hidden style="display:none;margin:8px 0;padding:8px 10px;border:1px solid #dbeafe;background:#f8fbff;border-radius:6px;font-size:0.88rem;line-height:1.4;">
+        <strong>Aide à la qualification fonctionnelle</strong>
+        <div id="orientationQualificationT4Comp1Text" style="margin-top:4px;"></div>
+      </div>
+
 
     <!-- Repères ClinicalKnowledge existants -->
 
@@ -4465,6 +4488,13 @@ Aucune
       <div id="orientationHighAutonomyMemoT44d" hidden style="display:none;margin:6px 0 12px;padding:8px 10px;border:1px solid #dbeafe;border-radius:7px;background:#f8fafc;font-size:0.88rem;line-height:1.4;color:#334155;">
         <strong>Repère HAS — autonomie élevée :</strong>
         Lorsque le patient peut augmenter et maintenir son AP de façon adaptée et sûre, discuter les niveaux 3 (activité encadrée) et 4 (pratique en autonomie), en tenant compte des besoins d'accompagnement et des préférences du patient.
+      </div>
+
+      <!-- T4 complément 1 : precisions reglementaires contextuelles si niveau 2 retenu et profil global severe. -->
+      <div id="orientationSevereApaT4Comp1" hidden style="display:none;margin:6px 0 10px;padding:8px 10px;border:1px solid #dbeafe;border-radius:6px;background:#f8fbff;font-size:0.88rem;line-height:1.4;">
+        <strong>Repère réglementaire — Profil fonctionnel sévère</strong>
+        <div style="margin-top:4px;">En cas de prescription d'APA, dispensation initiale réservée aux professionnels de santé habilités. Intervention complémentaire d'un enseignant APA envisageable après amélioration de l'autonomie et atténuation des limitations, sur la base du bilan fonctionnel prévu par l'article D1172-3.</div>
+        <a href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000047381390" target="_blank" rel="noopener noreferrer">Article D1172-3 — Légifrance</a>
       </div>
 
       <div
@@ -5637,6 +5667,7 @@ Aucune
 <script src="../../core/clinical-context/buildOrientationSynthesisBundleV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationSynthesisStructureV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationSynthesisDraftV1.js"></script>
+<script src="../../core/clinical-context/renderOrientationFunctionalRepersT4Comp1.js"></script>
 <script src="../../core/clinical-context/renderOrientationSynthesisPreviewT44.js"></script>
 <script src="../../core/clinical-context/renderOrientationLocalAidT44a.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
@@ -7802,7 +7833,9 @@ function buildPrototypeClinicalModelV2() {
     activityConsiderations: {
       functionalProfile:
         activityConsiderations
-          ?.functionalProfile || null
+          ?.functionalProfile || null,
+      functionalLimitations:
+        activityConsiderations?.functionalLimitations ?? null
     },
     // T4.2 : saisie U explicite, indépendante des limitations fonctionnelles.
     orientation: {
@@ -8917,6 +8950,32 @@ function updateOrientationApaQuestionsUiT43(questions) {
   });
 }
 
+// T4 complement 1 : ne retire du rendu que le repere Severe strictement redondant.
+// Les autres repères ClinicalKnowledge sont conserves, et le corpus n'est pas modifie.
+function removeRedundantSevereOrientationCueT4Comp1(container, severeRegulatoryApplicable) {
+  if (!severeRegulatoryApplicable || !container) return 0;
+  const exactText = /^Limitation fonctionnelle sévère\s*:\s*dispensation initiale par un professionnel de santé habilité\.?$/i;
+  let removed = 0;
+  for (const item of Array.from(container.querySelectorAll('.pap-cognitive-ux-item'))) {
+    const text = (item.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!exactText.test(text)) continue;
+    const section = item.closest('.pap-cognitive-ux-section');
+    item.remove();
+    removed++;
+    if (section) {
+      const remaining = section.querySelectorAll('.pap-cognitive-ux-item').length;
+      const count = section.querySelector('.pap-cognitive-ux-section-count');
+      if (remaining > 0 && count) count.textContent = String(remaining);
+      if (remaining === 0) {
+        const content = section.querySelector('.pap-cognitive-ux-section-content');
+        if (content && !(content.textContent || '').trim()) section.remove();
+      }
+    }
+  }
+  if (removed && !(container.textContent || '').trim()) container.style.display = 'none';
+  return removed;
+}
+
 function renderClinicalCognitiveAidV2() {
 
   const safetyContainer =
@@ -9476,6 +9535,11 @@ const objectiveClinicalUsesV2 =
     );
   }
 
+  // T4 complément 1 : restitution seule, fondée sur les repères déjà calculés T3.2.
+  if (typeof renderOrientationFunctionalRepersT4Comp1 === "function") {
+    renderOrientationFunctionalRepersT4Comp1(cognitiveUxViewModel);
+  }
+
   const patientSelectionById =
     buildClinicalCognitivePatientSelectionById(
       cognitiveUxViewModel
@@ -9744,6 +9808,14 @@ const objectiveClinicalUsesV2 =
         orientationContainer,
         sectionHtmlById.orientation
       );
+    // T4 complement 1 : le rappel complet hors aide rend l'ancien message court redondant.
+    if (orientationRenderedLocally) {
+      removeRedundantSevereOrientationCueT4Comp1(
+        orientationContainer,
+        cognitiveUxViewModel?.orientationSevereFunctionalRegulatoryCueV1?.applicable === true
+      );
+    }
+
 
     const fallbackPrescriptionHtml = [
       generalRenderedLocally
