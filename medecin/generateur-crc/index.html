@@ -4247,7 +4247,7 @@ Aucune
     <div
       style="
         display:grid;
-        gap:7px;
+        gap:2px; line-height:1.2;
       "
     >
 
@@ -4259,17 +4259,26 @@ Aucune
         >
         Niveau 1 — Rééducation / réadaptation
       </label>
+        <div style="display:flex; flex-wrap:wrap; gap:12px; padding-left:24px; font-size:0.9rem; margin-top:-5px;">
+          <label><input type="checkbox" name="orientation_ap" value="kine"> Kinésithérapeute</label>
+          <label><input type="checkbox" name="orientation_ap" value="ergo"> Ergothérapeute</label>
+          <label><input type="checkbox" name="orientation_ap" value="psychomot"> Psychomotricien.ne</label>
+        </div>
 
-      <label>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
+        <label>
         <input
           type="checkbox"
           name="orientation_framework"
           value="apa"
         >
-        Niveau 2 — Programme APA
+        Niveau 2 — Programme d’APA
       </label>
+        <label><input type="checkbox" name="orientation_ap" value="apa"> Enseignant APA</label>
+      </div>
 
-      <label>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
+        <label>
         <input
           type="checkbox"
           name="orientation_framework"
@@ -4277,6 +4286,8 @@ Aucune
         >
         Niveau 3 — AP ordinaire supervisée / sport-santé
       </label>
+        <label><input type="checkbox" name="orientation_ap" value="educateur"> Éducateur sportif</label>
+      </div>
 
       <label>
         <input
@@ -4861,58 +4872,7 @@ Aucune
 
       <div style="margin-top:10px;">
 
-        <div style="margin-bottom:8px;">
-          Professionnel envisagé, si déjà connu :
-        </div>
 
-        <div style="display:grid; gap:6px;">
-
-          <label>
-            <input
-              type="checkbox"
-              name="orientation_ap"
-              value="kine"
-            >
-            Masseur-kinésithérapeute
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="orientation_ap"
-              value="ergo"
-            >
-            Ergothérapeute
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="orientation_ap"
-              value="psychomot"
-            >
-            Psychomotricien
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="orientation_ap"
-              value="apa"
-            >
-            Enseignant APA
-          </label>
-
-          <label>
-            <input
-              type="checkbox"
-              name="orientation_ap"
-              value="educateur"
-            >
-            Éducateur sportif
-          </label>
-
-        </div>
 
         <!-- Compatibilité legacy uniquement -->
         <input
@@ -11121,6 +11081,8 @@ if (orientationApaToggleButton) {
 
       if (isCurrentlyOpen) {
 
+        // T4.1b : fermeture manuelle coherente avec la case technique.
+        orientationToggle.checked = false;
         orientationSubgroup.style.display = "none";
 
         orientationApaToggleButton.textContent =
@@ -11165,7 +11127,6 @@ document
 
     input.addEventListener("change", function() {
 
-      openOrientationAPIfClinicalCue();
 
       updateAPALimitationsCompactText();
 
@@ -19453,6 +19414,13 @@ function resetOrientationPanelAfterReset() {
     orientationSubgroup.style.display = "none";
   }
 
+  // T4.1b : synchroniser le bouton apres reinitialisation.
+  const orientationApaToggleButton = document.getElementById("orientationApaToggleButton");
+  if (orientationApaToggleButton) {
+    orientationApaToggleButton.textContent = "▸ Aide au choix / critères détaillés";
+    orientationApaToggleButton.setAttribute("aria-expanded", "false");
+  }
+
   if (consentementBlock) {
     consentementBlock.style.display = "none";
   }
@@ -21619,8 +21587,8 @@ const orientationToggle =
   );
 
 if (
-  orientationToggle &&
-  orientationToggle.checked
+  (orientationToggle && orientationToggle.checked) ||
+  document.querySelector('input[name="orientation_ap"]:checked')
 ) {
 
   prescriptionModel.orientationAPA.active = true;
@@ -22510,7 +22478,6 @@ function initBodyMapButtons() {
 
   updateBodyMapFromCheckboxes();
 
-  openOrientationAPIfClinicalCue();
 
 };
 
@@ -22523,7 +22490,6 @@ if (limitationAutreCheckbox) {
 
   limitationAutreCheckbox.addEventListener("change", function() {
 
-    openOrientationAPIfClinicalCue();
 
   });
 
