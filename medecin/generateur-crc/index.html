@@ -4429,6 +4429,11 @@ Aucune
 
       </div>
 
+      <div id="orientationLocalRehabT44a" hidden style="margin:10px 0 8px;padding:8px 10px;border:1px solid #dbe4ee;border-radius:7px;background:#f8fafc;">
+        <strong style="font-size:0.9rem;">Points à discuter — niveau 1</strong>
+        <ul id="orientationLocalRehabListT44a" style="margin:5px 0 0;padding-left:18px;font-size:0.88rem;line-height:1.4;"></ul>
+      </div>
+      <button type="button" data-pap-orientation-retain="rehabilitation" data-pap-level-number="1" aria-pressed="false" style="margin-top:8px;padding:5px 10px;border:1px solid #93c5fd;border-radius:6px;background:#eff6ff;color:#1d4ed8;cursor:pointer;font-size:0.87rem;">Retenir niveau 1</button>
     </div>
 
     <!-- ================= NIVEAU 2 APA ================= -->
@@ -4454,6 +4459,12 @@ Aucune
         "
       >
         Critères à considérer
+      </div>
+
+      <!-- T4.4d : cohérence non bloquante pour U élevée. -->
+      <div id="orientationHighAutonomyMemoT44d" hidden style="display:none;margin:6px 0 12px;padding:8px 10px;border:1px solid #dbeafe;border-radius:7px;background:#f8fafc;font-size:0.88rem;line-height:1.4;color:#334155;">
+        <strong>Repère HAS — autonomie élevée :</strong>
+        Lorsque le patient peut augmenter et maintenir son AP de façon adaptée et sûre, discuter les niveaux 3 (activité encadrée) et 4 (pratique en autonomie), en tenant compte des besoins d'accompagnement et des préférences du patient.
       </div>
 
       <div
@@ -4579,11 +4590,17 @@ Aucune
 
       </div>
 
+      <div id="orientationLocalApaT44a" hidden style="margin:10px 0 8px;padding:8px 10px;border:1px solid #dbe4ee;border-radius:7px;background:#f8fafc;">
+        <strong style="font-size:0.9rem;">Points à discuter — programme d’APA</strong>
+        <ul id="orientationLocalApaListT44a" style="margin:5px 0 0;padding-left:18px;font-size:0.88rem;line-height:1.4;"></ul>
+      </div>
+      <button type="button" id="orientationGotoOrdinaryT44d" hidden style="display:none;margin-top:8px;margin-right:8px;padding:5px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc;color:#334155;cursor:pointer;font-size:0.87rem;">Voir les niveaux 3/4</button>
+      <button type="button" data-pap-orientation-retain="apa" data-pap-level-number="2" aria-pressed="false" style="margin-top:8px;padding:5px 10px;border:1px solid #93c5fd;border-radius:6px;background:#eff6ff;color:#1d4ed8;cursor:pointer;font-size:0.87rem;">Retenir niveau 2</button>
     </div>
 
     <!-- ================= NIVEAUX 3 / 4 ================= -->
 
-    <div
+    <div id="orientationOrdinaryPanelT44d"
       style="
         margin-bottom:14px;
         padding:12px;
@@ -4652,6 +4669,20 @@ Aucune
 
 
 
+      <div id="orientationLocalOrdinaryT44a" hidden style="margin:10px 0 8px;padding:8px 10px;border:1px solid #dbe4ee;border-radius:7px;background:#f8fafc;">
+        <strong style="font-size:0.9rem;">Points à discuter — niveaux 3 et 4</strong>
+        <ul id="orientationLocalOrdinaryListT44a" style="margin:5px 0 0;padding-left:18px;font-size:0.88rem;line-height:1.4;"></ul>
+      </div>
+      <button type="button" data-pap-orientation-retain="supervisedOrdinaryAP" data-pap-level-number="3" aria-pressed="false" style="margin-top:8px;padding:5px 10px;border:1px solid #93c5fd;border-radius:6px;background:#eff6ff;color:#1d4ed8;cursor:pointer;font-size:0.87rem;">Retenir niveau 3</button>
+      <button type="button" data-pap-orientation-retain="autonomousOrdinaryAP" data-pap-level-number="4" aria-pressed="false" style="margin-top:8px;padding:5px 10px;border:1px solid #93c5fd;border-radius:6px;background:#eff6ff;color:#1d4ed8;cursor:pointer;font-size:0.87rem;">Retenir niveau 4</button>
+    </div>
+
+    <!-- T4.4 : synthese T3, messages approuves uniquement ; aucune selection automatique. -->
+    <div id="orientationSynthesisPreviewT44" hidden
+      style="margin:0 0 14px;padding:10px 12px;border:1px solid #dbe4ee;border-radius:8px;background:#f8fafc;">
+      <div style="font-weight:700;margin-bottom:6px;">Conditions pratiques transversales</div>
+      <ul id="orientationSynthesisPreviewListT44"
+        style="margin:0;padding-left:18px;font-size:0.9rem;line-height:1.4;"></ul>
     </div>
 
     <!-- ================= COMMENTAIRES ================= -->
@@ -5606,6 +5637,8 @@ Aucune
 <script src="../../core/clinical-context/buildOrientationSynthesisBundleV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationSynthesisStructureV1.js"></script>
 <script src="../../core/clinical-context/buildOrientationSynthesisDraftV1.js"></script>
+<script src="../../core/clinical-context/renderOrientationSynthesisPreviewT44.js"></script>
+<script src="../../core/clinical-context/renderOrientationLocalAidT44a.js"></script>
 <script src="../../core/clinical-context/evidence-source-registry.js"></script>
 <script src="../../core/clinical-context/functional-profile-guidance-registry.js"></script>
 <script src="../../data/clinical-knowledge/generated/pathology-knowledge-registry.generated.js"></script>
@@ -8831,7 +8864,7 @@ function initObjectiveEngagementContextV2() {
 function buildOrientationApaClinicalEntryContextT43b(documentaryQuestions, discussionContext, q2cAnswer, clinicianQ2a) {
   if (!documentaryQuestions) return null;
   const autonomy = discussionContext?.status === "ready" ? discussionContext.autonomy : null;
-  const validAutonomy = autonomy === "insufficient" || autonomy === "partial";
+  const validAutonomy = autonomy === "insufficient" || autonomy === "partial" || autonomy === "high";
   const allowedByPhysician = clinicianQ2a === null || clinicianQ2a === "yes";
   // T4.3d : avec U insuffisante, l'exploration est séquentielle dès Q2a :
   // Q2c attend Q2a=Oui, puis Q2d attend Q2c=Oui.
@@ -8841,7 +8874,7 @@ function buildOrientationApaClinicalEntryContextT43b(documentaryQuestions, discu
   // Projection d'affichage uniquement : ne modifie jamais le bénéfice documentaire.
   const presentationContext = canExplore && typeof buildOrientationApaQuestionsContextV1 === "function"
     ? buildOrientationApaQuestionsContextV1(
-        { ...discussionContext, apaEvidenceState: "applicable" },
+        { ...discussionContext, autonomy: autonomy === "high" ? "partial" : autonomy, apaEvidenceState: "applicable" },
         q2cAnswer
       )
     : null;
@@ -9425,6 +9458,22 @@ const objectiveClinicalUsesV2 =
   if (cognitiveUxViewModel && orientationSynthesisDraftV1) {
     cognitiveUxViewModel.orientationSynthesisDraftV1 =
       orientationSynthesisDraftV1;
+  }
+
+  // T4.4 : restitution prudente du projet T3, sans choisir de niveau.
+  if (typeof renderOrientationSynthesisPreviewT44 === "function") {
+    renderOrientationSynthesisPreviewT44(
+      orientationSynthesisDraftV1,
+      document.querySelector('input[name="orientation_apa_benefit_assessment"]:checked')?.value ?? null
+    );
+  }
+
+  // T4.4a : messages au plus pres des cadres, sans doublon et sans choix automatique.
+  if (typeof renderOrientationLocalAidT44a === "function") {
+    renderOrientationLocalAidT44a(
+      orientationSynthesisDraftV1,
+      document.querySelector('input[name="orientation_apa_benefit_assessment"]:checked')?.value ?? null
+    );
   }
 
   const patientSelectionById =
@@ -10973,17 +11022,47 @@ document.querySelectorAll('input[name="orientation_apa_program_followup"]').forE
   });
 });
 
+// T4.4c : actualiser les messages locaux apres reponse a Q2d.
+document.querySelectorAll('input[name="orientation_apa_program_acceptance"]').forEach(input => {
+  input.addEventListener("change", function() {
+    if (typeof renderClinicalCognitiveAidV2 === "function") renderClinicalCognitiveAidV2();
+  });
+});
+
+// T4.4f : changer U invalide les réponses du parcours APA précédent.
+// Q1, les préférences, les niveaux retenus et les saisies documentaires
+// restent inchangés ; le médecin doit réévaluer Q2a, Q2c et Q2d.
+function resetOrientationApaAnswersForUChangeT44f() {
+  for (const name of [
+    "orientation_apa_benefit_assessment",
+    "orientation_apa_program_followup",
+    "orientation_apa_program_acceptance"
+  ]) {
+    document.querySelectorAll('input[name="' + name + '"]').forEach(input => {
+      input.checked = false;
+    });
+  }
+}
+
 // T4.2 : actualiser le contexte T3 dès que le médecin renseigne U.
 // Le rendu n'ouvre pas l'aide et ne choisit aucun niveau.
 document.querySelectorAll('input[name="orientation_autonomy_u"]').forEach(input => {
   input.addEventListener("change", function() {
+    resetOrientationApaAnswersForUChangeT44f();
     if (typeof renderClinicalCognitiveAidV2 === "function") {
       renderClinicalCognitiveAidV2();
     }
   });
 });
 
-  // T4.1e : choix du niveau = destinataire associe dans les sorties.
+  // T4.4 : actualiser la synthese si les facteurs pratiques renseignes changent.
+document.querySelectorAll('input[name="engagement_context_cost"], input[name="engagement_context_access"], input[name="engagement_context_support"], input[name="engagement_context_time"]').forEach(input => {
+  input.addEventListener("change", function() {
+    if (typeof renderClinicalCognitiveAidV2 === "function") renderClinicalCognitiveAidV2();
+  });
+});
+
+// T4.1e : choix du niveau = destinataire associe dans les sorties.
   document.querySelectorAll(
     'input[name="orientation_framework"][value="apa"], input[name="orientation_framework"][value="supervisedOrdinaryAP"]'
   ).forEach(input => input.addEventListener("change", syncOrientationProfessionalLinksT41e));
@@ -19404,6 +19483,7 @@ function resetOrientationPanelAfterReset() {
 }
   // T4.1e : annuler les relais quand les niveaux sont reinitialises.
   syncOrientationProfessionalLinksT41e();
+  if (typeof syncOrientationLocalButtonsT44a === "function") syncOrientationLocalButtonsT44a();
 }
 
 function getTM6ReferenceModel() {
