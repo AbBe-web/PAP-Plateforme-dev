@@ -237,6 +237,95 @@ document.head.appendChild(manifestLink);
 }
 
 
+/* T4 final — coordination compacte, sans debordement ni perte de saisie. */
+#orientation_coordination_details {
+  margin: 10px 0 12px;
+  padding: 8px 11px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#orientation_coordination_details[hidden] { display: none !important; }
+#orientation_coordination_details > summary {
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+#orientation_coordination_details > summary::-webkit-details-marker {
+  display: none;
+}
+#orientation_coordination_details > summary::marker {
+  content: "";
+}
+#orientation_coordination_details .pap-orientation-coordination-chevron {
+  display: inline-block;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: transform 0.12s ease;
+}
+#orientation_coordination_details[open] > summary .pap-orientation-coordination-chevron {
+  transform: rotate(90deg);
+}
+#orientation_coordination_details .pap-orientation-coordination-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+  margin-top: 6px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#orientation_coordination_details .pap-orientation-coordination-fields > * {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#orientation_coordination_details label.pap-orientation-coordination-row {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.35;
+  margin: 0;
+  width: 100%;
+  min-width: 0;
+  white-space: normal;
+}
+#orientation_coordination_details .pap-orientation-coordination-row span {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+#orientation_coordination_details .pap-orientation-coordination-row input {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+#orientation_coordination_details .pap-orientation-coordination-comment {
+  display: block;
+  margin: 1px 0 0;
+  font-size: inherit;
+  line-height: 1.35;
+}
+#orientation_coordination_details textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: 44px;
+  margin: 0;
+  padding: 4px 8px;
+  resize: vertical;
+  font: inherit;
+  line-height: 1.25;
+}
+
 /* ===== Boutons d'action ===== */
 
 #reportActions {
@@ -4309,6 +4398,37 @@ Aucune
 
   </div>
 
+    <!-- T4 final : informations documentaires independantes de l'aide cognitive. -->
+    <details id="orientation_coordination_details"
+             class="pap-orientation-coordination" open hidden>
+      <summary><span class="pap-orientation-coordination-chevron" aria-hidden="true">▸</span> Informations pour la prescription / coordination</summary>
+      <div class="pap-orientation-coordination-fields">
+        <!-- Compatibilite legacy : ne constitue pas un professionnel. -->
+        <input type="checkbox" name="orientation_ap" value="autonome"
+               style="display:none;" tabindex="-1" aria-hidden="true">
+        <label class="pap-orientation-coordination-row">
+          <input type="checkbox" id="apaNoContraindicationConfirmed">
+          <span>Après examen médical, le patient <strong>ne présente pas de contre-indication</strong> à la pratique d’activités physiques adaptées.</span>
+        </label>
+        <div id="consentement_partage_block">
+          <label class="pap-orientation-coordination-row">
+            <input type="checkbox" id="consentement_partage_apa">
+            <span>Patient informé du partage des informations nécessaires avec le professionnel encadrant et accord oral recueilli.</span>
+          </label>
+        </div>
+        <div id="bilan_condition_block">
+          <label class="pap-orientation-coordination-row">
+            <input type="checkbox" id="bilan_condition_apa">
+            <span>Bilan de condition et de capacités physiques souhaité.</span>
+          </label>
+        </div>
+        <label class="pap-orientation-coordination-comment" for="orientation_commentaire_professionnel">Commentaire pour le professionnel :</label>
+        <textarea id="orientation_commentaire_professionnel"
+                  name="orientation_commentaire" rows="2"
+                  placeholder="Ex. points de vigilance, adaptations souhaitées, éléments utiles pour l’encadrement..."></textarea>
+      </div>
+    </details>
+
     <!-- T4.1e : relais documentaires invisibles, derives du choix explicite des niveaux. -->
   <input type="checkbox" name="orientation_ap" value="apa" style="display:none;" tabindex="-1" aria-hidden="true">
   <input type="checkbox" name="orientation_ap" value="educateur" style="display:none;" tabindex="-1" aria-hidden="true">
@@ -4717,20 +4837,6 @@ Aucune
 
     <!-- ================= COMMENTAIRES ================= -->
 
-    <details style="margin-bottom:14px;">
-
-      <summary style="cursor:pointer; font-weight:600;">
-        Commentaire / contexte d’orientation
-      </summary>
-
-      <textarea
-        id="orientation_context_comment"
-        name="orientation_context_comment"
-        style="width:95%; margin-top:8px;"
-        placeholder="Ex. parcours déjà réalisé, accessibilité, situation particulière..."
-      ></textarea>
-
-    </details>
 
     <details style="margin-bottom:14px;">
 
@@ -4747,149 +4853,6 @@ Aucune
 
     </details>
 
-    <!-- ================= COORDINATION LEGACY CONSERVÉE ================= -->
-
-    <details
-      id="orientation_coordination_details"
-      style="
-        margin-top:14px;
-        padding-top:10px;
-        border-top:1px solid #e5e7eb;
-      "
-    >
-
-      <summary
-        style="
-          cursor:pointer;
-          font-weight:600;
-        "
-      >
-        Professionnel / coordination si utile
-      </summary>
-
-      <div style="margin-top:10px;">
-
-
-
-        <!-- Compatibilité legacy uniquement -->
-        <input
-          type="checkbox"
-          name="orientation_ap"
-          value="autonome"
-          style="display:none;"
-          tabindex="-1"
-          aria-hidden="true"
-        >
-
-        <div
-          style="
-            margin-top:12px;
-            padding-top:10px;
-            border-top:1px solid #e5e7eb;
-          "
-        >
-
-          <label
-            style="
-              display:flex;
-              align-items:flex-start;
-              gap:8px;
-              line-height:1.35;
-            "
-          >
-
-            <input
-              type="checkbox"
-              id="apaNoContraindicationConfirmed"
-              style="margin-top:2px;"
-            >
-
-            <span>
-              Après examen médical, le patient
-              <strong>ne présente pas de contre-indication</strong>
-              à la pratique d’activités physiques adaptées.
-            </span>
-
-          </label>
-
-        </div>
-
-        <div
-          id="consentement_partage_block"
-          style="
-            display:none;
-            margin-top:12px;
-            padding-top:10px;
-            border-top:1px solid #e5e7eb;
-          "
-        >
-
-          <label
-            style="
-              display:flex;
-              align-items:flex-start;
-              gap:8px;
-              line-height:1.35;
-            "
-          >
-
-            <input
-              type="checkbox"
-              id="consentement_partage_apa"
-            >
-
-            <span>
-              Patient informé du partage des informations nécessaires
-              avec le professionnel encadrant et accord oral recueilli.
-            </span>
-
-          </label>
-
-        </div>
-
-        <div
-          id="bilan_condition_block"
-          style="
-            display:none;
-            margin-top:10px;
-          "
-        >
-
-          <label
-            style="
-              display:flex;
-              align-items:flex-start;
-              gap:8px;
-              line-height:1.35;
-            "
-          >
-
-            <input
-              type="checkbox"
-              id="bilan_condition_apa"
-            >
-
-            <span>
-              Bilan de condition et de capacités physiques souhaité.
-            </span>
-
-          </label>
-
-        </div>
-
-        <label style="display:block; margin-top:12px;">
-          Commentaire pour le professionnel :
-        </label>
-
-        <textarea
-          name="orientation_commentaire"
-          style="width:95%;"
-          placeholder="Ex. points de vigilance, adaptations souhaitées, éléments utiles pour l’encadrement..."
-        ></textarea>
-
-      </div>
-
-    </details>
 
   </div>
 
@@ -11265,74 +11228,11 @@ document
 
   });
 
-document
-  .querySelectorAll(
-    'input[name="orientation_ap"]'
-  )
-  .forEach(el => {
-
-    el.addEventListener(
-      "change",
-      function() {
-
-        const checked =
-          Array.from(
-            document.querySelectorAll(
-              'input[name="orientation_ap"]:checked'
-            )
-          ).map(el => el.value);
-
-        const consentementBlock =
-          document.getElementById(
-            "consentement_partage_block"
-          );
-
-        const bilanBlock =
-          document.getElementById(
-            "bilan_condition_block"
-          );
-
-        const afficher =
-          checked.some(o =>
-            [
-              "apa",
-              "educateur",
-              "kine",
-              "ergo",
-              "psychomot"
-            ].includes(o)
-          );
-
-        if (consentementBlock) {
-
-          consentementBlock.style.display =
-            afficher
-              ? "block"
-              : "none";
-        }
-
-        const afficherBilan =
-  checked.some(o =>
-    [
-      "apa",
-      "kine"
-    ].includes(o)
-  );
-
-if (bilanBlock) {
-
-  bilanBlock.style.display =
-    afficherBilan
-      ? "block"
-      : "none";
-}
-
-updateOrientationSummary();
-
-      }
-    );
-
-  });
+// Les choix professionnels actualisent seulement le resume d'orientation.
+// Ils ne pilotent plus les options documentaires.
+document.querySelectorAll('input[name="orientation_ap"]').forEach(el => {
+  el.addEventListener("change", updateOrientationSummary);
+});
 
 document
   .querySelectorAll(
@@ -11342,12 +11242,16 @@ document
 
     el.addEventListener(
       "change",
-      updateOrientationSummary
+      function() {
+        updateOrientationSummary();
+        updateOrientationCoordinationVisibilityT4();
+      }
     );
 
   });
 
 updateOrientationSummary();
+updateOrientationCoordinationVisibilityT4();
 
 const consentementPartageApa =
   document.getElementById("consentement_partage_apa");
@@ -15335,7 +15239,8 @@ const patientIdentity =
     : "<span data-patient-certificate-identity>le/la patient(e)</span>";
 
 const apaNoContraindicationConfirmed =
-  document.getElementById("apaNoContraindicationConfirmed")?.checked || false;
+  hasOrientationCoordinationFrameworkT4() &&
+  (document.getElementById("apaNoContraindicationConfirmed")?.checked || false);
 
   const apaDocumentTitle =
   apaNoContraindicationConfirmed
@@ -15458,6 +15363,8 @@ function buildAPADestinationText() {
 
 function buildAPAOrientationOptionsText() {
 
+  if (!hasOrientationCoordinationFrameworkT4()) return "";
+
   const consentementPartage =
     document.getElementById("consentement_partage_apa")?.checked || false;
 
@@ -15563,7 +15470,8 @@ function buildAPACertificateText() {
       : "le/la patient(e)";
 
 const apaNoContraindicationConfirmed =
-  document.getElementById("apaNoContraindicationConfirmed")?.checked || false;
+  hasOrientationCoordinationFrameworkT4() &&
+  (document.getElementById("apaNoContraindicationConfirmed")?.checked || false);
 
 if (!apaNoContraindicationConfirmed) {
   return "";
@@ -15675,7 +15583,8 @@ function generateOrdonnanceAPAText(
   );
 
   const apaNoContraindicationConfirmed =
-  document.getElementById("apaNoContraindicationConfirmed")?.checked || false;
+  hasOrientationCoordinationFrameworkT4() &&
+  (document.getElementById("apaNoContraindicationConfirmed")?.checked || false);
 
 const apaTextTitle =
   apaNoContraindicationConfirmed
@@ -19499,6 +19408,25 @@ const optionalTestDetails =
   }
 }
 
+// T4 final — fonction d'interface uniquement, aucune inference clinique.
+function hasOrientationCoordinationFrameworkT4() {
+  return !!document.querySelector(
+    'input[name="orientation_framework"][value="rehabilitation"]:checked, ' +
+    'input[name="orientation_framework"][value="apa"]:checked, ' +
+    'input[name="orientation_framework"][value="supervisedOrdinaryAP"]:checked'
+  );
+}
+
+function updateOrientationCoordinationVisibilityT4() {
+  const panel = document.getElementById("orientation_coordination_details");
+  if (!panel) return;
+  const relevant = hasOrientationCoordinationFrameworkT4();
+  const wasHidden = panel.hidden;
+  panel.hidden = !relevant;
+  // A chaque nouvelle selection pertinente, ouverture initiale ; repli manuel respecte.
+  if (relevant && wasHidden) panel.open = true;
+}
+
 function updateOrientationSummary() {
 
   const output =
@@ -19533,12 +19461,6 @@ function resetOrientationPanelAfterReset() {
   const orientationSubgroup =
     document.getElementById("orientation_ap_subgroup");
 
-  const consentementBlock =
-    document.getElementById("consentement_partage_block");
-
-  const bilanBlock =
-    document.getElementById("bilan_condition_block");
-
   if (orientationToggle) {
     orientationToggle.checked = false;
   }
@@ -19554,13 +19476,10 @@ function resetOrientationPanelAfterReset() {
     orientationApaToggleButton.setAttribute("aria-expanded", "false");
   }
 
-  if (consentementBlock) {
-    consentementBlock.style.display = "none";
-  }
-
-  if (bilanBlock) {
-    bilanBlock.style.display = "none";
-  }
+  // Reinitialiser l'etat de repli, sans declencher d'evenement utilisateur.
+  const coordinationPanel = document.getElementById("orientation_coordination_details");
+  if (coordinationPanel) coordinationPanel.open = true;
+  updateOrientationCoordinationVisibilityT4();
 
  if (typeof updateOrientationSummary === "function") {
   updateOrientationSummary();
@@ -21719,57 +21638,20 @@ precautionsSelectionnees.forEach(precaution => {
 
 syncOrientationProfessionalLinksT41e();
 
-const orientationToggle =
-  document.getElementById(
-    "orientation_ap_toggle"
-  );
+const orientationsSelectionnees = document.querySelectorAll(
+  'input[name="orientation_ap"]:checked'
+);
+const coordinationApplicable = hasOrientationCoordinationFrameworkT4();
+const hasCoordinationData = coordinationApplicable && (
+  document.getElementById("apaNoContraindicationConfirmed")?.checked ||
+  document.getElementById("consentement_partage_apa")?.checked ||
+  document.getElementById("bilan_condition_apa")?.checked ||
+  !!document.querySelector('textarea[name="orientation_commentaire"]')?.value?.trim()
+);
 
-if (
-  (orientationToggle && orientationToggle.checked) ||
-  document.querySelector('input[name="orientation_ap"]:checked')
-) {
-
+// Le simple fait d'ouvrir l'aide ne constitue plus une orientation.
+if (orientationsSelectionnees.length > 0 || hasCoordinationData) {
   prescriptionModel.orientationAPA.active = true;
-
-  const orientationsSelectionnees =
-    document.querySelectorAll(
-      'input[name="orientation_ap"]:checked'
-    );
-
-  const checkedOrientations =
-  Array.from(
-    orientationsSelectionnees
-  ).map(el => el.value);
-
-const consentementBlock =
-  document.getElementById(
-    "consentement_partage_block"
-  );
-
-const bilanBlock =
-  document.getElementById(
-    "bilan_condition_block"
-  );
-
-const afficherConsentement =
-  checkedOrientations.some(o =>
-    [
-      "apa",
-      "educateur",
-      "kine",
-      "ergo",
-      "psychomot"
-    ].includes(o)
-  );
-
-if (consentementBlock) {
-
-  consentementBlock.style.display =
-    afficherConsentement
-      ? "block"
-      : "none";
-}
-
 
   orientationsSelectionnees.forEach(orientation => {
 
@@ -21780,14 +21662,10 @@ if (consentementBlock) {
   });
 
   prescriptionModel.orientationAPA.consentementPartage =
-  document.getElementById(
-    "consentement_partage_apa"
-  )?.checked || false;
+    coordinationApplicable && (document.getElementById("consentement_partage_apa")?.checked || false);
 
   prescriptionModel.orientationAPA.bilanSouhaite =
-  document.getElementById(
-    "bilan_condition_apa"
-  )?.checked || false;
+    coordinationApplicable && (document.getElementById("bilan_condition_apa")?.checked || false);
 
   const orientationCommentaire =
     document.querySelector(
@@ -21795,6 +21673,7 @@ if (consentementBlock) {
     );
 
   if (
+    coordinationApplicable &&
     orientationCommentaire &&
     orientationCommentaire.value.trim()
   ) {
@@ -22172,8 +22051,8 @@ orientation: {
       document.querySelector('input[name="orientation_support_preference"]:checked')?.value || null
   },
 
-  contextComment:
-    document.getElementById("orientation_context_comment")?.value?.trim() || null
+  // Champ UI retire en T4 : propriete legacy conservee pour compatibilite.
+  contextComment: null
 },
 
 therapeutic_plan: {
@@ -22985,6 +22864,8 @@ function buildAPADestinationBlock() {
 }
 
 function buildAPAOrientationOptionsBlock() {
+
+  if (!hasOrientationCoordinationFrameworkT4()) return "";
 
   const consentementPartage =
     document.getElementById("consentement_partage_apa")?.checked || false;
