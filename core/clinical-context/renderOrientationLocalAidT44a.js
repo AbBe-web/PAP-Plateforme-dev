@@ -42,6 +42,23 @@
   const SUPPORT_REFORMULE =
     "Soutien de l'entourage disponible : ressource potentiellement mobilisable pour aider le patient à pratiquer régulièrement une activité physique.";
 
+  // T4_PROFIL_ABSENT_20261103 : simple rappel de verification, jamais une attribution de profil.
+  const M_PROFILE_CHECK_APA =
+    "Si un programme APA est envisagé, vérifier le profil fonctionnel global afin de préciser les professionnels habilités.";
+
+  function shouldShowOrientationProfileReminderT4(input) {
+    if (!input || input.profileMissing !== true || input.clinicalDataPresent !== true) return false;
+    if (input.level2Selected === true) return true; // Choix explicite du medecin, y compris parcours rapide.
+    return input.physicianQ2a === "yes" && input.q2c !== "no" && input.q2d !== "no";
+  }
+
+  function readClinicalDataPresentT4() {
+    // Des pathologies ou des limitations effectivement cotees; jamais les preferences seules.
+    if (document.querySelector('.patho:checked')) return true;
+    return Array.from(document.querySelectorAll('input[data-functional-limitation-radio]:checked'))
+      .some(input => ["minimal", "moderate", "severe"].includes(input.value));
+  }
+
   const LOCATIONS = Object.freeze({
     apa: ["orientationLocalApaT44a", "orientationLocalApaListT44a"],
     ordinary: ["orientationLocalOrdinaryT44a", "orientationLocalOrdinaryListT44a"],
@@ -165,6 +182,13 @@
     const q2d = document.querySelector('input[name="orientation_apa_program_acceptance"]:checked')?.value ?? null;
     const preferenceEncadrement = document.querySelector('input[name="orientation_support_preference"]:checked')?.value ?? null;
     const grouped = selectOrientationLocalMessagesT44a(draft, physicianQ2a, q2c, q2d, preferenceEncadrement);
+    // Rappel dans le bloc APA de l'aide facultative, non bloquant; non affiche dans un formulaire vierge.
+    if (shouldShowOrientationProfileReminderT4({
+      profileMissing: !document.querySelector('input[name="functional_profile"]:checked'),
+      clinicalDataPresent: readClinicalDataPresentT4(),
+      level2Selected: Boolean(document.querySelector('input[name="orientation_framework"][value="apa"]')?.checked),
+      physicianQ2a, q2c, q2d
+    })) grouped.apa.push(M_PROFILE_CHECK_APA);
     for (const key of Object.keys(LOCATIONS)) {
       drawMessages(...LOCATIONS[key], grouped[key]);
     }
@@ -222,7 +246,9 @@
   // T4_TRANSVERSAUX_RACCORDEMENT : actualiser les aides sans modifier les reponses.
   document.addEventListener("change", function (event) {
     const name = event?.target?.name;
-    if (name !== "engagement_context_time" &&
+    // Niveau 2 coche/decoche : recalcule le rappel, sans cocher aucune case.
+    if (name === "orientation_framework" && event?.target?.value !== "apa") return;
+    if (name !== "orientation_framework" && name !== "engagement_context_time" &&
         name !== "engagement_context_cost" &&
         name !== "engagement_context_access" &&
         name !== "engagement_context_support" &&
@@ -232,6 +258,7 @@
     }
   });
 
+  window.shouldShowOrientationProfileReminderT4 = shouldShowOrientationProfileReminderT4;
   window.selectOrientationLocalMessagesT44a = selectOrientationLocalMessagesT44a;
   window.renderOrientationLocalAidT44a = renderOrientationLocalAidT44a;
   window.syncOrientationLocalButtonsT44a = syncOrientationLocalButtonsT44a;
