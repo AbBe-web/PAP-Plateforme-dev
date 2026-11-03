@@ -219,6 +219,10 @@
       button.textContent = input.checked ? "Niveau " + number + " retenu — retirer" : "Retenir niveau " + number;
       button.setAttribute("aria-pressed", String(input.checked));
     });
+    // T4_COHERENCE_20261103 : réactualiser aussi après reset/import du formulaire.
+    if (typeof window.renderOrientationCoherenceT4 === "function") {
+      window.renderOrientationCoherenceT4();
+    }
   }
 
   function initOrientationLocalButtonsT44a() {
