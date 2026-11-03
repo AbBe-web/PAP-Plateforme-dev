@@ -4663,7 +4663,7 @@ Aucune
               name="orientation_support_preference"
               value="autonomous"
             >
-            Plutôt en autonomie
+            Plutôt sans encadrement professionnel
           </label>
 
           <label>
@@ -7829,6 +7829,17 @@ function buildPrototypeClinicalModelV2() {
     patient: {
       pathologies
     },
+    // T4_TRANSVERSAUX_RACCORDEMENT : transmettre les reponses existantes a T3.5.
+    // Aucune reponse absente n'est interpretee comme une difficulte.
+    engagement: {
+      practical_context: {
+        time_organization: document.querySelector('input[name="engagement_context_time"]:checked')?.value ?? null,
+        cost: document.querySelector('input[name="engagement_context_cost"]:checked')?.value ?? null,
+        access_transport: document.querySelector('input[name="engagement_context_access"]:checked')?.value ?? null,
+        support: document.querySelector('input[name="engagement_context_support"]:checked')?.value ?? null
+      }
+    },
+
 
     activityConsiderations: {
       functionalProfile:

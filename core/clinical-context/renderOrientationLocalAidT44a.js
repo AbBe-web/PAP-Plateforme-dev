@@ -30,6 +30,18 @@
   const M_CHECK_AUTONOMY =
     "Autonomie à vérifier : apprécier si le patient peut augmenter et maintenir son activité physique de façon adaptée et sûre, compte tenu des risques et adaptations nécessaires.";
 
+  // T4_PREF_CONTEXT_20261103 : textes de preference valides, sans nouvelle indication ni presélection.
+  const PREF_ENCADREMENT_234 =
+    "Préférence du patient : Le patient souhaite un encadrement professionnel. Discuter le niveau 2 si les conditions d'un programme APA sont réunies, ou le niveau 3 si une activité physique ordinaire encadrée est adaptée et sûre. Tenir compte de la faisabilité et des ressources disponibles.";
+  const PREF_ENCADREMENT_34 =
+    "Préférence du patient : Le patient souhaite un encadrement professionnel. Discuter le niveau 3 (activité physique ordinaire encadrée), si ce cadre est adapté à ses capacités et à sa sécurité.";
+  const PREF_SANS_ENCADREMENT_234 =
+    "Préférence du patient : Le patient préfère pratiquer sans encadrement professionnel. Examiner les activités envisageables en autonomie et en sécurité (niveau 4). Si un programme APA ou un encadrement paraît nécessaire, en discuter l'intérêt et rechercher une modalité acceptable pour le patient.";
+  const PREF_SANS_ENCADREMENT_34 =
+    "Préférence du patient : Le patient préfère pratiquer sans encadrement professionnel. Discuter le niveau 4 pour les activités qu'il peut réaliser de façon autonome, adaptée et sûre. Si un encadrement paraît nécessaire, en expliquer l'intérêt.";
+  const SUPPORT_REFORMULE =
+    "Soutien de l'entourage disponible : ressource potentiellement mobilisable pour aider le patient à pratiquer régulièrement une activité physique.";
+
   const LOCATIONS = Object.freeze({
     apa: ["orientationLocalApaT44a", "orientationLocalApaListT44a"],
     ordinary: ["orientationLocalOrdinaryT44a", "orientationLocalOrdinaryListT44a"],
@@ -38,7 +50,7 @@
 
   // Fonction pure, testable : q2c/q2d sont les reponses effectives du medecin.
   // Le rendu les lit au moment de la mise a jour ; jamais depuis l'etat documentaire.
-  function selectOrientationLocalMessagesT44a(draft, physicianQ2a, q2cAnswer, q2dAnswer) {
+  function selectOrientationLocalMessagesT44a(draft, physicianQ2a, q2cAnswer, q2dAnswer, preferenceEncadrement) {
     const result = { apa: [], ordinary: [], transversal: [] };
     if (!draft || draft.status !== "ready") return result;
     const benefit = draft.existing?.apaBenefit?.status ?? null;
@@ -114,8 +126,22 @@
         if (physicianQ2a === "yes") result.apa.push(message.text);
       } else if (["cost", "transport", "support"].includes(message.id) &&
           message.origin === "approved.feasibility") {
-        result.transversal.push(message.text);
+        // T4 : le message de soutien est reformule uniquement a l'affichage.
+        result.transversal.push(message.id === "support" ? SUPPORT_REFORMULE : message.text);
       }
+    }
+    // T4_PREF_CONTEXT_20261103 : la preference ne cree AUCUN niveau discutable.
+    // Les messages T4 deja retenus servent de contexte, jamais les cases de niveau.
+    const discussion234 = result.apa.some(text =>
+      typeof text === "string" && text.includes("Discuter les niveaux 2, 3 ou 4"));
+    const discussion34 = result.ordinary.includes(M4_PARTIAL_LEVELS_34) ||
+      result.ordinary.includes(M6_HIGH_LEVELS_34);
+    if (preferenceEncadrement === "professionalSupervision") {
+      if (discussion234) result.transversal.push(PREF_ENCADREMENT_234);
+      else if (discussion34) result.transversal.push(PREF_ENCADREMENT_34);
+    } else if (preferenceEncadrement === "autonomous") {
+      if (discussion234) result.transversal.push(PREF_SANS_ENCADREMENT_234);
+      else if (discussion34) result.transversal.push(PREF_SANS_ENCADREMENT_34);
     }
     return result;
   }
@@ -137,7 +163,8 @@
   function renderOrientationLocalAidT44a(draft, physicianQ2a) {
     const q2c = document.querySelector('input[name="orientation_apa_program_followup"]:checked')?.value ?? null;
     const q2d = document.querySelector('input[name="orientation_apa_program_acceptance"]:checked')?.value ?? null;
-    const grouped = selectOrientationLocalMessagesT44a(draft, physicianQ2a, q2c, q2d);
+    const preferenceEncadrement = document.querySelector('input[name="orientation_support_preference"]:checked')?.value ?? null;
+    const grouped = selectOrientationLocalMessagesT44a(draft, physicianQ2a, q2c, q2d, preferenceEncadrement);
     for (const key of Object.keys(LOCATIONS)) {
       drawMessages(...LOCATIONS[key], grouped[key]);
     }
@@ -191,6 +218,19 @@
     });
     syncOrientationLocalButtonsT44a();
   }
+
+  // T4_TRANSVERSAUX_RACCORDEMENT : actualiser les aides sans modifier les reponses.
+  document.addEventListener("change", function (event) {
+    const name = event?.target?.name;
+    if (name !== "engagement_context_time" &&
+        name !== "engagement_context_cost" &&
+        name !== "engagement_context_access" &&
+        name !== "engagement_context_support" &&
+        name !== "orientation_support_preference") return;
+    if (typeof renderClinicalCognitiveAidV2 === "function") {
+      renderClinicalCognitiveAidV2();
+    }
+  });
 
   window.selectOrientationLocalMessagesT44a = selectOrientationLocalMessagesT44a;
   window.renderOrientationLocalAidT44a = renderOrientationLocalAidT44a;
