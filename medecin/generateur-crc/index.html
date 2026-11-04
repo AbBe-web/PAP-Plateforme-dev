@@ -4623,6 +4623,11 @@ Aucune
             À vérifier
           </label>
 
+          <span id="orientationApaBenefitPrefilledT6" hidden
+                style="font-size:0.82rem;color:#475569;align-self:center;white-space:nowrap;">
+            (Prérempli – modifiable)
+          </span>
+
         </div>
 
       </div>
@@ -4708,6 +4713,14 @@ Aucune
       <div id="orientationLocalApaT44a" hidden style="margin:10px 0 8px;padding:8px 10px;border:1px solid #dbe4ee;border-radius:7px;background:#f8fafc;">
         <strong style="font-size:0.9rem;">Points à discuter — programme d’APA</strong>
         <ul id="orientationLocalApaListT44a" style="margin:5px 0 0;padding-left:18px;font-size:0.88rem;line-height:1.4;"></ul>
+        <div id="orientationApaMissingInputsT6" hidden
+             style="margin-top:7px;font-size:0.88rem;line-height:1.4;">
+          À compléter ou vérifier pour discuter le programme :
+          <button type="button" data-pap-orientation-t6-target="functional"
+                  style="margin-left:6px;padding:2px 6px;font-size:inherit;cursor:pointer;">Profil fonctionnel global</button>
+          <button type="button" data-pap-orientation-t6-target="autonomy"
+                  style="margin-left:6px;padding:2px 6px;font-size:inherit;cursor:pointer;">Capacité à pratiquer de façon adaptée et sûre</button>
+        </div>
       </div>
       <button type="button" id="orientationGotoOrdinaryT44d" hidden style="display:none;margin-top:8px;margin-right:8px;padding:5px 10px;border:1px solid #cbd5e1;border-radius:6px;background:#f8fafc;color:#334155;cursor:pointer;font-size:0.87rem;">Voir les niveaux 3/4</button>
       <button type="button" data-pap-orientation-retain="apa" data-pap-level-number="2" aria-pressed="false" style="margin-top:8px;padding:5px 10px;border:1px solid #93c5fd;border-radius:6px;background:#eff6ff;color:#1d4ed8;cursor:pointer;font-size:0.87rem;">Retenir niveau 2</button>
@@ -8830,6 +8843,66 @@ function initObjectiveEngagementContextV2() {
 }
 
 
+// T6.2 — Q2a : préremplissage documentaire strictement conditionnel.
+// Ne sélectionne jamais un niveau, n'infère pas U et respecte toute réponse manuelle.
+function syncOrientationApaBenefitPrefillT6(discussionContext) {
+  const radios = Array.from(document.querySelectorAll(
+    'input[name="orientation_apa_benefit_assessment"]'
+  ));
+  const yes = radios.find(input => input.value === "yes");
+  const note = document.getElementById("orientationApaBenefitPrefilledT6");
+  if (!yes) return;
+
+  const eligible = discussionContext?.status === "ready" &&
+    (discussionContext.autonomy === "insufficient" ||
+     discussionContext.autonomy === "partial") &&
+    discussionContext.apaEvidenceState === "applicable";
+  const wasAuto = yes.dataset.papT6AutoPrefill === "true";
+  const selected = radios.find(input => input.checked) || null;
+
+  if (wasAuto && !eligible) {
+    if (yes.checked) yes.checked = false;
+    yes.dataset.papT6AutoPrefill = "false";
+  } else if (eligible && !selected) {
+    yes.checked = true;
+    yes.dataset.papT6AutoPrefill = "true";
+  }
+
+  if (note) note.hidden = !(yes.checked &&
+    yes.dataset.papT6AutoPrefill === "true");
+}
+
+// T6.2 — complétude de la discussion niveau 2 : navigation facultative.
+// Pas d'alerte bloquante, pas de saisie automatique du profil ni de U.
+function renderOrientationApaMissingInputsT6() {
+  const container = document.getElementById("orientationApaMissingInputsT6");
+  const card = document.getElementById("orientationLocalApaT44a");
+  if (!container || !card) return;
+  const q2aYes = document.querySelector(
+    'input[name="orientation_apa_benefit_assessment"][value="yes"]'
+  )?.checked === true;
+  const profileMissing = !document.querySelector(
+    'input[name="functional_profile"]:checked'
+  );
+  const u = document.querySelector(
+    'input[name="orientation_autonomy_u"]:checked'
+  )?.value || null;
+  const autonomyMissing = !u || u === "check";
+  const show = q2aYes && (profileMissing || autonomyMissing);
+  container.hidden = !show;
+  if (!show) return;
+  card.hidden = false;
+  card.style.display = "block";
+  const profileButton = container.querySelector(
+    '[data-pap-orientation-t6-target="functional"]'
+  );
+  const autonomyButton = container.querySelector(
+    '[data-pap-orientation-t6-target="autonomy"]'
+  );
+  if (profileButton) profileButton.hidden = !profileMissing;
+  if (autonomyButton) autonomyButton.hidden = !autonomyMissing;
+}
+
 // T4.3 : simple projection du contrat de visibilité T3.4, sans décision de niveau.
 // T4.3b : le médecin peut explorer Q2c/Q2d sans pathologie renseignée.
 // Le moteur T3.4 reste inchangé : son état documentaire ne doit pas être
@@ -9304,6 +9377,10 @@ const objectiveClinicalUsesV2 =
       orientationAutonomyDiscussionContextV1;
   }
 
+  // T6.2 : synchronisation des seules connaissances qualifiées "applicable".
+  // Une réponse manuelle existante reste prioritaire.
+  syncOrientationApaBenefitPrefillT6(orientationAutonomyDiscussionContextV1);
+
   // T4.3b : Q2a non renseignée permet d'explorer la faisabilité, sans
   // valider le bénéfice APA. Non / À vérifier interdisent cette projection.
   const orientationPhysicianApaBenefitV1 =
@@ -9474,6 +9551,7 @@ const objectiveClinicalUsesV2 =
       document.querySelector('input[name="orientation_apa_benefit_assessment"]:checked')?.value ?? null
     );
   }
+  renderOrientationApaMissingInputsT6();
 
   // T4 complément 1 : restitution seule, fondée sur les repères déjà calculés T3.2.
   if (typeof renderOrientationFunctionalRepersT4Comp1 === "function") {
@@ -11019,8 +11097,32 @@ const orientationApaStatusSummary =
 // T4.3a : réévaluer Q2c/Q2d lors du changement de Q2a.
 document.querySelectorAll('input[name="orientation_apa_benefit_assessment"]').forEach(input => {
   input.addEventListener("change", function() {
+    const yes = document.querySelector('input[name="orientation_apa_benefit_assessment"][value="yes"]');
+    if (yes) yes.dataset.papT6AutoPrefill = "false";
     if (typeof renderClinicalCognitiveAidV2 === "function") {
       renderClinicalCognitiveAidV2();
+    }
+  });
+});
+
+// T6.2 : liens ponctuels vers les deux saisies, sans modifier leur état.
+document.querySelectorAll('[data-pap-orientation-t6-target]').forEach(button => {
+  button.addEventListener("click", function() {
+    const targetType = button.dataset.papOrientationT6Target;
+    if (targetType === "functional") {
+      const panel = document.getElementById("apaLimitationsPanel");
+      if (panel?.hidden) {
+        document.getElementById("toggleApaLimitationsPanel")?.click();
+      }
+      window.setTimeout(function() {
+        document.getElementById("functionalProfileBlock")?.scrollIntoView({
+          behavior: "smooth", block: "center"
+        });
+      }, 150);
+    } else if (targetType === "autonomy") {
+      document.getElementById("orientation_autonomy_u_block")?.scrollIntoView({
+        behavior: "smooth", block: "center"
+      });
     }
   });
 });
@@ -11041,12 +11143,17 @@ document.querySelectorAll('input[name="orientation_apa_program_acceptance"]').fo
   });
 });
 
-// T4.4f : changer U invalide les réponses du parcours APA précédent.
-// Q1, les préférences, les niveaux retenus et les saisies documentaires
-// restent inchangés ; le médecin doit réévaluer Q2a, Q2c et Q2d.
+// T6.2 : changer U retire uniquement un Q2a prérempli par PAP.
+// Une réponse Q2a explicitement choisie par le médecin est conservée,
+// car elle renseigne le bénéfice documenté et non le niveau retenu.
+// Q2c et Q2d sont réinitialisées pour réévaluation lorsque U change.
 function resetOrientationApaAnswersForUChangeT44f() {
+  const yes = document.querySelector('input[name="orientation_apa_benefit_assessment"][value="yes"]');
+  if (yes?.dataset.papT6AutoPrefill === "true") {
+    yes.checked = false;
+    yes.dataset.papT6AutoPrefill = "false";
+  }
   for (const name of [
-    "orientation_apa_benefit_assessment",
     "orientation_apa_program_followup",
     "orientation_apa_program_acceptance"
   ]) {
@@ -19445,6 +19552,12 @@ function resetOrientationPanelAfterReset() {
   const coordinationPanel = document.getElementById("orientation_coordination_details");
   if (coordinationPanel) coordinationPanel.open = true;
   updateOrientationCoordinationVisibilityT4();
+  const q2aYes = document.querySelector('input[name="orientation_apa_benefit_assessment"][value="yes"]');
+  if (q2aYes) q2aYes.dataset.papT6AutoPrefill = "false";
+  const q2aNote = document.getElementById("orientationApaBenefitPrefilledT6");
+  if (q2aNote) q2aNote.hidden = true;
+  const navigationHint = document.getElementById("orientationApaMissingInputsT6");
+  if (navigationHint) navigationHint.hidden = true;
 
  if (typeof updateOrientationSummary === "function") {
   updateOrientationSummary();
