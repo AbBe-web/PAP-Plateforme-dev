@@ -813,10 +813,18 @@
                 ?.showAllClinicalSituations !==
                 false;
 
+        // T6.3b : un seul repere arthrose reste accessible au niveau 1,
+        // meme lorsque les autres clinicianCheck sont masques.
         const visibleClinicianCheckItems =
-            shouldRenderClinicianChecks
-                ? partition.clinicianCheck
-                : [];
+            partition.clinicianCheck.filter(function (item) {
+                return (
+                    shouldRenderClinicianChecks ||
+                    (
+                        options?.alwaysVisibleClinicianCheckIds
+                            ?.includes(getItemIdentity(item)) === true
+                    )
+                );
+            });
 
         const availableItemCount =
             partition.always.length +
@@ -1054,12 +1062,22 @@ ${clinicianCheckBlock}`;
             "apa",
             "ordinaryAP"
         ].forEach(function (areaId) {
+            const areaOptions =
+                areaId === "rehabilitation"
+                    ? {
+                        ...options,
+                        alwaysVisibleClinicianCheckIds: [
+                            "arthrose-orientation-physiotherapy-before-activity-001"
+                        ]
+                    }
+                    : options;
+
             const sectionHtml =
                 renderSectionHtml(
                     orientationByArea[areaId],
                     "clinician",
                     "pap-cognitive-ux-section pap-cognitive-ux-section-clinician",
-                    options
+                    areaOptions
                 );
 
             if (sectionHtml) {
