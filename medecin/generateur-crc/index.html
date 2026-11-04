@@ -272,6 +272,25 @@ document.head.appendChild(manifestLink);
 #orientation_coordination_details[open] > summary .pap-orientation-coordination-chevron {
   transform: rotate(90deg);
 }
+
+/* T6.3c-bis : meme chevron de repli que le panneau de coordination. */
+#orientation_plan_details > summary {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  list-style: none;
+}
+#orientation_plan_details > summary::-webkit-details-marker { display: none; }
+#orientation_plan_details > summary::marker { content: ""; }
+#orientation_plan_details .pap-orientation-plan-chevron {
+  display: inline-block;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: transform 0.12s ease;
+}
+#orientation_plan_details[open] > summary .pap-orientation-plan-chevron {
+  transform: rotate(90deg);
+}
 #orientation_coordination_details .pap-orientation-coordination-fields {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -4816,10 +4835,10 @@ Aucune
     <!-- ================= COMMENTAIRES ================= -->
 
 
-    <details style="margin-bottom:14px;">
+    <details id="orientation_plan_details" style="margin-bottom:14px;">
 
       <summary style="cursor:pointer; font-weight:600;">
-        Articulation / relais entre cadres
+        <span class="pap-orientation-plan-chevron" aria-hidden="true">▸</span> Articulation / relais entre cadres
       </summary>
 
       <textarea
@@ -19513,6 +19532,16 @@ function updateOrientationSummary() {
       'input[name="orientation_framework"]:checked'
     ).length;
 
+  // T6.3c : ouvrir l'articulation lors du passage a plusieurs cadres.
+  // Conserver ensuite le choix manuel de replier le panneau.
+  const articulationDetails = document.getElementById("orientation_plan_details");
+  if (articulationDetails) {
+    const isMultiple = frameworkCount >= 2;
+    const wasMultiple = articulationDetails.dataset.papT63MultipleFrameworks === "true";
+    if (isMultiple && !wasMultiple) articulationDetails.open = true;
+    articulationDetails.dataset.papT63MultipleFrameworks = String(isMultiple);
+  }
+
   if (frameworkCount === 0) {
     output.textContent =
       "Non renseigné";
@@ -19551,6 +19580,12 @@ function resetOrientationPanelAfterReset() {
   // Reinitialiser l'etat de repli, sans declencher d'evenement utilisateur.
   const coordinationPanel = document.getElementById("orientation_coordination_details");
   if (coordinationPanel) coordinationPanel.open = true;
+  // Nouvelle consultation : le panneau d'articulation revient replie.
+  const articulationDetails = document.getElementById("orientation_plan_details");
+  if (articulationDetails) {
+    articulationDetails.open = false;
+    articulationDetails.dataset.papT63MultipleFrameworks = "false";
+  }
   updateOrientationCoordinationVisibilityT4();
   const q2aYes = document.querySelector('input[name="orientation_apa_benefit_assessment"][value="yes"]');
   if (q2aYes) q2aYes.dataset.papT6AutoPrefill = "false";
