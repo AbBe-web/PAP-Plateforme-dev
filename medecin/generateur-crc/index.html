@@ -12138,8 +12138,74 @@ if (container) {
 /* =====================================
 6. GENERATION CRC / RENDU =============
 ===================================== */
-function handleGenerate(e, options = {}) {
 
+function prepareDocumentData() {
+  // Conserver l'affectation globale avant le calcul du contexte.
+  // buildClinicalModel() actualise aussi prescriptionModel.
+  clinicalModel = buildClinicalModel();
+
+  const clinicalContext =
+    computeClinicalContext(clinicalModel);
+
+  return {
+    clinicalModel,
+    clinicalContext
+  };
+}
+
+
+function displayGeneratedDocument(targetMode, documentData) {
+  consultationState.reportGenerated = true;
+  consultationState.reportDirty = false;
+
+  const warning =
+    document.getElementById("crcDirtyWarning");
+
+  if (warning) {
+    warning.classList.add("hidden");
+  }
+
+  activeMode = targetMode;
+
+  document.getElementById("formatTabs")
+    .classList.remove("hidden");
+
+  document.getElementById("reportOutput")
+    .classList.remove("hidden");
+
+  document.getElementById("generateReport")
+    .classList.add("hidden");
+
+  const resetSection =
+    document.getElementById("resetSection");
+
+  if (resetSection) {
+    resetSection.classList.remove("hidden");
+    resetSection.style.display = "block";
+  }
+
+  document
+    .querySelectorAll(".tab-btn")
+    .forEach(b => b.classList.remove("active"));
+
+  const targetTab =
+    document.querySelector(
+      `.tab-btn[data-mode="${targetMode}"]`
+    );
+
+  if (targetTab) {
+    targetTab.classList.add("active");
+  }
+
+  renderActiveMode({
+    clinicalModel: documentData.clinicalModel,
+    clinicalContext: documentData.clinicalContext,
+    scroll: true
+  });
+}
+
+
+function handleGenerate(e, options = {}) {
   e.preventDefault();
   e.stopPropagation();
 
@@ -12151,60 +12217,20 @@ function handleGenerate(e, options = {}) {
       ? modeBeforeGenerate
       : "long";
 
-     
-    if (document.activeElement) {
+  if (document.activeElement) {
     document.activeElement.blur();
   }
 
   requestAnimationFrame(() => {
+    const documentData = prepareDocumentData();
 
-clinicalModel = buildClinicalModel();
-
-const clinicalContext =
-  computeClinicalContext(
-    clinicalModel
-  );
-
-consultationState.reportGenerated = true;
-consultationState.reportDirty = false;
-
-const warning = document.getElementById("crcDirtyWarning");
-
-if (warning) {
-  warning.classList.add("hidden");
-}
-       
-activeMode = targetMode;
-
-document.getElementById("formatTabs").classList.remove("hidden");
-document.getElementById("reportOutput").classList.remove("hidden");
-document.getElementById("generateReport").classList.add("hidden");
-const resetSection = document.getElementById("resetSection");
-
-if (resetSection) {
-    resetSection.classList.remove("hidden");
-    resetSection.style.display = "block";
+    displayGeneratedDocument(
+      targetMode,
+      documentData
+    );
+  });
 }
 
-document
-  .querySelectorAll(".tab-btn")
-  .forEach(b => b.classList.remove("active"));
-
-const targetTab =
-  document.querySelector(`.tab-btn[data-mode="${targetMode}"]`);
-
-if (targetTab) {
-  targetTab.classList.add("active");
-}
-
-   renderActiveMode({
-  clinicalModel,
-  clinicalContext,
-  scroll: true
-});
-
-  }, 40);
-}
 
 function formatFrenchList(items = []) {
 
