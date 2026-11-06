@@ -387,6 +387,12 @@ if (typeof updatePapQuickOptionalSummaries === "function") {
     updatePapQuickOptionalSummaries();
 }
 
+// 19. Nouvelle consultation : revenir au mode complet par le sélecteur existant
+const fullModeBtn = document.getElementById("papFullModeBtn");
+if (fullModeBtn) {
+    fullModeBtn.click();
+}
+
 }
 
 });

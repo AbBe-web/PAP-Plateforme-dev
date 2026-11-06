@@ -982,6 +982,15 @@ afin de préremplir certains champs du formulaire.
     >
       Consultation rapide
     </button>
+
+    <button
+      type="button"
+      id="papDirectModeBtn"
+      class="pap-mode-btn"
+      aria-pressed="false"
+    >
+      Ordonnance directe
+    </button>
   </div>
 
   <div id="papQuickModeNotice" class="pap-quick-mode-notice hidden">
@@ -4858,7 +4867,34 @@ Aucune
 </div>
 
 <div class="form-group">
-<h2>11/ Prescription d’activité physique</h2>
+<h2 id="papPrescriptionSection">11/ Prescription d’activité physique</h2>
+
+<div id="papDirectModeNotice" class="hidden" role="note">
+  <strong>Vigilance avant prescription :</strong>
+  vérifier les symptômes, contre-indications,
+  précautions et adaptations éventuellement nécessaires.
+  Une information non renseignée ne signifie pas
+  qu'un risque a été exclu.
+  Le médecin reste décisionnaire.
+
+  <div class="pap-consultation-mode-toggle" style="margin-top:0.75rem;">
+    <button
+      type="button"
+      id="papDirectSwitchFullBtn"
+      class="pap-mode-btn"
+    >
+      Passer en consultation complète
+    </button>
+
+    <button
+      type="button"
+      id="papDirectSwitchQuickBtn"
+      class="pap-mode-btn"
+    >
+      Passer en consultation rapide
+    </button>
+  </div>
+</div>
 
 <div
   id="clinicalSituationsFloatingHostV2"
@@ -5429,13 +5465,13 @@ Aucune
 
 </div>
 
-            <div class="form-group">
+            <div class="form-group" id="papCourrierDestinataireSection">
                 <h2>12/ Le destinataire du courrier est :</h2>
               <label class="inline-option"><input type="radio" name="destinataire" value="consoeur"> Une consœur</label>
 <label class="inline-option"><input type="radio" name="destinataire" value="confrere"> Un confrère</label>
             </div>
             <div class="form-group">
-  <h2>13/ Date du courrier (facultatif, si laissée vide = aujourd'hui) :</h2>
+  <h2><span id="papDateDocumentSectionNumber">13/</span> Date du document (courrier ou ordonnance, facultative ; si laissée vide = aujourd'hui) :</h2>
   <input type="date" name="date_courrier">
             </div>
     
@@ -5446,6 +5482,30 @@ Aucune
   <button type="button" id="generateReport" class="btn">
     Générer le compte-rendu
   </button>
+
+  <div
+    id="papDirectDocumentActions"
+    class="hidden"
+    style="display:flex; flex-wrap:wrap; gap:12px; width:100%;"
+  >
+    <button
+      type="button"
+      id="papDirectGenerateAPBtn"
+      class="btn"
+      style="flex:1 1 220px;"
+    >
+      Générer l'ordonnance AP
+    </button>
+
+    <button
+      type="button"
+      id="papDirectGenerateAPABtn"
+      class="btn secondary"
+      style="flex:1 1 220px;"
+    >
+      Générer l'ordonnance APA
+    </button>
+  </div>
 
   </div>
 
@@ -5592,6 +5652,15 @@ Aucune
   </div>
  
   <div id="resetSection" class="hidden" style="margin-top:12px; text-align:center;">
+
+    <button
+      type="button"
+      id="papReturnToModesBtn"
+      class="pap-mode-btn"
+      style="width:100%; margin-bottom:10px;"
+    >
+      Reprendre / compléter la consultation
+    </button>
 <button 
   type="button" 
   id="resetConsultationBtn" 
@@ -12158,6 +12227,13 @@ function displayGeneratedDocument(targetMode, documentData) {
   consultationState.reportGenerated = true;
   consultationState.reportDirty = false;
 
+  const directDocumentActions =
+    document.getElementById("papDirectDocumentActions");
+
+  if (directDocumentActions) {
+    directDocumentActions.classList.add("hidden");
+  }
+
   const warning =
     document.getElementById("crcDirtyWarning");
 
@@ -12212,10 +12288,14 @@ function handleGenerate(e, options = {}) {
   const modeBeforeGenerate =
     activeMode || "long";
 
+  const requestedDocumentMode = options.documentMode;
+
   const targetMode =
-    options.preserveMode
-      ? modeBeforeGenerate
-      : "long";
+    ["ordonnance", "apa"].includes(requestedDocumentMode)
+      ? requestedDocumentMode
+      : options.preserveMode
+        ? modeBeforeGenerate
+        : "long";
 
   if (document.activeElement) {
     document.activeElement.blur();
@@ -22404,6 +22484,26 @@ document.getElementById("confirmPrint")?.addEventListener("click", function() {
 
 }
 
+const directAPBtn = document.getElementById("papDirectGenerateAPBtn");
+
+if (directAPBtn) {
+  directAPBtn.onclick = function(e) {
+    handleGenerate(e, {
+      documentMode: "ordonnance"
+    });
+  };
+}
+
+const directAPABtn = document.getElementById("papDirectGenerateAPABtn");
+
+if (directAPABtn) {
+  directAPABtn.onclick = function(e) {
+    handleGenerate(e, {
+      documentMode: "apa"
+    });
+  };
+}
+
 const refreshBtn = document.getElementById('refreshCRCBtn');
 
 if (refreshBtn) {
@@ -23572,14 +23672,24 @@ initObjectiveEngagementContextV2();
 function initPapConsultationModeToggle() {
   const fullModeBtn = document.getElementById("papFullModeBtn");
   const quickModeBtn = document.getElementById("papQuickModeBtn");
+  const directModeBtn = document.getElementById("papDirectModeBtn");
   const quickModeNotice = document.getElementById("papQuickModeNotice");
 
-  if (!fullModeBtn || !quickModeBtn) {
+  if (!fullModeBtn || !quickModeBtn || !directModeBtn) {
     return;
   }
 
   function setPapConsultationMode(mode) {
+    if (!["full", "quick", "direct"].includes(mode)) {
+      return;
+    }
+
+    const isFullMode = mode === "full";
     const isQuickMode = mode === "quick";
+    const isDirectMode = mode === "direct";
+
+    document.body.dataset.papConsultationMode = mode;
+    document.body.classList.toggle("pap-direct-mode", isDirectMode);
 
     document.body.classList.toggle(
       "pap-quick-mode",
@@ -23602,16 +23712,66 @@ function initPapConsultationModeToggle() {
 
     fullModeBtn.classList.toggle(
       "pap-mode-btn-active",
-      !isQuickMode
+      isFullMode
     );
 
-    quickModeBtn.classList.toggle("pap-mode-btn-active", isQuickMode);
+    quickModeBtn.classList.toggle(
+      "pap-mode-btn-active",
+      isQuickMode
+    );
 
-    fullModeBtn.setAttribute("aria-pressed", String(!isQuickMode));
+    directModeBtn.classList.toggle(
+      "pap-mode-btn-active",
+      isDirectMode
+    );
+
+    fullModeBtn.setAttribute("aria-pressed", String(isFullMode));
     quickModeBtn.setAttribute("aria-pressed", String(isQuickMode));
+    directModeBtn.setAttribute("aria-pressed", String(isDirectMode));
 
     if (quickModeNotice) {
       quickModeNotice.classList.toggle("hidden", !isQuickMode);
+    }
+
+    const directModeNotice =
+      document.getElementById("papDirectModeNotice");
+
+    if (directModeNotice) {
+      directModeNotice.classList.toggle("hidden", !isDirectMode);
+    }
+
+    const courrierDestinataireSection =
+      document.getElementById("papCourrierDestinataireSection");
+
+    if (courrierDestinataireSection) {
+      courrierDestinataireSection.classList.toggle(
+        "hidden",
+        isDirectMode
+      );
+    }
+
+    const dateSectionNumber =
+      document.getElementById("papDateDocumentSectionNumber");
+
+    if (dateSectionNumber) {
+      dateSectionNumber.textContent = isDirectMode ? "12/" : "13/";
+    }
+
+    const directDocumentActions =
+      document.getElementById("papDirectDocumentActions");
+
+    if (directDocumentActions) {
+      directDocumentActions.classList.toggle(
+        "hidden",
+        !isDirectMode || consultationState.reportGenerated
+      );
+    }
+
+    const generateCRCBtn =
+      document.getElementById("generateReport");
+
+    if (generateCRCBtn && !consultationState.reportGenerated) {
+      generateCRCBtn.classList.toggle("hidden", isDirectMode);
     }
 
     const objectiveClinicalGuidanceDetails =
@@ -23694,6 +23854,62 @@ function initPapConsultationModeToggle() {
 
   quickModeBtn.addEventListener("click", function () {
     setPapConsultationMode("quick");
+  });
+
+  function returnToConsultationMode(modeButton) {
+    modeButton.click();
+
+    requestAnimationFrame(() => {
+      const modePanel =
+        fullModeBtn.closest(".pap-consultation-mode-panel");
+
+      modePanel?.scrollIntoView({
+        behavior: "auto",
+        block: "start"
+      });
+
+      modeButton.focus({ preventScroll: true });
+    });
+  }
+
+  document.getElementById("papDirectSwitchFullBtn")
+    ?.addEventListener("click", function () {
+      returnToConsultationMode(fullModeBtn);
+    });
+
+  document.getElementById("papDirectSwitchQuickBtn")
+    ?.addEventListener("click", function () {
+      returnToConsultationMode(quickModeBtn);
+    });
+
+  document.getElementById("papReturnToModesBtn")
+    ?.addEventListener("click", function () {
+      requestAnimationFrame(() => {
+        const modePanel =
+          fullModeBtn.closest(".pap-consultation-mode-panel");
+
+        modePanel?.scrollIntoView({
+          behavior: "auto",
+          block: "start"
+        });
+
+        const activeButton =
+          [fullModeBtn, quickModeBtn, directModeBtn]
+            .find(btn => btn.getAttribute("aria-pressed") === "true");
+
+        activeButton?.focus({ preventScroll: true });
+      });
+    });
+
+  directModeBtn.addEventListener("click", function () {
+    setPapConsultationMode("direct");
+
+    requestAnimationFrame(() => {
+      document.getElementById("papPrescriptionSection")?.scrollIntoView({
+        behavior: "auto",
+        block: "start"
+      });
+    });
   });
 
   setPapConsultationMode("full");
