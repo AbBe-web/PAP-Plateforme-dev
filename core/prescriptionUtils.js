@@ -23,6 +23,19 @@ function validatePrescriptionModel(model) {
     return false;
   }
 
+  // Compatibilité ascendante : l'ancien modèle sans sédentarité reste valide.
+  if (model.sedentarite !== undefined) {
+    const sed = model.sedentarite;
+    if (
+      !sed || typeof sed !== "object" ||
+      !Array.isArray(sed.actions) ||
+      !sed.actions.every(action => typeof action === "string") ||
+      typeof sed.texteLibre !== "string"
+    ) {
+      return false;
+    }
+  }
+
   const validOrdonnanceTypes = [
     "simple",
     "fitt",

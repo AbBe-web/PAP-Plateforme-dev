@@ -63,6 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
             form.reset();
         }
 
+        // Après form.reset(), restaurer l'affichage initial de la rubrique facultative.
+        if (typeof window.papResetSedentariteUi === "function") {
+            window.papResetSedentariteUi();
+        }
+
 // 1 bis. Reset identité temporaire du patient
 // Ces variables sont utilisées par la modale impression / copie.
 if (typeof lastPrenom !== "undefined") {

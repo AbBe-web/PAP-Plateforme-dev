@@ -695,6 +695,49 @@ label:has(input[type="radio"]) .info-icon{
 .precaution-highlight-wrapper{
   display:contents;
 }
+
+/* F-SED : volet purement visuel, indépendant du choix Oui/Non. */
+#papSedentariteActionsDetail[hidden] {
+  display: none !important;
+}
+
+/* Espacement modéré entre les quatre cases, sans modifier les autres rubriques. */
+#papSedentaritePrescriptionBlock .pap-sedentarite-actions-list > label {
+  margin: 0 !important;
+  line-height: 1.35;
+}
+
+#papSedentaritePrescriptionBlock .pap-sedentarite-free-entry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 0 12px;
+  font-size: 0.9rem;
+}
+
+#papSedentaritePrescriptionBlock .pap-sedentarite-free-entry label {
+  display: inline-block;
+  margin: 0;
+}
+
+#papSedentaritePrescriptionBlock .pap-sedentarite-free-text {
+  width: 180px;
+  max-width: 100%;
+  height: 34px;
+  min-height: 34px;
+  margin: 0;
+  padding: 5px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font: inherit;
+  line-height: 1.25;
+  resize: none;
+  overflow-y: hidden;
+  overflow-wrap: anywhere;
+  max-height: none;
+}
         
 </style>
     
@@ -5320,6 +5363,41 @@ Aucune
         min/séance
       </span>
 
+    </div>
+  </div>
+</div>
+
+<!-- F-SED : facultatif, indépendant des quatre composantes AP. -->
+<div class="sub-group" id="papSedentaritePrescriptionBlock">
+  <h3 class="pap-prescription-item-title">
+    Lutte contre la sédentarité :
+    <span class="info-trigger" role="button" tabindex="0"
+      aria-label="Information sur la lutte contre la sédentarité"
+      data-info="Lorsque cela est possible et adapté, réduire les périodes assises prolongées et les interrompre régulièrement."></span>
+  </h3>
+  <div style="display:flex; align-items:center; gap:15px; flex-wrap:wrap; margin-left:12px;">
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="pap_sedentarite_prescrire" value="oui"> Oui
+    </label>
+    <label class="inline-option" style="display:flex; align-items:center; gap:6px;">
+      <input type="radio" name="pap_sedentarite_prescrire" value="non"> Non
+    </label>
+    <button type="button" id="papSedentariteActionsToggle"
+      class="pap-quick-optional-toggle pap-quick-inline-toggle pap-always-visible-toggle"
+      aria-controls="papSedentariteActionsDetail" aria-expanded="false">▸ Afficher les actions concrètes</button>
+  </div>
+  <div id="papSedentariteActionsDetail" hidden style="margin:6px 0 0 8px;">
+    <div class="pap-sedentarite-actions-list" style="display:grid; gap:5px; margin:5px 0 2px 12px; font-size:0.9rem;">
+      <label><input type="checkbox" name="pap_sedentarite_action" value="pause_debout"> Se lever et marcher lors de pauses dans les périodes assises</label>
+      <label><input type="checkbox" name="pap_sedentarite_action" value="appel_marche"> Marcher pendant les appels téléphoniques lorsque cela est possible</label>
+      <label><input type="checkbox" name="pap_sedentarite_action" value="deplacement_collegue"> Se déplacer pour échanger avec un collègue plutôt que rester assis</label>
+      <label><input type="checkbox" name="pap_sedentarite_action" value="pause_ecran"> Faire une pause debout entre deux périodes passées devant un écran</label>
+    </div>
+    <div class="pap-sedentarite-free-entry">
+      <label for="papSedentariteTexteLibre">Autre action / consigne choisie par le médecin (facultatif)</label>
+      <textarea id="papSedentariteTexteLibre" name="pap_sedentarite_texte_libre" rows="1"
+        class="pap-sedentarite-free-text"
+        placeholder="Consigne personnalisée..."></textarea>
     </div>
   </div>
 </div>
@@ -14128,6 +14206,10 @@ function buildPatientQuickAccessBlock(
     }
   };
 
+  const sedentariteSeule =
+    prescriptionModel.activites.length === 0 &&
+    getSedentaritePrescriptionItems(prescriptionModel).length > 0;
+
   const selectedResourceIds =
     new Set(
       model?.resources?.selected_ids || []
@@ -14151,7 +14233,7 @@ function buildPatientQuickAccessBlock(
 
   const quickAccessItems =
     [
-      buildResourceQrMarkup(
+      sedentariteSeule ? "" : buildResourceQrMarkup(
         rulesResource,
         {
           size: 120
@@ -14218,6 +14300,10 @@ function buildOrdonnanceQuickAccessBlock(
     }
   };
 
+  const sedentariteSeule =
+    prescriptionModel.activites.length === 0 &&
+    getSedentaritePrescriptionItems(prescriptionModel).length > 0;
+
   const selectedResourceIds =
     new Set(
       model?.resources?.selected_ids || []
@@ -14240,7 +14326,7 @@ function buildOrdonnanceQuickAccessBlock(
       : [];
 
   const quickAccessCount =
-    1 + ordonnanceResources.length;
+    (sedentariteSeule ? 0 : 1) + ordonnanceResources.length;
 
   const quickAccessTitle =
     quickAccessCount > 1
@@ -14249,7 +14335,7 @@ function buildOrdonnanceQuickAccessBlock(
 
   const quickAccessItems =
     [
-      buildResourceQrMarkup(
+      sedentariteSeule ? "" : buildResourceQrMarkup(
         rulesResource,
         {
           size: 90
@@ -14658,6 +14744,10 @@ function renderPatientVersion(
   clinicalContext = null
 ) {
 
+  const sedentariteSeule =
+    prescriptionModel.activites.length === 0 &&
+    getSedentaritePrescriptionItems(prescriptionModel).length > 0;
+
   const evaluationBloc = buildEvaluationAP(model)
     .replace("Son niveau d’activité physique est actuellement", "Votre niveau d’activité physique est actuellement")
     .replace("au regard des recommandations actuelles", "par rapport aux recommandations de santé");
@@ -14779,14 +14869,17 @@ ${crcPathoBloc}
 </p>
 ` : ""}
 
-<p>
+${sedentariteSeule ? "" : `<p>
 Le plus important est de réussir à augmenter votre niveau d’activité physique, même si c’est très progressivement : chaque pas compte.
-</p>
+</p>`}
 
-${progressiviteMessage}
+${sedentariteSeule ? "" : progressiviteMessage}
 
 <p>
 En cas de difficulté ou de question, n’hésitez pas à reprendre contact avec votre médecin.
+</p>
+
+${sedentariteSeule ? "" : `<p>
 Vous pouvez également consulter les recommandations des cardiologues du sport avant chaque séance d’exercice :
 <a href="https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
    target="_blank"
@@ -14795,7 +14888,7 @@ Vous pouvez également consulter les recommandations des cardiologues du sport a
    data-patient-copy-resource-label="10 règles d’or du Club des Cardiologues du Sport">
 les 10 règles d’or du Club des Cardiologues du Sport
 </a>.
-</p>
+</p>`}
 
 ${patientResourcesBloc}
 
@@ -15219,6 +15312,13 @@ const dureePrescription =
 const includeApaCertificate =
   document.getElementById("includeApaCertificate")?.checked || false;
 
+const sedentariteSeule =
+  prescriptionModel.activites.length === 0 &&
+  getSedentaritePrescriptionItems(prescriptionModel).length > 0;
+const ordonnanceAPTitle = sedentariteSeule
+  ? "Ordonnance — lutte contre la sédentarité"
+  : "Ordonnance d'activité physique";
+
   return `
 
 <div style="
@@ -15317,7 +15417,7 @@ const includeApaCertificate =
   text-align:center;
 ">
 
-  Ordonnance d'activité physique${includeApaCertificate ? " complète" : ""}
+  ${ordonnanceAPTitle}${!sedentariteSeule && includeApaCertificate ? " complète" : ""}
 
 </h2>
 
@@ -15491,6 +15591,10 @@ const certificateBlock =
 .replace(
   "ORDONNANCE D'ACTIVITÉ PHYSIQUE",
   apaDocumentTitleUpper
+)
+.replace(
+  "Ordonnance — lutte contre la sédentarité",
+  apaDocumentTitle
 )
     .replace(
       `<div style="
@@ -15768,7 +15872,10 @@ function generateOrdonnanceAPAText(
   );
 
   const rulesText =
-    [
+    (prescriptionModel.activites.length === 0 &&
+      getSedentaritePrescriptionItems(prescriptionModel).length > 0)
+      ? ""
+      : [
       "10 règles d’or lors des séances d’activité physique :",
       "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
     ].join("\n");
@@ -21724,6 +21831,23 @@ const consignesPas =
   document.querySelector('textarea[name="consignes_pas"]')?.value;
 
   prescriptionModel.activites = [];
+  const sedentariteActive = document.querySelector(
+    'input[name="pap_sedentarite_prescrire"][value="oui"]'
+  )?.checked === true;
+  prescriptionModel.sedentarite = {
+    actions: sedentariteActive ? Array.from(document.querySelectorAll(
+      'input[name="pap_sedentarite_action"]:checked'
+    )).map(input => input.value).filter(id =>
+      Object.prototype.hasOwnProperty.call(PAP_SEDENTARITE_ACTION_LABELS, id)
+    ) : [],
+    texteLibre: sedentariteActive ? (document.querySelector(
+      'textarea[name="pap_sedentarite_texte_libre"]'
+    )?.value.trim() || "") : ""
+  };
+  if (prescriptionModel.sedentarite.actions.length ||
+      prescriptionModel.sedentarite.texteLibre) {
+    markPrescriptionDirty();
+  }
   prescriptionModel.objectifs = [];
   prescriptionModel.limitations = [];
   prescriptionModel.recommandations = [];
@@ -24485,12 +24609,17 @@ const isPatient = model.context === "patient";
 
  if (
   prescriptionModel &&
-  Array.isArray(prescriptionModel.activites) &&
-  prescriptionModel.activites.length > 0
+  ((Array.isArray(prescriptionModel.activites) &&
+    prescriptionModel.activites.length > 0) ||
+    getSedentaritePrescriptionItems(prescriptionModel).length > 0)
 ) {
 
   let prescriptionText =
     generatePrescriptionCRC(prescriptionModel);
+
+  if (getSedentaritePrescriptionItems(prescriptionModel).length > 0) {
+    prescriptionText = escapePrescriptionHtmlText(prescriptionText);
+  }
 
   prescriptionText =
     isPatient
@@ -25267,6 +25396,109 @@ navigator.serviceWorker.register(
 }
 </script>
         
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const oui = document.querySelector('input[name="pap_sedentarite_prescrire"][value="oui"]');
+  const radios = document.querySelectorAll('input[name="pap_sedentarite_prescrire"]');
+  const bouton = document.getElementById("papSedentariteActionsToggle");
+  const detail = document.getElementById("papSedentariteActionsDetail");
+  const consigne = document.getElementById("papSedentariteTexteLibre");
+  if (!oui || !bouton || !detail || radios.length !== 2) return;
+
+  // Champ compact au repos ; hauteur ajustée au contenu uniquement en saisie.
+  // Texte non supprimé au repli ou à la perte de focus.
+  if (consigne) {
+    const hauteurCompacte = 34;
+    const ajusterHauteur = () => {
+      consigne.style.height = hauteurCompacte + "px";
+      consigne.style.height = Math.max(hauteurCompacte, consigne.scrollHeight + 2) + "px";
+    };
+    const reduireHauteur = () => {
+      consigne.style.height = hauteurCompacte + "px";
+      consigne.scrollTop = 0;
+    };
+    consigne.addEventListener("focus", ajusterHauteur);
+    consigne.addEventListener("input", ajusterHauteur);
+    consigne.addEventListener("blur", reduireHauteur);
+    consigne.addEventListener("keydown", event => {
+      // Entrée valide et replie ; Maj+Entrée conserve les retours à la ligne.
+      if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
+        event.preventDefault();
+        consigne.blur();
+      }
+    });
+  }
+
+  // Une réduction de la hauteur du formulaire près du bas de page peut
+  // déplacer la fenêtre par limitation du scroll (et non par effet du bouton).
+  // Réserve invisible UNIQUEMENT si nécessaire pour garder le bouton sous le pointeur.
+  let reserve = null;
+  function reserveScrollHeight(height) {
+    if (!reserve && height > 0) {
+      reserve = document.createElement("div");
+      reserve.id = "papSedentariteViewportReserve";
+      reserve.setAttribute("aria-hidden", "true");
+      reserve.style.cssText = "height:0;pointer-events:none;overflow:hidden;";
+      document.body.appendChild(reserve);
+    }
+    if (reserve) reserve.style.height = Math.max(0, Math.ceil(height)) + "px";
+  }
+
+  function setOpen(open, preserveScroll = false) {
+    const scrollAvant = preserveScroll ? window.scrollY : 0;
+    detail.hidden = !open;
+    reserveScrollHeight(0);
+    bouton.setAttribute("aria-expanded", String(open));
+    bouton.textContent = open
+      ? "▾ Masquer les actions concrètes"
+      : "▸ Afficher les actions concrètes";
+
+    if (preserveScroll) {
+      const racine = document.scrollingElement || document.documentElement;
+      const maxScroll = Math.max(0, racine.scrollHeight - window.innerHeight);
+      if (!open && scrollAvant > maxScroll) {
+        reserveScrollHeight(scrollAvant - maxScroll);
+      }
+      window.scrollTo({ top: scrollAvant, behavior: "instant" });
+    }
+  }
+
+  radios.forEach(radio => radio.addEventListener("change", function () {
+    // Oui ouvre les actions ; Non ne replie pas automatiquement le formulaire.
+    // Aucun changement de visibilité n'affecte la décision de prescrire.
+    if (oui.checked) setOpen(true, true);
+    if (typeof markPrescriptionDirty === "function") markPrescriptionDirty();
+  }));
+  bouton.addEventListener("click", function () {
+    // Le bouton reste autonome : on peut ouvrir même sans sélectionner Oui.
+    setOpen(detail.hidden, true);
+  });
+
+  // Nettoyer la réserve après un défilement volontaire assez loin vers le haut.
+  window.addEventListener("scroll", function () {
+    if (!reserve || !detail.hidden) return;
+    const reserveHauteur = parseFloat(reserve.style.height) || 0;
+    if (reserveHauteur <= 0) return;
+    const racine = document.scrollingElement || document.documentElement;
+    const maxSansReserve = Math.max(0, racine.scrollHeight - reserveHauteur - window.innerHeight);
+    if (window.scrollY < maxSansReserve - 2) reserveScrollHeight(0);
+  }, { passive: true });
+  document.querySelectorAll('input[name="pap_sedentarite_action"], textarea[name="pap_sedentarite_texte_libre"]')
+    .forEach(input => input.addEventListener("input", function () {
+      if (oui.checked && typeof markPrescriptionDirty === "function") markPrescriptionDirty();
+    }));
+  // Après Nouvelle consultation : repli initial, aucun choix pré-sélectionné.
+  window.papResetSedentariteUi = () => {
+    setOpen(false);
+    if (consigne) {
+      consigne.style.height = "34px";
+      consigne.scrollTop = 0;
+    }
+  };
+  // Si le navigateur restaure explicitement Oui, garder la saisie visible.
+  setOpen(oui.checked);
+});
+</script>
 <script src="reset.js"></script>
         
 </body>

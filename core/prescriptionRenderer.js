@@ -1,13 +1,40 @@
+// Le modèle peut être ancien (propriété absente) : ne pas imposer de migration.
+function getSedentaritePrescriptionItems(model) {
+  const sed = model?.sedentarite;
+  if (!sed || typeof sed !== "object") return [];
+
+  const ids = Array.isArray(sed.actions) ? sed.actions : [];
+  const items = [...new Set(ids)]
+    .filter(id =>
+      typeof id === "string" &&
+      Object.prototype.hasOwnProperty.call(PAP_SEDENTARITE_ACTION_LABELS, id)
+    )
+    .map(id => PAP_SEDENTARITE_ACTION_LABELS[id]);
+
+  const libre = typeof sed.texteLibre === "string"
+    ? sed.texteLibre.trim()
+    : "";
+  if (libre) items.push(libre);
+  return items;
+}
+
+function escapePrescriptionHtmlText(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function generatePrescriptionCRC(model) {
 
   if (!validatePrescriptionModel(model)) {
     return "";
   }
 
-  if (
-    !Array.isArray(model.activites) ||
-    model.activites.length === 0
-  ) {
+  const sedentariteItems = getSedentaritePrescriptionItems(model);
+  if (model.activites.length === 0 && sedentariteItems.length === 0) {
     return "";
   }
 
@@ -157,7 +184,7 @@ case "equilibre": {
 
   });
 
-  if (activitesTextes.length === 0) {
+  if (activitesTextes.length === 0 && sedentariteItems.length === 0) {
     return "";
   }
 
@@ -235,11 +262,14 @@ if (
   }
 }
 
-  let textePrescription = encadrement
-  ? `Une activité physique régulière est prescrite ${encadrement} : ${liste}.`
-  : `Une activité physique régulière est prescrite : ${liste}.`;
+  let textePrescription = activitesTextes.length
+    ? (encadrement
+        ? `Une activité physique régulière est prescrite ${encadrement} : ${liste}.`
+        : `Une activité physique régulière est prescrite : ${liste}.`)
+    : "";
 
 if (
+  activitesTextes.length > 0 &&
   orientation &&
   orientation.bilanSouhaite
 ) {
@@ -249,6 +279,7 @@ if (
 }
 
 if (
+  activitesTextes.length > 0 &&
   orientation &&
   orientation.consentementPartage
 ) {
@@ -258,6 +289,7 @@ if (
 }
 
 if (
+  activitesTextes.length > 0 &&
   orientation &&
   orientation.commentaire &&
   orientation.commentaire.trim()
@@ -265,6 +297,11 @@ if (
 
   textePrescription +=
     ` ${orientation.commentaire.trim()}`;
+}
+
+if (sedentariteItems.length > 0) {
+  const actions = sedentariteItems.join(" ; ");
+  textePrescription += `${textePrescription ? " " : ""}Lutte contre la sédentarité : ${actions}.`;
 }
 
 return textePrescription;
@@ -280,10 +317,8 @@ function generatePrescriptionPatient(model) {
     return "";
   }
 
-  if (
-    !Array.isArray(model.activites) ||
-    model.activites.length === 0
-  ) {
+  const sedentariteItems = getSedentaritePrescriptionItems(model);
+  if (model.activites.length === 0 && sedentariteItems.length === 0) {
     return "";
   }
 
@@ -363,6 +398,16 @@ if (
     html += `</div>`;
     html += `</div>`;
   });
+
+  if (sedentariteItems.length > 0) {
+    html += `<div class="pap-prescription-sedentarite" style="margin:12px 0;">`;
+    html += `<strong>• LUTTE CONTRE LA SÉDENTARITÉ</strong>`;
+    html += `<div style="margin-left:18px; margin-top:4px; line-height:1.45;">`;
+    sedentariteItems.forEach(item => {
+      html += `<div>${escapePrescriptionHtmlText(item)}</div>`;
+    });
+    html += `</div></div>`;
+  }
 
   html += `</div>`;
 
@@ -611,6 +656,13 @@ function generatePrescriptionPlainText(model) {
     lines.push("");
   });
 
+  const sedentariteItems = getSedentaritePrescriptionItems(model);
+  if (sedentariteItems.length > 0) {
+    lines.push("LUTTE CONTRE LA SÉDENTARITÉ");
+    sedentariteItems.forEach(item => lines.push(`  ${item}`));
+    lines.push("");
+  }
+
   if (dureePrescription) {
   lines.push(`DURÉE : ${dureePrescription}`);
   lines.push("");
@@ -718,6 +770,13 @@ case "equilibre":
     lines.push("");
   });
 
+  const sedentariteItems = getSedentaritePrescriptionItems(model);
+  if (sedentariteItems.length > 0) {
+    lines.push("LUTTE CONTRE LA SÉDENTARITÉ");
+    sedentariteItems.forEach(item => lines.push(`  ${item}`));
+    lines.push("");
+  }
+
   const dureePrescription =
   document.querySelector(
     'input[name="duree_prescription"]'
@@ -742,14 +801,15 @@ if (conseilsPatho) {
   lines.push(cleanConseils);
   lines.push("");
 }
-lines.push("");
-lines.push(
-  "Précautions à prendre lors de vos séances d’activité physique (10 règles d’or) :"
-);
-
-lines.push(
-  "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
-);
+if (!(model.activites.length === 0 && sedentariteItems.length > 0)) {
+  lines.push("");
+  lines.push(
+    "Précautions à prendre lors de vos séances d’activité physique (10 règles d’or) :"
+  );
+  lines.push(
+    "https://www.frequenceglobale.com/Client/CCS/les-regles-dor-cardiologie-sport.pdf"
+  );
+}
 
   return lines.join("\n");
 }
