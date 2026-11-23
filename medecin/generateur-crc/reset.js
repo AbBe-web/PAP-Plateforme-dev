@@ -62,6 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (form) {
             form.reset();
         }
+        if (typeof window.papResetRenfoSynthesis === "function") {
+            window.papResetRenfoSynthesis();
+        }
 
         // Après form.reset(), restaurer l'affichage initial de la rubrique facultative.
         if (typeof window.papResetSedentariteUi === "function") {
@@ -313,11 +316,6 @@ if (aerobieIntensityBlock) {
 if (aerobieStepsBlock) {
     aerobieStepsBlock.style.display = "none";
 }
-
-toggleSubgroup(
-  "renforcement_musculaire",
-  "renforcement_musculaire_subgroup"
-);
 
 toggleSubgroup(
   "souplesse_mobilite",

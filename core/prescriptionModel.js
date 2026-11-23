@@ -14,6 +14,11 @@ const DEFAULT_PRESCRIPTION_MODEL = {
 
   activites: [],
 
+  // Synthétique Renforcement v19 ; les champs fréquentiels et de durée
+  // restent lus des champs historiques du formulaire par buildClinicalModel().
+  // programmeCandidat = brouillon explicitement non prescrit à cette étape.
+  renforcement: { etat: "non_renseigne", general: {}, programmeCandidat: [], syntheseRetenue: false },
+
   sedentarite: {
     actions: [],
     texteLibre: ""
