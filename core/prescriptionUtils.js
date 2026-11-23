@@ -51,28 +51,31 @@ function validatePrescriptionModel(model) {
   return true;
 }
 
-function formatFrequence(valeur) {
-
-  if (!valeur) return "";
-
-  const n = Number(valeur);
-
-  if (n <= 1) {
-    return "1 fois/semaine";
+// Les données historiques peuvent arriver sous forme de chaînes.
+// Ne jamais transformer une fréquence/durée nulle, négative ou invalide
+// en une valeur positive fictive dans un document médical.
+function parsePrescriptionPositiveNumber(valeur) {
+  if (valeur === null || valeur === undefined || typeof valeur === "boolean") {
+    return null;
   }
+  const texte = String(valeur).trim();
+  if (!texte) return null;
+  const nombre = Number(texte);
+  return Number.isFinite(nombre) && nombre > 0 ? nombre : null;
+}
 
-  return `${n} fois/semaine`;
+function formatFrequence(valeur) {
+  if (valeur === null || valeur === undefined || String(valeur).trim() === "") {
+    return "";
+  }
+  const nombre = parsePrescriptionPositiveNumber(valeur);
+  return nombre === null ? "Fréquence non valide" : `${nombre} fois/semaine`;
 }
 
 function formatDuree(valeur) {
-
-  if (!valeur) return "";
-
-  const n = Number(valeur);
-
-  if (n <= 1) {
-    return "1 min/séance";
+  if (valeur === null || valeur === undefined || String(valeur).trim() === "") {
+    return "";
   }
-
-  return `${n} min/séance`;
+  const nombre = parsePrescriptionPositiveNumber(valeur);
+  return nombre === null ? "Durée non valide" : `${nombre} min/séance`;
 }

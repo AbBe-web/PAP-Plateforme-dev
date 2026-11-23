@@ -756,7 +756,8 @@ case "equilibre":
     let details = [];
 
     if (activite.frequence?.valeur) {
-     details.push(`${activite.frequence.valeur}x/sem`);
+      const frequence = parsePrescriptionPositiveNumber(activite.frequence.valeur);
+      details.push(frequence === null ? "Fréquence non valide" : `${frequence}x/sem`);
     }
 
     if (activite.duree?.valeur) {
