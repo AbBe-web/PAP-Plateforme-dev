@@ -72,18 +72,28 @@ function papRenfoCreerSeance(renforcement) {
     // Plusieurs types : fréquence/durée propres, sans distribution automatique.
     frequence: { source: premiere ? "generale" : "seance", valeur: "" },
     duree: { source: premiere ? "generale" : "seance", valeur: "" },
-    intensite: "", zones: [], materiel: "", organisation: {},
+    // Valeurs existantes conservées pour les futurs raccordements v19 ;
+    // provenance explicite sans casser le format (string/array) de 02b.
+    intensite: "", intensiteSource: premiere ? "generale" : "seance",
+    zones: [], zonesSource: premiere ? "generale" : "seance",
+    materiel: "", organisation: {},
     exercices: [], dosageCommun: {}, modelesDosage: {},
     programmeType: { ids: [], exclusions: [] },
     statut: "brouillon"
   };
-  // Ajouter un deuxième type peut rendre indéterminée la répartition de la
-  // première séance : sa confirmation antérieure ne doit pas persister.
+  // Transition 1 -> plusieurs types : conserver exactement les valeurs déjà
+  // affichées dans la première séance. Elles deviennent ses valeurs propres,
+  // sans répartition automatique et sans préremplissage du nouveau type.
   if (!premiere) {
     for (const autre of renforcement.seances) {
-      if (autre.frequence.source === "generale" || autre.duree.source === "generale") {
-        autre.statut = "brouillon";
+      let provenanceChangee = false;
+      for (const champ of ["frequence", "duree"]) {
+        if (autre[champ].source === "generale") {
+          autre[champ] = { source: "seance", valeur: String(renforcement.general?.[champ] ?? "") };
+          provenanceChangee = true;
+        }
       }
+      if (provenanceChangee) autre.statut = "brouillon";
     }
   }
   renforcement.seances.push(seance);
@@ -108,12 +118,29 @@ function papRenfoValeurSeance(renforcement, id, champ) {
   return { valeur: String(renforcement.general?.[champ] ?? ""), source: "generale" };
 }
 
+// Résolution des valeurs de séance sans copier les données générales.
+// Contrairement à la fréquence/durée, la zone et l'intensité de A peuvent
+// rester liées au général même lorsqu'un second type de séance est ajouté.
+function papRenfoIntensiteSeance(renforcement, id) {
+  const seance = papRenfoTrouverSeance(renforcement, id);
+  if (seance.intensiteSource === "generale") {
+    return { valeur: String(renforcement.general?.intensite ?? ""), source: "generale" };
+  }
+  return { valeur: String(seance.intensite ?? ""), source: "seance" };
+}
+function papRenfoZonesSeance(renforcement, id) {
+  const seance = papRenfoTrouverSeance(renforcement, id);
+  const generale = seance.zonesSource === "generale";
+  const zones = generale ? renforcement.general?.zones : seance.zones;
+  return { valeurs: [...(Array.isArray(zones) ? zones : [])], source: generale ? "generale" : "seance" };
+}
+
 // Mise à jour EXPLICITE des champs d'une seule séance. Identité et statut
 // ne sont pas modifiables par cette voie ; une vraie modification invalide la retenue.
 function papRenfoModifierSeance(renforcement, id, changements) {
   const seance = papRenfoTrouverSeance(renforcement, id);
   const modifiables = new Set([
-    "nom", "frequence", "duree", "intensite", "zones", "materiel",
+    "nom", "frequence", "duree", "intensite", "intensiteSource", "zones", "zonesSource", "materiel",
     "organisation", "exercices", "dosageCommun", "modelesDosage", "programmeType"
   ]);
   const entrees = Object.entries(changements || {});
@@ -122,6 +149,11 @@ function papRenfoModifierSeance(renforcement, id, changements) {
     if ((cle === "frequence" || cle === "duree") &&
         (!valeur || !["generale", "seance"].includes(valeur.source) ||
          typeof valeur.valeur !== "string")) throw new Error("Provenance de séance invalide");
+    if ((cle === "zonesSource" || cle === "intensiteSource") &&
+        !["generale", "seance"].includes(valeur)) throw new Error("Provenance de séance invalide");
+    if (cle === "zones" && (!Array.isArray(valeur) ||
+        valeur.some(zone => !["MS", "Tronc", "MI"].includes(zone)))) throw new Error("Zones invalides");
+    if (cle === "intensite" && typeof valeur !== "string") throw new Error("Intensité invalide");
   }
   let change = false;
   for (const [cle, valeur] of entrees) {
@@ -129,6 +161,14 @@ function papRenfoModifierSeance(renforcement, id, changements) {
       seance[cle] = structuredClone(valeur);
       change = true;
     }
+  }
+  // Tout choix explicite dans une séance rend le champ propre, même si
+  // la valeur est identique au général. L'annulation de ce choix est explicite.
+  if (entrees.some(([cle]) => cle === "zones") && !Object.hasOwn(changements, "zonesSource")) {
+    if (seance.zonesSource !== "seance") { seance.zonesSource = "seance"; change = true; }
+  }
+  if (entrees.some(([cle]) => cle === "intensite") && !Object.hasOwn(changements, "intensiteSource")) {
+    if (seance.intensiteSource !== "seance") { seance.intensiteSource = "seance"; change = true; }
   }
   if (change) seance.statut = "brouillon";
   return seance;
@@ -139,8 +179,12 @@ function papRenfoVerifierSeance(renforcement, id) {
   const texte = frequence.valeur.trim();
   const nombre = Number(texte);
   const manquants = [];
-  if (!texte || !Number.isInteger(nombre) || nombre <= 0) manquants.push("frequence");
-  // Le critère « au moins un exercice » reste à arbitrer cliniquement.
+  if (!texte || !Number.isInteger(nombre) || nombre <= 0 || nombre > 10) manquants.push("frequence");
+  const duree = papRenfoValeurSeance(renforcement, id, "duree");
+  if (!duree.valeur.trim() || !Number.isFinite(Number(duree.valeur)) || Number(duree.valeur) <= 0) {
+    manquants.push("duree");
+  }
+  // Validation de l'organisation uniquement : exercices/dosages hors de 02c1-R3.
   return { ok: manquants.length === 0, manquants, frequence };
 }
 
@@ -157,8 +201,11 @@ function papRenfoRetenirSeance(renforcement, id) {
 // pour invalider les séances qui en dépendent ; le DOM actuel n'en crée aucune.
 function papRenfoGeneralModifie(renforcement, champs) {
   for (const seance of renforcement.seances) {
-    if (champs.some(champ => ["frequence", "duree"].includes(champ) &&
-        seance[champ].source === "generale")) seance.statut = "brouillon";
+    if (champs.some(champ =>
+      (["frequence", "duree"].includes(champ) && seance[champ].source === "generale") ||
+      (champ === "intensite" && seance.intensiteSource === "generale") ||
+      (champ === "zones" && seance.zonesSource === "generale")
+    )) seance.statut = "brouillon";
   }
 }
 
