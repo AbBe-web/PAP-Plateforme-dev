@@ -79,6 +79,7 @@ function papRenfoCreerSeance(renforcement) {
     materiel: "", organisation: {},
     exercices: [], dosageCommun: {}, modelesDosage: {},
     programmeType: { ids: [], exclusions: [] },
+    dureeCalculeeRetenue: null,
     statut: "brouillon"
   };
   // Transition 1 -> plusieurs types : conserver exactement les valeurs déjà
@@ -170,7 +171,10 @@ function papRenfoModifierSeance(renforcement, id, changements) {
   if (entrees.some(([cle]) => cle === "intensite") && !Object.hasOwn(changements, "intensiteSource")) {
     if (seance.intensiteSource !== "seance") { seance.intensiteSource = "seance"; change = true; }
   }
-  if (change) seance.statut = "brouillon";
+  if (change) {
+    seance.statut = "brouillon";
+    if (seance.dureeCalculeeRetenue && papRenfoDureeRetenue(renforcement,id)===null) seance.dureeCalculeeRetenue=null;
+  }
   return seance;
 }
 
@@ -181,7 +185,8 @@ function papRenfoVerifierSeance(renforcement, id) {
   const manquants = [];
   if (!texte || !Number.isInteger(nombre) || nombre <= 0 || nombre > 10) manquants.push("frequence");
   const duree = papRenfoValeurSeance(renforcement, id, "duree");
-  if (!duree.valeur.trim() || !Number.isFinite(Number(duree.valeur)) || Number(duree.valeur) <= 0) {
+  const calcul = papRenfoCalculDuree(renforcement,id);
+  if ((!calcul.complete || calcul.estimated) && (!duree.valeur.trim() || !Number.isFinite(Number(duree.valeur)) || Number(duree.valeur) <= 0)) {
     manquants.push("duree");
   }
   // Validation de l'organisation uniquement : exercices/dosages hors de 02c1-R3.
@@ -193,7 +198,10 @@ function papRenfoVerifierSeance(renforcement, id) {
 function papRenfoRetenirSeance(renforcement, id) {
   const controle = papRenfoVerifierSeance(renforcement, id);
   if (!controle.ok) return { ...controle, retenue: false };
-  papRenfoTrouverSeance(renforcement, id).statut = "retenue";
+  const seance = papRenfoTrouverSeance(renforcement, id);
+  const calcul = papRenfoCalculDuree(renforcement, id);
+  seance.dureeCalculeeRetenue = calcul.complete && !calcul.estimated ? {signature:calcul.signature,secondes:calcul.total} : null;
+  seance.statut = "retenue";
   return { ...controle, retenue: true };
 }
 
@@ -206,6 +214,7 @@ function papRenfoGeneralModifie(renforcement, champs) {
       (champ === "intensite" && seance.intensiteSource === "generale") ||
       (champ === "zones" && seance.zonesSource === "generale")
     )) seance.statut = "brouillon";
+    if (seance.dureeCalculeeRetenue && papRenfoDureeRetenue(renforcement,seance.id)===null) seance.dureeCalculeeRetenue=null;
   }
 }
 
@@ -213,4 +222,108 @@ function papRenfoReinitialiserSeances(renforcement) {
   renforcement.seances = [];
   renforcement.prochainIdSeance = 1;
   // Conserve les valeurs générales et les programmes candidats Synthétique.
+}
+
+// 02c5 : calcul descriptif, en secondes, à partir des doses effectivement saisies.
+// Référence du catalogue : les variantes unilatérales des mouvements bilatéraux sont reportées.
+const PAP_RENFO_SIDE_IDS = new Set(['RM-03','RM-04','RM-07','RM-10','RM-11','RM-12','RM-13','RM-14','RM-16','RM-22','RM-23','RM-25','RM-30','RM-31','RM-33','RM-34','RM-35','RM-36','RM-37','RM-38']);
+// Hypothèse temporelle modifiable, non prescription du nombre de répétitions par côté.
+const PAP_RENFO_SUCCESSIVE_IDS = new Set(['RM-07','RM-10','RM-12','RM-13','RM-14','RM-16','RM-23','RM-35','RM-36','RM-37']);
+function papRenfoSideEnabled(e) {
+  const d=e.dosage||{};
+  return !!(PAP_RENFO_SIDE_IDS.has(e.id)||e.libre||d.perSide===true||['Droit','Gauche','Alterné'].includes(d.side)||['each','total'].includes(d.timeSides));
+}
+function papRenfoTimeSides(e) {
+  const d=e.dosage||{};
+  if(['each','total'].includes(d.timeSides))return d.timeSides;
+  const mode=d.mode||(PAP_RENFO_STATIC_IDS.has(e.id)?'iso':'dyn');
+  // Une ancienne duree par serie n'est jamais doublee par simple hypothese.
+  if(mode==='dyn'&&!Object.hasOwn(d,'repDuration')&&String(d.workDuration??'').trim()!=='')return '';
+  return PAP_RENFO_SUCCESSIVE_IDS.has(e.id)?'each':'';
+}
+const PAP_RENFO_STATIC_IDS = new Set(['RM-32','RM-35','CAND-02']);
+// Hypothèse de calcul uniquement ; aucune consigne de tempo ni dose enregistrée.
+const PAP_RENFO_ESTIMATED_REP_SECONDS = 3;
+function papRenfoCalculDuree(r,id) {
+  const s=papRenfoTrouverSeance(r,id), o=s.organisation||{}, ex=s.exercices||[];
+  const parts={warmup:0,work:0,series:0,exercises:0,rounds:0,cooldown:0}, missing=[], assumptions=[];
+  const read=(v,min=0,integer=true)=>{
+    if(v===null||v===undefined||String(v).trim()===''||typeof v==='boolean')return null;
+    const n=Number(v);return Number.isFinite(n)&&n>=min&&(!integer||Number.isSafeInteger(n))?n:null;
+  };
+  const desired=papRenfoValeurSeance(r,id,'duree').valeur;
+  const sig=[desired,o.format,o.rounds,o.restRounds,o.restEx,o.warmup,o.cooldown,ex.map(e=>[e.id,!!e.libre,...['mode','series','reps','hold','workDuration','repDuration','rest','restAfter','side','perSide','rightReps','leftReps','rightHold','leftHold','timeSides'].map(k=>e.dosage?.[k])])];
+  const signature=JSON.stringify(sig);
+  const requireValue=(v,label,min=0,integer=true)=>{const n=read(v,min,integer);if(n===null)missing.push(label);return n;};
+  const add=(key,value)=>{if(Number.isFinite(value)&&value>=0&&Number.isSafeInteger(parts[key]+value))parts[key]+=value;else missing.push('Durée hors limites calculables');};
+  for(const k of ['warmup','cooldown'])if(String(o[k]??'').trim()!==''){
+    const n=requireValue(o[k],k==='warmup'?'Échauffement':'Retour au calme',0,false);if(n!==null)add(k,Math.round(n*60));
+  }
+  let tours=null;
+  if(o.format==='classique')tours=1;
+  else if(o.format==='circuit')tours=requireValue(o.rounds,'Nombre de tours',1);
+  else if(ex.length)missing.push('Organisation de la séance');
+  if(!ex.length)missing.push('Exercices sélectionnés');
+  ex.forEach((e,i)=>{
+    const d=e.dosage||{}, label=`Exercice ${i+1}`, mode=d.mode||(PAP_RENFO_STATIC_IDS.has(e.id)?'iso':'dyn');
+    const series=requireValue(d.series,`${label} : nombre de séries`,1);
+    const both=papRenfoSideEnabled(e)&&(d.side||'Les deux')==='Les deux';
+    const timeSides=papRenfoTimeSides(e);
+    const split=both&&d.perSide===true;
+    let work=null;
+    if(mode==='dyn'){
+      // Ancienne donnée par série : ne jamais l'interpréter comme une durée unitaire.
+      const legacy=!Object.hasOwn(d,'repDuration')&&String(d.workDuration??'').trim()!=='';
+      if(legacy){
+        const n=requireValue(d.workDuration,`${label} : ancienne durée d’une série`,1);
+        if(n!==null){
+          if(!both||d.timeSides==='total')work=n;
+          else if(d.timeSides==='each'&&!split)work=2*n;
+          else {work=n;assumptions.push(`${label} : durée ancienne comptée une fois, latéralité à préciser`);}
+        }
+      }else{
+        const specified=String(d.repDuration??'').trim()!=='';
+        const seconds=specified?requireValue(d.repDuration,`${label} : durée par répétition`,1):PAP_RENFO_ESTIMATED_REP_SECONDS;
+        let repetitions=null;
+        if(split){
+          const a=requireValue(d.rightReps,`${label} : répétitions droite`,1),b=requireValue(d.leftReps,`${label} : répétitions gauche`,1);
+          if(a!==null&&b!==null){
+            if(timeSides==='each')repetitions=a+b;
+            else if(timeSides==='total')repetitions=Math.max(a,b);
+            else {repetitions=Math.max(a,b);assumptions.push(`${label} : côtés différenciés, simultanéité ou succession non précisée`);}
+          }
+        }else{
+          repetitions=requireValue(d.reps,`${label} : répétitions`,1);
+          if(repetitions!==null&&both){
+            if(timeSides==='each')repetitions*=2;
+            else if(timeSides!=='total')assumptions.push(`${label} : répétitions comptées une fois, latéralité à préciser`);
+          }
+        }
+        if(seconds!==null&&repetitions!==null){
+          work=seconds*repetitions;
+          if(!specified)assumptions.push(`${label} : ${PAP_RENFO_ESTIMATED_REP_SECONDS} s par répétition estimées`);
+        }
+      }
+    }else if(mode==='iso'){
+      if(split){
+        const a=requireValue(d.rightHold,`${label} : tenue droite`,1),b=requireValue(d.leftHold,`${label} : tenue gauche`,1);
+        if(a!==null&&b!==null){if(timeSides==='each')work=a+b;else if(timeSides==='total')work=Math.max(a,b);else {work=Math.max(a,b);assumptions.push(`${label} : tenues simultanées ou successives à préciser`);}}
+      }else{
+        const n=requireValue(d.hold,`${label} : tenue`,1);
+        if(n!==null){if(!both||timeSides==='total')work=n;else if(timeSides==='each')work=2*n;else {work=n;assumptions.push(`${label} : tenue comptée une fois, latéralité à préciser`);}}
+      }
+    }else missing.push(`${label} : mode d’exécution`);
+    if(both&&timeSides==='each'&&!['each','total'].includes(d.timeSides)&&work!==null)assumptions.push(`${label} : réalisation successive, dosage par côté supposés pour l’estimation`);
+    if(tours!==null&&series!==null&&work!==null)add('work',tours*series*work);
+    if(series!==null&&series>1){const rest=requireValue(d.rest,`${label} : repos entre séries`);if(rest!==null&&tours!==null)add('series',tours*(series-1)*rest);}
+    if(i<ex.length-1){const rest=requireValue(String(d.restAfter??'').trim()!==''?d.restAfter:o.restEx,`${label} : repos avant l’exercice suivant`);if(rest!==null&&tours!==null)add('exercises',tours*rest);}
+  });
+  if(tours!==null&&tours>1){const n=requireValue(o.restRounds,'Repos entre tours');if(n!==null)add('rounds',(tours-1)*n);}
+  const total=Object.values(parts).reduce((a,b)=>a+b,0);
+  if(!Number.isSafeInteger(total))missing.push('Durée hors limites calculables');
+  return {parts,missing:[...new Set(missing)],assumptions:[...new Set(assumptions)],estimated:assumptions.length>0,total,complete:missing.length===0&&total>0,signature,desired};
+}
+function papRenfoDureeRetenue(r,id){
+  const s=papRenfoTrouverSeance(r,id), c=papRenfoCalculDuree(r,id);
+  return s.statut==='retenue'&&c.complete&&!c.estimated&&s.dureeCalculeeRetenue?.signature===c.signature&&s.dureeCalculeeRetenue?.secondes===c.total?c.total:null;
 }
