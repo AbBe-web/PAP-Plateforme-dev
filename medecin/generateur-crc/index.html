@@ -19400,14 +19400,46 @@ function initPapRenfoSynthesis() {
     if(material)hint.push('Filtre matériel indicatif, non clinique : vérifier les variantes et possibilités réelles.');
     $('papRenfoExerciseHint').textContent=hint.join(' ');
     const preview=$('papRenfoPresetPreview');
-    const profile=papRenfoV19PresetProfiles[material||'']||papRenfoV19PresetProfiles[''];
-    const candidateIds=[...new Set(['MI','MS','Tronc'].filter(z=>region.includes(z)).flatMap(z=>profile[z]||[]))].filter(id=>catalogById.has(id)&&equipmentMatches(catalogById.get(id),material));
-    preview.hidden=!material&&!papRenfoPresetPreviewSessions.has(session.id)&&!incompatible.length;
+    const diff=papRenfoPresetDiff(session);
+    const candidateIds=diff.target;
+    const showProposal=Boolean(material||papRenfoPresetPreviewSessions.has(session.id)||incompatible.length||diff.tracked);
+    preview.hidden=!showProposal&&!selected.length;
     preview.textContent='';
     if(!preview.hidden){
-      const title=document.createElement('strong');title.textContent=`Programme type proposé — ${detailNodes.equipment.selectedOptions[0]?.textContent||'Non renseigné'} : ${candidateIds.length} exercice(s) candidat(s). `;
-      preview.append(title,document.createTextNode(candidateIds.map(id=>catalogById.get(id).name).join(' ; ')));
-      const note=document.createElement('div');note.textContent='Proposition illustrative fondée sur le matériel du catalogue, non garantie comme la plus adaptée cliniquement. Vérifier machines, variantes et capacités réelles ; aucun exercice ni dosage imposé.';preview.append(note);
+      if(showProposal){
+        const title=document.createElement('strong');title.textContent=`Programme type proposé — ${detailNodes.equipment.selectedOptions[0]?.textContent||'Non renseigné'} : ${candidateIds.length} exercice(s) candidat(s). `;
+        preview.append(title,document.createTextNode(candidateIds.map(id=>catalogById.get(id).name).join(' ; ')));
+      }
+      // 02c4 : distinguer la proposition de la sélection réelle, sans inférer
+      // une provenance manuelle à partir de la seule absence d'un id programme.
+      if(selected.length){
+        const presetIds=new Set(papRenfoPresetState(session).ids);
+        const fromPreset=selected.filter(item=>presetIds.has(item.id));
+        const outsidePreset=selected.filter(item=>!presetIds.has(item.id));
+        const names=items=>items.map(item=>findExercise(item)?.name||item.nom||item.name||item.id).join(' ; ');
+        if(fromPreset.length){
+          const row=document.createElement('div');
+          const label=document.createElement('strong');label.textContent=`Exercices sélectionnés issus du programme type (${fromPreset.length}) : `;
+          const sameAsProposal=fromPreset.length===candidateIds.length&&fromPreset.every(item=>candidateIds.includes(item.id));
+          row.append(label,document.createTextNode(sameAsProposal?'Tous les exercices proposés ci-dessus.':names(fromPreset)));preview.append(row);
+        }
+        if(outsidePreset.length){
+          const row=document.createElement('div');
+          const label=document.createElement('strong');label.textContent=`Exercices sélectionnés hors programme type identifié (${outsidePreset.length}) : `;
+          row.append(label,document.createTextNode(names(outsidePreset)));preview.append(row);
+        }
+      }
+      const total=document.createElement('div');
+      const totalLabel=document.createElement('strong');totalLabel.textContent=`Total : ${selected.length} exercice${selected.length===1?'':'s'} sélectionné${selected.length===1?'':'s'} dans cette séance.`;
+      total.append(totalLabel);preview.append(total);
+      if(showProposal){
+        const note=document.createElement('div');note.textContent='Proposition illustrative fondée sur le matériel du catalogue, non garantie comme la plus adaptée cliniquement. Vérifier machines, variantes et capacités réelles ; aucun exercice ni dosage imposé.';preview.append(note);
+      }
+      if(diff.tracked&&candidateIds.length&&(diff.removed.length||diff.added.length)){
+        const comparison=document.createElement('div');comparison.className='pv-preset-diff';
+        comparison.textContent=`Actualisation possible : ${diff.removed.length} à retirer (${papRenfoPresetNames(diff.removed)}) ; ${diff.added.length} à ajouter (${papRenfoPresetNames(diff.added)}). Les ajouts manuels et les adaptations des exercices conservés restent inchangés.`;
+        const button=document.createElement('button');button.type='button';button.id='papRenfoReplacePreset';button.className='pv-dose-action';button.textContent='Remplacer le programme type';comparison.append(document.createTextNode(' '),button);preview.append(comparison);
+      }
       if(incompatible.length){const warning=document.createElement('div');warning.textContent='Exercices hors filtre matériel conservés : '+incompatible.map(item=>findExercise(item).name).join(' ; ');preview.append(warning);const remove=document.createElement('button');remove.type='button';remove.id='papRenfoRemoveIncompatible';remove.className='pv-dose-action';remove.textContent='Retirer les exercices hors filtre';preview.append(remove);}
     }
     const columns=[['MI','Membres inférieurs'],['MS','Membres supérieurs'],['Tronc','Tronc et intégré']];
@@ -19461,9 +19493,34 @@ function initPapRenfoSynthesis() {
     });
     renderPapRenfoSessionDose();
   }
-  function changeExercises(next){
+  // 02c4 : provenance par séance, sans déduction rétrospective ni état parallèle.
+  function papRenfoPresetState(session){
+    const selected=new Set(exerciseSelected(session).map(item=>item.id));
+    const p=session.programmeType||{};
+    return {ids:[...new Set(Array.isArray(p.ids)?p.ids:[])].filter(id=>selected.has(id)),exclusions:[...new Set(Array.isArray(p.exclusions)?p.exclusions:[])].filter(id=>!selected.has(id))};
+  }
+  function papRenfoPresetDiff(session){
+    const p=papRenfoPresetState(session),selected=new Set(exerciseSelected(session).map(item=>item.id));
+    const zones=papRenfoZonesSeance(papRenfoState(),session.id).valeurs,material=session.materiel||'';
+    const profile=papRenfoV19PresetProfiles[material]||papRenfoV19PresetProfiles[''];
+    const target=[...new Set(['MI','MS','Tronc'].filter(z=>zones.includes(z)).flatMap(z=>profile[z]||[]))]
+      .filter(id=>!p.exclusions.includes(id)&&catalogById.has(id)&&equipmentMatches(catalogById.get(id),material));
+    return {target,tracked:p.ids.length>0,removed:p.ids.filter(id=>!target.includes(id)),added:target.filter(id=>!selected.has(id))};
+  }
+  function papRenfoPresetNames(ids){return ids.map(id=>catalogById.get(id)?.name||id).join(' ; ')||'aucun';}
+  function papRenfoSelectionProvenance(session,next,mode='manual'){
+    const p=papRenfoPresetState(session),before=new Set(exerciseSelected(session).map(item=>item.id)),after=new Set(next.map(item=>item.id));
+    if(mode==='reset')return {ids:[],exclusions:[]};
+    const removed=p.ids.filter(id=>!after.has(id)),added=[...after].filter(id=>!before.has(id));
+    return {ids:[...p.ids.filter(id=>after.has(id)),...(['preset','replace'].includes(mode)?added:[])],
+      exclusions:[...new Set([...p.exclusions,...(mode==='manual'?removed:mode==='incompatible'?[...before].filter(id=>!after.has(id)):[])])].filter(id=>!after.has(id))};
+  }
+  function changeExercises(next,mode='manual'){
     const session=currentSession();if(!session)return;
-    papRenfoModifierSeance(papRenfoState(),session.id,{exercices:next});
+    const programmeType=papRenfoSelectionProvenance(session,next,mode);
+    const retainedIds=new Set(next.map(item=>item.id));
+    for(const item of exerciseSelected(session))if(!retainedIds.has(item.id))papRenfoExpandedDoses.delete(`${session.id}:${item.id}`);
+    papRenfoModifierSeance(papRenfoState(),session.id,{exercices:next,programmeType});
     refreshSessionRetainState(session);renderExerciseLibrary();
     if(summary.classList.contains('pv-open'))renderSummary();
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
@@ -19481,15 +19538,12 @@ function initPapRenfoSynthesis() {
     const session=currentSession();if(!session)return;
     const zones=papRenfoZonesSeance(papRenfoState(),session.id).valeurs;
     if(!zones.length){$('papRenfoExerciseStatus').textContent='Choisir une zone ciblée pour proposer un programme type.';return;}
-    const material=session.materiel||'';
-    const profile=papRenfoV19PresetProfiles[material]||papRenfoV19PresetProfiles[''];
-    const ids=[...new Set(['MI','MS','Tronc'].filter(zone=>zones.includes(zone)).flatMap(zone=>profile[zone]||[]))]
-      .filter(id=>{const ex=catalogById.get(id);return ex&&equipmentMatches(ex,material)});
+    const ids=papRenfoPresetDiff(session).target;
     papRenfoPresetPreviewSessions.add(session.id);
     const already=exerciseSelected(session);
     const known=new Set(already.map(item=>item.id));
     const added=ids.filter(id=>!known.has(id)).map(id=>({id}));
-    if(added.length)changeExercises([...already,...added]);else renderExerciseLibrary();
+    if(added.length)changeExercises([...already,...added],'preset');else renderExerciseLibrary();
     $('papRenfoExerciseStatus').textContent=added.length
       ?`${added.length} exercice(s) candidat(s) ajouté(s) selon les zones et le matériel de cette séance. À examiner et adapter ; non transmis à l'ordonnance.`
       :'Aucun nouvel exercice candidat à ajouter pour les zones et le matériel choisis.';
@@ -19500,13 +19554,23 @@ function initPapRenfoSynthesis() {
     for(const key of [...papRenfoExpandedDoses])if(key.startsWith(session.id+':'))papRenfoExpandedDoses.delete(key);
     papRenfoPresetPreviewSessions.delete(session.id);papRenfoHiddenLists.delete(session.id);
     for(const id of ['papRenfoExerciseSearch','papRenfoFreeExerciseName','papRenfoFreeExerciseRegion'])$(id).value='';
-    papRenfoAllCatalog=false;if(exerciseSelected(session).length)changeExercises([]);else renderExerciseLibrary();
+    papRenfoAllCatalog=false;const provenance=papRenfoPresetState(session);if(exerciseSelected(session).length||provenance.ids.length||provenance.exclusions.length)changeExercises([],'reset');else renderExerciseLibrary();
   });
   $('papRenfoPresetPreview').addEventListener('click',event=>{
-    if(!event.target.closest('#papRenfoRemoveIncompatible'))return;
     const session=currentSession();if(!session)return;
+    if(event.target.closest('#papRenfoReplacePreset')){
+      const diff=papRenfoPresetDiff(session);
+      if(!diff.tracked||!diff.target.length||(!diff.removed.length&&!diff.added.length))return;
+      const message=`Remplacer le programme type de cette séance ?\n\nÀ retirer : ${papRenfoPresetNames(diff.removed)}.\nÀ ajouter : ${papRenfoPresetNames(diff.added)}.\n\nLes exercices ajoutés manuellement et les adaptations des exercices conservés restent inchangés. Les dosages des exercices retirés seront perdus. Aucun nouveau dosage n'est imposé.`;
+      if(!window.confirm(message))return;
+      const removed=new Set(diff.removed);
+      changeExercises([...exerciseSelected(session).filter(item=>!removed.has(item.id)),...diff.added.map(id=>({id}))],'replace');
+      $('papRenfoExerciseStatus').textContent=`Programme type actualisé : ${diff.removed.length} retiré(s), ${diff.added.length} candidat(s) ajouté(s). Séance en brouillon, à examiner et retenir.`;
+      return;
+    }
+    if(!event.target.closest('#papRenfoRemoveIncompatible'))return;
     const selected=exerciseSelected(session),next=selected.filter(item=>{const ex=findExercise(item);return !ex||ex.libre||equipmentMatches(ex,session.materiel);});
-    if(next.length!==selected.length&&window.confirm('Retirer les exercices hors filtre matériel de cette séance ?'))changeExercises(next);
+    if(next.length!==selected.length&&window.confirm('Retirer les exercices hors filtre matériel de cette séance ? Leurs dosages et adaptations seront effacés.'))changeExercises(next,'incompatible');
   });
   $('papRenfoToggleSelected').addEventListener('click',()=>{
     const session=currentSession();if(!session)return;
