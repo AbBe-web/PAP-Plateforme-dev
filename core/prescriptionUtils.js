@@ -72,7 +72,11 @@ function formatFrequence(valeur) {
   return nombre === null ? "Fréquence non valide" : `${nombre} fois/semaine`;
 }
 
-function formatDuree(valeur) {
+function formatDuree(valeur, secondes) {
+  if(Number.isSafeInteger(secondes) && secondes>0) {
+    const h=Math.floor(secondes/3600), min=Math.floor(secondes%3600/60), sec=secondes%60;
+    return [h?h+" h":"",min?min+" min":"",sec?sec+" s":""].filter(Boolean).join(" ")+"/séance";
+  }
   if (valeur === null || valeur === undefined || String(valeur).trim() === "") {
     return "";
   }

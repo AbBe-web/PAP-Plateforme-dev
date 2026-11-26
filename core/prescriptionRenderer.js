@@ -84,7 +84,7 @@ function generatePrescriptionCRC(model) {
   }
 
   if (activite.duree?.valeur) {
-    params.push(formatDuree(activite.duree.valeur));
+    params.push(formatDuree(activite.duree.valeur, activite.duree.secondes));
   }
 
   if (activite.frequence?.valeur) {
@@ -109,7 +109,7 @@ function generatePrescriptionCRC(model) {
   const params = [];
 
   if (activite.duree?.valeur) {
-    params.push(formatDuree(activite.duree.valeur));
+    params.push(formatDuree(activite.duree.valeur, activite.duree.secondes));
   }
 
   if (activite.frequence?.valeur) {
@@ -134,7 +134,7 @@ texte += ` (${activite.type.charAt(0).toLowerCase() + activite.type.slice(1)})`;
   const params = [];
 
   if (activite.duree?.valeur) {
-    params.push(formatDuree(activite.duree.valeur));
+    params.push(formatDuree(activite.duree.valeur, activite.duree.secondes));
   }
 
   if (activite.frequence?.valeur) {
@@ -159,7 +159,7 @@ case "equilibre": {
   const params = [];
 
   if (activite.duree?.valeur) {
-    params.push(formatDuree(activite.duree.valeur));
+    params.push(formatDuree(activite.duree.valeur, activite.duree.secondes));
   }
 
   if (activite.frequence?.valeur) {
@@ -388,7 +388,7 @@ if (
     }
 
     if (activite.duree?.valeur) {
-      html += `<div>${formatDuree(activite.duree.valeur)}</div>`;
+      html += `<div>${formatDuree(activite.duree.valeur, activite.duree.secondes)}</div>`;
     }
 
     if (activite.frequence?.valeur) {
@@ -645,7 +645,7 @@ function generatePrescriptionPlainText(model) {
       }
 
       if (activite.duree?.valeur) {
-        lines.push(`  ${formatDuree(activite.duree.valeur)}`);
+        lines.push(`  ${formatDuree(activite.duree.valeur, activite.duree.secondes)}`);
       }
 
       if (activite.frequence?.valeur) {
@@ -761,7 +761,7 @@ case "equilibre":
     }
 
     if (activite.duree?.valeur) {
-      details.push(formatDuree(activite.duree.valeur));
+      details.push(formatDuree(activite.duree.valeur, activite.duree.secondes));
     }
 
     if (details.length > 0) {

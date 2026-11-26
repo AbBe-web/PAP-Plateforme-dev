@@ -7,6 +7,8 @@ const PAP_SEDENTARITE_ACTION_LABELS = Object.freeze({
   pause_ecran: "Faire une pause debout entre deux périodes passées devant un écran"
 });
 
+const PAP_RENFO_SCHEMA_VERSION = 2;
+
 const DEFAULT_PRESCRIPTION_MODEL = {
   ordonnanceType: "simple",
 
@@ -14,13 +16,8 @@ const DEFAULT_PRESCRIPTION_MODEL = {
 
   activites: [],
 
-  // Synthétique Renforcement v19 ; les champs fréquentiels et de durée
-  // restent lus des champs historiques du formulaire par buildClinicalModel().
-  // programmeCandidat = brouillon explicitement non prescrit à cette étape.
-  renforcement: {
-    etat: "non_renseigne", general: {}, programmeCandidat: [], syntheseRetenue: false,
-    seances: [], prochainIdSeance: 1 // brouillons Détaillée, hors sorties documentaires
-  },
+  // Une séance vierge canonique, clonée à chaque consultation.
+  renforcement: papRenfoCreerEtatCanonique(),
 
   sedentarite: {
     actions: [],
@@ -59,33 +56,105 @@ function createPrescriptionModel() {
   return structuredClone(DEFAULT_PRESCRIPTION_MODEL);
 }
 
+// 4b — Frontière documentaire du Renforcement, indépendante du DOM.
+// Compatibilité de lecture des anciens modèles ; la version 2 utilise les séances.
+// La projection est dérivée à chaque appel ; ne jamais la réinjecter dans la source.
+function papRenfoProjeterPrescription(renforcement) {
+  if (papRenfoEstCanonique(renforcement)) return papRenfoProjeterSeances(renforcement);
+  const general = renforcement?.general;
+  const frequence = general?.frequence ?? "";
+  const n = typeof frequence === "string" ? Number(frequence) : NaN;
+  if (renforcement?.etat === "desactive" || String(frequence).trim() === "" ||
+      !Number.isInteger(n) || n < 1 || n > 10) {
+    return { activites: [], frequenceClinique: null };
+  }
+  return {
+    activites: [{
+      categorie: "renforcement",
+      type: typeof general.type === "string" ? general.type : "",
+      frequence: { valeur: frequence },
+      duree: { valeur: typeof general.duree === "string" ? general.duree : "" }
+    }],
+    frequenceClinique: frequence
+  };
+}
+
+// 4d : projection minimale des séances, sans exercices ni progression dans les sorties historiques.
+// Séance unique : le parcours synthétique reste possible sans validation intermédiaire.
+// Plusieurs séances : seules les séances explicitement retenues sont projetées.
+function papRenfoProjeterSeances(r) {
+  const empty = {activites:[],frequenceClinique:null};
+  if(r.etat === "desactive") return empty;
+  const activites=[];
+  for(const s of r.seances) {
+    if(r.seances.length>1 && (s.statut!=="retenue" || !papRenfoVerifierSeance(r,s.id).ok)) continue;
+    const frequence=papRenfoValeurSeance(r,s.id,"frequence").valeur;
+    const n=Number(frequence);
+    if(!frequence.trim() || !Number.isInteger(n) || n<1 || n>10) continue;
+    const secondes=papRenfoDureeRetenue(r,s.id);
+    const duree=secondes===null?{valeur:papRenfoValeurSeance(r,s.id,"duree").valeur}:{valeur:String(secondes/60),secondes};
+    activites.push({categorie:"renforcement",type:s.type||"",frequence:{valeur:frequence},duree});
+  }
+  return {activites,frequenceClinique:activites.length===0?null:activites.length===1?activites[0].frequence.valeur:String(activites.reduce((total,a)=>total+Number(a.frequence.valeur),0))};
+}
+
 // 5-RENFO-02b : contrat minimal de données Détaillée.
 // Ces fonctions ne sélectionnent/prescrivent aucun exercice et ne modifient pas le DOM.
-// IMPORTANT : les sorties actuelles demeurent exclusivement Synthétiques.
+// Les sorties restent synthétiques ; 4d active le modèle canonique.
+// La frontière historique est temporaire et ne constitue pas une seconde source dans un état canonique.
+function papRenfoEstCanonique(r) { return r?.versionSchema === PAP_RENFO_SCHEMA_VERSION; }
+function papRenfoCreerEtatCanonique() {
+  const r = {versionSchema:PAP_RENFO_SCHEMA_VERSION, etat:"non_renseigne", general:{}, seances:[], prochainIdSeance:1};
+  papRenfoCreerSeance(r);
+  return r;
+}
+// Données de composante uniquement ; les champs de séance ne passent pas par cette frontière.
+function papRenfoEtatRenseigne(r) {
+  const texte=v=>typeof v==="string" && v.trim()!=="";
+  const g=r.general||{};
+  return texte(g.objectif)||texte(g.objectifComplementaire)||texte(g.notes)||r.seances.some(s=>
+    [s.nom,s.type,s.frequence?.valeur,s.duree?.valeur,s.intensite,s.materiel,s.notes].some(texte)||
+    s.zones.length>0||s.jours.length>0||s.exercices.length>0||s.programmeType?.exclusions?.length>0||
+    [s.organisation,s.dosageCommun,s.modelesDosage].some(o=>Object.values(o||{}).some(texte)));
+}
+function papRenfoActualiserEtat(r) {
+  if(r.etat!=="desactive") r.etat=papRenfoEtatRenseigne(r)?"actif":"non_renseigne";
+  return r;
+}
+function papRenfoRetirerSeance(r,id) {
+  if(!papRenfoEstCanonique(r)) throw new Error("État canonique requis");
+  papRenfoTrouverSeance(r,id);
+  r.seances=r.seances.filter(s=>s.id!==id);
+  if(!r.seances.length) papRenfoCreerSeance(r);
+  return papRenfoActualiserEtat(r);
+}
+function papRenfoModifierGeneralCanonique(r, changements) {
+  if (!papRenfoEstCanonique(r)) throw new Error("État canonique requis");
+  const entrees=Object.entries(changements || {});
+  for(const [cle,valeur] of entrees) if(!["objectif","objectifComplementaire","notes"].includes(cle) || typeof valeur!=="string") throw new Error("Champ général invalide : "+cle);
+  let change=false;
+  for(const [cle,valeur] of entrees) if((r.general[cle]??"")!==valeur){r.general[cle]=valeur;change=true;}
+  papRenfoActualiserEtat(r);
+  return change;
+}
 function papRenfoCreerSeance(renforcement) {
   if (!renforcement || !Array.isArray(renforcement.seances)) throw new Error("État Renforcement non initialisé");
+  const canonique = papRenfoEstCanonique(renforcement);
   const numero = renforcement.prochainIdSeance++;
   const premiere = renforcement.seances.length === 0;
+  const source = !canonique && premiere ? "generale" : "seance";
   const seance = {
     id: `renfo-seance-${numero}`, nom: "",
-    // Une seule séance : référence aux champs généraux (aucune recopie).
-    // Plusieurs types : fréquence/durée propres, sans distribution automatique.
-    frequence: { source: premiere ? "generale" : "seance", valeur: "" },
-    duree: { source: premiere ? "generale" : "seance", valeur: "" },
-    // Valeurs existantes conservées pour les futurs raccordements v19 ;
-    // provenance explicite sans casser le format (string/array) de 02b.
-    intensite: "", intensiteSource: premiere ? "generale" : "seance",
-    zones: [], zonesSource: premiere ? "generale" : "seance",
-    materiel: "", organisation: {},
-    exercices: [], dosageCommun: {}, modelesDosage: {},
-    programmeType: { ids: [], exclusions: [] },
-    dureeCalculeeRetenue: null,
-    statut: "brouillon"
+    frequence: { source, valeur: "" }, duree: { source, valeur: "" },
+    intensite: "", intensiteSource: source, zones: [], zonesSource: source,
+    materiel: "", organisation: {}, exercices: [], dosageCommun: {}, modelesDosage: {},
+    programmeType: { ids: [], exclusions: [] }, dureeCalculeeRetenue: null, statut: "brouillon"
   };
+  if (canonique) Object.assign(seance,{type:"",jours:[],notes:"",prochainIdExercice:1});
   // Transition 1 -> plusieurs types : conserver exactement les valeurs déjà
   // affichées dans la première séance. Elles deviennent ses valeurs propres,
   // sans répartition automatique et sans préremplissage du nouveau type.
-  if (!premiere) {
+  if (!canonique && !premiere) {
     for (const autre of renforcement.seances) {
       let provenanceChangee = false;
       for (const champ of ["frequence", "duree"]) {
@@ -140,10 +209,12 @@ function papRenfoZonesSeance(renforcement, id) {
 // ne sont pas modifiables par cette voie ; une vraie modification invalide la retenue.
 function papRenfoModifierSeance(renforcement, id, changements) {
   const seance = papRenfoTrouverSeance(renforcement, id);
+  const canonique = papRenfoEstCanonique(renforcement);
   const modifiables = new Set([
     "nom", "frequence", "duree", "intensite", "intensiteSource", "zones", "zonesSource", "materiel",
     "organisation", "exercices", "dosageCommun", "modelesDosage", "programmeType"
   ]);
+  if (canonique) for (const champ of ["type","jours","notes"]) modifiables.add(champ);
   const entrees = Object.entries(changements || {});
   for (const [cle, valeur] of entrees) {
     if (!modifiables.has(cle)) throw new Error(`Champ de séance interdit : ${cle}`);
@@ -155,14 +226,25 @@ function papRenfoModifierSeance(renforcement, id, changements) {
     if (cle === "zones" && (!Array.isArray(valeur) ||
         valeur.some(zone => !["MS", "Tronc", "MI"].includes(zone)))) throw new Error("Zones invalides");
     if (cle === "intensite" && typeof valeur !== "string") throw new Error("Intensité invalide");
+    if (canonique) {
+      if ((cle === "frequence" || cle === "duree") && valeur.source !== "seance") throw new Error("Héritage interdit dans le modèle canonique");
+      if ((cle === "zonesSource" || cle === "intensiteSource") && valeur !== "seance") throw new Error("Héritage interdit dans le modèle canonique");
+      if (["type","notes"].includes(cle) && typeof valeur !== "string") throw new Error("Texte de séance invalide");
+      if (cle === "jours" && (!Array.isArray(valeur) || new Set(valeur).size !== valeur.length || valeur.some(j => !["lun","mar","mer","jeu","ven","sam","dim"].includes(j)))) throw new Error("Jours invalides");
+    }
   }
+  // Préparer les identités sans modifier la source : un refus ne consomme pas de numéro.
+  let preparation = null;
+  if (canonique && Object.hasOwn(changements || {},"exercices")) preparation = papRenfoPreparerOccurrences(seance,changements.exercices);
   let change = false;
-  for (const [cle, valeur] of entrees) {
+  for (const [cle, valeurBrute] of entrees) {
+    const valeur = cle === "exercices" && preparation ? preparation.exercices : valeurBrute;
     if (JSON.stringify(seance[cle]) !== JSON.stringify(valeur)) {
       seance[cle] = structuredClone(valeur);
       change = true;
     }
   }
+  if (preparation) seance.prochainIdExercice = preparation.prochainIdExercice;
   // Tout choix explicite dans une séance rend le champ propre, même si
   // la valeur est identique au général. L'annulation de ce choix est explicite.
   if (entrees.some(([cle]) => cle === "zones") && !Object.hasOwn(changements, "zonesSource")) {
@@ -175,6 +257,7 @@ function papRenfoModifierSeance(renforcement, id, changements) {
     seance.statut = "brouillon";
     if (seance.dureeCalculeeRetenue && papRenfoDureeRetenue(renforcement,id)===null) seance.dureeCalculeeRetenue=null;
   }
+  if(canonique) papRenfoActualiserEtat(renforcement);
   return seance;
 }
 
@@ -220,8 +303,103 @@ function papRenfoGeneralModifie(renforcement, champs) {
 
 function papRenfoReinitialiserSeances(renforcement) {
   renforcement.seances = [];
-  renforcement.prochainIdSeance = 1;
+  if (papRenfoEstCanonique(renforcement)) {
+    // Pas de réutilisation d'identité au sein de la consultation.
+    papRenfoCreerSeance(renforcement);
+    papRenfoActualiserEtat(renforcement);
+  } else renforcement.prochainIdSeance = 1;
   // Conserve les valeurs générales et les programmes candidats Synthétique.
+}
+
+// L'identifiant catalogue (id) reste celui des règles de durée et de provenance.
+// occurrenceId désigne une sélection particulière ; retirer puis réajouter crée une autre identité.
+function papRenfoPreparerOccurrences(seance, liste) {
+  if (!Array.isArray(liste)) throw new Error("Liste d'exercices invalide");
+  const anciens = new Map((seance.exercices || []).map(e=>[e.id,e]));
+  const vus = new Set();
+  let prochainIdExercice = seance.prochainIdExercice;
+  if (!Number.isSafeInteger(prochainIdExercice) || prochainIdExercice < 1) throw new Error("Compteur d'exercices invalide");
+  const exercices = liste.map(e=>{
+    if (!e || typeof e.id !== "string" || !e.id || vus.has(e.id)) throw new Error("Identité d'exercice invalide ou dupliquée");
+    vus.add(e.id);
+    const ancienne = anciens.get(e.id)?.occurrenceId;
+    if (Object.hasOwn(e,"occurrenceId") && (!ancienne || e.occurrenceId !== ancienne)) throw new Error("Identité d'occurrence non modifiable");
+    const occurrenceId = ancienne || `${seance.id}:ex-${prochainIdExercice++}`;
+    return {...structuredClone(e),occurrenceId};
+  });
+  return {exercices,prochainIdExercice};
+}
+
+// Migration pure et non destructive. Aucun arbitrage implicite en cas de divergence.
+// Une liste de candidats autonome ou une ancienne synthèse retenue nécessite
+// une décision de reprise dans le contrôleur ; ne jamais les transformer en séance retenue.
+function papRenfoPreparerMigration(ancien) {
+  if (papRenfoEstCanonique(ancien)) return {ok:true,etat:structuredClone(ancien),conflits:[]};
+  if (!ancien || typeof ancien !== "object" || !Array.isArray(ancien.seances) || !ancien.general || typeof ancien.general !== "object") {
+    return {ok:false,etat:null,conflits:[{code:"structure_invalide"}]};
+  }
+  const g = ancien.general, conflits = [];
+  if (Object.hasOwn(ancien,"versionSchema")) return {ok:false,etat:null,conflits:[{code:"version_inconnue"}]};
+  for(const [cle,v] of Object.entries(g)) {
+    if(cle==="zones" ? (!Array.isArray(v)||v.some(z=>!["MI","MS","Tronc"].includes(z))) : typeof v!=="string") conflits.push({code:"valeur_generale_invalide",champ:cle});
+  }
+  if(conflits.length) return {ok:false,etat:null,conflits};
+  if (ancien.programmeCandidat?.length) conflits.push({code:"candidats_a_reexaminer",nombre:ancien.programmeCandidat.length});
+  if (ancien.syntheseRetenue) conflits.push({code:"validation_synthetique_a_reexaminer"});
+  const connus = new Set(["objectif","objectifComplementaire","notes","type","frequence","duree","intensite","zones"]);
+  for(const cle of Object.keys(g)) if(!connus.has(cle)) conflits.push({code:"champ_general_inconnu",champ:cle});
+  const ses = ancien.seances;
+  const ids = new Set();
+  for(const s of ses) {
+    if (!s || typeof s.id !== "string" || !/^renfo-seance-[1-9]\d*$/.test(s.id) || ids.has(s.id)) {conflits.push({code:"identite_seance_invalide"});continue;}
+    ids.add(s.id);
+    for(const champ of ["frequence","duree"]) if(!s[champ] || !["generale","seance"].includes(s[champ].source) || typeof s[champ].valeur!=="string") conflits.push({code:"parametre_invalide",seance:s.id,champ});
+    for(const champ of ["intensite","zones"]) if(!["generale","seance"].includes(s[champ+"Source"])) conflits.push({code:"provenance_invalide",seance:s.id,champ});
+    if(typeof s.intensite!=="string" || !Array.isArray(s.zones) || s.zones.some(z=>!["MI","MS","Tronc"].includes(z))) conflits.push({code:"parametre_invalide",seance:s.id,champ:"intensite_zones"});
+    if (!Array.isArray(s.exercices) || new Set((s.exercices||[]).map(e=>e?.id)).size !== (s.exercices||[]).length || (s.exercices||[]).some(e=>!e || typeof e.id!=="string" || !e.id)) conflits.push({code:"exercices_invalides",seance:s.id});
+  }
+  if (conflits.some(c=>["identite_seance_invalide","parametre_invalide","provenance_invalide","exercices_invalides"].includes(c.code))) return {ok:false,etat:null,conflits};
+  const normaliser = (champ,v) => champ === "zones" ? (Array.isArray(v) ? [...v] : []) : String(v??"");
+  const nonVide = (champ,v) => champ === "zones" ? v.length>0 : v.trim()!=="";
+  const egaux = (champ,a,b) => champ === "zones" ? JSON.stringify([...a].sort())===JSON.stringify([...b].sort()) : a===b;
+  const champs = ["frequence","duree","intensite","zones"];
+  const resoudre = (s,champ) => {
+    const numerique=["frequence","duree"].includes(champ);
+    const source=numerique?s[champ].source:s[champ+"Source"];
+    const v=normaliser(champ,numerique?s[champ].valeur:s[champ]);
+    const gv=normaliser(champ,g[champ]);
+    if (source === "generale") {
+      if(numerique && ses.length!==1) conflits.push({code:"heritage_multiseance_ambigu",seance:s.id,champ});
+      return gv;
+    }
+    if(s===ses[0] && nonVide(champ,gv) && !egaux(champ,v,gv)) conflits.push({code:"divergence_general_seance",seance:s.id,champ});
+    return v;
+  };
+  const r = {versionSchema:PAP_RENFO_SCHEMA_VERSION,etat:ancien.etat||"non_renseigne",general:{},seances:[],prochainIdSeance:Math.max(1,Number.isSafeInteger(ancien.prochainIdSeance)?ancien.prochainIdSeance:1,...[...ids].map(id=>Number(id.slice(13))+1))};
+  for(const champ of ["objectif","objectifComplementaire","notes"]) if(Object.hasOwn(g,champ)) r.general[champ]=structuredClone(g[champ]);
+  if (!ses.length) {
+    const s = papRenfoCreerSeance(r);
+    for(const champ of champs) {
+      const v=normaliser(champ,g[champ]);
+      s[champ]=["frequence","duree"].includes(champ)?{source:"seance",valeur:v}:v;
+    }
+    s.type=normaliser("type",g.type);
+  } else {
+    r.seances=ses.map((s,i)=>{
+      const copie=structuredClone(s);
+      for(const champ of champs) {
+        const v=resoudre(s,champ);
+        if(["frequence","duree"].includes(champ)) copie[champ]={source:"seance",valeur:v};
+        else {copie[champ]=v;copie[champ+"Source"]="seance";}
+      }
+      copie.type=i===0?normaliser("type",g.type):"";copie.jours=[];copie.notes="";
+      copie.exercices=[];copie.prochainIdExercice=1;
+      const preparation=papRenfoPreparerOccurrences(copie,s.exercices);
+      Object.assign(copie,preparation);
+      return copie;
+    });
+  }
+  return conflits.length?{ok:false,etat:null,conflits}:{ok:true,etat:r,conflits:[]};
 }
 
 // 02c5 : calcul descriptif, en secondes, à partir des doses effectivement saisies.

@@ -931,6 +931,11 @@ label:has(input[type="radio"]) .info-icon{
 /* Override PAP global: .crc-page .sub-group > div is flex; this body must stack full-width rows. */
 #papStrengthV19 > .pv-body{display:block;width:100%;min-width:0;padding:9px 12px 8px}
 #papStrengthV19 .pv-grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:9px;row-gap:7px}
+#papStrengthV19 #papRenfoGoalsRow:has(#papRenfoExtraGoalWrap[hidden]) #papRenfoPracticeWrap{grid-column:span 2}
+#papStrengthV19 #papRenfoEssentialRow.pv-with-name{grid-template-columns:repeat(4,minmax(0,1fr))}
+@container(max-width:630px){#papStrengthV19 #papRenfoEssentialRow.pv-with-name{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container(max-width:500px){#papStrengthV19 #papRenfoGoalsRow:has(#papRenfoExtraGoalWrap[hidden]) #papRenfoPracticeWrap{grid-column:auto}}
+@container(max-width:355px){#papStrengthV19 #papRenfoEssentialRow.pv-with-name{grid-template-columns:1fr}}
 #papStrengthV19 .pv-field{min-width:0}
 #papStrengthV19 .pv-field>label{display:flex;align-items:center;gap:5px;min-height:18px;font-size:12px;font-weight:650;color:#2f5276;margin:0 0 4px}
 #papStrengthV19 .pv-field input,#papStrengthV19 .pv-field select,#papStrengthV19 .pv-field textarea{display:block;width:100%;height:36px;min-width:0;border:1px solid #c5d6e9;border-radius:8px;padding:7px 10px;color:#294563;background:#fff;font-size:13px;max-width:none}
@@ -1004,15 +1009,15 @@ label:has(input[type="radio"]) .info-icon{
 
 /* 5-RENFO-02c1 : bloc A (Organisation de la pratique) de la Détaillée v19,
    véritable état de séance dans prescriptionModel, sans sorties détaillées. */
-#papStrengthV19 .pv-detail-disclosure{display:block;border-top:1px solid var(--pv-line);margin-top:12px;padding-top:9px}
-/* 5-RENFO-02c3-UX11 : commande de repli compacte, comportement natif details conserve. */
-#papStrengthV19 #papRenfoDetailPanel>summary{display:inline-flex;align-items:center;gap:6px;list-style:none;cursor:pointer;width:fit-content;max-width:100%;box-sizing:border-box;margin:0;padding:6px 10px;min-height:28px;border:1px solid #cbdced;border-radius:7px;background:#f5f8fc;color:#245585;font-size:12px;font-weight:650;line-height:1.25}
-#papStrengthV19 #papRenfoDetailPanel>summary::-webkit-details-marker{display:none}
-#papStrengthV19 #papRenfoDetailPanel>summary::marker{content:""}
-#papStrengthV19 #papRenfoDetailPanel>summary::before{content:"▸";flex:none}
-#papStrengthV19 #papRenfoDetailPanel[open]>summary::before{content:"▾"}
-#papStrengthV19 #papRenfoDetailPanel[open]>summary,#papStrengthV19 #papRenfoDetailPanel>summary:hover{background:#e8f3ff;border-color:#a6c7e6}
-#papStrengthV19 #papRenfoDetailPanel>summary:focus-visible{outline:2px solid #92c1e8;outline-offset:2px}
+#papStrengthV19 .pv-detail-disclosure{display:block;border:0;margin:0;padding:0}
+/* 4d-UX2 : le dépliage concerne toute la rubrique ; commande dans son en-tête. */
+#papStrengthV19 .pv-head-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px;min-width:0}
+#papStrengthV19 #papRenfoDetailToggle{display:inline-flex;align-items:center;gap:6px;max-width:100%;padding:5px 10px;min-height:30px;border:1px solid #a6c7e6;border-radius:7px;background:#f5f8fc;color:#245585;font-size:12px;font-weight:650;line-height:1.25}
+#papStrengthV19 #papRenfoDetailToggle::before{content:"▸";flex:none}
+#papStrengthV19 #papRenfoDetailToggle[aria-expanded="true"]::before{content:"▾"}
+#papStrengthV19 #papRenfoDetailToggle[aria-expanded="true"],#papStrengthV19 #papRenfoDetailToggle:hover{background:#e8f3ff}
+#papStrengthV19 #papRenfoDetailToggle:focus-visible{outline:2px solid #92c1e8;outline-offset:2px}
+#papStrengthV19.pv-is-off .pv-head-actions{display:none}
 #papStrengthV19 .pv-detail-content{display:block;min-width:0;padding:6px 1px 4px}
 #papStrengthV19 .pv-detail-card{display:block;border:1px solid #d5e2ef;background:#fbfdff;padding:11px;border-radius:9px;min-width:0}
 #papStrengthV19 .pv-detail-card h4{font-size:13px;color:#2b4d70;margin:0 0 9px}
@@ -1080,7 +1085,7 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 #papRenfoExerciseSearch,#papStrengthV19 #papRenfoFreeExerciseName,#papStrengthV19 #papRenfoFreeExerciseRegion{display:block;width:100%;min-width:0;height:36px;min-height:36px;max-height:36px;box-sizing:border-box;border:1px solid #c5d6e9;border-radius:8px;background:#fff;color:#274d72;font-family:inherit;font-size:13px;line-height:20px;padding:7px 10px;margin:0}
 #papStrengthV19 #papRenfoAddFreeExercise{min-height:36px;height:36px;padding:5px 9px;box-sizing:border-box;border-radius:8px}
 #papStrengthV19 .pv-exercise-empty{padding:10px 12px;margin-top:8px;border-radius:8px;background:#f4f8fc;color:#5b7692;font-size:12px}
-#papStrengthV19 .pv-session-retain{margin-top:12px;padding-top:10px;border-top:1px solid #e5edf6}
+#papStrengthV19 .pv-session-retain{margin-top:5px;padding-top:0;border-top:0}
 /* Comme v19 : plein format 3 cadres ; 2 colonnes entre 651 et 800 px ; 1 colonne à 650 px ou moins.
    Le seuil utilise la largeur du panneau PAP et non celle de la fenêtre. */
 @container(min-width:651px) and (max-width:800px){#papStrengthV19 .pv-exercise-columns{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -1151,12 +1156,11 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 #papStrengthV19 .pv-dose-integrated{display:block;min-width:0;margin:8px 0 0}
 #papStrengthV19 .pv-dose-integrated[hidden]{display:none!important}
-#papStrengthV19 .pv-session-dose-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.45fr) minmax(0,1.12fr);gap:10px;align-items:start;margin:7px 0 0}
+#papStrengthV19 .pv-session-dose-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr) minmax(0,2.45fr);gap:10px;align-items:start;margin:7px 0 0}
 #papStrengthV19 .pv-dose-material{display:block;margin:0;min-width:0}
 #papStrengthV19 .pv-dose-material .pv-field{width:auto;flex:none;min-width:0}
 #papStrengthV19 .pv-dose-material-note{display:none}
 #papStrengthV19 .pv-dose-material .pv-session-material-note{display:none}
-#papStrengthV19 .pv-dose-material #papRenfoUseGeneralEffort[hidden]{display:none}
 #papStrengthV19 .pv-session-dose-row .pv-field>label,#papStrengthV19 .pv-dose-model-label{font-size:11px;font-weight:650;color:#315575;display:block;line-height:16px;min-height:16px;margin:0 0 4px}
 #papStrengthV19 .pv-session-dose-row select{width:100%;min-width:0;min-height:36px;height:36px}
 #papStrengthV19 .pv-dose-model{min-width:0}
@@ -1196,8 +1200,6 @@ label:has(input[type="radio"]) .info-icon{
 
 /* 5-RENFO-02c3-UX5 : alignement structurel sur la Detailed v19 validee.
    Donnees et evenementiels existants conserves ; aucun dosage ajoute automatiquement. */
-#papStrengthV19 #papRenfoSingleNotice{display:none!important}
-#papStrengthV19 #papRenfoSessionFields .pv-session-provenance{display:none!important}
 #papStrengthV19 .pv-session-zones{grid-template-columns:repeat(5,minmax(0,1fr));align-items:stretch}
 #papStrengthV19 .pv-session-presetgroup{min-width:0;align-self:stretch}
 #papStrengthV19 .pv-session-presetgroup .pv-preset{height:100%;min-height:36px;line-height:1.15;white-space:normal}
@@ -1232,9 +1234,33 @@ label:has(input[type="radio"]) .info-icon{
 #papRenfoSuggestionPortal button{display:block;width:100%;box-sizing:border-box;text-align:left;min-height:26px;line-height:18px;padding:4px 9px;border:0;border-radius:3px;background:#fff;color:#24517a;font-family:inherit;font-size:12px;cursor:pointer}
 #papRenfoSuggestionPortal button:hover,#papRenfoSuggestionPortal button:focus-visible{background:#e8f3ff}
 #papRenfoSuggestionPortal button+button{border-top:1px solid #f1f4f8}
-#papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration,#papRenfoSessionFreq,#papRenfoSessionDuration){appearance:textfield;-moz-appearance:textfield}
-#papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration,#papRenfoSessionFreq,#papRenfoSessionDuration)::-webkit-inner-spin-button,
-#papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration,#papRenfoSessionFreq,#papRenfoSessionDuration)::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+#papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration){appearance:textfield;-moz-appearance:textfield}
+#papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration)::-webkit-inner-spin-button,
+#papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration)::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+
+/* 4d-UX : un cadre A enrichissable, B/C inchangés. Aucun contrôle dupliqué. */
+#papStrengthV19 #papRenfoSessionCard.pv-compact-session{border:0;background:transparent;padding:0;border-radius:0}
+#papStrengthV19 #papRenfoSessionCard.pv-compact-session #papRenfoZones{grid-template-columns:repeat(4,minmax(0,1fr))}
+#papStrengthV19 #papRenfoSessionCard.pv-compact-session #papRenfoEssentialRow{margin-top:0!important}
+#papStrengthV19 #papRenfoSessionTitlebar{margin-bottom:9px}
+#papStrengthV19 :is(#papRenfoGoalsRow,#papRenfoEssentialRow)>.pv-field{display:grid;grid-template-rows:minmax(18px,auto) 36px;gap:4px;align-items:end;min-width:0;margin:0;padding:0}
+#papStrengthV19 :is(#papRenfoGoalsRow,#papRenfoEssentialRow)>.pv-field>label{min-height:18px;margin:0!important;padding:0;line-height:1.25;align-self:end}
+#papStrengthV19 :is(#papRenfoGoalsRow,#papRenfoEssentialRow) :is(input,select){height:36px;min-height:36px;max-height:36px;margin:0!important;box-sizing:border-box;align-self:stretch}
+#papStrengthV19 :is(#papRenfoGoalsRow,#papRenfoEssentialRow) .pv-suggest-wrap{height:36px;margin:0;padding:0;align-self:stretch}
+#papStrengthV19 #papRenfoPractice{padding-right:30px}
+#papStrengthV19 #papRenfoClearPractice{position:absolute;right:4px;top:50%;transform:translateY(-50%);height:25px;width:24px;min-width:0;padding:0;border:0;border-radius:5px;background:transparent;color:#526f8b;font-size:18px;line-height:1}
+#papStrengthV19 #papRenfoClearPractice:hover,#papStrengthV19 #papRenfoClearPractice:focus-visible{background:#e8f3ff;color:#245585}
+#papStrengthV19 .pv-detail-content{padding-left:0;padding-right:0}
+#papStrengthV19 #papRenfoSelectedPanel .pv-exercise-head{align-items:center}
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-controls{justify-content:flex-end}
+@container(max-width:500px){#papStrengthV19 #papRenfoSessionCard.pv-compact-session #papRenfoZones{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+#papStrengthV19 .pv-dose-grid-prep>.pv-field{display:grid;grid-template-rows:minmax(18px,auto) 34px;gap:4px;align-items:end}
+#papStrengthV19 .pv-dose-grid-prep>.pv-field>label{margin:0!important;min-height:18px;padding:0;line-height:1.25;align-self:end}
+#papStrengthV19 .pv-dose-grid-prep>.pv-field>input{margin:0!important;height:34px;min-height:34px;max-height:34px}
+#papStrengthV19 .pv-exercise-head h4 .pv-assist{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;width:16px;height:16px;min-width:16px;min-height:16px;padding:0;border-radius:50%;line-height:1;font-size:10px;color:#3475a6;background:#f1f7ff;border:1px solid #bed9ee}
+@container(max-width:500px){#papStrengthV19 #papRenfoGoalsRow #papRenfoPracticeWrap,#papStrengthV19 #papRenfoGoalsRow:has(#papRenfoExtraGoalWrap[hidden]) #papRenfoPracticeWrap{grid-column:1/-1}}
+
 /* UX7 : compactage des blocs B/C, sans modifier le portail de suggestions. */
 #papStrengthV19 .pv-session-dose-row{align-items:start}
 #papStrengthV19 .pv-dose-material .pv-field>label,#papStrengthV19 .pv-dose-model-label,#papStrengthV19 .pv-dose-format .pv-field>label{min-height:16px;line-height:16px;margin:0 0 4px}
@@ -1306,11 +1332,10 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-detail-content .pv-help:not(.pv-preset-help){font-size:12px;line-height:1.4}
 @container(max-width:390px){#papStrengthV19 .pv-exercise-search{width:100%}}
 /* UX9 — aides Renforcement ancrées au déclencheur, sans déplacement du formulaire. */
-#papStrengthV19 .pv-effort-reuse,#papStrengthV19 #papRenfoUseGeneralZones{display:none!important}
 #papStrengthV19 .pv-session-zones-head{margin-top:7px}
 body > .pv-renfo-help-portal{position:fixed;z-index:10002;box-sizing:border-box;display:block;margin:0;padding:10px 12px;border:1px solid #a9cbe8;border-radius:9px;background:#f6fbff;color:#294f75;box-shadow:0 7px 18px rgba(27,65,107,.20);font:12px/1.4 system-ui,sans-serif;overflow:auto;overscroll-behavior:contain;overflow-wrap:anywhere}
 /* 5-RENFO-02c3-UX10 : actions uniques en fin de composante, synthese et copie locales. */
-#papStrengthV19 .pv-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0 0;padding-top:10px;border-top:1px solid var(--pv-line)}
+#papStrengthV19 .pv-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:8px 0 0;padding-top:0;border-top:0}
 #papStrengthV19 .pv-actions>button{min-width:0;min-height:42px;height:100%;margin:0!important;padding:7px 5px;line-height:1.25;white-space:normal;overflow-wrap:anywhere}
 #papStrengthV19 .pv-summary-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px;margin-top:9px}
 #papStrengthV19 .pv-summary-actions button{border:1px solid #b5cde6;border-radius:7px;background:#fff;color:#245585;font-size:11px;padding:6px 9px;min-height:32px}
@@ -1319,6 +1344,92 @@ body > .pv-renfo-help-portal{position:fixed;z-index:10002;box-sizing:border-box;
 #papStrengthV19 .pv-summary-session ul{margin:4px 0 0;padding-left:20px}
 #papStrengthV19 #papRenfoCopyStatus:not(:empty){margin-top:5px}
 @container(max-width:500px){#papStrengthV19 .pv-actions{grid-template-columns:minmax(0,1fr)}}
+
+/* 4d-UX5 : commandes C, données à gauche et affichage à droite ; un seul exemplaire de chaque bouton. */
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar{display:grid;grid-template-columns:minmax(0,1fr) auto auto;grid-template-areas:"title apply toggle";gap:6px;align-items:center;justify-content:stretch}
+#papStrengthV19 #papRenfoSelectedTitle{grid-area:title;min-width:0}
+#papStrengthV19 #papRenfoApplyCommonNear{grid-area:apply;background:#e3efff;border-color:#7faadb;color:#1d5794;font-weight:700}
+#papStrengthV19 #papRenfoToggleSelected{grid-area:toggle;justify-self:end}
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar:has(#papRenfoSelectedTools:not([hidden])){grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"title title toggle" "apply tools tools"}
+#papStrengthV19 #papRenfoSelectedPanel #papRenfoSelectedTools{grid-area:tools;display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin:0;min-width:0}
+#papStrengthV19 .pv-selected-view-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-left:auto}
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar button{box-sizing:border-box;min-height:33px;padding:6px 9px;font-size:11px;line-height:1.25;border-radius:7px;white-space:normal;max-width:100%;margin:0!important}
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar button:hover,#papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar button:focus-visible{background:#d6e8fc;border-color:#578fc7}
+@container(max-width:640px){
+ #papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"title title" "apply toggle"}
+ #papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar:has(#papRenfoSelectedTools:not([hidden])){grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"title title" "apply toggle" "tools tools"}
+ #papStrengthV19 #papRenfoToggleSelected{justify-self:stretch}
+ #papStrengthV19 #papRenfoSelectedPanel #papRenfoSelectedTools{justify-content:space-between}
+}
+@container(max-width:360px){#papStrengthV19 .pv-selected-view-actions{margin-left:0}}
+/* 4d-UX4 : action de reprise volontaire visible, sans assimilation à la retenue. */
+#papStrengthV19 #papRenfoApplyCommon{background:#e3efff;border-color:#7faadb;color:#1d5794;font-weight:700;border-width:1px;min-height:34px}
+#papStrengthV19 #papRenfoApplyCommon:hover,#papStrengthV19 #papRenfoApplyCommon:focus-visible{background:#d6e8fc;border-color:#578fc7}
+#papStrengthV19 #papRenfoApplyCommon:focus-visible{outline:2px solid #92c1e8;outline-offset:2px}
+/* 4d-UX3 : commandes lisibles et alignement compact des dosages communs. */
+#papStrengthV19 #papRenfoDetailToggle{background:#e3efff;border-color:#7faadb;color:#1d5794;font-weight:700;min-height:34px;padding:6px 11px}
+#papStrengthV19 #papRenfoDetailToggle[aria-expanded="true"],#papStrengthV19 #papRenfoDetailToggle:hover{background:#d6e8fc;border-color:#578fc7}
+#papStrengthV19 .pv-deactivate-group{display:inline-flex;align-items:center;gap:5px;flex:none}
+#papStrengthV19 #papRenfoDeactivate{border:1px solid #adc7e1;border-radius:7px;background:#fff;color:#245585;font-size:12px;font-weight:600;min-height:34px;padding:6px 10px;line-height:1.25}
+#papStrengthV19 #papRenfoDeactivate:hover,#papStrengthV19 #papRenfoDeactivate:focus-visible{background:#e8f3ff}
+#papStrengthV19 .pv-zones-head .pv-assist{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;width:16px;height:16px;min-width:16px;min-height:16px;padding:0;border:1px solid #bed9ee;border-radius:50%;background:#f1f7ff;color:#3475a6;font-size:10px;line-height:1;font-weight:bold}
+#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common>.pv-field{display:grid;grid-template-rows:minmax(16px,auto) 34px;gap:4px;align-items:end;margin:0;padding:0}
+#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common>.pv-field>label{margin:0!important;padding:0;line-height:16px;min-height:16px;align-self:end}
+#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common>.pv-field>input{height:34px;min-height:34px;max-height:34px;margin:0!important;box-sizing:border-box}
+#papStrengthV19 #papRenfoToggleCatalog{border:1px solid #b5cde6;border-radius:7px;background:#fff;color:#245585;padding:6px 10px;min-height:33px;font-size:11px;font-weight:600}
+#papStrengthV19 #papRenfoToggleCatalog:hover,#papStrengthV19 #papRenfoToggleCatalog:focus-visible{background:#e8f3ff}
+
+/* 4d-UX2 : densité des cadres et hiérarchie des commandes, sans réduire les champs. */
+#papStrengthV19 #papRenfoSessionTitlebar{margin-bottom:6px}
+#papStrengthV19 #papRenfoSessionTitlebar .pv-remove-session{border:0;background:transparent;text-decoration:underline;padding:4px 3px;color:#32669a}
+#papStrengthV19 .pv-detail-content{padding:0}
+#papStrengthV19 .pv-exercise-card{margin-top:8px}
+#papStrengthV19 .pv-notes{margin-top:6px}
+#papStrengthV19 .pv-dose-integrated .pv-dose-section-title{margin-top:7px}
+#papStrengthV19 .pv-exercise-search{display:flex;align-items:center;gap:8px;width:100%;margin-top:7px;flex-wrap:wrap}
+#papStrengthV19 .pv-exercise-search label{flex:none;margin:0}
+#papStrengthV19 .pv-exercise-search input{flex:1 1 180px;width:auto;min-width:0;margin:0!important}
+#papStrengthV19 .pv-exercise-columns{margin-top:7px}
+#papStrengthV19 .pv-exercise-note:empty,#papStrengthV19 .pv-session-remark:empty{display:none}
+#papStrengthV19 #papRenfoPresetCatalogue,#papStrengthV19 #papRenfoToggleSelected{background:#eaf3ff;border-color:#7eadd9;color:#1d5794;font-weight:650;min-height:33px}
+#papStrengthV19 #papRenfoClearExerciseDoses{border:1px solid #b5cde6;border-radius:7px;background:#fff;color:#245585;padding:6px 10px;min-height:30px;font-size:11px}
+#papStrengthV19 #papRenfoRetainSession{background:#2261ad;border-color:#2261ad;color:white;font-weight:650;min-height:36px}
+#papStrengthV19 #papRenfoRetainSession.pv-retained{background:#e9f5eb;border-color:#a9d0b3;color:#246039}
+#papStrengthV19 #papRenfoSelectedTools{margin:5px 0}
+#papStrengthV19 #papRenfoSummary .pv-summary-actions{margin-top:6px}
+/* 4d-UX7 : actions en bas à droite de la synthèse quand la largeur le permet.
+   Les deux zones restent distinctes : aucun bouton dans le texte copiable. */
+#papStrengthV19 #papRenfoSummaryText{min-width:0}
+#papStrengthV19 #papRenfoSummary #papRenfoCopyStatus:empty{display:none}
+@container(min-width:640px){
+ #papStrengthV19 #papRenfoSummary.pv-open{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"text actions" "status status";column-gap:9px;align-items:end}
+ #papStrengthV19 #papRenfoSummaryText{grid-area:text}
+ #papStrengthV19 #papRenfoSummary .pv-summary-actions{grid-area:actions;justify-self:end;align-self:end;margin:0;flex-wrap:nowrap}
+ #papStrengthV19 #papRenfoCopyStatus{grid-area:status}
+}
+@container(max-width:500px){#papStrengthV19 .pv-head-actions{justify-content:flex-start;gap:7px}#papStrengthV19 .pv-exercise-search input{flex-basis:100%}}
+
+/* 4d-UX6 — libellés homogènes, intertitres redondants retirés, commandes d'affichage alignées. */
+#papStrengthV19 #papRenfoSessionCard .pv-field>label,
+#papStrengthV19 #papRenfoSessionCard .pv-dose-model-label,
+#papStrengthV19 #papRenfoSessionCard .pv-zones-head>strong{font-size:12px;font-weight:650;color:#2f5276;line-height:16px}
+#papStrengthV19 #papRenfoSessionCard .pv-session-dose-row :is(.pv-field,.pv-dose-model){grid-template-rows:minmax(18px,auto) 36px}
+#papStrengthV19 #papRenfoSessionCard .pv-session-dose-row :is(.pv-field>label,.pv-dose-model-label){height:auto;min-height:18px;margin:0!important;align-self:end}
+#papStrengthV19 #papRenfoSessionCard .pv-dose-integrated .pv-dose-grid>.pv-field>label{min-height:16px;margin:0!important;padding:0;align-self:end}
+#papStrengthV19 #papRenfoSessionCard .pv-dose-grid-rest>.pv-field{display:grid;grid-template-rows:minmax(16px,auto) 36px;gap:4px;align-items:end}
+#papStrengthV19 #papRenfoSessionCard .pv-dose-integrated :is(.pv-dose-grid-rest,.pv-dose-grid-prep){margin-top:8px}
+#papStrengthV19 #papRenfoSessionCard .pv-dose-integrated .pv-dose-section-title{font-size:12px;font-weight:700}
+/* Le bouton de visibilité couvre exactement les deux commandes d'affichage, de largeur égale. */
+#papStrengthV19 #papRenfoSelectedPanel{--pv-view-actions-width:216px}
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar:has(#papRenfoSelectedTools:not([hidden])) #papRenfoToggleSelected{width:var(--pv-view-actions-width);max-width:100%}
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-view-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:var(--pv-view-actions-width);max-width:100%;gap:6px;margin-left:auto}
+#papStrengthV19 #papRenfoSelectedPanel .pv-selected-view-actions>button{width:100%;min-width:0}
+@container(max-width:640px){
+ #papStrengthV19 #papRenfoSelectedPanel .pv-selected-commandbar:has(#papRenfoSelectedTools:not([hidden])) #papRenfoToggleSelected{width:100%}
+}
+@container(max-width:360px){
+ #papStrengthV19 #papRenfoSelectedPanel .pv-selected-view-actions{width:100%;margin-left:0}
+}
 </style>
 </head>
 <body>
@@ -5620,82 +5731,65 @@ Aucune
 </div>
 
 <!-- ================= RENFORCEMENT ================= -->
-<!-- PAP 5-RENFO-01b : remplace l'ancien micro-formulaire par la Synthétique v19.
-     La fréquence/durée/type utilisent directement les noms historiques des champs PAP. -->
+<!-- PAP 4d : contrôles uniques de la séance active, détail enrichissable. -->
 <div class="sub-group" id="papStrengthV19">
-  <div class="pv-head"><strong>Renforcement musculaire</strong></div>
+  <div class="pv-head"><strong>Renforcement musculaire</strong><div class="pv-head-actions"><button type="button" id="papRenfoDetailToggle" aria-controls="papRenfoSessionCard papRenfoDetailPanel" aria-expanded="false">Détails des séances</button><span class="pv-deactivate-group"><button type="button" id="papRenfoDeactivate" aria-label="Exclure le renforcement de la prescription">Exclure de la prescription</button><button type="button" class="pv-assist" data-pv-help="papRenfoHelpDeactivate" aria-label="Aide sur l’exclusion de la prescription">i</button></span></div></div>
+  <div class="pv-help" id="papRenfoHelpDeactivate">Exclut le renforcement des documents sans effacer les saisies de cette consultation. Réactivation possible. La réinitialisation, elle, efface les données du renforcement.</div>
   <div id="clinicalCognitiveStrengthV2" class="pap-cognitive-ux-host pap-cognitive-ux-local-host" style="display:none;"></div>
   <div class="pv-body" id="renforcement_musculaire_subgroup">
-    <!-- Synthétique v19 compacte : un seul bloc, six champs sur deux rangées. -->
-    <div class="pv-grid3">
+    <!-- Les onglets restent visibles en multi-séances, même détail replié. -->
+    <div aria-label="Types de séances de renforcement" class="pv-session-tabs" id="papRenfoSessionTabs" role="group" hidden></div>
+<section aria-labelledby="papRenfoSessionTitle" class="pv-detail-card pv-session-integrated-card pv-compact-session" id="papRenfoSessionCard"><div class="pv-exercise-head pv-session-titlebar" id="papRenfoSessionTitlebar" hidden><h4 id="papRenfoSessionTitle">Séance type — organisation et dosage</h4><div class="pv-compact-actions"><button id="papRenfoResetDose" type="button">↻ Réinitialiser les dosages et l'organisation</button><button id="papRenfoRemoveSession" type="button" class="pv-remove-session">Retirer cette séance type</button></div></div>
+<div class="pv-session-fields" id="papRenfoSessionFields">
+    <div class="pv-grid3" id="papRenfoGoalsRow" hidden>
       <div class="pv-field"><label for="papRenfoGoal">Objectif principal <button class="pv-assist" type="button" data-pv-help="papRenfoHelpGoal" aria-label="Aide sur les objectifs">i</button></label><select id="papRenfoGoal"><option value="">Non précisé</option><option>Général / fonctionnel</option><option>Force</option><option>Endurance musculaire</option><option>Puissance</option><option>Hypertrophie</option><option>Autre objectif</option></select><div class="pv-help" id="papRenfoHelpGoal">Ces finalités peuvent être associées. Le dosage et les exercices restent choisis par le médecin.</div></div>
-      <div class="pv-field"><label for="papRenfoExtraGoal">Objectif complémentaire</label><select id="papRenfoExtraGoal"><option value="">Aucun</option><option>Général / fonctionnel</option><option>Force</option><option>Endurance musculaire</option><option>Puissance</option><option>Hypertrophie</option><option>Autre objectif</option></select></div>
-      <div class="pv-field"><label for="papRenfoPractice">Activité / modalité</label><div class="pv-suggest-wrap"><input id="papRenfoPractice" type="text" name="type_renforcement" autocomplete="off" placeholder="Choisir ou saisir une modalité…" aria-label="Activité ou modalité de renforcement"></div></div>
-      <div class="pv-field"><label for="papRenfoFrequency">Séance(s)/semaine <button class="pv-assist" type="button" data-pv-help="papRenfoHelpFreq" aria-label="Aide sur la fréquence">i</button></label><div class="pv-suggest-wrap"><input id="papRenfoFrequency" type="number" name="fois_renforcement" min="0" max="10" step="1" placeholder="À préciser"></div><div id="papRenfoHelpFreq" class="pv-help">Fréquence en séances par semaine, à préciser selon le contexte. Une case vide n'entraîne aucune déduction automatique.</div></div>
-      <div class="pv-field"><label for="papRenfoDuration">Durée (min/séance)</label><div class="pv-suggest-wrap"><input id="papRenfoDuration" type="number" name="duree_renforcement" min="0" max="300" step="1" placeholder="À préciser"></div></div>
-      <div class="pv-field"><label for="papRenfoEffort">Intensité (effort perçu) <button class="pv-assist" type="button" data-pv-help="papRenfoHelpEffort" aria-label="Aide sur l'intensité">i</button></label><select id="papRenfoEffort"><option value="">Non renseigné</option><option>Légère</option><option>Modérée</option><option>Élevée</option><option>À adapter selon le contexte</option></select><div id="papRenfoHelpEffort" class="pv-help">L'effort perçu en renforcement ne se confond pas avec l'intensité cardio-respiratoire. Charges, variantes et récupérations seront disponibles en Détaillée.</div></div>
+      <div class="pv-field" id="papRenfoExtraGoalWrap" hidden><label for="papRenfoExtraGoal">Objectif complémentaire</label><select id="papRenfoExtraGoal"><option value="">Aucun</option><option>Général / fonctionnel</option><option>Force</option><option>Endurance musculaire</option><option>Puissance</option><option>Hypertrophie</option><option>Autre objectif</option></select></div>
+      <div class="pv-field" id="papRenfoPracticeWrap"><label for="papRenfoPractice">Activité / modalité</label><div class="pv-suggest-wrap"><input id="papRenfoPractice" type="text" autocomplete="off" placeholder="Choisir ou saisir une modalité…" aria-label="Activité ou modalité de renforcement"><button id="papRenfoClearPractice" class="pv-clear-practice" type="button" aria-label="Effacer la modalité" title="Effacer la modalité">×</button></div></div>
     </div>
-    <div class="pv-volume"><span>Temps hebdomadaire prévu (descriptif, si renseigné)</span><strong id="papRenfoVolume">À préciser</strong></div>
+    <div class="pv-grid3" id="papRenfoEssentialRow" style="margin-top:7px">
+      <div class="pv-field" id="papRenfoSessionNameWrap" hidden><label for="papRenfoSessionName">Nom de la séance</label><input id="papRenfoSessionName" placeholder="Ex. Haut du corps"></div>
+      <div class="pv-field"><label for="papRenfoFrequency">Séance(s)/semaine <button class="pv-assist" type="button" data-pv-help="papRenfoHelpFreq" aria-label="Aide sur la fréquence">i</button></label><div class="pv-suggest-wrap"><input id="papRenfoFrequency" type="number" min="0" max="10" step="1" placeholder="À préciser"></div><div id="papRenfoHelpFreq" class="pv-help">Fréquence en séances par semaine, à préciser selon le contexte. Une case vide n'entraîne aucune déduction automatique.</div></div>
+      <div class="pv-field"><label for="papRenfoDuration">Durée (min/séance)</label><div class="pv-suggest-wrap"><input id="papRenfoDuration" type="number" min="0" max="300" step="1" placeholder="À préciser"></div></div>
+      <div class="pv-field"><label for="papRenfoEffort">Intensité (effort perçu) <button class="pv-assist" type="button" data-pv-help="papRenfoHelpEffort" aria-label="Aide sur l'intensité">i</button></label><select id="papRenfoEffort"><option value="">Non renseigné</option><option>Légère</option><option>Modérée</option><option>Élevée</option><option>À adapter selon le contexte</option></select><div id="papRenfoHelpEffort" class="pv-help">L'effort perçu en renforcement ne se confond pas avec l'intensité cardio-respiratoire. Charges, variantes et récupérations sont disponibles en Détaillée.</div></div>
+    </div>
+    <div class="pv-volume"><span>Temps hebdomadaire prévu pour cette séance</span><strong id="papRenfoVolume">À préciser</strong></div>
     <div class="pv-zones-head"><strong>Zones ciblées <button type="button" class="pv-assist" data-pv-help="papRenfoHelpZones" aria-label="Aide sur les zones">i</button></strong><button type="button" id="papRenfoAllZones">Tout sélectionner</button></div>
-    <div id="papRenfoHelpZones" class="pv-help">Choisir une ou plusieurs zones. « Tout le corps » sélectionne les trois régions.</div>
+    <div id="papRenfoHelpZones" class="pv-help">Choisir une ou plusieurs zones de cette séance. « Ensemble du corps » sélectionne les trois régions.</div>
     <div class="pv-zones" id="papRenfoZones">
+      <label class="pv-zone"><input type="checkbox" value="MI"><span class="pv-label-long">Membres inférieurs</span><span class="pv-label-short">Mb inf</span></label>
       <label class="pv-zone"><input type="checkbox" value="MS"><span class="pv-label-long">Membres supérieurs</span><span class="pv-label-short">Mb sup</span></label>
       <label class="pv-zone"><input type="checkbox" value="Tronc"><span>Tronc</span></label>
-      <label class="pv-zone"><input type="checkbox" value="MI"><span class="pv-label-long">Membres inférieurs</span><span class="pv-label-short">Mb inf</span></label>
-      <label class="pv-zone"><input type="checkbox" value="Tout" id="papRenfoWhole"><span>Tout le corps</span></label>
-      <span class="pv-presetgroup"><button type="button" class="pv-preset" id="papRenfoPreset">+ Ajouter un programme type</button><button type="button" class="pv-assist" data-pv-help="papRenfoPresetHelp" aria-label="Aide sur les programmes types" aria-controls="papRenfoPresetHelp" aria-expanded="false">i</button><span id="papRenfoPresetHelp" class="pv-help pv-preset-help" role="note">Programme type : sélection de candidats à examiner. Le matériel et les dosages seront vérifiés dans la future Détaillée. Aucun exercice n'est transmis à l'ordonnance à ce stade.</span></span>
+      <label class="pv-zone"><input type="checkbox" value="Tout" id="papRenfoWhole"><span>Ensemble du corps</span></label>
+      <span class="pv-presetgroup" id="papRenfoPresetWrap" hidden><button type="button" class="pv-preset" id="papRenfoPreset">+ Ajouter un programme type</button><button type="button" class="pv-assist" data-pv-help="papRenfoPresetHelp" aria-label="Aide sur les programmes types" aria-controls="papRenfoPresetHelp" aria-expanded="false">i</button><span id="papRenfoPresetHelp" class="pv-help pv-preset-help" role="note">Programme type : ajout volontaire d’exercices candidats à la séance active selon ses zones et son matériel. Examiner et adapter la sélection. Aucun dosage imposé.</span></span>
     </div>
-    <div id="papRenfoCandidates" class="pv-candidates" hidden role="status" aria-live="polite"><span id="papRenfoCandidatesText"></span><button type="button" id="papRenfoClearCandidates">Retirer les candidats</button></div>
-    <div class="pv-field pv-notes"><label for="papRenfoNotes">Adaptations complémentaires (champ libre)</label><textarea id="papRenfoNotes" placeholder="Précisions ou adaptations choisies par le médecin (facultatif)…"></textarea></div>
-    <div id="papRenfoStatus" class="pv-message" role="status" aria-live="polite"></div>
-    <div class="pv-inline-actions"><button class="pv-text-button" type="button" id="papRenfoDeactivate">Non / Désactiver le renforcement</button></div>
-    <!-- v19 Détaillée, bloc A : organisation des séances types. Les blocs exercices/dosages
-         seront ajoutés sous cette section ; aucune nouvelle saisie des valeurs générales. -->
-    <details id="papRenfoDetailPanel" class="pv-detail-disclosure">
-      <summary>Organiser les séances types</summary>
-      <div class="pv-detail-content">
-<section aria-labelledby="papRenfoSessionTitle" class="pv-detail-card pv-session-integrated-card"><div class="pv-exercise-head pv-session-titlebar"><h4 id="papRenfoSessionTitle">Séance type — organisation et dosage</h4><button id="papRenfoResetDose" type="button">↻ Réinitialiser les dosages et l'organisation</button></div>
-<div aria-label="Types de séances de renforcement" class="pv-session-tabs" id="papRenfoSessionTabs" role="group"></div>
-<div class="pv-session-empty" id="papRenfoSessionEmpty">Aucune séance type créée. Les paramètres généraux de la Synthétique restent utilisables seuls.</div>
-<div class="pv-session-fields" hidden="" id="papRenfoSessionFields">
-<div aria-hidden="true" class="pv-session-remark" hidden="" id="papRenfoSingleNotice"></div>
-<div class="pv-session-remark" hidden="" id="papRenfoSingleSpecific">Valeurs propres conservées après une organisation à plusieurs séances. <button class="pv-session-inline-action" id="papRenfoUseGeneral" type="button">Reprendre fréquence et durée générales</button></div>
-<div class="pv-session-grid">
-<div class="pv-field"><label for="papRenfoSessionName">Nom de la séance</label><input id="papRenfoSessionName" placeholder="Ex. Haut du corps"/><small aria-hidden="true" class="pv-session-provenance">Propre à cette séance</small></div>
-<div class="pv-field" id="papRenfoSessionFreqWrap"><label for="papRenfoSessionFreq">Séance(s)/semaine</label><div class="pv-suggest-wrap"><input id="papRenfoSessionFreq" max="10" min="0" placeholder="À préciser" step="1" type="number"/></div><small aria-hidden="true" class="pv-session-provenance" id="papRenfoFreqOrigin"></small></div>
-<div class="pv-field" id="papRenfoSessionDurationWrap"><label for="papRenfoSessionDuration">Durée (min/séance)</label><div class="pv-suggest-wrap"><input id="papRenfoSessionDuration" max="300" min="0" placeholder="À préciser" step="1" type="number"/></div><small aria-hidden="true" class="pv-session-provenance" id="papRenfoDurationOrigin"></small></div>
-<div class="pv-field"><label for="papRenfoSessionEffort">Intensité (effort perçu)</label><select id="papRenfoSessionEffort"><option value="">Non renseignée</option><option>Légère</option><option>Modérée</option><option>Élevée</option><option>À adapter selon le contexte</option></select><small aria-hidden="true" class="pv-session-provenance" id="papRenfoEffortOrigin"></small></div>
-</div>
-<div class="pv-effort-reuse"><button class="pv-session-inline-action" hidden="" id="papRenfoUseGeneralEffort" aria-hidden="true" tabindex="-1" type="button">Reprendre l'intensité générale</button></div>
-<div class="pv-session-zones-head"><strong>Zones ciblées — cette séance <button type="button" class="pv-assist" data-pv-help="papRenfoSessionHelpZones" aria-controls="papRenfoSessionHelpZones" aria-expanded="false" aria-label="Aide sur les zones de la séance">i</button> <small aria-hidden="true" class="pv-session-provenance" id="papRenfoZonesOrigin"></small></strong><div class="pv-compact-actions"><button class="pv-session-inline-action" hidden="" id="papRenfoUseGeneralZones" aria-hidden="true" tabindex="-1" type="button">Reprendre les zones générales</button><button class="pv-session-inline-action" id="papRenfoToggleSessionZones" type="button">Tout sélectionner</button></div></div>
-<div aria-label="Zones anatomiques de la séance" class="pv-session-zones" role="group">
-<label class="pv-session-zone"><input type="checkbox" value="MI"/>Membres inférieurs</label>
-<label class="pv-session-zone"><input type="checkbox" value="MS"/>Membres supérieurs</label>
-<label class="pv-session-zone"><input type="checkbox" value="Tronc"/>Tronc</label>
-<label class="pv-session-zone"><input id="papRenfoSessionWhole" type="checkbox" value="Tout"/>Ensemble du corps</label>
-<span class="pv-presetgroup pv-session-presetgroup"><button class="pv-preset" id="papRenfoSessionPreset" type="button">+ Ajouter un programme type</button><button aria-controls="papRenfoSessionPresetHelp" aria-expanded="false" aria-label="Aide sur les programmes types de cette séance" class="pv-assist" data-pv-help="papRenfoSessionPresetHelp" type="button">i</button><span class="pv-help pv-preset-help" id="papRenfoSessionPresetHelp" role="note">Programme type v19 : exercices candidats selon les zones et le matériel de cette séance, ajoutés uniquement sur demande du médecin. Vérifier et adapter les exercices et leurs dosages. Aucun exercice transmis automatiquement à l'ordonnance.</span></span></div>
-<div class="pv-help" id="papRenfoSessionHelpZones">Cibler une ou plusieurs zones. « Ensemble du corps » coche les membres inférieurs, les membres supérieurs et le tronc. Le choix reste propre à cette séance.</div>
-<section aria-labelledby="papRenfoDoseTitle" class="pv-dose-integrated" hidden="" id="papRenfoDosePanel"><span class="pv-visually-hidden" id="papRenfoDoseTitle">Dosage et organisation de la séance</span><div class="pv-session-dose-row"><div class="pv-session-material pv-dose-material"><div class="pv-field"><label for="papRenfoSessionEquipment">Matériel disponible</label><select id="papRenfoSessionEquipment"><option value="">Non renseigné</option><option value="no">Sans matériel</option><option value="small">Petit matériel</option><option value="gym">Salle équipée</option></select></div><span class="pv-session-material-note">Propre à cette séance, indépendamment de la modalité générale.</span></div><div class="pv-dose-model"><div class="pv-dose-model-label">Modèle de dosage</div><div aria-label="Modèle de dosage de cette séance" class="pv-dose-levels" role="group">
+
+<section aria-labelledby="papRenfoDoseTitle" class="pv-dose-integrated" hidden="" id="papRenfoDosePanel"><span class="pv-visually-hidden" id="papRenfoDoseTitle">Dosage et organisation de la séance</span><div class="pv-session-dose-row"><div class="pv-session-material pv-dose-material"><div class="pv-field"><label for="papRenfoSessionEquipment">Matériel disponible</label><select id="papRenfoSessionEquipment"><option value="">Non renseigné</option><option value="no">Sans matériel</option><option value="small">Petit matériel</option><option value="gym">Salle équipée</option></select></div><span class="pv-session-material-note">Propre à cette séance.</span></div><div class="pv-dose-format"><div class="pv-field"><label for="papRenfoDoseFormat">Organisation <button type="button" class="pv-assist" data-pv-help="papRenfoHelpFormat" aria-controls="papRenfoHelpFormat" aria-expanded="false" aria-label="Aide sur les organisations">i</button></label><select data-pap-organisation="format" id="papRenfoDoseFormat"><option value="">Non précisée</option><option value="classique">Exercices successifs</option><option value="circuit">Circuit</option></select></div></div><div class="pv-dose-model"><div class="pv-dose-model-label">Modèle de dosage</div><div aria-label="Modèle de dosage de cette séance" class="pv-dose-levels" role="group">
 <button aria-pressed="false" data-pap-dose-level="decouverte" type="button">Découverte</button>
 <button aria-pressed="false" data-pap-dose-level="intermediaire" type="button">Intermédiaire</button>
 <button aria-pressed="false" data-pap-dose-level="avance" type="button">Avancé</button>
-</div></div><div class="pv-dose-format"><div class="pv-field"><label for="papRenfoDoseFormat">Organisation <button type="button" class="pv-assist" data-pv-help="papRenfoHelpFormat" aria-controls="papRenfoHelpFormat" aria-expanded="false" aria-label="Aide sur les organisations">i</button></label><select data-pap-organisation="format" id="papRenfoDoseFormat"><option value="">Non précisée</option><option value="classique">Exercices successifs</option><option value="circuit">Circuit</option></select></div></div></div><div class="pv-help" id="papRenfoHelpFormat">Exercices successifs : effectuer les séries d’un exercice avant le suivant. Circuit : enchaîner les exercices dans l’ordre puis répéter éventuellement le circuit. Distinguer les repos entre séries, exercices et tours ; en circuit, le nombre de séries est indiqué par exercice et par tour (2 tours × 3 séries × 10 répétitions = 60 répétitions).</div><details class="pv-dose-model-help"><summary>Repères sur les modèles de dosage</summary><p class="pv-exercise-note" id="papRenfoDoseLevelInfo">Aucun dosage proposé automatiquement. Le médecin choisit les valeurs.</p></details><div class="pv-dose-section-title">Dosage commun de cette séance</div><div class="pv-dose-grid pv-dose-grid-common"><div class="pv-field" hidden="" id="papRenfoRoundsWrap"><label for="papRenfoDoseRounds">Tours de circuit</label><input data-pap-organisation="rounds" id="papRenfoDoseRounds" min="0" placeholder="—" step="1" type="number"/></div>
+</div></div></div><div class="pv-help" id="papRenfoHelpFormat">Exercices successifs : effectuer les séries d’un exercice avant le suivant. Circuit : enchaîner les exercices dans l’ordre puis répéter éventuellement le circuit. Distinguer les repos entre séries, exercices et tours ; en circuit, le nombre de séries est indiqué par exercice et par tour (2 tours × 3 séries × 10 répétitions = 60 répétitions).</div><details class="pv-dose-model-help"><summary>Repères sur les modèles de dosage</summary><p class="pv-exercise-note" id="papRenfoDoseLevelInfo">Aucun dosage proposé automatiquement. Le médecin choisit les valeurs.</p></details><div class="pv-dose-section-title">Dosage commun de cette séance</div><div class="pv-dose-grid pv-dose-grid-common"><div class="pv-field" hidden="" id="papRenfoRoundsWrap"><label for="papRenfoDoseRounds">Tours de circuit</label><input data-pap-organisation="rounds" id="papRenfoDoseRounds" min="0" placeholder="—" step="1" type="number"/></div>
 <div class="pv-field"><label for="papRenfoCommonSeries">Séries / exercice</label><input data-pap-common="series" id="papRenfoCommonSeries" min="0" placeholder="—" step="1" type="number"/></div>
 <div class="pv-field"><label for="papRenfoCommonReps">Répétitions</label><input data-pap-common="reps" id="papRenfoCommonReps" min="0" placeholder="—" step="1" type="number"/></div>
 <div class="pv-field"><label for="papRenfoCommonHold">Tenue (s)</label><input data-pap-common="hold" id="papRenfoCommonHold" min="0" placeholder="—" step="1" type="number"/></div>
 
-<div class="pv-dose-apply-cell"><button class="pv-dose-action" id="papRenfoApplyCommon" type="button">Appliquer aux champs vides des exercices sélectionnés</button></div></div><div class="pv-dose-section-title">Récupérations</div><div class="pv-dose-grid pv-dose-grid-rest"><div class="pv-field" hidden="" id="papRenfoRestRoundsWrap"><label>Repos entre tours</label><div class="pv-dose-time" data-pap-time="restRounds" data-pap-time-kind="organisation"><label><input aria-label="Repos entre tours minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre tours secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre séries (facultatif)</label><div class="pv-dose-time" data-pap-time="rest" data-pap-time-kind="common"><label><input aria-label="Repos commun entre séries minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos commun entre séries secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre exercices <button type="button" class="pv-assist" data-pv-help="papRenfoHelpRestEx" aria-controls="papRenfoHelpRestEx" aria-expanded="false" aria-label="Aide sur le repos entre exercices">i</button></label><div class="pv-dose-time" data-pap-time="restEx" data-pap-time-kind="organisation"><label><input aria-label="Repos entre exercices minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre exercices secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div></div><div class="pv-dose-section-title">Préparation et fin de séance</div><div class="pv-dose-grid pv-dose-grid-prep"><div class="pv-field"><label for="papRenfoDoseWarmup">Échauffement aérobie (min) <button type="button" class="pv-assist" data-pv-help="papRenfoHelpWarmup" aria-controls="papRenfoHelpWarmup" aria-expanded="false" aria-label="Repère sur l’échauffement">i</button></label><input data-pap-organisation="warmup" id="papRenfoDoseWarmup" min="0" placeholder="—" step="1" type="number"/></div><div class="pv-field"><label for="papRenfoDoseCooldown">Retour au calme (min)</label><input data-pap-organisation="cooldown" id="papRenfoDoseCooldown" min="0" placeholder="—" step="1" type="number"/></div></div><div class="pv-help" id="papRenfoHelpRestEx">Repos commun facultatif entre deux exercices, distinct du repos entre séries et tours. Un repos spécifique après un exercice peut le remplacer. Pas de repos entre exercices après le dernier exercice d’un tour.</div><div class="pv-help" id="papRenfoHelpWarmup">Le manuel ACSM 2017 illustre 5–10 min d’activité aérobie légère à modérée avant une séance structurée ; adapter selon l’activité préalable et le contexte. Aucune durée imposée.</div><div aria-live="polite" class="pv-dose-inline-status" id="papRenfoDoseStatus" role="status"></div></section><div aria-live="polite" class="pv-session-remark" id="papRenfoSessionNotice" role="status"></div>
-<div class="pv-session-foot"><span class="pv-session-indicator" id="papRenfoSessionState">Organisation en brouillon — exercices et dosages non raccordés.</span><button id="papRenfoRemoveSession" type="button">Retirer cette séance type</button></div>
+<div class="pv-dose-apply-cell"><button class="pv-dose-action" id="papRenfoApplyCommon" type="button">Appliquer aux champs vides des exercices sélectionnés</button></div></div><div class="pv-dose-grid pv-dose-grid-rest"><div class="pv-field" hidden="" id="papRenfoRestRoundsWrap"><label>Repos entre tours</label><div class="pv-dose-time" data-pap-time="restRounds" data-pap-time-kind="organisation"><label><input aria-label="Repos entre tours minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre tours secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre séries (facultatif)</label><div class="pv-dose-time" data-pap-time="rest" data-pap-time-kind="common"><label><input aria-label="Repos commun entre séries minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos commun entre séries secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre exercices <button type="button" class="pv-assist" data-pv-help="papRenfoHelpRestEx" aria-controls="papRenfoHelpRestEx" aria-expanded="false" aria-label="Aide sur le repos entre exercices">i</button></label><div class="pv-dose-time" data-pap-time="restEx" data-pap-time-kind="organisation"><label><input aria-label="Repos entre exercices minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre exercices secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div></div><div class="pv-dose-grid pv-dose-grid-prep"><div class="pv-field"><label for="papRenfoDoseWarmup">Échauffement aérobie (min) <button type="button" class="pv-assist" data-pv-help="papRenfoHelpWarmup" aria-controls="papRenfoHelpWarmup" aria-expanded="false" aria-label="Repère sur l’échauffement">i</button></label><input data-pap-organisation="warmup" id="papRenfoDoseWarmup" min="0" placeholder="—" step="1" type="number"/></div><div class="pv-field"><label for="papRenfoDoseCooldown">Retour au calme (min)</label><input data-pap-organisation="cooldown" id="papRenfoDoseCooldown" min="0" placeholder="—" step="1" type="number"/></div></div><div class="pv-help" id="papRenfoHelpRestEx">Repos commun facultatif entre deux exercices, distinct du repos entre séries et tours. Un repos spécifique après un exercice peut le remplacer. Pas de repos entre exercices après le dernier exercice d’un tour.</div><div class="pv-help" id="papRenfoHelpWarmup">Le manuel ACSM 2017 illustre 5–10 min d’activité aérobie légère à modérée avant une séance structurée ; adapter selon l’activité préalable et le contexte. Aucune durée imposée.</div><div aria-live="polite" class="pv-dose-inline-status" id="papRenfoDoseStatus" role="status"></div></section><div class="pv-field pv-notes" id="papRenfoSessionNotesWrap" hidden><label for="papRenfoSessionNotes">Adaptations propres à cette séance</label><textarea id="papRenfoSessionNotes" placeholder="Précisions facultatives…"></textarea></div>
+    <div class="pv-field pv-notes"><label for="papRenfoNotes">Adaptations complémentaires (champ libre)</label><textarea id="papRenfoNotes" placeholder="Précisions ou adaptations choisies par le médecin (facultatif)…"></textarea></div>
 </div>
 </section>
+    <div id="papRenfoSessionNotice" class="pv-session-remark pv-session-warning" role="status" hidden></div>
+    <div id="papRenfoStatus" class="pv-message" role="status" aria-live="polite"></div>
+    <!-- Le détail enrichit la séance active sans répéter ses paramètres essentiels. -->
+    <details id="papRenfoDetailPanel" class="pv-detail-disclosure">
+      <summary hidden>Organisation détaillée des séances</summary>
+      <div class="pv-detail-content">
 <section id="papRenfoExercisePanel" class="pv-detail-card pv-exercise-card" aria-labelledby="papRenfoExerciseTitle" hidden>
           <div class="pv-exercise-head">
             <h4 id="papRenfoExerciseTitle">Choisir les exercices <span id="papRenfoExerciseCount"></span> <button type="button" class="pv-assist" data-pv-help="papRenfoHelpCatalogue" aria-label="Aide sur le catalogue et les programmes types">i</button></h4>
-            <div class="pv-compact-actions"><button type="button" id="papRenfoToggleCatalog">Afficher tout le catalogue</button><button type="button" id="papRenfoResetExercises">↻ Réinitialiser les exercices</button></div>
+            <div class="pv-compact-actions"><button type="button" id="papRenfoPresetCatalogue" class="pv-dose-action pv-emphasis-action">+ Ajouter un programme type</button><button type="button" id="papRenfoToggleCatalog">Afficher tout le catalogue</button><button type="button" id="papRenfoResetExercises">↻ Réinitialiser les exercices</button></div>
           </div>
           <div id="papRenfoExerciseHint" class="pv-exercise-note"></div>
           <div id="papRenfoPresetPreview" hidden role="status"></div>
-          <div id="papRenfoHelpCatalogue" class="pv-help">Programme indicatif selon les zones et le matériel disponible ; vérifier les variantes, le matériel réel et les capacités du patient. Exercices et dosages à adapter et à valider par le médecin ; aucun dosage imposé. Le catalogue comprend 38 candidats C1 et deux ajouts à vérifier (Superman et chaise au mur).</div>
+          <div id="papRenfoHelpCatalogue" class="pv-help">Programme indicatif selon les zones et le matériel disponible ; vérifier les variantes, le matériel réel et les capacités du patient. Exercices et dosages à adapter et à valider par le médecin ; aucun dosage imposé. Le détail des exercices et dosages n’est pas encore repris dans les ordonnances. Le catalogue comprend 38 candidats C1 et deux ajouts à vérifier (Superman et chaise au mur).</div>
           <div class="pv-exercise-search"><label for="papRenfoExerciseSearch">Rechercher un mouvement</label><input id="papRenfoExerciseSearch" placeholder="Ex. pompes, squat, gainage, Superman" autocomplete="off"></div>
           <div id="papRenfoExerciseLibrary" class="pv-exercise-columns"></div>
           <div class="pv-exercise-free">
@@ -5706,11 +5800,17 @@ Aucune
           <div id="papRenfoExerciseStatus" class="pv-exercise-note" role="status" aria-live="polite"></div>
         </section>
         <section id="papRenfoSelectedPanel" class="pv-detail-card pv-exercise-card" aria-labelledby="papRenfoSelectedTitle" hidden>
-          <div class="pv-exercise-head"><h4 id="papRenfoSelectedTitle">Dosage et adaptations par exercice</h4><div class="pv-compact-actions"><button type="button" id="papRenfoApplyCommonNear">↳ Reprendre le dosage commun</button><button type="button" id="papRenfoClearExerciseDoses">↻ Effacer les dosages des exercices</button></div></div>
-          <div class="pv-selected-controls"><button type="button" class="pv-dose-action" id="papRenfoToggleSelected" aria-controls="papRenfoSelectedList" aria-expanded="true">Masquer les exercices</button><div class="pv-compact-actions"><button type="button" class="pv-dose-action" id="papRenfoExpandAll">Tout développer</button><button type="button" class="pv-dose-action" id="papRenfoCollapseAll">Tout réduire</button></div></div>
+          <div class="pv-exercise-head pv-selected-commandbar">
+            <h4 id="papRenfoSelectedTitle">Dosage et adaptations par exercice</h4>
+            <button type="button" class="pv-dose-action" id="papRenfoApplyCommonNear">↳ Reprendre le dosage commun</button>
+            <button type="button" class="pv-dose-action" id="papRenfoToggleSelected" aria-controls="papRenfoSelectedList" aria-expanded="false">Afficher les exercices</button>
+            <div class="pv-selected-controls" id="papRenfoSelectedTools" hidden>
+              <button type="button" class="pv-dose-action" id="papRenfoClearExerciseDoses">↻ Effacer les dosages</button>
+              <div class="pv-selected-view-actions"><button type="button" class="pv-dose-action" id="papRenfoExpandAll">Tout développer</button><button type="button" class="pv-dose-action" id="papRenfoCollapseAll">Tout réduire</button></div>
+            </div>
+          </div>
           <div id="papRenfoSelectedEmpty" class="pv-exercise-note">Aucun exercice sélectionné. La prescription peut rester synthétique.</div>
           <ol id="papRenfoSelectedList" class="pv-exercise-selected" aria-label="Exercices choisis avec dosages et adaptations"></ol>
-          <p class="pv-exercise-note">Dosages et adaptations conservés dans cette séance, sans transmission à l'ordonnance actuelle. La validation clinique des paramètres reste sous la responsabilité du médecin.</p>
           <section id="papRenfoDurationPanel" class="pv-detail-card" hidden aria-label="Bilan temporel de la séance" style="margin:8px 0;padding:9px"><div class="pv-duration-values"><strong>Durée de la séance :</strong> <span id="papRenfoDurationValues" aria-live="polite"></span> <button type="button" class="pv-assist" data-pv-help="papRenfoHelpDuration" aria-label="Aide sur le calcul de durée">i</button></div><div id="papRenfoHelpDuration" class="pv-help">Si la durée par répétition n’est pas précisée, le calcul utilise 3 s par répétition à titre d’estimation. Les deux côtés successifs sont comptés séparément si le dosage est par côté. En cas d’incertitude, la durée reste estimative. Les transitions non renseignées ne sont pas estimées.</div><div id="papRenfoDurationReport" aria-live="polite"></div></section>
           <div id="papRenfoDetailStatus" class="pv-session-remark" role="status" aria-live="polite"></div>
           <div class="pv-session-retain"><button type="button" id="papRenfoRetainSession">Retenir cette séance type</button></div>
@@ -5732,7 +5832,7 @@ Aucune
       <div id="papRenfoCopyStatus" role="status" aria-live="polite"></div>
     </div>
   </div>
-  <div class="pv-off-view"><p>Renforcement désactivé : vos données restent conservées pendant cette consultation et ne figurent pas dans la prescription.</p><button type="button" class="pv-text-button" id="papRenfoReactivate">Réactiver le renforcement et retrouver la Synthétique</button></div>
+  <div class="pv-off-view"><p>Renforcement désactivé : vos données restent conservées pendant cette consultation et ne figurent pas dans la prescription.</p><button type="button" class="pv-text-button" id="papRenfoReactivate">Réinclure le renforcement dans la prescription</button></div>
   <!-- Radios conservés comme projection historique pour les autres parcours PAP, non saisis deux fois. -->
   <div hidden aria-hidden="true"><input type="radio" name="renforcement_musculaire" value="oui" id="renforcement_musculaire"><input type="radio" name="renforcement_musculaire" value="non"></div>
 </div>
@@ -18803,51 +18903,13 @@ resetMotivation();
 const PAP_RENFO_V19_EXERCISES = Object.freeze([{"id":"RM-01","region":"MI","category":"Dominante genou","name":"Assis-debout sur chaise","muscles":"Quadriceps, fessiers","variants":"Accoudoirs ; hauteur de siège ; sans aide des bras","equip":"Chaise","featured":true},{"id":"RM-02","region":"MI","category":"Dominante genou","name":"Squat au poids du corps","muscles":"Quadriceps, fessiers","variants":"Amplitude réduite ; squat plus profond selon capacités","equip":"Aucun","featured":true},{"id":"RM-03","region":"MI","category":"Dominante genou","name":"Fente avant / arrière","muscles":"Quadriceps, fessiers","variants":"Avec appui ; déplacement de faible amplitude","equip":"Aucun/appui","featured":false},{"id":"RM-04","region":"MI","category":"Dominante genou / unilatéral","name":"Montée de marche (step-up)","muscles":"Quadriceps, fessiers","variants":"Marche basse ; marche haute ; résistance éventuelle","equip":"Marche stable","featured":true},{"id":"RM-05","region":"MI","category":"Dominante genou / chargé","name":"Squat avec charge","muscles":"Quadriceps, fessiers","variants":"Goblet squat ; squat avec barre (technique et charge à vérifier)","equip":"Haltère/barre","featured":false},{"id":"RM-06","region":"MI","category":"Dominante hanche","name":"Pont fessier","muscles":"Grand fessier, stabilisateurs du tronc","variants":"Bilatéral ; unilatéral si contrôle suffisant","equip":"Tapis","featured":true},{"id":"RM-07","region":"MI","category":"Extension de hanche","name":"Extension de hanche à quatre pattes","muscles":"Grand fessier","variants":"Genou fléchi ; bras/jambe opposés si objectif de contrôle","equip":"Tapis","featured":false},{"id":"RM-08","region":"MI","category":"Charnière de hanche","name":"Hip hinge / charnière de hanche","muscles":"Fessiers, ischio-jambiers (selon charge et technique)","variants":"Sans charge ; résistance avec charge","equip":"Aucun/charge","featured":true},{"id":"RM-09","region":"MI","category":"Chaîne postérieure","name":"Soulevé de terre / roumain","muscles":"Fessiers, ischio-jambiers, extenseurs du tronc","variants":"Soulevé de terre roumain avec petites charges ; barre","equip":"Haltères/barre","featured":false},{"id":"RM-10","region":"MI","category":"Flexion du genou","name":"Leg curl / flexion genou à l’élastique","muscles":"Ischio-jambiers","variants":"Une jambe ; changement résistance","equip":"Bande/point fixe","featured":false},{"id":"RM-11","region":"MI","category":"Flexion du genou","name":"Leg curl sur machine","muscles":"Ischio-jambiers","variants":"Bilatéral ou unilatéral","equip":"Machine","featured":false},{"id":"RM-12","region":"MI","category":"Abduction hanche","name":"Abduction de hanche couché sur côté","muscles":"Moyen/petit fessiers","variants":"Sans résistance ; bande légère si approprié","equip":"Tapis/bande","featured":false},{"id":"RM-13","region":"MI","category":"Abduction hanche","name":"Abduction de hanche debout","muscles":"Moyen/petit fessiers","variants":"Avec appui ; bande élastique","equip":"Appui/bande","featured":false},{"id":"RM-14","region":"MI","category":"Adduction hanche","name":"Adduction de hanche couché sur côté","muscles":"Adducteurs","variants":"Sans résistance ; autres variantes à documenter","equip":"Tapis","featured":false},{"id":"RM-15","region":"MI","category":"Cheville : flexion plantaire","name":"Élévation sur pointes de pieds","muscles":"Triceps sural","variants":"Avec support mural ; machine ; unilatéral à étudier","equip":"Mur/machine","featured":true},{"id":"RM-16","region":"MI","category":"Cheville : dorsiflexion","name":"Dorsiflexion cheville contre bande","muscles":"Tibial antérieur","variants":"Résistance élastique à adapter","equip":"Bande","featured":false},{"id":"RM-17","region":"MS","category":"Poussée horizontale","name":"Pompes contre un mur","muscles":"Pectoraux, triceps","variants":"Distance des pieds modulée","equip":"Mur","featured":true},{"id":"RM-18","region":"MS","category":"Poussée horizontale","name":"Pompes genoux au sol","muscles":"Pectoraux, triceps","variants":"Amplitude adaptée","equip":"Tapis","featured":false},{"id":"RM-19","region":"MS","category":"Poussée horizontale","name":"Pompes classiques","muscles":"Pectoraux, triceps","variants":"Appui incliné à documenter comme variante intermédiaire","equip":"Sol","featured":true},{"id":"RM-20","region":"MS","category":"Poussée horizontale","name":"Développé poitrine","muscles":"Pectoraux, triceps","variants":"Assis machine ; haltères ; bandes/câbles","equip":"Machine/haltères/bande","featured":true},{"id":"RM-21","region":"MS","category":"Poussée verticale","name":"Développé épaules au-dessus de la tête","muscles":"Deltoïdes, triceps","variants":"Assis/debout ; résistance adaptée","equip":"Haltères/machine","featured":true},{"id":"RM-22","region":"MS","category":"Abduction épaule","name":"Élévations latérales","muscles":"Deltoïdes","variants":"Petites bouteilles ; haltères ; bande","equip":"Charges/bande","featured":false},{"id":"RM-23","region":"MS","category":"Coiffe / rotation","name":"Rotation externe de l’épaule","muscles":"Coiffe des rotateurs","variants":"Bande, coude près du corps ; contexte particulier à apprécier","equip":"Bande","featured":true},{"id":"RM-24","region":"MS","category":"Tirage horizontal","name":"Tirage assis / rowing élastique","muscles":"Dorsaux, rhomboïdes, trapèzes, biceps","variants":"Assis ; debout ; machine selon installation","equip":"Bande/câble/machine","featured":true},{"id":"RM-25","region":"MS","category":"Tirage horizontal","name":"Rowing penché avec charge","muscles":"Dorsaux, rhomboïdes, biceps, muscles posturaux","variants":"Unilatéral avec appui ; barre, charge modifiée","equip":"Haltère/barre","featured":false},{"id":"RM-26","region":"MS","category":"Tirage haut","name":"Rowing haut assis","muscles":"Haut du dos, épaules postérieures, bras","variants":"Élastique ou machine","equip":"Bande/machine","featured":false},{"id":"RM-27","region":"MS","category":"Tirage vertical","name":"Tirage vertical à la poitrine","muscles":"Grand dorsal, biceps","variants":"Machine ou poulie ; prise adaptée","equip":"Machine/poulie","featured":true},{"id":"RM-28","region":"MS","category":"Tirage vertical","name":"Traction / chin-up","muscles":"Dorsaux, biceps","variants":"Assistée si dispositif approprié","equip":"Barre/dispositif","featured":false},{"id":"RM-29","region":"MS","category":"Ceinture scapulaire","name":"Reverse fly / I-Y-T","muscles":"Trapèzes, rhomboïdes, deltoïdes postérieurs","variants":"Prone I-Y-T ; résistance légère si appropriée","equip":"Aucun/charges/bande","featured":false},{"id":"RM-30","region":"MS","category":"Bras : flexion coude","name":"Curl biceps","muscles":"Biceps brachial et fléchisseurs coude","variants":"Bouteille ; haltère ; bande","equip":"Bouteille/haltère/bande","featured":false},{"id":"RM-31","region":"MS","category":"Bras : extension coude","name":"Extension triceps / press-down","muscles":"Triceps","variants":"Poulie ; élastique ; variante isolée","equip":"Bande/poulie","featured":false},{"id":"RM-32","region":"Tronc","category":"Anti-extension / gainage","name":"Planche avant","muscles":"Tronc antérieur, stabilisateurs","variants":"Appuis genoux / avant-bras ; durée à choisir","equip":"Tapis","featured":true},{"id":"RM-33","region":"Tronc","category":"Stabilité diagonale","name":"Bird-dog / pointeur","muscles":"Tronc, extenseurs, ceinture pelvienne","variants":"Amplitude plus petite ; mouvement alterné","equip":"Tapis","featured":true},{"id":"RM-34","region":"Tronc","category":"Contrôle antérieur","name":"Dead bug","muscles":"Abdominaux, contrôle lombo-pelvien","variants":"Membres alternés ; résistance optionnelle","equip":"Tapis","featured":false},{"id":"RM-35","region":"Tronc","category":"Stabilité latérale","name":"Gainage latéral","muscles":"Obliques et stabilité latérale","variants":"Genoux fléchis ; jambes tendues","equip":"Tapis","featured":true},{"id":"RM-36","region":"Tronc","category":"Antirotation","name":"Poussée antirotation debout","muscles":"Tronc, stabilisateurs rotation","variants":"Bande/poulie ; position debout","equip":"Bande/poulie","featured":false},{"id":"RM-37","region":"Tronc","category":"Rotation contrôlée","name":"Wood chop / tirage diagonal","muscles":"Obliques, tronc, épaules","variants":"Bande/poulie, amplitude adaptée","equip":"Bande/poulie","featured":false},{"id":"RM-38","region":"Intégré","category":"Porter une charge","name":"Farmer’s carry / marche avec charges","muscles":"Préhension, tronc, membres inférieurs","variants":"Charges unilatérales ou bilatérales","equip":"Haltères","featured":true},{"id":"CAND-01","region":"Tronc","category":"Extension / contrôle du tronc","name":"Superman (extension en décubitus ventral)","muscles":"Extenseurs du tronc, ceinture postérieure","variants":"Amplitude réduite / extension alternée à discuter ; technique et indications à vérifier","equip":"Tapis","featured":false,"status":"candidat_additionnel"},{"id":"CAND-02","region":"MI","category":"Isométrique membres inférieurs","name":"Chaise au mur (squat isométrique)","muscles":"Quadriceps, fessiers","variants":"Angle et durée de tenue à adapter ; variante de squat statique","equip":"Mur","featured":true,"status":"candidat_additionnel"}]);
 const PAP_RENFO_NO_EQUIPMENT = new Set(['RM-01','RM-02','RM-03','RM-04','RM-06','RM-07','RM-08','RM-12','RM-13','RM-14','RM-15','RM-17','RM-18','RM-19','RM-29','RM-32','RM-33','RM-34','RM-35','CAND-01','CAND-02']);
 const PAP_RENFO_SMALL_EQUIPMENT = new Set(['RM-05','RM-09','RM-10','RM-16','RM-20','RM-21','RM-22','RM-23','RM-24','RM-25','RM-26','RM-30','RM-31','RM-36','RM-37','RM-38']);
-const PAP_RENFO_PRESET_CANDIDATES = Object.freeze({"MI":[{"id":"RM-01","name":"Assis-debout sur chaise"},{"id":"RM-04","name":"Montée de marche (step-up)"},{"id":"RM-06","name":"Pont fessier"},{"id":"RM-15","name":"Élévation sur pointes de pieds"}],"MS":[{"id":"RM-17","name":"Pompes contre un mur"},{"id":"RM-20","name":"Développé poitrine"},{"id":"RM-24","name":"Tirage assis / rowing élastique"}],"Tronc":[{"id":"RM-32","name":"Planche avant"},{"id":"RM-33","name":"Bird-dog / pointeur"},{"id":"RM-35","name":"Gainage latéral"}]});
-// Renforcement synthétique v19 : UX réutilisée, champs source du véritable PAP.
-// Catalogue v19 en cours de raccordement (02c2) ; dosages et sorties non intégrés.
 function papRenfoState() {
-  if (!prescriptionModel.renforcement) {
-    prescriptionModel.renforcement = {
-      etat: "non_renseigne", general: {}, programmeCandidat: [], syntheseRetenue: false,
-      seances: [], prochainIdSeance: 1
-    };
-  }
-  const state=prescriptionModel.renforcement;
-  if(!Array.isArray(state.seances))state.seances=[];
-  if(!Number.isInteger(state.prochainIdSeance)||state.prochainIdSeance<1)state.prochainIdSeance=1;
-  return state;
-}
-function papRenfoReadGeneral() {
-  const $ = id => document.getElementById(id);
-  return {
-    objectif: $('papRenfoGoal')?.value || '',
-    objectifComplementaire: $('papRenfoExtraGoal')?.value || '',
-    type: $('papRenfoPractice')?.value || '',
-    frequence: $('papRenfoFrequency')?.value || '',
-    duree: $('papRenfoDuration')?.value || '',
-    intensite: $('papRenfoEffort')?.value || '',
-    notes: $('papRenfoNotes')?.value || '',
-    zones: Array.from(document.querySelectorAll('#papRenfoZones input:not(#papRenfoWhole):checked')).map(i=>i.value)
-  };
-}
-function papRenfoHasData(s) {
-  const g = s.general || {};
-  return Object.entries(g).some(([k,v]) => k === 'zones' ? (v||[]).length : String(v||'').trim() !== '') ||
-    (Array.isArray(s.programmeCandidat) && s.programmeCandidat.length > 0) ||
-    (Array.isArray(s.seances) && s.seances.length > 0);
-}
-function papRenfoSyncGeneral() {
-  const s = papRenfoState();
-  s.general = papRenfoReadGeneral();
-  if (s.etat !== 'desactive') s.etat = papRenfoHasData(s) ? 'actif' : 'non_renseigne';
-  return s;
-}
-function papRenfoActiveForDocuments() {
-  const s=papRenfoSyncGeneral();
-  if(s.etat==='desactive')return false;
-  const n=Number(s.general.frequence);
-  return String(s.general.frequence).trim()!=='' && Number.isInteger(n) && n>=1 && n<=10;
+  const r=prescriptionModel.renforcement;
+  if(!r) return prescriptionModel.renforcement=papRenfoCreerEtatCanonique();
+  if(papRenfoEstCanonique(r))return r;
+  const migration=papRenfoPreparerMigration(r);
+  if(!migration.ok)throw new Error('Renforcement : ancienne structure à réexaminer avant conversion ('+migration.conflits.map(c=>c.code).join(', ')+')');
+  return prescriptionModel.renforcement=migration.etat;
 }
 function initPapRenfoSynthesis() {
   const host = document.getElementById('papStrengthV19');
@@ -18867,49 +18929,48 @@ function initPapRenfoSynthesis() {
     renderSummary();summary.classList.add('pv-open');
     summaryToggle.textContent='Masquer la synthèse';summaryToggle.setAttribute('aria-expanded','true');
   }
-  const inputs=['papRenfoGoal','papRenfoExtraGoal','papRenfoPractice','papRenfoFrequency','papRenfoDuration','papRenfoEffort','papRenfoNotes'];
+  const generalFields={papRenfoGoal:'objectif',papRenfoExtraGoal:'objectifComplementaire',papRenfoNotes:'notes'};
+  const sessionFields={papRenfoPractice:'type',papRenfoFrequency:'frequence',papRenfoDuration:'duree',papRenfoEffort:'intensite',papRenfoSessionName:'nom',papRenfoSessionNotes:'notes'};
   const positive=v=>String(v).trim()!==''&&Number.isFinite(Number(v))&&Number(v)>0;
   const validFreq=v=>String(v).trim()!==''&&Number.isInteger(Number(v))&&Number(v)>=1&&Number(v)<=10;
   const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function message(text){status.textContent=text||'';status.classList.toggle('pv-open',!!text);}
   function render(){
-    const s=papRenfoState(),g=s.general||{};const off=s.etat==='desactive';
+    const r=papRenfoState(),g=r.general||{},s=currentSession(),off=r.etat==='desactive';
     host.classList.toggle('pv-is-off',off);
-    yes.checked=s.etat==='actif';no.checked=off;
-    const f=Number(g.frequence),d=Number(g.duree);
-    $('papRenfoVolume').textContent=positive(g.frequence)&&positive(g.duree)&&Number.isInteger(f)?`${f*d} min/sem.`:'À préciser';
+    yes.checked=r.etat==='actif';no.checked=off;
+    $('papRenfoExtraGoalWrap').hidden=!String(g.objectif||'').trim();
+    const f=s.frequence.valeur,d=s.duree.valeur,retained=papRenfoDureeRetenue(r,s.id);
+    $('papRenfoVolume').textContent=validFreq(f)&&(retained!==null||positive(d))?papRenfoFormatDuration(Number(f)*(retained??Number(d)*60))+'/sem.':'À préciser';
     const boxes=host.querySelectorAll('#papRenfoZones input:not(#papRenfoWhole)');
     const all=[...boxes].every(i=>i.checked);
     $('papRenfoWhole').checked=all;
     $('papRenfoAllZones').textContent=all?'Tout désélectionner':'Tout sélectionner';
-    renderCandidateNotice(s);
   }
-  function changed(){
-    const before=papRenfoState().general||{};
-    const s=papRenfoSyncGeneral();
-    const actualChange=Object.keys(s.general).some(key=>key==='zones'
-      ? JSON.stringify(before.zones||[])!==JSON.stringify(s.general.zones||[])
-      : String(before[key]??'')!==String(s.general[key]??''));
-    if(!actualChange)return; // Le change au blur après input ne doit pas recréer les boutons sous le clic.
-    s.syntheseRetenue=false;
-    const dependencies=['frequence','duree','intensite','zones'].filter(key=>
-      JSON.stringify(before[key]??(key==='zones'?[]:''))!==JSON.stringify(s.general[key]??(key==='zones'?[]:'')));
-    if(dependencies.length)papRenfoGeneralModifie(s,dependencies);
-    closeSummary();footerMessage('');message('');
+  // Aucune lecture du formulaire en dehors d'un événement de saisie.
+  function changedGeneral(id,key){
+    const r=papRenfoState();
+    if(!papRenfoModifierGeneralCanonique(r,{[key]:$(id).value}))return;
+    closeSummary();footerMessage('');message('');render();
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
-    render();renderDetail();
   }
-  inputs.forEach(id=>{const n=$(id);n.addEventListener('input',changed);n.addEventListener('change',changed)});
+  for(const [id,key] of Object.entries(generalFields))for(const event of ['input','change'])$(id).addEventListener(event,()=>changedGeneral(id,key));
+  for(const [id,key] of Object.entries(sessionFields))for(const event of ['input','change'])$(id).addEventListener(event,()=>{
+    const v=$(id).value;
+    detailChanged({[key]:['frequence','duree'].includes(key)?{source:'seance',valeur:v}:v});
+  });
+  function changeZones(){
+    const boxes=[...host.querySelectorAll('#papRenfoZones input:not(#papRenfoWhole)')];
+    detailChanged({zones:boxes.filter(i=>i.checked).map(i=>i.value)});
+  }
   host.querySelectorAll('#papRenfoZones input').forEach(el=>el.addEventListener('change',()=>{
     const others=[...host.querySelectorAll('#papRenfoZones input:not(#papRenfoWhole)')];
     if(el.id==='papRenfoWhole')others.forEach(i=>i.checked=el.checked);
-    changed();
-    // La divergence éventuelle des zones est signalée dans la liste candidate, sans bandeau redondant.
+    changeZones();
   }));
   $('papRenfoAllZones').addEventListener('click',()=>{
     const others=[...host.querySelectorAll('#papRenfoZones input:not(#papRenfoWhole)')];
-    const all=others.every(i=>i.checked);others.forEach(i=>i.checked=!all);changed();
-    // La notice candidate se met à jour via render(), sans supprimer les exercices.
+    const all=others.every(i=>i.checked);others.forEach(i=>i.checked=!all);changeZones();
   });
   // UX9 : un seul gestionnaire pour toutes les aides du renforcement.
   // Le contenu existant est déplacé temporairement hors des conteneurs CSS.
@@ -18974,68 +19035,15 @@ function initPapRenfoSynthesis() {
   new MutationObserver(()=>{
     if(activeRenfoHelp&&!activeRenfoHelp.button.getClientRects().length)closeRenfoHelp();
   }).observe(host,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','open','class']});
-  function candidates(){
-    const zones=papRenfoReadGeneral().zones;
-    const src=PAP_RENFO_PRESET_CANDIDATES;
-    return zones.flatMap(z=>src[z]||[]).filter((ex,i,all)=>all.findIndex(v=>v.id===ex.id)===i);
-  }
-  function renderCandidateNotice(s){
-    const list=Array.isArray(s.programmeCandidat)?s.programmeCandidat:[];
-    const panel=$('papRenfoCandidates');panel.hidden=!list.length;
-    if(!list.length)return;
-    const expected=new Set(candidates().map(ex=>ex.id));
-    const actual=new Set(list.map(ex=>ex.id));
-    const outdated=list.some(ex=>!expected.has(ex.id))||[...expected].some(id=>!actual.has(id));
-    $('papRenfoCandidatesText').textContent=
-      `${list.length} exercice(s) candidat(s), NON prescrits : ${list.map(ex=>ex.name).join(' · ')}. `+
-      'Proposition fondée sur les zones uniquement (ni matériel ni modalité filtrants).'+
-      (outdated?' Attention : la sélection candidate ne correspond plus entièrement aux zones actuellement cochées.':'');
-  }
-  $('papRenfoClearCandidates').addEventListener('click',()=>{
-    const s=papRenfoSyncGeneral();if(!s.programmeCandidat.length)return;
-    if(!window.confirm('Retirer tous les exercices candidats ? Les paramètres généraux et zones seront conservés.'))return;
-    s.programmeCandidat=[];s.syntheseRetenue=false;
-    closeSummary();footerMessage('');
-    message('Les exercices candidats ont été retirés ; les paramètres généraux sont conservés.');
-    if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();render();
-  });
-  $('papRenfoPreset').addEventListener('click',()=>{
-    const arr=candidates();if(!arr.length){message('Choisir d’abord une ou plusieurs zones. Aucun exercice n’a été sélectionné.');return;}
-    const s=papRenfoSyncGeneral();
-    const previous=s.programmeCandidat||[];
-    const added=arr.filter(e=>!previous.some(p=>p.id===e.id));
-    if(!added.length){message('Ces exercices figurent déjà parmi les candidats. Aucun ajout.');return;}
-    s.programmeCandidat=[...previous,...added];s.syntheseRetenue=false;
-    // Ne pas laisser affichée une ancienne synthèse qui ignorerait les nouveaux candidats.
-    closeSummary();footerMessage('');
-    message(''); // La notice placée sous les zones montre immédiatement les nouveaux candidats.
-    if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();render();
-  });
-  function summaryText(omitDuration=false){
-    const s=papRenfoSyncGeneral(),g=s.general;
-    // Mêmes données, ordre et formulation de fréquence/durée que l'ordonnance actuelle.
-    const dose=[];
-    if(g.duree&&!omitDuration) dose.push(Number(g.duree)>0 ? `${g.duree} min/séance` : `Durée non valide (${g.duree})`);
-    if(g.frequence) dose.push(validFreq(g.frequence) ? `${g.frequence} fois/semaine` : `Fréquence non valide (${g.frequence})`);
-    const parts=[`Renforcement musculaire${dose.length ? ' — '+dose.join(' · ') : ''}`];
-    for(const [key,label] of [['objectif','Objectif principal'],['objectifComplementaire','Objectif complémentaire'],['type','Activité / modalité'],['intensite','Intensité (effort perçu)']]){
-      if(g[key]) parts.push(`${label} : ${g[key]}`);
-    }
-    const zoneNames={MS:'Membres supérieurs',Tronc:'Tronc',MI:'Membres inférieurs'};
-    if(g.zones.length) parts.push('Zones : '+g.zones.map(z=>zoneNames[z]||z).join(', '));
-    if(g.notes) parts.push('Adaptations : '+g.notes.trim().replace(/\s+/g,' '));
-    if(s.programmeCandidat.length) parts.push(`${s.programmeCandidat.length} exercice(s) candidat(s) en brouillon, non transmis à l’ordonnance (voir liste sous les zones)`);
+  function summaryText(){
+    const g=papRenfoState().general,parts=[];
+    if(g.objectif)parts.push('Objectif principal : '+g.objectif);
+    if(g.objectif&&g.objectifComplementaire)parts.push('Objectif complémentaire : '+g.objectifComplementaire);
+    if(g.notes)parts.push('Adaptations : '+g.notes.trim().replace(/\s+/g,' '));
     return parts.join(' · ');
   }
-  // 5-RENFO-02c1-R5 : présentation commune, une ligne par séance type.
-  // Le modèle de séances est lu en consultation ; aucune donnée n'est prescrite
-  // ni transmise aux documents par ce rendu d'écran.
   function renderSummary(){
-    const s=papRenfoSyncGeneral();
-    if(!Array.isArray(s.seances) || !s.seances.length){
-      summaryContent.textContent=summaryText();copyStatus.textContent='';
-      return;
-    }
+    const s=papRenfoState();
     const zoneNames={MS:'Membres supérieurs',Tronc:'Tronc',MI:'Membres inférieurs'};
     const fragment=document.createDocumentFragment();
     const heading=document.createElement('div');
@@ -19043,7 +19051,7 @@ function initPapRenfoSynthesis() {
     heading.textContent='Renforcement musculaire — synthèse de consultation';
     fragment.append(heading);
     const generalLine=document.createElement('div');
-    generalLine.textContent='Repères généraux : '+summaryText(s.seances.some(session=>papRenfoDureeRetenue(s,session.id)!==null));fragment.append(generalLine);
+    generalLine.textContent=summaryText();if(generalLine.textContent)fragment.append(generalLine);
     s.seances.forEach((session,index)=>{
       const freq=papRenfoValeurSeance(s,session.id,'frequence').valeur.trim();
       const duration=papRenfoValeurSeance(s,session.id,'duree').valeur.trim();
@@ -19063,12 +19071,13 @@ function initPapRenfoSynthesis() {
       const labelNode=document.createElement('strong');
       labelNode.textContent=label;
       line.append(labelNode,document.createTextNode(' '+[
-        frequencyText,durationText,`Intensité (effort perçu) ${intensityText}`,
+        ...(session.type?[session.type]:[]),frequencyText,durationText,`Intensité (effort perçu) ${intensityText}`,
         `Zones : ${zonesText}`
       ].join(' · ')+'.'));
       const state=document.createElement('div');
-      state.textContent=session.statut==='retenue'?'Séance type retenue — organisation retenue par le médecin.':'Séance type en brouillon — à examiner.';
+      state.textContent=session.statut==='retenue'?'Séance type retenue — organisation retenue par le médecin.':s.seances.length>1?'Séance type en brouillon — à examiner.':'Paramètres essentiels renseignés ; détail éventuel en brouillon.';
       line.append(state);
+      if(session.notes){const notes=document.createElement('div');notes.textContent='Adaptations : '+session.notes;line.append(notes);}
       const exercises=exerciseSelected(session);
       if(exercises.length){
         const list=document.createElement('ul');
@@ -19081,9 +19090,6 @@ function initPapRenfoSynthesis() {
       }
       fragment.append(line);
     });
-    const note=document.createElement('div');
-    note.textContent='Séances, exercices et dosages détaillés : récapitulatif de consultation uniquement, hors de l’ordonnance actuelle.';
-    fragment.append(note);
     summaryContent.replaceChildren(fragment);copyStatus.textContent='';
   }
   summaryToggle.addEventListener('click',()=>{
@@ -19102,32 +19108,29 @@ function initPapRenfoSynthesis() {
     }
   });
   $('papRenfoRetain').addEventListener('click',()=>{
-    const s=papRenfoSyncGeneral();
-    if(!validFreq(s.general.frequence)){
-      footerMessage('Fréquence de renforcement absente ou non valide : renseigner une valeur positive avant de retenir la prescription.');
-      const b=document.createElement('button');b.type='button';b.className='pv-text-button';b.textContent='Aller au champ';
-      b.addEventListener('click',()=>$('papRenfoFrequency').focus());footerStatus.append(' ',b);s.syntheseRetenue=false;return;
+    const r=papRenfoState();
+    if(!papRenfoProjeterPrescription(r).activites.length){
+      footerMessage(r.seances.length>1?'Retenir au moins une séance type avant la prescription.':'Fréquence de renforcement absente ou non valide : renseigner une valeur positive.');
+      return;
     }
-    // La validation synthétique ne confirme pas les exercices : information contextuelle sans faux verrou documentaire.
-    s.syntheseRetenue=true;
-    openSummary();footerMessage('');
-    message(''); // La synthèse et la notice candidate rendent ce statut explicite, sans doublon.
+    // Action synthétique existante : aucune retenue implicite des exercices.
+    openSummary();footerMessage('');message('');
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
   });
   function setOff(off){
-    const s=papRenfoState();s.etat=off?'desactive':papRenfoHasData(s)?'actif':'non_renseigne';s.syntheseRetenue=false;
+    const s=papRenfoState();s.etat=off?'desactive':papRenfoEtatRenseigne(s)?'actif':'non_renseigne';
     closeSummary();footerMessage('');message('');render();
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
   }
   $('papRenfoDeactivate').addEventListener('click',()=>{
-    const s=papRenfoSyncGeneral();
-    if(papRenfoHasData(s)&&!window.confirm('Désactiver le renforcement ? Les saisies resteront en brouillon mais seront exclues des documents.'))return;
+    const s=papRenfoState();
+    if(papRenfoEtatRenseigne(s)&&!window.confirm('Désactiver le renforcement ? Les saisies resteront en brouillon mais seront exclues des documents.'))return;
     setOff(true);
   });
   $('papRenfoReactivate').addEventListener('click',()=>setOff(false));
   $('papRenfoReset').addEventListener('click',()=>{
-    const s=papRenfoSyncGeneral();
-    if(papRenfoHasData(s)&&!window.confirm('Réinitialiser tout le renforcement musculaire ? Les saisies et candidats seront effacés.'))return;
+    const s=papRenfoState();
+    if(papRenfoEtatRenseigne(s)&&!window.confirm('Réinitialiser tout le renforcement musculaire ? Les saisies et candidats seront effacés.'))return;
     window.papResetRenfoSynthesis();
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
   });
@@ -19136,11 +19139,10 @@ function initPapRenfoSynthesis() {
   const papRenfoDurations=['5','10','15','20','25','30','45','60'];
   const papRenfoSuggestions={
     papRenfoFrequency:papRenfoCounts,papRenfoDuration:papRenfoDurations,
-    papRenfoSessionFreq:papRenfoCounts,papRenfoSessionDuration:papRenfoDurations,
     papRenfoDoseRounds:papRenfoCounts,papRenfoCommonSeries:papRenfoCounts,
     papRenfoCommonReps:papRenfoCounts,papRenfoCommonHold:papRenfoDurations,
     papRenfoDoseWarmup:papRenfoDurations,papRenfoDoseCooldown:papRenfoDurations,
-    papRenfoPractice:['Poids du corps','Exercices sur machines','Haltères / charges libres','Élastiques','Circuit de renforcement','Autre']
+    papRenfoPractice:['Poids du corps','Exercices sur machines','Haltères / charges libres','Élastiques','Circuit de renforcement','Exercices fonctionnels','Autre','Effacer la modalité']
   };
   function papRenfoMenuValues(input){
     if(!(input instanceof HTMLInputElement)||!host.contains(input)||input.disabled||input.readOnly)return null;
@@ -19185,6 +19187,11 @@ function initPapRenfoSynthesis() {
     }));
     papRenfoMenu.hidden=false;papRenfoPositionMenu();
   }
+  $('papRenfoClearPractice').addEventListener('click',()=>{
+    const input=$('papRenfoPractice');input.value='';
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    input.focus();papRenfoShowMenu(input);
+  });
   host.addEventListener('focusin',event=>papRenfoShowMenu(event.target));
   host.addEventListener('click',event=>papRenfoShowMenu(event.target));
   host.addEventListener('input',event=>{if(event.target===papRenfoMenuInput)papRenfoCloseMenu();});
@@ -19197,7 +19204,7 @@ function initPapRenfoSynthesis() {
       const minute=input.closest('.pv-dose-time')?.querySelector('[data-pap-time-part="min"]');
       if(!minute)return;
       minute.value=String((Number(minute.value)||0)+1);input.value='0';
-    }else input.value=value;
+    }else input.value=input.id==='papRenfoPractice'&&value==='Effacer la modalité'?'':value;
     papRenfoCloseMenu();
     // Les handlers PAP lisent la paire de repos entière : un seul événement métier.
     input.dispatchEvent(new Event('input',{bubbles:true}));
@@ -19223,39 +19230,36 @@ function initPapRenfoSynthesis() {
   }).observe(host,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','open','class']});
   window.papResetRenfoSynthesis=function(){
     const s=papRenfoState();
-    s.etat='non_renseigne';s.general={};s.programmeCandidat=[];s.syntheseRetenue=false;
+    s.etat='non_renseigne';s.general={};
     papRenfoReinitialiserSeances(s); activeSessionId=null;
-    papRenfoExpandedDoses.clear();papRenfoHiddenLists.clear();papRenfoPresetPreviewSessions.clear();papRenfoAllCatalog=false;
+    papRenfoExpandedDoses.clear();papRenfoVisibleLists.clear();papRenfoPresetPreviewSessions.clear();papRenfoAllCatalog=false;
     $('papRenfoExerciseSearch').value=''; $('papRenfoFreeExerciseName').value=''; $('papRenfoFreeExerciseRegion').value='';
     $('papRenfoDetailPanel').open=false;
-    inputs.forEach(id=>{$(id).value=''});
+    Object.keys(generalFields).forEach(id=>{$(id).value=''});
     host.querySelectorAll('#papRenfoZones input').forEach(i=>i.checked=false);
     closeSummary();footerMessage('');
     closeRenfoHelp();
-    message('');render();renderDetail();
+    message('');papRenfoCloseMenu();renderDetail();
   };
-  // 5-RENFO-02c1-R3 : première séance à l'ouverture, valeurs conservées
-  // lors du passage à plusieurs types ; aucune sortie détaillée.
+  // L'ouverture/repli modifie uniquement la présentation.
   let activeSessionId=null;
   const detail=$('papRenfoDetailPanel');
-  detail.addEventListener('toggle',()=>{
-    if(!detail.open)return;
-    const r=papRenfoSyncGeneral();
-    if(r.seances.length===0){
-      const a=papRenfoCreerSeance(r);
-      activeSessionId=a.id;
-      if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
-    }
-    renderDetail();
-    if(summary.classList.contains('pv-open'))renderSummary();
-  });
+  function renderSharedLayout(){
+    const expanded=detail.open;
+    $('papRenfoDetailToggle').setAttribute('aria-expanded',String(expanded));
+    const show=expanded||papRenfoState().seances.length>1;
+    $('papRenfoSessionCard').classList.toggle('pv-compact-session',!expanded);
+    for(const id of ['papRenfoGoalsRow','papRenfoSessionTitlebar','papRenfoPresetWrap','papRenfoSessionNotesWrap'])$(id).hidden=!expanded;
+    $('papRenfoDosePanel').hidden=!expanded;
+    $('papRenfoSessionTabs').hidden=!show;
+    $('papRenfoSessionNameWrap').hidden=!show;
+    $('papRenfoEssentialRow').classList.toggle('pv-with-name',show);
+  }
+  $('papRenfoDetailToggle').addEventListener('click',()=>{detail.open=!detail.open;renderSharedLayout();});
+  detail.addEventListener('toggle',()=>{renderSharedLayout();updateSessionNotice(papRenfoState(),papRenfoState().seances);if(!detail.open){closeRenfoHelp();papRenfoCloseMenu();}});
   const detailNodes={
-    tabs:$('papRenfoSessionTabs'),empty:$('papRenfoSessionEmpty'),fields:$('papRenfoSessionFields'),
-    single:$('papRenfoSingleNotice'),frequency:$('papRenfoSessionFreq'),duration:$('papRenfoSessionDuration'),
-    name:$('papRenfoSessionName'),effort:$('papRenfoSessionEffort'),equipment:$('papRenfoSessionEquipment'),
-    notice:$('papRenfoSessionNotice'),status:$('papRenfoDetailStatus'),
-    freqOrigin:$('papRenfoFreqOrigin'),durationOrigin:$('papRenfoDurationOrigin'),
-    effortOrigin:$('papRenfoEffortOrigin'),zonesOrigin:$('papRenfoZonesOrigin')
+    tabs:$('papRenfoSessionTabs'),fields:$('papRenfoSessionFields'),
+    equipment:$('papRenfoSessionEquipment'),notice:$('papRenfoSessionNotice'),status:$('papRenfoDetailStatus')
   };
   function currentSession(){
     const s=papRenfoState().seances;
@@ -19277,7 +19281,7 @@ function initPapRenfoSynthesis() {
 
   // Dosages de v19 : une seule source, seance.exercices[].dosage ; aucune sortie automatique.
   const papRenfoExpandedDoses=new Set();
-  const papRenfoHiddenLists=new Set();
+  const papRenfoVisibleLists=new Set();
   const papRenfoPresetPreviewSessions=new Set();
   const papRenfoDoseFields=['mode','series','reps','hold','workDuration','repDuration','rest','restAfter','load','loadDetail','effort','side','perSide','rightReps','leftReps','rightHold','leftHold','timeSides','note'];
   const papRenfoSideExercises=PAP_RENFO_SIDE_IDS;
@@ -19370,7 +19374,7 @@ function initPapRenfoSynthesis() {
   }
   function renderPapRenfoSessionDose(){
     papRenfoCloseMenu();
-    const session=currentSession();$('papRenfoDosePanel').hidden=!session;
+    const session=currentSession();$('papRenfoDosePanel').hidden=!session||!detail.open;
     if(!session)return;
     const common=session.dosageCommun||{},org=session.organisation||{};
     $('papRenfoDosePanel').querySelectorAll('[data-pap-common]').forEach(input=>input.value=common[input.dataset.papCommon]??'');
@@ -19495,8 +19499,10 @@ function initPapRenfoSynthesis() {
       library.append(empty);
     }
     const list=$('papRenfoSelectedList');list.replaceChildren();
-    const hidden=papRenfoHiddenLists.has(session.id);list.hidden=hidden;
-    $('papRenfoToggleSelected').textContent=hidden?'Afficher les exercices':'Masquer les exercices';
+    const hidden=!papRenfoVisibleLists.has(session.id);list.hidden=hidden;
+    $('papRenfoSelectedTools').hidden=hidden;
+    $('papRenfoClearExerciseDoses').hidden=hidden;
+    $('papRenfoToggleSelected').textContent=`${hidden?'Afficher':'Masquer'} les exercices${selected.length?' ('+selected.length+')':''}`;
     $('papRenfoToggleSelected').setAttribute('aria-expanded',String(!hidden));
     $('papRenfoSelectedEmpty').hidden=selected.length>0||hidden;
     selected.forEach((item,index)=>{
@@ -19553,7 +19559,7 @@ function initPapRenfoSynthesis() {
     refreshSessionRetainState(session);renderExerciseLibrary();
     if(summary.classList.contains('pv-open'))renderSummary();
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
-    $('papRenfoExerciseStatus').textContent='Sélection modifiée : séance en brouillon. Aucun exercice transmis à l’ordonnance.';
+    $('papRenfoExerciseStatus').textContent='';
   }
 
   // 5-RENFO-02c3-UX5 : programmes types exploratoires repris de v19 ; ajout explicite.
@@ -19563,25 +19569,25 @@ function initPapRenfoSynthesis() {
     small:{MI:['RM-05','RM-09','RM-10','RM-15'],MS:['RM-20','RM-24','RM-23'],Tronc:['RM-32','RM-36','RM-35']},
     gym:{MI:['RM-05','RM-11','RM-09','RM-15'],MS:['RM-20','RM-27','RM-21','RM-24'],Tronc:['RM-36','RM-37','RM-38']}
   };
-  $('papRenfoSessionPreset').addEventListener('click',()=>{
+  function addPapRenfoPreset(){
     const session=currentSession();if(!session)return;
     const zones=papRenfoZonesSeance(papRenfoState(),session.id).valeurs;
-    if(!zones.length){$('papRenfoExerciseStatus').textContent='Choisir une zone ciblée pour proposer un programme type.';return;}
+    if(!zones.length){message('Choisir une zone ciblée pour proposer un programme type.');return;}
+    detail.open=true;renderSharedLayout();message('');
     const ids=papRenfoPresetDiff(session).target;
     papRenfoPresetPreviewSessions.add(session.id);
     const already=exerciseSelected(session);
     const known=new Set(already.map(item=>item.id));
     const added=ids.filter(id=>!known.has(id)).map(id=>({id}));
     if(added.length)changeExercises([...already,...added],'preset');else renderExerciseLibrary();
-    $('papRenfoExerciseStatus').textContent=added.length
-      ?`${added.length} exercice(s) candidat(s) ajouté(s) selon les zones et le matériel de cette séance. À examiner et adapter ; non transmis à l'ordonnance.`
-      :'Aucun nouvel exercice candidat à ajouter pour les zones et le matériel choisis.';
-  });
+    $('papRenfoExerciseStatus').textContent='';
+  }
+  for(const id of ['papRenfoPreset','papRenfoPresetCatalogue'])$(id).addEventListener('click',addPapRenfoPreset);
   $('papRenfoResetExercises').addEventListener('click',()=>{
     const session=currentSession();if(!session)return;
     if(exerciseSelected(session).length&&!window.confirm('Effacer les exercices et leurs adaptations pour cette séance uniquement ?'))return;
     for(const key of [...papRenfoExpandedDoses])if(key.startsWith(session.id+':'))papRenfoExpandedDoses.delete(key);
-    papRenfoPresetPreviewSessions.delete(session.id);papRenfoHiddenLists.delete(session.id);
+    papRenfoPresetPreviewSessions.delete(session.id);papRenfoVisibleLists.delete(session.id);
     for(const id of ['papRenfoExerciseSearch','papRenfoFreeExerciseName','papRenfoFreeExerciseRegion'])$(id).value='';
     papRenfoAllCatalog=false;const provenance=papRenfoPresetState(session);if(exerciseSelected(session).length||provenance.ids.length||provenance.exclusions.length)changeExercises([],'reset');else renderExerciseLibrary();
   });
@@ -19594,7 +19600,7 @@ function initPapRenfoSynthesis() {
       if(!window.confirm(message))return;
       const removed=new Set(diff.removed);
       changeExercises([...exerciseSelected(session).filter(item=>!removed.has(item.id)),...diff.added.map(id=>({id}))],'replace');
-      $('papRenfoExerciseStatus').textContent=`Programme type actualisé : ${diff.removed.length} retiré(s), ${diff.added.length} candidat(s) ajouté(s). Séance en brouillon, à examiner et retenir.`;
+      $('papRenfoExerciseStatus').textContent=`Programme type actualisé : ${diff.removed.length} retiré(s), ${diff.added.length} ajouté(s).`;
       return;
     }
     if(!event.target.closest('#papRenfoRemoveIncompatible'))return;
@@ -19603,10 +19609,10 @@ function initPapRenfoSynthesis() {
   });
   $('papRenfoToggleSelected').addEventListener('click',()=>{
     const session=currentSession();if(!session)return;
-    if(papRenfoHiddenLists.has(session.id))papRenfoHiddenLists.delete(session.id);else papRenfoHiddenLists.add(session.id);renderExerciseLibrary();
+    if(papRenfoVisibleLists.has(session.id))papRenfoVisibleLists.delete(session.id);else papRenfoVisibleLists.add(session.id);renderExerciseLibrary();
   });
   for(const [id,expand] of [['papRenfoExpandAll',true],['papRenfoCollapseAll',false]])$(id).addEventListener('click',()=>{
-    const session=currentSession();if(!session)return;papRenfoHiddenLists.delete(session.id);
+    const session=currentSession();if(!session)return;papRenfoVisibleLists.add(session.id);
     for(const item of exerciseSelected(session)){const key=`${session.id}:${item.id}`;if(expand)papRenfoExpandedDoses.add(key);else papRenfoExpandedDoses.delete(key);}renderExerciseLibrary();
   });
   $('papRenfoApplyCommonNear').addEventListener('click',()=>{$('papRenfoApplyCommon').click();$('papRenfoDetailStatus').textContent=$('papRenfoDoseStatus').textContent;});
@@ -19758,21 +19764,11 @@ function initPapRenfoSynthesis() {
     renderExerciseLibrary();
   });
   function updateSessionNotice(r,list){
-    if(list.length<2){
-      detailNodes.notice.classList.remove('pv-session-warning');
-      detailNodes.notice.textContent='La séance utilise les paramètres indiqués ci-dessus. Zones et intensité peuvent être personnalisées sans modifier les repères généraux.';
-      return;
-    }
-    const ready=list.every(sess=>['frequence','duree'].every(key=>{
-      const resolved=papRenfoValeurSeance(r,sess.id,key);
-      return resolved.source==='seance'&&resolved.valeur.trim()!=='';
-    }));
-    const sum=ready?list.reduce((acc,sess)=>acc+Number(papRenfoValeurSeance(r,sess.id,'frequence').valeur),0):null;
-    const g=String(r.general.frequence??'').trim();
-    detailNodes.notice.textContent=sum===null
-      ?'Plusieurs types : répartir explicitement fréquence et durée de chaque séance. Repère général : '+(g||'non précisé')+' séance(s)/semaine. Aucune répartition automatique.'
-      :`Somme descriptive des fréquences des séances types : ${sum}/semaine${g&&Number(g)!==sum?' ; repère général : '+g+'/semaine. Vérifier les séances éventuellement partagées.':''}.`;
-    detailNodes.notice.classList.toggle('pv-session-warning',sum!==null&&g!==''&&Number(g)!==sum);
+    const multi=list.length>1;
+    const drafts=list.filter(s=>s.statut!=='retenue').length;
+    detailNodes.notice.textContent=multi&&drafts?`${drafts} séance(s) en brouillon, non transmises aux documents. Retenir chaque séance à prescrire.`:'';
+    detailNodes.notice.classList.toggle('pv-session-warning',multi&&drafts>0);
+    detailNodes.notice.hidden=!detailNodes.notice.textContent;
   }
   function papRenfoFormatDuration(seconds){
     const n=Math.round(seconds), hours=Math.floor(n/3600), minutes=Math.floor(n%3600/60), sec=n%60;
@@ -19813,13 +19809,11 @@ function initPapRenfoSynthesis() {
   function refreshSessionRetainState(session){
     renderPapRenfoDuration(session);
     const retained=session?.statut==='retenue';
-    $('papRenfoSessionState').textContent=retained
-      ? 'Séance type retenue — les exercices et dosages restent hors de l’ordonnance actuelle.'
-      : 'Séance en brouillon — exercices et dosages restent hors de l’ordonnance actuelle.';
     const button=$('papRenfoRetainSession');
     button.classList.toggle('pv-retained',retained);
     button.textContent=retained?'✓ Séance type retenue':'Retenir cette séance type';
     button.setAttribute('aria-pressed',String(retained));
+    updateSessionNotice(papRenfoState(),papRenfoState().seances);render();
   }
   function renderDetail(){
     const r=papRenfoState(),list=r.seances;
@@ -19836,48 +19830,27 @@ function initPapRenfoSynthesis() {
     });
     const add=document.createElement('button');add.type='button';add.className='pv-session-action';
     add.id='papRenfoAddSession';add.textContent='+ Ajouter un type';detailNodes.tabs.append(add);
-    detailNodes.empty.hidden=!!current;
-    detailNodes.fields.hidden=!current;
-    if(!current){detailNodes.status.textContent='';renderExerciseLibrary();return;}
-    const multi=list.length>1;
-    const freq=papRenfoValeurSeance(r,current.id,'frequence');
-    const dur=papRenfoValeurSeance(r,current.id,'duree');
-    const effort=papRenfoIntensiteSeance(r,current.id);
-    const zones=papRenfoZonesSeance(r,current.id);
-    const own=['frequence','duree'].some(key=>current[key].source==='seance');
-    detailNodes.single.hidden=multi||own;
-    $('papRenfoSingleSpecific').hidden=multi||!own;
-    detailNodes.frequency.value=freq.valeur;
-    detailNodes.duration.value=dur.valeur;
-    detailNodes.name.value=current.nom;
-    detailNodes.effort.value=effort.valeur;
+    for(const [id,key] of Object.entries(generalFields))$(id).value=r.general[key]??'';
+    for(const [id,key] of Object.entries(sessionFields))$(id).value=['frequence','duree'].includes(key)?current[key].valeur:current[key]??'';
     detailNodes.equipment.value=current.materiel;
-    function provenance(source){return source==='generale'?'Valeur générale liée':source==='a_preciser'?'À répartir pour cette séance':'Propre à la séance';}
-    detailNodes.freqOrigin.textContent=provenance(freq.source);
-    detailNodes.durationOrigin.textContent=provenance(dur.source);
-    detailNodes.effortOrigin.textContent=provenance(effort.source);
-    detailNodes.zonesOrigin.textContent=provenance(zones.source);
-    const set=new Set(zones.valeurs);
-    detailNodes.fields.querySelectorAll('.pv-session-zone input:not(#papRenfoSessionWhole)').forEach(input=>input.checked=set.has(input.value));
-    $('papRenfoSessionWhole').checked=['MS','Tronc','MI'].every(zone=>set.has(zone));
-    $('papRenfoToggleSessionZones').textContent=$('papRenfoSessionWhole').checked?'Tout désélectionner':'Tout sélectionner';
-    $('papRenfoUseGeneralZones').hidden=zones.source==='generale'||(multi&&list[0]!==current);
-    $('papRenfoUseGeneralEffort').hidden=effort.source==='generale'||(multi&&list[0]!==current);
-    updateSessionNotice(r,list);
+    const set=new Set(current.zones);
+    host.querySelectorAll('#papRenfoZones input:not(#papRenfoWhole)').forEach(input=>input.checked=set.has(input.value));
+    renderSharedLayout();
     refreshSessionRetainState(current);
     detailNodes.status.textContent='';
+    $('papRenfoExerciseStatus').textContent='';
     renderExerciseLibrary();
     renderPapRenfoSessionDose();
   }
   function detailChanged(changes){
     const session=currentSession();if(!session)return;
+    if(Object.entries(changes).every(([k,v])=>JSON.stringify(session[k])===JSON.stringify(v)))return;
     papRenfoModifierSeance(papRenfoState(),session.id,changes);
-    papRenfoSyncGeneral();render();
+    footerMessage('');message('');
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
     // Ne pas reconstruire le champ pendant sa saisie ; actualiser seulement l'onglet et l'aide.
     const selected=detailNodes.tabs.querySelector('.pv-current');
     if(selected)selected.textContent=session.nom||`Séance ${papRenfoState().seances.indexOf(session)+1}`;
-    updateSessionNotice(papRenfoState(),papRenfoState().seances);
     refreshSessionRetainState(session);
     if(summary.classList.contains('pv-open'))renderSummary();
     detailNodes.status.textContent='';
@@ -19885,104 +19858,45 @@ function initPapRenfoSynthesis() {
   }
   detailNodes.tabs.addEventListener('click',event=>{
     if(event.target.closest('#papRenfoAddSession')){
-      const r=papRenfoSyncGeneral();const session=papRenfoCreerSeance(r);
-      activeSessionId=session.id;papRenfoSyncGeneral();render();renderDetail();
+      const r=papRenfoState();const session=papRenfoCreerSeance(r);
+      closeRenfoHelp();papRenfoCloseMenu();activeSessionId=session.id;renderDetail();
       if(summary.classList.contains('pv-open'))renderSummary();
       detailNodes.status.textContent='Séance type créée en brouillon. Aucun exercice prescrit.';
       if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();return;
     }
     const tab=event.target.closest('[data-pap-session-id]');
-    if(tab){activeSessionId=tab.dataset.papSessionId;renderDetail();}
+    if(tab){closeRenfoHelp();papRenfoCloseMenu();activeSessionId=tab.dataset.papSessionId;renderDetail();detailNodes.tabs.querySelector('.pv-current')?.focus({preventScroll:true});}
   });
-  const directChanges={papRenfoSessionName:'nom',papRenfoSessionEquipment:'materiel'};
-  for(const [id,key] of Object.entries(directChanges)){
-    $(id).addEventListener('input',event=>detailChanged({[key]:event.target.value}));
-  }
-  detailNodes.effort.addEventListener('change',event=>{
-    detailChanged({intensite:event.target.value});
-    detailNodes.effortOrigin.textContent='Propre à la séance';
-    $('papRenfoUseGeneralEffort').hidden=false;
-  });
-  for(const [id,key] of [['papRenfoSessionFreq','frequence'],['papRenfoSessionDuration','duree']]){
-    $(id).addEventListener('input',event=>{
-      const session=currentSession();if(!session)return;
-      if(papRenfoState().seances.length===1 && session[key].source==='generale'){
-        // Une seule source de vérité : modifier le champ Synthétique existant.
-        const generalField=$(key==='frequence'?'papRenfoFrequency':'papRenfoDuration');
-        generalField.value=event.target.value;
-        generalField.dispatchEvent(new Event('input',{bubbles:true}));
-        return;
-      }
-      detailChanged({[key]:{source:'seance',valeur:event.target.value}});
-      $(key==='frequence'?'papRenfoFreqOrigin':'papRenfoDurationOrigin').textContent='Propre à la séance';
-    });
-  }
-  detailNodes.fields.querySelectorAll('.pv-session-zone input').forEach(input=>input.addEventListener('change',event=>{
-    const regional=[...detailNodes.fields.querySelectorAll('.pv-session-zone input:not(#papRenfoSessionWhole)')];
-    if(event.target.id==='papRenfoSessionWhole')regional.forEach(item=>item.checked=event.target.checked);
-    const zones=regional.filter(item=>item.checked).map(item=>item.value);
-    $('papRenfoSessionWhole').checked=regional.every(item=>item.checked);
-    $('papRenfoToggleSessionZones').textContent=$('papRenfoSessionWhole').checked?'Tout désélectionner':'Tout sélectionner';
-    detailChanged({zones});
-    detailNodes.zonesOrigin.textContent='Propre à la séance';
-    $('papRenfoUseGeneralZones').hidden=false;
-  }));
-  $('papRenfoToggleSessionZones').addEventListener('click',()=>{
-    const whole=$('papRenfoSessionWhole');whole.checked=!whole.checked;whole.dispatchEvent(new Event('change',{bubbles:true}));
-  });
-  $('papRenfoUseGeneralZones').addEventListener('click',()=>{
-    const session=currentSession();if(!session)return;
-    papRenfoModifierSeance(papRenfoState(),session.id,{zonesSource:'generale'});
-    papRenfoSyncGeneral();render();renderDetail();
-    if(summary.classList.contains('pv-open'))renderSummary();
-    if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
-  });
-  $('papRenfoUseGeneralEffort').addEventListener('click',()=>{
-    const session=currentSession();if(!session)return;
-    papRenfoModifierSeance(papRenfoState(),session.id,{intensiteSource:'generale'});
-    papRenfoSyncGeneral();render();renderDetail();
-    if(summary.classList.contains('pv-open'))renderSummary();
-    if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
-  });
-  $('papRenfoUseGeneral').addEventListener('click',()=>{
-    const session=currentSession();if(!session||papRenfoState().seances.length!==1)return;
-    papRenfoModifierSeance(papRenfoState(),session.id,{
-      frequence:{source:'generale',valeur:''},duree:{source:'generale',valeur:''}
-    });
-    papRenfoSyncGeneral();render();renderDetail();
-    if(summary.classList.contains('pv-open'))renderSummary();
-    if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
-  });
+  detailNodes.equipment.addEventListener('change',event=>detailChanged({materiel:event.target.value}));
+  detailNodes.equipment.addEventListener('input',event=>detailChanged({materiel:event.target.value}));
   $('papRenfoRetainSession').addEventListener('click',()=>{
     const session=currentSession();if(!session)return;
-    const r=papRenfoSyncGeneral();
+    const r=papRenfoState();
     const result=papRenfoRetenirSeance(r,session.id);
     if(!result.retenue){
       detailNodes.status.textContent='Pour retenir l’organisation de cette séance, préciser une fréquence positive (1 à 10) et, si le calcul est incomplet ou estimé, une durée souhaitée positive.';
-      ($(result.manquants.includes('frequence')?'papRenfoSessionFreq':'papRenfoSessionDuration')).focus();
+      ($(result.manquants.includes('frequence')?'papRenfoFrequency':'papRenfoDuration')).focus();
       refreshSessionRetainState(session);
       return;
     }
     refreshSessionRetainState(session);
     if(summary.classList.contains('pv-open'))renderSummary();
-    detailNodes.status.textContent='Séance type retenue ; exercices et dosages conservés dans PAP, non transmis à l’ordonnance actuelle.';
+    detailNodes.status.textContent='';
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
   });
   $('papRenfoRemoveSession').addEventListener('click',()=>{
     const session=currentSession();if(!session)return;
-    if(!window.confirm(`Retirer « ${session.nom||'cette séance type'} » et ses données détaillées ? Les autres séances et la Synthétique restent conservées.`))return;
-    const r=papRenfoState();r.seances=r.seances.filter(item=>item.id!==session.id);
+    if(!window.confirm(`Retirer « ${session.nom||'cette séance type'} » et toutes ses données ? Les autres séances restent conservées.`))return;
+    const r=papRenfoState();papRenfoRetirerSeance(r,session.id);
     for(const key of [...papRenfoExpandedDoses])if(key.startsWith(session.id+':'))papRenfoExpandedDoses.delete(key);
-    papRenfoHiddenLists.delete(session.id);papRenfoPresetPreviewSessions.delete(session.id);
+    papRenfoVisibleLists.delete(session.id);papRenfoPresetPreviewSessions.delete(session.id);
     activeSessionId=r.seances[0]?.id||null;
-    papRenfoSyncGeneral();render();renderDetail();
+    renderDetail();
     if(summary.classList.contains('pv-open'))renderSummary();
-    detailNodes.status.textContent=r.seances.length===1
-      ?'Une seule séance restante : les valeurs encore liées au général sont de nouveau affichées ; les personnalisations sont conservées.'
-      :'Séance retirée ; autres données conservées.';
+    detailNodes.status.textContent='Séance retirée ; autres données conservées.';
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
   });
-  papRenfoSyncGeneral();render();renderDetail();
+  renderDetail();
 }
 
             function toggleSubgroup(groupName, subgroupId, extraBlockId = null) {
@@ -23731,33 +23645,11 @@ if (
   markPrescriptionDirty();
 }
 
-  const renforcementFrequence =
-  document.querySelector('input[name="fois_renforcement"]')?.value;
-
-  const renforcementType =
-  document.querySelector('input[name="type_renforcement"]')?.value;
-
-  const renforcementDuree =
-  document.querySelector('input[name="duree_renforcement"]')?.value;
-  
-// Ne jamais restituer une composante désactivée ou une fréquence invalide.
-if (typeof papRenfoActiveForDocuments === "function" &&
-    papRenfoActiveForDocuments()) {
-
-  prescriptionModel.activites.push({
-    categorie: "renforcement",
-
-  type: renforcementType || "",
-
-   frequence: {
-  valeur: renforcementFrequence
-},
-
-duree: {
-  valeur: renforcementDuree
-}
-  });
-
+// 4b : synchroniser une fois, puis partager la même projection entre
+// activites[] et le modèle clinique. Aucune lecture des champs par les sorties.
+const renforcementProjection = papRenfoProjeterPrescription(papRenfoState());
+if (renforcementProjection.activites.length > 0) {
+  prescriptionModel.activites.push(...renforcementProjection.activites);
   markPrescriptionDirty();
 }
 
@@ -24093,8 +23985,7 @@ therapeutic_plan: {
     intensite: document.querySelector('input[name="intensite_aerobie"]:checked')?.value || null
   },
   renforcement: {
-    frequence: (typeof papRenfoActiveForDocuments === "function" &&
-      papRenfoActiveForDocuments()) ? (document.querySelector('input[name="fois_renforcement"]')?.value || null) : null
+    frequence: renforcementProjection.frequenceClinique
   },
   souplesse: {
     frequence: document.querySelector('input[name="fois_souplesse"]')?.value || null
