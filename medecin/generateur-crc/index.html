@@ -943,6 +943,19 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-field input:focus-visible,#papStrengthV19 .pv-field textarea:focus-visible,#papStrengthV19 .pv-field select:focus-visible{outline:2px solid #93c4ed;outline-offset:0}
 #papStrengthV19 .pv-volume{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:#527292;margin:5px 0 7px}
 #papStrengthV19 .pv-volume strong{color:#23486d}
+/* 4e.3-UX — jours en Détaillée uniquement, mêmes dimensions et charte que les zones. */
+#papStrengthV19 .pv-days-row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:4px 10px;margin:7px 0 5px;min-width:0}
+#papStrengthV19 .pv-days-label{font-size:12px;font-weight:650;color:#2f5276;line-height:16px}
+#papStrengthV19 .pv-days-buttons{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;min-width:0}
+#papStrengthV19 .pv-days-buttons button{display:flex;align-items:center;justify-content:center;width:100%;min-width:0;max-width:none;min-height:36px;box-sizing:border-box;margin:0;padding:5px 3px;border:1px solid #c8ddf0;border-radius:7px;background:#fff;color:#245488;font-size:11px;font-weight:600;line-height:1.2;cursor:pointer}
+@container(max-width:630px){#papStrengthV19 .pv-days-row{grid-template-columns:minmax(0,1fr)}}
+@container(max-width:355px){#papStrengthV19 .pv-days-buttons{gap:4px}#papStrengthV19 .pv-days-buttons button{padding:4px 1px;font-size:10px}}
+#papStrengthV19 .pv-days-buttons button[aria-pressed="true"]{background:#e4f1ff;border-color:#5ba0d7;color:#144f91}
+#papStrengthV19 .pv-days-buttons button:disabled{background:#f4f6f8;color:#64748b;border-color:#dce3ea;opacity:.72;cursor:not-allowed}
+#papStrengthV19 .pv-days-buttons button:focus-visible{outline:2px solid #8fc2eb;outline-offset:2px}
+#papStrengthV19 .pv-days-warning{font-size:11px;font-weight:650;color:#9a4d12;flex-basis:100%}
+#papStrengthV19 .pv-days-warning[hidden]{display:none}
+#papStrengthV19 #papRenfoDaysWarning:not([hidden]){display:block;margin:3px 0 5px}
 #papStrengthV19 .pv-zones-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:7px 0 4px}
 #papStrengthV19 .pv-zones-head strong{font-size:12px}
 #papStrengthV19 .pv-zones-head button{border:0;background:none;color:#2466a9;font-size:11px}
@@ -1029,6 +1042,13 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-session-tab,#papStrengthV19 .pv-session-action{min-height:32px;border:1px solid #b5cde6;border-radius:7px;background:white;color:#245585;padding:6px 9px;font-size:12px}
 #papStrengthV19 .pv-session-tab.pv-current{background:#e6f2ff;border-color:#5e9ed9;color:#134e8c;font-weight:700}
 #papStrengthV19 .pv-session-action{border-style:dashed}
+/* 4e.2 : choix temporaire, aucune donnée tant qu'une option n'est pas choisie. */
+#papStrengthV19 .pv-session-tabs{position:relative}
+#papStrengthV19 .pv-session-create-choices{position:absolute;z-index:50;top:calc(100% + 3px);left:0;right:0;min-width:0;max-height:240px;overflow:auto;box-sizing:border-box;display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:6px;border:1px solid #cbdceb;border-radius:8px;background:#f5faff;box-shadow:0 5px 14px #233b5526}
+#papStrengthV19 .pv-session-create-choices button{min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal;min-height:32px;border:1px solid #b5cde6;border-radius:7px;background:white;color:#245585;padding:6px 9px;font-size:12px;text-align:left}
+#papStrengthV19 .pv-session-create-choices button:hover,#papStrengthV19 .pv-session-create-choices button:focus-visible{background:#e6f2ff;border-color:#5e9ed9}
+#papStrengthV19 .pv-session-create-choices .pv-create-blank{font-weight:600}
+
 #papStrengthV19 .pv-session-fields{display:block;min-width:0}
 #papStrengthV19 .pv-session-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:9px 0 7px}
 #papStrengthV19 .pv-session-grid .pv-field>label{min-height:18px;height:18px;align-items:center;line-height:1.2;margin-bottom:5px}
@@ -1234,6 +1254,20 @@ label:has(input[type="radio"]) .info-icon{
 #papRenfoSuggestionPortal button{display:block;width:100%;box-sizing:border-box;text-align:left;min-height:26px;line-height:18px;padding:4px 9px;border:0;border-radius:3px;background:#fff;color:#24517a;font-family:inherit;font-size:12px;cursor:pointer}
 #papRenfoSuggestionPortal button:hover,#papRenfoSuggestionPortal button:focus-visible{background:#e8f3ff}
 #papRenfoSuggestionPortal button+button{border-top:1px solid #f1f4f8}
+
+/* 4e.3-UX mobile : retour d'action sans déplacement et menus tactiles sans clavier initial. */
+#papStrengthV19 :is(#papRenfoPreset,#papRenfoPresetCatalogue)[data-pap-preset-feedback]{position:relative;color:transparent;background:#edf7ef;border-color:#93c5a2}
+#papStrengthV19 :is(#papRenfoPreset,#papRenfoPresetCatalogue)[data-pap-preset-feedback]::after{content:attr(data-pap-preset-feedback);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:4px;line-height:1.15;color:#27663d;pointer-events:none}
+#papStrengthV19 #papRenfoPreset[data-pap-preset-feedback]::after{padding-right:25px}
+#papStrengthV19 :is(#papRenfoPreset,#papRenfoPresetCatalogue)[data-pap-preset-feedback-kind="neutral"]{background:#f4f6f8;border-color:#bdcbd9}
+#papStrengthV19 :is(#papRenfoPreset,#papRenfoPresetCatalogue)[data-pap-preset-feedback-kind="neutral"]::after{color:#415d79}
+#papStrengthV19 .pv-preset-announcement{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media (max-width:767px) and (pointer:coarse){
+ #papStrengthV19 :is(input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),select,textarea){font-size:16px!important}
+ #papRenfoSuggestionPortal[data-pap-mobile-numeric]{touch-action:pan-y;-webkit-overflow-scrolling:touch;scroll-padding-bottom:42px}
+ #papRenfoSuggestionPortal[data-pap-mobile-numeric] button{min-height:40px;font-size:16px;line-height:22px;padding:8px 10px}
+ #papRenfoSuggestionPortal[data-pap-mobile-numeric] button[data-pap-manual]{position:sticky;bottom:0;z-index:1;font-weight:650;background:#edf5ff;color:#24517a;box-shadow:0 -1px 0 #c5d6e9}
+}
 #papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration){appearance:textfield;-moz-appearance:textfield}
 #papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration)::-webkit-inner-spin-button,
 #papStrengthV19 input[type="number"]:is([data-pap-common],[data-pap-organisation],[data-pap-time-part],[data-pap-dose-field],#papRenfoFrequency,#papRenfoDuration)::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
@@ -5752,6 +5786,8 @@ Aucune
       <div class="pv-field"><label for="papRenfoDuration">Durée (min/séance)</label><div class="pv-suggest-wrap"><input id="papRenfoDuration" type="number" min="0" max="300" step="1" placeholder="À préciser"></div></div>
       <div class="pv-field"><label for="papRenfoEffort">Intensité (effort perçu) <button class="pv-assist" type="button" data-pv-help="papRenfoHelpEffort" aria-label="Aide sur l'intensité">i</button></label><select id="papRenfoEffort"><option value="">Non renseigné</option><option>Légère</option><option>Modérée</option><option>Élevée</option><option>À adapter selon le contexte</option></select><div id="papRenfoHelpEffort" class="pv-help">L'effort perçu en renforcement ne se confond pas avec l'intensité cardio-respiratoire. Charges, variantes et récupérations sont disponibles en Détaillée.</div></div>
     </div>
+    <div class="pv-days-row" id="papRenfoDays" hidden><span class="pv-days-label" id="papRenfoDaysLabel">Jours de pratique indicatifs</span><div class="pv-days-buttons" role="group" aria-labelledby="papRenfoDaysLabel" aria-describedby="papRenfoDaysWarning"><button type="button" data-pap-renfo-day="lun" aria-pressed="false" aria-label="Lundi">Lun</button><button type="button" data-pap-renfo-day="mar" aria-pressed="false" aria-label="Mardi">Mar</button><button type="button" data-pap-renfo-day="mer" aria-pressed="false" aria-label="Mercredi">Mer</button><button type="button" data-pap-renfo-day="jeu" aria-pressed="false" aria-label="Jeudi">Jeu</button><button type="button" data-pap-renfo-day="ven" aria-pressed="false" aria-label="Vendredi">Ven</button><button type="button" data-pap-renfo-day="sam" aria-pressed="false" aria-label="Samedi">Sam</button><button type="button" data-pap-renfo-day="dim" aria-pressed="false" aria-label="Dimanche">Dim</button></div></div>
+    <div id="papRenfoDaysWarning" class="pv-days-warning" role="status" hidden></div>
     <div class="pv-volume"><span>Temps hebdomadaire prévu pour cette séance</span><strong id="papRenfoVolume">À préciser</strong></div>
     <div class="pv-zones-head"><strong>Zones ciblées <button type="button" class="pv-assist" data-pv-help="papRenfoHelpZones" aria-label="Aide sur les zones">i</button></strong><button type="button" id="papRenfoAllZones">Tout sélectionner</button></div>
     <div id="papRenfoHelpZones" class="pv-help">Choisir une ou plusieurs zones de cette séance. « Ensemble du corps » sélectionne les trois régions.</div>
@@ -5772,7 +5808,7 @@ Aucune
 <div class="pv-field"><label for="papRenfoCommonReps">Répétitions</label><input data-pap-common="reps" id="papRenfoCommonReps" min="0" placeholder="—" step="1" type="number"/></div>
 <div class="pv-field"><label for="papRenfoCommonHold">Tenue (s)</label><input data-pap-common="hold" id="papRenfoCommonHold" min="0" placeholder="—" step="1" type="number"/></div>
 
-<div class="pv-dose-apply-cell"><button class="pv-dose-action" id="papRenfoApplyCommon" type="button">Appliquer aux champs vides des exercices sélectionnés</button></div></div><div class="pv-dose-grid pv-dose-grid-rest"><div class="pv-field" hidden="" id="papRenfoRestRoundsWrap"><label>Repos entre tours</label><div class="pv-dose-time" data-pap-time="restRounds" data-pap-time-kind="organisation"><label><input aria-label="Repos entre tours minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre tours secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre séries (facultatif)</label><div class="pv-dose-time" data-pap-time="rest" data-pap-time-kind="common"><label><input aria-label="Repos commun entre séries minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos commun entre séries secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre exercices <button type="button" class="pv-assist" data-pv-help="papRenfoHelpRestEx" aria-controls="papRenfoHelpRestEx" aria-expanded="false" aria-label="Aide sur le repos entre exercices">i</button></label><div class="pv-dose-time" data-pap-time="restEx" data-pap-time-kind="organisation"><label><input aria-label="Repos entre exercices minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre exercices secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div></div><div class="pv-dose-grid pv-dose-grid-prep"><div class="pv-field"><label for="papRenfoDoseWarmup">Échauffement aérobie (min) <button type="button" class="pv-assist" data-pv-help="papRenfoHelpWarmup" aria-controls="papRenfoHelpWarmup" aria-expanded="false" aria-label="Repère sur l’échauffement">i</button></label><input data-pap-organisation="warmup" id="papRenfoDoseWarmup" min="0" placeholder="—" step="1" type="number"/></div><div class="pv-field"><label for="papRenfoDoseCooldown">Retour au calme (min)</label><input data-pap-organisation="cooldown" id="papRenfoDoseCooldown" min="0" placeholder="—" step="1" type="number"/></div></div><div class="pv-help" id="papRenfoHelpRestEx">Repos commun facultatif entre deux exercices, distinct du repos entre séries et tours. Un repos spécifique après un exercice peut le remplacer. Pas de repos entre exercices après le dernier exercice d’un tour.</div><div class="pv-help" id="papRenfoHelpWarmup">Le manuel ACSM 2017 illustre 5–10 min d’activité aérobie légère à modérée avant une séance structurée ; adapter selon l’activité préalable et le contexte. Aucune durée imposée.</div><div aria-live="polite" class="pv-dose-inline-status" id="papRenfoDoseStatus" role="status"></div></section><div class="pv-field pv-notes" id="papRenfoSessionNotesWrap" hidden><label for="papRenfoSessionNotes">Adaptations propres à cette séance</label><textarea id="papRenfoSessionNotes" placeholder="Précisions facultatives…"></textarea></div>
+<div class="pv-dose-apply-cell"><button class="pv-dose-action" id="papRenfoApplyCommon" type="button">Appliquer aux champs vides des exercices sélectionnés</button></div></div><div class="pv-dose-grid pv-dose-grid-rest"><div class="pv-field" hidden="" id="papRenfoRestRoundsWrap"><label>Repos entre tours</label><div class="pv-dose-time" data-pap-time="restRounds" data-pap-time-kind="organisation"><label><input aria-label="Repos entre tours minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre tours secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre séries (facultatif)</label><div class="pv-dose-time" data-pap-time="rest" data-pap-time-kind="common"><label><input aria-label="Repos commun entre séries minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos commun entre séries secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre exercices <button type="button" class="pv-assist" data-pv-help="papRenfoHelpRestEx" aria-controls="papRenfoHelpRestEx" aria-expanded="false" aria-label="Aide sur le repos entre exercices">i</button></label><div class="pv-dose-time" data-pap-time="restEx" data-pap-time-kind="organisation"><label><input aria-label="Repos entre exercices minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre exercices secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div></div><div class="pv-dose-grid pv-dose-grid-prep"><div class="pv-field"><label for="papRenfoDoseWarmup">Échauffement aérobie (min) <button type="button" class="pv-assist" data-pv-help="papRenfoHelpWarmup" aria-controls="papRenfoHelpWarmup" aria-expanded="false" aria-label="Repère sur l’échauffement">i</button></label><input data-pap-organisation="warmup" id="papRenfoDoseWarmup" min="0" placeholder="—" step="1" type="number"/></div><div class="pv-field"><label for="papRenfoDoseCooldown">Retour au calme (min)</label><input data-pap-organisation="cooldown" id="papRenfoDoseCooldown" min="0" placeholder="—" step="1" type="number"/></div></div><div class="pv-help" id="papRenfoHelpRestEx">Repos commun facultatif entre deux exercices, distinct du repos entre séries et tours. Un repos spécifique après un exercice peut le remplacer. Pas de repos entre exercices après le dernier exercice d’un tour.</div><div class="pv-help" id="papRenfoHelpWarmup">Le manuel ACSM 2017 illustre 5–10 min d’activité aérobie légère à modérée avant une séance structurée ; adapter selon l’activité préalable et le contexte. Aucune durée imposée.</div><div aria-live="polite" class="pv-dose-inline-status" id="papRenfoDoseStatus" role="status"></div></section>
     <div class="pv-field pv-notes"><label for="papRenfoNotes">Adaptations complémentaires (champ libre)</label><textarea id="papRenfoNotes" placeholder="Précisions ou adaptations choisies par le médecin (facultatif)…"></textarea></div>
 </div>
 </section>
@@ -18929,16 +18965,42 @@ function initPapRenfoSynthesis() {
     renderSummary();summary.classList.add('pv-open');
     summaryToggle.textContent='Masquer la synthèse';summaryToggle.setAttribute('aria-expanded','true');
   }
-  const generalFields={papRenfoGoal:'objectif',papRenfoExtraGoal:'objectifComplementaire',papRenfoNotes:'notes'};
-  const sessionFields={papRenfoPractice:'type',papRenfoFrequency:'frequence',papRenfoDuration:'duree',papRenfoEffort:'intensite',papRenfoSessionName:'nom',papRenfoSessionNotes:'notes'};
+  const generalFields={papRenfoGoal:'objectif',papRenfoExtraGoal:'objectifComplementaire'};
+  const sessionFields={papRenfoPractice:'type',papRenfoFrequency:'frequence',papRenfoDuration:'duree',papRenfoEffort:'intensite',papRenfoSessionName:'nom',papRenfoNotes:'notes'};
   const positive=v=>String(v).trim()!==''&&Number.isFinite(Number(v))&&Number(v)>0;
   const validFreq=v=>String(v).trim()!==''&&Number.isInteger(Number(v))&&Number(v)>=1&&Number(v)<=10;
   const escapeHTML=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function message(text){status.textContent=text||'';status.classList.toggle('pv-open',!!text);}
+  const renfoDayButtons=[...$('papRenfoDays').querySelectorAll('[data-pap-renfo-day]')];
+  const renfoDayNames={lun:'Lun',mar:'Mar',mer:'Mer',jeu:'Jeu',ven:'Ven',sam:'Sam',dim:'Dim'};
+  function renfoDaysWarning(session){
+    const c=papRenfoCoherenceJours(session.frequence.valeur,session.jours);
+    return c.depassement?`${c.nombre} jours sélectionnés pour ${session.frequence.valeur} séance(s)/sem. — à ajuster.`:'';
+  }
+  function renderRenfoDays(session,off){
+    const c=papRenfoCoherenceJours(session.frequence.valeur,session.jours);
+    for(const button of renfoDayButtons){
+      const selected=session.jours.includes(button.dataset.papRenfoDay);
+      button.setAttribute('aria-pressed',String(selected));
+      button.disabled=off||(!selected&&c.nombre>=c.maximum);
+    }
+    const warning=$('papRenfoDaysWarning'),text=renfoDaysWarning(session);
+    if(warning.textContent!==text)warning.textContent=text;
+    warning.hidden=!text;
+  }
+  for(const button of renfoDayButtons)button.addEventListener('click',()=>{
+    const r=papRenfoState(),session=currentSession(),day=button.dataset.papRenfoDay;
+    if(r.etat==='desactive')return;
+    const selected=session.jours.includes(day),c=papRenfoCoherenceJours(session.frequence.valeur,session.jours);
+    if(!selected&&c.nombre>=c.maximum)return;
+    const jours=selected?session.jours.filter(j=>j!==day):PAP_RENFO_JOURS.filter(j=>session.jours.includes(j)||j===day);
+    detailChanged({jours});
+  });
   function render(){
     const r=papRenfoState(),g=r.general||{},s=currentSession(),off=r.etat==='desactive';
     host.classList.toggle('pv-is-off',off);
     yes.checked=r.etat==='actif';no.checked=off;
+    renderRenfoDays(s,off);
     $('papRenfoExtraGoalWrap').hidden=!String(g.objectif||'').trim();
     const f=s.frequence.valeur,d=s.duree.valeur,retained=papRenfoDureeRetenue(r,s.id);
     $('papRenfoVolume').textContent=validFreq(f)&&(retained!==null||positive(d))?papRenfoFormatDuration(Number(f)*(retained??Number(d)*60))+'/sem.':'À préciser';
@@ -19039,7 +19101,6 @@ function initPapRenfoSynthesis() {
     const g=papRenfoState().general,parts=[];
     if(g.objectif)parts.push('Objectif principal : '+g.objectif);
     if(g.objectif&&g.objectifComplementaire)parts.push('Objectif complémentaire : '+g.objectifComplementaire);
-    if(g.notes)parts.push('Adaptations : '+g.notes.trim().replace(/\s+/g,' '));
     return parts.join(' · ');
   }
   function renderSummary(){
@@ -19071,12 +19132,16 @@ function initPapRenfoSynthesis() {
       const labelNode=document.createElement('strong');
       labelNode.textContent=label;
       line.append(labelNode,document.createTextNode(' '+[
-        ...(session.type?[session.type]:[]),frequencyText,durationText,`Intensité (effort perçu) ${intensityText}`,
+        ...(session.type?[session.type]:[]),frequencyText,
+        ...(session.jours.length?[`Jours indicatifs : ${PAP_RENFO_JOURS.filter(j=>session.jours.includes(j)).map(j=>renfoDayNames[j]).join(', ')}`]:[]),
+        durationText,`Intensité (effort perçu) ${intensityText}`,
         `Zones : ${zonesText}`
       ].join(' · ')+'.'));
       const state=document.createElement('div');
       state.textContent=session.statut==='retenue'?'Séance type retenue — organisation retenue par le médecin.':s.seances.length>1?'Séance type en brouillon — à examiner.':'Paramètres essentiels renseignés ; détail éventuel en brouillon.';
       line.append(state);
+      const daysWarning=renfoDaysWarning(session);
+      if(daysWarning){const warning=document.createElement('div');warning.textContent=daysWarning;warning.className='pv-days-warning';line.append(warning);}
       if(session.notes){const notes=document.createElement('div');notes.textContent='Adaptations : '+session.notes;line.append(notes);}
       const exercises=exerciseSelected(session);
       if(exercises.length){
@@ -19119,7 +19184,7 @@ function initPapRenfoSynthesis() {
   });
   function setOff(off){
     const s=papRenfoState();s.etat=off?'desactive':papRenfoEtatRenseigne(s)?'actif':'non_renseigne';
-    closeSummary();footerMessage('');message('');render();
+    papRenfoClearPresetFeedback();papRenfoEndManual(true);closeSessionCreateChoices();closeSummary();footerMessage('');message('');render();
     if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();
   }
   $('papRenfoDeactivate').addEventListener('click',()=>{
@@ -19144,8 +19209,12 @@ function initPapRenfoSynthesis() {
     papRenfoDoseWarmup:papRenfoDurations,papRenfoDoseCooldown:papRenfoDurations,
     papRenfoPractice:['Poids du corps','Exercices sur machines','Haltères / charges libres','Élastiques','Circuit de renforcement','Exercices fonctionnels','Autre','Effacer la modalité']
   };
+  const papRenfoTouchMenu=window.matchMedia('(max-width:767px) and (pointer:coarse)');
+  // Un seul état de présentation ; jamais de valeur de prescription dupliquée.
+  const papRenfoMobileInputs=new Map();
+  let papRenfoManualInput=null;
   function papRenfoMenuValues(input){
-    if(!(input instanceof HTMLInputElement)||!host.contains(input)||input.disabled||input.readOnly)return null;
+    if(!(input instanceof HTMLInputElement)||!host.contains(input)||input.disabled||(input.readOnly&&!papRenfoMobileInputs.has(input)))return null;
     if(Object.hasOwn(papRenfoSuggestions,input.id))return papRenfoSuggestions[input.id];
     if(input.type!=='number')return null;
     if(input.dataset.papTimePart==='min')return papRenfoCounts;
@@ -19156,6 +19225,35 @@ function initPapRenfoSynthesis() {
     if(['hold','rightHold','leftHold','workDuration'].includes(key))return papRenfoDurations;
     return null;
   }
+  function papRenfoRestoreMobileInput(input){
+    const original=papRenfoMobileInputs.get(input);if(!original)return;
+    input.readOnly=original.readOnly;
+    for(const [name,value] of Object.entries(original.attributes)){
+      if(value===null)input.removeAttribute(name);else input.setAttribute(name,value);
+    }
+    papRenfoMobileInputs.delete(input);
+  }
+  function papRenfoLockMobileInput(input){
+    input.readOnly=true;input.setAttribute('inputmode','none');input.setAttribute('autocomplete','off');
+  }
+  function papRenfoEndManual(blur=false){
+    const input=papRenfoManualInput;if(!input)return;
+    papRenfoManualInput=null;
+    if(blur&&document.activeElement===input)input.blur();
+    if(papRenfoTouchMenu.matches&&input.isConnected&&papRenfoMobileInputs.has(input))papRenfoLockMobileInput(input);
+  }
+  function papRenfoSyncMobileInputs(){
+    if(papRenfoManualInput&&(!papRenfoManualInput.isConnected||!papRenfoManualInput.getClientRects().length||papRenfoManualInput.disabled||!papRenfoTouchMenu.matches))papRenfoEndManual(papRenfoTouchMenu.matches);
+    for(const input of papRenfoMobileInputs.keys()){
+      if(!papRenfoTouchMenu.matches||!input.isConnected||!host.contains(input)||!papRenfoMenuValues(input))papRenfoRestoreMobileInput(input);
+    }
+    if(!papRenfoTouchMenu.matches)return;
+    host.querySelectorAll('input[type="number"]').forEach(input=>{
+      if(!papRenfoMenuValues(input)||papRenfoMobileInputs.has(input))return;
+      papRenfoMobileInputs.set(input,{readOnly:input.readOnly,attributes:{inputmode:input.getAttribute('inputmode'),autocomplete:input.getAttribute('autocomplete')}});
+      papRenfoLockMobileInput(input);
+    });
+  }
   const papRenfoMenu=document.createElement('div');
   papRenfoMenu.id='papRenfoSuggestionPortal';papRenfoMenu.hidden=true;
   papRenfoMenu.setAttribute('role','group');papRenfoMenu.setAttribute('aria-label','Suggestions, saisie libre possible');
@@ -19163,42 +19261,74 @@ function initPapRenfoSynthesis() {
   let papRenfoMenuInput=null;
   function papRenfoCloseMenu(){
     if(papRenfoMenuInput)papRenfoMenuInput.setAttribute('aria-expanded','false');
-    papRenfoMenuInput=null;papRenfoMenu.hidden=true;
+    papRenfoMenuInput=null;papRenfoMenu.hidden=true;delete papRenfoMenu.dataset.papMobileNumeric;
   }
   function papRenfoPositionMenu(){
     const input=papRenfoMenuInput;if(!input)return;
     if(!input.isConnected||!input.getClientRects().length){papRenfoCloseMenu();return;}
-    const r=input.getBoundingClientRect(),vh=window.innerHeight,vw=window.innerWidth;
-    if(r.bottom<=0||r.top>=vh){papRenfoCloseMenu();return;}
-    const desired=Math.min(310,papRenfoMenu.children.length*27+8);
-    const below=vh-r.bottom-9,above=r.top-9,up=below<desired&&above>below;
+    const r=input.getBoundingClientRect();
+    const touch=papRenfoTouchMenu.matches&&papRenfoMobileInputs.has(input);
+    const vv=touch?window.visualViewport:null;
+    const left=vv?.offsetLeft??0,top=vv?.offsetTop??0,vh=vv?.height??window.innerHeight,vw=vv?.width??window.innerWidth;
+    const bottom=top+vh,right=left+vw;
+    if(r.bottom<=top||r.top>=bottom||(touch&&(r.right<=left||r.left>=right))){papRenfoCloseMenu();return;}
+    const desired=Math.min(310,papRenfoMenu.children.length*(touch?40:27)+8);
+    const below=bottom-r.bottom-9,above=r.top-top-9,up=below<desired&&above>below;
     const height=Math.max(0,Math.min(desired,up?above:below));
-    if(height<24){papRenfoCloseMenu();return;}
+    if(height<(touch?82:24)||vw<24){papRenfoCloseMenu();return;}
     const width=Math.min(Math.max(r.width,153),245,vw-12);
-    Object.assign(papRenfoMenu.style,{left:Math.min(Math.max(6,r.left),vw-width-6)+'px',width:width+'px',maxHeight:height+'px',top:(up?r.top-height-3:r.bottom+3)+'px'});
+    Object.assign(papRenfoMenu.style,{left:Math.min(Math.max(left+6,r.left),right-width-6)+'px',width:width+'px',maxHeight:height+'px',top:(up?r.top-height-3:r.bottom+3)+'px'});
   }
   function papRenfoShowMenu(input){
-    const values=papRenfoMenuValues(input);if(!values)return;
+    const values=papRenfoMenuValues(input);if(!values||input===papRenfoManualInput)return;
     if(papRenfoMenuInput===input&&!papRenfoMenu.hidden){papRenfoPositionMenu();return;}
     papRenfoCloseMenu();papRenfoMenuInput=input;
     input.setAttribute('aria-controls',papRenfoMenu.id);input.setAttribute('aria-expanded','true');
     papRenfoMenu.replaceChildren(...values.map(value=>{
       const button=document.createElement('button');button.type='button';button.textContent=value;return button;
     }));
-    papRenfoMenu.hidden=false;papRenfoPositionMenu();
+    if(papRenfoTouchMenu.matches&&papRenfoMobileInputs.has(input)){
+      papRenfoMenu.dataset.papMobileNumeric='1';
+      const other=document.createElement('button');other.type='button';other.dataset.papManual='1';other.textContent='Autre valeur…';
+      papRenfoMenu.append(other);
+    }
+    papRenfoMenu.hidden=false;if(papRenfoTouchMenu.matches&&papRenfoMobileInputs.has(input))papRenfoMenu.scrollTop=0;papRenfoPositionMenu();
   }
   $('papRenfoClearPractice').addEventListener('click',()=>{
     const input=$('papRenfoPractice');input.value='';
     input.dispatchEvent(new Event('input',{bubbles:true}));
     input.focus();papRenfoShowMenu(input);
   });
+  // Le premier toucher sur un champ numérique préparé ne prend pas le focus éditable.
+  host.addEventListener('pointerdown',event=>{
+    const input=event.target;
+    if(!papRenfoTouchMenu.matches||!papRenfoMobileInputs.has(input)||input===papRenfoManualInput||input.disabled)return;
+    event.preventDefault();
+    if(papRenfoManualInput)papRenfoEndManual(true);
+    if(document.activeElement!==input&&document.activeElement instanceof HTMLElement)document.activeElement.blur();
+    papRenfoShowMenu(input);
+  });
+  host.addEventListener('pointercancel',event=>{if(event.target===papRenfoMenuInput)papRenfoCloseMenu();});
+  host.addEventListener('focusout',event=>{if(event.target===papRenfoManualInput)papRenfoEndManual();});
   host.addEventListener('focusin',event=>papRenfoShowMenu(event.target));
   host.addEventListener('click',event=>papRenfoShowMenu(event.target));
   host.addEventListener('input',event=>{if(event.target===papRenfoMenuInput)papRenfoCloseMenu();});
-  papRenfoMenu.addEventListener('pointerdown',event=>event.preventDefault());
+  papRenfoMenu.addEventListener('pointerdown',event=>{if(!papRenfoMenu.dataset.papMobileNumeric)event.preventDefault();});
   papRenfoMenu.addEventListener('click',event=>{
     const button=event.target.closest('button'),input=papRenfoMenuInput;
     if(!button||!input||!input.isConnected)return;
+    const mobile=papRenfoTouchMenu.matches&&papRenfoMobileInputs.has(input);
+    if(button.dataset.papManual==='1'&&mobile){
+      papRenfoCloseMenu();
+      if(document.activeElement===input)input.blur();
+      if(papRenfoManualInput)papRenfoEndManual(true);
+      papRenfoManualInput=input;input.readOnly=false;
+      // Les durées en minutes acceptent les décimales dans le modèle, même si step=1.
+      const decimal=['papRenfoDuration','papRenfoDoseWarmup','papRenfoDoseCooldown'].includes(input.id)||input.step==='any'||(input.step!==''&&Number(input.step)%1!==0);
+      input.setAttribute('inputmode',decimal?'decimal':'numeric');
+      // Focus synchrone dans le geste utilisateur : requis pour le clavier iOS.
+      input.focus();return;
+    }
     const value=button.textContent;
     if(value==='60'&&input.dataset.papTimePart==='sec'){
       const minute=input.closest('.pv-dose-time')?.querySelector('[data-pap-time-part="min"]');
@@ -19208,7 +19338,7 @@ function initPapRenfoSynthesis() {
     papRenfoCloseMenu();
     // Les handlers PAP lisent la paire de repos entière : un seul événement métier.
     input.dispatchEvent(new Event('input',{bubbles:true}));
-    if(document.activeElement===button)input.focus();
+    if(document.activeElement===button){if(mobile)input.focus({preventScroll:true});else input.focus();}
     papRenfoCloseMenu();
   });
   document.addEventListener('pointerdown',event=>{
@@ -19224,10 +19354,16 @@ function initPapRenfoSynthesis() {
   });
   window.addEventListener('resize',papRenfoPositionMenu);
   document.addEventListener('scroll',papRenfoPositionMenu,{capture:true,passive:true});
+  const papRenfoVisualViewportChanged=()=>{if(papRenfoTouchMenu.matches)papRenfoPositionMenu();};
+  window.visualViewport?.addEventListener('resize',papRenfoVisualViewportChanged);
+  window.visualViewport?.addEventListener('scroll',papRenfoVisualViewportChanged);
+  papRenfoTouchMenu.addEventListener('change',()=>{papRenfoCloseMenu();papRenfoSyncMobileInputs();});
+  papRenfoSyncMobileInputs();
   // Fermeture sur reconstruction des exercices, changement de séance ou repli.
-  new MutationObserver(()=>{
+  new MutationObserver(records=>{
     if(papRenfoMenuInput&&(!papRenfoMenuInput.isConnected||!papRenfoMenuInput.getClientRects().length))papRenfoCloseMenu();
-  }).observe(host,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','open','class']});
+    if(papRenfoTouchMenu.matches&&records.some(record=>record.type==='childList'||record.attributeName==='disabled'||record.attributeName==='hidden'||record.attributeName==='open'||record.attributeName==='class'))papRenfoSyncMobileInputs();
+  }).observe(host,{childList:true,subtree:true,attributes:true,attributeFilter:['hidden','open','class','disabled']});
   window.papResetRenfoSynthesis=function(){
     const s=papRenfoState();
     s.etat='non_renseigne';s.general={};
@@ -19249,14 +19385,15 @@ function initPapRenfoSynthesis() {
     $('papRenfoDetailToggle').setAttribute('aria-expanded',String(expanded));
     const show=expanded||papRenfoState().seances.length>1;
     $('papRenfoSessionCard').classList.toggle('pv-compact-session',!expanded);
-    for(const id of ['papRenfoGoalsRow','papRenfoSessionTitlebar','papRenfoPresetWrap','papRenfoSessionNotesWrap'])$(id).hidden=!expanded;
+    for(const id of ['papRenfoGoalsRow','papRenfoSessionTitlebar','papRenfoPresetWrap','papRenfoDays'])$(id).hidden=!expanded;
     $('papRenfoDosePanel').hidden=!expanded;
     $('papRenfoSessionTabs').hidden=!show;
+    if(!show)closeSessionCreateChoices();
     $('papRenfoSessionNameWrap').hidden=!show;
     $('papRenfoEssentialRow').classList.toggle('pv-with-name',show);
   }
   $('papRenfoDetailToggle').addEventListener('click',()=>{detail.open=!detail.open;renderSharedLayout();});
-  detail.addEventListener('toggle',()=>{renderSharedLayout();updateSessionNotice(papRenfoState(),papRenfoState().seances);if(!detail.open){closeRenfoHelp();papRenfoCloseMenu();}});
+  detail.addEventListener('toggle',()=>{renderSharedLayout();updateSessionNotice(papRenfoState(),papRenfoState().seances);if(!detail.open){papRenfoClearPresetFeedback();closeRenfoHelp();papRenfoCloseMenu();}});
   const detailNodes={
     tabs:$('papRenfoSessionTabs'),fields:$('papRenfoSessionFields'),
     equipment:$('papRenfoSessionEquipment'),notice:$('papRenfoSessionNotice'),status:$('papRenfoDetailStatus')
@@ -19551,6 +19688,7 @@ function initPapRenfoSynthesis() {
       exclusions:[...new Set([...p.exclusions,...(mode==='manual'?removed:mode==='incompatible'?[...before].filter(id=>!after.has(id)):[])])].filter(id=>!after.has(id))};
   }
   function changeExercises(next,mode='manual'){
+    papRenfoClearPresetFeedback();
     const session=currentSession();if(!session)return;
     const programmeType=papRenfoSelectionProvenance(session,next,mode);
     const retainedIds=new Set(next.map(item=>item.id));
@@ -19569,7 +19707,27 @@ function initPapRenfoSynthesis() {
     small:{MI:['RM-05','RM-09','RM-10','RM-15'],MS:['RM-20','RM-24','RM-23'],Tronc:['RM-32','RM-36','RM-35']},
     gym:{MI:['RM-05','RM-11','RM-09','RM-15'],MS:['RM-20','RM-27','RM-21','RM-24'],Tronc:['RM-36','RM-37','RM-38']}
   };
-  function addPapRenfoPreset(){
+  const papRenfoPresetAnnouncement=document.createElement('span');
+  papRenfoPresetAnnouncement.className='pv-preset-announcement';
+  papRenfoPresetAnnouncement.setAttribute('role','status');papRenfoPresetAnnouncement.setAttribute('aria-live','polite');
+  host.append(papRenfoPresetAnnouncement);
+  let papRenfoPresetFeedbackTimer=null;
+  function papRenfoClearPresetFeedback(){
+    if(papRenfoPresetFeedbackTimer!==null){clearTimeout(papRenfoPresetFeedbackTimer);papRenfoPresetFeedbackTimer=null;}
+    for(const id of ['papRenfoPreset','papRenfoPresetCatalogue']){
+      delete $(id).dataset.papPresetFeedback;delete $(id).dataset.papPresetFeedbackKind;
+    }
+    papRenfoPresetAnnouncement.textContent='';
+  }
+  function papRenfoShowPresetFeedback(button,count){
+    papRenfoClearPresetFeedback();
+    const text=count?`✓ ${count} exercice${count===1?' ajouté':'s ajoutés'}`:'Aucun nouvel exercice';
+    button.dataset.papPresetFeedback=text;button.dataset.papPresetFeedbackKind=count?'success':'neutral';
+    papRenfoPresetAnnouncement.textContent=text;
+    papRenfoPresetFeedbackTimer=setTimeout(papRenfoClearPresetFeedback,3500);
+  }
+  function addPapRenfoPreset(event){
+    papRenfoClearPresetFeedback();
     const session=currentSession();if(!session)return;
     const zones=papRenfoZonesSeance(papRenfoState(),session.id).valeurs;
     if(!zones.length){message('Choisir une zone ciblée pour proposer un programme type.');return;}
@@ -19581,6 +19739,8 @@ function initPapRenfoSynthesis() {
     const added=ids.filter(id=>!known.has(id)).map(id=>({id}));
     if(added.length)changeExercises([...already,...added],'preset');else renderExerciseLibrary();
     $('papRenfoExerciseStatus').textContent='';
+    const actual=exerciseSelected(currentSession()).filter(item=>!known.has(item.id)).length;
+    papRenfoShowPresetFeedback(event.currentTarget,actual);
   }
   for(const id of ['papRenfoPreset','papRenfoPresetCatalogue'])$(id).addEventListener('click',addPapRenfoPreset);
   $('papRenfoResetExercises').addEventListener('click',()=>{
@@ -19816,6 +19976,7 @@ function initPapRenfoSynthesis() {
     updateSessionNotice(papRenfoState(),papRenfoState().seances);render();
   }
   function renderDetail(){
+    papRenfoClearPresetFeedback();papRenfoEndManual(true);
     const r=papRenfoState(),list=r.seances;
     if(!list.some(item=>item.id===activeSessionId))activeSessionId=list[0]?.id||null;
     const current=currentSession();
@@ -19829,7 +19990,16 @@ function initPapRenfoSynthesis() {
       detailNodes.tabs.append(button);
     });
     const add=document.createElement('button');add.type='button';add.className='pv-session-action';
-    add.id='papRenfoAddSession';add.textContent='+ Ajouter un type';detailNodes.tabs.append(add);
+    add.id='papRenfoAddSession';add.textContent='+ Ajouter un type';
+    add.setAttribute('aria-expanded','false');add.setAttribute('aria-controls','papRenfoCreateChoices');detailNodes.tabs.append(add);
+    const choices=document.createElement('div');choices.id='papRenfoCreateChoices';choices.className='pv-session-create-choices';choices.hidden=true;
+    choices.setAttribute('role','group');choices.setAttribute('aria-label','Créer une séance type');
+    const blank=document.createElement('button');blank.type='button';blank.id='papRenfoCreateBlank';blank.className='pv-create-blank';blank.textContent='Nouvelle séance vierge';choices.append(blank);
+    list.forEach((session,index)=>{
+      const copy=document.createElement('button');copy.type='button';copy.dataset.papPrefillFrom=session.id;
+      copy.textContent=`Préremplir depuis séance ${index+1}${session.nom?' — '+session.nom:''}`;choices.append(copy);
+    });
+    detailNodes.tabs.append(choices);
     for(const [id,key] of Object.entries(generalFields))$(id).value=r.general[key]??'';
     for(const [id,key] of Object.entries(sessionFields))$(id).value=['frequence','duree'].includes(key)?current[key].valeur:current[key]??'';
     detailNodes.equipment.value=current.materiel;
@@ -19851,17 +20021,43 @@ function initPapRenfoSynthesis() {
     // Ne pas reconstruire le champ pendant sa saisie ; actualiser seulement l'onglet et l'aide.
     const selected=detailNodes.tabs.querySelector('.pv-current');
     if(selected)selected.textContent=session.nom||`Séance ${papRenfoState().seances.indexOf(session)+1}`;
+    const copy=Array.from(detailNodes.tabs.querySelectorAll('[data-pap-prefill-from]')).find(b=>b.dataset.papPrefillFrom===session.id);
+    if(copy)copy.textContent=`Préremplir depuis séance ${papRenfoState().seances.indexOf(session)+1}${session.nom?' — '+session.nom:''}`;
     refreshSessionRetainState(session);
     if(summary.classList.contains('pv-open'))renderSummary();
     detailNodes.status.textContent='';
-    if('zones' in changes || 'materiel' in changes)renderExerciseLibrary();
+    if('zones' in changes || 'materiel' in changes){papRenfoClearPresetFeedback();renderExerciseLibrary();}
   }
+  function closeSessionCreateChoices(restoreFocus=false){
+    const choices=$('papRenfoCreateChoices'),add=$('papRenfoAddSession');
+    if(!choices||choices.hidden)return;
+    choices.hidden=true;add?.setAttribute('aria-expanded','false');
+    if(restoreFocus)add?.focus({preventScroll:true});
+  }
+  document.addEventListener('pointerdown',event=>{
+    if(!event.target.closest('#papRenfoCreateChoices,#papRenfoAddSession'))closeSessionCreateChoices();
+  });
+  document.addEventListener('focusin',event=>{
+    if(!event.target.closest('#papRenfoCreateChoices,#papRenfoAddSession'))closeSessionCreateChoices();
+  });
+  detailNodes.tabs.addEventListener('keydown',event=>{
+    if(event.key==='Escape'&&!$('papRenfoCreateChoices')?.hidden){event.preventDefault();closeSessionCreateChoices(true);}
+  });
   detailNodes.tabs.addEventListener('click',event=>{
     if(event.target.closest('#papRenfoAddSession')){
-      const r=papRenfoState();const session=papRenfoCreerSeance(r);
-      closeRenfoHelp();papRenfoCloseMenu();activeSessionId=session.id;renderDetail();
+      const choices=$('papRenfoCreateChoices'),add=$('papRenfoAddSession');
+      if(!choices.hidden){closeSessionCreateChoices(true);return;}
+      closeRenfoHelp();papRenfoCloseMenu();choices.hidden=false;add.setAttribute('aria-expanded','true');
+      $('papRenfoCreateBlank').focus({preventScroll:true});return;
+    }
+    const source=event.target.closest('[data-pap-prefill-from]');
+    if(source||event.target.closest('#papRenfoCreateBlank')){
+      const r=papRenfoState();let session;
+      try{session=source?papRenfoCreerSeancePreremplie(r,source.dataset.papPrefillFrom):papRenfoCreerSeance(r);}
+      catch(error){closeSessionCreateChoices(true);detailNodes.status.textContent='Impossible de préremplir : vérifier les paramètres de la séance source.';return;}
+      closeSessionCreateChoices();closeRenfoHelp();papRenfoCloseMenu();activeSessionId=session.id;renderDetail();
+      detailNodes.tabs.querySelector('.pv-current')?.focus({preventScroll:true});
       if(summary.classList.contains('pv-open'))renderSummary();
-      detailNodes.status.textContent='Séance type créée en brouillon. Aucun exercice prescrit.';
       if(typeof markPrescriptionDirty==='function')markPrescriptionDirty();return;
     }
     const tab=event.target.closest('[data-pap-session-id]');

@@ -7,7 +7,7 @@ const PAP_SEDENTARITE_ACTION_LABELS = Object.freeze({
   pause_ecran: "Faire une pause debout entre deux périodes passées devant un écran"
 });
 
-const PAP_RENFO_SCHEMA_VERSION = 2;
+const PAP_RENFO_SCHEMA_VERSION = 3;
 
 const DEFAULT_PRESCRIPTION_MODEL = {
   ordonnanceType: "simple",
@@ -57,10 +57,10 @@ function createPrescriptionModel() {
 }
 
 // 4b — Frontière documentaire du Renforcement, indépendante du DOM.
-// Compatibilité de lecture des anciens modèles ; la version 2 utilise les séances.
+// Compatibilité de lecture des anciens modèles ; les versions 2 et 3 utilisent les séances.
 // La projection est dérivée à chaque appel ; ne jamais la réinjecter dans la source.
 function papRenfoProjeterPrescription(renforcement) {
-  if (papRenfoEstCanonique(renforcement)) return papRenfoProjeterSeances(renforcement);
+  if (papRenfoEstCanonique(renforcement) || renforcement?.versionSchema === 2) return papRenfoProjeterSeances(renforcement);
   const general = renforcement?.general;
   const frequence = general?.frequence ?? "";
   const n = typeof frequence === "string" ? Number(frequence) : NaN;
@@ -112,7 +112,7 @@ function papRenfoCreerEtatCanonique() {
 function papRenfoEtatRenseigne(r) {
   const texte=v=>typeof v==="string" && v.trim()!=="";
   const g=r.general||{};
-  return texte(g.objectif)||texte(g.objectifComplementaire)||texte(g.notes)||r.seances.some(s=>
+  return texte(g.objectif)||texte(g.objectifComplementaire)||r.seances.some(s=>
     [s.nom,s.type,s.frequence?.valeur,s.duree?.valeur,s.intensite,s.materiel,s.notes].some(texte)||
     s.zones.length>0||s.jours.length>0||s.exercices.length>0||s.programmeType?.exclusions?.length>0||
     [s.organisation,s.dosageCommun,s.modelesDosage].some(o=>Object.values(o||{}).some(texte)));
@@ -131,7 +131,7 @@ function papRenfoRetirerSeance(r,id) {
 function papRenfoModifierGeneralCanonique(r, changements) {
   if (!papRenfoEstCanonique(r)) throw new Error("État canonique requis");
   const entrees=Object.entries(changements || {});
-  for(const [cle,valeur] of entrees) if(!["objectif","objectifComplementaire","notes"].includes(cle) || typeof valeur!=="string") throw new Error("Champ général invalide : "+cle);
+  for(const [cle,valeur] of entrees) if(!["objectif","objectifComplementaire"].includes(cle) || typeof valeur!=="string") throw new Error("Champ général invalide : "+cle);
   let change=false;
   for(const [cle,valeur] of entrees) if((r.general[cle]??"")!==valeur){r.general[cle]=valeur;change=true;}
   papRenfoActualiserEtat(r);
@@ -170,6 +170,38 @@ function papRenfoCreerSeance(renforcement) {
   return seance;
 }
 
+// 4e.2 — Préremplissage ponctuel demandé par le médecin (A6-r).
+// Liste positive de champs : ne pas copier une séance entière, ni un état de progression.
+// Le modèle de dosage actif est organisation.niveau ; aucun clic de modèle simulé.
+function papRenfoPreparerParametresSeance(r, id) {
+  if (!papRenfoEstCanonique(r)) throw new Error("État canonique requis");
+  const source=papRenfoTrouverSeance(r,id);
+  const texte=v=>{if(typeof v!=="string")throw new Error("Paramètre source invalide");return v;};
+  const champs=(obj,cles)=>{
+    if(!obj||typeof obj!=="object"||Array.isArray(obj))throw new Error("Paramètres source invalides");
+    return Object.fromEntries(cles.filter(k=>Object.hasOwn(obj,k)).map(k=>[k,texte(obj[k])]));
+  };
+  if(source.duree?.source!=="seance"||source.intensiteSource!=="seance"||source.zonesSource!=="seance")throw new Error("Provenance source invalide");
+  if(!Array.isArray(source.zones)||new Set(source.zones).size!==source.zones.length)throw new Error("Zones source invalides");
+  return {
+    type:texte(source.type),duree:{source:"seance",valeur:texte(source.duree.valeur)},
+    intensite:texte(source.intensite),zones:[...source.zones],materiel:texte(source.materiel),
+    organisation:champs(source.organisation,["format","rounds","niveau","restRounds","restEx","warmup","cooldown"]),
+    dosageCommun:champs(source.dosageCommun,["series","reps","hold","rest"]),notes:texte(source.notes)
+  };
+}
+function papRenfoCreerSeancePreremplie(r,idSource) {
+  const parametres=papRenfoPreparerParametresSeance(r,idSource);
+  // Préparer hors de l'état réel : aucun numéro consommé ni mutation en cas de refus.
+  if(!Number.isSafeInteger(r.prochainIdSeance)||r.prochainIdSeance<1||r.seances.some(s=>s.id===`renfo-seance-${r.prochainIdSeance}`))throw new Error("Compteur de séances invalide");
+  const preparation={versionSchema:PAP_RENFO_SCHEMA_VERSION,etat:r.etat,general:{},seances:[],prochainIdSeance:r.prochainIdSeance};
+  const seance=papRenfoCreerSeance(preparation);
+  papRenfoModifierSeance(preparation,seance.id,parametres);
+  r.seances.push(seance);r.prochainIdSeance=preparation.prochainIdSeance;
+  papRenfoActualiserEtat(r);
+  return seance;
+}
+
 function papRenfoTrouverSeance(renforcement, id) {
   const seance = renforcement?.seances?.find(s => s.id === id);
   if (!seance) throw new Error("Séance de renforcement inconnue");
@@ -205,6 +237,16 @@ function papRenfoZonesSeance(renforcement, id) {
   return { valeurs: [...(Array.isArray(zones) ? zones : [])], source: generale ? "generale" : "seance" };
 }
 
+// 4e.3 — A7 : jours indicatifs, sans déduction de fréquence ni effacement automatique.
+const PAP_RENFO_JOURS = Object.freeze(["lun","mar","mer","jeu","ven","sam","dim"]);
+function papRenfoCoherenceJours(frequence, jours) {
+  const texte = typeof frequence === "string" ? frequence.trim() : "";
+  const n = Number(texte);
+  const maximum = texte && Number.isInteger(n) && n >= 1 && n <= 10 ? Math.min(n,7) : 7;
+  const nombre = jours.length;
+  return {maximum,nombre,depassement:Math.max(0,nombre-maximum)};
+}
+
 // Mise à jour EXPLICITE des champs d'une seule séance. Identité et statut
 // ne sont pas modifiables par cette voie ; une vraie modification invalide la retenue.
 function papRenfoModifierSeance(renforcement, id, changements) {
@@ -230,7 +272,17 @@ function papRenfoModifierSeance(renforcement, id, changements) {
       if ((cle === "frequence" || cle === "duree") && valeur.source !== "seance") throw new Error("Héritage interdit dans le modèle canonique");
       if ((cle === "zonesSource" || cle === "intensiteSource") && valeur !== "seance") throw new Error("Héritage interdit dans le modèle canonique");
       if (["type","notes"].includes(cle) && typeof valeur !== "string") throw new Error("Texte de séance invalide");
-      if (cle === "jours" && (!Array.isArray(valeur) || new Set(valeur).size !== valeur.length || valeur.some(j => !["lun","mar","mer","jeu","ven","sam","dim"].includes(j)))) throw new Error("Jours invalides");
+      if (cle === "jours" && (!Array.isArray(valeur) || new Set(valeur).size !== valeur.length || valeur.some(j => !PAP_RENFO_JOURS.includes(j)))) throw new Error("Jours invalides");
+    }
+  }
+  // La baisse de fréquence est autorisée sans effacement. Si la liste est
+  // déjà trop longue, seuls les retraits (ou une liste redevenue cohérente)
+  // sont autorisés ; aucun ajout tant que le maximum serait dépassé.
+  if (canonique && Object.hasOwn(changements || {},"jours")) {
+    const jours = changements.jours;
+    const frequence = Object.hasOwn(changements,"frequence") ? changements.frequence.valeur : seance.frequence.valeur;
+    if (papRenfoCoherenceJours(frequence,jours).depassement && jours.some(j => !seance.jours.includes(j))) {
+      throw new Error("Nombre de jours supérieur à la fréquence");
     }
   }
   // Préparer les identités sans modifier la source : un refus ne consomme pas de numéro.
@@ -333,12 +385,39 @@ function papRenfoPreparerOccurrences(seance, liste) {
 // Migration pure et non destructive. Aucun arbitrage implicite en cas de divergence.
 // Une liste de candidats autonome ou une ancienne synthèse retenue nécessite
 // une décision de reprise dans le contrôleur ; ne jamais les transformer en séance retenue.
+// 4e.1 : supprimer la portée générale des adaptations sans perdre les textes.
+// Une ancienne note générale concernait toutes les séances déjà présentes.
+// La conversion n'invente aucune nouvelle consigne : texte identique ou champ vide
+// seulement. Deux textes distincts nécessitent un arbitrage humain, sans concaténation.
+function papRenfoMigrerNotes(r, noteGenerale) {
+  const conflits=[];
+  if(typeof noteGenerale!=="string") return [{code:"adaptations_generales_invalides"}];
+  for(const s of r.seances) {
+    if(typeof s.notes!=="string") conflits.push({code:"adaptations_seance_invalides",seance:s.id});
+    else if(noteGenerale.trim() && s.notes.trim() && noteGenerale!==s.notes)
+      conflits.push({code:"adaptations_a_reexaminer",seance:s.id,champ:"notes"});
+  }
+  if(conflits.length) return conflits;
+  for(const s of r.seances) if(noteGenerale.trim() && !s.notes.trim()) s.notes=noteGenerale;
+  delete r.general.notes;
+  return conflits;
+}
 function papRenfoPreparerMigration(ancien) {
   if (papRenfoEstCanonique(ancien)) return {ok:true,etat:structuredClone(ancien),conflits:[]};
   if (!ancien || typeof ancien !== "object" || !Array.isArray(ancien.seances) || !ancien.general || typeof ancien.general !== "object") {
     return {ok:false,etat:null,conflits:[{code:"structure_invalide"}]};
   }
   const g = ancien.general, conflits = [];
+  if (ancien.versionSchema === 2) {
+    if (!ancien.seances.length || ancien.seances.some(s=>!s || typeof s.id!=="string"))
+      return {ok:false,etat:null,conflits:[{code:"structure_invalide"}]};
+    const r=structuredClone(ancien);
+    const notes=Object.hasOwn(g,"notes")?g.notes:"";
+    const c=papRenfoMigrerNotes(r,notes);
+    if(c.length) return {ok:false,etat:null,conflits:c};
+    r.versionSchema=PAP_RENFO_SCHEMA_VERSION;
+    return {ok:true,etat:r,conflits:[]};
+  }
   if (Object.hasOwn(ancien,"versionSchema")) return {ok:false,etat:null,conflits:[{code:"version_inconnue"}]};
   for(const [cle,v] of Object.entries(g)) {
     if(cle==="zones" ? (!Array.isArray(v)||v.some(z=>!["MI","MS","Tronc"].includes(z))) : typeof v!=="string") conflits.push({code:"valeur_generale_invalide",champ:cle});
@@ -376,7 +455,7 @@ function papRenfoPreparerMigration(ancien) {
     return v;
   };
   const r = {versionSchema:PAP_RENFO_SCHEMA_VERSION,etat:ancien.etat||"non_renseigne",general:{},seances:[],prochainIdSeance:Math.max(1,Number.isSafeInteger(ancien.prochainIdSeance)?ancien.prochainIdSeance:1,...[...ids].map(id=>Number(id.slice(13))+1))};
-  for(const champ of ["objectif","objectifComplementaire","notes"]) if(Object.hasOwn(g,champ)) r.general[champ]=structuredClone(g[champ]);
+  for(const champ of ["objectif","objectifComplementaire"]) if(Object.hasOwn(g,champ)) r.general[champ]=structuredClone(g[champ]);
   if (!ses.length) {
     const s = papRenfoCreerSeance(r);
     for(const champ of champs) {
@@ -392,13 +471,14 @@ function papRenfoPreparerMigration(ancien) {
         if(["frequence","duree"].includes(champ)) copie[champ]={source:"seance",valeur:v};
         else {copie[champ]=v;copie[champ+"Source"]="seance";}
       }
-      copie.type=i===0?normaliser("type",g.type):"";copie.jours=[];copie.notes="";
+      copie.type=i===0?normaliser("type",g.type):"";copie.jours=[];copie.notes=Object.hasOwn(s,"notes")?s.notes:"";
       copie.exercices=[];copie.prochainIdExercice=1;
       const preparation=papRenfoPreparerOccurrences(copie,s.exercices);
       Object.assign(copie,preparation);
       return copie;
     });
   }
+  conflits.push(...papRenfoMigrerNotes(r,Object.hasOwn(g,"notes")?g.notes:""));
   return conflits.length?{ok:false,etat:null,conflits}:{ok:true,etat:r,conflits:[]};
 }
 
