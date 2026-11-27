@@ -87,15 +87,51 @@ function papRenfoProjeterSeances(r) {
   if(r.etat === "desactive") return empty;
   const activites=[];
   for(const s of r.seances) {
-    if(r.seances.length>1 && (s.statut!=="retenue" || !papRenfoVerifierSeance(r,s.id).ok)) continue;
+    if(!papRenfoSeancePrescriptible(r,s)) continue;
     const frequence=papRenfoValeurSeance(r,s.id,"frequence").valeur;
-    const n=Number(frequence);
-    if(!frequence.trim() || !Number.isInteger(n) || n<1 || n>10) continue;
-    const secondes=papRenfoDureeRetenue(r,s.id);
-    const duree=secondes===null?{valeur:papRenfoValeurSeance(r,s.id,"duree").valeur}:{valeur:String(secondes/60),secondes};
+    const duree=papRenfoDureePourProjection(r,s.id);
     activites.push({categorie:"renforcement",type:s.type||"",frequence:{valeur:frequence},duree});
   }
   return {activites,frequenceClinique:activites.length===0?null:activites.length===1?activites[0].frequence.valeur:String(activites.reduce((total,a)=>total+Number(a.frequence.valeur),0))};
+}
+
+// A5 — calcul descriptif, dérivé uniquement du canonique ; pas de décision clinique.
+function papRenfoSeanceRetenueValide(r,s) {
+  return s.statut==="retenue" && papRenfoVerifierSeance(r,s.id).ok;
+}
+// 5-UX1 : même frontière d'inclusion pour les sorties et la synthèse.
+function papRenfoSeancePrescriptible(r,s) {
+  if(r.etat==="desactive" || (r.seances.length>1 && !papRenfoSeanceRetenueValide(r,s))) return false;
+  const f=papRenfoValeurSeance(r,s.id,"frequence").valeur,n=Number(f);
+  return !!f.trim() && Number.isInteger(n) && n>=1 && n<=10;
+}
+function papRenfoDureePourProjection(r,id) {
+  const secondes=papRenfoDureeRetenue(r,id);
+  return secondes===null?{valeur:papRenfoValeurSeance(r,id,"duree").valeur}:{valeur:String(secondes/60),secondes};
+}
+function papRenfoBilanHebdomadaire(r) {
+  if(!papRenfoEstCanonique(r)) throw new Error("État canonique requis");
+  const exclu=r.etat==="desactive";
+  const tempsValide=n=>Number.isFinite(n)&&n>0&&n<=Number.MAX_SAFE_INTEGER;
+  const seances=exclu?[]:r.seances.map(s=>{
+    const brut=papRenfoValeurSeance(r,s.id,"frequence").valeur;
+    const n=Number(brut);
+    const frequence=brut.trim()&&Number.isInteger(n)&&n>=1&&n<=10?n:null;
+    const duree=papRenfoDureePourProjection(r,s.id);
+    const secondes=duree.secondes??Number(duree.valeur)*60;
+    const dureeSecondes=tempsValide(secondes)?secondes:null;
+    const hebdo=frequence!==null&&dureeSecondes!==null?frequence*dureeSecondes:null;
+    return {seanceId:s.id,frequence,dureeSecondes,
+      sourceDuree:dureeSecondes===null?null:Object.hasOwn(duree,"secondes")?"calculee_retenue":"souhaitee",
+      volumeSecondes:tempsValide(hebdo)?hebdo:null,retenue:papRenfoSeanceRetenueValide(r,s)};
+  });
+  const total=rows=>{
+    const nombreTypes=rows.length;
+    const frequence=nombreTypes&&rows.every(s=>s.frequence!==null)?rows.reduce((n,s)=>n+s.frequence,0):null;
+    const volume=nombreTypes&&rows.every(s=>s.volumeSecondes!==null)?rows.reduce((n,s)=>n+s.volumeSecondes,0):null;
+    return {nombreTypes,frequence,volumeSecondes:tempsValide(volume)?volume:null};
+  };
+  return {exclu,seances,travail:total(seances),retenues:total(seances.filter(s=>s.retenue))};
 }
 
 // 5-RENFO-02b : contrat minimal de données Détaillée.
@@ -584,4 +620,128 @@ function papRenfoCalculDuree(r,id) {
 function papRenfoDureeRetenue(r,id){
   const s=papRenfoTrouverSeance(r,id), c=papRenfoCalculDuree(r,id);
   return s.statut==='retenue'&&c.complete&&!c.estimated&&s.dureeCalculeeRetenue?.signature===c.signature&&s.dureeCalculeeRetenue?.secondes===c.total?c.total:null;
+}
+
+// 4e.4 — P10 : fondations techniques du Progressif Renforcement.
+// Registre candidat des paramètres effectivement présents dans la source canonique.
+// Ni cible par défaut, ni calcul de progression, ni stockage d'un second départ.
+// L'éligibilité clinique finale et les conventions de calcul relèvent de l'étape 7.
+const PAP_RENFO_PROGRESSION_REGISTRE = (() => {
+  const entries = {};
+  const add = (id,portee,champ,libelle,unite,type,min,max=null,condition=null) => {
+    entries[id] = Object.freeze({id,portee,champ,libelle,unite,type,min,max,condition,
+      methodes:Object.freeze(type==='choix'?['cible']:['cible','increment'])});
+  };
+  add('seance.frequence','seance','frequence','Séances par semaine','seances/sem','entier',1,10);
+  add('seance.duree','seance','duree','Durée souhaitée','min','decimal',Number.MIN_VALUE);
+  add('seance.intensite','seance','intensite','Intensité (effort perçu)',null,'choix',null);
+  add('organisation.rounds','organisation','rounds','Tours de circuit','tour','entier',1,null,'circuit');
+  add('organisation.restRounds','organisation','restRounds','Repos entre tours','s','entier',0,null,'circuit');
+  add('organisation.restEx','organisation','restEx','Repos entre exercices','s','entier',0);
+  add('organisation.warmup','organisation','warmup','Échauffement','min','decimal',0);
+  add('organisation.cooldown','organisation','cooldown','Retour au calme','min','decimal',0);
+  for(const [champ,libelle,unite,min] of [['series','Séries','serie',1],['reps','Répétitions','rep',1],['hold','Tenue','s',1],['rest','Repos entre séries','s',0]])
+    add('commun.'+champ,'commun',champ,libelle+' (dosage commun)',unite,'entier',min);
+  for(const [champ,libelle,unite,min,condition] of [
+    ['series','Séries','serie',1,null],['reps','Répétitions','rep',1,'dyn_simple'],['hold','Tenue','s',1,'iso_simple'],
+    ['repDuration','Durée par répétition','s',1,'dyn'],['rest','Repos entre séries','s',0,null],
+    ['restAfter','Repos spécifique après cet exercice','s',0,'transition'],
+    ['rightReps','Répétitions droite','rep',1,'dyn_split'],['leftReps','Répétitions gauche','rep',1,'dyn_split'],
+    ['rightHold','Tenue droite','s',1,'iso_split'],['leftHold','Tenue gauche','s',1,'iso_split']])
+    add('exercice.'+champ,'exercice',champ,libelle,unite,'entier',min,null,condition);
+  return Object.freeze(entries);
+})();
+function papRenfoProgressionRegistre(){return Object.values(PAP_RENFO_PROGRESSION_REGISTRE);}
+
+// La référence n'est jamais un index DOM ni un identifiant catalogue.
+// Elle ne vaut que dans la consultation et le modèle qui l'ont créée.
+function papRenfoProgressionReference(ref){
+  const p=ref&&typeof ref.parametre==='string'&&Object.hasOwn(PAP_RENFO_PROGRESSION_REGISTRE,ref.parametre)?PAP_RENFO_PROGRESSION_REGISTRE[ref.parametre]:null;
+  if(!p||typeof ref.seanceId!=='string'||!ref.seanceId||
+    (p.portee==='exercice'?(typeof ref.occurrenceId!=='string'||!ref.occurrenceId):Object.hasOwn(ref,'occurrenceId')))
+    throw new Error('Référence de progression invalide');
+  return p.portee==='exercice'?{seanceId:ref.seanceId,parametre:p.id,occurrenceId:ref.occurrenceId}:{seanceId:ref.seanceId,parametre:p.id};
+}
+function papRenfoProgressionLireSource(r,reference){
+  const ref=papRenfoProgressionReference(reference), p=PAP_RENFO_PROGRESSION_REGISTRE[ref.parametre];
+  if(!papRenfoEstCanonique(r))throw new Error('État canonique requis');
+  const result=(etat,valeur=null,signature=null)=>({reference:ref,etat,valeur,unite:p.unite,type:p.type,calculable:etat==='renseigne'&&p.type!=='choix',signature});
+  const s=r.seances.find(s=>s.id===ref.seanceId);
+  if(!s)return result('seance_absente');
+  const e=p.portee==='exercice'?s.exercices.find(e=>e.occurrenceId===ref.occurrenceId):null;
+  if(p.portee==='exercice'&&!e)return result('exercice_absent');
+  const d=e?.dosage||{},o=s.organisation||{};
+  const mode=e?(d.mode||(PAP_RENFO_STATIC_IDS.has(e.id)?'iso':'dyn')):null;
+  const side=e&&papRenfoSideEnabled(e)?(d.side||'Les deux'):null;
+  const split=side==='Les deux'&&d.perSide===true;
+  const legacy=mode==='dyn'&&!Object.hasOwn(d,'repDuration')&&String(d.workDuration??'').trim()!=='';
+  const conditions={circuit:o.format==='circuit',dyn:mode==='dyn'&&!legacy,dyn_simple:mode==='dyn'&&!split,
+    iso_simple:mode==='iso'&&!split,dyn_split:mode==='dyn'&&split,iso_split:mode==='iso'&&split,
+    transition:!!e&&s.exercices.indexOf(e)<s.exercices.length-1};
+  if(p.condition&&!conditions[p.condition])return result('non_eligible');
+  const brut=p.portee==='exercice'?d[p.champ]:p.portee==='commun'?s.dosageCommun?.[p.champ]:p.portee==='organisation'?o[p.champ]:p.champ==='intensite'?s.intensite:s[p.champ]?.valeur;
+  if(p.portee==='seance'&&p.champ!=='intensite'&&s[p.champ]?.source!=='seance')return result('source_invalide');
+  if(p.champ==='intensite'&&s.intensiteSource!=='seance')return result('source_invalide');
+  const contexte=e?[e.id,!!e.libre,mode,side,split,d.timeSides??'',d.load??'',d.loadDetail??'',d.effort??'']:p.condition==='circuit'?[o.format]:[];
+  if(brut===undefined||brut===null||(typeof brut==='string'&&!brut.trim()))return result('non_renseigne',null,JSON.stringify([ref,contexte,null]));
+  let valeur;
+  if(p.type==='choix'){
+    if(!['Légère','Modérée','Élevée','À adapter selon le contexte'].includes(brut))return result('source_invalide');
+    valeur=brut;
+  }else{
+    if(typeof brut!=='string'&&typeof brut!=='number')return result('source_invalide');
+    valeur=Number(brut);
+    if(!Number.isFinite(valeur)||valeur<p.min||(p.max!==null&&valeur>p.max)||(p.type==='entier'&&!Number.isSafeInteger(valeur)))return result('source_invalide');
+  }
+  return result('renseigne',valeur,JSON.stringify([ref,contexte,valeur]));
+}
+
+// Signature de la séance : inclut aussi les paramètres non ciblés qui peuvent
+// modifier un futur calendrier ou sa restitution. Ne dépend pas du DOM, du nom
+// d'affichage, du statut retenu, ni de l'ordre des clés dans les objets.
+// L'ordre des exercices est pertinent pour le plan, pas pour leur identité.
+function papRenfoProgressionSignatureSeance(s){
+  const values=(o,keys)=>keys.map(k=>o?.[k]??'');
+  return JSON.stringify([s.id,s.type,s.frequence?.valeur,s.duree?.valeur,s.intensite,s.materiel,
+    [...s.zones].sort(),[...s.jours].sort(),s.notes,
+    values(s.organisation,['format','rounds','restRounds','restEx','warmup','cooldown']),
+    values(s.dosageCommun,['series','reps','hold','rest']),
+    s.exercices.map(e=>[e.occurrenceId,e.id,!!e.libre,e.nom??e.name??'',e.region??'',Object.hasOwn(e.dosage||{},'repDuration'),values(e.dosage,
+      ['mode','series','reps','hold','workDuration','repDuration','rest','restAfter','load','loadDetail','effort','side','perSide','rightReps','leftReps','rightHold','leftHold','timeSides','note'])])]);
+}
+// Capture technique à la demande, non médicale : pas de valeur de départ éditable.
+// Une cible avec départ non renseigné est possible, mais non calculable.
+function papRenfoProgressionCapturerSources(r,references){
+  if(!papRenfoEstCanonique(r)||!Array.isArray(references)||!references.length)throw new Error('Sources de progression invalides');
+  if(r.etat==='desactive')throw new Error('Composante exclue');
+  const vus=new Set(),seances=new Map();
+  const parametres=references.map(reference=>{
+    const source=papRenfoProgressionLireSource(r,reference),cle=JSON.stringify(source.reference);
+    if(vus.has(cle)||!['renseigne','non_renseigne'].includes(source.etat))throw new Error('Source de progression indisponible ou dupliquée');
+    vus.add(cle);
+    const s=papRenfoTrouverSeance(r,source.reference.seanceId);
+    seances.set(s.id,papRenfoProgressionSignatureSeance(s));
+    return {reference:source.reference,signature:source.signature};
+  });
+  return {version:1,parametres,seances:[...seances].map(([seanceId,signature])=>({seanceId,signature}))};
+}
+// Comparaison pure : ne modifie ni les sources, ni les cibles, ni un calendrier.
+// Étape 7 : raccorder cette comparaison aux mutations, marquer durablement la
+// retenue caduque, ne remplacer la capture qu'après réexamen volontaire.
+function papRenfoProgressionComparerSources(r,capture){
+  if(!papRenfoEstCanonique(r)||capture?.version!==1||!Array.isArray(capture.parametres)||!capture.parametres.length||!Array.isArray(capture.seances))throw new Error('Capture de progression invalide');
+  const refs=capture.parametres.map(p=>papRenfoProgressionReference(p?.reference));
+  const ids=new Set(refs.map(ref=>ref.seanceId));
+  if(new Set(refs.map(ref=>JSON.stringify(ref))).size!==refs.length||capture.parametres.some(p=>typeof p.signature!=='string')||
+    capture.seances.length!==ids.size||new Set(capture.seances.map(p=>p?.seanceId)).size!==ids.size||capture.seances.some(p=>!ids.has(p?.seanceId)||typeof p.signature!=='string'))throw new Error('Capture de progression invalide');
+  const parametres=capture.parametres.map(p=>{
+    const source=papRenfoProgressionLireSource(r,p.reference);
+    return {reference:source.reference,etat:source.etat,modifie:source.signature===null||source.signature!==p.signature};
+  });
+  const seances=capture.seances.map(p=>{
+    const s=r.seances.find(s=>s.id===p.seanceId);
+    return {seanceId:p.seanceId,absente:!s,modifie:!s||papRenfoProgressionSignatureSeance(s)!==p.signature};
+  });
+  const exclue=r.etat==='desactive';
+  return {exclue,aReexaminer:exclue||parametres.some(p=>p.modifie)||seances.some(s=>s.modifie),parametres,seances};
 }

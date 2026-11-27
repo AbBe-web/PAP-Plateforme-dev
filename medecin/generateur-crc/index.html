@@ -943,6 +943,11 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-field input:focus-visible,#papStrengthV19 .pv-field textarea:focus-visible,#papStrengthV19 .pv-field select:focus-visible{outline:2px solid #93c4ed;outline-offset:0}
 #papStrengthV19 .pv-volume{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;color:#527292;margin:5px 0 7px}
 #papStrengthV19 .pv-volume strong{color:#23486d}
+#papStrengthV19 #papRenfoWeekly{margin:0 0 8px;padding:5px 8px;border:1px solid #c9daec;border-radius:6px;background:#f5f9fd;color:#355b80;font-size:11px;line-height:1.4;overflow-wrap:anywhere}
+#papStrengthV19 #papRenfoWeekly[hidden]{display:none}
+#papStrengthV19 .pv-weekly-line{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:2px 10px}
+#papStrengthV19 .pv-weekly-line[hidden]{display:none}
+#papStrengthV19 .pv-weekly-line strong{color:#23486d}
 /* 4e.3-UX — jours en Détaillée uniquement, mêmes dimensions et charte que les zones. */
 #papStrengthV19 .pv-days-row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:4px 10px;margin:7px 0 5px;min-width:0}
 #papStrengthV19 .pv-days-label{font-size:12px;font-weight:650;color:#2f5276;line-height:16px}
@@ -1035,7 +1040,7 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-detail-card{display:block;border:1px solid #d5e2ef;background:#fbfdff;padding:11px;border-radius:9px;min-width:0}
 #papStrengthV19 .pv-detail-card h4{font-size:13px;color:#2b4d70;margin:0 0 9px}
 #papStrengthV19 .pv-session-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:5px 0 8px}
-#papStrengthV19 .pv-session-retain{display:flex;justify-content:flex-end;margin-top:9px}
+#papStrengthV19 .pv-session-retain{display:flex;justify-content:space-between;align-items:stretch;gap:8px;flex-wrap:wrap;margin-top:9px}
 #papStrengthV19 .pv-session-retain button{border:1px solid #b4cfe8;border-radius:7px;background:#fff;color:#225faa;min-height:33px;padding:7px 12px;font-size:12px}
 #papStrengthV19 .pv-session-retain button.pv-retained{background:#e9f5eb;border-color:#a9d0b3;color:#246039;font-weight:650}
 #papStrengthV19 .pv-session-grid .pv-suggest-wrap{min-width:0}
@@ -1192,9 +1197,9 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-dose-integrated .pv-dose-section-title{font-size:11.5px;margin:9px 0 4px;line-height:1.25}
 #papStrengthV19 .pv-dose-integrated .pv-dose-grid{margin-top:0;gap:8px}
 #papStrengthV19 .pv-dose-integrated .pv-dose-grid .pv-field>label{font-size:10.5px;min-height:0;margin-bottom:4px}
-#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common{grid-template-columns:repeat(4,minmax(0,1fr))}
+#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common{grid-template-columns:repeat(3,minmax(0,1fr))}
 #papStrengthV19 .pv-dose-integrated .pv-dose-grid-rest{grid-template-columns:repeat(3,minmax(0,1fr))}
-#papStrengthV19 .pv-dose-integrated .pv-dose-grid-prep{grid-template-columns:repeat(2,minmax(0,1fr))}
+#papStrengthV19 .pv-dose-integrated .pv-dose-grid-prep{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.25fr);align-items:end}
 #papStrengthV19 .pv-dose-integrated input,#papStrengthV19 .pv-dose-integrated select{min-height:34px;height:34px}
 #papStrengthV19 .pv-dose-integrated .pv-dose-time{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;width:100%;min-width:0}
 #papStrengthV19 .pv-dose-integrated .pv-dose-time label{display:flex;align-items:center;gap:3px;min-width:0;width:100%;flex:none;overflow:hidden}
@@ -1228,8 +1233,8 @@ label:has(input[type="radio"]) .info-icon{
 #papStrengthV19 .pv-dose-model-help{margin:3px 0 0;line-height:1.15}
 #papStrengthV19 .pv-dose-model-help summary{display:list-item;list-style:revert;cursor:pointer;margin-left:10px;max-width:max-content}
 #papStrengthV19 .pv-dose-model-help[open]{margin-bottom:5px}
-#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common{grid-template-columns:repeat(4,minmax(0,1fr));align-items:end}
-#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common:has(#papRenfoRoundsWrap:not([hidden])){grid-template-columns:repeat(5,minmax(0,1fr))}
+#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common{grid-template-columns:repeat(3,minmax(0,1fr));align-items:end}
+#papStrengthV19 .pv-dose-integrated .pv-dose-grid-common:has(#papRenfoRoundsWrap:not([hidden])){grid-template-columns:repeat(4,minmax(0,1fr))}
 #papStrengthV19 .pv-dose-apply-cell{min-width:0;display:flex;align-items:end;height:100%}
 #papStrengthV19 .pv-dose-apply-cell button{width:100%;min-height:34px;white-space:normal;padding:4px 5px;line-height:1.15}
 #papStrengthV19 .pv-dose-integrated .pv-dose-grid-rest{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1239,8 +1244,9 @@ label:has(input[type="radio"]) .info-icon{
  #papStrengthV19 .pv-session-presetgroup{grid-column:1/-1;min-height:36px}
  #papStrengthV19 .pv-dose-integrated .pv-dose-grid-common,
  #papStrengthV19 .pv-dose-integrated .pv-dose-grid-common:has(#papRenfoRoundsWrap:not([hidden])){grid-template-columns:repeat(2,minmax(0,1fr))}
+ #papStrengthV19 .pv-dose-integrated .pv-dose-grid-prep{grid-template-columns:repeat(2,minmax(0,1fr))}
  #papStrengthV19 .pv-dose-apply-cell{grid-column:1/-1;justify-content:flex-end}
- #papStrengthV19 .pv-dose-apply-cell button{width:auto;min-height:32px}
+ #papStrengthV19 .pv-dose-apply-cell button{width:auto;max-width:100%;min-height:34px}
  #papStrengthV19 .pv-dose-integrated .pv-dose-grid-rest,
  #papStrengthV19 .pv-dose-integrated .pv-dose-grid-rest:not(:has(#papRenfoRestRoundsWrap:not([hidden]))){grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -1404,8 +1410,8 @@ body > .pv-renfo-help-portal{position:fixed;z-index:10002;box-sizing:border-box;
 #papStrengthV19 #papRenfoDetailToggle{background:#e3efff;border-color:#7faadb;color:#1d5794;font-weight:700;min-height:34px;padding:6px 11px}
 #papStrengthV19 #papRenfoDetailToggle[aria-expanded="true"],#papStrengthV19 #papRenfoDetailToggle:hover{background:#d6e8fc;border-color:#578fc7}
 #papStrengthV19 .pv-deactivate-group{display:inline-flex;align-items:center;gap:5px;flex:none}
-#papStrengthV19 #papRenfoDeactivate{border:1px solid #adc7e1;border-radius:7px;background:#fff;color:#245585;font-size:12px;font-weight:600;min-height:34px;padding:6px 10px;line-height:1.25}
-#papStrengthV19 #papRenfoDeactivate:hover,#papStrengthV19 #papRenfoDeactivate:focus-visible{background:#e8f3ff}
+#papStrengthV19 :is(#papRenfoDeactivate,#papRenfoResetTop){border:1px solid #adc7e1;border-radius:7px;background:#fff;color:#245585;font-size:12px;font-weight:600;min-height:34px;padding:6px 10px;line-height:1.25}
+#papStrengthV19 :is(#papRenfoDeactivate,#papRenfoResetTop):is(:hover,:focus-visible){background:#e8f3ff}
 #papStrengthV19 .pv-zones-head .pv-assist{display:inline-flex;vertical-align:middle;align-items:center;justify-content:center;width:16px;height:16px;min-width:16px;min-height:16px;padding:0;border:1px solid #bed9ee;border-radius:50%;background:#f1f7ff;color:#3475a6;font-size:10px;line-height:1;font-weight:bold}
 #papStrengthV19 .pv-dose-integrated .pv-dose-grid-common>.pv-field{display:grid;grid-template-rows:minmax(16px,auto) 34px;gap:4px;align-items:end;margin:0;padding:0}
 #papStrengthV19 .pv-dose-integrated .pv-dose-grid-common>.pv-field>label{margin:0!important;padding:0;line-height:16px;min-height:16px;align-self:end}
@@ -1428,6 +1434,8 @@ body > .pv-renfo-help-portal{position:fixed;z-index:10002;box-sizing:border-box;
 #papStrengthV19 #papRenfoPresetCatalogue,#papStrengthV19 #papRenfoToggleSelected{background:#eaf3ff;border-color:#7eadd9;color:#1d5794;font-weight:650;min-height:33px}
 #papStrengthV19 #papRenfoClearExerciseDoses{border:1px solid #b5cde6;border-radius:7px;background:#fff;color:#245585;padding:6px 10px;min-height:30px;font-size:11px}
 #papStrengthV19 #papRenfoRetainSession{background:#2261ad;border-color:#2261ad;color:white;font-weight:650;min-height:36px}
+#papStrengthV19 #papRenfoCollapseDetails{background:#e3efff;border-color:#7faadb;color:#1d5794;font-weight:650;min-height:36px}
+#papStrengthV19 #papRenfoCollapseDetails:hover,#papStrengthV19 #papRenfoCollapseDetails:focus-visible{background:#d6e8fc;border-color:#578fc7}
 #papStrengthV19 #papRenfoRetainSession.pv-retained{background:#e9f5eb;border-color:#a9d0b3;color:#246039}
 #papStrengthV19 #papRenfoSelectedTools{margin:5px 0}
 #papStrengthV19 #papRenfoSummary .pv-summary-actions{margin-top:6px}
@@ -1435,8 +1443,10 @@ body > .pv-renfo-help-portal{position:fixed;z-index:10002;box-sizing:border-box;
    Les deux zones restent distinctes : aucun bouton dans le texte copiable. */
 #papStrengthV19 #papRenfoSummaryText{min-width:0}
 #papStrengthV19 #papRenfoSummary #papRenfoCopyStatus:empty{display:none}
+#papStrengthV19 #papRenfoSessionNotice[hidden]{display:none}
+#papStrengthV19 #papRenfoSummary #papRenfoSessionNotice{grid-area:notice;margin:5px 0 0}
 @container(min-width:640px){
- #papStrengthV19 #papRenfoSummary.pv-open{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"text actions" "status status";column-gap:9px;align-items:end}
+ #papStrengthV19 #papRenfoSummary.pv-open{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"text actions" "status status" "notice notice";column-gap:9px;align-items:end}
  #papStrengthV19 #papRenfoSummaryText{grid-area:text}
  #papStrengthV19 #papRenfoSummary .pv-summary-actions{grid-area:actions;justify-self:end;align-self:end;margin:0;flex-wrap:nowrap}
  #papStrengthV19 #papRenfoCopyStatus{grid-area:status}
@@ -5767,12 +5777,13 @@ Aucune
 <!-- ================= RENFORCEMENT ================= -->
 <!-- PAP 4d : contrôles uniques de la séance active, détail enrichissable. -->
 <div class="sub-group" id="papStrengthV19">
-  <div class="pv-head"><strong>Renforcement musculaire</strong><div class="pv-head-actions"><button type="button" id="papRenfoDetailToggle" aria-controls="papRenfoSessionCard papRenfoDetailPanel" aria-expanded="false">Détails des séances</button><span class="pv-deactivate-group"><button type="button" id="papRenfoDeactivate" aria-label="Exclure le renforcement de la prescription">Exclure de la prescription</button><button type="button" class="pv-assist" data-pv-help="papRenfoHelpDeactivate" aria-label="Aide sur l’exclusion de la prescription">i</button></span></div></div>
+  <div class="pv-head"><strong>Renforcement musculaire</strong><div class="pv-head-actions"><button type="button" id="papRenfoDetailToggle" aria-controls="papRenfoSessionCard papRenfoDetailPanel" aria-expanded="false">Détails des séances</button><span class="pv-deactivate-group"><button type="button" id="papRenfoDeactivate" aria-label="Exclure le renforcement de la prescription">Exclure de la prescription</button><button type="button" class="pv-assist" data-pv-help="papRenfoHelpDeactivate" aria-label="Aide sur l’exclusion de la prescription">i</button></span><button type="button" id="papRenfoResetTop">Réinitialiser le renforcement</button></div></div>
   <div class="pv-help" id="papRenfoHelpDeactivate">Exclut le renforcement des documents sans effacer les saisies de cette consultation. Réactivation possible. La réinitialisation, elle, efface les données du renforcement.</div>
   <div id="clinicalCognitiveStrengthV2" class="pap-cognitive-ux-host pap-cognitive-ux-local-host" style="display:none;"></div>
   <div class="pv-body" id="renforcement_musculaire_subgroup">
     <!-- Les onglets restent visibles en multi-séances, même détail replié. -->
     <div aria-label="Types de séances de renforcement" class="pv-session-tabs" id="papRenfoSessionTabs" role="group" hidden></div>
+    <div id="papRenfoWeekly" aria-label="Bilan hebdomadaire du renforcement" hidden><div class="pv-weekly-line"><span id="papRenfoWeeklyLabel">Bilan hebdomadaire de travail</span><strong id="papRenfoWeeklyWork"></strong></div><div class="pv-weekly-line" id="papRenfoWeeklyRetainedRow" hidden><span>Séances types retenues</span><strong id="papRenfoWeeklyRetained"></strong></div></div>
 <section aria-labelledby="papRenfoSessionTitle" class="pv-detail-card pv-session-integrated-card pv-compact-session" id="papRenfoSessionCard"><div class="pv-exercise-head pv-session-titlebar" id="papRenfoSessionTitlebar" hidden><h4 id="papRenfoSessionTitle">Séance type — organisation et dosage</h4><div class="pv-compact-actions"><button id="papRenfoResetDose" type="button">↻ Réinitialiser les dosages et l'organisation</button><button id="papRenfoRemoveSession" type="button" class="pv-remove-session">Retirer cette séance type</button></div></div>
 <div class="pv-session-fields" id="papRenfoSessionFields">
     <div class="pv-grid3" id="papRenfoGoalsRow" hidden>
@@ -5808,11 +5819,10 @@ Aucune
 <div class="pv-field"><label for="papRenfoCommonReps">Répétitions</label><input data-pap-common="reps" id="papRenfoCommonReps" min="0" placeholder="—" step="1" type="number"/></div>
 <div class="pv-field"><label for="papRenfoCommonHold">Tenue (s)</label><input data-pap-common="hold" id="papRenfoCommonHold" min="0" placeholder="—" step="1" type="number"/></div>
 
-<div class="pv-dose-apply-cell"><button class="pv-dose-action" id="papRenfoApplyCommon" type="button">Appliquer aux champs vides des exercices sélectionnés</button></div></div><div class="pv-dose-grid pv-dose-grid-rest"><div class="pv-field" hidden="" id="papRenfoRestRoundsWrap"><label>Repos entre tours</label><div class="pv-dose-time" data-pap-time="restRounds" data-pap-time-kind="organisation"><label><input aria-label="Repos entre tours minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre tours secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre séries (facultatif)</label><div class="pv-dose-time" data-pap-time="rest" data-pap-time-kind="common"><label><input aria-label="Repos commun entre séries minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos commun entre séries secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre exercices <button type="button" class="pv-assist" data-pv-help="papRenfoHelpRestEx" aria-controls="papRenfoHelpRestEx" aria-expanded="false" aria-label="Aide sur le repos entre exercices">i</button></label><div class="pv-dose-time" data-pap-time="restEx" data-pap-time-kind="organisation"><label><input aria-label="Repos entre exercices minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre exercices secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div></div><div class="pv-dose-grid pv-dose-grid-prep"><div class="pv-field"><label for="papRenfoDoseWarmup">Échauffement aérobie (min) <button type="button" class="pv-assist" data-pv-help="papRenfoHelpWarmup" aria-controls="papRenfoHelpWarmup" aria-expanded="false" aria-label="Repère sur l’échauffement">i</button></label><input data-pap-organisation="warmup" id="papRenfoDoseWarmup" min="0" placeholder="—" step="1" type="number"/></div><div class="pv-field"><label for="papRenfoDoseCooldown">Retour au calme (min)</label><input data-pap-organisation="cooldown" id="papRenfoDoseCooldown" min="0" placeholder="—" step="1" type="number"/></div></div><div class="pv-help" id="papRenfoHelpRestEx">Repos commun facultatif entre deux exercices, distinct du repos entre séries et tours. Un repos spécifique après un exercice peut le remplacer. Pas de repos entre exercices après le dernier exercice d’un tour.</div><div class="pv-help" id="papRenfoHelpWarmup">Le manuel ACSM 2017 illustre 5–10 min d’activité aérobie légère à modérée avant une séance structurée ; adapter selon l’activité préalable et le contexte. Aucune durée imposée.</div><div aria-live="polite" class="pv-dose-inline-status" id="papRenfoDoseStatus" role="status"></div></section>
+</div><div class="pv-dose-grid pv-dose-grid-rest"><div class="pv-field" hidden="" id="papRenfoRestRoundsWrap"><label>Repos entre tours</label><div class="pv-dose-time" data-pap-time="restRounds" data-pap-time-kind="organisation"><label><input aria-label="Repos entre tours minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre tours secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre séries (facultatif)</label><div class="pv-dose-time" data-pap-time="rest" data-pap-time-kind="common"><label><input aria-label="Repos commun entre séries minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos commun entre séries secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div><div class="pv-field"><label>Repos entre exercices <button type="button" class="pv-assist" data-pv-help="papRenfoHelpRestEx" aria-controls="papRenfoHelpRestEx" aria-expanded="false" aria-label="Aide sur le repos entre exercices">i</button></label><div class="pv-dose-time" data-pap-time="restEx" data-pap-time-kind="organisation"><label><input aria-label="Repos entre exercices minutes" data-pap-time-part="min" min="0" placeholder="—" step="1" type="number"/><span>min</span></label><label><input aria-label="Repos entre exercices secondes" data-pap-time-part="sec" max="59" min="0" placeholder="—" step="1" type="number"/><span>s</span></label></div></div></div><div class="pv-dose-grid pv-dose-grid-prep"><div class="pv-field"><label for="papRenfoDoseWarmup">Échauffement aérobie (min) <button type="button" class="pv-assist" data-pv-help="papRenfoHelpWarmup" aria-controls="papRenfoHelpWarmup" aria-expanded="false" aria-label="Repère sur l’échauffement">i</button></label><input data-pap-organisation="warmup" id="papRenfoDoseWarmup" min="0" placeholder="—" step="1" type="number"/></div><div class="pv-field"><label for="papRenfoDoseCooldown">Retour au calme (min)</label><input data-pap-organisation="cooldown" id="papRenfoDoseCooldown" min="0" placeholder="—" step="1" type="number"/></div><div class="pv-dose-apply-cell"><button class="pv-dose-action" id="papRenfoApplyCommon" type="button">Appliquer aux champs vides des exercices sélectionnés</button></div></div><div class="pv-help" id="papRenfoHelpRestEx">Repos commun facultatif entre deux exercices, distinct du repos entre séries et tours. Un repos spécifique après un exercice peut le remplacer. Pas de repos entre exercices après le dernier exercice d’un tour.</div><div class="pv-help" id="papRenfoHelpWarmup">Le manuel ACSM 2017 illustre 5–10 min d’activité aérobie légère à modérée avant une séance structurée ; adapter selon l’activité préalable et le contexte. Aucune durée imposée.</div><div aria-live="polite" class="pv-dose-inline-status" id="papRenfoDoseStatus" role="status"></div></section>
     <div class="pv-field pv-notes"><label for="papRenfoNotes">Adaptations complémentaires (champ libre)</label><textarea id="papRenfoNotes" placeholder="Précisions ou adaptations choisies par le médecin (facultatif)…"></textarea></div>
 </div>
 </section>
-    <div id="papRenfoSessionNotice" class="pv-session-remark pv-session-warning" role="status" hidden></div>
     <div id="papRenfoStatus" class="pv-message" role="status" aria-live="polite"></div>
     <!-- Le détail enrichit la séance active sans répéter ses paramètres essentiels. -->
     <details id="papRenfoDetailPanel" class="pv-detail-disclosure">
@@ -5849,16 +5859,11 @@ Aucune
           <ol id="papRenfoSelectedList" class="pv-exercise-selected" aria-label="Exercices choisis avec dosages et adaptations"></ol>
           <section id="papRenfoDurationPanel" class="pv-detail-card" hidden aria-label="Bilan temporel de la séance" style="margin:8px 0;padding:9px"><div class="pv-duration-values"><strong>Durée de la séance :</strong> <span id="papRenfoDurationValues" aria-live="polite"></span> <button type="button" class="pv-assist" data-pv-help="papRenfoHelpDuration" aria-label="Aide sur le calcul de durée">i</button></div><div id="papRenfoHelpDuration" class="pv-help">Si la durée par répétition n’est pas précisée, le calcul utilise 3 s par répétition à titre d’estimation. Les deux côtés successifs sont comptés séparément si le dosage est par côté. En cas d’incertitude, la durée reste estimative. Les transitions non renseignées ne sont pas estimées.</div><div id="papRenfoDurationReport" aria-live="polite"></div></section>
           <div id="papRenfoDetailStatus" class="pv-session-remark" role="status" aria-live="polite"></div>
-          <div class="pv-session-retain"><button type="button" id="papRenfoRetainSession">Retenir cette séance type</button></div>
+          <div class="pv-session-retain"><button type="button" id="papRenfoCollapseDetails" aria-controls="papRenfoSessionCard papRenfoDetailPanel" aria-expanded="true">▴ Replier les détails</button><button type="button" id="papRenfoRetainSession">Retenir cette séance type</button></div>
         </section>
       </div>
     </details>
-    <div class="pv-actions">
-      <button type="button" id="papRenfoRetain" class="pv-primary">✓ Retenir cette prescription</button>
-      <button type="button" id="papRenfoShowSummary" aria-controls="papRenfoSummary" aria-expanded="false">Afficher la synthèse</button>
-      <button type="button" id="papRenfoReset">Réinitialiser le renforcement</button>
-    </div>
-    <div id="papRenfoFooterStatus" class="pv-message" role="status" aria-live="polite"></div>
+    <div id="papRenfoSessionNotice" class="pv-session-remark pv-session-warning" role="status" hidden></div>
     <div id="papRenfoSummary" class="pv-message">
       <div id="papRenfoSummaryText" aria-live="polite"></div>
       <div class="pv-summary-actions">
@@ -5866,6 +5871,12 @@ Aucune
         <button type="button" id="papRenfoHideSummary">Masquer la synthèse</button>
       </div>
       <div id="papRenfoCopyStatus" role="status" aria-live="polite"></div>
+    </div>
+    <div id="papRenfoFooterStatus" class="pv-message" role="status" aria-live="polite"></div>
+    <div class="pv-actions">
+      <button type="button" id="papRenfoRetain" class="pv-primary">✓ Retenir cette prescription</button>
+      <button type="button" id="papRenfoShowSummary" aria-controls="papRenfoSummary" aria-expanded="false">Afficher la synthèse</button>
+      <button type="button" id="papRenfoReset">Réinitialiser le renforcement</button>
     </div>
   </div>
   <div class="pv-off-view"><p>Renforcement désactivé : vos données restent conservées pendant cette consultation et ne figurent pas dans la prescription.</p><button type="button" class="pv-text-button" id="papRenfoReactivate">Réinclure le renforcement dans la prescription</button></div>
@@ -18960,9 +18971,10 @@ function initPapRenfoSynthesis() {
   function closeSummary(){
     summary.classList.remove('pv-open');summaryContent.replaceChildren();copyStatus.textContent='';
     summaryToggle.textContent='Afficher la synthèse';summaryToggle.setAttribute('aria-expanded','false');
+    updateSessionNotice(papRenfoState(),papRenfoState().seances);
   }
   function openSummary(){
-    renderSummary();summary.classList.add('pv-open');
+    summary.classList.add('pv-open');renderSummary();
     summaryToggle.textContent='Masquer la synthèse';summaryToggle.setAttribute('aria-expanded','true');
   }
   const generalFields={papRenfoGoal:'objectif',papRenfoExtraGoal:'objectifComplementaire'};
@@ -18996,14 +19008,36 @@ function initPapRenfoSynthesis() {
     const jours=selected?session.jours.filter(j=>j!==day):PAP_RENFO_JOURS.filter(j=>session.jours.includes(j)||j===day);
     detailChanged({jours});
   });
+  function papRenfoWeeklyTime(seconds){
+    return seconds===null?'Durée à préciser':seconds<0.5?'moins de 1 s':papRenfoFormatDuration(seconds);
+  }
+  function papRenfoWeeklyText(t){
+    if(!t.nombreTypes)return 'Aucune séance type retenue';
+    const freq=t.frequence===null?'Nombre de séances à préciser':`${t.frequence} ${t.frequence===1?'séance':'séances'}/sem.`;
+    return freq+' · '+papRenfoWeeklyTime(t.volumeSecondes)+(t.volumeSecondes===null?'':'/sem.');
+  }
+  function papRenfoWeeklyLines(bilan){
+    if(bilan.exclu||bilan.travail.nombreTypes<2)return [];
+    if(bilan.retenues.nombreTypes===bilan.travail.nombreTypes)return [['Bilan hebdomadaire — séances types retenues',papRenfoWeeklyText(bilan.retenues)]];
+    return [['Bilan hebdomadaire de travail (brouillons inclus)',papRenfoWeeklyText(bilan.travail)],['Séances types retenues',papRenfoWeeklyText(bilan.retenues)]];
+  }
+  function renderWeekly(bilan){
+    const lines=papRenfoWeeklyLines(bilan);
+    $('papRenfoWeekly').hidden=!lines.length;
+    $('papRenfoWeeklyLabel').textContent=lines[0]?.[0]??'';
+    $('papRenfoWeeklyWork').textContent=lines[0]?.[1]??'';
+    $('papRenfoWeeklyRetainedRow').hidden=lines.length<2;
+    $('papRenfoWeeklyRetained').textContent=lines[1]?.[1]??'';
+  }
   function render(){
     const r=papRenfoState(),g=r.general||{},s=currentSession(),off=r.etat==='desactive';
     host.classList.toggle('pv-is-off',off);
     yes.checked=r.etat==='actif';no.checked=off;
     renderRenfoDays(s,off);
     $('papRenfoExtraGoalWrap').hidden=!String(g.objectif||'').trim();
-    const f=s.frequence.valeur,d=s.duree.valeur,retained=papRenfoDureeRetenue(r,s.id);
-    $('papRenfoVolume').textContent=validFreq(f)&&(retained!==null||positive(d))?papRenfoFormatDuration(Number(f)*(retained??Number(d)*60))+'/sem.':'À préciser';
+    const bilan=papRenfoBilanHebdomadaire(r),active=bilan.seances.find(item=>item.seanceId===s.id);
+    $('papRenfoVolume').textContent=active?.volumeSecondes!=null?papRenfoWeeklyTime(active.volumeSecondes)+'/sem.':'À préciser';
+    renderWeekly(bilan);
     const boxes=host.querySelectorAll('#papRenfoZones input:not(#papRenfoWhole)');
     const all=[...boxes].every(i=>i.checked);
     $('papRenfoWhole').checked=all;
@@ -19113,7 +19147,18 @@ function initPapRenfoSynthesis() {
     fragment.append(heading);
     const generalLine=document.createElement('div');
     generalLine.textContent=summaryText();if(generalLine.textContent)fragment.append(generalLine);
+    const bilan=papRenfoBilanHebdomadaire(s);
+    const included=s.seances.filter(session=>papRenfoSeancePrescriptible(s,session));
+    const lineTotal=document.createElement('div'),strong=document.createElement('strong');
+    if(included.length){
+      strong.textContent='Bilan hebdomadaire : ';
+      const total=s.seances.length===1?bilan.travail:bilan.retenues;
+      lineTotal.append(strong,document.createTextNode(papRenfoWeeklyText(total)));
+    }else lineTotal.textContent='Aucune séance prescriptible à ce stade.';
+    fragment.append(lineTotal);
     s.seances.forEach((session,index)=>{
+      if(!included.includes(session))return;
+      const detailRetenu=papRenfoSeanceRetenueValide(s,session);
       const freq=papRenfoValeurSeance(s,session.id,'frequence').valeur.trim();
       const duration=papRenfoValeurSeance(s,session.id,'duree').valeur.trim();
       const intensity=papRenfoIntensiteSeance(s,session.id).valeur.trim();
@@ -19137,13 +19182,10 @@ function initPapRenfoSynthesis() {
         durationText,`Intensité (effort perçu) ${intensityText}`,
         `Zones : ${zonesText}`
       ].join(' · ')+'.'));
-      const state=document.createElement('div');
-      state.textContent=session.statut==='retenue'?'Séance type retenue — organisation retenue par le médecin.':s.seances.length>1?'Séance type en brouillon — à examiner.':'Paramètres essentiels renseignés ; détail éventuel en brouillon.';
-      line.append(state);
       const daysWarning=renfoDaysWarning(session);
       if(daysWarning){const warning=document.createElement('div');warning.textContent=daysWarning;warning.className='pv-days-warning';line.append(warning);}
-      if(session.notes){const notes=document.createElement('div');notes.textContent='Adaptations : '+session.notes;line.append(notes);}
-      const exercises=exerciseSelected(session);
+      if(detailRetenu&&session.notes){const notes=document.createElement('div');notes.textContent='Adaptations : '+session.notes;line.append(notes);}
+      const exercises=detailRetenu?exerciseSelected(session):[];
       if(exercises.length){
         const list=document.createElement('ul');
         exercises.forEach(item=>{
@@ -19156,6 +19198,7 @@ function initPapRenfoSynthesis() {
       fragment.append(line);
     });
     summaryContent.replaceChildren(fragment);copyStatus.textContent='';
+    updateSessionNotice(s,s.seances);
   }
   summaryToggle.addEventListener('click',()=>{
     if(summary.classList.contains('pv-open'))closeSummary();else openSummary();
@@ -19193,6 +19236,7 @@ function initPapRenfoSynthesis() {
     setOff(true);
   });
   $('papRenfoReactivate').addEventListener('click',()=>setOff(false));
+  $('papRenfoResetTop').addEventListener('click',()=>{$('papRenfoReset').click();});
   $('papRenfoReset').addEventListener('click',()=>{
     const s=papRenfoState();
     if(papRenfoEtatRenseigne(s)&&!window.confirm('Réinitialiser tout le renforcement musculaire ? Les saisies et candidats seront effacés.'))return;
@@ -19383,6 +19427,7 @@ function initPapRenfoSynthesis() {
   function renderSharedLayout(){
     const expanded=detail.open;
     $('papRenfoDetailToggle').setAttribute('aria-expanded',String(expanded));
+    $('papRenfoCollapseDetails').setAttribute('aria-expanded',String(expanded));
     const show=expanded||papRenfoState().seances.length>1;
     $('papRenfoSessionCard').classList.toggle('pv-compact-session',!expanded);
     for(const id of ['papRenfoGoalsRow','papRenfoSessionTitlebar','papRenfoPresetWrap','papRenfoDays'])$(id).hidden=!expanded;
@@ -19393,6 +19438,13 @@ function initPapRenfoSynthesis() {
     $('papRenfoEssentialRow').classList.toggle('pv-with-name',show);
   }
   $('papRenfoDetailToggle').addEventListener('click',()=>{detail.open=!detail.open;renderSharedLayout();});
+  $('papRenfoCollapseDetails').addEventListener('click',()=>{
+    if(!detail.open)return;
+    const topToggle=$('papRenfoDetailToggle');
+    topToggle.click();
+    topToggle.focus({preventScroll:true});
+    host.querySelector('.pv-head').scrollIntoView({block:'start',behavior:'instant'});
+  });
   detail.addEventListener('toggle',()=>{renderSharedLayout();updateSessionNotice(papRenfoState(),papRenfoState().seances);if(!detail.open){papRenfoClearPresetFeedback();closeRenfoHelp();papRenfoCloseMenu();}});
   const detailNodes={
     tabs:$('papRenfoSessionTabs'),fields:$('papRenfoSessionFields'),
@@ -19924,11 +19976,28 @@ function initPapRenfoSynthesis() {
     renderExerciseLibrary();
   });
   function updateSessionNotice(r,list){
-    const multi=list.length>1;
-    const drafts=list.filter(s=>s.statut!=='retenue').length;
-    detailNodes.notice.textContent=multi&&drafts?`${drafts} séance(s) en brouillon, non transmises aux documents. Retenir chaque séance à prescrire.`:'';
-    detailNodes.notice.classList.toggle('pv-session-warning',multi&&drafts>0);
-    detailNodes.notice.hidden=!detailNodes.notice.textContent;
+    const notice=$('papRenfoSessionNotice');
+    let text='';
+    if(r.etat!=='desactive'){
+      if(list.length>1){
+        const drafts=list.filter(s=>!papRenfoSeancePrescriptible(r,s)).length;
+        if(drafts===1)text='1 séance type en brouillon, non transmise aux documents. Retenir chaque séance à prescrire.';
+        else if(drafts>1)text=`${drafts} séances types en brouillon, non transmises aux documents. Retenir chaque séance à prescrire.`;
+      }else if(list.length===1){
+        const s=list[0];
+        if(papRenfoSeancePrescriptible(r,s)&&!papRenfoSeanceRetenueValide(r,s)&&(exerciseSelected(s).length||s.notes.trim()))
+          text='Séance synthétique prescriptible. Exercices ou adaptations en brouillon : retenir la séance type pour les inclure dans la synthèse.';
+      }
+    }
+    // Un seul bandeau, hors du texte copiable, au plus près de la synthèse ou de sa commande.
+    if(summary.classList.contains('pv-open')){
+      if(notice.parentElement!==summary)summary.append(notice);
+    }else{
+      const actions=$('papRenfoRetain').parentElement;
+      if(notice.nextElementSibling!==actions)actions.before(notice);
+    }
+    if(notice.textContent!==text)notice.textContent=text;
+    notice.hidden=!text;
   }
   function papRenfoFormatDuration(seconds){
     const n=Math.round(seconds), hours=Math.floor(n/3600), minutes=Math.floor(n%3600/60), sec=n%60;
